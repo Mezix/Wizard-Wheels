@@ -29,7 +29,6 @@ public class Turret : MonoBehaviour
         {
             zRotActual = zRotToMouse;
         }
-        //print(transform.rotation.z);
 
         //  rotate to this newly calculate angle
         Quaternion q = new Quaternion();
