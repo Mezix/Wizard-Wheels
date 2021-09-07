@@ -6,7 +6,23 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     public float RotationSpeed = 5f;
-    private Vector3 rotationVector;
+
+    public GameObject cannonballPrefab;
+    public Transform cannonballSpot;
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            ShootTurret();
+        }
+    }
+    private void ShootTurret()
+    {
+        GameObject obj = Instantiate(cannonballPrefab);
+        obj.transform.position = cannonballSpot.position;
+        obj.transform.rotation = transform.rotation;
+    }
+
     void FixedUpdate()
     {
         PointTurretAtPosSmoothly(Camera.main.ScreenToWorldPoint(Input.mousePosition));
