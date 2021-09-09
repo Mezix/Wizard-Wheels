@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,24 +14,31 @@ public class TankRotation : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (rotateBack)
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ToggleRotateBack();
+        else if (rotateBack)
         {
             RotateBack();
         }
-        HandleRotationInput();
+        else
+        {
+            HandleRotationInput();
+        }
+        SetRotationOfSteeringWheel();
     }
     private void HandleRotationInput()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) ToggleRotateBack();
-        else
-        {
-            if (Input.GetKey(KeyCode.A)) RotateLeft();
-            if (Input.GetKey(KeyCode.D)) RotateRight();
-        }
+        if (Input.GetKey(KeyCode.A)) RotateLeft();
+        if (Input.GetKey(KeyCode.D)) RotateRight();
     }
+    private void SetRotationOfSteeringWheel()
+    { 
+        Quaternion q = new Quaternion();
+        q.eulerAngles = transform.rotation.eulerAngles;
+        UIScript.instance.SteeringWheel.transform.rotation = q;
+    }
+
     public void ToggleRotateBack()
     {
         rotateBack = !rotateBack;

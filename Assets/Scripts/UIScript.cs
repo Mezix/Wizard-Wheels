@@ -13,6 +13,7 @@ public class UIScript : MonoBehaviour
     public Slider AccelerationSlider;
 
     public GameObject PauseImage;
+    public GameObject SteeringWheel;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class UIScript : MonoBehaviour
             ToggleTime();
         }
     }
-    private void ToggleTime()
+    public void ToggleTime()
     {
         paused = !paused;
         if (paused) Time.timeScale = 0;
