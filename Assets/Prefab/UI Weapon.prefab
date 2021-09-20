@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponImage: {fileID: 7548554338718004331}
   index: 0
-  UIWeaponName: {fileID: 0}
+  UIWeaponName: {fileID: 4453499738902429781}
   UIWeaponIndex: {fileID: 7699490658716381456}
 --- !u!114 &7548554337628491782
 MonoBehaviour:
