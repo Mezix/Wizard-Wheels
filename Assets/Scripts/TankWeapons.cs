@@ -19,21 +19,20 @@ public class TankWeapons : MonoBehaviour
 
     private void HandleWeaponInput()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) FireWeapon(1);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) FireWeapon(2);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) FireWeapon(3);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) FireWeapon(4);
-        if (Input.GetKeyDown(KeyCode.Alpha5)) FireWeapon(5);
-        if (Input.GetKeyDown(KeyCode.Alpha6)) FireWeapon(6);
-        if (Input.GetKeyDown(KeyCode.Alpha7)) FireWeapon(7);
-        if (Input.GetKeyDown(KeyCode.Alpha8)) FireWeapon(8);
-        if (Input.GetKeyDown(KeyCode.Alpha9)) FireWeapon(9);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SelectWeapon(1);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SelectWeapon(2);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) SelectWeapon(3);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) SelectWeapon(4);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) SelectWeapon(5);
+        if (Input.GetKeyDown(KeyCode.Alpha6)) SelectWeapon(6);
+        if (Input.GetKeyDown(KeyCode.Alpha7)) SelectWeapon(7);
+        if (Input.GetKeyDown(KeyCode.Alpha8)) SelectWeapon(8);
+        if (Input.GetKeyDown(KeyCode.Alpha9)) SelectWeapon(9);
     }
 
-    private void FireWeapon(int weaponIndex)
+    private void SelectWeapon(int weaponIndex)
     {
-        if (IWeaponArray[weaponIndex] != null) IWeaponArray[weaponIndex].Attack();
-        print("firing weapon from keybind");
+        if (IWeaponArray[weaponIndex] != null) IWeaponArray[weaponIndex].weaponSelected = true;
     }
 
     public void InitWeapons()

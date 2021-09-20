@@ -9,6 +9,10 @@ public interface IWeapon //the interface used by the player to attack, since we 
     //  the other interfaces that inherit from IWeapon, IGun and IMelee, dont need this function explicitly, 
     //  it is passed on to all actual implementations and does not need to be implemented 
     //  by the interfaces themselves
+
+    bool weaponSelected { get; set; }
+    void Aim();
+    void PointTurretAtTarget();
     void Attack();
 
     float Damage { get; set; } //all weapons need damage, so this is defined

@@ -60,7 +60,7 @@ public class UIScript : MonoBehaviour
     }
     public void SpeedSliderUpdated()
     {
-        PlayerTankController.instance.tMov.sliderValueSet = true;
+        PlayerTankController.instance.tMov.cruiseModeOn = true;
     }
     public void SteeringWheelPointerUpdated()
     {
@@ -69,6 +69,7 @@ public class UIScript : MonoBehaviour
 
     public void TurnOnCruiseMode(bool b)
     {
-
+        if (b) CruiseButton.image.color = Color.black;
+        else CruiseButton.image.color = Color.white;
     }
 }

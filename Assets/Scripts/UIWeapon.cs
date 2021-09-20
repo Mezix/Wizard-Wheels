@@ -11,12 +11,8 @@ public class UIWeapon : MonoBehaviour
     public Text UIWeaponName;
     public Text UIWeaponIndex;
 
-    public void WeaponSelected()
+    public void SelectWeapon()
     {
-        //Highlight Weapon on UI
-    }
-    public void FireWeapon()
-    {
-        if(weapon != null) weapon.Attack();
+        if (weapon != null) weapon.weaponSelected = true;
     }
 }

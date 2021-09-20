@@ -268,7 +268,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6086907208729110049}
-        m_MethodName: FireWeapon
+        m_MethodName: SelectWeapon
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

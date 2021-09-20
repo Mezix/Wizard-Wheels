@@ -14,14 +14,16 @@ public class TankMovement : MonoBehaviour
     private float maxVelocity = 3f;
     public bool cruiseModeOn;
 
-    public bool sliderValueSet = false;
-
     private void Awake()
     {
         cruiseModeOn = false;
-        sliderValueSet = false;
         tankRB = GetComponent<Rigidbody2D>();
         tankCollider = GetComponent<Collider2D>();
+    }
+    private void Start()
+    {
+        UIScript.instance._currentSpeedSlider.value = 0;
+        UIScript.instance._desiredSpeedSlider.value = 0;
     }
 
     void Update()
@@ -35,21 +37,80 @@ public class TankMovement : MonoBehaviour
     }
     private void HandleMovementInput()
     {
-        if (sliderValueSet)
+        if (cruiseModeOn)
         {
-            ChangeSpeedToSliderValue();
-            if (Input.GetKey(KeyCode.W)) ; //TODO: Change Speed Slider Value Up
-            if (Input.GetKey(KeyCode.S)) ; //Change Speed Slider Value Down
+            SlowlyMatchSpeedToSliderValue();
+            if (Input.GetKey(KeyCode.W)) ChangeSliderSpeedUp();
+            if (Input.GetKey(KeyCode.S)) ChangeSliderSpeedDown();
         }
         else
         {
-            if (Input.GetKey(KeyCode.W)) SpeedUp();
-            if (Input.GetKey(KeyCode.S)) SpeedDown();
+            if (Input.GetKey(KeyCode.W)) Accelerate();
+            if (Input.GetKey(KeyCode.S)) Decelerate();
+        }
+
+    }
+
+    //  MOVEMENT
+    private void Move()
+    {
+        transform.position += GetComponentInChildren<TankRotation>().transform.up * velocity * Time.deltaTime;
+        if (!cruiseModeOn) Decelerate();
+    }
+    private void Accelerate()
+    {
+        if (velocity < maxVelocity) velocity += acceleration * Time.timeScale;
+        else velocity = maxVelocity;
+        UIScript.instance._currentSpeedSlider.value = velocity;
+    }
+    private void Decelerate()
+    {
+        if (velocity > 0) velocity -= deceleration * Time.timeScale;
+        else velocity = 0;
+        UIScript.instance._currentSpeedSlider.value = velocity;
+    }
+    private void ChangeSliderSpeedUp()
+    {
+        UIScript.instance._desiredSpeedSlider.value += acceleration;
+    }
+    private void ChangeSliderSpeedDown()
+    {
+        UIScript.instance._desiredSpeedSlider.value -= deceleration;
+    }
+    public void SlowlyMatchSpeedToSliderValue()
+    {
+        if (UIScript.instance._currentSpeedSlider.value > UIScript.instance._desiredSpeedSlider.value)
+        {
+            Decelerate();
+            if (UIScript.instance._currentSpeedSlider.value < UIScript.instance._desiredSpeedSlider.value)
+            {
+                velocity = UIScript.instance._desiredSpeedSlider.value;
+                TurnOnCruise(true);
+                return;
+            }
+        }
+        if (UIScript.instance._currentSpeedSlider.value < UIScript.instance._desiredSpeedSlider.value)
+        {
+            Accelerate();
+            if (UIScript.instance._currentSpeedSlider.value > UIScript.instance._desiredSpeedSlider.value)
+            {
+                velocity = UIScript.instance._desiredSpeedSlider.value;
+                TurnOnCruise(true);
+                return;
+            }
         }
     }
+
+    private void EmergencyBrake()
+    {
+
+    }
+
+    //  Cruise Mode
+
     public void ToggleCruise()
     {
-        if(!cruiseModeOn)
+        if (!cruiseModeOn)
         {
             TurnOnCruise(true);
         }
@@ -58,65 +119,9 @@ public class TankMovement : MonoBehaviour
             TurnOnCruise(false);
         }
     }
-
     private void TurnOnCruise(bool b)
     {
         cruiseModeOn = b;
         UIScript.instance.TurnOnCruiseMode(b);
-    }
-
-    //  MOVEMENT
-    private void Move()
-    {
-        transform.position += GetComponentInChildren<TankRotation>().transform.up * velocity * Time.deltaTime;
-        if (!cruiseModeOn && !sliderValueSet) SpeedDown();
-    }
-    private void SpeedUp()
-    {
-        if (velocity < maxVelocity) velocity += acceleration;
-        else velocity = maxVelocity;
-        UIScript.instance._currentSpeedSlider.value = velocity;
-        //if (!cruiseModeOn && UIScript.instance._currentSpeedSlider.value > UIScript.instance._desiredSpeedSlider.value)
-        //{
-        //    UIScript.instance._desiredSpeedSlider.value = UIScript.instance._currentSpeedSlider.value;
-        //}
-    }
-    private void SpeedDown()
-    {
-        if (velocity > 0) velocity -= deceleration;
-        else velocity = 0;
-        UIScript.instance._currentSpeedSlider.value = velocity;
-        //if (!cruiseModeOn && UIScript.instance._currentSpeedSlider.value < UIScript.instance._desiredSpeedSlider.value)
-        //{
-        //    UIScript.instance._desiredSpeedSlider.value = UIScript.instance._currentSpeedSlider.value;
-        //}
-    }
-    private void EmergencyBrake()
-    {
-
-    }
-
-    public void ChangeSpeedToSliderValue()
-    {
-        if (UIScript.instance._currentSpeedSlider.value > UIScript.instance._desiredSpeedSlider.value)
-        {
-            SpeedDown();
-            if (UIScript.instance._currentSpeedSlider.value < UIScript.instance._desiredSpeedSlider.value)
-            {
-                velocity = UIScript.instance._desiredSpeedSlider.value;
-                TurnOnCruise(true);
-                sliderValueSet = false;
-            }
-        }
-        if (UIScript.instance._currentSpeedSlider.value < UIScript.instance._desiredSpeedSlider.value)
-        {
-            SpeedUp();
-            if (UIScript.instance._currentSpeedSlider.value > UIScript.instance._desiredSpeedSlider.value)
-            {
-                velocity = UIScript.instance._desiredSpeedSlider.value;
-                TurnOnCruise(true);
-                sliderValueSet = false;
-            }
-        }
     }
 }
