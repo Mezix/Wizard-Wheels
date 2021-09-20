@@ -6,23 +6,43 @@ using UnityEngine.UI;
 
 public class BasicCannon : MonoBehaviour, IWeapon
 {
+    //  Weapon stats
+
+    public WeaponStats _weaponStats;
     public float AttacksPerSecond { get; set; }
     public float TimeBetweenAttacks { get; private set; }
     public float TimeElapsedBetweenLastAttack { get; private set; }
     public float Damage { get; set; }
-    public float RotationSpeed = 5f;
+    public float RotationSpeed { get; set; }
+
+    //  Aiming
+
+    public GameObject _target { get; set; }
+    public bool weaponSelected { get; set; }
+    public bool aimAtTarget { get; set; }
+    public float _aimRotationAngle { get; set; }
 
     public GameObject _cannonballPrefab;
     public Transform _cannonballSpot;
-    public WeaponStats _weaponStats;
     public Image _weaponChargeMeter;
 
-    public GameObject _target;
-    public bool weaponSelected { get; set; }
-    public bool aimAtTarget;
-    public float _aimRotationAngle;
-
     private void Start()
+    {
+        InitWeaponStats();
+        _aimRotationAngle = 90;
+    }
+    private void Update()
+    {
+        TimeElapsedBetweenLastAttack += Time.deltaTime;
+        SetWeaponUI();
+        HandleWeaponSelected();
+    }
+    private void FixedUpdate()
+    {
+        if (aimAtTarget)PointTurretAtTarget();
+        else RotateTurretToAngle();
+    }
+    public void InitWeaponStats()
     {
         if (_weaponStats)  //if we have a scriptableobject, use its stats
         {
@@ -37,56 +57,32 @@ public class BasicCannon : MonoBehaviour, IWeapon
         }
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
-        _aimRotationAngle = 90;
+        RotationSpeed = 5f;
     }
-
-    private void FixedUpdate()
+    /// <summary>
+    /// This Method handles everything to do with the operation of a weapon!
+    /// </summary>
+    public void HandleWeaponSelected()
     {
-        if (aimAtTarget)
+        if (weaponSelected)
         {
-            PointTurretAtTarget();
-        }
-        else
-        {
-            RotateTurretToAngle();
-        }
-    }
-
-    private void Update()
-    {
-        TimeElapsedBetweenLastAttack += Time.deltaTime;
-        SetWeaponUI();
-        if(weaponSelected)
-        {
-            if(Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Aim();
             }
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                ResetAim();
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 CancelAim();
             }
         }
     }
-    private void SetWeaponUI()
-    {
-        _weaponChargeMeter.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
-    }
 
-    public void Attack()
-    {
-        if (TimeElapsedBetweenLastAttack >= TimeBetweenAttacks)
-        {
-            SpawnCannonball();
-        }
-    }
-    private void SpawnCannonball()
-    {
-        GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool("cannonball");
-        cannonball.GetComponent<IProjectile>().SetBulletStatsAndTransform(5, _cannonballSpot.transform.position, transform.rotation);
-        cannonball.SetActive(true);
-        TimeElapsedBetweenLastAttack = 0;
-    }
+    //  AIMING
+
     public void Aim()
     {
         RaycastHit2D hit = HM.RaycastToMouseCursor();
@@ -109,6 +105,15 @@ public class BasicCannon : MonoBehaviour, IWeapon
         aimAtTarget = false;
         _target = null;
     }
+    public void ResetAim()
+    {
+        _aimRotationAngle = 90;
+        aimAtTarget = false;
+        _target = null;
+    }
+
+    //  ROTATE
+
     public void RotateTurretToAngle()
     {
         float zRotActual = 0;
@@ -150,5 +155,29 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
         //  rotate to this newly calculate angle
         HM.RotateTransformToAngle(transform, new Vector3(0, 0, zRotActual));
+    }
+
+    //  FIRE
+
+    public void Attack()
+    {
+        if (TimeElapsedBetweenLastAttack >= TimeBetweenAttacks)
+        {
+            SpawnCannonball();
+        }
+    }
+    private void SpawnCannonball()
+    {
+        GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool("cannonball");
+        cannonball.GetComponent<IProjectile>().SetBulletStatsAndTransform(5, _cannonballSpot.transform.position, transform.rotation);
+        cannonball.SetActive(true);
+        TimeElapsedBetweenLastAttack = 0;
+    }
+
+    //  UI
+
+    private void SetWeaponUI()
+    {
+        _weaponChargeMeter.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
     }
 }
