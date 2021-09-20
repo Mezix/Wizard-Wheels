@@ -14,6 +14,7 @@ public class UIScript : MonoBehaviour
 
     public GameObject PauseImage;
     public GameObject SteeringWheel;
+    public GameObject SteeringWheelPointer;
 
     private void Awake()
     {
