@@ -10,11 +10,15 @@ public class UIScript : MonoBehaviour
 
     public Button CruiseButton;
     public Button RotateBackButton;
-    public Slider AccelerationSlider;
+    public Slider _currentSpeedSlider;
+    public Slider _desiredSpeedSlider;
 
     public GameObject PauseImage;
     public GameObject SteeringWheel;
     public GameObject SteeringWheelPointer;
+
+    public GameObject weaponsUIPrefab;
+    public GameObject weaponsList;
 
     private void Awake()
     {
@@ -36,5 +40,35 @@ public class UIScript : MonoBehaviour
         else Time.timeScale = 1;
 
         PauseImage.SetActive(paused);
+    }
+    public void CreateWeaponUI(int idx, IWeapon iwp, Image wpImg = null, string wpName = null)
+    {
+        if (!weaponsUIPrefab)
+        {
+            Debug.LogWarning("Weapon UI Prefab not assigned, wont spawn UI");
+            return;
+        }
+        GameObject go = Instantiate(weaponsUIPrefab);
+        UIWeapon wp = go.GetComponent<UIWeapon>();
+        //wp.weaponImage = img;
+        //wp.UIWeaponName = wpName;
+        wp.index = idx;
+        wp.weapon = iwp;
+        wp.UIWeaponIndex.text = idx.ToString();
+
+        go.transform.SetParent(weaponsList.transform,false);
+    }
+    public void SpeedSliderUpdated()
+    {
+        PlayerTankController.instance.tMov.sliderValueSet = true;
+    }
+    public void SteeringWheelPointerUpdated()
+    {
+
+    }
+
+    public void TurnOnCruiseMode(bool b)
+    {
+
     }
 }

@@ -56,10 +56,10 @@ public class BasicCannon : MonoBehaviour, IWeapon
     private void Update()
     {
         TimeElapsedBetweenLastAttack += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        /*if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Attack();
-        }
+        }*/
         SetWeaponUI();
     }
     private void SetWeaponUI()

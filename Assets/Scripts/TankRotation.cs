@@ -18,7 +18,7 @@ public class TankRotation : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SetRotationSliderPositionPos();
+        if (Input.GetKeyDown(KeyCode.Z)) SetRotationSliderPositionPos();
         else if (rotateBack)
         {
             RotateBack();
