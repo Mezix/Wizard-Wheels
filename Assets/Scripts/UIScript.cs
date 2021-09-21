@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class UIScript : MonoBehaviour
 {
     public static UIScript instance;
-    public static bool paused;
 
     public Button CruiseButton;
     public Button RotateBackButton;
@@ -17,29 +16,38 @@ public class UIScript : MonoBehaviour
     public GameObject SteeringWheel;
     public GameObject SteeringWheelPointer;
 
+    // Weapons
     public GameObject weaponsUIPrefab;
     public GameObject weaponsList;
 
+    // Settings
+    public GameObject Settings;
+    public bool settingsOn;
+
     private void Awake()
     {
-        paused = false;
+        settingsOn = false;
         PauseImage.SetActive(false);
         instance = this;
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            ToggleTime();
-        }
     }
-    public void ToggleTime()
+    
+    public void ToggleSettings()
     {
-        paused = !paused;
-        if (paused) Time.timeScale = 0;
-        else Time.timeScale = 1;
-
-        PauseImage.SetActive(paused);
+        if (!settingsOn) OpenSettings();
+        else CloseSettings();
+    }
+    public void OpenSettings()
+    {
+        Settings.SetActive(true);
+        settingsOn = true;
+    }
+    public void CloseSettings()
+    {
+        Settings.SetActive(false);
+        settingsOn = false;
     }
     public void CreateWeaponUI(int idx, IWeapon iwp, Image wpImg = null, string wpName = null)
     {

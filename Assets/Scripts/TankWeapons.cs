@@ -33,6 +33,7 @@ public class TankWeapons : MonoBehaviour
     private void SelectWeapon(int weaponIndex)
     {
         if (IWeaponArray[weaponIndex] != null) IWeaponArray[weaponIndex].weaponSelected = true;
+        print("select");
     }
 
     public void InitWeapons()

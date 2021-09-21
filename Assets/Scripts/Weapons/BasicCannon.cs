@@ -86,20 +86,22 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public void Aim()
     {
         RaycastHit2D hit = HM.RaycastToMouseCursor();
-        if (hit.collider.transform.root.tag == "Enemy")
+        if(hit.collider)
         {
-            _target = hit.collider.transform.root.gameObject;
-            aimAtTarget = true;
-            print("found enemy, aiming!");
+            if (hit.collider.transform.root.tag == "Enemy")
+            {
+                _target = hit.collider.transform.parent.gameObject;
+                aimAtTarget = true;
+            }
         }
         else
         {
             aimAtTarget = false;
             _aimRotationAngle = HM.Angle2D(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
-            print("aim at direction");
         }
         weaponSelected = false;
     }
+
     public void CancelAim()
     {
         aimAtTarget = false;

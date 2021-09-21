@@ -16,7 +16,6 @@ public class TankMovement : MonoBehaviour
 
     private void Awake()
     {
-        cruiseModeOn = false;
         tankRB = GetComponent<Rigidbody2D>();
         tankCollider = GetComponent<Collider2D>();
     }
@@ -24,6 +23,7 @@ public class TankMovement : MonoBehaviour
     {
         UIScript.instance._currentSpeedSlider.value = 0;
         UIScript.instance._desiredSpeedSlider.value = 0;
+        TurnOnCruise(true);
     }
 
     void Update()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class Cannonball : MonoBehaviour, IProjectile
 
     private Rigidbody2D rb;
     private float projectileSpeed;
+    private bool exploding;
 
     private void Awake()
     {
@@ -20,15 +22,20 @@ public class Cannonball : MonoBehaviour, IProjectile
     private void OnEnable()
     {
         CurrentLifeTime = 0;
+        exploding = false;
     }
     private void FixedUpdate()
+    {
+        if(!exploding) Move();
+    }
+    private void Move()
     {
         transform.position += transform.right * projectileSpeed * Time.deltaTime;
     }
     private void Update()
     {
-        CheckLifetime();
         CurrentLifeTime += Time.deltaTime;
+        CheckLifetime();
     }
     public void CheckLifetime()
     {
@@ -36,6 +43,26 @@ public class Cannonball : MonoBehaviour, IProjectile
         {
             DespawnBullet();
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.transform.root.tag == "Enemy")
+        {
+            DamageEnemy(col.transform.root.GetComponentInChildren<IEnemy>());
+        }
+    }
+    private void DamageEnemy(IEnemy e)
+    {
+        e.TakeDamage();
+        StartCoroutine(PlayExplosion());
+    }
+    private IEnumerator PlayExplosion()
+    {
+        //print("exploding");
+        exploding = true;
+        yield return new WaitForSeconds(1f);
+        DespawnBullet();
     }
     public void DespawnBullet()
     {
