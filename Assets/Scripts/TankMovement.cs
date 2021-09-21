@@ -82,20 +82,20 @@ public class TankMovement : MonoBehaviour
         if (UIScript.instance._currentSpeedSlider.value > UIScript.instance._desiredSpeedSlider.value)
         {
             Decelerate();
+            TurnOnCruise(true);
             if (UIScript.instance._currentSpeedSlider.value < UIScript.instance._desiredSpeedSlider.value)
             {
                 velocity = UIScript.instance._desiredSpeedSlider.value;
-                TurnOnCruise(true);
                 return;
             }
         }
         if (UIScript.instance._currentSpeedSlider.value < UIScript.instance._desiredSpeedSlider.value)
         {
             Accelerate();
+            TurnOnCruise(true);
             if (UIScript.instance._currentSpeedSlider.value > UIScript.instance._desiredSpeedSlider.value)
             {
                 velocity = UIScript.instance._desiredSpeedSlider.value;
-                TurnOnCruise(true);
                 return;
             }
         }

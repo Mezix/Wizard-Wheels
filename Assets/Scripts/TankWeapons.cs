@@ -33,12 +33,11 @@ public class TankWeapons : MonoBehaviour
     private void SelectWeapon(int weaponIndex)
     {
         if (IWeaponArray[weaponIndex] != null) IWeaponArray[weaponIndex].weaponSelected = true;
-        print("select");
     }
 
     public void InitWeapons()
     {
-        //get the first Weapon as a dummy, so we can shoot weapons from 1-10 instead of 0-9
+        //add a first Weapon as a dummy, so we can shoot weapons from 1-10 instead of 0-9
         IWeaponArray.Add(GetComponentInChildren<IWeapon>()); 
         //add all the weapons for real
         foreach (IWeapon wp in GetComponentsInChildren<IWeapon>()) IWeaponArray.Add(wp);
