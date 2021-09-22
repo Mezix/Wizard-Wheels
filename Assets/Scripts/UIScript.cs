@@ -51,22 +51,23 @@ public class UIScript : MonoBehaviour
         Settings.SetActive(false);
         settingsOn = false;
     }
-    public void CreateWeaponUI(int idx, IWeapon iwp, Image wpImg = null, string wpName = null)
+    public UIWeapon CreateWeaponUI(IWeapon iwp)
     {
         if (!weaponsUIPrefab)
         {
             Debug.LogWarning("Weapon UI Prefab not assigned, wont spawn UI");
-            return;
+            return null;
         }
         GameObject go = Instantiate(weaponsUIPrefab);
         UIWeapon wp = go.GetComponent<UIWeapon>();
-        //wp.weaponImage = img;
-        //wp.UIWeaponName = wpName;
-        wp.index = idx;
+        wp.weaponImage.sprite = iwp.weaponSprite;
+        wp.UIWeaponName.text = iwp.weaponName;
+        wp.index = iwp.weaponIndex;
         wp.weapon = iwp;
-        wp.UIWeaponIndex.text = idx.ToString();
+        wp.UIWeaponIndex.text = iwp.weaponIndex.ToString();
 
         go.transform.SetParent(weaponsList.transform,false);
+        return wp;
     }
     public void SpeedSliderUpdated()
     {

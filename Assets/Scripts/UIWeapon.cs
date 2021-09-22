@@ -10,6 +10,7 @@ public class UIWeapon : MonoBehaviour
     public int index;
     public Text UIWeaponName;
     public Text UIWeaponIndex;
+    public Image UIWeaponCharge;
     public void SelectWeapon()
     {
         if (weapon != null) weapon.weaponSelected = true;

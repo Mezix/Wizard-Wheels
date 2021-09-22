@@ -28,7 +28,7 @@ public class TankMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) ToggleCruise();
+        if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
         HandleMovementInput();
     }
     private void FixedUpdate()

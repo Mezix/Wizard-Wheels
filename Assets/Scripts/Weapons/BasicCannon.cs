@@ -7,11 +7,13 @@ using UnityEngine.Audio;
 
 public class BasicCannon : MonoBehaviour, IWeapon
 {
-    public float weaponIndex = 0;
+    public int weaponIndex { get; set; }
 
     //  Weapon stats
 
-    public WeaponStats _weaponStats;
+    public WeaponStats weaponStats;
+    public string weaponName { get; set; }
+    public Sprite weaponSprite { get; set; }
     public float AttacksPerSecond { get; set; }
     public float TimeBetweenAttacks { get; private set; }
     public float TimeElapsedBetweenLastAttack { get; private set; }
@@ -31,7 +33,8 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public GameObject _crosshairPrefab;
     private GameObject spawnedCrosshair;
     public Transform _cannonballSpot;
-    public Image _weaponChargeMeter;
+    public Image weaponCharge { get; set; }
+    public Text weaponIndexText;
 
     //  Audio
     public AudioSource weaponAudioSource = null;
@@ -44,7 +47,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     private void Update()
     {
         TimeElapsedBetweenLastAttack += Time.deltaTime;
-        SetWeaponUI();
+        UpdateWeaponUI();
         HandleWeaponSelected();
     }
     private void FixedUpdate()
@@ -54,10 +57,12 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     public void InitWeaponStats()
     {
-        if (_weaponStats)  //if we have a scriptableobject, use its stats
+        if (weaponStats)  //if we have a scriptableobject, use its stats
         {
-            AttacksPerSecond = _weaponStats.AttacksPerSecond;
-            Damage = _weaponStats.Damage;
+            weaponName = weaponStats.wpName;
+            weaponSprite = weaponStats.weaponSprite;
+            AttacksPerSecond = weaponStats.AttacksPerSecond;
+            Damage = weaponStats.Damage;
         }
         else //default stats
         {
@@ -72,6 +77,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public void SetIndex(int i)
     {
         weaponIndex = i;
+        weaponIndexText.text = i.ToString();
     }
 
     /// <summary>
@@ -198,9 +204,9 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
 
     //  UI
-    private void SetWeaponUI()
+    private void UpdateWeaponUI()
     {
-        _weaponChargeMeter.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
+        if(weaponCharge) weaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
     }
     private void SpawnCrosshairPrefab(Vector2 spawnPoint, Transform parent)
     {
