@@ -46,6 +46,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Vehicles
+    uniqueID: 2229974385
+    locked: 0
+  - name: Wizards
+    uniqueID: 3031752385
+    locked: 0
   - name: Effects
     uniqueID: 2216461423
     locked: 0
