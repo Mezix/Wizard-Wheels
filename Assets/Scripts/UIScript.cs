@@ -41,11 +41,13 @@ public class UIScript : MonoBehaviour
     }
     public void OpenSettings()
     {
+        TimeManager.instance.FreezeTime();
         Settings.SetActive(true);
         settingsOn = true;
     }
     public void CloseSettings()
     {
+        if(!TimeManager.paused) TimeManager.instance.UnfreezeTime();
         Settings.SetActive(false);
         settingsOn = false;
     }

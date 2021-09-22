@@ -4,24 +4,51 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    public static TimeManager instance;
     public static bool paused;
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         paused = false;
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) TogglePauseWhilstPlaying();
+    }
+    public void TogglePauseWhilstPlaying()
+    {
+        if (UIScript.instance.settingsOn) return;
+        if (!paused)
         {
-            ToggleTime();
+            FreezeTime();
+            PauseGame();
+        }
+        else
+        {
+            UnfreezeTime();
+            UnpauseGame();
         }
     }
-    public void ToggleTime()
-    {
-        paused = !paused;
-        if (paused) Time.timeScale = 0;
-        else Time.timeScale = 1;
 
+    public void FreezeTime()
+    {
+        Time.timeScale = 0;
+    }
+    public void UnfreezeTime()
+    {
+        Time.timeScale = 1;
+    }
+    public void PauseGame()
+    {
+        paused = true;
+        UIScript.instance.PauseImage.SetActive(paused);
+    }
+    public void UnpauseGame()
+    {
+        paused = false;
         UIScript.instance.PauseImage.SetActive(paused);
     }
 }

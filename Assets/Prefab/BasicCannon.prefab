@@ -358,11 +358,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5acb4ef1891b66947baa0c1ef4519f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponIndex: 0
   _weaponStats: {fileID: 11400000, guid: 76dd4a71ba13fa14d99559157cd83133, type: 2}
   _cannonballPrefab: {fileID: 1935830913290221688, guid: 495a80c8c48a48b45a29efceb7b85ab5,
     type: 3}
+  _crosshairPrefab: {fileID: 3094488962896780022, guid: 9a0bd5fa61eda4b47b400953b212793b,
+    type: 3}
   _cannonballSpot: {fileID: 5747520233676256871}
   _weaponChargeMeter: {fileID: 7526397968828731070}
+  weaponAudioSource: {fileID: 3853252539981476270}
 --- !u!1 &2893220275473576430
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,8 +645,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 8321332103554340751, guid: 251beffa7c532ae4286d774f07281329,
     type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 9c8aadabafd88204fbc0b14965a39f5f, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

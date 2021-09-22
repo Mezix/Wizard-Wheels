@@ -15,6 +15,7 @@ public interface IWeapon
     float _aimRotationAngle { get; set; }
 
     void InitWeaponStats();
+    void SetIndex(int i);
     void HandleWeaponSelected();
     void Aim();
     void CancelAim();

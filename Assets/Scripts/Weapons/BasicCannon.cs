@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class BasicCannon : MonoBehaviour, IWeapon
 {
+    public float weaponIndex = 0;
+
     //  Weapon stats
 
     public WeaponStats _weaponStats;
@@ -22,9 +25,16 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public bool aimAtTarget { get; set; }
     public float _aimRotationAngle { get; set; }
 
+    //  Misc
+
     public GameObject _cannonballPrefab;
+    public GameObject _crosshairPrefab;
+    private GameObject spawnedCrosshair;
     public Transform _cannonballSpot;
     public Image _weaponChargeMeter;
+
+    //  Audio
+    public AudioSource weaponAudioSource = null;
 
     private void Start()
     {
@@ -59,6 +69,11 @@ public class BasicCannon : MonoBehaviour, IWeapon
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
         RotationSpeed = 5f;
     }
+    public void SetIndex(int i)
+    {
+        weaponIndex = i;
+    }
+
     /// <summary>
     /// This Method handles everything to do with the operation of a weapon!
     /// </summary>
@@ -85,12 +100,14 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     public void Aim()
     {
+        if (spawnedCrosshair) DestroyCrosshairPrefab();
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if(hit.collider)
         {
             if (hit.collider.transform.root.tag == "Enemy")
             {
                 _target = hit.collider.transform.parent.gameObject;
+                SpawnCrosshairPrefab(hit.point, _target.transform);
                 aimAtTarget = true;
             }
         }
@@ -101,14 +118,15 @@ public class BasicCannon : MonoBehaviour, IWeapon
         }
         weaponSelected = false;
     }
-
     public void CancelAim()
     {
+        if (spawnedCrosshair) DestroyCrosshairPrefab();
         aimAtTarget = false;
         _target = null;
     }
     public void ResetAim()
     {
+        if (spawnedCrosshair) DestroyCrosshairPrefab();
         _aimRotationAngle = 90;
         aimAtTarget = false;
         _target = null;
@@ -165,9 +183,12 @@ public class BasicCannon : MonoBehaviour, IWeapon
     {
         if (TimeElapsedBetweenLastAttack >= TimeBetweenAttacks)
         {
+            PlayWeaponFireSoundEffect();
+            WeaponFireParticles();
             SpawnCannonball();
         }
     }
+
     private void SpawnCannonball()
     {
         GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool("cannonball");
@@ -177,9 +198,30 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
 
     //  UI
-
     private void SetWeaponUI()
     {
         _weaponChargeMeter.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
+    }
+    private void SpawnCrosshairPrefab(Vector2 spawnPoint, Transform parent)
+    {
+        spawnedCrosshair = Instantiate(_crosshairPrefab);
+        spawnedCrosshair.transform.position = spawnPoint;
+        spawnedCrosshair.transform.parent = parent;
+        spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponIndex(weaponIndex.ToString());
+    }
+    private void DestroyCrosshairPrefab()
+    {
+         Destroy(spawnedCrosshair);
+    }
+
+    //  Misc
+    private void WeaponFireParticles()
+    {
+    }
+
+    private void PlayWeaponFireSoundEffect()
+    {
+        if (weaponAudioSource) weaponAudioSource.Play();
+        else Debug.LogError("missing audio clip for weapon!");
     }
 }

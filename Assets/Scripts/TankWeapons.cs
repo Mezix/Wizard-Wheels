@@ -41,6 +41,7 @@ public class TankWeapons : MonoBehaviour
         IWeaponArray.Add(GetComponentInChildren<IWeapon>()); 
         //add all the weapons for real
         foreach (IWeapon wp in GetComponentsInChildren<IWeapon>()) IWeaponArray.Add(wp);
+        for (int i = 1; i < IWeaponArray.Count - 1; i++) IWeaponArray[i].SetIndex(i);
     }
     public void ClearWeapons()
     {
