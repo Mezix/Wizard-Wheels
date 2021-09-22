@@ -55,3 +55,6 @@ TagManager:
   - name: Effects
     uniqueID: 2216461423
     locked: 0
+  - name: Cursor
+    uniqueID: 890199517
+    locked: 0

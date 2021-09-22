@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class PlayerTankController : MonoBehaviour
 {
+    public static PlayerTankController instance;
+
     public TankMovement tMov;
     public TankRotation tRot;
     public TankWeapons tWep;
+    public List<Wizard> wizardList = new List<Wizard>();
 
-    public static PlayerTankController instance;
     private void Awake()
     {
         instance = this;
@@ -17,6 +19,15 @@ public class PlayerTankController : MonoBehaviour
     void Start()
     {
         InitTank();
+        InitWizards();
+    }
+
+    private void InitWizards()
+    {
+        foreach (Wizard w in GetComponentsInChildren<Wizard>())
+        {
+            wizardList.Add(w);
+        }
     }
 
     private void InitTank()
