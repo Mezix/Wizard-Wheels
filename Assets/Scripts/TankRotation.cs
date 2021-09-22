@@ -10,11 +10,15 @@ public class TankRotation : MonoBehaviour
     public bool pointerAngleSet = false;
     private float pointerAngle = 0;
 
+    public Transform rotationTransform;
     public bool steeringWheelButtonHeldDown = false;
+
+    public List<GameObject> RotateableObjects = new List<GameObject>();
 
     void Start()
     {
         pointerAngleSet = false;
+        rotationTransform = RotateableObjects[0].transform;
     }
 
     void Update()
@@ -84,19 +88,21 @@ public class TankRotation : MonoBehaviour
 
     private void SetRotationOfSteeringWheel()
     {
-        HM.RotateTransformToAngle(UIScript.instance.SteeringWheel.transform, transform.rotation.eulerAngles);
+        HM.RotateTransformToAngle(UIScript.instance.SteeringWheel.transform, rotationTransform.rotation.eulerAngles);
     }
 
     //  Rotate Tank Manually using the arrow keys
     private void RotateTankLeftManually()
     {
-        transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
+        RotateAllObjectsByRotation(rotationspeed * Time.deltaTime);
+        //transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
         UIScript.instance.SteeringWheelPointer.transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
         pointerAngle += rotationspeed * Time.deltaTime;
     }
     private void RotateTankRightManually()
     {
-        transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
+        RotateAllObjectsByRotation(-rotationspeed * Time.deltaTime);
+        //transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
         UIScript.instance.SteeringWheelPointer.transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
         pointerAngle -= rotationspeed * Time.deltaTime;
     }
@@ -104,7 +110,7 @@ public class TankRotation : MonoBehaviour
     //  Rotate Tank
     private void RotateTankToPointerAngle()
     {
-        float currentRot = transform.rotation.eulerAngles.z;
+        float currentRot = rotationTransform.rotation.eulerAngles.z;
         float difference = currentRot - pointerAngle;
 
         if (difference > 0)
@@ -112,12 +118,13 @@ public class TankRotation : MonoBehaviour
             if (Mathf.Abs(difference) < (rotationspeed * Time.deltaTime))
             {
                 pointerAngleSet = false;
-                HM.RotateTransformToAngle(transform, new Vector3(0, 0, pointerAngle));
+                RotateAllObjectsToRotation(pointerAngle);
                 HM.RotateTransformToAngle(UIScript.instance.SteeringWheel.transform, new Vector3(0, 0, pointerAngle));
             }
             else
             {
-                transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
+                RotateAllObjectsByRotation(-rotationspeed * Time.deltaTime);
+                //transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
                 SetRotationOfSteeringWheel();
             }
         }
@@ -126,14 +133,30 @@ public class TankRotation : MonoBehaviour
             if (Mathf.Abs(difference) < (rotationspeed * Time.deltaTime))
             {
                 pointerAngleSet = false;
-                HM.RotateTransformToAngle(transform, new Vector3(0, 0, pointerAngle));
+                RotateAllObjectsToRotation(pointerAngle);
                 HM.RotateTransformToAngle(UIScript.instance.SteeringWheel.transform, new Vector3(0, 0, pointerAngle));
             }
             else
             {
-                transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
+                RotateAllObjectsByRotation(rotationspeed * Time.deltaTime);
+                //transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
                 SetRotationOfSteeringWheel();
             }
+        }
+    }
+
+    private void RotateAllObjectsToRotation(float zRot)
+    {
+        foreach(GameObject go in RotateableObjects)
+        {
+            HM.RotateTransformToAngle(go.transform, new Vector3(0, 0, pointerAngle));
+        }
+    }
+    private void RotateAllObjectsByRotation(float zRot)
+    {
+        foreach (GameObject go in RotateableObjects)
+        {
+            go.transform.Rotate(Vector3.forward * zRot);
         }
     }
 

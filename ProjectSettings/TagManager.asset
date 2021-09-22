@@ -52,6 +52,12 @@ TagManager:
   - name: Wizards
     uniqueID: 3031752385
     locked: 0
+  - name: Weapons
+    uniqueID: 3588705605
+    locked: 0
+  - name: Projectiles
+    uniqueID: 2229895933
+    locked: 0
   - name: Effects
     uniqueID: 2216461423
     locked: 0
