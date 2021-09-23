@@ -10,7 +10,7 @@ public class PlayerTankController : MonoBehaviour
     public TankMovement tMov;
     public TankRotation tRot;
     public TankWeapons tWep;
-    public List<Wizard> wizardList = new List<Wizard>();
+    public List<TechWizard> wizardList = new List<TechWizard>();
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class PlayerTankController : MonoBehaviour
 
     private void InitWizards()
     {
-        foreach (Wizard w in GetComponentsInChildren<Wizard>())
+        foreach (TechWizard w in GetComponentsInChildren<TechWizard>())
         {
             wizardList.Add(w);
         }

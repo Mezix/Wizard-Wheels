@@ -59,7 +59,7 @@ public class TankMovement : MonoBehaviour
     //  MOVEMENT
     private void Move()
     {
-        transform.position += GetComponentInChildren<TankRotation>().exampleRotation.up * velocity * Time.deltaTime;
+        transform.position += GetComponentInChildren<TankRotation>().tankRotation.up * velocity * Time.deltaTime;
         if (!cruiseModeOn) Decelerate();
     }
     private void Accelerate()

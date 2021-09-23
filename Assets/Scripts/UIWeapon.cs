@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class UIWeapon : MonoBehaviour
 {
-    public IWeapon weapon;
-    public Image weaponImage;
-    public int index;
-    public Text UIWeaponName;
-    public Text UIWeaponIndex;
-    public Image UIWeaponCharge;
+    public IWeapon _weapon;
+    public Image _weaponImage;
+    public int _index;
+    public Text _UIWeaponName;
+    public Text _UIWeaponIndex;
+    public Image _UIWeaponCharge;
     public void SelectWeapon()
     {
-        if (weapon != null) weapon.weaponSelected = true;
+        if (_weapon != null) _weapon.WeaponSelected = true;
     }
 }

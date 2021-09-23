@@ -369,11 +369,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e887445b42770534baa041ddbcd226a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponImage: {fileID: 3661350475135399096}
-  index: 0
-  UIWeaponName: {fileID: 4453499738902429781}
-  UIWeaponIndex: {fileID: 7699490658716381456}
-  UIWeaponCharge: {fileID: 8359254777185642}
+  _weaponImage: {fileID: 3661350475135399096}
+  _index: 0
+  _UIWeaponName: {fileID: 4453499738902429781}
+  _UIWeaponIndex: {fileID: 7699490658716381456}
+  _UIWeaponCharge: {fileID: 8359254777185642}
 --- !u!114 &7548554337628491782
 MonoBehaviour:
   m_ObjectHideFlags: 0

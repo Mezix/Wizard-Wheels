@@ -6,38 +6,37 @@ using UnityEngine.UI;
 
 public class TankRotation : MonoBehaviour
 {
-    private float rotationspeed = 50f;
+    public float rotationspeed = 50f;
     public bool pointerAngleSet = false;
+    [SerializeField]
     private float pointerAngle = 0;
-    public bool steeringWheelButtonHeldDown = false;
+    public bool steeringWheelSelectedByMouse = false;
 
-    public Transform exampleRotation;
-    private List<Tire> allTires = new List<Tire>();
+    public Transform tankRotation;
+    private List<GameObject> rotatableObjects = new List<GameObject>();
 
     void Start()
     {
         pointerAngleSet = false;
         InitRotatableObjects();
-        exampleRotation = allTires[0].transform;
+        rotatableObjects.Add(tankRotation.gameObject);
     }
-
-    private void InitRotatableObjects()
-    {
-        foreach(Tire t in GetComponentsInChildren<Tire>()) allTires.Add(t);
-    }
-
     void Update()
     {
-        if (steeringWheelButtonHeldDown)
+        if (steeringWheelSelectedByMouse)
         {
             SetPointerRotationRelativeToSteeringWheel();
         }
-        if (Input.GetKeyDown(KeyCode.Z)) SetPointerRotationRelativeToTank();
+        else if (Input.GetKeyDown(KeyCode.Z)) SetPointerRotationRelativeToTank();
         else
         {
             HandleRotationInput();
         }
         SetRotationOfSteeringWheel();
+    }
+    private void InitRotatableObjects()
+    {
+        foreach (Tire t in GetComponentsInChildren<Tire>()) rotatableObjects.Add(t.gameObject);
     }
 
     private void HandleRotationInput()
@@ -93,7 +92,7 @@ public class TankRotation : MonoBehaviour
 
     private void SetRotationOfSteeringWheel()
     {
-        HM.RotateTransformToAngle(UIScript.instance.SteeringWheel.transform, exampleRotation.rotation.eulerAngles);
+        HM.RotateTransformToAngle(UIScript.instance.SteeringWheel.transform, tankRotation.rotation.eulerAngles);
     }
 
     //  Rotate Tank Manually using the arrow keys
@@ -113,7 +112,10 @@ public class TankRotation : MonoBehaviour
     //  Rotate Tank
     private void RotateTankToPointerAngle()
     {
-        float currentRot = exampleRotation.rotation.eulerAngles.z;
+        float currentRot = tankRotation.rotation.eulerAngles.z;
+        if (currentRot > 180) currentRot -= 360;
+        if (pointerAngle > 180) pointerAngle -= 360;
+
         float difference = currentRot - pointerAngle;
 
         if (difference > 0)
@@ -148,16 +150,16 @@ public class TankRotation : MonoBehaviour
 
     private void RotateAllObjectsToRotation(float zRot)
     {
-        foreach(Tire tire in allTires)
+        foreach (GameObject rotatable in rotatableObjects)
         {
-            HM.RotateTransformToAngle(tire.transform, new Vector3(0, 0, pointerAngle));
+            HM.RotateTransformToAngle(rotatable.transform, new Vector3(0, 0, pointerAngle));
         }
     }
     private void RotateAllObjectsByRotation(float zRot)
     {
-        foreach (Tire tire in allTires)
+        foreach (GameObject rotatable in rotatableObjects)
         {
-            tire.transform.Rotate(Vector3.forward * zRot);
+            rotatable.transform.Rotate(Vector3.forward * zRot);
         }
     }
 
@@ -196,10 +198,10 @@ public class TankRotation : MonoBehaviour
     //  (De)Select SteeringWheel to drag it around
     public void SelectSteeringWheel()
     {
-        steeringWheelButtonHeldDown = true;
+        steeringWheelSelectedByMouse = true;
     }
     public void DeselectSteeringWheel()
     {
-        steeringWheelButtonHeldDown = false;
+        steeringWheelSelectedByMouse = false;
     }
 }

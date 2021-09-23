@@ -2321,6 +2321,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474897071}
   m_CullTransparentMesh: 0
+--- !u!1 &478709862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 478709863}
+  m_Layer: 0
+  m_Name: ExampleRotationObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &478709863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478709862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1539114389}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3930,9 +3960,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da5362a2e2d153468823bf0f52e0023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationspeed: 50
   pointerAngleSet: 0
-  steeringWheelButtonHeldDown: 0
-  exampleRotation: {fileID: 0}
+  pointerAngle: 0
+  steeringWheelSelectedByMouse: 0
+  tankRotation: {fileID: 478709863}
 --- !u!1 &685171300
 GameObject:
   m_ObjectHideFlags: 0
@@ -7332,6 +7364,7 @@ Transform:
   m_Children:
   - {fileID: 911499770}
   - {fileID: 1682240180}
+  - {fileID: 478709863}
   m_Father: {fileID: 667288256}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10951,7 +10984,7 @@ PrefabInstance:
     - target: {fileID: 4608201922242700204, guid: b1a43ac307d3cd24ab255c84a1f82439,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4608201922242700204, guid: b1a43ac307d3cd24ab255c84a1f82439,
         type: 3}
@@ -11008,7 +11041,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: WizardTest
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6355457420929606145, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
 --- !u!1001 &6385456487670466627
 PrefabInstance:

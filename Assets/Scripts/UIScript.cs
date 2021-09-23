@@ -60,11 +60,11 @@ public class UIScript : MonoBehaviour
         }
         GameObject go = Instantiate(weaponsUIPrefab);
         UIWeapon wp = go.GetComponent<UIWeapon>();
-        wp.weaponImage.sprite = iwp.weaponSprite;
-        wp.UIWeaponName.text = iwp.weaponName;
-        wp.index = iwp.weaponIndex;
-        wp.weapon = iwp;
-        wp.UIWeaponIndex.text = iwp.weaponIndex.ToString();
+        wp._weaponImage.sprite = iwp.WeaponSprite;
+        wp._UIWeaponName.text = iwp.WeaponName;
+        wp._index = iwp.WeaponIndex;
+        wp._weapon = iwp;
+        wp._UIWeaponIndex.text = iwp.WeaponIndex.ToString();
 
         go.transform.SetParent(weaponsList.transform,false);
         return wp;

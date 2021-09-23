@@ -10,13 +10,13 @@ public class Cannonball : MonoBehaviour, IProjectile
     public float Damage { get; set; }
 
     private Rigidbody2D rb;
-    private float projectileSpeed;
+    public float ProjectileSpeed;
     private bool exploding;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        projectileSpeed = 10f;
+        ProjectileSpeed = 10f;
         MaxLifetime = 3;
     }
     private void OnEnable()
@@ -26,11 +26,11 @@ public class Cannonball : MonoBehaviour, IProjectile
     }
     private void FixedUpdate()
     {
-        if(!exploding) Move();
+        if(!exploding) MoveProjectile();
     }
-    private void Move()
+    private void MoveProjectile()
     {
-        transform.position += transform.right * projectileSpeed * Time.deltaTime;
+        transform.position += transform.right * ProjectileSpeed * Time.deltaTime;
     }
     private void Update()
     {
@@ -44,7 +44,6 @@ public class Cannonball : MonoBehaviour, IProjectile
             DespawnBullet();
         }
     }
-
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.transform.root.tag == "Enemy")
@@ -59,7 +58,6 @@ public class Cannonball : MonoBehaviour, IProjectile
     }
     private IEnumerator PlayExplosion()
     {
-        //print("exploding");
         exploding = true;
         yield return new WaitForSeconds(1f);
         DespawnBullet();

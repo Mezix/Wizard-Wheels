@@ -7,13 +7,12 @@ using UnityEngine.Audio;
 
 public class BasicCannon : MonoBehaviour, IWeapon
 {
-    public int weaponIndex { get; set; }
 
     //  Weapon stats
 
-    public WeaponStats weaponStats;
-    public string weaponName { get; set; }
-    public Sprite weaponSprite { get; set; }
+    public WeaponStats _weaponStats;
+    public string WeaponName { get; set; }
+    public Sprite WeaponSprite { get; set; }
     public float AttacksPerSecond { get; set; }
     public float TimeBetweenAttacks { get; private set; }
     public float TimeElapsedBetweenLastAttack { get; private set; }
@@ -22,27 +21,30 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     //  Aiming
 
-    public GameObject _target { get; set; }
-    public bool weaponSelected { get; set; }
-    public bool aimAtTarget { get; set; }
-    public float _aimRotationAngle { get; set; }
+    public GameObject Target { get; set; }
+    public bool WeaponSelected { get; set; }
+    public bool AimAtTarget { get; set; }
+    public float AimRotationAngle { get; set; }
 
     //  Misc
 
     public GameObject _cannonballPrefab;
+    public Transform _cannonballSpot;
     public GameObject _crosshairPrefab;
     private GameObject spawnedCrosshair;
-    public Transform _cannonballSpot;
-    public Image weaponCharge { get; set; }
-    public Text weaponIndexText;
+
+    //  UI
+    public Image WeaponCharge { get; set; }
+    public int WeaponIndex { get; set; }
+    public Text _weaponIndexText;
 
     //  Audio
-    public AudioSource weaponAudioSource = null;
+    public AudioSource _weaponAudioSource = null;
 
     private void Start()
     {
         InitWeaponStats();
-        _aimRotationAngle = 90;
+        AimRotationAngle = 90;
     }
     private void Update()
     {
@@ -52,32 +54,33 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     private void FixedUpdate()
     {
-        if (aimAtTarget)PointTurretAtTarget();
+        if (AimAtTarget)PointTurretAtTarget();
         else RotateTurretToAngle();
     }
     public void InitWeaponStats()
     {
-        if (weaponStats)  //if we have a scriptableobject, use its stats
+        if (_weaponStats)  //if we have a scriptableobject, use its stats
         {
-            weaponName = weaponStats.wpName;
-            weaponSprite = weaponStats.weaponSprite;
-            AttacksPerSecond = weaponStats.AttacksPerSecond;
-            Damage = weaponStats.Damage;
+            WeaponName = _weaponStats._weaponName;
+            WeaponSprite = _weaponStats._weaponSprite;
+            AttacksPerSecond = _weaponStats._attacksPerSecond;
+            Damage = _weaponStats._damage;
+            RotationSpeed = _weaponStats._rotationSpeed;
         }
-        else //default stats
+        else  //set default stats
         {
-            print("No Weapon Stats found");
-            Damage = 4;
-            AttacksPerSecond = 2;
+            print("No Weapon Stats found, setting defaults!");
+            Damage = 1;
+            AttacksPerSecond = 1;
+            RotationSpeed = 5f;
         }
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
-        RotationSpeed = 5f;
     }
     public void SetIndex(int i)
     {
-        weaponIndex = i;
-        weaponIndexText.text = i.ToString();
+        WeaponIndex = i;
+        _weaponIndexText.text = i.ToString();
     }
 
     /// <summary>
@@ -85,7 +88,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     /// </summary>
     public void HandleWeaponSelected()
     {
-        if (weaponSelected)
+        if (WeaponSelected)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -103,7 +106,6 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
 
     //  AIMING
-
     public void Aim()
     {
         if (spawnedCrosshair) DestroyCrosshairPrefab();
@@ -112,30 +114,30 @@ public class BasicCannon : MonoBehaviour, IWeapon
         {
             if (hit.collider.transform.root.tag == "Enemy")
             {
-                _target = hit.collider.transform.parent.gameObject;
-                SpawnCrosshairPrefab(hit.point, _target.transform);
-                aimAtTarget = true;
+                Target = hit.collider.transform.parent.gameObject;
+                SpawnCrosshairPrefab(hit.point, Target.transform);
+                AimAtTarget = true;
             }
         }
         else
         {
-            aimAtTarget = false;
-            _aimRotationAngle = HM.Angle2D(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
+            AimAtTarget = false;
+            AimRotationAngle = HM.Angle2D(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         }
-        weaponSelected = false;
+        WeaponSelected = false;
     }
     public void CancelAim()
     {
         if (spawnedCrosshair) DestroyCrosshairPrefab();
-        aimAtTarget = false;
-        _target = null;
+        AimAtTarget = false;
+        Target = null;
     }
     public void ResetAim()
     {
         if (spawnedCrosshair) DestroyCrosshairPrefab();
-        _aimRotationAngle = 90;
-        aimAtTarget = false;
-        _target = null;
+        AimRotationAngle = 90;
+        AimAtTarget = false;
+        Target = null;
     }
 
     //  ROTATE
@@ -143,7 +145,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public void RotateTurretToAngle()
     {
         float zRotActual = 0;
-        float diff = _aimRotationAngle - transform.rotation.eulerAngles.z;
+        float diff = AimRotationAngle - transform.rotation.eulerAngles.z;
         if (diff < -180) diff += 360;
 
         if (Mathf.Abs(diff) > RotationSpeed)
@@ -152,7 +154,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         }
         else
         {
-            zRotActual = _aimRotationAngle;
+            zRotActual = AimRotationAngle;
         }
         //  rotate to this newly calculate angle
         HM.RotateTransformToAngle(transform, new Vector3(0, 0, zRotActual));
@@ -163,7 +165,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         //TODO: calculate for targets movement
 
         //  find the desired angle to face the mouse
-        float zRotToMouse = HM.Angle2D(_target.transform.position, transform.position);
+        float zRotToMouse = HM.Angle2D(Target.transform.position, transform.position);
         //  get closer to the angle with our max rotationspeed
         float zRotActual = 0;
         float diff = zRotToMouse - transform.rotation.eulerAngles.z;
@@ -183,7 +185,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         HM.RotateTransformToAngle(transform, new Vector3(0, 0, zRotActual));
     }
 
-    //  FIRE
+    //  USE WEAPON
 
     public void Attack()
     {
@@ -194,7 +196,6 @@ public class BasicCannon : MonoBehaviour, IWeapon
             SpawnCannonball();
         }
     }
-
     private void SpawnCannonball()
     {
         GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool("cannonball");
@@ -206,14 +207,14 @@ public class BasicCannon : MonoBehaviour, IWeapon
     //  UI
     private void UpdateWeaponUI()
     {
-        if(weaponCharge) weaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
+        if(WeaponCharge) WeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
     }
     private void SpawnCrosshairPrefab(Vector2 spawnPoint, Transform parent)
     {
         spawnedCrosshair = Instantiate(_crosshairPrefab);
         spawnedCrosshair.transform.position = spawnPoint;
         spawnedCrosshair.transform.parent = parent;
-        spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponIndex(weaponIndex.ToString());
+        spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponIndex(WeaponIndex.ToString());
     }
     private void DestroyCrosshairPrefab()
     {
@@ -224,10 +225,9 @@ public class BasicCannon : MonoBehaviour, IWeapon
     private void WeaponFireParticles()
     {
     }
-
     private void PlayWeaponFireSoundEffect()
     {
-        if (weaponAudioSource) weaponAudioSource.Play();
+        if (_weaponAudioSource) _weaponAudioSource.Play();
         else Debug.LogError("missing audio clip for weapon!");
     }
 }

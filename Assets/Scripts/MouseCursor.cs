@@ -129,11 +129,11 @@ public class MouseCursor : MonoBehaviour
 
     private void SelectUnits()
     {
-        foreach(Wizard wizard in PlayerTankController.instance.wizardList)
+        foreach(TechWizard wizard in PlayerTankController.instance.wizardList)
         {
             if (selectionBox.Contains(Camera.main.WorldToScreenPoint(wizard.transform.position)))
             {
-                wizard.unitSelected = true;
+                wizard.UnitSelected = true;
             }
         }
     }

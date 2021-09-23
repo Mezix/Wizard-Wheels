@@ -38,13 +38,13 @@ public class TankWeapons : MonoBehaviour
     private void SelectWeapon(int weaponIndex)
     {
         if (!multipleSelected) DeselectAllWeapons();
-        if (IWeaponArray[weaponIndex] != null) IWeaponArray[weaponIndex].weaponSelected = true;
+        if (weaponIndex < IWeaponArray.Count) IWeaponArray[weaponIndex].WeaponSelected = true;
     }
     private void DeselectAllWeapons()
     {
         foreach(IWeapon wp in IWeaponArray)
         {
-            if (wp != null) wp.weaponSelected = false;
+            if (wp != null) wp.WeaponSelected = false;
         }
     }
 
@@ -69,7 +69,7 @@ public class TankWeapons : MonoBehaviour
             UIWeapon uw = UIScript.instance.CreateWeaponUI(IWeaponArray[i]);
             AllUIWeapons.Add(uw);
             if (i == 1) AllUIWeapons.Add(uw); //add a dummy first weapon ui to the list
-            IWeaponArray[i].weaponCharge = AllUIWeapons[i].UIWeaponCharge;
+            IWeaponArray[i].WeaponCharge = AllUIWeapons[i]._UIWeaponCharge;
         }
     }
 }
