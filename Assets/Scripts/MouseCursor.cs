@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class MouseCursor : MonoBehaviour
 {
@@ -14,27 +15,63 @@ public class MouseCursor : MonoBehaviour
     private Vector2 endPosition;
 
     private Rect selectionBox;
+    private PixelPerfectCamera pixelCam;
+    public int zoomAmount;
+    public int maxZoom;
+    public int minZoom;
 
     private void Awake()
     {
         mouseRend = GetComponentInChildren<SpriteRenderer>();
+        pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
     }
     void Start()
     {
         //Cursor.visible = false; //disable the unity default mouse cursor
-        DrawVisual();
+
+        zoomAmount = 10;
+        minZoom = 30;
+        maxZoom = 200;
         selectionBox = new Rect();
+        DrawVisual();
+        SetZoom(maxZoom);
     }
 
     void Update()
     {
-        //Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //transform.position = cursorPos;
-        HandleMouseInput();
+        //TrackCursor();
+        HandleMouseSelectionInput();
+        HandleZoomIn();
+    }
+    /// <summary>
+    /// Tracks the defined cursor to the mouses screen position
+    /// </summary>
+    public void TrackCursor()
+    {
+        Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = cursorPos;
     }
 
-    public void HandleMouseInput()
+    private void HandleZoomIn()
     {
+        if(Input.mouseScrollDelta.y != 0 && !UIScript.instance.settingsOn)
+        {
+            if(Input.mouseScrollDelta.y > 0)
+            {
+                ZoomIn();
+            }
+            else if (Input.mouseScrollDelta.y < 0)
+            {
+                ZoomOut();
+            }
+        }
+    }
+
+    public void HandleMouseSelectionInput()
+    {
+        //Check for selecting ui first!
+
+        /*
         if(Input.GetMouseButtonDown(0))
         {
             startPosition = Input.mousePosition;
@@ -52,7 +89,7 @@ public class MouseCursor : MonoBehaviour
             startPosition = Vector2.zero;
             endPosition = Vector2.zero;
             DrawVisual();
-        }
+        }*/
     }
     public void DrawVisual()
     {
@@ -99,5 +136,22 @@ public class MouseCursor : MonoBehaviour
                 wizard.unitSelected = true;
             }
         }
+    }
+
+    //  Zooming
+
+    private void ZoomIn()
+    {
+        if (pixelCam.assetsPPU + zoomAmount > maxZoom) SetZoom(maxZoom);
+        else SetZoom(pixelCam.assetsPPU += zoomAmount);
+    }
+    private void ZoomOut()
+    {
+        if (pixelCam.assetsPPU - zoomAmount < minZoom) SetZoom(minZoom);
+        else SetZoom(pixelCam.assetsPPU -= zoomAmount);
+    }
+    private void SetZoom(int zoomLevel)
+    {
+        pixelCam.assetsPPU = zoomLevel;
     }
 }

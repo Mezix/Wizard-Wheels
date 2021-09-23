@@ -14,10 +14,13 @@ public class TankMovement : MonoBehaviour
     private float maxVelocity = 3f;
     public bool cruiseModeOn;
 
+    public List<Tire> Tires = new List<Tire>();
+
     private void Awake()
     {
         tankRB = GetComponent<Rigidbody2D>();
         tankCollider = GetComponent<Collider2D>();
+        InitTires();
     }
     private void Start()
     {
@@ -30,7 +33,9 @@ public class TankMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
         HandleMovementInput();
+        SetTireAnimationSpeed();
     }
+
     private void FixedUpdate()
     {
         Move();
@@ -54,7 +59,7 @@ public class TankMovement : MonoBehaviour
     //  MOVEMENT
     private void Move()
     {
-        transform.position += GetComponentInChildren<TankRotation>().rotationTransform.up * velocity * Time.deltaTime;
+        transform.position += GetComponentInChildren<TankRotation>().exampleRotation.up * velocity * Time.deltaTime;
         if (!cruiseModeOn) Decelerate();
     }
     private void Accelerate()
@@ -123,5 +128,18 @@ public class TankMovement : MonoBehaviour
     {
         cruiseModeOn = b;
         UIScript.instance.TurnOnCruiseMode(b);
+    }
+
+    //  Change the animation of our tires
+    private void InitTires()
+    {
+        foreach (Tire t in GetComponentsInChildren<Tire>()) Tires.Add(t);
+    }
+    private void SetTireAnimationSpeed()
+    {
+        foreach (Tire t in Tires)
+        {
+            t.AnimatorSpeed(velocity / maxVelocity);
+        }
     }
 }

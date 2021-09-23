@@ -9,16 +9,21 @@ public class TankRotation : MonoBehaviour
     private float rotationspeed = 50f;
     public bool pointerAngleSet = false;
     private float pointerAngle = 0;
-
-    public Transform rotationTransform;
     public bool steeringWheelButtonHeldDown = false;
 
-    public List<GameObject> RotateableObjects = new List<GameObject>();
+    public Transform exampleRotation;
+    private List<Tire> allTires = new List<Tire>();
 
     void Start()
     {
         pointerAngleSet = false;
-        rotationTransform = RotateableObjects[0].transform;
+        InitRotatableObjects();
+        exampleRotation = allTires[0].transform;
+    }
+
+    private void InitRotatableObjects()
+    {
+        foreach(Tire t in GetComponentsInChildren<Tire>()) allTires.Add(t);
     }
 
     void Update()
@@ -88,21 +93,19 @@ public class TankRotation : MonoBehaviour
 
     private void SetRotationOfSteeringWheel()
     {
-        HM.RotateTransformToAngle(UIScript.instance.SteeringWheel.transform, rotationTransform.rotation.eulerAngles);
+        HM.RotateTransformToAngle(UIScript.instance.SteeringWheel.transform, exampleRotation.rotation.eulerAngles);
     }
 
     //  Rotate Tank Manually using the arrow keys
     private void RotateTankLeftManually()
     {
         RotateAllObjectsByRotation(rotationspeed * Time.deltaTime);
-        //transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
         UIScript.instance.SteeringWheelPointer.transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
         pointerAngle += rotationspeed * Time.deltaTime;
     }
     private void RotateTankRightManually()
     {
         RotateAllObjectsByRotation(-rotationspeed * Time.deltaTime);
-        //transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
         UIScript.instance.SteeringWheelPointer.transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
         pointerAngle -= rotationspeed * Time.deltaTime;
     }
@@ -110,7 +113,7 @@ public class TankRotation : MonoBehaviour
     //  Rotate Tank
     private void RotateTankToPointerAngle()
     {
-        float currentRot = rotationTransform.rotation.eulerAngles.z;
+        float currentRot = exampleRotation.rotation.eulerAngles.z;
         float difference = currentRot - pointerAngle;
 
         if (difference > 0)
@@ -124,7 +127,6 @@ public class TankRotation : MonoBehaviour
             else
             {
                 RotateAllObjectsByRotation(-rotationspeed * Time.deltaTime);
-                //transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
                 SetRotationOfSteeringWheel();
             }
         }
@@ -139,7 +141,6 @@ public class TankRotation : MonoBehaviour
             else
             {
                 RotateAllObjectsByRotation(rotationspeed * Time.deltaTime);
-                //transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
                 SetRotationOfSteeringWheel();
             }
         }
@@ -147,16 +148,16 @@ public class TankRotation : MonoBehaviour
 
     private void RotateAllObjectsToRotation(float zRot)
     {
-        foreach(GameObject go in RotateableObjects)
+        foreach(Tire tire in allTires)
         {
-            HM.RotateTransformToAngle(go.transform, new Vector3(0, 0, pointerAngle));
+            HM.RotateTransformToAngle(tire.transform, new Vector3(0, 0, pointerAngle));
         }
     }
     private void RotateAllObjectsByRotation(float zRot)
     {
-        foreach (GameObject go in RotateableObjects)
+        foreach (Tire tire in allTires)
         {
-            go.transform.Rotate(Vector3.forward * zRot);
+            tire.transform.Rotate(Vector3.forward * zRot);
         }
     }
 
