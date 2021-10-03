@@ -69,7 +69,7 @@ public class TechWizard : MonoBehaviour
         localPositionToMoveTo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         localPositionToMoveTo.z = 0; 
         //calculate the local vector of our mouse position relative to the tank
-        localPositionToMoveTo -= PlayerTankController.instance.transform.position;
+        localPositionToMoveTo -= TankController.instance.transform.position;
         UnitIsMoving = true;
         UnitSelected = false;
     }
