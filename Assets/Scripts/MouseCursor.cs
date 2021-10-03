@@ -20,10 +20,14 @@ public class MouseCursor : MonoBehaviour
     public int maxZoom;
     public int minZoom;
 
+    public RectTransform _cursorTransform;
+    private Animator cursorAnimator;
+
     private void Awake()
     {
         mouseRend = GetComponentInChildren<SpriteRenderer>();
         pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
+        cursorAnimator = _cursorTransform.GetComponent<Animator>();
     }
     void Start()
     {
@@ -35,6 +39,7 @@ public class MouseCursor : MonoBehaviour
         selectionBox = new Rect();
         DrawVisual();
         SetZoom(maxZoom);
+        cursorAnimator.SetBool("clicked", false);
     }
 
     void Update()
@@ -42,14 +47,8 @@ public class MouseCursor : MonoBehaviour
         //TrackCursor();
         HandleMouseSelectionInput();
         HandleZoomIn();
-    }
-    /// <summary>
-    /// Tracks the defined cursor to the mouses screen position
-    /// </summary>
-    public void TrackCursor()
-    {
-        Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = cursorPos;
+        TrackMouse();
+        HandleMouseAnimation();
     }
 
     private void HandleZoomIn()
@@ -70,8 +69,7 @@ public class MouseCursor : MonoBehaviour
     public void HandleMouseSelectionInput()
     {
         //Check for selecting ui first!
-
-        /*
+        
         if(Input.GetMouseButtonDown(0))
         {
             startPosition = Input.mousePosition;
@@ -89,7 +87,7 @@ public class MouseCursor : MonoBehaviour
             startPosition = Vector2.zero;
             endPosition = Vector2.zero;
             DrawVisual();
-        }*/
+        }
     }
     public void DrawVisual()
     {
@@ -153,5 +151,23 @@ public class MouseCursor : MonoBehaviour
     private void SetZoom(int zoomLevel)
     {
         pixelCam.assetsPPU = zoomLevel;
+    }
+
+    //  Mouse Cursor
+
+    private void HandleMouseAnimation()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            cursorAnimator.SetBool("clicked", true);
+        }
+        else
+        {
+            cursorAnimator.SetBool("clicked", false);
+        }
+    }
+    private void TrackMouse()
+    {
+        _cursorTransform.position = Input.mousePosition;
     }
 }
