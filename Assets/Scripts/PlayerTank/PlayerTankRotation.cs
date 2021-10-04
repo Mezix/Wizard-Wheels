@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TankRotation : MonoBehaviour
+public class PlayerTankRotation : MonoBehaviour
 {
     public float rotationspeed = 50f;
     public bool pointerAngleSet = false;

@@ -1,22 +1,19 @@
 fileFormatVersion: 2
-guid: 15f85f4379cedea499fad565ccbc62d7
+guid: ce834a3f290b6d34eb97a585240a333c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5161808111181978580
-    second: Tire-Sheet_0
+      213: 1286888964253263162
+    second: TEST_wizard01_walkingD_ss_0
   - first:
-      213: -3339763585558836347
-    second: Tire-Sheet_1
+      213: -1392358273060671234
+    second: TEST_wizard01_walkingD_ss_1
   - first:
-      213: 2490732019954478195
-    second: Tire-Sheet_2
+      213: -7944496676869228848
+    second: TEST_wizard01_walkingD_ss_2
   - first:
-      213: -6982397391553974163
-    second: Tire-Sheet_3
-  - first:
-      213: -4880387205934771956
-    second: Tire-Sheet_4
+      213: 3528624255894819872
+    second: TEST_wizard01_walkingD_ss_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -60,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -102,13 +99,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tire-Sheet_0
+      name: TEST_wizard01_walkingD_ss_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -116,20 +113,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c24a44e0fd29d58b0800000000000000
-      internalID: -5161808111181978580
+      spriteID: a35afabd1b2fbd110800000000000000
+      internalID: 1286888964253263162
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tire-Sheet_1
+      name: TEST_wizard01_walkingD_ss_1
       rect:
         serializedVersion: 2
-        x: 40
+        x: 64
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58b0bf8b6b6c6a1d0800000000000000
-      internalID: -3339763585558836347
+      spriteID: ef0742617895dace0800000000000000
+      internalID: -1392358273060671234
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tire-Sheet_2
+      name: TEST_wizard01_walkingD_ss_2
       rect:
         serializedVersion: 2
-        x: 80
+        x: 128
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37ce310639bd09220800000000000000
-      internalID: 2490732019954478195
+      spriteID: 0d630f73d5a7fb190800000000000000
+      internalID: -7944496676869228848
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tire-Sheet_3
+      name: TEST_wizard01_walkingD_ss_3
       rect:
         serializedVersion: 2
-        x: 120
+        x: 192
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,29 +176,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d60bfc3119a891f90800000000000000
-      internalID: -6982397391553974163
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tire-Sheet_4
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c0195ef81b1654cb0800000000000000
-      internalID: -4880387205934771956
+      spriteID: 0241076b01138f030800000000000000
+      internalID: 3528624255894819872
       vertices: []
       indices: 
       edges: []

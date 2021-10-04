@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TankController : MonoBehaviour
+public class PlayerTankController : MonoBehaviour
 {
-    public static TankController instance;
+    public static PlayerTankController instance;
 
     //  Important scripts
 
     public TankStats _tStats;
     public TankHealth _tHealth;
-    public TankMovement _tMov;
-    public TankRotation _tRot;
-    public TankWeapons _tWep;
+    public PlayerTankMovement _tMov;
+    public PlayerTankRotation _tRot;
+    public PlayerTankWeapons _tWep;
 
     public string _tankName;
     public List<TechWizard> _wizardList = new List<TechWizard>();
@@ -31,9 +31,9 @@ public class TankController : MonoBehaviour
     {
         instance = this;
         _tHealth = GetComponentInChildren<TankHealth>();
-        _tMov = GetComponentInChildren<TankMovement>();
-        _tRot = GetComponentInChildren<TankRotation>();
-        _tWep = GetComponentInChildren<TankWeapons>();
+        _tMov = GetComponentInChildren<PlayerTankMovement>();
+        _tRot = GetComponentInChildren<PlayerTankRotation>();
+        _tWep = GetComponentInChildren<PlayerTankWeapons>();
     }
     void Start()
     {

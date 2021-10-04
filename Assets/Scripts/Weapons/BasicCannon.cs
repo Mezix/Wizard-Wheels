@@ -149,6 +149,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     public void RotateTurretToAngle()
     {
+        Target = null;
         float zRotActual = 0;
         float diff = AimRotationAngle - transform.rotation.eulerAngles.z;
         if (diff < -180) diff += 360;

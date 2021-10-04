@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankWeapons : MonoBehaviour
+public class PlayerTankWeapons : MonoBehaviour
 {
     public List<IWeapon> IWeaponArray = new List<IWeapon>();
     public List<UIWeapon> AllUIWeapons = new List<UIWeapon>();

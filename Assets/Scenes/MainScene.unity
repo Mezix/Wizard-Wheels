@@ -3198,6 +3198,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTank (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6385456487747659236, guid: 231eddb096881ba4094cbf85ff6d2092,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6385456487747659243, guid: 231eddb096881ba4094cbf85ff6d2092,
         type: 3}
       propertyPath: m_RootOrder
@@ -3260,33 +3265,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 231eddb096881ba4094cbf85ff6d2092, type: 3}
---- !u!1 &712873417 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6385456488238904403, guid: 231eddb096881ba4094cbf85ff6d2092,
-    type: 3}
-  m_PrefabInstance: {fileID: 712873416}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &712873418
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 712873417}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &746728818
 GameObject:
   m_ObjectHideFlags: 0
@@ -3461,6 +3439,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTank (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6385456487747659236, guid: 231eddb096881ba4094cbf85ff6d2092,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6385456487747659243, guid: 231eddb096881ba4094cbf85ff6d2092,
         type: 3}
       propertyPath: m_RootOrder
@@ -3523,33 +3506,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 231eddb096881ba4094cbf85ff6d2092, type: 3}
---- !u!1 &774067711 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6385456488238904403, guid: 231eddb096881ba4094cbf85ff6d2092,
-    type: 3}
-  m_PrefabInstance: {fileID: 774067710}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &774067712
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774067711}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &819539777
 GameObject:
   m_ObjectHideFlags: 0
@@ -8480,6 +8436,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicCannon
       objectReference: {fileID: 0}
+    - target: {fileID: 3633578093540335794, guid: 32430ef957ea24a4eae0cc1b70d80ded,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633578093540335794, guid: 32430ef957ea24a4eae0cc1b70d80ded,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2078505873
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32430ef957ea24a4eae0cc1b70d80ded, type: 3}
 --- !u!4 &2126125450 stripped
@@ -8600,14 +8566,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 667288256}
     m_Modifications:
-    - target: {fileID: 827162990, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 827162990, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.15
-      objectReference: {fileID: 0}
     - target: {fileID: 4608201922242700204, guid: b1a43ac307d3cd24ab255c84a1f82439,
         type: 3}
       propertyPath: m_RootOrder
@@ -8668,8 +8626,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: WizardTest
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6355457420929606145, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
 --- !u!1001 &6385456487670466627
 PrefabInstance:
@@ -8682,6 +8639,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385456487747659236, guid: 231eddb096881ba4094cbf85ff6d2092,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6385456487747659243, guid: 231eddb096881ba4094cbf85ff6d2092,
         type: 3}

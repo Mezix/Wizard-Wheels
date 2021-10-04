@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankMovement : MonoBehaviour
+public class PlayerTankMovement : MonoBehaviour
 {
     private Rigidbody2D tankRB;
     private Collider2D tankCollider;
@@ -59,7 +59,7 @@ public class TankMovement : MonoBehaviour
     //  MOVEMENT
     private void Move()
     {
-        transform.position += GetComponentInChildren<TankRotation>().tankRotation.up * velocity * Time.deltaTime;
+        transform.position += GetComponentInChildren<PlayerTankRotation>().tankRotation.up * velocity * Time.deltaTime;
         if (!cruiseModeOn) Decelerate();
     }
     private void Accelerate()
