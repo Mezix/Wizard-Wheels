@@ -32,6 +32,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public Transform _cannonballSpot;
     public GameObject _crosshairPrefab;
     private GameObject spawnedCrosshair;
+    private LineRenderer laserLR;
 
     //  UI
     public Image WeaponCharge { get; set; }
@@ -44,14 +45,18 @@ public class BasicCannon : MonoBehaviour, IWeapon
     private void Start()
     {
         InitWeaponStats();
+        laserLR = _cannonballSpot.GetComponentInChildren<LineRenderer>();
         AimRotationAngle = 90;
     }
     private void Update()
     {
         TimeElapsedBetweenLastAttack += Time.deltaTime;
         UpdateWeaponUI();
+        UpdateLaserLR();
         HandleWeaponSelected();
     }
+    
+
     private void FixedUpdate()
     {
         if (AimAtTarget)PointTurretAtTarget();
@@ -229,5 +234,18 @@ public class BasicCannon : MonoBehaviour, IWeapon
     {
         if (_weaponAudioSource) _weaponAudioSource.Play();
         else Debug.LogError("missing audio clip for weapon!");
+    }
+    private void UpdateLaserLR()
+    {
+        if (Target)
+        {
+            laserLR.gameObject.SetActive(true);
+            float distance = Vector3.Distance(Target.transform.position, _cannonballSpot.transform.position);
+            laserLR.SetPosition(1, Vector3.right * distance);
+        }
+        else laserLR.gameObject.SetActive(false);
+
+        //  if we can fire at the target, turn the laser green
+        //  else keep the laser red
     }
 }
