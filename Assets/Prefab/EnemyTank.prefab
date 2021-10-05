@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 3123129469221447086}
   - component: {fileID: 3967959686328043720}
   - component: {fileID: 5659215319521809666}
+  - component: {fileID: 3787077506681756485}
   m_Layer: 0
   m_Name: EnemyTank
   m_TagString: Enemy
@@ -443,6 +444,27 @@ MonoBehaviour:
   _currentHealth: 0
   fullHealthSound: {fileID: 0}
   healSound: {fileID: 0}
+--- !u!50 &3787077506681756485
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &6385456488238904403
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +475,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6385456488238904402}
   - component: {fileID: 6385456488238904401}
-  - component: {fileID: 356497720}
   m_Layer: 0
   m_Name: TankBG
   m_TagString: Untagged
@@ -525,27 +546,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &356497720
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6385456488238904403}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &7666731113436099024
 GameObject:
   m_ObjectHideFlags: 0

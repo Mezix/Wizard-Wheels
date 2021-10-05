@@ -76,7 +76,7 @@ public class UIScript : MonoBehaviour
     }
     public void SpeedSliderUpdated()
     {
-        PlayerTankController.instance._tMov.cruiseModeOn = true;
+        PlayerTankController.instance.TMov.cruiseModeOn = true;
     }
     public void SteeringWheelPointerUpdated()
     {

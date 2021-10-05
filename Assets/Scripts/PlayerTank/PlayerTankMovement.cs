@@ -20,25 +20,23 @@ public class PlayerTankMovement : MonoBehaviour
     {
         tankRB = GetComponent<Rigidbody2D>();
         tankCollider = GetComponent<Collider2D>();
-        InitTires();
     }
-    private void Start()
-    {
-        UIScript.instance._currentSpeedSlider.value = 0;
-        UIScript.instance._desiredSpeedSlider.value = 0;
-        TurnOnCruise(true);
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
         HandleMovementInput();
         SetTireAnimationSpeed();
     }
-
     private void FixedUpdate()
     {
         Move();
+    }
+    public void InitTankMovement()
+    {
+        UIScript.instance._currentSpeedSlider.value = 0;
+        UIScript.instance._desiredSpeedSlider.value = 0;
+        TurnOnCruise(true);
+        InitTires();
     }
     private void HandleMovementInput()
     {

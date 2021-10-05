@@ -10,34 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
-  m_Name: DefaultEnemy
+  m_Name: EnemyRooms
   m_EditorClassIdentifier: 
-  XTilesAmount: 4
-  YTilesAmount: 5
+  XTilesAmount: 2
+  YTilesAmount: 2
   SavedPrefabRefMatrix:
     XArray:
     - YRooms:
-      - {fileID: 3928980102496950996, guid: 7069e94a0cfb2f345955efcebb720fcc, type: 3}
-      - {fileID: 0}
       - {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678, type: 3}
-      - {fileID: 0}
-      - {fileID: 0}
+      - {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678, type: 3}
     - YRooms:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678, type: 3}
-      - {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678, type: 3}
-      - {fileID: 0}
-    - YRooms:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678, type: 3}
-      - {fileID: 0}
-    - YRooms:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678, type: 3}
       - {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678, type: 3}
   TmpPrefabRefMatrix:

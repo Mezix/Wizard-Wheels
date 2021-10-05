@@ -40,12 +40,12 @@ public class EnemyTankMovement : MonoBehaviour
     {
         transform.position += GetComponentInChildren<EnemyTankRotation>().tankRotation.up * velocity * Time.deltaTime;
     }
-    private void Accelerate()
+    public void Accelerate()
     {
         if (velocity < maxVelocity) velocity += acceleration * Time.timeScale;
         else velocity = maxVelocity;
     }
-    private void Decelerate()
+    public void Decelerate()
     {
         if (velocity > 0) velocity -= deceleration * Time.timeScale;
         else velocity = 0;

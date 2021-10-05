@@ -9,11 +9,6 @@ public class PlayerTankWeapons : MonoBehaviour
     public List<UIWeapon> AllUIWeapons = new List<UIWeapon>();
     public bool multipleSelected = true;
 
-    void Start()
-    {
-        InitWeapons();
-        CreateWeaponsUI();
-    }
     private void Update()
     {
         if (Input.GetKey(KeyCode.LeftShift)) multipleSelected = true;

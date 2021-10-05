@@ -40,6 +40,15 @@ public class EnemyTankController : MonoBehaviour, IEnemy
         CreateTankFromRoomConstellation();
         CreateBG();
     }
+    private void Update()
+    {
+        EnemyBehaviour();
+    }
+    public void EnemyBehaviour()
+    {
+        _tRot.RotateTankLeft();
+        _tMov.Accelerate();
+    }
     private void InitTankStats()
     {
         if(_tStats)
@@ -103,7 +112,6 @@ public class EnemyTankController : MonoBehaviour, IEnemy
         _tankRooms.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation.XTilesAmount, 0.25f * _tankRoomConstellation.YTilesAmount, 0)
                                        + tileOffset;
     }
-
     public void TakeDamage()
     {
         print("take dmg");

@@ -15,12 +15,6 @@ public class PlayerTankRotation : MonoBehaviour
     public Transform tankRotation;
     private List<GameObject> rotatableObjects = new List<GameObject>();
 
-    void Start()
-    {
-        pointerAngleSet = false;
-        InitRotatableObjects();
-        rotatableObjects.Add(tankRotation.gameObject);
-    }
     void Update()
     {
         if (steeringWheelSelectedByMouse)
@@ -33,6 +27,12 @@ public class PlayerTankRotation : MonoBehaviour
             HandleRotationInput();
         }
         SetRotationOfSteeringWheel();
+    }
+    public void InitTankRotation()
+    {
+        pointerAngleSet = false;
+        InitRotatableObjects();
+        rotatableObjects.Add(tankRotation.gameObject);
     }
     private void InitRotatableObjects()
     {
