@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class PlayerTankGeometry : MonoBehaviour
+public class TankGeometry : MonoBehaviour
 {
-    //  Tank geometry and Layout
-
     public TankRoomConstellation _tankRoomConstellation;
     private GameObject tankGeometryParent;
     private GameObject rooms;
     private Tilemap floorTilemap;
-    public Tile _defaultBGTile;
-    public void SpawnPlayerTank()
+    public void SpawnTank()
     {
         CreateTankFromRoomConstellation();
         CreateBG();
@@ -38,6 +35,7 @@ public class PlayerTankGeometry : MonoBehaviour
     {
         GameObject floor = new GameObject("FloorTilemap");
         floor.transform.parent = gameObject.transform;
+        floor.transform.localPosition = Vector3.zero;
 
         //  Create Grid
         Grid g = floor.AddComponent<Grid>();
@@ -53,22 +51,24 @@ public class PlayerTankGeometry : MonoBehaviour
     }
     private void CreateWallsTilemap()
     {
-        GameObject tmp = new GameObject("WallsTilemap");
+        GameObject walls = new GameObject("WallsTilemap");
+        walls.transform.parent = gameObject.transform;
+        walls.transform.localPosition = Vector3.zero;
 
         //Create the Grid
-        Grid g = tmp.AddComponent<Grid>();
+        Grid g = walls.AddComponent<Grid>();
         g.cellSize = new Vector3(0.5f, 0.5f, 0);
 
         //  Create Tilemap
-        floorTilemap = tmp.AddComponent<Tilemap>();
+        floorTilemap = walls.AddComponent<Tilemap>();
         floorTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
-        TilemapRenderer r = tmp.AddComponent<TilemapRenderer>();
+        TilemapRenderer r = walls.AddComponent<TilemapRenderer>();
         r.sortingLayerName = "Vehicles";
 
         //  Create Collider
-        TilemapCollider2D c = tmp.AddComponent<TilemapCollider2D>();
+        TilemapCollider2D c = walls.AddComponent<TilemapCollider2D>();
     }
     private void CreateBGRoom(int startX, int startY, int sizeX, int sizeY)
     {
@@ -76,7 +76,7 @@ public class PlayerTankGeometry : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                floorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), (Tile) Resources.Load("DefaultTile"));
+                floorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), (Tile)Resources.Load("DefaultTile"));
             }
         }
     }
@@ -84,7 +84,7 @@ public class PlayerTankGeometry : MonoBehaviour
     {
         rooms = new GameObject("Tank Rooms");
         rooms.transform.parent = gameObject.transform;
-        List<GameObject> tmpList = new List<GameObject>();
+        rooms.transform.localPosition = Vector3.zero;
 
         for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
         {
@@ -96,7 +96,6 @@ public class PlayerTankGeometry : MonoBehaviour
                     go.transform.parent = rooms.transform;
                     go.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
 
-                    tmpList.Add(go);
                 }
             }
         }
@@ -106,6 +105,7 @@ public class PlayerTankGeometry : MonoBehaviour
         //create overarching object for all our spawned objects
         tankGeometryParent = new GameObject("Tank Geometry Parent");
         tankGeometryParent.transform.parent = gameObject.transform;
+        tankGeometryParent.transform.localPosition = Vector3.zero;
 
         // parent all spawnedObjects to this parent
         rooms.transform.parent = floorTilemap.transform.parent = tankGeometryParent.transform;

@@ -2917,12 +2917,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 667288255}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0be814b1812d984298072962cfb88fa, type: 3}
+  m_Script: {fileID: 11500000, guid: b56098410987c5f48bfa1f90cc65c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _tankRoomConstellation: {fileID: 11400000, guid: 74bb0e1ea42492e4491bf4e8ae060efc,
     type: 2}
-  _defaultBGTile: {fileID: 11400000, guid: 18cae353cc547fd47bbd2ce505ac5d5d, type: 2}
 --- !u!1 &746728818
 GameObject:
   m_ObjectHideFlags: 0

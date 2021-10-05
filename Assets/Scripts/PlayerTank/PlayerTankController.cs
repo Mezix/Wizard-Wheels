@@ -10,11 +10,11 @@ public class PlayerTankController : MonoBehaviour
     //  Important scripts
 
     public TankStats _tStats;
-    public TankHealth THealth { get; private set; }
+    public PlayerTankHealth THealth { get; private set; }
     public PlayerTankMovement TMov { get; private set; }
     public PlayerTankRotation TRot { get; private set; }
     public PlayerTankWeapons TWep { get; private set; }
-    public PlayerTankGeometry TGeo { get; private set; }
+    public TankGeometry TGeo { get; private set; }
 
     public string _tankName;
     public List<TechWizard> _wizardList = new List<TechWizard>();
@@ -22,15 +22,15 @@ public class PlayerTankController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        TGeo = GetComponentInChildren<PlayerTankGeometry>();
+        TGeo = GetComponentInChildren<TankGeometry>();
         TMov = GetComponentInChildren<PlayerTankMovement>();
         TRot = GetComponentInChildren<PlayerTankRotation>();
         TWep = GetComponentInChildren<PlayerTankWeapons>();
-        THealth = GetComponentInChildren<TankHealth>();
+        THealth = GetComponentInChildren<PlayerTankHealth>();
     }
     void Start()
     {
-        TGeo.SpawnPlayerTank();
+        TGeo.SpawnTank();
         TMov.InitTankMovement();
         TRot.InitTankRotation();
         TWep.InitWeapons();

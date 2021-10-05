@@ -8,37 +8,27 @@ public class EnemyTankController : MonoBehaviour, IEnemy
 {
     //  Important scripts
 
-    public TankStats _tStats;
-    public TankHealth _tHealth;
-    public EnemyTankMovement _tMov;
-    public EnemyTankRotation _tRot;
-    //public PlayerTankWeapons _tWep;
+    public TankStats TStats;
+    public EnemyTankHealth THealth { get; private set; }
+    public EnemyTankMovement TMov { get; private set; }
+    public EnemyTankRotation TRot { get; private set; }
+    public TankGeometry TGeo { get; private set; }
 
     public string _tankName;
     public List<TechWizard> _wizardList = new List<TechWizard>();
 
-    //  Tank geometry and Layout
-
-    public TankRoomConstellation _tankRoomConstellation;
-    public GameObject _tankRooms;
-    public Tilemap _floorTilemap;
-    public Tile _defaultBGTile;
-    Vector3 tileOffset;
-
     private void Awake()
     {
-        _tHealth = GetComponentInChildren<TankHealth>();
-        _tMov = GetComponentInChildren<EnemyTankMovement>();
-        _tRot = GetComponentInChildren<EnemyTankRotation>();
-        //_tWep = GetComponentInChildren<PlayerTankWeapons>();
+        THealth = GetComponentInChildren<EnemyTankHealth>();
+        TMov = GetComponentInChildren<EnemyTankMovement>();
+        TRot = GetComponentInChildren<EnemyTankRotation>();
+        TGeo = GetComponentInChildren<TankGeometry>();
     }
     void Start()
     {
-        tileOffset = new Vector3(-0.25f, 0.25f, 0);
         InitTankStats();
         InitWizards();
-        CreateTankFromRoomConstellation();
-        CreateBG();
+        TGeo.SpawnTank();
     }
     private void Update()
     {
@@ -46,21 +36,21 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     }
     public void EnemyBehaviour()
     {
-        _tRot.RotateTankLeft();
-        _tMov.Accelerate();
+        TRot.RotateTankLeft();
+        TMov.Accelerate();
     }
     private void InitTankStats()
     {
-        if(_tStats)
+        if(TStats)
         {
-            _tHealth._maxHealth = _tStats._tankHealth;
+            THealth._maxHealth = TStats._tankHealth;
         }
         else
         {
-            _tHealth._maxHealth = 10;
+            THealth._maxHealth = 10;
             print("Enemy has no stats");
         }
-        _tHealth.InitHealth();
+        THealth.InitHealth();
     }
     private void InitWizards()
     {
@@ -69,52 +59,9 @@ public class EnemyTankController : MonoBehaviour, IEnemy
             _wizardList.Add(w);
         }
     }
-    private void CreateBG()
+    public void TakeDamage(int damage)
     {
-        for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
-        {
-            for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
-            {
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y])
-                {
-                    int sizeX = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y].GetComponent<Room>().sizeX;
-                    int sizeY = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y].GetComponent<Room>().sizeY;
-                    CreateBGRoom(x, y, sizeX, sizeY);
-                }
-            }
-        }
-        _floorTilemap.transform.localPosition = _tankRooms.transform.localPosition;
-    }
-    private void CreateBGRoom(int startX, int startY, int sizeX, int sizeY)
-    {
-        for(int x = startX; x < startX + sizeX; x++)
-        {
-            for(int y = startY; y < startY + sizeY; y++)
-            {
-                _floorTilemap.SetTile(new Vector3Int(x, -(y+1), 0), _defaultBGTile);
-            }
-        }
-    }
-    private void CreateTankFromRoomConstellation()
-    {
-        for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
-        {
-            for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
-            {
-                if(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y])
-                {
-                    GameObject go = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y]);
-                    go.transform.parent = _tankRooms.transform;
-                    go.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-                }
-            }
-        }
-        _tankRooms.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation.XTilesAmount, 0.25f * _tankRoomConstellation.YTilesAmount, 0)
-                                       + tileOffset;
-    }
-    public void TakeDamage()
-    {
-        print("take dmg");
+        THealth.TakeDamage(damage);
     }
     public void DestroyTank()
     {

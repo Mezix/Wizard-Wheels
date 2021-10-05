@@ -7,7 +7,7 @@ public class Cannonball : MonoBehaviour, IProjectile
 {
     public float CurrentLifeTime { get; private set; } //Check IProjectile for explanations
     public float MaxLifetime { get; set; }
-    public float Damage { get; set; }
+    public int Damage { get; set; }
 
     private Rigidbody2D rb;
     public float ProjectileSpeed;
@@ -53,20 +53,20 @@ public class Cannonball : MonoBehaviour, IProjectile
     }
     private void DamageEnemy(IEnemy e)
     {
-        e.TakeDamage();
+        e.TakeDamage(Damage);
         StartCoroutine(PlayExplosion());
     }
     private IEnumerator PlayExplosion()
     {
         exploding = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0f);
         DespawnBullet();
     }
     public void DespawnBullet()
     {
         ProjectilePool.Instance.AddToPool(gameObject);
     }
-    public void SetBulletStatsAndTransform(float gunDamage, Vector3 pos, Quaternion rot)
+    public void SetBulletStatsAndTransform(int gunDamage, Vector3 pos, Quaternion rot)
     {
         Damage = gunDamage;
         transform.position = pos;
