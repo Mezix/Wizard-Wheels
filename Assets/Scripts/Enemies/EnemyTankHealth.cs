@@ -38,11 +38,12 @@ public class EnemyTankHealth : MonoBehaviour
     }
     public void TakeDamage(int dmg)
     {
-        SetCurrentHealth(_currentHealth - 1);
+        SetCurrentHealth(_currentHealth - dmg);
         if(_currentHealth <= 0)
         {
             //Destroy
             print("destroyed");
+            GetComponent<EnemyTankController>().InitiateDeathBehaviour();
         }
         else
         {

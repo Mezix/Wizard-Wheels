@@ -324,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TStats: {fileID: 11400000, guid: 38f853e94e77a3946a479443944be7e9, type: 2}
   _tankName: Druskelle
+  tankNameText: {fileID: 264041171380104351}
   _wizardList: []
 --- !u!114 &3123129469221447086
 MonoBehaviour:
