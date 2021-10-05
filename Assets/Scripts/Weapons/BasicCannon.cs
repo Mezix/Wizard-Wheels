@@ -21,7 +21,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     //  Aiming
 
-    public GameObject Target { get; set; }
+    public GameObject Room { get; set; }
     public bool WeaponSelected { get; set; }
     public bool AimAtTarget { get; set; }
     public float AimRotationAngle { get; set; }
@@ -117,10 +117,10 @@ public class BasicCannon : MonoBehaviour, IWeapon
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if(hit.collider)
         {
-            if (hit.collider.transform.root.tag == "Enemy")
+            if (hit.collider.transform.root.GetComponentInChildren<IEnemy>() != null && hit.collider.transform.GetComponent<Room>())
             {
-                Target = hit.collider.transform.parent.gameObject;
-                SpawnCrosshairPrefab(hit.point, Target.transform);
+                Room = hit.collider.gameObject;
+                SpawnCrosshairPrefab(Room.transform);
                 AimAtTarget = true;
             }
         }
@@ -135,21 +135,21 @@ public class BasicCannon : MonoBehaviour, IWeapon
     {
         if (spawnedCrosshair) DestroyCrosshairPrefab();
         AimAtTarget = false;
-        Target = null;
+        Room = null;
     }
     public void ResetAim()
     {
         if (spawnedCrosshair) DestroyCrosshairPrefab();
         AimRotationAngle = 90;
         AimAtTarget = false;
-        Target = null;
+        Room = null;
     }
 
     //  ROTATE
 
     public void RotateTurretToAngle()
     {
-        Target = null;
+        Room = null;
         float zRotActual = 0;
         float diff = AimRotationAngle - transform.rotation.eulerAngles.z;
         if (diff < -180) diff += 360;
@@ -171,7 +171,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         //TODO: calculate for targets movement
 
         //  find the desired angle to face the mouse
-        float zRotToMouse = HM.Angle2D(Target.transform.position, transform.position);
+        float zRotToMouse = HM.Angle2D(Room.transform.position, transform.position);
         //  get closer to the angle with our max rotationspeed
         float zRotActual = 0;
         float diff = zRotToMouse - transform.rotation.eulerAngles.z;
@@ -215,11 +215,11 @@ public class BasicCannon : MonoBehaviour, IWeapon
     {
         if(WeaponCharge) WeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
     }
-    private void SpawnCrosshairPrefab(Vector2 spawnPoint, Transform parent)
+    private void SpawnCrosshairPrefab(Transform parent)
     {
         spawnedCrosshair = Instantiate(_crosshairPrefab);
-        spawnedCrosshair.transform.position = spawnPoint;
         spawnedCrosshair.transform.parent = parent;
+        spawnedCrosshair.transform.localPosition = Vector3.zero + new Vector3(0,0,10);
         spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponIndex(WeaponIndex.ToString());
     }
     private void DestroyCrosshairPrefab()
@@ -238,10 +238,10 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     private void UpdateLaserLR()
     {
-        if (Target)
+        if (Room)
         {
             laserLR.gameObject.SetActive(true);
-            float distance = Vector3.Distance(Target.transform.position, _cannonballSpot.transform.position);
+            float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
             laserLR.SetPosition(1, Vector3.right * distance);
         }
         else laserLR.gameObject.SetActive(false);

@@ -14,7 +14,7 @@ public interface IWeapon
     float TimeElapsedBetweenLastAttack { get; }
     float Damage { get; set; }
     float RotationSpeed { get; set; }
-    GameObject Target { get; set; }
+    GameObject Room { get; set; }
     bool WeaponSelected { get; set; }
     bool AimAtTarget { get; set; }
     float AimRotationAngle { get; set; }
