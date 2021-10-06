@@ -25,6 +25,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public bool WeaponSelected { get; set; }
     public bool AimAtTarget { get; set; }
     public float AimRotationAngle { get; set; }
+    public bool ShouldNotRotate { get; set; }
 
     //  Misc
 
@@ -33,7 +34,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public GameObject _crosshairPrefab;
     private GameObject spawnedCrosshair;
     private LineRenderer laserLR;
-    public bool HitPlayer { get; set; }
+    public bool ShouldHitPlayer { get; set; }
 
     //  UI
     public Image WeaponCharge { get; set; }
@@ -61,8 +62,8 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     private void FixedUpdate()
     {
-        if (AimAtTarget)PointTurretAtTarget();
-        else RotateTurretToAngle();
+        if (AimAtTarget) PointTurretAtTarget();
+        else if(!ShouldNotRotate) RotateTurretToAngle();
     }
     public void InitWeaponStats()
     {
@@ -218,7 +219,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     {
         GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);
         cannonball.GetComponent<IProjectile>().SetBulletStatsAndTransform(_weaponStats._damage, _cannonballSpot.transform.position, transform.rotation);
-        cannonball.GetComponent<IProjectile>().HitPlayer = HitPlayer;
+        cannonball.GetComponent<IProjectile>().HitPlayer = ShouldHitPlayer;
         cannonball.SetActive(true);
         TimeElapsedBetweenLastAttack = 0;
 

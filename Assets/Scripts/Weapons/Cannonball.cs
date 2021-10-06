@@ -65,7 +65,6 @@ public class Cannonball : MonoBehaviour, IProjectile
     }
     private void DamageEnemy(IEnemy e)
     {
-        print("hit enemy");
         e.TakeDamage(Damage);
         StartCoroutine(PlayExplosion());
     }

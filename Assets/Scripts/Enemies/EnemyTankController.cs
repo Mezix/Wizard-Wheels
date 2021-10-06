@@ -84,9 +84,10 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     {
         print("tank destroyed");
 
-        //  Send event to our player to remove the target of its weapons
-        
         _dying = true;
+        TWep.StopFiringAllWeapons();
+        //  Send event to our player to remove the target of its weapons
+        Events.current.EnemyDestroyed(gameObject);
     }
     private void SlowlyDie()
     {

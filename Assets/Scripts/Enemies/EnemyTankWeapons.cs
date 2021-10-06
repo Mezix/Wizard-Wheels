@@ -15,7 +15,7 @@ public class EnemyTankWeapons : MonoBehaviour
         foreach (IWeapon wp in GetComponentsInChildren<IWeapon>())
         {
             IWeaponArray.Add(wp);
-            wp.HitPlayer = true;
+            wp.ShouldHitPlayer = true;
         }
     }
     public void CreateWeaponsUI()
@@ -33,6 +33,17 @@ public class EnemyTankWeapons : MonoBehaviour
             {
                 wep.AimAtTarget = true;
                 wep.Room = PlayerTankController.instance.TGeo.rooms.GetComponentInChildren<Room>().gameObject;
+            }
+        }
+    }
+    public void StopFiringAllWeapons()
+    {
+        if (IWeaponArray.Count > 0)
+        {
+            foreach (IWeapon wep in IWeaponArray)
+            {
+                wep.AimAtTarget = false;
+                wep.ShouldNotRotate = true;
             }
         }
     }

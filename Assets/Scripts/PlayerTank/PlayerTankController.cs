@@ -25,12 +25,14 @@ public class PlayerTankController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        InitEvents();
         TGeo = GetComponentInChildren<TankGeometry>();
         TMov = GetComponentInChildren<PlayerTankMovement>();
         TRot = GetComponentInChildren<PlayerTankRotation>();
         TWep = GetComponentInChildren<PlayerTankWeapons>();
         THealth = GetComponentInChildren<PlayerTankHealth>();
     }
+
     void Start()
     {
         TGeo.SpawnTank();
@@ -50,6 +52,23 @@ public class PlayerTankController : MonoBehaviour
             if (!_dead) SlowlyDie();
         }
     }
+    private void InitEvents()
+    {
+        Events.current.EnemyTankDestroyed += CheckEnemyIsTargetedByWeapons;
+    }
+
+    private void CheckEnemyIsTargetedByWeapons(GameObject enemy)
+    {
+        foreach(IWeapon wep in TWep.IWeaponArray)
+        {
+            if (!enemy || !wep.Room) return;
+            if (wep.Room.transform.root.gameObject.Equals(enemy))
+            {
+                wep.ResetAim();
+            }
+        }
+    }
+
     private void InitTankStats()
     {
         if (_tStats)

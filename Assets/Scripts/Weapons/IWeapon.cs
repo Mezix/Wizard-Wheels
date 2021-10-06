@@ -20,7 +20,8 @@ public interface IWeapon
     float AimRotationAngle { get; set; }
     Image WeaponCharge { get; set; }
     GameObject ProjectilePrefab { get; set; }
-     bool HitPlayer { get; set; }
+     bool ShouldHitPlayer { get; set; }
+     bool ShouldNotRotate { get; set; }
 
     void InitWeaponStats();
     void SetIndex(int i);

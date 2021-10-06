@@ -53,7 +53,7 @@ public class PlayerTankWeapons : MonoBehaviour
         foreach (IWeapon wp in GetComponentsInChildren<IWeapon>())
         {
             IWeaponArray.Add(wp);
-            wp.HitPlayer = false;
+            wp.ShouldHitPlayer = false;
         }
     }
     public void ClearWeapons()
