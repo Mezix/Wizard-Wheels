@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour
     }
     private void Awake()
     {
-        Events.current.EnemyTankDestroyed += EnemyDestroyed;
+        Events.instance.EnemyTankDestroyed += EnemyDestroyed;
     }
     private void EnemyDestroyed(GameObject enemy)
     {

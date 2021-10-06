@@ -24,7 +24,9 @@ public class PlayerTankController : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        References.PlayerTankController = instance = this;
+        References.PlayerGameObject = gameObject;
+        References.PlayerIsDead = false;
         InitEvents();
         TGeo = GetComponentInChildren<TankGeometry>();
         TMov = GetComponentInChildren<PlayerTankMovement>();
@@ -54,7 +56,7 @@ public class PlayerTankController : MonoBehaviour
     }
     private void InitEvents()
     {
-        Events.current.EnemyTankDestroyed += CheckEnemyIsTargetedByWeapons;
+        Events.instance.EnemyTankDestroyed += CheckEnemyIsTargetedByWeapons;
     }
 
     private void CheckEnemyIsTargetedByWeapons(GameObject enemy)
@@ -97,7 +99,7 @@ public class PlayerTankController : MonoBehaviour
         print("tank destroyed");
 
         //  Send event to our enemies to remove the target of their weapons
-        TWep.DeselectAllWeapons();
+        TWep.FreezeAllWeaponsInDeath();
         TMov.cruiseModeOn = false;
         _dying = true;
     }
@@ -112,6 +114,8 @@ public class PlayerTankController : MonoBehaviour
     private IEnumerator DeathAnimation()
     {
         print("Tank has died");
+        Events.instance.PlayerDestroyed();
+        References.PlayerIsDead = true;
         List<GameObject> explosions = new List<GameObject>();
         for(int i = 0; i < 7; i++)
         {

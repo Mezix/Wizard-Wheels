@@ -39,7 +39,7 @@ public class PlayerTankWeapons : MonoBehaviour
     }
     public void DeselectAllWeapons()
     {
-        foreach(IWeapon wp in IWeaponArray)
+        foreach (IWeapon wp in IWeaponArray)
         {
             if (wp != null) wp.WeaponSelected = false;
         }
@@ -70,6 +70,15 @@ public class PlayerTankWeapons : MonoBehaviour
             AllUIWeapons.Add(uw);
             if (i == 1) AllUIWeapons.Add(uw); //add a dummy first weapon ui to the list
             IWeaponArray[i].WeaponCharge = AllUIWeapons[i]._UIWeaponCharge;
+        }
+    }
+    public void FreezeAllWeaponsInDeath()
+    {
+        DeselectAllWeapons();
+        foreach (IWeapon wp in IWeaponArray)
+        {
+            if (wp != null) wp.WeaponSelected = false;
+            wp.ShouldNotRotate = true;
         }
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Events : MonoBehaviour
 {
-    public static Events current;
+    public static Events instance;
     private void Awake()
     {
-        current = this;
+        instance = this;
     }
     public event Action<GameObject> EnemyTankDestroyed;
     public event Action PlayerTankDestroyed;

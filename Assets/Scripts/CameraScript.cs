@@ -6,9 +6,19 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     public Transform vehicle;
+
+    private void Start()
+    {
+        Events.instance.PlayerTankDestroyed += StopTrackingPlayer;
+    }
+    private void StopTrackingPlayer()
+    {
+        vehicle = null;
+    }
+
     void Update()
     {
-        TrackTank();
+        if(vehicle) TrackTank();
     }
     private void TrackTank()
     {

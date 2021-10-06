@@ -47,4 +47,14 @@ public class EnemyTankWeapons : MonoBehaviour
             }
         }
     }
+    internal void ResetAllWeapons()
+    {
+        if (IWeaponArray.Count > 0)
+        {
+            foreach (IWeapon wep in IWeaponArray)
+            {
+                wep.ResetAim();
+            }
+        }
+    }
 }
