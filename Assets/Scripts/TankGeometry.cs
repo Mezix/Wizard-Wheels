@@ -6,9 +6,9 @@ using UnityEngine.Tilemaps;
 public class TankGeometry : MonoBehaviour
 {
     public TankRoomConstellation _tankRoomConstellation;
-    private GameObject tankGeometryParent;
-    private GameObject rooms;
-    private Tilemap floorTilemap;
+    public GameObject tankGeometryParent { get; private set; }
+    public GameObject rooms { get; private set; }
+    public Tilemap floorTilemap { get; private set; }
     public void SpawnTank()
     {
         CreateTankFromRoomConstellation();

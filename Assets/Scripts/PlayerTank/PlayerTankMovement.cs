@@ -111,6 +111,11 @@ public class PlayerTankMovement : MonoBehaviour
     {
 
     }
+    public void DeathDeacceleration()
+    {
+        if (velocity > 0) velocity -= deceleration * Time.timeScale;
+        else velocity = 0;
+    }
 
     //  Cruise Mode
 

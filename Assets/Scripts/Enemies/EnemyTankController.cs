@@ -13,6 +13,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     public EnemyTankHealth THealth { get; private set; }
     public EnemyTankMovement TMov { get; private set; }
     public EnemyTankRotation TRot { get; private set; }
+    public EnemyTankWeapons TWep { get; private set; }
     public TankGeometry TGeo { get; private set; }
 
     public string _tankName;
@@ -27,13 +28,16 @@ public class EnemyTankController : MonoBehaviour, IEnemy
         THealth = GetComponentInChildren<EnemyTankHealth>();
         TMov = GetComponentInChildren<EnemyTankMovement>();
         TRot = GetComponentInChildren<EnemyTankRotation>();
+        TWep = GetComponentInChildren<EnemyTankWeapons>();
         TGeo = GetComponentInChildren<TankGeometry>();
     }
     void Start()
     {
+        TGeo.SpawnTank();
+        TWep.InitWeapons();
+        TWep.CreateWeaponsUI();
         InitTankStats();
         InitWizards();
-        TGeo.SpawnTank();
     }
     private void Update()
     {
@@ -74,6 +78,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     {
         //TRot.RotateTankLeft();
         TMov.Accelerate();
+        TWep.FireAllWeapons();
     }
     public void InitiateDeathBehaviour()
     {

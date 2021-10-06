@@ -7,7 +7,7 @@ public class WeaponStats : ScriptableObject
 {
     public string _weaponName = "";
     public Sprite _weaponSprite;
-    public float _damage;
+    public int _damage;
     public float _projectileSpeed;
     public float _attacksPerSecond;
     public float _rotationSpeed;

@@ -19,11 +19,13 @@ public interface IWeapon
     bool AimAtTarget { get; set; }
     float AimRotationAngle { get; set; }
     Image WeaponCharge { get; set; }
+    GameObject ProjectilePrefab { get; set; }
+     bool HitPlayer { get; set; }
 
     void InitWeaponStats();
     void SetIndex(int i);
     void HandleWeaponSelected();
-    void Aim();
+    void AimWithMouse();
     void CancelAim();
     void ResetAim();
     void RotateTurretToAngle();

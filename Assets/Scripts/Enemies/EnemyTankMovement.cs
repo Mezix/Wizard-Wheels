@@ -22,10 +22,6 @@ public class EnemyTankMovement : MonoBehaviour
         tankCollider = GetComponent<Collider2D>();
         InitTires();
     }
-    private void Start()
-    {
-    }
-
     void Update()
     {
         SetTireAnimationSpeed();
@@ -35,7 +31,6 @@ public class EnemyTankMovement : MonoBehaviour
     {
         Move();
     }
-
     //  MOVEMENT
     private void Move()
     {

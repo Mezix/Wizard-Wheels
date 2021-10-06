@@ -12,6 +12,7 @@ public class Cannonball : MonoBehaviour, IProjectile
     private Rigidbody2D rb;
     public float ProjectileSpeed { get; set; }
     private bool exploding;
+    public bool HitPlayer { get; set; }
 
     private void Awake()
     {
@@ -46,14 +47,24 @@ public class Cannonball : MonoBehaviour, IProjectile
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.root.tag == "Enemy")
+        if (col.transform.root.tag == "Enemy" && !HitPlayer)
         {
             DamageEnemy(col.transform.root.GetComponentInChildren<IEnemy>());
+        }
+        if (col.transform.root.tag == "Player" && HitPlayer)
+        {
+            DamagePlayer();
         }
     }
     private void DamageEnemy(IEnemy e)
     {
+        print("hit enemy");
         e.TakeDamage(Damage);
+        StartCoroutine(PlayExplosion());
+    }
+    private void DamagePlayer()
+    {
+        PlayerTankController.instance.TakeDamage(Damage);
         StartCoroutine(PlayExplosion());
     }
     private IEnumerator PlayExplosion()

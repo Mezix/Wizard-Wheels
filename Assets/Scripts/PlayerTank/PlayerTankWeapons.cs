@@ -46,11 +46,14 @@ public class PlayerTankWeapons : MonoBehaviour
     public void InitWeapons()
     {
         //add a first Weapon as a dummy, so we can shoot weapons from 1-10 instead of 0-9
-        IWeaponArray.Add(GetComponentInChildren<IWeapon>()); 
+        IWeaponArray.Add(GetComponentInChildren<IWeapon>());
         //add all the weapons for real
-        foreach (IWeapon wp in GetComponentsInChildren<IWeapon>()) IWeaponArray.Add(wp);
+        foreach (IWeapon wp in GetComponentsInChildren<IWeapon>())
+        {
+            IWeaponArray.Add(wp);
+            wp.HitPlayer = false;
+        }
     }
-
     public void ClearWeapons()
     {
         IWeaponArray.Clear();

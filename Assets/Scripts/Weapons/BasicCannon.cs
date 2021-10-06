@@ -28,11 +28,12 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     //  Misc
 
-    public GameObject _cannonballPrefab;
+    public GameObject ProjectilePrefab { get; set; }
     public Transform _cannonballSpot;
     public GameObject _crosshairPrefab;
     private GameObject spawnedCrosshair;
     private LineRenderer laserLR;
+    public bool HitPlayer { get; set; }
 
     //  UI
     public Image WeaponCharge { get; set; }
@@ -45,6 +46,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     private void Start()
     {
         InitWeaponStats();
+        ProjectilePrefab = (GameObject) Resources.Load("Weapons\\cannonball");
         laserLR = _cannonballSpot.GetComponentInChildren<LineRenderer>();
         AimRotationAngle = 90;
     }
@@ -97,7 +99,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                Aim();
+                AimWithMouse();
             }
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
@@ -111,13 +113,14 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
 
     //  AIMING
-    public void Aim()
+    public void AimWithMouse()
     {
         if (spawnedCrosshair) DestroyCrosshairPrefab();
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if(hit.collider)
         {
-            if (hit.collider.transform.root.GetComponentInChildren<IEnemy>() != null && hit.collider.transform.GetComponent<Room>())
+            if (hit.collider.transform.root.GetComponentInChildren<IEnemy>() != null 
+                && hit.collider.transform.GetComponent<Room>())
             {
                 Room = hit.collider.gameObject;
                 SpawnCrosshairPrefab(Room.transform);
@@ -172,7 +175,6 @@ public class BasicCannon : MonoBehaviour, IWeapon
         float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
         float TimeForProjectileToHitDistance = distance / (_weaponStats._projectileSpeed);
 
-        print(TimeForProjectileToHitDistance);
         //Calculate the position where our target will be
         if (Room.transform.root.GetComponentInChildren<EnemyTankMovement>())
         {
@@ -214,10 +216,12 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     private void SpawnCannonball()
     {
-        GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool(_cannonballPrefab.tag);
-        cannonball.GetComponent<IProjectile>().SetBulletStatsAndTransform(5, _cannonballSpot.transform.position, transform.rotation);
+        GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);
+        cannonball.GetComponent<IProjectile>().SetBulletStatsAndTransform(_weaponStats._damage, _cannonballSpot.transform.position, transform.rotation);
+        cannonball.GetComponent<IProjectile>().HitPlayer = HitPlayer;
         cannonball.SetActive(true);
         TimeElapsedBetweenLastAttack = 0;
+
     }
 
     //  UI
@@ -251,8 +255,9 @@ public class BasicCannon : MonoBehaviour, IWeapon
         if (Room)
         {
             laserLR.gameObject.SetActive(true);
-            float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
-            laserLR.SetPosition(1, Vector3.right * distance);
+            //float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
+            laserLR.SetPosition(0, _cannonballSpot.transform.position);
+            laserLR.SetPosition(1, Room.transform.position);
         }
         else laserLR.gameObject.SetActive(false);
 

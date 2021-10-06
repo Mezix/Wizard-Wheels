@@ -19,6 +19,9 @@ public class PlayerTankController : MonoBehaviour
     public string _tankName;
     public List<TechWizard> _wizardList = new List<TechWizard>();
 
+    public bool _dying;
+    public bool _dead;
+
     private void Awake()
     {
         instance = this;
@@ -41,7 +44,7 @@ public class PlayerTankController : MonoBehaviour
 
     private void InitTankStats()
     {
-        if(_tStats)
+        if (_tStats)
         {
             THealth._maxHealth = _tStats._tankHealth;
         }
@@ -57,5 +60,33 @@ public class PlayerTankController : MonoBehaviour
         {
             _wizardList.Add(w);
         }
+    }
+    public void TakeDamage(int damage)
+    {
+        THealth.TakeDamage(damage);
+    }
+    public void InitiateDeathBehaviour()
+    {
+        print("tank destroyed");
+
+        //  Send event to our player to remove the target of its weapons
+
+        _dying = true;
+    }
+    private void SlowlyDie()
+    {
+        TMov.DeathDeacceleration();
+        if (TMov.velocity < 0.01f)
+        {
+            _dead = true;
+            StartCoroutine(DeathAnimation());
+        }
+    }
+    private IEnumerator DeathAnimation()
+    {
+        print("Tank has died");
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+        //Play Explosion
     }
 }
