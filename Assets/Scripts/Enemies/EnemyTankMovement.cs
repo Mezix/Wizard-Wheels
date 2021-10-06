@@ -9,6 +9,7 @@ public class EnemyTankMovement : MonoBehaviour
     private Collider2D tankCollider;
     public float _movespeed = 0.1f;
     public float velocity = 0f;
+    public Vector3 _movementVector;
     private float acceleration = 0.0025f;
     private float deceleration = 0.005f;
     private float maxVelocity = 3f;
@@ -38,7 +39,8 @@ public class EnemyTankMovement : MonoBehaviour
     //  MOVEMENT
     private void Move()
     {
-        transform.position += GetComponentInChildren<EnemyTankRotation>().tankRotation.up * velocity * Time.deltaTime;
+        _movementVector = GetComponentInChildren<EnemyTankRotation>().tankRotation.up;
+        transform.position += _movementVector * velocity * Time.deltaTime;
     }
     public void Accelerate()
     {

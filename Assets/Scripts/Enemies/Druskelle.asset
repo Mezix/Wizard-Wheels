@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Druskelle
   m_EditorClassIdentifier: 
   _tankName: Druskelle
-  _tankHealth: 5
+  _tankHealth: 50
   _tankMaxSpeed: 3

@@ -168,13 +168,23 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     public void PointTurretAtTarget()
     {
-        //TODO: calculate for targets movement
+        Vector3 TargetMoveVector = Vector3.zero;
+        float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
+        float TimeForProjectileToHitDistance = distance / (_weaponStats._projectileSpeed);
 
-        //  find the desired angle to face the mouse
-        float zRotToMouse = HM.Angle2D(Room.transform.position, transform.position);
+        print(TimeForProjectileToHitDistance);
+        //Calculate the position where our target will be
+        if (Room.transform.root.GetComponentInChildren<EnemyTankMovement>())
+        {
+            EnemyTankMovement mov = Room.transform.root.GetComponentInChildren<EnemyTankMovement>();
+            TargetMoveVector = mov._movementVector * mov.velocity * TimeForProjectileToHitDistance;
+        }
+
+        //  find the desired angle to face the target
+        float zRotToTarget = HM.Angle2D(Room.transform.position + TargetMoveVector, transform.position);
         //  get closer to the angle with our max rotationspeed
         float zRotActual = 0;
-        float diff = zRotToMouse - transform.rotation.eulerAngles.z;
+        float diff = zRotToTarget - transform.rotation.eulerAngles.z;
         if (diff < -180) diff += 360;
 
         if (Mathf.Abs(diff) > RotationSpeed)
@@ -183,7 +193,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         }
         else
         {
-            zRotActual = zRotToMouse;
+            zRotActual = zRotToTarget;
             Attack();
         }
 
@@ -204,7 +214,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     private void SpawnCannonball()
     {
-        GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool("cannonball");
+        GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool(_cannonballPrefab.tag);
         cannonball.GetComponent<IProjectile>().SetBulletStatsAndTransform(5, _cannonballSpot.transform.position, transform.rotation);
         cannonball.SetActive(true);
         TimeElapsedBetweenLastAttack = 0;

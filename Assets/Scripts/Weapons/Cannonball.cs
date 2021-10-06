@@ -10,7 +10,7 @@ public class Cannonball : MonoBehaviour, IProjectile
     public int Damage { get; set; }
 
     private Rigidbody2D rb;
-    public float ProjectileSpeed;
+    public float ProjectileSpeed { get; set; }
     private bool exploding;
 
     private void Awake()

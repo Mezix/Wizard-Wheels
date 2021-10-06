@@ -9,9 +9,10 @@ public class PlayerTankMovement : MonoBehaviour
     private Collider2D tankCollider;
     public float _movespeed = 0.1f;
     public float velocity = 0f;
+    public Vector3 _movementVector;
     private float acceleration = 0.0025f;
     private float deceleration = 0.005f;
-    private float maxVelocity = 3f;
+    private float maxVelocity = 5f;
     public bool cruiseModeOn;
 
     public List<Tire> Tires = new List<Tire>();
@@ -57,7 +58,9 @@ public class PlayerTankMovement : MonoBehaviour
     //  MOVEMENT
     private void Move()
     {
-        transform.position += GetComponentInChildren<PlayerTankRotation>().tankRotation.up * velocity * Time.deltaTime;
+        _movementVector = GetComponentInChildren<PlayerTankRotation>().tankRotation.up;
+        transform.position += _movementVector * velocity * Time.deltaTime;
+
         if (!cruiseModeOn) Decelerate();
     }
     private void Accelerate()

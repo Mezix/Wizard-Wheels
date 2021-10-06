@@ -72,7 +72,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     }
     public void EnemyBehaviour()
     {
-        TRot.RotateTankLeft();
+        //TRot.RotateTankLeft();
         TMov.Accelerate();
     }
     public void InitiateDeathBehaviour()
