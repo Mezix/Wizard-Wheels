@@ -102,13 +102,14 @@ public class UIScript : MonoBehaviour
             tmp.transform.SetParent(_healthBarParent.transform, false);
         }
     }
-    public void UpdateHealthBar(int currentHealth, int maxHealth)
+    public void UpdateHealthBar(int current, int maxHealth)
     {
+        current = Mathf.Max(0, current);
         for (int i = 0; i < maxHealth - 1; i++)
         {
             SetHealthUnitStatus(i, true); //set all health to full
         }
-        for (int i = maxHealth-1; i > currentHealth-1; i--)
+        for (int i = maxHealth-1; i > current-1; i--)
         {
             SetHealthUnitStatus(i, false); //now set all the destroyed health
         }

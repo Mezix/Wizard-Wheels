@@ -11,10 +11,12 @@ public class PlayerTankWeapons : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift)) multipleSelected = true;
-        else multipleSelected = false;
-
-        HandleWeaponSelection();
+        if (!PlayerTankController.instance._dying)
+        {
+            if (Input.GetKey(KeyCode.LeftShift)) multipleSelected = true;
+            else multipleSelected = false;
+            HandleWeaponSelection();
+        }
     }
 
     private void HandleWeaponSelection()
@@ -35,7 +37,7 @@ public class PlayerTankWeapons : MonoBehaviour
         if (!multipleSelected) DeselectAllWeapons();
         if (weaponIndex < IWeaponArray.Count) IWeaponArray[weaponIndex].WeaponSelected = true;
     }
-    private void DeselectAllWeapons()
+    public void DeselectAllWeapons()
     {
         foreach(IWeapon wp in IWeaponArray)
         {

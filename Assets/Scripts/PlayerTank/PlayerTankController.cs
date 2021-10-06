@@ -42,6 +42,14 @@ public class PlayerTankController : MonoBehaviour
         InitWizards();
     }
 
+    private void Update()
+    {
+        if (!_dying) ;
+        else
+        {
+            if (!_dead) SlowlyDie();
+        }
+    }
     private void InitTankStats()
     {
         if (_tStats)
@@ -69,13 +77,13 @@ public class PlayerTankController : MonoBehaviour
     {
         print("tank destroyed");
 
-        //  Send event to our player to remove the target of its weapons
-
+        //  Send event to our enemies to remove the target of their weapons
+        TWep.DeselectAllWeapons();
+        TMov.cruiseModeOn = false;
         _dying = true;
     }
     private void SlowlyDie()
     {
-        TMov.DeathDeacceleration();
         if (TMov.velocity < 0.01f)
         {
             _dead = true;
@@ -85,7 +93,16 @@ public class PlayerTankController : MonoBehaviour
     private IEnumerator DeathAnimation()
     {
         print("Tank has died");
-        yield return new WaitForSeconds(1f);
+        List<GameObject> explosions = new List<GameObject>();
+        for(int i = 0; i < 7; i++)
+        {
+            GameObject explosion = Instantiate((GameObject)Resources.Load("SingleExplosion"));
+            explosions.Add(explosion);
+            explosion.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), 0);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(0.435f);
+        foreach (GameObject expl in explosions) Destroy(expl);
         Destroy(gameObject);
         //Play Explosion
     }

@@ -13,6 +13,7 @@ public class Cannonball : MonoBehaviour, IProjectile
     public float ProjectileSpeed { get; set; }
     private bool exploding;
     public bool HitPlayer { get; set; }
+    private bool hasDoneDamage;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class Cannonball : MonoBehaviour, IProjectile
     {
         CurrentLifeTime = 0;
         exploding = false;
+        hasDoneDamage = false;
     }
     private void FixedUpdate()
     {
@@ -47,13 +49,18 @@ public class Cannonball : MonoBehaviour, IProjectile
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.root.tag == "Enemy" && !HitPlayer)
+        if(!hasDoneDamage)
         {
-            DamageEnemy(col.transform.root.GetComponentInChildren<IEnemy>());
-        }
-        if (col.transform.root.tag == "Player" && HitPlayer)
-        {
-            DamagePlayer();
+            if (col.transform.root.tag == "Enemy" && !HitPlayer)
+            {
+                DamageEnemy(col.transform.root.GetComponentInChildren<IEnemy>());
+                hasDoneDamage = true;
+            }
+            if (col.transform.root.tag == "Player" && HitPlayer)
+            {
+                DamagePlayer();
+                hasDoneDamage = true;
+            }
         }
     }
     private void DamageEnemy(IEnemy e)
@@ -70,7 +77,10 @@ public class Cannonball : MonoBehaviour, IProjectile
     private IEnumerator PlayExplosion()
     {
         exploding = true;
-        yield return new WaitForSeconds(0f);
+        GameObject explosion = Instantiate((GameObject) Resources.Load("SingleExplosion"));
+        explosion.transform.position = transform.position;
+        yield return new WaitForSeconds(0.43f);
+        Destroy(explosion);
         DespawnBullet();
     }
     public void DespawnBullet()

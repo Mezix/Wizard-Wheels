@@ -24,8 +24,12 @@ public class PlayerTankMovement : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
-        HandleMovementInput();
+        if (!PlayerTankController.instance._dying)
+        {
+            if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
+            HandleMovementInput();
+        }
+        else DeathDeacceleration();
         SetTireAnimationSpeed();
     }
     private void FixedUpdate()

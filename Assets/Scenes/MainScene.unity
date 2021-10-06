@@ -2878,6 +2878,8 @@ MonoBehaviour:
   _tStats: {fileID: 11400000, guid: 532c8ffd236391b4192ac8feef5e64eb, type: 2}
   _tankName: 
   _wizardList: []
+  _dying: 0
+  _dead: 0
 --- !u!114 &667288261
 MonoBehaviour:
   m_ObjectHideFlags: 0

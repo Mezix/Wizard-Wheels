@@ -209,8 +209,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponStats: {fileID: 11400000, guid: 76dd4a71ba13fa14d99559157cd83133, type: 2}
-  _cannonballPrefab: {fileID: 1935830913290221688, guid: 495a80c8c48a48b45a29efceb7b85ab5,
-    type: 3}
   _cannonballSpot: {fileID: 995660803235255240}
   _crosshairPrefab: {fileID: 3094488962896780022, guid: 9a0bd5fa61eda4b47b400953b212793b,
     type: 3}
@@ -582,7 +580,7 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 0
+  m_UseWorldSpace: 1
   m_Loop: 0
 --- !u!1 &5446410895585959298
 GameObject:

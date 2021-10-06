@@ -17,16 +17,19 @@ public class PlayerTankRotation : MonoBehaviour
 
     void Update()
     {
-        if (steeringWheelSelectedByMouse)
+        if(!PlayerTankController.instance._dying)
         {
-            SetPointerRotationRelativeToSteeringWheel();
+            if (steeringWheelSelectedByMouse)
+            {
+                SetPointerRotationRelativeToSteeringWheel();
+            }
+            else if (Input.GetKeyDown(KeyCode.Z)) SetPointerRotationRelativeToTank();
+            else
+            {
+                HandleRotationInput();
+            }
+            SetRotationOfSteeringWheel();
         }
-        else if (Input.GetKeyDown(KeyCode.Z)) SetPointerRotationRelativeToTank();
-        else
-        {
-            HandleRotationInput();
-        }
-        SetRotationOfSteeringWheel();
     }
     public void InitTankRotation()
     {

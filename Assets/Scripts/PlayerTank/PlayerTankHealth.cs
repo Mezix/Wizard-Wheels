@@ -23,13 +23,7 @@ public class PlayerTankHealth : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         SetCurrentHealth(_currentHealth - dmg);
-        if (_currentHealth <= 0)
-        {
-            GetComponent<EnemyTankController>().InitiateDeathBehaviour();
-        }
-        else
-        {
-            UIScript.instance.UpdateHealthBar(_currentHealth, _maxHealth);
-        }
+        if (_currentHealth <= 0) GetComponent<PlayerTankController>().InitiateDeathBehaviour();
+        UIScript.instance.UpdateHealthBar(_currentHealth, _maxHealth);
     }
 }
