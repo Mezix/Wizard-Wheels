@@ -127,6 +127,7 @@ public class MouseCursor : MonoBehaviour
 
     private void SelectUnits()
     {
+        if (References.PlayerIsDead) return;
         foreach(TechWizard wizard in PlayerTankController.instance._wizardList)
         {
             if (selectionBox.Contains(Camera.main.WorldToScreenPoint(wizard.transform.position)))

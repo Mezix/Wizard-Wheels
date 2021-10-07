@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3731720834506831}
   - component: {fileID: 7925053386078112229}
   - component: {fileID: 3880345207123730436}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 4351198555694379275}
   - component: {fileID: 1330532600233430114}
   - component: {fileID: 2213422896387068369}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: BG (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 8081895049500876676}
   - component: {fileID: 8920595969585693626}
   - component: {fileID: 7653829656600166328}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: BG (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 8296377149596260958}
   - component: {fileID: 2234975521163184778}
   - component: {fileID: 4781920992882258289}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: BG (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 8565533766186459670}
   - component: {fileID: 8565533766186459668}
   - component: {fileID: 4211499284467076459}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &8565533766186459668
 MonoBehaviour:
@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 8565533767309640456}
   - component: {fileID: 8565533767309640455}
   - component: {fileID: 8565533767309640458}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: LoadingImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

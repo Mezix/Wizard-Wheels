@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -64,7 +65,7 @@ public class UIScript : MonoBehaviour
             Debug.LogWarning("Weapon UI Prefab not assigned, wont spawn UI");
             return null;
         }
-        GameObject go = Instantiate(weaponsUIPrefab);
+        GameObject go = Instantiate((GameObject) Resources.Load("Weapons\\UI Weapon"));
         UIWeapon wp = go.GetComponent<UIWeapon>();
         wp._weaponImage.sprite = iwp.WeaponSprite;
         wp._UIWeaponName.text = iwp.WeaponName;
@@ -122,7 +123,14 @@ public class UIScript : MonoBehaviour
     }
     public void SpawnGameOverScreen()
     {
-        GameObject g = Instantiate((GameObject)Resources.Load("GameOverScreen"));
-        g.transform.parent = transform;
+        GameObject gameOver = Instantiate((GameObject) Resources.Load("GameOverScreen"));
+        gameOver.transform.position = Vector3.zero;
+        gameOver.transform.SetParent(transform, false);
+        List<Button> buttons =  gameOver.GetComponentsInChildren<Button>().ToList();
+        foreach(Button b in buttons)
+        {
+            b.onClick = new Button.ButtonClickedEvent();
+            b.onClick.AddListener(() => LevelManager.instance.GoToMainMenu());
+        }
     }
 }

@@ -90,15 +90,18 @@ public class PlayerTankController : MonoBehaviour
             _wizardList.Add(w);
         }
     }
+    private void DeselectAllWizards()
+    {
+        foreach (TechWizard wizard in _wizardList) wizard.UnitSelected = true;
+    }
     public void TakeDamage(int damage)
     {
         THealth.TakeDamage(damage);
     }
     public void InitiateDeathBehaviour()
     {
-        print("tank destroyed");
-
-        //  Send event to our enemies to remove the target of their weapons
+        References.PlayerIsDead = true;
+        DeselectAllWizards();
         TWep.FreezeAllWeaponsInDeath();
         TMov.cruiseModeOn = false;
         _dying = true;
@@ -113,9 +116,11 @@ public class PlayerTankController : MonoBehaviour
     }
     private IEnumerator DeathAnimation()
     {
-        print("Tank has died");
+        print("Player Tank Destroyed :(");
+
+        //  Send event to our enemies to remove the target of their weapons
         Events.instance.PlayerDestroyed();
-        References.PlayerIsDead = true;
+
         List<GameObject> explosions = new List<GameObject>();
         for(int i = 0; i < 7; i++)
         {
