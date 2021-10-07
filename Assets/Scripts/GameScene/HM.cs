@@ -16,6 +16,15 @@ public static class HM
     }
     public static RaycastHit2D RaycastToMouseCursor()
     {
-       return Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        return Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+    }
+    /// <summary>
+    /// Find the LayerMask by using LayerMask.GetMask("layermask name here")
+    /// </summary>
+    /// <param name="layerMask"> </param>
+    /// <returns></returns>
+    public static RaycastHit2D RaycastToMouseCursor(int layerMask)
+    {
+        return Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, layerMask);
     }
 }

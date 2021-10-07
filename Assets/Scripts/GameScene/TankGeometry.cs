@@ -26,7 +26,7 @@ public class TankGeometry : MonoBehaviour
                 {
                     int sizeX = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y].GetComponent<Room>().sizeX;
                     int sizeY = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y].GetComponent<Room>().sizeY;
-                    CreateBGRoom(x, y, sizeX, sizeY);
+                    CreateBGAtPos(x, y, sizeX, sizeY);
                 }
             }
         }
@@ -70,7 +70,7 @@ public class TankGeometry : MonoBehaviour
         //  Create Collider
         TilemapCollider2D c = walls.AddComponent<TilemapCollider2D>();
     }
-    private void CreateBGRoom(int startX, int startY, int sizeX, int sizeY)
+    private void CreateBGAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
@@ -82,6 +82,8 @@ public class TankGeometry : MonoBehaviour
     }
     private void CreateTankFromRoomConstellation()
     {
+        _tankRoomConstellation.AllObjectsInRoom = new GameObject[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
+
         rooms = new GameObject("Tank Rooms");
         rooms.transform.parent = gameObject.transform;
         rooms.transform.localPosition = Vector3.zero;
@@ -96,6 +98,7 @@ public class TankGeometry : MonoBehaviour
                     go.transform.parent = rooms.transform;
                     go.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
 
+                    _tankRoomConstellation.AllObjectsInRoom[x,y] = go;
                 }
             }
         }

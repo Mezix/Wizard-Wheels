@@ -236,9 +236,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         spawnedCrosshair.transform.localPosition = Vector3.zero + new Vector3(0,0,10);
         string tankName = "";
         if (ShouldHitPlayer)
-            //tankName = transform.root.GetComponentInChildren<EnemyTankController>()._tankName;
             tankName = transform.root.name;
-        print(tankName);
         spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponText(WeaponIndex.ToString(), tankName);
         spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairSizeAndPosition(parent.GetComponent<Room>().sizeX, parent.GetComponent<Room>().sizeY);
     }

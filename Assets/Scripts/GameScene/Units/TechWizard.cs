@@ -14,7 +14,9 @@ public class TechWizard : MonoBehaviour
     public Animator WizardAnimator { get; set; }
     public bool UnitSelected { get; set; }
     public bool UnitIsMoving { get; set; }
-    private Vector3 localPositionToMoveTo;
+    private Transform desiredTransform;
+    private Vector3 VectorToGetTo;
+    public Room desiredRoom;
 
     private void Awake()
     {
@@ -36,7 +38,7 @@ public class TechWizard : MonoBehaviour
     {
         if (UnitIsMoving)
         {
-            MoveUnit(localPositionToMoveTo);
+            MoveUnit(VectorToGetTo);
         }
     }
 
@@ -60,17 +62,34 @@ public class TechWizard : MonoBehaviour
         }
         UnitIsMoving = false;
         UnitSelected = false;
-        localPositionToMoveTo = transform.position;
+        desiredTransform = transform;
     }
 
     //  Move Unit
 
     public void DeterminePathToRoom()
     {
-        localPositionToMoveTo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        localPositionToMoveTo.z = 0; 
-        //calculate the local vector of our mouse position relative to the tank
-        localPositionToMoveTo -= PlayerTankController.instance.transform.position;
+        //  Attempt to find a room, and then a position within that room
+        RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
+        if (!hit.collider) return;
+        if (!hit.collider.transform.TryGetComponent(out Room roomToGetTo)) return;
+        if (roomToGetTo.freeRoomPositions.Count == 0) return;
+
+        //  if we were in a room before, try to free up the last location we were in from that room so someone else can go there
+        if(desiredRoom) desiredRoom.FreeUpRoom(desiredTransform);
+
+        //  reserve the spot we are going to for ourselves
+        desiredTransform = roomToGetTo.freeRoomPositions[0];
+        desiredRoom = roomToGetTo;
+        roomToGetTo.TakeUpRoom(roomToGetTo.freeRoomPositions[0]);
+
+        //calculate the local vector of our room relative to the tank
+        VectorToGetTo = desiredTransform.position - PlayerTankController.instance.transform.position;
+
+        //set the z to 0 so our sprite doesnt disappear
+        VectorToGetTo.z = 0;
+
+        //start the movement
         UnitIsMoving = true;
         UnitSelected = false;
     }
@@ -93,7 +112,6 @@ public class TechWizard : MonoBehaviour
             transform.localPosition = newPos;
             UnitIsMoving = false;
             WizardAnimator.SetFloat("Speed", 0);
-
             //if in room, set animation to interacting and set wizard to work
         }
     }

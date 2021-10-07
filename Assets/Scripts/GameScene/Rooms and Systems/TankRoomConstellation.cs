@@ -29,7 +29,6 @@ public class TankRoomConstellation : ScriptableObject
         SavedPrefabRefMatrix = new XValues(XTilesAmount, YTilesAmount);
     }
 
-
     void CheckIfRoomInitialised() //simply checks if we havent initialised our room yet, and if so, creates it with the current xyz width
     {
         if (SavedPrefabRefMatrix.XArray.Length == 0)

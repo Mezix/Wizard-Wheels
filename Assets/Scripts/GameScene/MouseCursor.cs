@@ -49,6 +49,10 @@ public class MouseCursor : MonoBehaviour
         HandleZoomIn();
         TrackMouse();
         HandleMouseAnimation();
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            DeselectAllUnits();
+        }
     }
 
     private void HandleZoomIn()
@@ -79,7 +83,6 @@ public class MouseCursor : MonoBehaviour
             endPosition = Input.mousePosition;
             DrawVisual();
             DrawSelection();
-
         }
         if (Input.GetMouseButtonUp(0))
         {
@@ -134,6 +137,14 @@ public class MouseCursor : MonoBehaviour
             {
                 wizard.UnitSelected = true;
             }
+        }
+    }
+    private void DeselectAllUnits()
+    {
+        if (References.PlayerIsDead) return;
+        foreach (TechWizard wizard in PlayerTankController.instance._wizardList)
+        {
+            wizard.UnitSelected = false;
         }
     }
 
