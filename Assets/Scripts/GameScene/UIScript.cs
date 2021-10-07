@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -118,5 +119,10 @@ public class UIScript : MonoBehaviour
     {
         if(full) _allHealthBarUnits[i].color = Color.white;
         else _allHealthBarUnits[i].color = Color.black;
+    }
+    public void SpawnGameOverScreen()
+    {
+        GameObject g = Instantiate((GameObject)Resources.Load("GameOverScreen"));
+        g.transform.parent = transform;
     }
 }
