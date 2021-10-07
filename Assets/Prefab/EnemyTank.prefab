@@ -828,6 +828,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicCannon
       objectReference: {fileID: 0}
+    - target: {fileID: 3633578093540335794, guid: 32430ef957ea24a4eae0cc1b70d80ded,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633578093540335794, guid: 32430ef957ea24a4eae0cc1b70d80ded,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633578093540335794, guid: 32430ef957ea24a4eae0cc1b70d80ded,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -2065071363
+      objectReference: {fileID: 0}
     - target: {fileID: 9180991118512004129, guid: 32430ef957ea24a4eae0cc1b70d80ded,
         type: 3}
       propertyPath: _weaponStats

@@ -68,13 +68,14 @@ public class PlayerTankWeapons : MonoBehaviour
             IWeaponArray[i].WeaponCharge = AllUIWeapons[i]._UIWeaponCharge;
         }
     }
-    public void FreezeAllWeaponsInDeath()
+    public void WeaponBehaviourInDeath()
     {
         DeselectAllWeapons();
         foreach (IWeapon wp in IWeaponArray)
         {
             if (wp != null) wp.WeaponSelected = false;
             wp.ShouldNotRotate = true;
+            wp.DestroyCrosshair();
         }
     }
 }

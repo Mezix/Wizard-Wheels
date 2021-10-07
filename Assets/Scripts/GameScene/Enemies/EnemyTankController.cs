@@ -82,7 +82,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     public void EnemyBehaviour()
     {
         TMov.Accelerate();
-        if(!References.PlayerIsDead) TWep.FireAllWeapons();
+        if(!References.PlayerIsDead) TWep.AcquireTargetsForAllWeapons();
     }
     private void StopAimingAtPlayer()
     {
@@ -92,10 +92,11 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     public void InitiateDeathBehaviour()
     {
         _dying = true;
-        TWep.FreezeWeaponsInDeath();
+        TWep.WeaponBehaviourInDeath();
 
         //  Send event to our player to remove the target of its weapons
         Events.instance.EnemyDestroyed(gameObject);
+        StartCoroutine(DeathAnimation());
         print("enemy tank being destroyed");
     }
     private void SlowlyDie()
@@ -104,14 +105,21 @@ public class EnemyTankController : MonoBehaviour, IEnemy
         if(TMov.velocity < 0.01f)
         {
             _dead = true;
-            StartCoroutine(DeathAnimation());
         }
     }
     private IEnumerator DeathAnimation()
     {
-        print("Tank has died");
-        yield return new WaitForSeconds(1f);
+
+        List<GameObject> explosions = new List<GameObject>();
+        while (!_dead)
+        {
+            GameObject explosion = Instantiate((GameObject)Resources.Load("SingleExplosion"));
+            explosions.Add(explosion);
+            explosion.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.0f, 1.0f), 0);
+            yield return new WaitForSeconds(0.05f);
+        }
+        yield return new WaitForSeconds(0.435f);
+        foreach (GameObject expl in explosions) Destroy(expl);
         Destroy(gameObject);
-        //Play Explosion
     }
 }

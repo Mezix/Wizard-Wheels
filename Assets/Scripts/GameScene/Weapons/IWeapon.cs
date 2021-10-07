@@ -32,4 +32,6 @@ public interface IWeapon
     void RotateTurretToAngle();
     void PointTurretAtTarget();
     void Attack();
+    void SpawnCrosshair(Transform t);
+    void DestroyCrosshair();
 }

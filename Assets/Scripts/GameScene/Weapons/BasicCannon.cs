@@ -31,7 +31,6 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     public GameObject ProjectilePrefab { get; set; }
     public Transform _cannonballSpot;
-    public GameObject _crosshairPrefab;
     private GameObject spawnedCrosshair;
     private LineRenderer laserLR;
     public bool ShouldHitPlayer { get; set; }
@@ -115,15 +114,15 @@ public class BasicCannon : MonoBehaviour, IWeapon
     //  AIMING
     public void AimWithMouse()
     {
-        if (spawnedCrosshair) DestroyCrosshairPrefab();
+        if (spawnedCrosshair) DestroyCrosshair();
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if(hit.collider)
         {
-            if (hit.collider.transform.root.GetComponentInChildren<IEnemy>() != null 
+            if (hit.collider.transform.root.GetComponentInChildren<IEnemy>() != null
                 && hit.collider.transform.GetComponent<Room>())
             {
                 Room = hit.collider.gameObject;
-                SpawnCrosshairPrefab(Room.transform);
+                SpawnCrosshair(Room.transform);
                 AimAtTarget = true;
             }
         }
@@ -136,13 +135,13 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     public void CancelAim()
     {
-        if (spawnedCrosshair) DestroyCrosshairPrefab();
+        if (spawnedCrosshair) DestroyCrosshair();
         AimAtTarget = false;
         Room = null;
     }
     public void ResetAim()
     {
-        if (spawnedCrosshair) DestroyCrosshairPrefab();
+        if (spawnedCrosshair) DestroyCrosshair();
         AimRotationAngle = 90;
         AimAtTarget = false;
         Room = null;
@@ -229,14 +228,21 @@ public class BasicCannon : MonoBehaviour, IWeapon
     {
         if(WeaponCharge) WeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
     }
-    private void SpawnCrosshairPrefab(Transform parent)
+    public void SpawnCrosshair(Transform parent)
     {
-        spawnedCrosshair = Instantiate(_crosshairPrefab);
+        if (spawnedCrosshair) return;
+        spawnedCrosshair = Instantiate((GameObject) Resources.Load("Crosshair"));
         spawnedCrosshair.transform.parent = parent;
         spawnedCrosshair.transform.localPosition = Vector3.zero + new Vector3(0,0,10);
-        spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponIndex(WeaponIndex.ToString());
+        string tankName = "";
+        if (ShouldHitPlayer)
+            //tankName = transform.root.GetComponentInChildren<EnemyTankController>()._tankName;
+            tankName = transform.root.name;
+        print(tankName);
+        spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponText(WeaponIndex.ToString(), tankName);
+        spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairSizeAndPosition(parent.GetComponent<Room>().sizeX, parent.GetComponent<Room>().sizeY);
     }
-    private void DestroyCrosshairPrefab()
+    public void DestroyCrosshair()
     {
          Destroy(spawnedCrosshair);
     }

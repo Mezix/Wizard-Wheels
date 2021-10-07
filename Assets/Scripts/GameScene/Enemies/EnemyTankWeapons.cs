@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyTankWeapons : MonoBehaviour
 {
     public List<IWeapon> IWeaponArray = new List<IWeapon>();
+
     private void SelectWeapon(int weaponIndex)
     {
         if (weaponIndex < IWeaponArray.Count) IWeaponArray[weaponIndex].WeaponSelected = true;
@@ -20,23 +21,34 @@ public class EnemyTankWeapons : MonoBehaviour
     }
     public void CreateWeaponsUI()
     {
-        for (int i = 1; i < IWeaponArray.Count; i++)
+        for (int i = 0; i < IWeaponArray.Count; i++)
         {
-            IWeaponArray[i].SetIndex(i);
+            IWeaponArray[i].SetIndex(i + 1);
         }
     }
-    public void FireAllWeapons()
+    public void AcquireTargetsForAllWeapons()
     {
         if(IWeaponArray.Count > 0)
         {
             foreach(IWeapon wep in IWeaponArray)
             {
+                if (wep.AimAtTarget) return; //no need to continue to search for targets if we already have one
+
+                GameObject targetRoom = FindTarget();
                 wep.AimAtTarget = true;
-                wep.Room = PlayerTankController.instance.TGeo.rooms.GetComponentInChildren<Room>().gameObject;
+                wep.Room = targetRoom;
+                wep.SpawnCrosshair(wep.Room.transform);
             }
         }
     }
-    public void FreezeWeaponsInDeath()
+
+    private GameObject FindTarget()
+    {
+        Room[] possibleTargets = PlayerTankController.instance.TGeo.rooms.GetComponentsInChildren<Room>();
+        return possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Length-1)].gameObject;
+    }
+
+    public void WeaponBehaviourInDeath()
     {
         if (IWeaponArray.Count > 0)
         {
@@ -45,6 +57,7 @@ public class EnemyTankWeapons : MonoBehaviour
                 wep.AimAtTarget = false;
                 wep.Room = null;
                 wep.ShouldNotRotate = true;
+                wep.DestroyCrosshair();
             }
         }
     }

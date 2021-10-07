@@ -103,16 +103,16 @@ public class PlayerTankController : MonoBehaviour
         Events.instance.PlayerDying();
         References.PlayerIsDead = true;
         DeselectAllWizards();
-        TWep.FreezeAllWeaponsInDeath();
+        TWep.WeaponBehaviourInDeath();
         TMov.cruiseModeOn = false;
         _dying = true;
+        StartCoroutine(DeathAnimation());
     }
     private void SlowlyDie()
     {
         if (TMov.velocity < 0.01f)
         {
             _dead = true;
-            StartCoroutine(DeathAnimation());
         }
     }
     private IEnumerator DeathAnimation()
@@ -120,12 +120,12 @@ public class PlayerTankController : MonoBehaviour
         print("Player Tank Destroyed :(");
 
         List<GameObject> explosions = new List<GameObject>();
-        for(int i = 0; i < 7; i++)
+        while(!_dead)
         {
             GameObject explosion = Instantiate((GameObject)Resources.Load("SingleExplosion"));
             explosions.Add(explosion);
-            explosion.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), 0);
-            yield return new WaitForSeconds(0.1f);
+            explosion.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.0f, 1.0f), 0);
+            yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(0.435f);
         foreach (GameObject expl in explosions) Destroy(expl);
