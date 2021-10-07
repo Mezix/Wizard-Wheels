@@ -58,7 +58,6 @@ public class BasicCannon : MonoBehaviour, IWeapon
         UpdateLaserLR();
         HandleWeaponSelected();
     }
-    
 
     private void FixedUpdate()
     {

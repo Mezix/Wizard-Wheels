@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
     {
         Instantiate((GameObject)Resources.Load("LoadingScreen"));
         Time.timeScale = 1;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         Loader.Load(Loader.Scene.MenuScene);
     }
 

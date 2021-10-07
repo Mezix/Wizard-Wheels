@@ -50,7 +50,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     }
     private void InitEvents()
     {
-        Events.instance.PlayerTankDestroyed += StopAimingAtPlayer;
+        Events.instance.PlayerIsDying += StopAimingAtPlayer;
     }
     private void InitTankStats()
     {
@@ -81,7 +81,6 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     }
     public void EnemyBehaviour()
     {
-        //TRot.RotateTankLeft();
         TMov.Accelerate();
         if(!References.PlayerIsDead) TWep.FireAllWeapons();
     }
@@ -92,12 +91,12 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     //  Death
     public void InitiateDeathBehaviour()
     {
-        print("tank destroyed");
-
         _dying = true;
-        TWep.StopFiringAllWeapons();
+        TWep.FreezeWeaponsInDeath();
+
         //  Send event to our player to remove the target of its weapons
         Events.instance.EnemyDestroyed(gameObject);
+        print("enemy tank being destroyed");
     }
     private void SlowlyDie()
     {

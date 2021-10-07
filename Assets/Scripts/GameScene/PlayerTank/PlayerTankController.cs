@@ -56,10 +56,9 @@ public class PlayerTankController : MonoBehaviour
     }
     private void InitEvents()
     {
-        Events.instance.EnemyTankDestroyed += CheckEnemyIsTargetedByWeapons;
+        Events.instance.EnemyTankDestroyed += RemoveEnemyRoomFromWeapons;
     }
-
-    private void CheckEnemyIsTargetedByWeapons(GameObject enemy)
+    private void RemoveEnemyRoomFromWeapons(GameObject enemy)
     {
         foreach(IWeapon wep in TWep.IWeaponArray)
         {
@@ -100,6 +99,8 @@ public class PlayerTankController : MonoBehaviour
     }
     public void InitiateDeathBehaviour()
     {
+        //  Send event to our enemies to remove the target of their weapons
+        Events.instance.PlayerDying();
         References.PlayerIsDead = true;
         DeselectAllWizards();
         TWep.FreezeAllWeaponsInDeath();
@@ -118,9 +119,6 @@ public class PlayerTankController : MonoBehaviour
     {
         print("Player Tank Destroyed :(");
 
-        //  Send event to our enemies to remove the target of their weapons
-        Events.instance.PlayerDestroyed();
-
         List<GameObject> explosions = new List<GameObject>();
         for(int i = 0; i < 7; i++)
         {
@@ -132,6 +130,7 @@ public class PlayerTankController : MonoBehaviour
         yield return new WaitForSeconds(0.435f);
         foreach (GameObject expl in explosions) Destroy(expl);
         Destroy(gameObject);
-        //Play Explosion
+
+        Events.instance.PlayerDestroyed();
     }
 }

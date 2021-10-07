@@ -36,13 +36,14 @@ public class EnemyTankWeapons : MonoBehaviour
             }
         }
     }
-    public void StopFiringAllWeapons()
+    public void FreezeWeaponsInDeath()
     {
         if (IWeaponArray.Count > 0)
         {
             foreach (IWeapon wep in IWeaponArray)
             {
                 wep.AimAtTarget = false;
+                wep.Room = null;
                 wep.ShouldNotRotate = true;
             }
         }

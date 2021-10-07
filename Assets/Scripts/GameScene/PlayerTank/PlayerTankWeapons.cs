@@ -21,15 +21,15 @@ public class PlayerTankWeapons : MonoBehaviour
 
     private void HandleWeaponSelection()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SelectWeapon(1);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SelectWeapon(2);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SelectWeapon(3);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) SelectWeapon(4);
-        if (Input.GetKeyDown(KeyCode.Alpha5)) SelectWeapon(5);
-        if (Input.GetKeyDown(KeyCode.Alpha6)) SelectWeapon(6);
-        if (Input.GetKeyDown(KeyCode.Alpha7)) SelectWeapon(7);
-        if (Input.GetKeyDown(KeyCode.Alpha8)) SelectWeapon(8);
-        if (Input.GetKeyDown(KeyCode.Alpha9)) SelectWeapon(9);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SelectWeapon(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SelectWeapon(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) SelectWeapon(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) SelectWeapon(3);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) SelectWeapon(4);
+        if (Input.GetKeyDown(KeyCode.Alpha6)) SelectWeapon(5);
+        if (Input.GetKeyDown(KeyCode.Alpha7)) SelectWeapon(6);
+        if (Input.GetKeyDown(KeyCode.Alpha8)) SelectWeapon(7);
+        if (Input.GetKeyDown(KeyCode.Alpha9)) SelectWeapon(8);
     }
 
     private void SelectWeapon(int weaponIndex)
@@ -47,8 +47,6 @@ public class PlayerTankWeapons : MonoBehaviour
 
     public void InitWeapons()
     {
-        //add a first Weapon as a dummy, so we can shoot weapons from 1-10 instead of 0-9
-        IWeaponArray.Add(GetComponentInChildren<IWeapon>());
         //add all the weapons for real
         foreach (IWeapon wp in GetComponentsInChildren<IWeapon>())
         {
@@ -62,13 +60,11 @@ public class PlayerTankWeapons : MonoBehaviour
     }
     public void CreateWeaponsUI()
     {
-        //create ui for real
-        for (int i = 1; i < IWeaponArray.Count; i++)
+        for (int i = 0; i < IWeaponArray.Count; i++)
         {
-            IWeaponArray[i].SetIndex(i);
+            IWeaponArray[i].SetIndex(i+1);
             UIWeapon uw = UIScript.instance.CreateWeaponUI(IWeaponArray[i]);
             AllUIWeapons.Add(uw);
-            if (i == 1) AllUIWeapons.Add(uw); //add a dummy first weapon ui to the list
             IWeaponArray[i].WeaponCharge = AllUIWeapons[i]._UIWeaponCharge;
         }
     }

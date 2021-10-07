@@ -12,6 +12,7 @@ public class Events : MonoBehaviour
     }
     public event Action<GameObject> EnemyTankDestroyed;
     public event Action PlayerTankDestroyed;
+    public event Action PlayerIsDying;
     public void EnemyDestroyed(GameObject enemyTank)
     {
         if (EnemyTankDestroyed != null)
@@ -24,6 +25,13 @@ public class Events : MonoBehaviour
         if (PlayerTankDestroyed != null)
         {
             PlayerTankDestroyed();
+        }
+    }
+    public void PlayerDying()
+    {
+        if (PlayerIsDying != null)
+        {
+            PlayerIsDying();
         }
     }
 }
