@@ -16,7 +16,9 @@ public class TechWizard : MonoBehaviour
     public bool UnitIsMoving { get; set; }
     private Transform desiredTransform;
     private Vector3 VectorToGetTo;
+    public Room currentRoom;
     public Room desiredRoom;
+    public List<Room> PathToRoom;
 
     private void Awake()
     {
@@ -25,6 +27,7 @@ public class TechWizard : MonoBehaviour
     }
     private void Start()
     {
+        PathToRoom = new List<Room>();
         InitUnit();
     }
     private void Update()
@@ -33,6 +36,7 @@ public class TechWizard : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0)) DeterminePathToRoom();
         }
+        CalculateCurrentRoom();
     }
     private void FixedUpdate()
     {
@@ -40,6 +44,11 @@ public class TechWizard : MonoBehaviour
         {
             MoveUnit(VectorToGetTo);
         }
+    }
+
+    private void CalculateCurrentRoom()
+    {
+        currentRoom = HM.RaycastOnPosition(transform.position, LayerMask.GetMask("Room")).collider.GetComponent<Room>();
     }
 
     public void InitUnit()
@@ -85,6 +94,10 @@ public class TechWizard : MonoBehaviour
 
         //calculate the local vector of our room relative to the tank
         VectorToGetTo = desiredTransform.position - PlayerTankController.instance.transform.position;
+
+        //calculate the path
+        PathToRoom = UnitPathfinding.instance.FindPath(currentRoom, desiredRoom, PlayerTankController.instance.TGeo._tankRoomConstellation);
+        print(PathToRoom.Count);
 
         //set the z to 0 so our sprite doesnt disappear
         VectorToGetTo.z = 0;

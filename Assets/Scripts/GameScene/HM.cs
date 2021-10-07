@@ -18,6 +18,10 @@ public static class HM
     {
         return Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
     }
+    public static RaycastHit2D RaycastOnPosition(Vector3 pos, int layerMask = 0)
+    {
+        return Physics2D.Raycast(pos, Vector2.zero, layerMask);
+    }
     /// <summary>
     /// Find the LayerMask by using LayerMask.GetMask("layermask name here")
     /// </summary>
