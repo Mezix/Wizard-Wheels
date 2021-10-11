@@ -9,6 +9,13 @@ public class UnitPathfinding : MonoBehaviour
     {
         instance = this;
     }
+    /// <summary>
+    /// trying to merge findpath
+    /// </summary>
+    /// <param name="startRoom"></param>
+    /// <param name="targetRoom"></param>
+    /// <param name="tank"></param>
+    /// <returns></returns>
     public List<Room> FindPath(Room startRoom, Room targetRoom, TankRoomConstellation tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
     {
         List<Room> Path = new List<Room>();
