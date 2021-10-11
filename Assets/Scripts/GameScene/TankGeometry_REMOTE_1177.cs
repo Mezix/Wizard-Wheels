@@ -82,7 +82,7 @@ public class TankGeometry : MonoBehaviour
     }
     private void CreateTankFromRoomConstellation()
     {
-        _tankRoomConstellation.AllRoomPositions = new GameObject[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
+        _tankRoomConstellation.AllObjectsInRoom = new GameObject[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
 
         rooms = new GameObject("Tank Rooms");
         rooms.transform.parent = gameObject.transform;

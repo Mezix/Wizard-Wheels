@@ -94,11 +94,28 @@ public class TankGeometry : MonoBehaviour
             {
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y])
                 {
+<<<<<<< HEAD
+                    GameObject roomObj = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y]);
+                    Room room = roomObj.GetComponent<Room>();
+                    roomObj.transform.parent = rooms.transform;
+                    roomObj.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+
+                    for (int relativeY = 0; relativeY < room.sizeY; relativeY++)
+                    {
+                        for (int relativeX = 0; relativeX < room.sizeX; relativeX++)
+                        {
+                            room.RoomPosGrid[relativeX, relativeY]._xPos = x + room.RoomPosGrid[relativeX, relativeY].xRel;
+                            room.RoomPosGrid[relativeX, relativeY]._yPos = y + room.RoomPosGrid[relativeX, relativeY].yRel;
+                            _tankRoomConstellation.AllRoomPositions[x+relativeX, y+relativeY] = room.allRoomPositions[relativeX+relativeY].gameObject;
+                        }
+                    }
+=======
                     GameObject go = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y]);
                     go.transform.parent = rooms.transform;
                     go.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
 
                     _tankRoomConstellation.AllObjectsInRoom[x,y] = go;
+>>>>>>> parent of 25861bf (added a slightly buggy version of pathfinding for wizards)
                 }
             }
         }
