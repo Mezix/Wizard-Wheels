@@ -7,28 +7,25 @@ public class Room : MonoBehaviour
     public ISystem roomSystem;
     public int sizeX;
     public int sizeY;
-    public List<Transform> allRoomPositions = new List<Transform>();
-    public List<Transform> freeRoomPositions = new List<Transform>();
-
-    //Pathfinding
-    public int _gCost; // gCost represents the Distance from our Starting Point to our current Tile.
-    public int _hCost; // hCost represents the Distance from our Target Point to our Current Tile.
-    public int FCost
-    {
-        get
-        {
-            return _gCost + _hCost;
-        }
-    }
-    public Room _parent; //important for the pathfinding process
-    public int _xPos;
-    public int _yPos;
-
+    public List<RoomPosition> allRoomPositions = new List<RoomPosition>();
+    public List<RoomPosition> freeRoomPositions = new List<RoomPosition>();
+    public RoomPosition[,] RoomPosGrid;
     private void Awake()
     {
         freeRoomPositions = allRoomPositions;
+        RoomPosGrid = new RoomPosition[sizeX, sizeY];
+
+        for (int y = 0; y < sizeY; y++)
+        {
+            for (int x = 0; x < sizeX; x++)
+            {
+                RoomPosGrid[x, y] = allRoomPositions[x + y];
+            }
+        }
+        //Bottom Right Corner room must be added manually
+        RoomPosGrid[sizeX-1, sizeY-1] = allRoomPositions[(sizeX * sizeY) - 1];
     }
-    public void TakeUpRoom(Transform t)
+    public void TakeUpRoom(RoomPosition t)
     {
         if(allRoomPositions.Contains(t))
         {
@@ -38,7 +35,7 @@ public class Room : MonoBehaviour
             }
         }
     }
-    public void FreeUpRoom(Transform t)
+    public void FreeUpRoom(RoomPosition t)
     {
         if (allRoomPositions.Contains(t))
         {

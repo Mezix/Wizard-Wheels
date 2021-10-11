@@ -18,6 +18,7 @@ public class PlayerTankController : MonoBehaviour
 
     public string _tankName;
     public List<TechWizard> _wizardList = new List<TechWizard>();
+    public GameObject Wizard;
 
     public bool _dying;
     public bool _dead;
@@ -43,7 +44,8 @@ public class PlayerTankController : MonoBehaviour
         TWep.InitWeapons();
         TWep.CreateWeaponsUI();
         InitTankStats();
-        InitWizards();
+
+        SpawnWizards();
     }
 
     private void Update()
@@ -82,12 +84,17 @@ public class PlayerTankController : MonoBehaviour
         }
         THealth.InitHealth();
     }
-    private void InitWizards()
+    private void SpawnWizards()
     {
-        foreach (TechWizard w in GetComponentsInChildren<TechWizard>())
-        {
-            _wizardList.Add(w);
-        }
+        //foreach (TechWizard w in GetComponentsInChildren<TechWizard>())
+        //{
+        //    _wizardList.Add(w);
+        //}
+        GameObject w = Instantiate(Wizard);
+        w.transform.parent = gameObject.transform;
+        _wizardList.Add(w.GetComponent<TechWizard>());
+        w.GetComponent<TechWizard>().currentRoom = TGeo._tankRoomConstellation.AllRoomPositions[1,2].transform.parent.parent.GetComponent<Room>();
+        w.transform.position = w.GetComponent<TechWizard>().currentRoom.transform.position;
     }
     private void DeselectAllWizards()
     {

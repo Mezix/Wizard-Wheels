@@ -10,7 +10,11 @@ public class TankRoomConstellation : ScriptableObject
     public int XTilesAmount; //just the amount of Tiles in a given direction
     public int YTilesAmount;
 
-    public GameObject[,] AllObjectsInRoom;
+    /// <summary>
+    /// The Grid of the tank is made up of the room positions, not the room objects themselves, because the tanks rooms can be double sized, and therefore only inhabit one of their blocks on the grid, not all of them.
+    /// If you want to get the room object, simply use the parent of the parent of this object and then try to get the Room script
+    /// </summary>
+    public GameObject[,] AllRoomPositions;
 
     public XValues SavedPrefabRefMatrix;
     public XValues TmpPrefabRefMatrix;
@@ -24,7 +28,7 @@ public class TankRoomConstellation : ScriptableObject
     }
     public void InitialiseRoom() //intialises room with a new array3
     {
-        AllObjectsInRoom = new GameObject[XTilesAmount, YTilesAmount];
+        AllRoomPositions = new GameObject[XTilesAmount, YTilesAmount];
         TmpPrefabRefMatrix = new XValues(XTilesAmount, YTilesAmount);
         SavedPrefabRefMatrix = new XValues(XTilesAmount, YTilesAmount);
     }
@@ -35,9 +39,9 @@ public class TankRoomConstellation : ScriptableObject
         {
             InitialiseRoom();
         }
-        if (!(AllObjectsInRoom is object))
+        if (!(AllRoomPositions is object))
         {
-            AllObjectsInRoom = new GameObject[XTilesAmount, YTilesAmount];
+            AllRoomPositions = new GameObject[XTilesAmount, YTilesAmount];
         }
     }
 

@@ -17,13 +17,13 @@ public class TechWizard : MonoBehaviour
 
     //  Pathfinding
 
-    private Transform desiredTransform;
-    private Vector3 VectorToGetTo;
+    private RoomPosition desiredRoomPosition;
     public Room currentRoom;
+    public RoomPosition currentRoomPosition;
     public Room desiredRoom;
-    public List<Room> PathToRoom;
+    public List<RoomPosition> PathToRoom;
     private int currentWaypoint = 0; //the index of our path.vectorPath
-    private float nextWayPointDistance = 0.1f; //the distance before we seek out our next waypoint => the higher, the smoother the movement
+    //private float nextWayPointDistance = 0.1f; //the distance before we seek out our next waypoint => the higher, the smoother the movement
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class TechWizard : MonoBehaviour
     }
     private void Start()
     {
-        PathToRoom = new List<Room>();
+        PathToRoom = new List<RoomPosition>();
         InitUnit();
     }
     private void Update()
@@ -41,7 +41,6 @@ public class TechWizard : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0)) DeterminePathToRoom();
         }
-        CalculateCurrentRoom();
     }
     private void FixedUpdate()
     {
@@ -49,11 +48,6 @@ public class TechWizard : MonoBehaviour
         {
             MoveAlongPath();
         }
-    }
-
-    private void CalculateCurrentRoom()
-    {
-        currentRoom = HM.RaycastOnPosition(transform.position, LayerMask.GetMask("Room")).collider.GetComponent<Room>();
     }
 
     public void InitUnit()
@@ -76,13 +70,14 @@ public class TechWizard : MonoBehaviour
         }
         UnitIsMoving = false;
         UnitSelected = false;
-        desiredTransform = transform;
+        //desiredTransform = transform;
     }
 
     //  Move Unit
 
     public void DeterminePathToRoom()
     {
+        currentRoomPosition = currentRoom.allRoomPositions[0];
         //  Attempt to find a room, and then a position within that room
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
         if (!hit.collider) return;
@@ -90,20 +85,24 @@ public class TechWizard : MonoBehaviour
         if (roomToGetTo.freeRoomPositions.Count == 0) return;
 
         //  if we were in a room before, try to free up the last location we were in from that room so someone else can go there
-        if(desiredRoom) desiredRoom.FreeUpRoom(desiredTransform);
+        if(desiredRoom) desiredRoom.FreeUpRoom(desiredRoomPosition);
 
         //  reserve the spot we are going to for ourselves
-        desiredTransform = roomToGetTo.freeRoomPositions[0];
+        desiredRoomPosition = roomToGetTo.freeRoomPositions[0];
         desiredRoom = roomToGetTo;
 
         roomToGetTo.TakeUpRoom(roomToGetTo.freeRoomPositions[0]);
+
         //calculate the path
-        PathToRoom = UnitPathfinding.instance.FindPath(currentRoom, desiredRoom, PlayerTankController.instance.TGeo._tankRoomConstellation);
+        PathToRoom = UnitPathfinding.instance.FindPath(currentRoomPosition, desiredRoomPosition, PlayerTankController.instance.TGeo._tankRoomConstellation);
+        currentRoomPosition = desiredRoomPosition;
+        currentWaypoint = 0;
 
         //start the movement
         UnitIsMoving = true;
         UnitSelected = false;
     }
+
     private void MoveAlongPath()
     {
         if (PathToRoom.Count == 0) //stop the method if we dont even have a path
@@ -111,15 +110,15 @@ public class TechWizard : MonoBehaviour
             UnitIsMoving = false;
             return;
         }
-        Room roomToMoveTo = PathToRoom[currentWaypoint];
+        RoomPosition roomPosToMoveTo = PathToRoom[currentWaypoint];
 
         //calculate the local vector of our room relative to the tank
-        VectorToGetTo = roomToMoveTo.transform.position - PlayerTankController.instance.transform.position;
+        Vector3 VectorToGetTo = roomPosToMoveTo.transform.position - PlayerTankController.instance.transform.position;
         //set the z to 0 so our sprite doesnt disappear in the ground
         VectorToGetTo.z = 0;
         float distance = Vector2.Distance(transform.localPosition, VectorToGetTo);
 
-        if ((distance < nextWayPointDistance) && !(currentWaypoint == PathToRoom.Count - 1))
+        if ((distance <= (UnitSpeed * Time.deltaTime)) && !(currentWaypoint == PathToRoom.Count - 1))
         {
             currentWaypoint++;
         }
@@ -133,23 +132,25 @@ public class TechWizard : MonoBehaviour
                 WizardAnimator.SetFloat("Speed", 0);
             }
         }
-        MoveUnitToRoom(roomToMoveTo);
+        MoveUnitToVector(VectorToGetTo);
     }
 
-    private void MoveUnitToRoom(Room nextRoom)
+    private void MoveUnitToVector(Vector3 vec)
     {
         //calculate local vector between wizard and the next position
-        Vector3 moveVector = Vector3.Normalize(VectorToGetTo - transform.localPosition);
+        Vector3 moveVector = Vector3.Normalize(vec - transform.localPosition);
 
         // set Animator Values
         WizardAnimator.SetFloat("Speed", moveVector.sqrMagnitude);
         WizardAnimator.SetFloat("Horizontal", moveVector.x);
         WizardAnimator.SetFloat("Vertical", moveVector.y);
 
-        float distance = Vector2.Distance(transform.position, VectorToGetTo);
-
+        float distance = Vector2.Distance(transform.position, vec);
+        if (Vector3.Distance(transform.localPosition, vec) <= (UnitSpeed * Time.deltaTime))
+        {
+            transform.localPosition = vec;
+        }
         //move by this vector
         transform.localPosition += moveVector * UnitSpeed * Time.deltaTime;
-        
     }
 }

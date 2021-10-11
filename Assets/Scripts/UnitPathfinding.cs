@@ -9,48 +9,48 @@ public class UnitPathfinding : MonoBehaviour
     {
         instance = this;
     }
-    public List<Room> FindPath(Room startRoom, Room targetRoom, TankRoomConstellation tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
+    //  Change FindPath to use wizards position instead of
+    public List<RoomPosition> FindPath(RoomPosition startRoom, RoomPosition targetRoom, TankRoomConstellation tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
     {
-        List<Room> Path = new List<Room>();
+        List<RoomPosition> Path = new List<RoomPosition>();
 
-        List<Room> OpenSet = new List<Room>(); //The List of all Tiles, we could check in the Future
-        HashSet<Room> ClosedSet = new HashSet<Room>(); // The Set of all Tiles we already Checked.
+        List<RoomPosition> OpenSet = new List<RoomPosition>(); //The List of all Tiles, we could check in the Future
+        HashSet<RoomPosition> ClosedSet = new HashSet<RoomPosition>(); // The Set of all Tiles we already Checked.
 
         OpenSet.Add(startRoom);
 
         while (OpenSet.Count > 0) //This Loop is running, as long as there are still Tiles we could Check.
         {
-            Room currentTile = OpenSet[0];
-            for (int i = 1; i < OpenSet.Count; i++) //Determines the best Tile for our Path, from all the Neighbors of our Tiles we already checked.
+            RoomPosition currentRoomPosition = OpenSet[0];
+            for (int i = 1; i < OpenSet.Count; i++) //Determines the best RoomPos for our Path, from all the Neighbors of our RoomPos we already checked.
             {
-                if (OpenSet[i].FCost < currentTile.FCost || OpenSet[i].FCost == currentTile.FCost && OpenSet[i]._hCost < currentTile._hCost)
+                if (OpenSet[i].FCost < currentRoomPosition.FCost || OpenSet[i].FCost == currentRoomPosition.FCost && OpenSet[i]._hCost < currentRoomPosition._hCost)
                 {
-                    currentTile = OpenSet[i];
+                    currentRoomPosition = OpenSet[i];
                 }
             }
 
-            OpenSet.Remove(currentTile);
-            ClosedSet.Add(currentTile);
+            OpenSet.Remove(currentRoomPosition);
+            ClosedSet.Add(currentRoomPosition);
 
-            if (currentTile == targetRoom) //Breaks the Loop if we found our Target.
+            if (currentRoomPosition == targetRoom) //Breaks the Loop if we found our Target.
             {
                 Path = RetracePath(startRoom, targetRoom);
                 break;
             }
 
-            foreach (Room neighbour in GetNeighbours(currentTile, tank)) //Adds new Tiles to our Openset List, based on the Neighbors of our already checked Tiles.
+            foreach (RoomPosition neighbour in GetNeighbouringRoomPositions(currentRoomPosition, tank)) //Adds new Tiles to our Openset List, based on the Neighbors of our already checked Tiles.
             {
                 if (ClosedSet.Contains(neighbour))
                 {
                     continue;
                 }
-
-                int newMovementCostToNeighbour = currentTile._gCost + GetDistance(currentTile, neighbour);
+                int newMovementCostToNeighbour = currentRoomPosition._gCost + GetDistance(currentRoomPosition, neighbour);
                 if (newMovementCostToNeighbour < neighbour._gCost || !OpenSet.Contains(neighbour)) //Determines the Costs of the Tiles we add to our Openset List.
                 {
                     neighbour._gCost = newMovementCostToNeighbour;
                     neighbour._hCost = GetDistance(neighbour, targetRoom);
-                    neighbour._parent = currentTile;
+                    neighbour._parent = currentRoomPosition;
 
                     if (!OpenSet.Contains(neighbour))
                     {
@@ -61,10 +61,10 @@ public class UnitPathfinding : MonoBehaviour
         }
         return Path;
     }
-    List<Room> RetracePath(Room startRoom, Room targetRoom) //Highlights the Path between two Tiles, and adds all Tiles of that Path to a List.
+    List<RoomPosition> RetracePath(RoomPosition startRoom, RoomPosition targetRoom) //Highlights the Path between two Tiles, and adds all Tiles of that Path to a List.
     {
-        List<Room> path = new List<Room>();
-        Room currentRoom = targetRoom;
+        List<RoomPosition> path = new List<RoomPosition>();
+        RoomPosition currentRoom = targetRoom;
 
         while (currentRoom != startRoom)
         {
@@ -75,10 +75,10 @@ public class UnitPathfinding : MonoBehaviour
         path.Reverse();
         return path;
     }
-    List<Room> ReturnPath(Room startRoom, Room targetRoom) //same as retrace path except it returns it instead of overwriting the one in the grid
+    List<RoomPosition> ReturnPath(RoomPosition startRoom, RoomPosition targetRoom) //same as retrace path except it returns it instead of overwriting the one in the grid
     {
-        List<Room> path = new List<Room>();
-        Room currentTile = targetRoom;
+        List<RoomPosition> path = new List<RoomPosition>();
+        RoomPosition currentTile = targetRoom;
 
         while (currentTile != startRoom)
         {
@@ -89,7 +89,7 @@ public class UnitPathfinding : MonoBehaviour
         path.Reverse();
         return path;
     }
-    public int GetDistance(Room roomA, Room roomB) //Returns the Distance between two Tiles.
+    public int GetDistance(RoomPosition roomA, RoomPosition roomB) //Returns the Distance between two Tiles.
     {
         int dstx = Mathf.FloorToInt(Mathf.Abs(roomA._xPos - roomB._xPos));
         int dsty = Mathf.FloorToInt(Mathf.Abs(roomA._yPos - roomB._yPos));
@@ -100,9 +100,9 @@ public class UnitPathfinding : MonoBehaviour
         }
         return 20 * dstx + 10 * (dsty - dstx);
     }
-    public List<Room> GetNeighbours(Room roomToCheck, TankRoomConstellation tank)
+    public List<RoomPosition> GetNeighbouringRoomPositions(RoomPosition roomToCheck, TankRoomConstellation tank)
     {
-        List<Room> neighbours = new List<Room>();
+        List<RoomPosition> neighbours = new List<RoomPosition>();
 
         //  Neighbours in X Direction
         for (int x = -1; x <= 1; x++)
@@ -112,9 +112,9 @@ public class UnitPathfinding : MonoBehaviour
                 int checkX = roomToCheck._xPos + x;
                 if (checkX >= 0 && checkX < tank.XTilesAmount)
                 {
-                    if (tank.AllObjectsInRoom[checkX, roomToCheck._yPos])
+                    if (tank.AllRoomPositions[checkX, roomToCheck._yPos])
                     {
-                        neighbours.Add(tank.AllObjectsInRoom[checkX, roomToCheck._yPos].GetComponent<Room>());
+                        neighbours.Add(tank.AllRoomPositions[checkX, roomToCheck._yPos].GetComponent<RoomPosition>());
                     }
                 }
             }
@@ -128,9 +128,9 @@ public class UnitPathfinding : MonoBehaviour
                 int checkY = roomToCheck._yPos + y;
                 if (checkY >= 0 && checkY < tank.YTilesAmount)
                 {
-                    if (tank.AllObjectsInRoom[roomToCheck._xPos, checkY])
+                    if (tank.AllRoomPositions[roomToCheck._xPos, checkY])
                     {
-                        neighbours.Add(tank.AllObjectsInRoom[roomToCheck._xPos, checkY].GetComponent<Room>());
+                        neighbours.Add(tank.AllRoomPositions[roomToCheck._xPos, checkY].GetComponent<RoomPosition>());
                     }
                 }
             }

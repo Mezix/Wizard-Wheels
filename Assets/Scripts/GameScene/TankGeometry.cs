@@ -82,7 +82,7 @@ public class TankGeometry : MonoBehaviour
     }
     private void CreateTankFromRoomConstellation()
     {
-        _tankRoomConstellation.AllObjectsInRoom = new GameObject[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
+        _tankRoomConstellation.AllRoomPositions = new GameObject[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
 
         rooms = new GameObject("Tank Rooms");
         rooms.transform.parent = gameObject.transform;
@@ -94,12 +94,20 @@ public class TankGeometry : MonoBehaviour
             {
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y])
                 {
-                    GameObject go = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y]);
-                    go.transform.parent = rooms.transform;
-                    go.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-                    go.GetComponent<Room>()._xPos = x;
-                    go.GetComponent<Room>()._yPos = y;
-                    _tankRoomConstellation.AllObjectsInRoom[x, y] = go;
+                    GameObject roomObj = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y]);
+                    Room room = roomObj.GetComponent<Room>();
+                    roomObj.transform.parent = rooms.transform;
+                    roomObj.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+
+                    for (int relativeY = 0; relativeY < room.sizeY; relativeY++)
+                    {
+                        for (int relativeX = 0; relativeX < room.sizeX; relativeX++)
+                        {
+                            room.RoomPosGrid[relativeX, relativeY]._xPos = x + room.RoomPosGrid[relativeX, relativeY].xRel;
+                            room.RoomPosGrid[relativeX, relativeY]._yPos = y + room.RoomPosGrid[relativeX, relativeY].yRel;
+                            _tankRoomConstellation.AllRoomPositions[x+relativeX, y+relativeY] = room.allRoomPositions[relativeX+relativeY].gameObject;
+                        }
+                    }
                 }
             }
         }

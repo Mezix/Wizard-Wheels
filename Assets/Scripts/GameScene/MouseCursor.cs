@@ -35,7 +35,7 @@ public class MouseCursor : MonoBehaviour
 
         zoomAmount = 10;
         minZoom = 30;
-        maxZoom = 200;
+        maxZoom = 350;
         selectionBox = new Rect();
         DrawVisual();
         SetZoom(maxZoom);

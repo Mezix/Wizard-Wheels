@@ -2816,6 +2816,7 @@ MonoBehaviour:
   _tStats: {fileID: 11400000, guid: 532c8ffd236391b4192ac8feef5e64eb, type: 2}
   _tankName: 
   _wizardList: []
+  Wizard: {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
   _dying: 0
   _dead: 0
 --- !u!114 &667288261
@@ -6780,12 +6781,12 @@ PrefabInstance:
     - target: {fileID: 4608201922242700204, guid: b1a43ac307d3cd24ab255c84a1f82439,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.24
+      value: -0.91
       objectReference: {fileID: 0}
     - target: {fileID: 4608201922242700204, guid: b1a43ac307d3cd24ab255c84a1f82439,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.303
+      value: -0.46
       objectReference: {fileID: 0}
     - target: {fileID: 4608201922242700204, guid: b1a43ac307d3cd24ab255c84a1f82439,
         type: 3}
@@ -6831,6 +6832,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WizardTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
