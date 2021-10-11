@@ -9,15 +9,19 @@ public class UnitPathfinding : MonoBehaviour
     {
         instance = this;
     }
+<<<<<<< HEAD
     //  Change FindPath to use wizards position instead of
     public List<RoomPosition> FindPath(RoomPosition startRoom, RoomPosition targetRoom, TankRoomConstellation tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
+=======
+    public List<Room> FindPath(Room startPos, Room targetPos, TankRoomConstellation tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
+>>>>>>> parent of 25861bf (added a slightly buggy version of pathfinding for wizards)
     {
         List<RoomPosition> Path = new List<RoomPosition>();
 
         List<RoomPosition> OpenSet = new List<RoomPosition>(); //The List of all Tiles, we could check in the Future
         HashSet<RoomPosition> ClosedSet = new HashSet<RoomPosition>(); // The Set of all Tiles we already Checked.
 
-        OpenSet.Add(startRoom);
+        OpenSet.Add(startPos);
 
         while (OpenSet.Count > 0) //This Loop is running, as long as there are still Tiles we could Check.
         {
@@ -33,9 +37,13 @@ public class UnitPathfinding : MonoBehaviour
             OpenSet.Remove(currentRoomPosition);
             ClosedSet.Add(currentRoomPosition);
 
+<<<<<<< HEAD
             if (currentRoomPosition == targetRoom) //Breaks the Loop if we found our Target.
+=======
+            if (currentTile == targetPos) //Breaks the Loop if we found our Target.
+>>>>>>> parent of 25861bf (added a slightly buggy version of pathfinding for wizards)
             {
-                Path = RetracePath(startRoom, targetRoom);
+                Path = RetracePath(startPos, targetPos);
                 break;
             }
 
@@ -49,8 +57,13 @@ public class UnitPathfinding : MonoBehaviour
                 if (newMovementCostToNeighbour < neighbour._gCost || !OpenSet.Contains(neighbour)) //Determines the Costs of the Tiles we add to our Openset List.
                 {
                     neighbour._gCost = newMovementCostToNeighbour;
+<<<<<<< HEAD
                     neighbour._hCost = GetDistance(neighbour, targetRoom);
                     neighbour._parent = currentRoomPosition;
+=======
+                    neighbour._hCost = GetDistance(neighbour, targetPos);
+                    neighbour._parent = currentTile;
+>>>>>>> parent of 25861bf (added a slightly buggy version of pathfinding for wizards)
 
                     if (!OpenSet.Contains(neighbour))
                     {
@@ -89,10 +102,14 @@ public class UnitPathfinding : MonoBehaviour
         path.Reverse();
         return path;
     }
+<<<<<<< HEAD
     public int GetDistance(RoomPosition roomA, RoomPosition roomB) //Returns the Distance between two Tiles.
+=======
+    public int GetDistance(Room tileA, Room tileB) //Returns the Distance between two Tiles.
+>>>>>>> parent of 25861bf (added a slightly buggy version of pathfinding for wizards)
     {
-        int dstx = Mathf.FloorToInt(Mathf.Abs(roomA._xPos - roomB._xPos));
-        int dsty = Mathf.FloorToInt(Mathf.Abs(roomA._yPos - roomB._yPos));
+        int dstx = Mathf.FloorToInt(Mathf.Abs(tileA._xPos - tileB._xPos));
+        int dsty = Mathf.FloorToInt(Mathf.Abs(tileA._yPos - tileB._yPos));
 
         if (dstx > dsty)
         {
@@ -100,38 +117,52 @@ public class UnitPathfinding : MonoBehaviour
         }
         return 20 * dstx + 10 * (dsty - dstx);
     }
+<<<<<<< HEAD
     public List<RoomPosition> GetNeighbouringRoomPositions(RoomPosition roomToCheck, TankRoomConstellation tank)
+=======
+    public List<Room> GetNeighbours(Room room, TankRoomConstellation tank)
+>>>>>>> parent of 25861bf (added a slightly buggy version of pathfinding for wizards)
     {
         List<RoomPosition> neighbours = new List<RoomPosition>();
 
-        //  Neighbours in X Direction
+        //TODO: ecken aus nachbargruppe ausschließen, damit wir nicht schräg laufen können
+
         for (int x = -1; x <= 1; x++)
         {
             if (x != 0)
             {
-                int checkX = roomToCheck._xPos + x;
+                int checkX = room._xPos + x;
                 if (checkX >= 0 && checkX < tank.XTilesAmount)
                 {
+<<<<<<< HEAD
                     if (tank.AllRoomPositions[checkX, roomToCheck._yPos])
                     {
                         neighbours.Add(tank.AllRoomPositions[checkX, roomToCheck._yPos].GetComponent<RoomPosition>());
                     }
+=======
+                    if (!tank.AllObjectsInRoom[checkX, room._yPos]) continue;
+                    neighbours.Add(tank.AllObjectsInRoom[checkX, room._yPos].GetComponent<Room>());
+>>>>>>> parent of 25861bf (added a slightly buggy version of pathfinding for wizards)
                 }
             }
         }
 
-        //  Neighbours in Y Direction
         for (int y = -1; y <= 1; y++)
         {
             if (y != 0)
             {
-                int checkY = roomToCheck._yPos + y;
+                int checkY = room._yPos + y;
                 if (checkY >= 0 && checkY < tank.YTilesAmount)
                 {
+<<<<<<< HEAD
                     if (tank.AllRoomPositions[roomToCheck._xPos, checkY])
                     {
                         neighbours.Add(tank.AllRoomPositions[roomToCheck._xPos, checkY].GetComponent<RoomPosition>());
                     }
+=======
+                    if (!tank.AllObjectsInRoom[room._xPos, checkY]) continue;
+                    neighbours.Add(tank.AllObjectsInRoom[room._xPos, checkY].GetComponent<Room>());
+>>>>>>> parent of 25861bf (added a slightly buggy version of pathfinding for wizards)
                 }
             }
         }
