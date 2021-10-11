@@ -8,13 +8,9 @@ public class UnitPathfinding : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }aa
-<<<<<<< HEAD
+    }
     //  Change FindPath to use wizards position instead of
     public List<RoomPosition> FindPath(RoomPosition startRoom, RoomPosition targetRoom, TankRoomConstellation tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
-=======
-    public List<Room> FindPath(Room startPos, Room targetPos, TankRoomConstellation tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
->>>>>>> parent of 25861bf (added a slightly buggy version of pathfinding for wizards)
     {
         List<RoomPosition> Path = new List<RoomPosition>();
 
