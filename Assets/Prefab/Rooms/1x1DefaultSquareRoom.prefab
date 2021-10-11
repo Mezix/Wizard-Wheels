@@ -82,8 +82,13 @@ MonoBehaviour:
   sizeX: 1
   sizeY: 1
   allRoomPositions:
-  - {fileID: 4012992636076380412}
+  - {fileID: 1339277601010494744}
   freeRoomPositions: []
+  _gCost: 0
+  _hCost: 0
+  _parent: {fileID: 0}
+  _xPos: 0
+  _yPos: 0
 --- !u!61 &8122812961001258632
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -200,7 +205,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1339277601010494744}
-  - component: {fileID: 4012992636076380412}
   m_Layer: 8
   m_Name: RoomPositions (1)
   m_TagString: Untagged
@@ -222,23 +226,6 @@ Transform:
   m_Father: {fileID: 7673486170480524048}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4012992636076380412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6427030953066264008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f547fea8a2baeaf409b319fa9b46e5ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gCost: 0
-  _hCost: 0
-  _parent: {fileID: 0}
-  _xPos: 0
-  _yPos: 0
 --- !u!1 &7337234927731220838
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,6 @@ public class PlayerTankController : MonoBehaviour
 
     public string _tankName;
     public List<TechWizard> _wizardList = new List<TechWizard>();
-    public GameObject Wizard;
 
     public bool _dying;
     public bool _dead;
@@ -44,8 +43,7 @@ public class PlayerTankController : MonoBehaviour
         TWep.InitWeapons();
         TWep.CreateWeaponsUI();
         InitTankStats();
-
-        SpawnWizards();
+        InitWizards();
     }
 
     private void Update()
@@ -62,7 +60,7 @@ public class PlayerTankController : MonoBehaviour
     }
     private void RemoveEnemyRoomFromWeapons(GameObject enemy)
     {
-        foreach(IWeapon wep in TWep.IWeaponArray)
+        foreach (IWeapon wep in TWep.IWeaponArray)
         {
             if (!enemy || !wep.Room) return;
             if (wep.Room.transform.root.gameObject.Equals(enemy))
@@ -84,17 +82,12 @@ public class PlayerTankController : MonoBehaviour
         }
         THealth.InitHealth();
     }
-    private void SpawnWizards()
+    private void InitWizards()
     {
-        //foreach (TechWizard w in GetComponentsInChildren<TechWizard>())
-        //{
-        //    _wizardList.Add(w);
-        //}
-        GameObject w = Instantiate(Wizard);
-        w.transform.parent = gameObject.transform;
-        _wizardList.Add(w.GetComponent<TechWizard>());
-        w.GetComponent<TechWizard>().currentRoom = TGeo._tankRoomConstellation.AllRoomPositions[1,2].transform.parent.parent.GetComponent<Room>();
-        w.transform.position = w.GetComponent<TechWizard>().currentRoom.transform.position;
+        foreach (TechWizard w in GetComponentsInChildren<TechWizard>())
+        {
+            _wizardList.Add(w);
+        }
     }
     private void DeselectAllWizards()
     {
@@ -127,7 +120,7 @@ public class PlayerTankController : MonoBehaviour
         print("Player Tank Destroyed :(");
 
         List<GameObject> explosions = new List<GameObject>();
-        while(!_dead)
+        while (!_dead)
         {
             GameObject explosion = Instantiate((GameObject)Resources.Load("SingleExplosion"));
             explosions.Add(explosion);
