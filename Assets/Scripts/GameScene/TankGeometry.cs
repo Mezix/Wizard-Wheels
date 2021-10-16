@@ -7,7 +7,8 @@ public class TankGeometry : MonoBehaviour
 {
     public TankRoomConstellation _tankRoomConstellation;
     public GameObject TankGeometryParent { get; private set; }
-    public GameObject Rooms { get; private set; }
+    public GameObject RoomsParent { get; private set; }
+    public List<Room> AllRooms { get; private set; }
     public Tilemap FloorTilemap { get; private set; }
     public void SpawnTank()
     {
@@ -83,10 +84,11 @@ public class TankGeometry : MonoBehaviour
     private void CreateTankFromRoomConstellation()
     {
         _tankRoomConstellation.AllObjectsInRoom = new GameObject[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
+        AllRooms = new List<Room>();
 
-        Rooms = new GameObject("Tank Rooms");
-        Rooms.transform.parent = gameObject.transform;
-        Rooms.transform.localPosition = Vector3.zero;
+        RoomsParent = new GameObject("All Tank Rooms");
+        RoomsParent.transform.parent = gameObject.transform;
+        RoomsParent.transform.localPosition = Vector3.zero;
 
         for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
         {
@@ -94,12 +96,14 @@ public class TankGeometry : MonoBehaviour
             {
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y])
                 {
-                    GameObject go = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y]);
-                    go.transform.parent = Rooms.transform;
-                    go.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-                    go.GetComponent<Room>()._xPos = x;
-                    go.GetComponent<Room>()._yPos = y;
-                    _tankRoomConstellation.AllObjectsInRoom[x, y] = go;
+                    GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y]);
+                    Room r = rGO.GetComponent<Room>();
+                    rGO.transform.parent = RoomsParent.transform;
+                    rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+                    r._xPos = x;
+                    r._yPos = y;
+                    AllRooms.Add(r);
+                    _tankRoomConstellation.AllObjectsInRoom[x, y] = rGO;
                 }
             }
         }
@@ -112,12 +116,16 @@ public class TankGeometry : MonoBehaviour
         TankGeometryParent.transform.localPosition = Vector3.zero;
 
         // parent all spawnedObjects to this parent
-        Rooms.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
+        RoomsParent.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
 
         //  Rooms have their transform origin point at the center of their rooms, so add a rooms x length, and subtract a rooms y length
         TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
 
         //  Now move to the halfway point
         TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation.XTilesAmount, 0.25f * _tankRoomConstellation.YTilesAmount, 0);
+    }
+    public Room FindRandomFreeRoom()
+    {
+        return AllRooms[Random.Range(0, AllRooms.Count-1)];
     }
 }

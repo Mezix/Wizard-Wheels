@@ -91,6 +91,7 @@ public class PlayerTankController : MonoBehaviour
         {
             GameObject g = Instantiate(w.gameObject);
             g.transform.parent = transform;
+            g.transform.position = TGeo.FindRandomFreeRoom().transform.position;
             _spawnedWizards.Add(g.GetComponentInChildren<TechWizard>());
         }
     }
