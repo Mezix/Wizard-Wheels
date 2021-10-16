@@ -31,4 +31,17 @@ public static class HM
     {
         return Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, layerMask);
     }
+    /// <summary>
+    /// DeepCopy of a list
+    /// </summary>
+    /// <param name="ListToPullFrom"></param>
+    /// <param name="ListToCopyInto"></param>
+    public static void CopyListOfTransforms(List<Transform> ListToPullFrom, List<Transform> ListToCopyInto)
+    {
+        ListToCopyInto.Clear();
+        foreach (Transform element in ListToPullFrom)
+        {
+            ListToCopyInto.Add(element);
+        }
+    }
 }

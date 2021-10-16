@@ -26,11 +26,7 @@ public class Room : MonoBehaviour
 
     private void Awake()
     {
-        freeRoomPositions = new List<Transform>();
-        foreach(Transform t in allRoomPositions)
-        {
-            freeRoomPositions.Add(t);
-        }
+        HM.CopyListOfTransforms(allRoomPositions, freeRoomPositions);
     }
     public void OccupyRoomPos(Transform t)
     {
