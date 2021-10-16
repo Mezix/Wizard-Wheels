@@ -83,7 +83,7 @@ public class TankGeometry : MonoBehaviour
     }
     private void CreateTankFromRoomConstellation()
     {
-        _tankRoomConstellation.AllRoomPositions = new RoomPosition[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
+        _tankRoomConstellation.RoomPosMatrix = new RoomPosition[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
         AllRooms = new List<Room>();
 
         RoomsParent = new GameObject("All Tank Rooms");
@@ -102,17 +102,19 @@ public class TankGeometry : MonoBehaviour
                     rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
                     AllRooms.Add(r);
 
-                    //handle rooms that are larger than 1x1
-                    for (int roomX = 0; roomX < r.sizeX; roomX++)
+                    // Set the Room Positions
+                    for (int roomY = 0; roomY < r.sizeY; roomY++)
                     {
-                        for (int roomY = 0; roomY < r.sizeY; roomY++)
+                        for (int roomX = 0; roomX < r.sizeX; roomX++)
                         {
-                            _tankRoomConstellation.AllRoomPositions[x+roomX, y+roomY] = r.allRoomPositions[roomX+roomY];
-                            r.allRoomPositions[roomX + roomY]._xPos = x;
-                            r.allRoomPositions[roomX + roomY]._yPos = y;
+                            _tankRoomConstellation.RoomPosMatrix[x+roomX, y+roomY] = r.allRoomPositions[roomX+roomY];
+                            r.allRoomPositions[roomX + roomY]._xPos = x + roomX;
+                            r.allRoomPositions[roomX + roomY]._yPos = y + roomY;
                         }
                     }
-                    _tankRoomConstellation.AllRoomPositions[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX - 1 + r.sizeY - 1];
+                    _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY-1];
+                    _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
+                    _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
                 }
             }
         }

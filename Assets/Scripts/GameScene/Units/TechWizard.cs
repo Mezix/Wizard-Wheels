@@ -93,6 +93,7 @@ public class TechWizard : MonoBehaviour
         {
             print("Diverting path!");
             currentRoom = PathToRoom[currentWaypoint].ParentRoom;
+            currentRoomPos = currentRoom.allRoomPositions[0];
             desiredRoom.FreeUpRoomPos(desiredRoomPos);
         }
 
