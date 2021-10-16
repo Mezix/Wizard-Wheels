@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
 
     private void GameOver()
     {
-        UIScript.instance.SpawnGameOverScreen();
+        References.UI.SpawnGameOverScreen();
     }
 
     public void GoToMainMenu()

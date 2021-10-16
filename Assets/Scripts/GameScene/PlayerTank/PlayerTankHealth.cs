@@ -14,7 +14,7 @@ public class PlayerTankHealth : MonoBehaviour
     public void InitHealth()
     {
         SetCurrentHealth(_maxHealth);
-        UIScript.instance.CreateHealthbar(_maxHealth);
+        References.UI.CreateHealthbar(_maxHealth);
     }
     public void SetCurrentHealth(int health)
     {
@@ -24,6 +24,6 @@ public class PlayerTankHealth : MonoBehaviour
     {
         SetCurrentHealth(_currentHealth - dmg);
         if (_currentHealth <= 0) GetComponent<PlayerTankController>().InitiateDeathBehaviour();
-        UIScript.instance.UpdateHealthBar(_currentHealth, _maxHealth);
+        References.UI.UpdateHealthBar(_currentHealth, _maxHealth);
     }
 }

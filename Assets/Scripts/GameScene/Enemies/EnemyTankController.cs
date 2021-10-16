@@ -23,6 +23,8 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     public bool _dying;
     public bool _dead;
 
+    public Button TrackCameraButton;
+
     private void Awake()
     {
         THealth = GetComponentInChildren<EnemyTankHealth>();
@@ -39,7 +41,16 @@ public class EnemyTankController : MonoBehaviour, IEnemy
         TWep.CreateWeaponsUI();
         InitTankStats();
         InitWizards();
+
+        InitTrackCameraButton();
     }
+
+    private void InitTrackCameraButton()
+    {
+        TrackCameraButton.onClick = new Button.ButtonClickedEvent();
+        TrackCameraButton.onClick.AddListener(() => References.Cam.SetTrackedVehicleToEnemy(transform));
+    }
+
     private void Update()
     {
         if (!_dying) EnemyBehaviour();
@@ -82,7 +93,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     public void EnemyBehaviour()
     {
         TMov.Accelerate();
-        if(!References.PlayerIsDead) TWep.AcquireTargetsForAllWeapons();
+        if(!References.PDead) TWep.AcquireTargetsForAllWeapons();
     }
     private void StopAimingAtPlayer()
     {

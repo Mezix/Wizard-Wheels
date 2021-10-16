@@ -24,9 +24,9 @@ public class PlayerTankController : MonoBehaviour
 
     private void Awake()
     {
-        References.PlayerTankController = instance = this;
-        References.PlayerGameObject = gameObject;
-        References.PlayerIsDead = false;
+        References.PCon = instance = this;
+        References.PlayerGO = gameObject;
+        References.PDead = false;
         InitEvents();
         TGeo = GetComponentInChildren<TankGeometry>();
         TMov = GetComponentInChildren<PlayerTankMovement>();
@@ -101,7 +101,7 @@ public class PlayerTankController : MonoBehaviour
     {
         //  Send event to our enemies to remove the target of their weapons
         Events.instance.PlayerDying();
-        References.PlayerIsDead = true;
+        References.PDead = true;
         DeselectAllWizards();
         TWep.WeaponBehaviourInDeath();
         TMov.cruiseModeOn = false;

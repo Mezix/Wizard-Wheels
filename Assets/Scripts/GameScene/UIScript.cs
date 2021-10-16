@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class UIScript : MonoBehaviour
 {
-    public static UIScript instance;
-
     public Button CruiseButton;
     public Button RotateBackButton;
     public Slider _currentSpeedSlider;
@@ -35,12 +33,27 @@ public class UIScript : MonoBehaviour
     {
         settingsOn = false;
         PauseImage.SetActive(false);
-        instance = this;
+        References.UI = this;
     }
-    private void Update()
+    private void Start()
     {
+        InitButtons();
+        InitSliders();
     }
-    
+    private void InitButtons()
+    {
+        CruiseButton.onClick = new Button.ButtonClickedEvent();
+        CruiseButton.onClick.AddListener(() => References.PCon.TMov.ToggleCruise());
+        RotateBackButton.onClick = new Button.ButtonClickedEvent();
+        RotateBackButton.onClick.AddListener(() => References.PCon.TRot.TurnTankUp());
+    }
+    private void InitSliders()
+    {
+        _currentSpeedSlider.value = References.PCon.TMov.velocity;
+        _desiredSpeedSlider.value = References.PCon.TMov.velocity;
+        _currentSpeedSlider.maxValue = References.PCon.TMov.maxVelocity;
+        _desiredSpeedSlider.maxValue = References.PCon.TMov.maxVelocity;
+    }
     public void ToggleSettings()
     {
         if (!settingsOn) OpenSettings();

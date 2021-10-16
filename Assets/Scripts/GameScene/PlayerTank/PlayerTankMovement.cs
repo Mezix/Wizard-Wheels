@@ -12,7 +12,7 @@ public class PlayerTankMovement : MonoBehaviour
     public Vector3 _movementVector;
     private float acceleration = 0.0025f;
     private float deceleration = 0.005f;
-    private float maxVelocity = 5f;
+    public float maxVelocity = 5f;
     public bool cruiseModeOn;
 
     public List<Tire> Tires = new List<Tire>();
@@ -38,8 +38,6 @@ public class PlayerTankMovement : MonoBehaviour
     }
     public void InitTankMovement()
     {
-        UIScript.instance._currentSpeedSlider.value = 0;
-        UIScript.instance._desiredSpeedSlider.value = 0;
         TurnOnCruise(true);
         InitTires();
     }
@@ -71,41 +69,41 @@ public class PlayerTankMovement : MonoBehaviour
     {
         if (velocity < maxVelocity) velocity += acceleration * Time.timeScale;
         else velocity = maxVelocity;
-        UIScript.instance._currentSpeedSlider.value = velocity;
+        References.UI._currentSpeedSlider.value = velocity;
     }
     private void Decelerate()
     {
         if (velocity > 0) velocity -= deceleration * Time.timeScale;
         else velocity = 0;
-        UIScript.instance._currentSpeedSlider.value = velocity;
+        References.UI._currentSpeedSlider.value = velocity;
     }
     private void ChangeSliderSpeedUp()
     {
-        UIScript.instance._desiredSpeedSlider.value += acceleration;
+        References.UI._desiredSpeedSlider.value += acceleration;
     }
     private void ChangeSliderSpeedDown()
     {
-        UIScript.instance._desiredSpeedSlider.value -= deceleration;
+        References.UI._desiredSpeedSlider.value -= deceleration;
     }
     public void SlowlyMatchSpeedToSliderValue()
     {
-        if (UIScript.instance._currentSpeedSlider.value > UIScript.instance._desiredSpeedSlider.value)
+        if (References.UI._currentSpeedSlider.value > References.UI._desiredSpeedSlider.value)
         {
             Decelerate();
             TurnOnCruise(true);
-            if (UIScript.instance._currentSpeedSlider.value < UIScript.instance._desiredSpeedSlider.value)
+            if (References.UI._currentSpeedSlider.value < References.UI._desiredSpeedSlider.value)
             {
-                velocity = UIScript.instance._desiredSpeedSlider.value;
+                velocity = References.UI._desiredSpeedSlider.value;
                 return;
             }
         }
-        if (UIScript.instance._currentSpeedSlider.value < UIScript.instance._desiredSpeedSlider.value)
+        if (References.UI._currentSpeedSlider.value < References.UI._desiredSpeedSlider.value)
         {
             Accelerate();
             TurnOnCruise(true);
-            if (UIScript.instance._currentSpeedSlider.value > UIScript.instance._desiredSpeedSlider.value)
+            if (References.UI._currentSpeedSlider.value > References.UI._desiredSpeedSlider.value)
             {
-                velocity = UIScript.instance._desiredSpeedSlider.value;
+                velocity = References.UI._desiredSpeedSlider.value;
                 return;
             }
         }
@@ -137,7 +135,7 @@ public class PlayerTankMovement : MonoBehaviour
     private void TurnOnCruise(bool b)
     {
         cruiseModeOn = b;
-        UIScript.instance.TurnOnCruiseMode(b);
+        References.UI.TurnOnCruiseMode(b);
     }
 
     //  Change the animation of our tires
