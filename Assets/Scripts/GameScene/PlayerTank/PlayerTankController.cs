@@ -17,16 +17,19 @@ public class PlayerTankController : MonoBehaviour
     public TankGeometry TGeo { get; private set; }
 
     public string _tankName;
-    public List<TechWizard> _wizardList = new List<TechWizard>();
+
+    //  Wizards
+    public List<TechWizard> Wizards = new List<TechWizard>();
+    public List<TechWizard> _spawnedWizards = new List<TechWizard>();
 
     public bool _dying;
     public bool _dead;
 
     private void Awake()
     {
-        References.PCon = instance = this;
-        References.PlayerGO = gameObject;
-        References.PDead = false;
+        Ref.PCon = instance = this;
+        Ref.PlayerGO = gameObject;
+        Ref.PDead = false;
         InitEvents();
         TGeo = GetComponentInChildren<TankGeometry>();
         TMov = GetComponentInChildren<PlayerTankMovement>();
@@ -84,14 +87,16 @@ public class PlayerTankController : MonoBehaviour
     }
     private void InitWizards()
     {
-        foreach (TechWizard w in GetComponentsInChildren<TechWizard>())
+        foreach (TechWizard w in Wizards)
         {
-            _wizardList.Add(w);
+            GameObject g = Instantiate(w.gameObject);
+            g.transform.parent = transform;
+            _spawnedWizards.Add(g.GetComponentInChildren<TechWizard>());
         }
     }
     private void DeselectAllWizards()
     {
-        foreach (TechWizard wizard in _wizardList) wizard.UnitSelected = true;
+        foreach (TechWizard wizard in _spawnedWizards) wizard.UnitSelected = true;
     }
     public void TakeDamage(int damage)
     {
@@ -101,7 +106,7 @@ public class PlayerTankController : MonoBehaviour
     {
         //  Send event to our enemies to remove the target of their weapons
         Events.instance.PlayerDying();
-        References.PDead = true;
+        Ref.PDead = true;
         DeselectAllWizards();
         TWep.WeaponBehaviourInDeath();
         TMov.cruiseModeOn = false;

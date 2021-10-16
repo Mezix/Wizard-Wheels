@@ -41,7 +41,6 @@ public class TechWizard : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0)) DeterminePathToRoom();
         }
-        CalculateCurrentRoom();
     }
     private void FixedUpdate()
     {
@@ -49,11 +48,6 @@ public class TechWizard : MonoBehaviour
         {
             MoveAlongPath();
         }
-    }
-
-    private void CalculateCurrentRoom()
-    {
-        currentRoom = HM.RaycastOnPosition(transform.position, LayerMask.GetMask("Room")).collider.GetComponent<Room>();
     }
 
     public void InitUnit()

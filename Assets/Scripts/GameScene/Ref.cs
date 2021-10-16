@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class References : MonoBehaviour
+public class Ref : MonoBehaviour
 {
     /// <summary>
     /// The GameObject attached to the Player Tank Controller Script

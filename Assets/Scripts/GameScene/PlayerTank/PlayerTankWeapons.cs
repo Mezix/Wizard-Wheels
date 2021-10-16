@@ -63,7 +63,7 @@ public class PlayerTankWeapons : MonoBehaviour
         for (int i = 0; i < IWeaponArray.Count; i++)
         {
             IWeaponArray[i].SetIndex(i+1);
-            UIWeapon uw = References.UI.CreateWeaponUI(IWeaponArray[i]);
+            UIWeapon uw = Ref.UI.CreateWeaponUI(IWeaponArray[i]);
             AllUIWeapons.Add(uw);
             IWeaponArray[i].WeaponCharge = AllUIWeapons[i]._UIWeaponCharge;
         }

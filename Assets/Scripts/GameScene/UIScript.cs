@@ -40,7 +40,7 @@ public class UIScript : MonoBehaviour
     {
         settingsOn = false;
         PauseImage.SetActive(false);
-        References.UI = this;
+        Ref.UI = this;
     }
     private void Start()
     {
@@ -50,24 +50,24 @@ public class UIScript : MonoBehaviour
     private void InitButtons()
     {
         CruiseButton.onClick = new Button.ButtonClickedEvent();
-        CruiseButton.onClick.AddListener(() => References.PCon.TMov.ToggleCruise());
+        CruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
         MatchSpeedButton.onClick = new Button.ButtonClickedEvent();
         MatchSpeedButton.onClick.AddListener(() => MatchSpeed());
         RotateBackButton.onClick = new Button.ButtonClickedEvent();
-        RotateBackButton.onClick.AddListener(() => References.PCon.TRot.TurnTankUp());
+        RotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.TurnTankUp());
         SettingsButton.onClick = new Button.ButtonClickedEvent();
         SettingsButton.onClick.AddListener(() => ToggleSettings());
         PauseButton.onClick = new Button.ButtonClickedEvent();
-        PauseButton.onClick.AddListener(() => References.TM.TogglePauseWhilstPlaying());
+        PauseButton.onClick.AddListener(() => Ref.TM.TogglePauseWhilstPlaying());
         TrackPlayerTankButton.onClick = new Button.ButtonClickedEvent();
-        TrackPlayerTankButton.onClick.AddListener(() => References.Cam.SetTrackedVehicleToPlayer());
+        TrackPlayerTankButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToPlayer());
     }
     private void InitSliders()
     {
-        _currentSpeedSlider.value = References.PCon.TMov.velocity;
-        _desiredSpeedSlider.value = References.PCon.TMov.velocity;
-        _currentSpeedSlider.maxValue = References.PCon.TMov.maxVelocity;
-        _desiredSpeedSlider.maxValue = References.PCon.TMov.maxVelocity;
+        _currentSpeedSlider.value = Ref.PCon.TMov.velocity;
+        _desiredSpeedSlider.value = Ref.PCon.TMov.velocity;
+        _currentSpeedSlider.maxValue = Ref.PCon.TMov.maxVelocity;
+        _desiredSpeedSlider.maxValue = Ref.PCon.TMov.maxVelocity;
     }
     public void ToggleSettings()
     {
@@ -76,13 +76,13 @@ public class UIScript : MonoBehaviour
     }
     public void OpenSettings()
     {
-        References.TM.FreezeTime();
+        Ref.TM.FreezeTime();
         Settings.SetActive(true);
         settingsOn = true;
     }
     public void CloseSettings()
     {
-        if(!TimeManager.paused) References.TM.UnfreezeTime();
+        if(!TimeManager.paused) Ref.TM.UnfreezeTime();
         Settings.SetActive(false);
         settingsOn = false;
     }

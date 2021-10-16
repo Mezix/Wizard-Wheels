@@ -57,7 +57,7 @@ public class MouseCursor : MonoBehaviour
 
     private void HandleZoomIn()
     {
-        if(Input.mouseScrollDelta.y != 0 && !References.UI.settingsOn)
+        if(Input.mouseScrollDelta.y != 0 && !Ref.UI.settingsOn)
         {
             if(Input.mouseScrollDelta.y > 0)
             {
@@ -130,8 +130,8 @@ public class MouseCursor : MonoBehaviour
 
     private void SelectUnits()
     {
-        if (References.PDead) return;
-        foreach(TechWizard wizard in PlayerTankController.instance._wizardList)
+        if (Ref.PDead) return;
+        foreach(TechWizard wizard in PlayerTankController.instance._spawnedWizards)
         {
             if (selectionBox.Contains(Camera.main.WorldToScreenPoint(wizard.transform.position)))
             {
@@ -141,8 +141,8 @@ public class MouseCursor : MonoBehaviour
     }
     private void DeselectAllUnits()
     {
-        if (References.PDead) return;
-        foreach (TechWizard wizard in PlayerTankController.instance._wizardList)
+        if (Ref.PDead) return;
+        foreach (TechWizard wizard in PlayerTankController.instance._spawnedWizards)
         {
             wizard.UnitSelected = false;
         }

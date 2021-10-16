@@ -44,7 +44,7 @@ public class EnemyTankWeapons : MonoBehaviour
 
     private GameObject FindTarget()
     {
-        Room[] possibleTargets = PlayerTankController.instance.TGeo.rooms.GetComponentsInChildren<Room>();
+        Room[] possibleTargets = PlayerTankController.instance.TGeo.Rooms.GetComponentsInChildren<Room>();
         return possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Length-1)].gameObject;
     }
 

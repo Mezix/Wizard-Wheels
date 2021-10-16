@@ -11,7 +11,7 @@ public class CameraScript : MonoBehaviour
 
     private void Awake()
     {
-        References.Cam = this;
+        Ref.Cam = this;
     }
     private void Start()
     {
@@ -36,7 +36,7 @@ public class CameraScript : MonoBehaviour
     }
     public void SetTrackedVehicleToPlayer()
     {
-        tankToTrack = References.PlayerGO.transform;
+        tankToTrack = Ref.PlayerGO.transform;
         cameraOffset = Vector3.zero;
     }
     public void SetTrackedVehicleToEnemy(Transform tankTransform)

@@ -48,7 +48,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     private void InitTrackCameraButton()
     {
         TrackCameraButton.onClick = new Button.ButtonClickedEvent();
-        TrackCameraButton.onClick.AddListener(() => References.Cam.SetTrackedVehicleToEnemy(transform));
+        TrackCameraButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToEnemy(transform));
     }
 
     private void Update()
@@ -93,7 +93,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     public void EnemyBehaviour()
     {
         TMov.Accelerate();
-        if(!References.PDead) TWep.AcquireTargetsForAllWeapons();
+        if(!Ref.PDead) TWep.AcquireTargetsForAllWeapons();
     }
     private void StopAimingAtPlayer()
     {

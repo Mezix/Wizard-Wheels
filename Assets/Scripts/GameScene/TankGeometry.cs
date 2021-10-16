@@ -6,9 +6,9 @@ using UnityEngine.Tilemaps;
 public class TankGeometry : MonoBehaviour
 {
     public TankRoomConstellation _tankRoomConstellation;
-    public GameObject tankGeometryParent { get; private set; }
-    public GameObject rooms { get; private set; }
-    public Tilemap floorTilemap { get; private set; }
+    public GameObject TankGeometryParent { get; private set; }
+    public GameObject Rooms { get; private set; }
+    public Tilemap FloorTilemap { get; private set; }
     public void SpawnTank()
     {
         CreateTankFromRoomConstellation();
@@ -42,8 +42,8 @@ public class TankGeometry : MonoBehaviour
         g.cellSize = new Vector3(0.5f, 0.5f, 0);
 
         //  Create Tilemap
-        floorTilemap = floor.AddComponent<Tilemap>();
-        floorTilemap.tileAnchor = new Vector3(0, 1, 0);
+        FloorTilemap = floor.AddComponent<Tilemap>();
+        FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
         TilemapRenderer r = floor.AddComponent<TilemapRenderer>();
@@ -60,8 +60,8 @@ public class TankGeometry : MonoBehaviour
         g.cellSize = new Vector3(0.5f, 0.5f, 0);
 
         //  Create Tilemap
-        floorTilemap = walls.AddComponent<Tilemap>();
-        floorTilemap.tileAnchor = new Vector3(0, 1, 0);
+        FloorTilemap = walls.AddComponent<Tilemap>();
+        FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
         TilemapRenderer r = walls.AddComponent<TilemapRenderer>();
@@ -76,7 +76,7 @@ public class TankGeometry : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                floorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), (Tile)Resources.Load("DefaultTile"));
+                FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), (Tile)Resources.Load("DefaultTile"));
             }
         }
     }
@@ -84,9 +84,9 @@ public class TankGeometry : MonoBehaviour
     {
         _tankRoomConstellation.AllObjectsInRoom = new GameObject[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
 
-        rooms = new GameObject("Tank Rooms");
-        rooms.transform.parent = gameObject.transform;
-        rooms.transform.localPosition = Vector3.zero;
+        Rooms = new GameObject("Tank Rooms");
+        Rooms.transform.parent = gameObject.transform;
+        Rooms.transform.localPosition = Vector3.zero;
 
         for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
         {
@@ -95,7 +95,7 @@ public class TankGeometry : MonoBehaviour
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y])
                 {
                     GameObject go = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y]);
-                    go.transform.parent = rooms.transform;
+                    go.transform.parent = Rooms.transform;
                     go.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
                     go.GetComponent<Room>()._xPos = x;
                     go.GetComponent<Room>()._yPos = y;
@@ -107,17 +107,17 @@ public class TankGeometry : MonoBehaviour
     private void PositionTankObjects()
     {
         //create overarching object for all our spawned objects
-        tankGeometryParent = new GameObject("Tank Geometry Parent");
-        tankGeometryParent.transform.parent = gameObject.transform;
-        tankGeometryParent.transform.localPosition = Vector3.zero;
+        TankGeometryParent = new GameObject("Tank Geometry Parent");
+        TankGeometryParent.transform.parent = gameObject.transform;
+        TankGeometryParent.transform.localPosition = Vector3.zero;
 
         // parent all spawnedObjects to this parent
-        rooms.transform.parent = floorTilemap.transform.parent = tankGeometryParent.transform;
+        Rooms.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
 
         //  Rooms have their transform origin point at the center of their rooms, so add a rooms x length, and subtract a rooms y length
-        tankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
+        TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
 
         //  Now move to the halfway point
-        tankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation.XTilesAmount, 0.25f * _tankRoomConstellation.YTilesAmount, 0);
+        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation.XTilesAmount, 0.25f * _tankRoomConstellation.YTilesAmount, 0);
     }
 }

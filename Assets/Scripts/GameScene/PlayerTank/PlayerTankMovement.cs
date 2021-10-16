@@ -69,41 +69,41 @@ public class PlayerTankMovement : MonoBehaviour
     {
         if (velocity < maxVelocity) velocity += acceleration * Time.timeScale;
         else velocity = maxVelocity;
-        References.UI._currentSpeedSlider.value = velocity;
+        Ref.UI._currentSpeedSlider.value = velocity;
     }
     private void Decelerate()
     {
         if (velocity > 0) velocity -= deceleration * Time.timeScale;
         else velocity = 0;
-        References.UI._currentSpeedSlider.value = velocity;
+        Ref.UI._currentSpeedSlider.value = velocity;
     }
     private void ChangeSliderSpeedUp()
     {
-        References.UI._desiredSpeedSlider.value += acceleration;
+        Ref.UI._desiredSpeedSlider.value += acceleration;
     }
     private void ChangeSliderSpeedDown()
     {
-        References.UI._desiredSpeedSlider.value -= deceleration;
+        Ref.UI._desiredSpeedSlider.value -= deceleration;
     }
     public void SlowlyMatchSpeedToSliderValue()
     {
-        if (References.UI._currentSpeedSlider.value > References.UI._desiredSpeedSlider.value)
+        if (Ref.UI._currentSpeedSlider.value > Ref.UI._desiredSpeedSlider.value)
         {
             Decelerate();
             TurnOnCruise(true);
-            if (References.UI._currentSpeedSlider.value < References.UI._desiredSpeedSlider.value)
+            if (Ref.UI._currentSpeedSlider.value < Ref.UI._desiredSpeedSlider.value)
             {
-                velocity = References.UI._desiredSpeedSlider.value;
+                velocity = Ref.UI._desiredSpeedSlider.value;
                 return;
             }
         }
-        if (References.UI._currentSpeedSlider.value < References.UI._desiredSpeedSlider.value)
+        if (Ref.UI._currentSpeedSlider.value < Ref.UI._desiredSpeedSlider.value)
         {
             Accelerate();
             TurnOnCruise(true);
-            if (References.UI._currentSpeedSlider.value > References.UI._desiredSpeedSlider.value)
+            if (Ref.UI._currentSpeedSlider.value > Ref.UI._desiredSpeedSlider.value)
             {
-                velocity = References.UI._desiredSpeedSlider.value;
+                velocity = Ref.UI._desiredSpeedSlider.value;
                 return;
             }
         }
@@ -135,7 +135,7 @@ public class PlayerTankMovement : MonoBehaviour
     private void TurnOnCruise(bool b)
     {
         cruiseModeOn = b;
-        References.UI.TurnOnCruiseMode(b);
+        Ref.UI.TurnOnCruiseMode(b);
     }
 
     //  Change the animation of our tires
