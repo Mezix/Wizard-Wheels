@@ -36,10 +36,10 @@ public static class HM
     /// </summary>
     /// <param name="ListToPullFrom"></param>
     /// <param name="ListToCopyInto"></param>
-    public static void CopyListOfTransforms(List<Transform> ListToPullFrom, List<Transform> ListToCopyInto)
+    public static void CopyListOfRoomPositions(List<RoomPosition> ListToPullFrom, List<RoomPosition> ListToCopyInto)
     {
         ListToCopyInto.Clear();
-        foreach (Transform element in ListToPullFrom)
+        foreach (RoomPosition element in ListToPullFrom)
         {
             ListToCopyInto.Add(element);
         }

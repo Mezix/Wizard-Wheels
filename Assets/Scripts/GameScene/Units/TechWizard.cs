@@ -19,9 +19,9 @@ public class TechWizard : MonoBehaviour
 
     public Vector3 roomLocalPos;
     public Room currentRoom;
-    public Transform currentRoomPos;
+    public RoomPosition currentRoomPos;
     public Room desiredRoom;
-    public Transform desiredRoomPos;
+    public RoomPosition desiredRoomPos;
     public List<Room> PathToRoom;
     public int currentWaypoint = 0; //the index of our path
 
