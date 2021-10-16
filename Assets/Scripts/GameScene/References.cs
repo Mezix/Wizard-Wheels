@@ -24,4 +24,8 @@ public class References : MonoBehaviour
     /// The UI Script
     /// </summary>
     public static UIScript UI;
+    /// <summary>
+    /// timeManager
+    /// </summary>
+    public static TimeManager TM;
 }

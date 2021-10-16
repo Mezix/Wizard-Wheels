@@ -7,8 +7,15 @@ using UnityEngine.UI;
 
 public class UIScript : MonoBehaviour
 {
+    //Buttons
     public Button CruiseButton;
     public Button RotateBackButton;
+    public Button MatchSpeedButton;
+    public Button PauseButton;
+    public Button SettingsButton;
+    public Button TrackPlayerTankButton;
+
+    //Sliders
     public Slider _currentSpeedSlider;
     public Slider _desiredSpeedSlider;
 
@@ -44,8 +51,16 @@ public class UIScript : MonoBehaviour
     {
         CruiseButton.onClick = new Button.ButtonClickedEvent();
         CruiseButton.onClick.AddListener(() => References.PCon.TMov.ToggleCruise());
+        MatchSpeedButton.onClick = new Button.ButtonClickedEvent();
+        MatchSpeedButton.onClick.AddListener(() => MatchSpeed());
         RotateBackButton.onClick = new Button.ButtonClickedEvent();
         RotateBackButton.onClick.AddListener(() => References.PCon.TRot.TurnTankUp());
+        SettingsButton.onClick = new Button.ButtonClickedEvent();
+        SettingsButton.onClick.AddListener(() => ToggleSettings());
+        PauseButton.onClick = new Button.ButtonClickedEvent();
+        PauseButton.onClick.AddListener(() => References.TM.TogglePauseWhilstPlaying());
+        TrackPlayerTankButton.onClick = new Button.ButtonClickedEvent();
+        TrackPlayerTankButton.onClick.AddListener(() => References.Cam.SetTrackedVehicleToPlayer());
     }
     private void InitSliders()
     {
@@ -61,13 +76,13 @@ public class UIScript : MonoBehaviour
     }
     public void OpenSettings()
     {
-        TimeManager.instance.FreezeTime();
+        References.TM.FreezeTime();
         Settings.SetActive(true);
         settingsOn = true;
     }
     public void CloseSettings()
     {
-        if(!TimeManager.paused) TimeManager.instance.UnfreezeTime();
+        if(!TimeManager.paused) References.TM.UnfreezeTime();
         Settings.SetActive(false);
         settingsOn = false;
     }
@@ -102,6 +117,10 @@ public class UIScript : MonoBehaviour
     {
         if (b) CruiseButton.image.color = Color.black;
         else CruiseButton.image.color = Color.white;
+    }
+    private void MatchSpeed()
+    {
+        print("implement this!");
     }
     public void CreateHealthbar(int maxHealth)
     {

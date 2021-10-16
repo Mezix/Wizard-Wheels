@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public static TimeManager instance;
     public static bool paused;
     private void Awake()
     {
-        instance = this;
+        References.TM = this;
     }
     void Start()
     {

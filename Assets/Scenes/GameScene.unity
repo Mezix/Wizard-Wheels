@@ -2751,6 +2751,7 @@ MonoBehaviour:
   _movespeed: 0.1
   velocity: 0
   _movementVector: {x: 0, y: 0, z: 0}
+  maxVelocity: 5
   cruiseModeOn: 0
   Tires: []
 --- !u!50 &667288258
@@ -4349,6 +4350,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CruiseButton: {fileID: 1126927949}
   RotateBackButton: {fileID: 625200746}
+  MatchSpeedButton: {fileID: 1661343586}
+  PauseButton: {fileID: 191180664}
+  SettingsButton: {fileID: 2061841138}
+  TrackPlayerTankButton: {fileID: 1966486326}
   _currentSpeedSlider: {fileID: 1327889873}
   _desiredSpeedSlider: {fileID: 2098738584}
   PauseImage: {fileID: 1767302243}
@@ -5921,7 +5926,7 @@ GameObject:
   - component: {fileID: 1966486327}
   - component: {fileID: 1966486326}
   m_Layer: 5
-  m_Name: TrackPlayerWCamera
+  m_Name: TrackPlayerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
