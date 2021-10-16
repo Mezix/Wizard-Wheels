@@ -133,7 +133,6 @@ public class UnitPathfinding : MonoBehaviour
             if (y != 0)
             {
                 int checkY = roomPosToCheck._yPos + y;
-                print(checkY);
                 if (checkY >= 0 && checkY < tank.YTilesAmount)
                 {
                     if (tank.RoomPosMatrix[roomPosToCheck._xPos, checkY])

@@ -19,4 +19,7 @@ public class RoomPosition : MonoBehaviour
     public RoomPosition _pathfindParent; //important for the pathfinding process
     public int _xPos;
     public int _yPos;
+    //relative coordinates of the rooms positions compared to the start of the room, because Im too stupid to figure out how to do it in a matrix
+    public int _xRel;
+    public int _yRel;
 }

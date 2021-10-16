@@ -84,7 +84,12 @@ public class TechWizard : MonoBehaviour
             print("no valid room found, deselecting unit and aborting pathfinding");
             return;
         }
-
+        if(roomToGetTo.Equals(currentRoom))
+        {
+            Ref.mouse.DeselectAllUnits();
+            print("Trying to enter same room, Deselecting unit!");
+            return;
+        }
         //  free up the room we are currently in so someone else can go there
         if (currentRoom && currentRoomPos) currentRoom.FreeUpRoomPos(currentRoomPos);
 

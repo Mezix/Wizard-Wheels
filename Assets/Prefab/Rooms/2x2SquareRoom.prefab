@@ -43,6 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500b0f4db78f25842b9d28cee5262b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentRoom: {fileID: 0}
+  _gCost: 0
+  _hCost: 0
+  _pathfindParent: {fileID: 0}
+  _xPos: 0
+  _yPos: 0
+  _xRel: 1
+  _yRel: 1
 --- !u!1 &1236086768274591824
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,6 +128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500b0f4db78f25842b9d28cee5262b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentRoom: {fileID: 0}
+  _gCost: 0
+  _hCost: 0
+  _pathfindParent: {fileID: 0}
+  _xPos: 0
+  _yPos: 0
+  _xRel: 0
+  _yRel: 1
 --- !u!1 &3928980102496950996
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,11 +192,6 @@ MonoBehaviour:
   - {fileID: 8703078284491855725}
   - {fileID: 3829336509009353621}
   freeRoomPositions: []
-  _gCost: 0
-  _hCost: 0
-  _pathfindParent: {fileID: 0}
-  _xPos: 0
-  _yPos: 0
 --- !u!61 &8537332938246175230
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -331,6 +342,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500b0f4db78f25842b9d28cee5262b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentRoom: {fileID: 0}
+  _gCost: 0
+  _hCost: 0
+  _pathfindParent: {fileID: 0}
+  _xPos: 0
+  _yPos: 0
+  _xRel: 0
+  _yRel: 0
 --- !u!1 &5002271872216118310
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,6 +425,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500b0f4db78f25842b9d28cee5262b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentRoom: {fileID: 0}
+  _gCost: 0
+  _hCost: 0
+  _pathfindParent: {fileID: 0}
+  _xPos: 0
+  _yPos: 0
+  _xRel: 1
+  _yRel: 0
 --- !u!1 &6241382808454580978
 GameObject:
   m_ObjectHideFlags: 0

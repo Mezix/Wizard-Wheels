@@ -107,11 +107,14 @@ public class TankGeometry : MonoBehaviour
                     {
                         for (int roomX = 0; roomX < r.sizeX; roomX++)
                         {
-                            _tankRoomConstellation.RoomPosMatrix[x+roomX, y+roomY] = r.allRoomPositions[roomX+roomY];
-                            r.allRoomPositions[roomX + roomY]._xPos = x + roomX;
-                            r.allRoomPositions[roomX + roomY]._yPos = y + roomY;
+                            //print(roomX + " " + roomY);
+                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomX + roomY];
+                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._xPos = x + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._xRel;
+                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._yPos = y + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._yRel;
                         }
                     }
+
+                    //sets the corner of the room that doesnt get caught with the matrix
                     _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY-1];
                     _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
                     _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
