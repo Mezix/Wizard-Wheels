@@ -11,7 +11,7 @@ public class PlayerTankWeapons : MonoBehaviour
 
     private void Update()
     {
-        if (!PlayerTankController.instance._dying)
+        if (!Ref.PCon._dying)
         {
             if (Input.GetKey(KeyCode.LeftShift)) multipleSelected = true;
             else multipleSelected = false;

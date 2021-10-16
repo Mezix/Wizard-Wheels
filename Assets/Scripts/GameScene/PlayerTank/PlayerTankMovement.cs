@@ -60,7 +60,7 @@ public class PlayerTankMovement : MonoBehaviour
     //  MOVEMENT
     private void Move()
     {
-        _movementVector = GetComponentInChildren<PlayerTankRotation>().tankRotation.up;
+        _movementVector = Ref.PCon.TRot.tankRotation.up;
         transform.position += _movementVector * velocity * Time.deltaTime;
 
         if (!cruiseModeOn) Decelerate();

@@ -17,14 +17,13 @@ public class TechWizard : MonoBehaviour
 
     //  Pathfinding
 
-    private Vector3 VectorToGetTo;
+    public Vector3 roomLocalPos;
     public Room currentRoom;
     public Transform currentRoomPos;
     public Room desiredRoom;
     public Transform desiredRoomPos;
     public List<Room> PathToRoom;
-    private int currentWaypoint = 0; //the index of our path.vectorPath
-    private float nextWayPointDistance = 0.1f; //the distance before we seek out our next waypoint => the higher, the smoother the movement
+    public int currentWaypoint = 0; //the index of our path
 
     private void Awake()
     {
@@ -122,54 +121,55 @@ public class TechWizard : MonoBehaviour
     }
     private void MoveAlongPath()
     {
-        if (PathToRoom.Count == 0) //stop the method if we dont even have a path
+        if (PathToRoom.Count == 0) //stop the method if we dont have a path
         {
             UnitIsMoving = false;
             return;
         }
         Room roomToMoveTo = PathToRoom[currentWaypoint];
 
-        //calculate the local vector of our room relative to the tank
-        VectorToGetTo = roomToMoveTo.transform.position - PlayerTankController.instance.transform.position;
-        //set the z to 0 so our sprite doesnt disappear in the ground
-        VectorToGetTo.z = 0;
-        float distance = Vector2.Distance(transform.localPosition, VectorToGetTo);
-
-        if ((distance < nextWayPointDistance) && !(currentWaypoint == PathToRoom.Count - 1))
+        //check if we have reached the last room
+        if (Vector3.Distance(transform.position, PathToRoom[PathToRoom.Count - 1].transform.position) <= (UnitSpeed * Time.deltaTime))
         {
-            currentWaypoint++;
+            print("destination reached");
+            transform.localPosition = roomLocalPos;
+            UnitIsMoving = false;
+            WizardAnimator.SetFloat("Speed", 0);
+
+            ClearPathToRoom();
+            currentRoom = desiredRoom;
+            currentRoomPos = desiredRoomPos;
         }
         else
         {
-            //check if weve reached our end destination
-            if (Vector3.Distance(transform.localPosition, VectorToGetTo) <= (UnitSpeed * Time.deltaTime))
-            {
-                transform.localPosition = VectorToGetTo;
-                UnitIsMoving = false;
-                WizardAnimator.SetFloat("Speed", 0);
-
-                ClearPathToRoom();
-                currentRoom = desiredRoom;
-                currentRoomPos = desiredRoomPos;
-            }
+            MoveUnitToNextRoom(roomToMoveTo);
         }
-        MoveUnitToRoom(roomToMoveTo);
     }
 
-    private void MoveUnitToRoom(Room nextRoom)
+    private void MoveUnitToNextRoom(Room nextRoom)
     {
+        //calculate the local vector of our room relative to the tank
+        roomLocalPos = nextRoom.transform.position - PlayerTankController.instance.transform.position;
+        //set the z to 0 so our sprite doesnt move on the z axis
+        roomLocalPos.z = 0;
+
+        float distance = Vector2.Distance(transform.localPosition, roomLocalPos);
+
         //calculate local vector between wizard and the next position
-        Vector3 moveVector = Vector3.Normalize(VectorToGetTo - transform.localPosition);
+        Vector3 moveVector = Vector3.Normalize(roomLocalPos - transform.localPosition);
 
         // set Animator Values
         WizardAnimator.SetFloat("Speed", moveVector.sqrMagnitude);
         WizardAnimator.SetFloat("Horizontal", moveVector.x);
         WizardAnimator.SetFloat("Vertical", moveVector.y);
 
-        float distance = Vector2.Distance(transform.position, VectorToGetTo);
-
         //move by this vector
         transform.localPosition += moveVector * UnitSpeed * Time.deltaTime;
 
+        if (distance <= UnitSpeed * Time.deltaTime && !(currentWaypoint == PathToRoom.Count - 1))
+        {
+            currentWaypoint++;
+            transform.localPosition = roomLocalPos;
+        }
     }
 }
