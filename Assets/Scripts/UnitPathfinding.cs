@@ -57,7 +57,7 @@ public class UnitPathfinding : MonoBehaviour
                 {
                     neighbour._gCost = newMovementCostToNeighbour;
                     neighbour._hCost = GetDistance(neighbour, targetRoom);
-                    neighbour._parent = currentTile;
+                    neighbour._pathfindParent = currentTile;
 
                     if (!OpenSet.Contains(neighbour))
                     {
@@ -76,7 +76,7 @@ public class UnitPathfinding : MonoBehaviour
         while (currentRoom != startRoom)
         {
             path.Add(currentRoom);
-            currentRoom = currentRoom._parent;
+            currentRoom = currentRoom._pathfindParent;
         }
 
         path.Reverse();
@@ -90,7 +90,7 @@ public class UnitPathfinding : MonoBehaviour
         while (currentTile != startRoom)
         {
             path.Add(currentTile);
-            currentTile = currentTile._parent;
+            currentTile = currentTile._pathfindParent;
         }
 
         path.Reverse();

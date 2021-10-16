@@ -46,7 +46,7 @@ public class PlayerTankController : MonoBehaviour
         TWep.InitWeapons();
         TWep.CreateWeaponsUI();
         InitTankStats();
-        InitWizards();
+        SpawnWizards();
     }
 
     private void Update()
@@ -85,14 +85,19 @@ public class PlayerTankController : MonoBehaviour
         }
         THealth.InitHealth();
     }
-    private void InitWizards()
+    private void SpawnWizards()
     {
         foreach (TechWizard w in Wizards)
         {
-            GameObject g = Instantiate(w.gameObject);
-            g.transform.parent = transform;
-            g.transform.position = TGeo.FindRandomFreeRoom().transform.position;
-            _spawnedWizards.Add(g.GetComponentInChildren<TechWizard>());
+            GameObject wGo = Instantiate(w.gameObject);
+            TechWizard wScript = wGo.GetComponentInChildren<TechWizard>();
+            Room room = TGeo.FindRandomFreeRoom();
+            wGo.transform.parent = transform;
+            wGo.transform.position = room.transform.position;
+            wScript.currentRoom = room;
+            wScript.currentRoomPos = wScript.currentRoom.allRoomPositions[0];
+            wScript.currentRoom.OccupyRoomPos(room.allRoomPositions[0]);
+            _spawnedWizards.Add(wGo.GetComponentInChildren<TechWizard>());
         }
     }
     private void DeselectAllWizards()

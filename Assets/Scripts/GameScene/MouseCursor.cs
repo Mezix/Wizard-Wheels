@@ -25,6 +25,7 @@ public class MouseCursor : MonoBehaviour
 
     private void Awake()
     {
+        Ref.mouse = this;
         mouseRend = GetComponentInChildren<SpriteRenderer>();
         pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
         cursorAnimator = _cursorTransform.GetComponent<Animator>();
@@ -139,7 +140,7 @@ public class MouseCursor : MonoBehaviour
             }
         }
     }
-    private void DeselectAllUnits()
+    public void DeselectAllUnits()
     {
         if (Ref.PDead) return;
         foreach (TechWizard wizard in PlayerTankController.instance._spawnedWizards)

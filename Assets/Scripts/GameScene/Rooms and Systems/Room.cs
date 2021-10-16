@@ -7,8 +7,8 @@ public class Room : MonoBehaviour
     public ISystem roomSystem;
     public int sizeX;
     public int sizeY;
-    public List<Transform> allRoomPositions = new List<Transform>();
-    public List<Transform> freeRoomPositions = new List<Transform>();
+    public List<Transform> allRoomPositions;
+    public List<Transform> freeRoomPositions;
 
     //Pathfinding
     public int _gCost; // gCost represents the Distance from our Starting Point to our current Tile.
@@ -20,15 +20,19 @@ public class Room : MonoBehaviour
             return _gCost + _hCost;
         }
     }
-    public Room _parent; //important for the pathfinding process
+    public Room _pathfindParent; //important for the pathfinding process
     public int _xPos;
     public int _yPos;
 
     private void Awake()
     {
-        freeRoomPositions = allRoomPositions;
+        freeRoomPositions = new List<Transform>();
+        foreach(Transform t in allRoomPositions)
+        {
+            freeRoomPositions.Add(t);
+        }
     }
-    public void TakeUpRoom(Transform t)
+    public void OccupyRoomPos(Transform t)
     {
         if (allRoomPositions.Contains(t))
         {
@@ -38,14 +42,11 @@ public class Room : MonoBehaviour
             }
         }
     }
-    public void FreeUpRoom(Transform t)
+    public void FreeUpRoomPos(Transform t)
     {
         if (allRoomPositions.Contains(t))
         {
-            if (freeRoomPositions.Contains(t))
-            {
-                freeRoomPositions.Add(t);
-            }
+            freeRoomPositions.Add(t);
         }
     }
 }

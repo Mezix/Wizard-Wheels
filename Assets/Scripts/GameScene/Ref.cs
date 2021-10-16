@@ -28,4 +28,8 @@ public class Ref : MonoBehaviour
     /// timeManager
     /// </summary>
     public static TimeManager TM;
+    /// <summary>
+    /// The MouseCursorScript
+    /// </summary>
+    public static MouseCursor mouse;
 }

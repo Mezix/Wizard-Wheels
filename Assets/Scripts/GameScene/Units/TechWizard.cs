@@ -17,10 +17,11 @@ public class TechWizard : MonoBehaviour
 
     //  Pathfinding
 
-    private Transform desiredTransform;
     private Vector3 VectorToGetTo;
     public Room currentRoom;
+    public Transform currentRoomPos;
     public Room desiredRoom;
+    public Transform desiredRoomPos;
     public List<Room> PathToRoom;
     private int currentWaypoint = 0; //the index of our path.vectorPath
     private float nextWayPointDistance = 0.1f; //the distance before we seek out our next waypoint => the higher, the smoother the movement
@@ -70,33 +71,54 @@ public class TechWizard : MonoBehaviour
         }
         UnitIsMoving = false;
         UnitSelected = false;
-        desiredTransform = transform;
     }
 
     //  Move Unit
 
     public void DeterminePathToRoom()
     {
-        //  Attempt to find a room, and then a position within that room
+        //  Attempt to find a valid room, if we dont find one, deselect units instead
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
-        if (!hit.collider) return;
-        if (!hit.collider.transform.TryGetComponent(out Room roomToGetTo)) return;
-        if (roomToGetTo.freeRoomPositions.Count == 0) return;
+        if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.freeRoomPositions.Count == 0)
+        {
+            Ref.mouse.DeselectAllUnits();
+            print("no valid room found, deselecting unit and aborting pathfinding");
+            return;
+        }
 
-        //  if we were in a room before, try to free up the last location we were in from that room so someone else can go there
-        if (desiredRoom) desiredRoom.FreeUpRoom(desiredTransform);
+        //  free up the room we are currently in so someone else can go there
+        if (currentRoom && currentRoomPos) currentRoom.FreeUpRoomPos(currentRoomPos);
+
+        //if we were already moving somewhere, free up the space we were last moving to and find our current room
+        if (PathToRoom.Count > 0)
+        {
+            print("Diverting path!");
+            currentRoom = PathToRoom[currentWaypoint];
+            desiredRoom.FreeUpRoomPos(desiredRoomPos);
+        }
 
         //  reserve the spot we are going to for ourselves
-        desiredTransform = roomToGetTo.freeRoomPositions[0];
         desiredRoom = roomToGetTo;
+        desiredRoomPos = desiredRoom.freeRoomPositions[0];
+        roomToGetTo.OccupyRoomPos(desiredRoomPos);
 
-        roomToGetTo.TakeUpRoom(roomToGetTo.freeRoomPositions[0]);
+
         //calculate the path
+        ClearPathToRoom();
+        currentWaypoint = 0;
         PathToRoom = UnitPathfinding.instance.FindPath(currentRoom, desiredRoom, PlayerTankController.instance.TGeo._tankRoomConstellation);
+        
+        //make sure someone can enter the room we just left
+        currentRoom = null;
+        currentRoomPos = null;
 
         //start the movement
         UnitIsMoving = true;
         UnitSelected = false;
+    }
+    public void ClearPathToRoom()
+    {
+        PathToRoom.Clear();
     }
     private void MoveAlongPath()
     {
@@ -125,6 +147,10 @@ public class TechWizard : MonoBehaviour
                 transform.localPosition = VectorToGetTo;
                 UnitIsMoving = false;
                 WizardAnimator.SetFloat("Speed", 0);
+
+                ClearPathToRoom();
+                currentRoom = desiredRoom;
+                currentRoomPos = desiredRoomPos;
             }
         }
         MoveUnitToRoom(roomToMoveTo);
