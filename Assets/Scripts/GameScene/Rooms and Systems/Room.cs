@@ -34,23 +34,12 @@ public class Room : MonoBehaviour
     public void OccupyRoomPos(RoomPosition rPos)
     {
         freeRoomPositions[rPos.roomPosIndex] = null;
-        //if (allRoomPositions.Contains(t))
-        //{
-        //    if (freeRoomPositions.Contains(t))
-        //    {
-        //        freeRoomPositions.Remove(t);
-        //    }
-        //}
     }
     public void FreeUpRoomPos(RoomPosition rPos)
     {
         freeRoomPositions[rPos.roomPosIndex] = rPos;
-        //if (allRoomPositions.Contains(t))
-        //{
-        //    freeRoomPositions.Add(t);
-        //}
     }
-    public RoomPosition GetNextRoomPos()
+    public RoomPosition GetNextFreeRoomPos()
     {
         for(int i = 0; i < freeRoomPositions.Length; i++)
         {

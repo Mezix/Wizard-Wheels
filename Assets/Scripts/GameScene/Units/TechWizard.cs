@@ -78,7 +78,7 @@ public class TechWizard : MonoBehaviour
     {
         //  Attempt to find a valid room, if we dont find one, deselect units instead
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
-        if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.GetNextRoomPos() == null)
+        if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.GetNextFreeRoomPos() == null)
         {
             Ref.mouse.DeselectAllUnits();
             print("no valid room found, deselecting unit and aborting pathfinding");
@@ -90,6 +90,9 @@ public class TechWizard : MonoBehaviour
             print("Trying to enter same room, Deselecting unit!");
             return;
         }
+
+        //  Check if Path is possible!
+
         //  free up the room we are currently in so someone else can go there
         if (currentRoom && currentRoomPos) currentRoom.FreeUpRoomPos(currentRoomPos);
 
@@ -104,7 +107,7 @@ public class TechWizard : MonoBehaviour
 
         //  reserve the spot we are going to for ourselves
         desiredRoom = roomToGetTo;
-        desiredRoomPos = desiredRoom.GetNextRoomPos();
+        desiredRoomPos = desiredRoom.GetNextFreeRoomPos();
         roomToGetTo.OccupyRoomPos(desiredRoomPos);
 
         //calculate the path

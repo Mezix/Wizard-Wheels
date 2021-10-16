@@ -87,17 +87,17 @@ public class PlayerTankController : MonoBehaviour
     }
     private void SpawnWizards()
     {
-        foreach (TechWizard w in Wizards)
+        foreach (TechWizard wiz in Wizards)
         {
-            GameObject wGo = Instantiate(w.gameObject);
-            TechWizard wScript = wGo.GetComponentInChildren<TechWizard>();
-            Room room = TGeo.FindRandomFreeRoom();
-            wGo.transform.parent = transform;
-            wGo.transform.position = room.transform.position;
+            GameObject wizGO = Instantiate(wiz.gameObject);
+            TechWizard wScript = wizGO.GetComponentInChildren<TechWizard>();
+            Room room = TGeo.FindRandomRoomWithSpace();
+            wizGO.transform.parent = transform;
+            wizGO.transform.position = room.transform.position;
             wScript.currentRoom = room;
+            wScript.currentRoom.OccupyRoomPos(room.GetNextFreeRoomPos());
             wScript.currentRoomPos = wScript.currentRoom.allRoomPositions[0];
-            wScript.currentRoom.OccupyRoomPos(room.allRoomPositions[0]);
-            _spawnedWizards.Add(wGo.GetComponentInChildren<TechWizard>());
+            _spawnedWizards.Add(wizGO.GetComponentInChildren<TechWizard>());
         }
     }
     private void DeselectAllWizards()

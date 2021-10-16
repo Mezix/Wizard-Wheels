@@ -138,8 +138,24 @@ public class TankGeometry : MonoBehaviour
         //  Now move to the halfway point
         TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation.XTilesAmount, 0.25f * _tankRoomConstellation.YTilesAmount, 0);
     }
-    public Room FindRandomFreeRoom()
+    public Room FindRandomRoomWithSpace()
     {
-        return AllRooms[Random.Range(0, AllRooms.Count-1)];
+        List<Room> allRoomsTMP = AllRooms;
+        // searches through all possible rooms until it finds one it can occupy
+        for(int i = 0; i < AllRooms.Count; i++)
+        {
+            Room tmpRoom = allRoomsTMP[Random.Range(0, allRoomsTMP.Count - 1)];
+            for(int j = 0; j < tmpRoom.freeRoomPositions.Length; j++)
+            {
+                if(tmpRoom.freeRoomPositions[j] != null)
+                {
+                    print("found a random free room");
+                    return tmpRoom;
+                }
+            }
+        }
+        //if it has has found no free rooms, return
+        print("no free rooms found");
+        return null;
     }
 }
