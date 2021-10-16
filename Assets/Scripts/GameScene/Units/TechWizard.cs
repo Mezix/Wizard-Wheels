@@ -22,7 +22,7 @@ public class TechWizard : MonoBehaviour
     public RoomPosition currentRoomPos;
     public Room desiredRoom;
     public RoomPosition desiredRoomPos;
-    public List<Room> PathToRoom;
+    public List<RoomPosition> PathToRoom;
     public int currentWaypoint = 0; //the index of our path
 
     private void Awake()
@@ -32,7 +32,7 @@ public class TechWizard : MonoBehaviour
     }
     private void Start()
     {
-        PathToRoom = new List<Room>();
+        PathToRoom = new List<RoomPosition>();
         InitUnit();
     }
     private void Update()
@@ -92,7 +92,7 @@ public class TechWizard : MonoBehaviour
         if (PathToRoom.Count > 0)
         {
             print("Diverting path!");
-            currentRoom = PathToRoom[currentWaypoint];
+            currentRoom = PathToRoom[currentWaypoint].ParentRoom;
             desiredRoom.FreeUpRoomPos(desiredRoomPos);
         }
 
@@ -101,11 +101,10 @@ public class TechWizard : MonoBehaviour
         desiredRoomPos = desiredRoom.freeRoomPositions[0];
         roomToGetTo.OccupyRoomPos(desiredRoomPos);
 
-
         //calculate the path
         ClearPathToRoom();
         currentWaypoint = 0;
-        PathToRoom = UnitPathfinding.instance.FindPath(currentRoom, desiredRoom, PlayerTankController.instance.TGeo._tankRoomConstellation);
+        PathToRoom = UnitPathfinding.instance.FindPath(currentRoomPos, desiredRoomPos, PlayerTankController.instance.TGeo._tankRoomConstellation);
         
         //make sure someone can enter the room we just left
         currentRoom = null;
@@ -126,7 +125,7 @@ public class TechWizard : MonoBehaviour
             UnitIsMoving = false;
             return;
         }
-        Room roomToMoveTo = PathToRoom[currentWaypoint];
+        Room roomToMoveTo = PathToRoom[currentWaypoint].ParentRoom;
 
         //check if we have reached the last room
         if (Vector3.Distance(transform.position, PathToRoom[PathToRoom.Count - 1].transform.position) <= (UnitSpeed * Time.deltaTime))

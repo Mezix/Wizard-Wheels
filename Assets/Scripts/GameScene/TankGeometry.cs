@@ -83,7 +83,7 @@ public class TankGeometry : MonoBehaviour
     }
     private void CreateTankFromRoomConstellation()
     {
-        _tankRoomConstellation.AllObjectsInRoom = new GameObject[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
+        _tankRoomConstellation.AllRoomPositions = new RoomPosition[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
         AllRooms = new List<Room>();
 
         RoomsParent = new GameObject("All Tank Rooms");
@@ -100,10 +100,19 @@ public class TankGeometry : MonoBehaviour
                     Room r = rGO.GetComponent<Room>();
                     rGO.transform.parent = RoomsParent.transform;
                     rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-                    r._xPos = x;
-                    r._yPos = y;
                     AllRooms.Add(r);
-                    _tankRoomConstellation.AllObjectsInRoom[x, y] = rGO;
+
+                    //handle rooms that are larger than 1x1
+                    for (int roomX = 0; roomX < r.sizeX; roomX++)
+                    {
+                        for (int roomY = 0; roomY < r.sizeY; roomY++)
+                        {
+                            _tankRoomConstellation.AllRoomPositions[x+roomX, y+roomY] = r.allRoomPositions[roomX+roomY];
+                            r.allRoomPositions[roomX + roomY]._xPos = x;
+                            r.allRoomPositions[roomX + roomY]._yPos = y;
+                        }
+                    }
+                    _tankRoomConstellation.AllRoomPositions[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX - 1 + r.sizeY - 1];
                 }
             }
         }

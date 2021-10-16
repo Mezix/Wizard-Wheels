@@ -10,7 +10,7 @@ public class TankRoomConstellation : ScriptableObject
     public int XTilesAmount; //just the amount of Tiles in a given direction
     public int YTilesAmount;
 
-    public GameObject[,] AllObjectsInRoom;
+    public RoomPosition[,] AllRoomPositions;
 
     public XValues SavedPrefabRefMatrix;
     public XValues TmpPrefabRefMatrix;
@@ -24,7 +24,7 @@ public class TankRoomConstellation : ScriptableObject
     }
     public void InitialiseRoom() //intialises room with a new array3
     {
-        AllObjectsInRoom = new GameObject[XTilesAmount, YTilesAmount];
+        AllRoomPositions = new RoomPosition[XTilesAmount, YTilesAmount];
         TmpPrefabRefMatrix = new XValues(XTilesAmount, YTilesAmount);
         SavedPrefabRefMatrix = new XValues(XTilesAmount, YTilesAmount);
     }
@@ -35,9 +35,9 @@ public class TankRoomConstellation : ScriptableObject
         {
             InitialiseRoom();
         }
-        if (!(AllObjectsInRoom is object))
+        if (!(AllRoomPositions is object))
         {
-            AllObjectsInRoom = new GameObject[XTilesAmount, YTilesAmount];
+            AllRoomPositions = new RoomPosition[XTilesAmount, YTilesAmount];
         }
     }
 
