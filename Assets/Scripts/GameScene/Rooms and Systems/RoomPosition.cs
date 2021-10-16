@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomPosition : MonoBehaviour
 {
     public Room ParentRoom;
+    public int roomPosIndex; //index of roomPos in room
 
     //Pathfinding
     public int _gCost; // gCost represents the Distance from our Starting Point to our current Tile.

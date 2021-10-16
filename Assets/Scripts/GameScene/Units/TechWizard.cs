@@ -78,7 +78,7 @@ public class TechWizard : MonoBehaviour
     {
         //  Attempt to find a valid room, if we dont find one, deselect units instead
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
-        if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.freeRoomPositions.Count == 0)
+        if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.GetNextRoomPos() == null)
         {
             Ref.mouse.DeselectAllUnits();
             print("no valid room found, deselecting unit and aborting pathfinding");
@@ -104,7 +104,7 @@ public class TechWizard : MonoBehaviour
 
         //  reserve the spot we are going to for ourselves
         desiredRoom = roomToGetTo;
-        desiredRoomPos = desiredRoom.freeRoomPositions[0];
+        desiredRoomPos = desiredRoom.GetNextRoomPos();
         roomToGetTo.OccupyRoomPos(desiredRoomPos);
 
         //calculate the path
@@ -131,7 +131,7 @@ public class TechWizard : MonoBehaviour
             UnitIsMoving = false;
             return;
         }
-        Room roomToMoveTo = PathToRoom[currentWaypoint].ParentRoom;
+        RoomPosition roomPosToMoveTo = PathToRoom[currentWaypoint];
 
         //check if we have reached the last room
         if (Vector3.Distance(transform.position, PathToRoom[PathToRoom.Count - 1].transform.position) <= (UnitSpeed * Time.deltaTime))
@@ -147,11 +147,11 @@ public class TechWizard : MonoBehaviour
         }
         else
         {
-            MoveUnitToNextRoom(roomToMoveTo);
+            MoveUnitToNextRoom(roomPosToMoveTo);
         }
     }
 
-    private void MoveUnitToNextRoom(Room nextRoom)
+    private void MoveUnitToNextRoom(RoomPosition nextRoom)
     {
         //calculate the local vector of our room relative to the tank
         roomLocalPos = nextRoom.transform.position - PlayerTankController.instance.transform.position;

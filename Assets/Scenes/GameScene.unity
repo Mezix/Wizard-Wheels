@@ -2800,6 +2800,9 @@ MonoBehaviour:
   _tankName: 
   Wizards:
   - {fileID: 1267479323415172642, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
+  - {fileID: 1267479323415172642, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
+  - {fileID: 1267479323415172642, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
+  - {fileID: 1267479323415172642, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
   _spawnedWizards: []
   _dying: 0
   _dead: 0
