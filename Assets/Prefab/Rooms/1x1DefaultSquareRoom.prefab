@@ -78,17 +78,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ddd2698a1fe144e9cba05ef96298e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSystem: {fileID: 0}
   sizeX: 1
   sizeY: 1
   allRoomPositions:
   - {fileID: 3022396027361776661}
   freeRoomPositions: []
-  _gCost: 0
-  _hCost: 0
-  _pathfindParent: {fileID: 0}
-  _xPos: 0
-  _yPos: 0
 --- !u!61 &8122812961001258632
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -184,7 +178,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2064992911
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d5d2652848996f945b6055410bd48ee2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -239,6 +233,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500b0f4db78f25842b9d28cee5262b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentRoom: {fileID: 0}
+  roomPosIndex: 0
+  _gCost: 0
+  _hCost: 0
+  _pathfindParent: {fileID: 0}
+  _xPos: 0
+  _yPos: 0
+  _xRel: 0
+  _yRel: 0
 --- !u!1 &7337234927731220838
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +342,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2064992911
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: c4364844ea746ba4bbfbcd5cac893a29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

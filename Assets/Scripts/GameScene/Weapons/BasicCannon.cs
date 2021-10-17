@@ -11,6 +11,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     //  Weapon stats
 
     public WeaponStats _weaponStats;
+    public GameObject WeaponObj { get; set; }
     public string WeaponName { get; set; }
     public Sprite WeaponSprite { get; set; }
     public float AttacksPerSecond { get; set; }
@@ -38,6 +39,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     //  UI
     public Image WeaponCharge { get; set; }
     public int WeaponIndex { get; set; }
+
     public Text _weaponIndexText;
 
     //  Audio
@@ -46,6 +48,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     private void Start()
     {
         InitWeaponStats();
+        WeaponObj = gameObject;
         ProjectilePrefab = (GameObject) Resources.Load("Weapons\\cannonball");
         laserLR = _cannonballSpot.GetComponentInChildren<LineRenderer>();
         AimRotationAngle = 90;

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public interface IWeapon
+public interface IWeapon : ISystem
 {
     //WeaponStats weaponStats { get; set; }
+    GameObject WeaponObj { get; set; }
     int WeaponIndex { get; set; }
     string WeaponName { get; set; }
     Sprite WeaponSprite { get; set; }

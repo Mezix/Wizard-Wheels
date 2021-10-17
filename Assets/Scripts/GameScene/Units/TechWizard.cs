@@ -44,10 +44,25 @@ public class TechWizard : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        UnitBehaviour();
+    }
+
+    private void UnitBehaviour()
+    {
         if (UnitIsMoving)
         {
             MoveAlongPath();
         }
+        else if (currentRoom.roomSystem != null)
+        {
+            InteractWithSystem();
+        }
+    }
+
+    private void InteractWithSystem()
+    {
+        print("interacting");
+        WizardAnimator.SetBool("Interacting", true);
     }
 
     public void InitUnit()
@@ -100,8 +115,8 @@ public class TechWizard : MonoBehaviour
         if (PathToRoom.Count > 0)
         {
             print("Diverting path!");
-            currentRoom = PathToRoom[currentWaypoint].ParentRoom;
-            currentRoomPos = currentRoom.allRoomPositions[0];
+            //currentRoom = PathToRoom[currentWaypoint].ParentRoom;
+            //currentRoomPos = currentRoom.allRoomPositions[0];
             desiredRoom.FreeUpRoomPos(desiredRoomPos);
         }
 
@@ -115,10 +130,6 @@ public class TechWizard : MonoBehaviour
         currentWaypoint = 0;
         PathToRoom = UnitPathfinding.instance.FindPath(currentRoomPos, desiredRoomPos, PlayerTankController.instance.TGeo._tankRoomConstellation);
         
-        //make sure someone can enter the room we just left
-        currentRoom = null;
-        currentRoomPos = null;
-
         //start the movement
         UnitIsMoving = true;
         UnitSelected = false;
@@ -129,6 +140,7 @@ public class TechWizard : MonoBehaviour
     }
     private void MoveAlongPath()
     {
+        WizardAnimator.SetBool("Interacting", false);
         if (PathToRoom.Count == 0) //stop the method if we dont have a path
         {
             UnitIsMoving = false;
@@ -153,11 +165,11 @@ public class TechWizard : MonoBehaviour
             MoveUnitToNextRoom(roomPosToMoveTo);
         }
     }
-
-    private void MoveUnitToNextRoom(RoomPosition nextRoom)
+    private void MoveUnitToNextRoom(RoomPosition nextRoomPos)
     {
+        WizardAnimator.SetBool("Interacting", false);
         //calculate the local vector of our room relative to the tank
-        roomLocalPos = nextRoom.transform.position - PlayerTankController.instance.transform.position;
+        roomLocalPos = nextRoomPos.transform.position - PlayerTankController.instance.transform.position;
         //set the z to 0 so our sprite doesnt move on the z axis
         roomLocalPos.z = 0;
 
@@ -177,6 +189,8 @@ public class TechWizard : MonoBehaviour
         if (distance <= UnitSpeed * Time.deltaTime && !(currentWaypoint == PathToRoom.Count - 1))
         {
             currentWaypoint++;
+            currentRoomPos = nextRoomPos;
+            currentRoom = nextRoomPos.ParentRoom;
             transform.localPosition = roomLocalPos;
         }
     }

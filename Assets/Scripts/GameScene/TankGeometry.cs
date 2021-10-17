@@ -137,6 +137,8 @@ public class TankGeometry : MonoBehaviour
 
         //  Now move to the halfway point
         TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation.XTilesAmount, 0.25f * _tankRoomConstellation.YTilesAmount, 0);
+
+        //print("finished creating Tank Geometry");
     }
     public Room FindRandomRoomWithSpace()
     {
@@ -149,7 +151,7 @@ public class TankGeometry : MonoBehaviour
             {
                 if(tmpRoom.freeRoomPositions[j] != null)
                 {
-                    print("found a random free room");
+                    //print("found a random free room");
                     return tmpRoom;
                 }
             }

@@ -44,16 +44,21 @@ public class PlayerTankWeapons : MonoBehaviour
             if (wp != null) wp.WeaponSelected = false;
         }
     }
-
     public void InitWeapons()
     {
-        //add all the weapons for real
         foreach (IWeapon wp in GetComponentsInChildren<IWeapon>())
         {
             IWeaponArray.Add(wp);
             wp.ShouldHitPlayer = false;
+            AddWeaponSystemToNearestRoom(wp.WeaponObj);
         }
     }
+
+    private void AddWeaponSystemToNearestRoom(GameObject weapon)
+    {
+        Ref.PCon.TGeo.FindRandomRoomWithSpace().roomSystem = weapon.GetComponent<ISystem>();
+    }
+
     public void ClearWeapons()
     {
         IWeaponArray.Clear();

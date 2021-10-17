@@ -14,13 +14,16 @@ public static class HM
     {
         return Mathf.Rad2Deg * Mathf.Atan2(from.y - to.y, from.x - to.x);
     }
+    
+    public static RaycastHit2D RaycastAtPosition(Vector3 pos, int layerMask = 0)
+    {
+        //make sure we arent on the same plane as our object we are trying to hit
+        pos.z = 1000;
+        return Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, layerMask);
+    }
     public static RaycastHit2D RaycastToMouseCursor()
     {
-        return Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-    }
-    public static RaycastHit2D RaycastOnPosition(Vector3 pos, int layerMask = 0)
-    {
-        return Physics2D.Raycast(pos, Vector2.zero, layerMask);
+        return Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity);
     }
     /// <summary>
     /// Find the LayerMask by using LayerMask.GetMask("layermask name here")
