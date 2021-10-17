@@ -17,6 +17,7 @@ public interface IWeapon : ISystem
     float RotationSpeed { get; set; }
     GameObject Room { get; set; }
     bool WeaponSelected { get; set; }
+    bool WeaponEnabled { get; set; }
     bool AimAtTarget { get; set; }
     float AimRotationAngle { get; set; }
     Image WeaponCharge { get; set; }

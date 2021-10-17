@@ -24,6 +24,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     public GameObject Room { get; set; }
     public bool WeaponSelected { get; set; }
+    public bool WeaponEnabled { get; set; }
     public bool AimAtTarget { get; set; }
     public float AimRotationAngle { get; set; }
     public bool ShouldNotRotate { get; set; }
@@ -52,6 +53,8 @@ public class BasicCannon : MonoBehaviour, IWeapon
         ProjectilePrefab = (GameObject) Resources.Load("Weapons\\cannonball");
         laserLR = _cannonballSpot.GetComponentInChildren<LineRenderer>();
         AimRotationAngle = 90;
+
+        if(!ShouldHitPlayer) WeaponEnabled = false;
     }
     private void Update()
     {
@@ -63,8 +66,15 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     private void FixedUpdate()
     {
-        if (AimAtTarget) PointTurretAtTarget();
-        else if(!ShouldNotRotate) RotateTurretToAngle();
+        if(WeaponEnabled)
+        {
+            if (AimAtTarget) PointTurretAtTarget();
+            else if (!ShouldNotRotate) RotateTurretToAngle();
+        }
+        else
+        {
+            StopInteraction();
+        }
     }
     public void InitWeaponStats()
     {
@@ -86,12 +96,21 @@ public class BasicCannon : MonoBehaviour, IWeapon
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
     }
+
+    public void StartInteraction()
+    {
+        WeaponEnabled = true;
+    }
+    public void StopInteraction()
+    {
+        WeaponEnabled = false;
+    }
+
     public void SetIndex(int i)
     {
         WeaponIndex = i;
         _weaponIndexText.text = i.ToString();
     }
-
     /// <summary>
     /// This Method handles everything to do with the operation of a weapon!
     /// </summary>
@@ -115,6 +134,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
 
     //  AIMING
+
     public void AimWithMouse()
     {
         if (spawnedCrosshair) DestroyCrosshair();
@@ -249,6 +269,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
 
     //  Misc
+
     private void WeaponFireParticles()
     {
     }

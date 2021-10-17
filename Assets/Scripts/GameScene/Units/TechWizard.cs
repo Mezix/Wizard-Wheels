@@ -53,16 +53,21 @@ public class TechWizard : MonoBehaviour
         {
             MoveAlongPath();
         }
-        else if (currentRoom.roomSystem != null)
+        /*else if (currentRoom.roomSystem != null)
         {
             InteractWithSystem();
-        }
+        }*/
     }
 
-    private void InteractWithSystem()
+    private void StartInteraction()
     {
-        print("interacting");
         WizardAnimator.SetBool("Interacting", true);
+        currentRoom.roomSystem.StartInteraction();
+    }
+    private void StopInteraction()
+    {
+        WizardAnimator.SetBool("Interacting", false);
+        currentRoom.roomSystem.StopInteraction();
     }
 
     public void InitUnit()
@@ -129,7 +134,10 @@ public class TechWizard : MonoBehaviour
         ClearPathToRoom();
         currentWaypoint = 0;
         PathToRoom = UnitPathfinding.instance.FindPath(currentRoomPos, desiredRoomPos, PlayerTankController.instance.TGeo._tankRoomConstellation);
-        
+
+        // stop interacting with the system in our room if we have one
+        if (currentRoom.roomSystem != null) StopInteraction();
+
         //start the movement
         UnitIsMoving = true;
         UnitSelected = false;
@@ -159,6 +167,8 @@ public class TechWizard : MonoBehaviour
             ClearPathToRoom();
             currentRoom = desiredRoom;
             currentRoomPos = desiredRoomPos;
+
+            if (currentRoom.roomSystem != null) StartInteraction();
         }
         else
         {

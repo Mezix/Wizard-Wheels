@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface ISystem
 {
-
+    void StartInteraction();
+    void StopInteraction();
 }

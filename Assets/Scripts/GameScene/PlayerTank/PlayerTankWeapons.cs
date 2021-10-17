@@ -56,7 +56,9 @@ public class PlayerTankWeapons : MonoBehaviour
 
     private void AddWeaponSystemToNearestRoom(GameObject weapon)
     {
-        Ref.PCon.TGeo.FindRandomRoomWithSpace().roomSystem = weapon.GetComponent<ISystem>();
+        Room r = Ref.PCon.TGeo.FindRandomRoomWithSpace();
+        r.roomSystem = weapon.GetComponent<ISystem>();
+        r.roomSystemRenderer.sprite = weapon.GetComponent<IWeapon>().WeaponSprite;
     }
 
     public void ClearWeapons()

@@ -16,6 +16,7 @@ public class EnemyTankWeapons : MonoBehaviour
         foreach (IWeapon wp in GetComponentsInChildren<IWeapon>())
         {
             IWeaponArray.Add(wp);
+            wp.WeaponEnabled = true;
             wp.ShouldHitPlayer = true;
         }
     }
