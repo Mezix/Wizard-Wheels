@@ -53,10 +53,6 @@ public class TechWizard : MonoBehaviour
         {
             MoveAlongPath();
         }
-        /*else if (currentRoom.roomSystem != null)
-        {
-            InteractWithSystem();
-        }*/
     }
 
     private void StartInteraction()
@@ -90,6 +86,11 @@ public class TechWizard : MonoBehaviour
         }
         UnitIsMoving = false;
         UnitSelected = false;
+
+        if (currentRoom.roomSystem != null)
+        {
+            StartInteraction();
+        }
     }
 
     //  Move Unit

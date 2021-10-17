@@ -116,7 +116,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     /// </summary>
     public void HandleWeaponSelected()
     {
-        if (WeaponSelected)
+        if (WeaponSelected && WeaponEnabled)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
