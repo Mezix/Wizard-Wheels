@@ -15,11 +15,17 @@ public class Cannonball : MonoBehaviour, IProjectile
     public bool HitPlayer { get; set; }
     private bool hasDoneDamage;
 
+    //  Shadow
+    public GameObject _shadow;
+    public Transform _shadowRotation;
+    public float maxShadowHeight;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         ProjectileSpeed = 10f;
         MaxLifetime = 3;
+        _shadow.transform.localPosition = new Vector2(0, -maxShadowHeight);
     }
     private void OnEnable()
     {
@@ -30,15 +36,23 @@ public class Cannonball : MonoBehaviour, IProjectile
     private void FixedUpdate()
     {
         if(!exploding) MoveProjectile();
-    }
-    private void MoveProjectile()
-    {
-        transform.position += transform.right * ProjectileSpeed * Time.deltaTime;
+        UpdateShadowPosition();
     }
     private void Update()
     {
         CurrentLifeTime += Time.deltaTime;
         CheckLifetime();
+    }
+
+    private void MoveProjectile()
+    {
+        transform.position += transform.right * ProjectileSpeed * Time.deltaTime;
+        UpdateShadowPosition();
+    }
+    private void UpdateShadowPosition()
+    {
+        HM.RotateLocalTransformToAngle(_shadowRotation, -transform.rotation.eulerAngles);
+        _shadow.transform.localPosition = new Vector2(0, -maxShadowHeight * (1f - CurrentLifeTime/MaxLifetime));
     }
     public void CheckLifetime()
     {

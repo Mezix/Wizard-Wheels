@@ -10,6 +10,12 @@ public static class HM
         q.eulerAngles = vec;
         t.rotation = q;
     }
+    public static void RotateLocalTransformToAngle(Transform t, Vector3 vec)
+    {
+        Quaternion q = new Quaternion();
+        q.eulerAngles = vec;
+        t.localRotation = q;
+    }
     public static float Angle2D(Vector3 from, Vector3 to)
     {
         return Mathf.Rad2Deg * Mathf.Atan2(from.y - to.y, from.x - to.x);
