@@ -53,7 +53,7 @@ public class Crosshair : MonoBehaviour
 
         float radius = 50 * crosshair.transform.localScale.x; //radius of the circle function used to calculate the crosshair index's position
         int i = 0; //a counter to shift the position of our crosshair indices
-        float shiftAngle = 15;
+        float shiftAngle = 30;
 
         //Perhaps a sorting step by indices here?
 
@@ -66,8 +66,8 @@ public class Crosshair : MonoBehaviour
             wepIndexObject.GetComponent<Text>().text = weapon.WeaponIndex.ToString();
 
             //move the object on a circle
-            wepIndexObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(radius * Mathf.Cos(Mathf.Deg2Rad * (45 + shiftAngle * i)),
-                                                                                        radius * Mathf.Sin(Mathf.Deg2Rad * (45 + shiftAngle * i)));
+            wepIndexObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(radius * Mathf.Cos(Mathf.Deg2Rad * (45 - shiftAngle * i)),
+                                                                                        radius * Mathf.Sin(Mathf.Deg2Rad * (45 - shiftAngle * i)));
             i++;
         }
     }
