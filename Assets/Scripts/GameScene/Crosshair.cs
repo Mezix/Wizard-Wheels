@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,13 @@ public class Crosshair : MonoBehaviour
     public Text weaponIndex;
     public Text tankName;
     public GameObject crosshair;
+    public List<IWeapon> AttackingWeapons;
+    public List<GameObject> WeaponIndices;
+    private void Awake()
+    {
+        AttackingWeapons = new List<IWeapon>();
+        WeaponIndices = new List<GameObject>();
+    }
     public void SetCrosshairWeaponText(string index, string TankName = "")
     {
         weaponIndex.text = index;
@@ -25,6 +33,62 @@ public class Crosshair : MonoBehaviour
         {
             transform.localPosition = new Vector2(0.25f, -0.25f);
             weaponTextCanvas.transform.localPosition = new Vector2(0.25f, 0.25f);
+        }
+    }
+
+    public void AddAttacker(IWeapon weapon)
+    {
+        if(!AttackingWeapons.Contains(weapon))
+        {
+            AttackingWeapons.Add(weapon);
+            UpdateCrosshair();
+        }
+    }
+    public bool RemoveAttacker(IWeapon wep)
+    {
+        AttackingWeapons.Remove(wep);
+        UpdateCrosshair();
+        if (AttackingWeapons.Count == 0)
+        {
+            //if our list of attackers is empty, tell our Crosshairmanager to despawn the crosshair by returning true
+            return true;
+        }
+        return false;
+    }
+    private void ClearAllIndices()
+    {
+        foreach(GameObject g in WeaponIndices)
+        {
+            Destroy(g);
+        }
+        WeaponIndices.Clear();
+    }
+    private void UpdateCrosshair()
+    {
+        ClearAllIndices();
+
+        float radius = 50 * crosshair.transform.localScale.x; //radius of the circle function used to calculate the crosshair index's position
+        int i = 0; //a counter to shift the position of our crosshair indices
+        float shiftAngle = 15;
+
+        foreach(IWeapon weapon in AttackingWeapons)
+        {
+            //spawn a new Gameobject 
+            GameObject wepIndexObject = Instantiate((GameObject)Resources.Load("WeaponIndex"));
+            wepIndexObject.transform.SetParent(weaponTextCanvas.transform, false);
+
+            //string tankName = "";
+            //if (weapon.ShouldHitPlayer)
+            //{
+            //    tankName = weapon.WeaponObj.transform.root.name;
+            //}
+
+            wepIndexObject.GetComponent<Text>().text = weapon.WeaponIndex.ToString();
+
+            //move the object on a circle
+            wepIndexObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(radius * Mathf.Cos(Mathf.Deg2Rad * (45 + shiftAngle * i)),
+                                                                                        radius * Mathf.Sin(Mathf.Deg2Rad * (45 + shiftAngle * i)));
+            i++;
         }
     }
 }

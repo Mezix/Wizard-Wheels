@@ -82,7 +82,8 @@ public class PlayerTankWeapons : MonoBehaviour
         {
             if (wp != null) wp.WeaponSelected = false;
             wp.ShouldNotRotate = true;
-            wp.DestroyCrosshair();
+            Ref.c.RemoveCrosshair(wp);
+            //wp.DestroyCrosshair();
         }
     }
 }

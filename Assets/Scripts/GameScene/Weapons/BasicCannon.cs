@@ -33,7 +33,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     public GameObject ProjectilePrefab { get; set; }
     public Transform _cannonballSpot;
-    private GameObject spawnedCrosshair;
+    //private GameObject spawnedCrosshair;
     private LineRenderer laserLR;
     public bool ShouldHitPlayer { get; set; }
 
@@ -137,7 +137,9 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     public void AimWithMouse()
     {
-        if (spawnedCrosshair) DestroyCrosshair();
+        //if (spawnedCrosshair) DestroyCrosshair();
+        if (Room) Ref.c.RemoveCrosshair(GetComponent<IWeapon>());
+
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if(hit.collider)
         {
@@ -145,7 +147,8 @@ public class BasicCannon : MonoBehaviour, IWeapon
                 && hit.collider.transform.GetComponent<Room>())
             {
                 Room = hit.collider.gameObject;
-                SpawnCrosshair(Room.transform);
+                //SpawnCrosshair(Room.transform);
+                Ref.c.AddCrosshair(Room.GetComponentInChildren<Room>(), GetComponent<IWeapon>());
                 AimAtTarget = true;
             }
         }
@@ -158,13 +161,15 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     public void CancelAim()
     {
-        if (spawnedCrosshair) DestroyCrosshair();
+        //if (spawnedCrosshair) DestroyCrosshair();
+        Ref.c.RemoveCrosshair(GetComponent<IWeapon>());
         AimAtTarget = false;
         Room = null;
     }
     public void ResetAim()
     {
-        if (spawnedCrosshair) DestroyCrosshair();
+        //if (spawnedCrosshair) DestroyCrosshair();
+        Ref.c.RemoveCrosshair(GetComponent<IWeapon>());
         AimRotationAngle = 90;
         AimAtTarget = false;
         Room = null;
@@ -207,7 +212,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         //  find the desired angle to face the target
         float zRotToTarget = HM.Angle2D(Room.transform.position + TargetMoveVector, transform.position);
         //  get closer to the angle with our max rotationspeed
-        float zRotActual = 0;
+        float zRotActual;
         float diff = zRotToTarget - transform.rotation.eulerAngles.z;
         if (diff < -180) diff += 360;
 
@@ -251,22 +256,22 @@ public class BasicCannon : MonoBehaviour, IWeapon
     {
         if(WeaponCharge) WeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
     }
-    public void SpawnCrosshair(Transform parent)
-    {
-        if (spawnedCrosshair) return;
-        spawnedCrosshair = Instantiate((GameObject) Resources.Load("Crosshair"));
-        spawnedCrosshair.transform.parent = parent;
-        spawnedCrosshair.transform.localPosition = Vector3.zero + new Vector3(0,0,10);
-        string tankName = "";
-        if (ShouldHitPlayer)
-            tankName = transform.root.name;
-        spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponText(WeaponIndex.ToString(), tankName);
-        spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairSizeAndPosition(parent.GetComponent<Room>().sizeX, parent.GetComponent<Room>().sizeY);
-    }
-    public void DestroyCrosshair()
-    {
-         Destroy(spawnedCrosshair);
-    }
+    //public void SpawnCrosshair(Transform parent)
+    //{
+    //    if (spawnedCrosshair) return;
+    //    spawnedCrosshair = Instantiate((GameObject) Resources.Load("Crosshair"));
+    //    spawnedCrosshair.transform.parent = parent;
+    //    spawnedCrosshair.transform.localPosition = Vector3.zero + new Vector3(0,0,10);
+    //    string tankName = "";
+    //    if (ShouldHitPlayer)
+    //        tankName = transform.root.name;
+    //    spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponText(WeaponIndex.ToString(), tankName);
+    //    spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairSizeAndPosition(parent.GetComponent<Room>().sizeX, parent.GetComponent<Room>().sizeY);
+    //}
+    //public void DestroyCrosshair()
+    //{
+    //     Destroy(spawnedCrosshair);
+    //}
 
     //  Misc
 

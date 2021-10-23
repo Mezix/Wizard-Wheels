@@ -32,4 +32,8 @@ public class Ref : MonoBehaviour
     /// The MouseCursorScript
     /// </summary>
     public static MouseCursor mouse;
+    /// <summary>
+    /// The CrosshairManager Script
+    /// </summary>
+    public static CrosshairManager c;
 }

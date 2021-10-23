@@ -38,7 +38,8 @@ public class EnemyTankWeapons : MonoBehaviour
                 GameObject targetRoom = FindTarget();
                 wep.AimAtTarget = true;
                 wep.Room = targetRoom;
-                wep.SpawnCrosshair(wep.Room.transform);
+                Ref.c.AddCrosshair(wep.Room.GetComponent<Room>(), wep);
+                //wep.SpawnCrosshair(wep.Room.transform);
             }
         }
     }
@@ -58,7 +59,8 @@ public class EnemyTankWeapons : MonoBehaviour
                 wep.AimAtTarget = false;
                 wep.Room = null;
                 wep.ShouldNotRotate = true;
-                wep.DestroyCrosshair();
+                Ref.c.RemoveCrosshair(wep);
+                //wep.DestroyCrosshair();
             }
         }
     }
