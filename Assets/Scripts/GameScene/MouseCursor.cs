@@ -131,9 +131,9 @@ public class MouseCursor : MonoBehaviour
     private void SelectUnits()
     {
         if (Ref.PDead) return;
-        foreach(TechWizard wizard in PlayerTankController.instance._spawnedWizards)
+        foreach(IUnit wizard in PlayerTankController.instance._spawnedWizards)
         {
-            if (selectionBox.Contains(Camera.main.WorldToScreenPoint(wizard.transform.position)))
+            if (selectionBox.Contains(Camera.main.WorldToScreenPoint(wizard.UnitObj.transform.position)))
             {
                 wizard.UnitSelected = true;
             }
@@ -142,7 +142,7 @@ public class MouseCursor : MonoBehaviour
     public void DeselectAllUnits()
     {
         if (Ref.PDead) return;
-        foreach (TechWizard wizard in PlayerTankController.instance._spawnedWizards)
+        foreach (IUnit wizard in PlayerTankController.instance._spawnedWizards)
         {
             wizard.UnitSelected = false;
         }

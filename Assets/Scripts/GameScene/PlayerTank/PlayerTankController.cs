@@ -92,14 +92,14 @@ public class PlayerTankController : MonoBehaviour
         foreach (GameObject wiz in WizardsToSpawn)
         {
             GameObject wizGO = Instantiate(wiz);
-            IUnit u = wizGO.GetComponentInChildren<TechWizard>();
+            IUnit u = wizGO.GetComponentInChildren<IUnit>();
             Room room = TGeo.FindRandomRoomWithSpace();
             wizGO.transform.parent = transform;
             wizGO.transform.position = room.transform.position;
             u.CurrentRoom = room;
             u.CurrentRoom.OccupyRoomPos(room.GetNextFreeRoomPos());
             u.CurrentRoomPos = u.CurrentRoom.allRoomPositions[0];
-            _spawnedWizards.Add(wizGO.GetComponentInChildren<TechWizard>());
+            _spawnedWizards.Add(wizGO.GetComponentInChildren<IUnit>());
 
             u.InitUnit();
             u.UIWizard = Ref.UI.CreateWizardUI(u);
@@ -108,7 +108,7 @@ public class PlayerTankController : MonoBehaviour
     }
     public void DeselectAllWizards()
     {
-        foreach (TechWizard wizard in _spawnedWizards) wizard.UnitSelected = false;
+        foreach (IUnit wizard in _spawnedWizards) wizard.UnitSelected = false;
     }
     public void TakeDamage(int damage)
     {

@@ -18,7 +18,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
 
     public string _tankName;
     public Text tankNameText;
-    public List<TechWizard> _wizardList = new List<TechWizard>();
+    public List<IUnit> _wizardList = new List<IUnit>();
 
     public bool _dying;
     public bool _dead;
@@ -81,7 +81,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     }
     private void InitWizards()
     {
-        foreach (TechWizard w in GetComponentsInChildren<TechWizard>())
+        foreach (IUnit w in GetComponentsInChildren<IUnit>())
         {
             _wizardList.Add(w);
         }
