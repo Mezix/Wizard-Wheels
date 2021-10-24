@@ -34,18 +34,18 @@ public class UIScript : MonoBehaviour
     // Health
     public GameObject _healthBarParent;
     public List<Image> _allHealthBarUnits;
-    public GameObject _healthBarUnitPrefab;
 
     private void Awake()
     {
         settingsOn = false;
-        PauseImage.SetActive(false);
         Ref.UI = this;
     }
     private void Start()
     {
         InitButtons();
         InitSliders();
+        PauseImage.SetActive(false);
+        CloseSettings();
     }
     private void InitButtons()
     {
@@ -131,7 +131,7 @@ public class UIScript : MonoBehaviour
         }
         for(int i = 0; i < maxHealth; i++)
         {
-            GameObject tmp = Instantiate(_healthBarUnitPrefab);
+            GameObject tmp = Instantiate((GameObject) Resources.Load("HPSegment"));
             _allHealthBarUnits.Add(tmp.GetComponent<Image>());
             tmp.transform.SetParent(_healthBarParent.transform, false);
         }
