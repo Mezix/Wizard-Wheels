@@ -105,6 +105,8 @@ public class UIScript : MonoBehaviour
         UIWizard u = go.GetComponent<UIWizard>();
         u._wizardImage.sprite = unit.Rend.sprite;
         u._UIWizardName.text = unit.UnitName;
+        u.button.onClick = new Button.ButtonClickedEvent();
+        u.button.onClick.AddListener(() => u.SelectWizard());
         u.wizard = unit;
 
         go.transform.SetParent(_wizardsList.transform, false);

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerTankController : MonoBehaviour
 {
@@ -101,12 +102,13 @@ public class PlayerTankController : MonoBehaviour
             _spawnedWizards.Add(wizGO.GetComponentInChildren<TechWizard>());
 
             u.InitUnit();
-            _UIWizards.Add(Ref.UI.CreateWizardUI(u));
+            u.UIWizard = Ref.UI.CreateWizardUI(u);
+            _UIWizards.Add(u.UIWizard);
         }
     }
     public void DeselectAllWizards()
     {
-        foreach (TechWizard wizard in _spawnedWizards) wizard.UnitSelected = true;
+        foreach (TechWizard wizard in _spawnedWizards) wizard.UnitSelected = false;
     }
     public void TakeDamage(int damage)
     {

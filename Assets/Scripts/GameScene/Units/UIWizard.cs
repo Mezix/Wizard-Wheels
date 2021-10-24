@@ -11,7 +11,7 @@ public class UIWizard : MonoBehaviour
     public Text _UIWizardName;
     public Text _UIWizardKeybind;
     public Image _UIWizardHealthbarFill;
-    private Button button;
+    public Button button;
     private void Awake()
     {
         button = GetComponent<Button>();
@@ -23,8 +23,9 @@ public class UIWizard : MonoBehaviour
 
         if (wizard != null) wizard.UnitSelected = true;
     }
-    public void UnitSelected(bool b)
+    public void UpdateButton(bool selected)
     {
-        button.interactable = b;
+        if (selected) _wizardImage.color = Color.black;
+        else _wizardImage.color = Color.white;
     }
 }

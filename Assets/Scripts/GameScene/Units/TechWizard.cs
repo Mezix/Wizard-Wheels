@@ -42,7 +42,8 @@ public class TechWizard : MonoBehaviour, IUnit
     {
         if (UnitSelected)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0)) DeterminePathToRoom();
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.LeftShift) && !Ref.mouse.IsPointerOverUIElement())
+                DeterminePathToRoom();
         }
         UpdateWizardUI();
     }
@@ -55,7 +56,8 @@ public class TechWizard : MonoBehaviour, IUnit
         if (UIWizard)
         {
             UIWizard._UIWizardHealthbarFill.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth); //TODO: add unit health script
-            UIWizard.UnitSelected(UnitSelected);
+            //UIWizard.UnitSelected(UnitSelected);
+            UIWizard.UpdateButton(UnitSelected);
         }
     }
     private void UnitBehaviour()
