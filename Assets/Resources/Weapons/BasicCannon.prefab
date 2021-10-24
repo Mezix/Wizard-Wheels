@@ -210,8 +210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponStats: {fileID: 11400000, guid: 76dd4a71ba13fa14d99559157cd83133, type: 2}
   _cannonballSpot: {fileID: 995660803235255240}
-  _crosshairPrefab: {fileID: 3094488962896780022, guid: 9a0bd5fa61eda4b47b400953b212793b,
-    type: 3}
   _weaponIndexText: {fileID: 383628535702409222}
   _weaponAudioSource: {fileID: 5770678182755424900}
 --- !u!1 &1891114875749286798
@@ -521,9 +519,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -706261691
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}

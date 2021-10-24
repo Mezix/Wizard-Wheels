@@ -45,7 +45,7 @@ public class PlayerTankController : MonoBehaviour
         TGeo.SpawnTank();
         TMov.InitTankMovement();
         TRot.InitTankRotation();
-        TWep.InitWeapons();
+        TWep.InitWeaponsAndSystems();
         TWep.CreateWeaponsUI();
         InitTankStats();
         SpawnWizards();

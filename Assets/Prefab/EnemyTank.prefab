@@ -402,7 +402,6 @@ MonoBehaviour:
   TStats: {fileID: 11400000, guid: 38f853e94e77a3946a479443944be7e9, type: 2}
   _tankName: Druskelle
   tankNameText: {fileID: 264041171380104351}
-  _wizardList: []
   _dying: 0
   _dead: 0
   TrackCameraButton: {fileID: 5949797694568219619}
@@ -821,12 +820,12 @@ PrefabInstance:
     - target: {fileID: 7613949203658757162, guid: 7ac089229eaa84c40aae6f43ba1d1d2a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7613949203658757162, guid: 7ac089229eaa84c40aae6f43ba1d1d2a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 7613949203658757162, guid: 7ac089229eaa84c40aae6f43ba1d1d2a,
         type: 3}
@@ -896,12 +895,12 @@ PrefabInstance:
     - target: {fileID: 7613949203658757162, guid: 3eaaca886ea2fe34894663466291e5af,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7613949203658757162, guid: 3eaaca886ea2fe34894663466291e5af,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.19000006
       objectReference: {fileID: 0}
     - target: {fileID: 7613949203658757162, guid: 3eaaca886ea2fe34894663466291e5af,
         type: 3}
@@ -1022,6 +1021,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BasicCannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723648633549023116, guid: 32430ef957ea24a4eae0cc1b70d80ded,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3633578093540335794, guid: 32430ef957ea24a4eae0cc1b70d80ded,
         type: 3}

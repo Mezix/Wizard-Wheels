@@ -45,9 +45,12 @@ public class BasicCannon : MonoBehaviour, IWeapon
     //  Audio
     public AudioSource _weaponAudioSource = null;
 
-    private void Start()
+    private void Awake()
     {
         SystemObj = gameObject;
+    }
+    private void Start()
+    {
         ProjectilePrefab = (GameObject) Resources.Load("Weapons\\cannonball");
         laserLR = _cannonballSpot.GetComponentInChildren<LineRenderer>();
         AimRotationAngle = 90;

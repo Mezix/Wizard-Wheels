@@ -13,7 +13,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     public EnemyTankHealth THealth { get; private set; }
     public EnemyTankMovement TMov { get; private set; }
     public EnemyTankRotation TRot { get; private set; }
-    public EnemyTankWeapons TWep { get; private set; }
+    public EnemyTankWeaponsAndSystems TWep { get; private set; }
     public TankGeometry TGeo { get; private set; }
 
     public string _tankName;
@@ -30,14 +30,14 @@ public class EnemyTankController : MonoBehaviour, IEnemy
         THealth = GetComponentInChildren<EnemyTankHealth>();
         TMov = GetComponentInChildren<EnemyTankMovement>();
         TRot = GetComponentInChildren<EnemyTankRotation>();
-        TWep = GetComponentInChildren<EnemyTankWeapons>();
+        TWep = GetComponentInChildren<EnemyTankWeaponsAndSystems>();
         TGeo = GetComponentInChildren<TankGeometry>();
     }
     void Start()
     {
         InitEvents();
         TGeo.SpawnTank();
-        TWep.InitWeapons();
+        TWep.InitWeaponsAndSystems(TGeo._tankRoomConstellation);
         TWep.CreateWeaponsUI();
         InitTankStats();
         InitWizards();
@@ -120,7 +120,6 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     }
     private IEnumerator DeathAnimation()
     {
-
         List<GameObject> explosions = new List<GameObject>();
         while (!_dead)
         {
@@ -131,6 +130,8 @@ public class EnemyTankController : MonoBehaviour, IEnemy
         }
         yield return new WaitForSeconds(0.435f);
         foreach (GameObject expl in explosions) Destroy(expl);
+
+        Events.instance.EnemyDestroyed(gameObject);
         Destroy(gameObject);
     }
 }
