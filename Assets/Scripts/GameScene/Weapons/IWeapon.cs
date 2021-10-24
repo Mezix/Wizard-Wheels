@@ -6,10 +6,7 @@ using UnityEngine.UI;
 public interface IWeapon : ISystem
 {
     //WeaponStats weaponStats { get; set; }
-    GameObject WeaponObj { get; set; }
     int WeaponIndex { get; set; }
-    string WeaponName { get; set; }
-    Sprite WeaponSprite { get; set; }
     float AttacksPerSecond { get; set; }
     float TimeBetweenAttacks { get; }
     float TimeElapsedBetweenLastAttack { get; }
@@ -25,7 +22,6 @@ public interface IWeapon : ISystem
      bool ShouldHitPlayer { get; set; }
      bool ShouldNotRotate { get; set; }
 
-    void InitWeaponStats();
     void SetIndex(int i);
     void HandleWeaponSelected();
     void AimWithMouse();

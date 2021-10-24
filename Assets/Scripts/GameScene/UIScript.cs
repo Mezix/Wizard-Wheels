@@ -90,8 +90,8 @@ public class UIScript : MonoBehaviour
     {
         GameObject go = Instantiate((GameObject) Resources.Load("Weapons\\UIWeapon"));
         UIWeapon wp = go.GetComponent<UIWeapon>();
-        wp._weaponImage.sprite = iwp.WeaponSprite;
-        wp._UIWeaponName.text = iwp.WeaponName;
+        wp._weaponImage.sprite = iwp.SystemSprite;
+        wp._UIWeaponName.text = iwp.SystemName;
         wp._index = iwp.WeaponIndex;
         wp._weapon = iwp;
         wp._UIWeaponIndex.text = iwp.WeaponIndex.ToString();

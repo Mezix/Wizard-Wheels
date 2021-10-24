@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 3928980102496951018}
   - component: {fileID: 8122812961001258632}
   m_Layer: 8
-  m_Name: 1x1DefaultSquareRoom
+  m_Name: 1x1Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,7 +319,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.3, y: 0.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

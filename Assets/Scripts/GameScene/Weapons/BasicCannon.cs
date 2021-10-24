@@ -11,9 +11,9 @@ public class BasicCannon : MonoBehaviour, IWeapon
     //  Weapon stats
 
     public WeaponStats _weaponStats;
-    public GameObject WeaponObj { get; set; }
-    public string WeaponName { get; set; }
-    public Sprite WeaponSprite { get; set; }
+    public GameObject SystemObj { get; set; }
+    public string SystemName { get; set; }
+    public Sprite SystemSprite { get; set; }
     public float AttacksPerSecond { get; set; }
     public float TimeBetweenAttacks { get; private set; }
     public float TimeElapsedBetweenLastAttack { get; private set; }
@@ -47,8 +47,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     private void Start()
     {
-        InitWeaponStats();
-        WeaponObj = gameObject;
+        SystemObj = gameObject;
         ProjectilePrefab = (GameObject) Resources.Load("Weapons\\cannonball");
         laserLR = _cannonballSpot.GetComponentInChildren<LineRenderer>();
         AimRotationAngle = 90;
@@ -75,12 +74,12 @@ public class BasicCannon : MonoBehaviour, IWeapon
             StopInteraction();
         }
     }
-    public void InitWeaponStats()
+    public void InitSystem()
     {
         if (_weaponStats)  //if we have a scriptableobject, use its stats
         {
-            WeaponName = _weaponStats._weaponName;
-            WeaponSprite = _weaponStats._weaponSprite;
+            SystemName = _weaponStats._weaponName;
+            SystemSprite = _weaponStats._weaponSprite;
             AttacksPerSecond = _weaponStats._attacksPerSecond;
             Damage = _weaponStats._damage;
             RotationSpeed = _weaponStats._rotationSpeed;

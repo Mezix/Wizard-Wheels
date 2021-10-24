@@ -47,13 +47,6 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
     }
     public void InitWeapons()
     {
-        //foreach (IWeapon wp in GetComponentsInChildren<IWeapon>())
-        //{
-        //    IWeaponArray.Add(wp);
-        //    wp.ShouldHitPlayer = false;
-        //    AddWeaponSystemToNearestRoom(wp.WeaponObj);
-        //}
-
         TankRoomConstellation tr = Ref.PCon.TGeo._tankRoomConstellation;
         for (int x = 0; x < tr.XTilesAmount; x++)
         {
@@ -62,19 +55,35 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
                 if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
                 {
                     GameObject prefab = tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
-                    //Our object should either be a Weapon or a system, so check for both cases
+
+                    //Our object should either be a Weapon or a System, so check for both cases
                     if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<IWeapon>() != null)
                     {
                         GameObject weaponObj = Instantiate(prefab);
+                        weaponObj.transform.parent = tr.RoomPosMatrix[x,y].ParentRoom.transform;
+                        weaponObj.transform.localPosition = Vector3.zero;
                         IWeapon wep = weaponObj.GetComponent<IWeapon>();
-                        IWeaponArray.Add(wep);
+                        wep.InitSystem();
                         wep.ShouldHitPlayer = false;
+                        IWeaponArray.Add(wep);
+
+                        //Set the reference to the rooms
+                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
+                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = wep.SystemSprite;
+
                     }
                     else if(tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
                     {
                         GameObject systemObj = Instantiate(prefab);
-                        ISystem sys = systemObj.GetComponent<IWeapon>();
+                        systemObj.transform.parent = tr.RoomPosMatrix[x, y].ParentRoom.transform;
+                        systemObj.transform.localPosition = Vector3.zero;
+                        ISystem sys = systemObj.GetComponent<ISystem>();
+                        sys.InitSystem();
                         ISystemArray.Add(sys);
+
+                        //Set the reference to the rooms
+                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = sys;
+                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = sys.SystemSprite;
                     }
                 }
             }
@@ -85,7 +94,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
     {
         Room r = Ref.PCon.TGeo.FindRandomRoomWithSpace();
         r.roomSystem = weapon.GetComponent<ISystem>();
-        r.roomSystemRenderer.sprite = weapon.GetComponent<IWeapon>().WeaponSprite;
+        r.roomSystemRenderer.sprite = weapon.GetComponent<IWeapon>().SystemSprite;
     }
 
     public void ClearWeapons()

@@ -27,9 +27,6 @@ public class Room : MonoBehaviour
             freeRoomPositions[i].roomPosIndex = i;
             freeRoomPositions[i].ParentRoom = this;
         }
-        // copy all available room positions to our freeRoomPositions
-
-        //HM.CopyListOfRoomPositions(allRoomPositions, freeRoomPositions);
     }
 
     public void OccupyRoomPos(RoomPosition rPos)
