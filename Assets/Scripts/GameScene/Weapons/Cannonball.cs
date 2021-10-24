@@ -10,6 +10,7 @@ public class Cannonball : MonoBehaviour, IProjectile
     public int Damage { get; set; }
 
     private Rigidbody2D rb;
+    public SpriteRenderer _cannonballSprite;
     public float ProjectileSpeed { get; set; }
     private bool exploding;
     public bool HitPlayer { get; set; }
@@ -25,13 +26,15 @@ public class Cannonball : MonoBehaviour, IProjectile
         rb = GetComponent<Rigidbody2D>();
         ProjectileSpeed = 10f;
         MaxLifetime = 3;
-        _shadow.transform.localPosition = new Vector2(0, -maxShadowHeight);
     }
     private void OnEnable()
     {
         CurrentLifeTime = 0;
         exploding = false;
         hasDoneDamage = false;
+        _shadow.transform.localPosition = new Vector2(0, -maxShadowHeight);
+        _shadow.SetActive(true);
+        _cannonballSprite.gameObject.SetActive(true);
     }
     private void FixedUpdate()
     {
@@ -46,7 +49,8 @@ public class Cannonball : MonoBehaviour, IProjectile
 
     private void MoveProjectile()
     {
-        transform.position += transform.right * ProjectileSpeed * Time.deltaTime;
+        //transform.position += transform.right * ProjectileSpeed * Time.deltaTime;
+        rb.MovePosition(transform.position + transform.right * ProjectileSpeed * Time.deltaTime);
         UpdateShadowPosition();
     }
     private void UpdateShadowPosition()
@@ -56,9 +60,9 @@ public class Cannonball : MonoBehaviour, IProjectile
     }
     public void CheckLifetime()
     {
-        if (CurrentLifeTime >= MaxLifetime)
+        if (CurrentLifeTime >= MaxLifetime && !exploding)
         {
-            DespawnBullet();
+            StartCoroutine(PlayExplosion());
         }
     }
     private void OnTriggerEnter2D(Collider2D col)
@@ -90,6 +94,8 @@ public class Cannonball : MonoBehaviour, IProjectile
     private IEnumerator PlayExplosion()
     {
         exploding = true;
+        _shadow.SetActive(false);
+        _cannonballSprite.gameObject.SetActive(false);
         GameObject explosion = Instantiate((GameObject) Resources.Load("SingleExplosion"));
         explosion.transform.position = transform.position;
         yield return new WaitForSeconds(0.43f);
