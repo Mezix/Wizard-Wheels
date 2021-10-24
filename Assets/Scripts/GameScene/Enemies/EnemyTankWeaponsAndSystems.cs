@@ -112,7 +112,7 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
         {
             foreach (IWeapon wep in IWeaponArray)
             {
-                wep.ResetAim();
+                if(wep != null) wep.ResetAim();
             }
         }
     }
