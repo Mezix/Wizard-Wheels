@@ -59,10 +59,21 @@ public class TankRoomConstellation : ScriptableObject
     [Serializable]
     public class YValues
     {
-        public GameObject[] YRooms;
+        public RoomInfo[] YStuff;
         public YValues(int yLength)
         {
-            YRooms = new GameObject[yLength];
+            YStuff = new RoomInfo[yLength];
+        }
+    }
+    [Serializable]
+    public class RoomInfo
+    {
+        public GameObject RoomPrefab;
+        public GameObject RoomSystemPrefab;
+        public RoomInfo(GameObject prefab = null, GameObject sys = null)
+        {
+            RoomPrefab = prefab;
+            RoomSystemPrefab = sys;
         }
     }
 }

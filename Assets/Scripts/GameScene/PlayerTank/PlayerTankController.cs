@@ -14,7 +14,7 @@ public class PlayerTankController : MonoBehaviour
     public PlayerTankHealth THealth { get; private set; }
     public PlayerTankMovement TMov { get; private set; }
     public PlayerTankRotation TRot { get; private set; }
-    public PlayerTankWeapons TWep { get; private set; }
+    public PlayerTankWeaponsAndSystems TWep { get; private set; }
     public TankGeometry TGeo { get; private set; }
 
     public string _tankName;
@@ -36,7 +36,7 @@ public class PlayerTankController : MonoBehaviour
         TGeo = GetComponentInChildren<TankGeometry>();
         TMov = GetComponentInChildren<PlayerTankMovement>();
         TRot = GetComponentInChildren<PlayerTankRotation>();
-        TWep = GetComponentInChildren<PlayerTankWeapons>();
+        TWep = GetComponentInChildren<PlayerTankWeaponsAndSystems>();
         THealth = GetComponentInChildren<PlayerTankHealth>();
     }
 

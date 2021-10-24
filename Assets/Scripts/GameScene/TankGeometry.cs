@@ -23,10 +23,13 @@ public class TankGeometry : MonoBehaviour
         {
             for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
             {
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y])
+                //if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y])
+                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
-                    int sizeX = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y].GetComponent<Room>().sizeX;
-                    int sizeY = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y].GetComponent<Room>().sizeY;
+                    //int sizeX = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y].GetComponent<Room>().sizeX;
+                    //int sizeY = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y].GetComponent<Room>().sizeY;
+                    int sizeX = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeX;
+                    int sizeY = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeY;
                     CreateBGAtPos(x, y, sizeX, sizeY);
                 }
             }
@@ -94,9 +97,9 @@ public class TankGeometry : MonoBehaviour
         {
             for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
             {
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y])
+                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
-                    GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YRooms[y]);
+                    GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab);
                     Room r = rGO.GetComponent<Room>();
                     rGO.transform.parent = RoomsParent.transform;
                     rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);

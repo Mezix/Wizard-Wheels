@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTankWeapons : MonoBehaviour
+public class PlayerTankWeaponsAndSystems : MonoBehaviour
 {
     public List<IWeapon> IWeaponArray = new List<IWeapon>();
+    public List<ISystem> ISystemArray = new List<ISystem>();
     public List<UIWeapon> AllUIWeapons = new List<UIWeapon>();
     public bool multipleSelected = true;
 
@@ -46,11 +47,37 @@ public class PlayerTankWeapons : MonoBehaviour
     }
     public void InitWeapons()
     {
-        foreach (IWeapon wp in GetComponentsInChildren<IWeapon>())
+        //foreach (IWeapon wp in GetComponentsInChildren<IWeapon>())
+        //{
+        //    IWeaponArray.Add(wp);
+        //    wp.ShouldHitPlayer = false;
+        //    AddWeaponSystemToNearestRoom(wp.WeaponObj);
+        //}
+
+        TankRoomConstellation tr = Ref.PCon.TGeo._tankRoomConstellation;
+        for (int x = 0; x < tr.XTilesAmount; x++)
         {
-            IWeaponArray.Add(wp);
-            wp.ShouldHitPlayer = false;
-            AddWeaponSystemToNearestRoom(wp.WeaponObj);
+            for (int y = 0; y < tr.YTilesAmount; y++)
+            {
+                if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
+                {
+                    GameObject prefab = tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
+                    //Our object should either be a Weapon or a system, so check for both cases
+                    if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<IWeapon>() != null)
+                    {
+                        GameObject weaponObj = Instantiate(prefab);
+                        IWeapon wep = weaponObj.GetComponent<IWeapon>();
+                        IWeaponArray.Add(wep);
+                        wep.ShouldHitPlayer = false;
+                    }
+                    else if(tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
+                    {
+                        GameObject systemObj = Instantiate(prefab);
+                        ISystem sys = systemObj.GetComponent<IWeapon>();
+                        ISystemArray.Add(sys);
+                    }
+                }
+            }
         }
     }
 

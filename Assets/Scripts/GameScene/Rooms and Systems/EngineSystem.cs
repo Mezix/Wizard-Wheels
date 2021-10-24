@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EngineSystem : MonoBehaviour
+public class EngineSystem : MonoBehaviour, ISystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public void StartInteraction()
     {
-        
+        print("Engine go brrr hahahaha :D");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StopInteraction()
     {
-        
+        print("Engine stop go brrr");
     }
 }
