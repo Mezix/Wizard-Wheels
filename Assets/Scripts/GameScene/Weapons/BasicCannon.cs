@@ -33,12 +33,11 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     public GameObject ProjectilePrefab { get; set; }
     public Transform _cannonballSpot;
-    //private GameObject spawnedCrosshair;
     private LineRenderer laserLR;
     public bool ShouldHitPlayer { get; set; }
 
     //  UI
-    public Image WeaponCharge { get; set; }
+    public UIWeapon UIWep { get; set; }
     public int WeaponIndex { get; set; }
 
     public Text _weaponIndexText;
@@ -137,7 +136,6 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
     public void AimWithMouse()
     {
-        //if (spawnedCrosshair) DestroyCrosshair();
         if (Room) Ref.c.RemoveCrosshair(GetComponent<IWeapon>());
 
         RaycastHit2D hit = HM.RaycastToMouseCursor();
@@ -147,7 +145,6 @@ public class BasicCannon : MonoBehaviour, IWeapon
                 && hit.collider.transform.GetComponent<Room>())
             {
                 Room = hit.collider.gameObject;
-                //SpawnCrosshair(Room.transform);
                 Ref.c.AddCrosshair(Room.GetComponentInChildren<Room>(), GetComponent<IWeapon>());
                 AimAtTarget = true;
             }
@@ -161,14 +158,12 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     public void CancelAim()
     {
-        //if (spawnedCrosshair) DestroyCrosshair();
         Ref.c.RemoveCrosshair(GetComponent<IWeapon>());
         AimAtTarget = false;
         Room = null;
     }
     public void ResetAim()
     {
-        //if (spawnedCrosshair) DestroyCrosshair();
         Ref.c.RemoveCrosshair(GetComponent<IWeapon>());
         AimRotationAngle = 90;
         AimAtTarget = false;
@@ -254,24 +249,12 @@ public class BasicCannon : MonoBehaviour, IWeapon
     //  UI
     private void UpdateWeaponUI()
     {
-        if(WeaponCharge) WeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
+        if (UIWep)
+        {
+            UIWep._UIWeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
+            UIWep.WeaponInteractable(WeaponEnabled);
+        }
     }
-    //public void SpawnCrosshair(Transform parent)
-    //{
-    //    if (spawnedCrosshair) return;
-    //    spawnedCrosshair = Instantiate((GameObject) Resources.Load("Crosshair"));
-    //    spawnedCrosshair.transform.parent = parent;
-    //    spawnedCrosshair.transform.localPosition = Vector3.zero + new Vector3(0,0,10);
-    //    string tankName = "";
-    //    if (ShouldHitPlayer)
-    //        tankName = transform.root.name;
-    //    spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairWeaponText(WeaponIndex.ToString(), tankName);
-    //    spawnedCrosshair.GetComponentInChildren<Crosshair>().SetCrosshairSizeAndPosition(parent.GetComponent<Room>().sizeX, parent.GetComponent<Room>().sizeY);
-    //}
-    //public void DestroyCrosshair()
-    //{
-    //     Destroy(spawnedCrosshair);
-    //}
 
     //  Misc
 

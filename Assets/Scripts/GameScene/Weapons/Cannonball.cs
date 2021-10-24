@@ -49,7 +49,6 @@ public class Cannonball : MonoBehaviour, IProjectile
 
     private void MoveProjectile()
     {
-        //transform.position += transform.right * ProjectileSpeed * Time.deltaTime;
         rb.MovePosition(transform.position + transform.right * ProjectileSpeed * Time.deltaTime);
         UpdateShadowPosition();
     }

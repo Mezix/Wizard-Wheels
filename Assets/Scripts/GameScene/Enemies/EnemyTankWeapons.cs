@@ -39,7 +39,6 @@ public class EnemyTankWeapons : MonoBehaviour
                 wep.AimAtTarget = true;
                 wep.Room = targetRoom;
                 Ref.c.AddCrosshair(wep.Room.GetComponent<Room>(), wep);
-                //wep.SpawnCrosshair(wep.Room.transform);
             }
         }
     }

@@ -46,7 +46,7 @@ public class EnemyTankRotation : MonoBehaviour
             if (Mathf.Abs(difference) < (rotationspeed * Time.deltaTime))
             {
                 RotateAllObjectsToRotation(AngleToRotateTo);
-                HM.RotateTransformToAngle(Ref.UI.SteeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
+                HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {
@@ -58,7 +58,7 @@ public class EnemyTankRotation : MonoBehaviour
             if (Mathf.Abs(difference) < (rotationspeed * Time.deltaTime))
             {
                 RotateAllObjectsToRotation(AngleToRotateTo);
-                HM.RotateTransformToAngle(Ref.UI.SteeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
+                HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {

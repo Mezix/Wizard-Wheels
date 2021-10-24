@@ -72,7 +72,7 @@ public class PlayerTankWeapons : MonoBehaviour
             IWeaponArray[i].SetIndex(i+1);
             UIWeapon uw = Ref.UI.CreateWeaponUI(IWeaponArray[i]);
             AllUIWeapons.Add(uw);
-            IWeaponArray[i].WeaponCharge = AllUIWeapons[i]._UIWeaponCharge;
+            IWeaponArray[i].UIWep = uw;
         }
     }
     public void WeaponBehaviourInDeath()
@@ -83,7 +83,6 @@ public class PlayerTankWeapons : MonoBehaviour
             if (wp != null) wp.WeaponSelected = false;
             wp.ShouldNotRotate = true;
             Ref.c.RemoveCrosshair(wp);
-            //wp.DestroyCrosshair();
         }
     }
 }

@@ -3,32 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TechWizard : MonoBehaviour
+public class TechWizard : MonoBehaviour, IUnit
 {
     public UnitStats _unitStats;
     public string UnitName { get; set; }
     public string UnitClass { get; set; }
     public float UnitHealth { get; set; }
     public float UnitSpeed { get; set; }
-    public SpriteRenderer WizardRenderer { get; set; }
+    public SpriteRenderer Rend { get; set; }
     public Animator WizardAnimator { get; set; }
     public bool UnitSelected { get; set; }
     public bool UnitIsMoving { get; set; }
+    public GameObject UnitObj { get; set; }
+    public UIWizard UIWizard { get; set; }
 
     //  Pathfinding
 
-    public Vector3 roomLocalPos;
-    public Room currentRoom;
-    public RoomPosition currentRoomPos;
-    public Room desiredRoom;
-    public RoomPosition desiredRoomPos;
-    public List<RoomPosition> PathToRoom;
+    public Vector3 RoomLocalPos;
+    public Room CurrentRoom { get; set; }
+    public RoomPosition CurrentRoomPos { get; set; }
+    public Room DesiredRoom { get; set; }
+    public RoomPosition DesiredRoomPos { get; set; }
+    public List<RoomPosition> PathToRoom { get; set; }
     public int currentWaypoint = 0; //the index of our path
 
     private void Awake()
     {
-        WizardRenderer = GetComponentInChildren<SpriteRenderer>();
+        Rend = GetComponentInChildren<SpriteRenderer>();
         WizardAnimator = GetComponentInChildren<Animator>();
+        UnitObj = gameObject;
     }
     private void Start()
     {
@@ -41,12 +44,20 @@ public class TechWizard : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0)) DeterminePathToRoom();
         }
+        UpdateWizardUI();
     }
     private void FixedUpdate()
     {
         UnitBehaviour();
     }
-
+    private void UpdateWizardUI()
+    {
+        if (UIWizard)
+        {
+            UIWizard._UIWizardHealthbarFill.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth); //TODO: add unit health script
+            UIWizard.UnitSelected(UnitSelected);
+        }
+    }
     private void UnitBehaviour()
     {
         if (UnitIsMoving)
@@ -58,12 +69,12 @@ public class TechWizard : MonoBehaviour
     private void StartInteraction()
     {
         WizardAnimator.SetBool("Interacting", true);
-        currentRoom.roomSystem.StartInteraction();
+        CurrentRoom.roomSystem.StartInteraction();
     }
     private void StopInteraction()
     {
         WizardAnimator.SetBool("Interacting", false);
-        currentRoom.roomSystem.StopInteraction();
+        CurrentRoom.roomSystem.StopInteraction();
     }
 
     public void InitUnit()
@@ -87,7 +98,7 @@ public class TechWizard : MonoBehaviour
         UnitIsMoving = false;
         UnitSelected = false;
 
-        if (currentRoom.roomSystem != null)
+        if (CurrentRoom.roomSystem != null)
         {
             StartInteraction();
         }
@@ -105,7 +116,7 @@ public class TechWizard : MonoBehaviour
             print("no valid room found, deselecting unit and aborting pathfinding");
             return;
         }
-        if(roomToGetTo.Equals(currentRoom))
+        if(roomToGetTo.Equals(CurrentRoom))
         {
             Ref.mouse.DeselectAllUnits();
             print("Trying to enter same room, Deselecting unit!");
@@ -115,7 +126,7 @@ public class TechWizard : MonoBehaviour
         //  Check if Path is possible!
 
         //  free up the room we are currently in so someone else can go there
-        if (currentRoom && currentRoomPos) currentRoom.FreeUpRoomPos(currentRoomPos);
+        if (CurrentRoom && CurrentRoomPos) CurrentRoom.FreeUpRoomPos(CurrentRoomPos);
 
         //if we were already moving somewhere, free up the space we were last moving to and find our current room
         if (PathToRoom.Count > 0)
@@ -123,21 +134,21 @@ public class TechWizard : MonoBehaviour
             print("Diverting path!");
             //currentRoom = PathToRoom[currentWaypoint].ParentRoom;
             //currentRoomPos = currentRoom.allRoomPositions[0];
-            desiredRoom.FreeUpRoomPos(desiredRoomPos);
+            DesiredRoom.FreeUpRoomPos(DesiredRoomPos);
         }
 
         //  reserve the spot we are going to for ourselves
-        desiredRoom = roomToGetTo;
-        desiredRoomPos = desiredRoom.GetNextFreeRoomPos();
-        roomToGetTo.OccupyRoomPos(desiredRoomPos);
+        DesiredRoom = roomToGetTo;
+        DesiredRoomPos = DesiredRoom.GetNextFreeRoomPos();
+        roomToGetTo.OccupyRoomPos(DesiredRoomPos);
 
         //calculate the path
         ClearPathToRoom();
         currentWaypoint = 0;
-        PathToRoom = UnitPathfinding.instance.FindPath(currentRoomPos, desiredRoomPos, PlayerTankController.instance.TGeo._tankRoomConstellation);
+        PathToRoom = UnitPathfinding.instance.FindPath(CurrentRoomPos, DesiredRoomPos, PlayerTankController.instance.TGeo._tankRoomConstellation);
 
         // stop interacting with the system in our room if we have one
-        if (currentRoom.roomSystem != null) StopInteraction();
+        if (CurrentRoom.roomSystem != null) StopInteraction();
 
         //start the movement
         UnitIsMoving = true;
@@ -161,15 +172,15 @@ public class TechWizard : MonoBehaviour
         if (Vector3.Distance(transform.position, PathToRoom[PathToRoom.Count - 1].transform.position) <= (UnitSpeed * Time.deltaTime))
         {
             print("destination reached");
-            transform.localPosition = roomLocalPos;
+            transform.localPosition = RoomLocalPos;
             UnitIsMoving = false;
             WizardAnimator.SetFloat("Speed", 0);
 
             ClearPathToRoom();
-            currentRoom = desiredRoom;
-            currentRoomPos = desiredRoomPos;
+            CurrentRoom = DesiredRoom;
+            CurrentRoomPos = DesiredRoomPos;
 
-            if (currentRoom.roomSystem != null) StartInteraction();
+            if (CurrentRoom.roomSystem != null) StartInteraction();
         }
         else
         {
@@ -180,14 +191,14 @@ public class TechWizard : MonoBehaviour
     {
         WizardAnimator.SetBool("Interacting", false);
         //calculate the local vector of our room relative to the tank
-        roomLocalPos = nextRoomPos.transform.position - PlayerTankController.instance.transform.position;
+        RoomLocalPos = nextRoomPos.transform.position - PlayerTankController.instance.transform.position;
         //set the z to 0 so our sprite doesnt move on the z axis
-        roomLocalPos.z = 0;
+        RoomLocalPos.z = 0;
 
-        float distance = Vector2.Distance(transform.localPosition, roomLocalPos);
+        float distance = Vector2.Distance(transform.localPosition, RoomLocalPos);
 
         //calculate local vector between wizard and the next position
-        Vector3 moveVector = Vector3.Normalize(roomLocalPos - transform.localPosition);
+        Vector3 moveVector = Vector3.Normalize(RoomLocalPos - transform.localPosition);
 
         // set Animator Values
         WizardAnimator.SetFloat("Speed", moveVector.sqrMagnitude);
@@ -200,9 +211,9 @@ public class TechWizard : MonoBehaviour
         if (distance <= UnitSpeed * Time.deltaTime && !(currentWaypoint == PathToRoom.Count - 1))
         {
             currentWaypoint++;
-            currentRoomPos = nextRoomPos;
-            currentRoom = nextRoomPos.ParentRoom;
-            transform.localPosition = roomLocalPos;
+            CurrentRoomPos = nextRoomPos;
+            CurrentRoom = nextRoomPos.ParentRoom;
+            transform.localPosition = RoomLocalPos;
         }
     }
 }

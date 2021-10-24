@@ -8,28 +8,28 @@ using UnityEngine.UI;
 public class UIScript : MonoBehaviour
 {
     //Buttons
-    public Button CruiseButton;
-    public Button RotateBackButton;
-    public Button MatchSpeedButton;
-    public Button PauseButton;
-    public Button SettingsButton;
-    public Button TrackPlayerTankButton;
+    public Button _cruiseButton;
+    public Button _rotateBackButton;
+    public Button _matchSpeedButton;
+    public Button _pauseButton;
+    public Button _settingsButton;
+    public Button _trackPlayerTankButton;
 
     //Sliders
     public Slider _currentSpeedSlider;
     public Slider _desiredSpeedSlider;
 
-    public GameObject PauseImage;
-    public GameObject SteeringWheel;
-    public GameObject SteeringWheelPointer;
+    public GameObject _pauseImage;
+    public GameObject _steeringWheel;
+    public GameObject _steeringWheelPointer;
 
     // Weapons
-    public GameObject weaponsUIPrefab;
-    public GameObject weaponsList;
+    public GameObject _weaponsList;
+    public GameObject _wizardsList;
 
     // Settings
-    public GameObject Settings;
-    public bool settingsOn;
+    public GameObject _settings;
+    public bool _settingsOn;
 
     // Health
     public GameObject _healthBarParent;
@@ -37,30 +37,30 @@ public class UIScript : MonoBehaviour
 
     private void Awake()
     {
-        settingsOn = false;
+        _settingsOn = false;
         Ref.UI = this;
     }
     private void Start()
     {
         InitButtons();
         InitSliders();
-        PauseImage.SetActive(false);
+        _pauseImage.SetActive(false);
         CloseSettings();
     }
     private void InitButtons()
     {
-        CruiseButton.onClick = new Button.ButtonClickedEvent();
-        CruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
-        MatchSpeedButton.onClick = new Button.ButtonClickedEvent();
-        MatchSpeedButton.onClick.AddListener(() => MatchSpeed());
-        RotateBackButton.onClick = new Button.ButtonClickedEvent();
-        RotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.TurnTankUp());
-        SettingsButton.onClick = new Button.ButtonClickedEvent();
-        SettingsButton.onClick.AddListener(() => ToggleSettings());
-        PauseButton.onClick = new Button.ButtonClickedEvent();
-        PauseButton.onClick.AddListener(() => Ref.TM.TogglePauseWhilstPlaying());
-        TrackPlayerTankButton.onClick = new Button.ButtonClickedEvent();
-        TrackPlayerTankButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToPlayer());
+        _cruiseButton.onClick = new Button.ButtonClickedEvent();
+        _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
+        _matchSpeedButton.onClick = new Button.ButtonClickedEvent();
+        _matchSpeedButton.onClick.AddListener(() => MatchSpeed());
+        _rotateBackButton.onClick = new Button.ButtonClickedEvent();
+        _rotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.TurnTankUp());
+        _settingsButton.onClick = new Button.ButtonClickedEvent();
+        _settingsButton.onClick.AddListener(() => ToggleSettings());
+        _pauseButton.onClick = new Button.ButtonClickedEvent();
+        _pauseButton.onClick.AddListener(() => Ref.TM.TogglePauseWhilstPlaying());
+        _trackPlayerTankButton.onClick = new Button.ButtonClickedEvent();
+        _trackPlayerTankButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToPlayer());
     }
     private void InitSliders()
     {
@@ -71,29 +71,24 @@ public class UIScript : MonoBehaviour
     }
     public void ToggleSettings()
     {
-        if (!settingsOn) OpenSettings();
+        if (!_settingsOn) OpenSettings();
         else CloseSettings();
     }
     public void OpenSettings()
     {
         Ref.TM.FreezeTime();
-        Settings.SetActive(true);
-        settingsOn = true;
+        _settings.SetActive(true);
+        _settingsOn = true;
     }
     public void CloseSettings()
     {
         if(!TimeManager.paused) Ref.TM.UnfreezeTime();
-        Settings.SetActive(false);
-        settingsOn = false;
+        _settings.SetActive(false);
+        _settingsOn = false;
     }
     public UIWeapon CreateWeaponUI(IWeapon iwp)
     {
-        if (!weaponsUIPrefab)
-        {
-            Debug.LogWarning("Weapon UI Prefab not assigned, wont spawn UI");
-            return null;
-        }
-        GameObject go = Instantiate((GameObject) Resources.Load("Weapons\\UI Weapon"));
+        GameObject go = Instantiate((GameObject) Resources.Load("Weapons\\UIWeapon"));
         UIWeapon wp = go.GetComponent<UIWeapon>();
         wp._weaponImage.sprite = iwp.WeaponSprite;
         wp._UIWeaponName.text = iwp.WeaponName;
@@ -101,9 +96,21 @@ public class UIScript : MonoBehaviour
         wp._weapon = iwp;
         wp._UIWeaponIndex.text = iwp.WeaponIndex.ToString();
 
-        go.transform.SetParent(weaponsList.transform,false);
+        go.transform.SetParent(_weaponsList.transform,false);
         return wp;
     }
+    public UIWizard CreateWizardUI(IUnit unit)
+    {
+        GameObject go = Instantiate((GameObject)Resources.Load("UIWizard"));
+        UIWizard u = go.GetComponent<UIWizard>();
+        u._wizardImage.sprite = unit.Rend.sprite;
+        u._UIWizardName.text = unit.UnitName;
+        u.wizard = unit;
+
+        go.transform.SetParent(_wizardsList.transform, false);
+        return u;
+    }
+
     public void SpeedSliderUpdated()
     {
         PlayerTankController.instance.TMov.cruiseModeOn = true;
@@ -115,8 +122,8 @@ public class UIScript : MonoBehaviour
 
     public void TurnOnCruiseMode(bool b)
     {
-        if (b) CruiseButton.image.color = Color.black;
-        else CruiseButton.image.color = Color.white;
+        if (b) _cruiseButton.image.color = Color.black;
+        else _cruiseButton.image.color = Color.white;
     }
     private void MatchSpeed()
     {

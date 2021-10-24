@@ -19,7 +19,7 @@ public class TimeManager : MonoBehaviour
     }
     public void TogglePauseWhilstPlaying()
     {
-        if (Ref.UI.settingsOn) return;
+        if (Ref.UI._settingsOn) return;
         if (!paused)
         {
             FreezeTime();
@@ -43,11 +43,11 @@ public class TimeManager : MonoBehaviour
     public void PauseGame()
     {
         paused = true;
-        Ref.UI.PauseImage.SetActive(paused);
+        Ref.UI._pauseImage.SetActive(paused);
     }
     public void UnpauseGame()
     {
         paused = false;
-        Ref.UI.PauseImage.SetActive(paused);
+        Ref.UI._pauseImage.SetActive(paused);
     }
 }

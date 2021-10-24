@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5481517948293018032}
   - component: {fileID: 8359254777185642}
   m_Layer: 5
-  m_Name: weaponChargeFill
+  m_Name: healthbarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 4781417057881761456}
   - component: {fileID: 7699490658716381456}
   m_Layer: 0
-  m_Name: weaponIndex
+  m_Name: WizardKeybindText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,8 +182,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16.5, y: -13.9}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 1.5, y: -28.9}
+  m_SizeDelta: {x: 474.2, y: 405.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4781417057881761456
 CanvasRenderer:
@@ -213,7 +213,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 1e71eacd0d3d7d24db0f375662dec7c9, type: 3}
     m_FontSize: 84
     m_FontStyle: 0
     m_BestFit: 0
@@ -225,9 +225,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '1
-
-'
+  m_Text: Shift + 1
 --- !u!1 &6302619516097543260
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +238,7 @@ GameObject:
   - component: {fileID: 6437151763889200838}
   - component: {fileID: 4453499738902429781}
   m_Layer: 0
-  m_Name: weaponName
+  m_Name: WizardName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +303,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Basic Cannon
+  m_Text: Dumbledore
 --- !u!1 &7548554337628491776
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,10 +314,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7548554337628491783}
   - component: {fileID: 7548554337628491781}
-  - component: {fileID: 6086907208729110049}
+  - component: {fileID: 2699681104995956162}
   - component: {fileID: 7548554337628491782}
   m_Layer: 0
-  m_Name: UI Weapon
+  m_Name: UIWizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357,7 +355,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7548554337628491776}
   m_CullTransparentMesh: 0
---- !u!114 &6086907208729110049
+--- !u!114 &2699681104995956162
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -366,14 +364,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7548554337628491776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e887445b42770534baa041ddbcd226a5, type: 3}
+  m_Script: {fileID: 11500000, guid: d5cc1b2cc9d8c874a851b27590a6ba66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponImage: {fileID: 3661350475135399096}
+  _wizardImage: {fileID: 3661350475135399096}
   _index: 0
-  _UIWeaponName: {fileID: 4453499738902429781}
-  _UIWeaponIndex: {fileID: 7699490658716381456}
-  _UIWeaponCharge: {fileID: 8359254777185642}
+  _UIWizardName: {fileID: 4453499738902429781}
+  _UIWizardKeybind: {fileID: 7699490658716381456}
+  _UIWizardHealthbarFill: {fileID: 8359254777185642}
 --- !u!114 &7548554337628491782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +396,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.80784315, g: 0, b: 0, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -413,12 +411,12 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 3661350475135399096}
+  m_TargetGraphic: {fileID: 7548554338718004331}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6086907208729110049}
-        m_MethodName: SelectWeapon
+      - m_Target: {fileID: 2699681104995956162}
+        m_MethodName: SelectWizard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -440,7 +438,7 @@ GameObject:
   - component: {fileID: 7548554337654263635}
   - component: {fileID: 3661350475135399096}
   m_Layer: 0
-  m_Name: weaponImage
+  m_Name: WizardImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -492,7 +490,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c2c011826a6763541a710aeabf75dcbe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7710d0a77cbef74cbaef6abf24e6326, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -586,7 +584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8176442047928011380}
   m_Layer: 0
-  m_Name: WeaponCharge Bar
+  m_Name: WizardHealthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

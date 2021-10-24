@@ -20,7 +20,7 @@ public interface IWeapon : ISystem
     bool WeaponEnabled { get; set; }
     bool AimAtTarget { get; set; }
     float AimRotationAngle { get; set; }
-    Image WeaponCharge { get; set; }
+    UIWeapon UIWep { get; set; }
     GameObject ProjectilePrefab { get; set; }
      bool ShouldHitPlayer { get; set; }
      bool ShouldNotRotate { get; set; }

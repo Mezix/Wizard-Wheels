@@ -58,7 +58,7 @@ public class MouseCursor : MonoBehaviour
 
     private void HandleZoomIn()
     {
-        if(Input.mouseScrollDelta.y != 0 && !Ref.UI.settingsOn)
+        if(Input.mouseScrollDelta.y != 0 && !Ref.UI._settingsOn)
         {
             if(Input.mouseScrollDelta.y > 0)
             {

@@ -19,8 +19,9 @@ public class PlayerTankController : MonoBehaviour
     public string _tankName;
 
     //  Wizards
-    public List<TechWizard> Wizards = new List<TechWizard>();
-    public List<TechWizard> _spawnedWizards = new List<TechWizard>();
+    public List<GameObject> WizardsToSpawn = new List<GameObject>();
+    public List<IUnit> _spawnedWizards = new List<IUnit>();
+    public List<UIWizard> _UIWizards = new List<UIWizard>();
 
     public bool _dying;
     public bool _dead;
@@ -87,20 +88,23 @@ public class PlayerTankController : MonoBehaviour
     }
     private void SpawnWizards()
     {
-        foreach (TechWizard wiz in Wizards)
+        foreach (GameObject wiz in WizardsToSpawn)
         {
-            GameObject wizGO = Instantiate(wiz.gameObject);
-            TechWizard wScript = wizGO.GetComponentInChildren<TechWizard>();
+            GameObject wizGO = Instantiate(wiz);
+            IUnit u = wizGO.GetComponentInChildren<TechWizard>();
             Room room = TGeo.FindRandomRoomWithSpace();
             wizGO.transform.parent = transform;
             wizGO.transform.position = room.transform.position;
-            wScript.currentRoom = room;
-            wScript.currentRoom.OccupyRoomPos(room.GetNextFreeRoomPos());
-            wScript.currentRoomPos = wScript.currentRoom.allRoomPositions[0];
+            u.CurrentRoom = room;
+            u.CurrentRoom.OccupyRoomPos(room.GetNextFreeRoomPos());
+            u.CurrentRoomPos = u.CurrentRoom.allRoomPositions[0];
             _spawnedWizards.Add(wizGO.GetComponentInChildren<TechWizard>());
+
+            u.InitUnit();
+            _UIWizards.Add(Ref.UI.CreateWizardUI(u));
         }
     }
-    private void DeselectAllWizards()
+    public void DeselectAllWizards()
     {
         foreach (TechWizard wizard in _spawnedWizards) wizard.UnitSelected = true;
     }
