@@ -61,9 +61,9 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
 
     private void PositionSystemInRoom(ISystem system, Room parentRoom)
     {
-    //    system.SystemObj.transform.localPosition = Vector2.zero;
-    //    if (parentRoom.sizeX > 1) system.SystemObj.transform.localPosition += new Vector3(0.25f, 0);
-    //    if (parentRoom.sizeY > 1) system.SystemObj.transform.localPosition += new Vector3(0, -0.25f);
+        system.SystemObj.transform.localPosition = Vector2.zero;
+        if (parentRoom.sizeX > 1) system.SystemObj.transform.localPosition += new Vector3(0.25f, 0);
+        if (parentRoom.sizeY > 1) system.SystemObj.transform.localPosition += new Vector3(0, -0.25f);
     }
     public void CreateWeaponsUI()
     {
