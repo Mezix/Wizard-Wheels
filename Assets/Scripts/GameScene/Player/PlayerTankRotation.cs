@@ -12,8 +12,7 @@ public class PlayerTankRotation : MonoBehaviour
     private float pointerAngle = 0;
     public bool steeringWheelSelectedByMouse = false;
 
-    public Transform tankRotation;
-    private List<GameObject> rotatableObjects = new List<GameObject>();
+    public List<GameObject> rotatableObjects = new List<GameObject>();
 
     void Update()
     {
@@ -35,13 +34,11 @@ public class PlayerTankRotation : MonoBehaviour
     {
         pointerAngleSet = false;
         InitRotatableObjects();
-        rotatableObjects.Add(tankRotation.gameObject);
     }
     private void InitRotatableObjects()
     {
         foreach (Tire t in GetComponentsInChildren<Tire>()) rotatableObjects.Add(t.gameObject);
     }
-
     private void HandleRotationInput()
     {
         if (pointerAngleSet) 
@@ -95,7 +92,7 @@ public class PlayerTankRotation : MonoBehaviour
 
     private void SetRotationOfSteeringWheel()
     {
-        HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, tankRotation.rotation.eulerAngles);
+        HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, rotatableObjects[0].transform.rotation.eulerAngles);
     }
 
     //  Rotate Tank Manually using the arrow keys
@@ -115,7 +112,7 @@ public class PlayerTankRotation : MonoBehaviour
     //  Rotate Tank
     private void RotateTankToPointerAngle()
     {
-        float currentRot = tankRotation.rotation.eulerAngles.z;
+        float currentRot = rotatableObjects[0].transform.rotation.eulerAngles.z;
         if (currentRot > 180) currentRot -= 360;
         if (pointerAngle > 180) pointerAngle -= 360;
 

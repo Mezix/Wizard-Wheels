@@ -59,6 +59,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
                     //Our object should either be a Weapon or a System, so check for both cases
                     if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<IWeapon>() != null)
                     {
+                        if (!tr.RoomPosMatrix[x, y]) continue;
                         GameObject weaponObj = Instantiate(prefab);
                         weaponObj.transform.parent = tr.RoomPosMatrix[x,y].ParentRoom.transform;
                         weaponObj.transform.localPosition = Vector3.zero;
@@ -95,8 +96,9 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
 
     private void PositionSystemInRoom(ISystem system, Room parentRoom)
     {
-        print("Position of System set");
-        system.SystemObj.transform.localPosition = Vector3.zero;
+        system.SystemObj.transform.localPosition = Vector2.zero;
+        if (parentRoom.sizeX > 1) system.SystemObj.transform.localPosition += new Vector3(0.25f, 0);
+        if (parentRoom.sizeY > 1) system.SystemObj.transform.localPosition += new Vector3(0, -0.25f);
     }
 
     private void AddWeaponSystemToNearestRoom(GameObject weapon)

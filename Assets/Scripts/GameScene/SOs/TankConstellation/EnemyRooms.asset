@@ -25,7 +25,7 @@ MonoBehaviour:
     - YStuff:
       - RoomPrefab: {fileID: 3928980102496950996, guid: 7069e94a0cfb2f345955efcebb720fcc,
           type: 3}
-        RoomSystemPrefab: {fileID: 1723648633549023116, guid: 32430ef957ea24a4eae0cc1b70d80ded,
+        RoomSystemPrefab: {fileID: 1723648633549023116, guid: a43eab93710b3ef41aecd48f7bd4606e,
           type: 3}
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}

@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomSystemRenderer: {fileID: 8841280608968101269}
-  sizeX: 1
+  sizeX: 2
   sizeY: 1
   allRoomPositions:
   - {fileID: 3022396027361776661}
