@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
+    public TankRoomConstellation tr;
     public ISystem roomSystem;
     public SpriteRenderer roomSystemRenderer;
     public int sizeX;

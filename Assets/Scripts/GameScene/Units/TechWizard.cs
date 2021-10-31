@@ -112,13 +112,20 @@ public class TechWizard : MonoBehaviour, IUnit
     {
         //  Attempt to find a valid room, if we dont find one, deselect units instead
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
+
         if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.GetNextFreeRoomPos() == null)
         {
             Ref.mouse.DeselectAllUnits();
             print("no valid room found, deselecting unit and aborting pathfinding");
             return;
         }
-        if(roomToGetTo.Equals(CurrentRoom))
+        if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
+        {
+            Ref.mouse.DeselectAllUnits();
+            print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
+            return;
+        }
+        if (roomToGetTo.Equals(CurrentRoom))
         {
             Ref.mouse.DeselectAllUnits();
             print("Trying to enter same room, Deselecting unit!");

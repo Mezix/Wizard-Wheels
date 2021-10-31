@@ -98,6 +98,7 @@ public class TankGeometry : MonoBehaviour
                 {
                     GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab);
                     Room r = rGO.GetComponent<Room>();
+                    r.tr = _tankRoomConstellation;
                     rGO.transform.parent = RoomsParent.transform;
                     rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
                     AllRooms.Add(r);
