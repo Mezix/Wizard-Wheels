@@ -25,7 +25,7 @@ public class TechWizard : MonoBehaviour, IUnit
     public Room DesiredRoom { get; set; }
     public RoomPosition DesiredRoomPos { get; set; }
     public List<RoomPosition> PathToRoom { get; set; }
-    public int currentWaypoint = 0; //the index of our path
+    public int currentWaypoint { get; set; } //the index of our path
 
     private void Awake()
     {
@@ -35,6 +35,7 @@ public class TechWizard : MonoBehaviour, IUnit
     }
     private void Start()
     {
+        currentWaypoint = 0;
         PathToRoom = new List<RoomPosition>();
         InitUnit();
     }
@@ -43,7 +44,7 @@ public class TechWizard : MonoBehaviour, IUnit
         if (UnitSelected)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.LeftShift) && !Ref.mouse.IsPointerOverUIElement())
-                DeterminePathToRoom();
+                Ref.Path.DeterminePathToRoom(GetComponent<IUnit>());
         }
         UpdateWizardUI();
     }
@@ -68,12 +69,12 @@ public class TechWizard : MonoBehaviour, IUnit
         }
     }
 
-    private void StartInteraction()
+    public void StartInteraction()
     {
         WizardAnimator.SetBool("Interacting", true);
         CurrentRoom.roomSystem.StartInteraction();
     }
-    private void StopInteraction()
+    public void StopInteraction()
     {
         WizardAnimator.SetBool("Interacting", false);
         CurrentRoom.roomSystem.StopInteraction();
@@ -108,7 +109,7 @@ public class TechWizard : MonoBehaviour, IUnit
 
     //  Move Unit
 
-    public void DeterminePathToRoom()
+    /*public void DeterminePathToRoom()
     {
         //  Attempt to find a valid room, if we dont find one, deselect units instead
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
@@ -162,7 +163,7 @@ public class TechWizard : MonoBehaviour, IUnit
         //start the movement
         UnitIsMoving = true;
         UnitSelected = false;
-    }
+    }*/
     public void ClearPathToRoom()
     {
         PathToRoom.Clear();

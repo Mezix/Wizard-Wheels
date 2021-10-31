@@ -36,4 +36,6 @@ public class Ref : MonoBehaviour
     /// The CrosshairManager Script
     /// </summary>
     public static CrosshairManager c;
+
+    public static UnitPathfinding Path;
 }

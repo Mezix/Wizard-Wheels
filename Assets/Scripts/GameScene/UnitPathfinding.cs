@@ -4,18 +4,10 @@ using UnityEngine;
 
 public class UnitPathfinding : MonoBehaviour
 {
-    public static UnitPathfinding instance;
     private void Awake()
     {
-        instance = this;
+        Ref.Path = this;
     }
-    /// <summary>
-    /// trying to merge findpath
-    /// </summary>
-    /// <param name="startRoomPos"></param>
-    /// <param name="targetRoomPos"></param>
-    /// <param name="tank"></param>
-    /// <returns></returns>
     public List<RoomPosition> FindPath(RoomPosition startRoomPos, RoomPosition targetRoomPos, TankRoomConstellation tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
     {
         List<RoomPosition> Path = new List<RoomPosition>();
@@ -143,5 +135,65 @@ public class UnitPathfinding : MonoBehaviour
             }
         }
         return neighbouredRooms;
+    }
+
+    public void DeterminePathToRoom(IUnit unit)
+    {
+
+        Room CurrentRoom = unit.CurrentRoom;
+        RoomPosition CurrentRoomPos = unit.CurrentRoomPos;
+
+        //  Attempt to find a valid room, if we dont find one, deselect units instead
+        RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
+
+        if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.GetNextFreeRoomPos() == null)
+        {
+            Ref.mouse.DeselectAllUnits();
+            print("no valid room found, deselecting unit and aborting pathfinding");
+            return;
+        }
+        if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
+        {
+            Ref.mouse.DeselectAllUnits();
+            print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
+            return;
+        }
+        if (roomToGetTo.Equals(CurrentRoom))
+        {
+            Ref.mouse.DeselectAllUnits();
+            print("Trying to enter same room, Deselecting unit!");
+            return;
+        }
+
+        //  Check if Path is possible!
+
+        //  free up the room we are currently in so someone else can go there
+        if (CurrentRoom && CurrentRoomPos) CurrentRoom.FreeUpRoomPos(CurrentRoomPos);
+
+        //if we were already moving somewhere, free up the space we were last moving to and find our current room
+        if (unit.PathToRoom.Count > 0)
+        {
+            print("Diverting path!");
+            //currentRoom = PathToRoom[currentWaypoint].ParentRoom;
+            //currentRoomPos = currentRoom.allRoomPositions[0];
+            unit.DesiredRoom.FreeUpRoomPos(unit.DesiredRoomPos);
+        }
+
+        //  reserve the spot we are going to for ourselves
+        unit.DesiredRoom = roomToGetTo;
+        unit.DesiredRoomPos = unit.DesiredRoom.GetNextFreeRoomPos();
+        roomToGetTo.OccupyRoomPos(unit.DesiredRoomPos);
+
+        //calculate the path
+        unit.ClearPathToRoom();
+        unit.currentWaypoint = 0;
+        unit.PathToRoom = FindPath(CurrentRoomPos, unit.DesiredRoomPos, PlayerTankController.instance.TGeo._tankRoomConstellation);
+
+        // stop interacting with the system in our room if we have one
+        if (CurrentRoom.roomSystem != null) unit.StopInteraction();
+
+        //start the movement
+        unit.UnitIsMoving = true;
+        unit.UnitSelected = false;
     }
 }
