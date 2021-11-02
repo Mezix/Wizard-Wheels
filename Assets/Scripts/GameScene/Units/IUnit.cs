@@ -19,7 +19,7 @@ public interface IUnit
     Room DesiredRoom { get; set; }
     RoomPosition DesiredRoomPos { get; set; }
     List<RoomPosition> PathToRoom { get; set; }
-    int currentWaypoint{ get; set; }
+    int CurrentWaypoint{ get; set; }
 
     void InitUnit();
     void ClearPathToRoom();

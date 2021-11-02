@@ -25,7 +25,7 @@ public class TechWizard : MonoBehaviour, IUnit
     public Room DesiredRoom { get; set; }
     public RoomPosition DesiredRoomPos { get; set; }
     public List<RoomPosition> PathToRoom { get; set; }
-    public int currentWaypoint { get; set; } //the index of our path
+    public int CurrentWaypoint { get; set; } //the index of our path
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class TechWizard : MonoBehaviour, IUnit
     }
     private void Start()
     {
-        currentWaypoint = 0;
+        CurrentWaypoint = 0;
         PathToRoom = new List<RoomPosition>();
         InitUnit();
     }
@@ -108,62 +108,6 @@ public class TechWizard : MonoBehaviour, IUnit
     }
 
     //  Move Unit
-
-    /*public void DeterminePathToRoom()
-    {
-        //  Attempt to find a valid room, if we dont find one, deselect units instead
-        RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
-
-        if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.GetNextFreeRoomPos() == null)
-        {
-            Ref.mouse.DeselectAllUnits();
-            print("no valid room found, deselecting unit and aborting pathfinding");
-            return;
-        }
-        if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
-        {
-            Ref.mouse.DeselectAllUnits();
-            print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
-            return;
-        }
-        if (roomToGetTo.Equals(CurrentRoom))
-        {
-            Ref.mouse.DeselectAllUnits();
-            print("Trying to enter same room, Deselecting unit!");
-            return;
-        }
-
-        //  Check if Path is possible!
-
-        //  free up the room we are currently in so someone else can go there
-        if (CurrentRoom && CurrentRoomPos) CurrentRoom.FreeUpRoomPos(CurrentRoomPos);
-
-        //if we were already moving somewhere, free up the space we were last moving to and find our current room
-        if (PathToRoom.Count > 0)
-        {
-            print("Diverting path!");
-            //currentRoom = PathToRoom[currentWaypoint].ParentRoom;
-            //currentRoomPos = currentRoom.allRoomPositions[0];
-            DesiredRoom.FreeUpRoomPos(DesiredRoomPos);
-        }
-
-        //  reserve the spot we are going to for ourselves
-        DesiredRoom = roomToGetTo;
-        DesiredRoomPos = DesiredRoom.GetNextFreeRoomPos();
-        roomToGetTo.OccupyRoomPos(DesiredRoomPos);
-
-        //calculate the path
-        ClearPathToRoom();
-        currentWaypoint = 0;
-        PathToRoom = UnitPathfinding.instance.FindPath(CurrentRoomPos, DesiredRoomPos, PlayerTankController.instance.TGeo._tankRoomConstellation);
-
-        // stop interacting with the system in our room if we have one
-        if (CurrentRoom.roomSystem != null) StopInteraction();
-
-        //start the movement
-        UnitIsMoving = true;
-        UnitSelected = false;
-    }*/
     public void ClearPathToRoom()
     {
         PathToRoom.Clear();
@@ -176,7 +120,7 @@ public class TechWizard : MonoBehaviour, IUnit
             UnitIsMoving = false;
             return;
         }
-        RoomPosition roomPosToMoveTo = PathToRoom[currentWaypoint];
+        RoomPosition roomPosToMoveTo = PathToRoom[CurrentWaypoint];
 
         //check if we have reached the last room
         if (Vector3.Distance(transform.position, PathToRoom[PathToRoom.Count - 1].transform.position) <= (UnitSpeed * Time.deltaTime))
@@ -218,9 +162,9 @@ public class TechWizard : MonoBehaviour, IUnit
         //move by this vector
         transform.localPosition += moveVector * UnitSpeed * Time.deltaTime;
 
-        if (distance <= UnitSpeed * Time.deltaTime && !(currentWaypoint == PathToRoom.Count - 1))
+        if (distance <= UnitSpeed * Time.deltaTime && !(CurrentWaypoint == PathToRoom.Count - 1))
         {
-            currentWaypoint++;
+            CurrentWaypoint++;
             CurrentRoomPos = nextRoomPos;
             CurrentRoom = nextRoomPos.ParentRoom;
             transform.localPosition = RoomLocalPos;

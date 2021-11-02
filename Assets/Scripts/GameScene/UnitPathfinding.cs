@@ -186,7 +186,7 @@ public class UnitPathfinding : MonoBehaviour
 
         //calculate the path
         unit.ClearPathToRoom();
-        unit.currentWaypoint = 0;
+        unit.CurrentWaypoint = 0;
         unit.PathToRoom = FindPath(CurrentRoomPos, unit.DesiredRoomPos, PlayerTankController.instance.TGeo._tankRoomConstellation);
 
         // stop interacting with the system in our room if we have one
