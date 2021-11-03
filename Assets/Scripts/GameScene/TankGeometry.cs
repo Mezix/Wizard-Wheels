@@ -90,9 +90,9 @@ public class TankGeometry : MonoBehaviour
         RoomsParent.transform.parent = gameObject.transform;
         RoomsParent.transform.localPosition = Vector3.zero;
 
-        for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
+        for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
         {
-            for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
+            for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
             {
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
@@ -104,14 +104,18 @@ public class TankGeometry : MonoBehaviour
                     AllRooms.Add(r);
 
                     // Set the Room Positions
+                    int roomPosNr = 0;
                     for (int roomY = 0; roomY < r.sizeY; roomY++)
                     {
                         for (int roomX = 0; roomX < r.sizeX; roomX++)
                         {
-                            //print(roomX + " " + roomY);
-                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomX + roomY];
+                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomPosNr];
                             _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._xPos = x + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._xRel;
                             _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._yPos = y + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._yRel;
+
+                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY].name = "X" + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString() 
+                                                                                         + " , Y" + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._yPos.ToString() + ", ";
+                            roomPosNr++;
                         }
                     }
 
@@ -119,6 +123,8 @@ public class TankGeometry : MonoBehaviour
                     _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY-1];
                     _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
                     _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
+
+                    _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
                 }
             }
         }
@@ -160,5 +166,23 @@ public class TankGeometry : MonoBehaviour
         //if it has has found no free rooms, return
         print("no free rooms found");
         return null;
+    }
+
+
+
+    public void VisualizeMatrix()
+    {
+        string matrix = "";
+        for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
+        {
+            matrix += "Y:" + y.ToString() + ": ";
+            for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
+            {
+                if (_tankRoomConstellation.RoomPosMatrix[x, y]) matrix += "(" + _tankRoomConstellation.RoomPosMatrix[x, y].name + ") ";
+                else matrix += "__NONE__, ";
+            }
+            matrix += "\n";
+        }
+        print(matrix);
     }
 }

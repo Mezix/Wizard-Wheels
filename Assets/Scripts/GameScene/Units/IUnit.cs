@@ -22,6 +22,6 @@ public interface IUnit
     int CurrentWaypoint{ get; set; }
 
     void InitUnit();
-    void ClearPathToRoom();
+    void ClearUnitPath();
     void StopInteraction();
 }

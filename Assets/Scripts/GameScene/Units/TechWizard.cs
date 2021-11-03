@@ -44,7 +44,7 @@ public class TechWizard : MonoBehaviour, IUnit
         if (UnitSelected)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.LeftShift) && !Ref.mouse.IsPointerOverUIElement())
-                Ref.Path.DeterminePathToRoom(GetComponent<IUnit>());
+                Ref.Path.SetPathToRoom(GetComponent<IUnit>());
         }
         UpdateWizardUI();
     }
@@ -108,7 +108,7 @@ public class TechWizard : MonoBehaviour, IUnit
     }
 
     //  Move Unit
-    public void ClearPathToRoom()
+    public void ClearUnitPath()
     {
         PathToRoom.Clear();
     }
@@ -130,7 +130,7 @@ public class TechWizard : MonoBehaviour, IUnit
             UnitIsMoving = false;
             WizardAnimator.SetFloat("Speed", 0);
 
-            ClearPathToRoom();
+            ClearUnitPath();
             CurrentRoom = DesiredRoom;
             CurrentRoomPos = DesiredRoomPos;
 

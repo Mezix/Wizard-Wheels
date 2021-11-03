@@ -49,6 +49,7 @@ public class PlayerTankController : MonoBehaviour
         TWep.CreateWeaponsUI();
         InitTankStats();
         SpawnWizards();
+        TGeo.VisualizeMatrix();
     }
 
     private void Update()
