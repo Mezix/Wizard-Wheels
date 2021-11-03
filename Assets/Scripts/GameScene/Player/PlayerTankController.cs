@@ -98,7 +98,7 @@ public class PlayerTankController : MonoBehaviour
             wizGO.transform.parent = transform;
             wizGO.transform.position = room.transform.position;
             u.CurrentRoom = room;
-            u.CurrentRoom.OccupyRoomPos(room.GetNextFreeRoomPos());
+            u.CurrentRoom.OccupyRoomPos(room.GetNextFreeRoomPos(), u);
             u.CurrentRoomPos = u.CurrentRoom.allRoomPositions[0];
             _spawnedWizards.Add(wizGO.GetComponentInChildren<IUnit>());
 

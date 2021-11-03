@@ -44,7 +44,7 @@ public class TechWizard : MonoBehaviour, IUnit
         if (UnitSelected)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.LeftShift) && !Ref.mouse.IsPointerOverUIElement())
-                Ref.Path.SetPathToRoom(GetComponent<IUnit>());
+                Ref.Path.SetPathToRoomWithMouse(GetComponent<IUnit>());
         }
         UpdateWizardUI();
     }

@@ -136,7 +136,7 @@ public class UnitPathfinding : MonoBehaviour
         }
         return neighbouredRooms;
     }
-    public void SetPathToRoom(IUnit unit)
+    public void SetPathToRoomWithMouse(IUnit unit)
     {
         Room CurrentRoom = unit.CurrentRoom;
         RoomPosition CurrentRoomPos = unit.CurrentRoomPos;
@@ -198,16 +198,93 @@ public class UnitPathfinding : MonoBehaviour
         if (unit.PathToRoom.Count > 0)
         {
             print("Diverting path!");
-            unit.DesiredRoom.FreeUpRoomPos(unit.DesiredRoomPos);
+            unit.DesiredRoom.FreeUpRoomPos(unit.DesiredRoomPos, unit);
         }
 
         //  free up the room we are currently in so someone else can go there
-        if (CurrentRoom && CurrentRoomPos) CurrentRoom.FreeUpRoomPos(CurrentRoomPos);
+        if (CurrentRoom && CurrentRoomPos) CurrentRoom.FreeUpRoomPos(CurrentRoomPos, unit);
 
         //  reserve the spot we are going to for ourselves
         unit.DesiredRoom = roomToGetTo;
         unit.DesiredRoomPos = unit.DesiredRoom.GetNextFreeRoomPos();
-        roomToGetTo.OccupyRoomPos(unit.DesiredRoomPos);
+        roomToGetTo.OccupyRoomPos(unit.DesiredRoomPos, unit);
+
+        //Assign the valid path
+        unit.ClearUnitPath();
+        unit.CurrentWaypoint = 0;
+        unit.PathToRoom = path;
+        //PrintPath(unit.PathToRoom);
+
+
+        // stop interacting with the system in our room if we have one
+        if (CurrentRoom.roomSystem != null) unit.StopInteraction();
+
+        //start the movement
+        unit.UnitIsMoving = true;
+        unit.UnitSelected = false;
+    }
+    public void SetPathToRoom(IUnit unit, RoomPosition roomPosToGetTo)
+    {
+        Room CurrentRoom = unit.CurrentRoom;
+        RoomPosition CurrentRoomPos = unit.CurrentRoomPos;
+        Room roomToGetTo = roomPosToGetTo.ParentRoom;
+
+        //PrintPath(GetNeighbours(roomToGetTo.GetNextFreeRoomPos(), PlayerTankController.instance.TGeo._tankRoomConstellation));
+
+        if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
+        {
+            Ref.mouse.DeselectAllUnits();
+            print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
+            return;
+        }
+
+        //  Check if the room has a system
+        if (roomToGetTo.roomSystem != null)
+        {
+            //check if the rooms designated room for interaction is free
+            if (roomToGetTo.freeRoomPositions[roomToGetTo.roomSystem.RoomPosForInteraction.roomPosIndex])
+            {
+                roomPosToGetTo = roomToGetTo.roomSystem.RoomPosForInteraction;
+            }
+            else roomPosToGetTo = roomToGetTo.GetNextFreeRoomPos();
+        }
+        else
+        {
+            roomPosToGetTo = roomToGetTo.GetNextFreeRoomPos();
+        }
+
+        if (roomPosToGetTo.Equals(CurrentRoomPos))
+        {
+            Ref.mouse.DeselectAllUnits();
+            print("Trying to go to the same roomPos we are already in, Deselecting unit!");
+            return;
+        }
+
+
+        List<RoomPosition> path = FindPath(CurrentRoomPos, roomPosToGetTo, PlayerTankController.instance.TGeo._tankRoomConstellation);
+
+        //  Check if the path is valid!
+        if (path.Count == 0)
+        {
+            Ref.mouse.DeselectAllUnits();
+            print("Path not possible, aborting!");
+            return;
+        }
+
+        //if we were already moving somewhere, free up the space we were last moving to and find our current room
+        if (unit.PathToRoom.Count > 0)
+        {
+            print("Diverting path!");
+            unit.DesiredRoom.FreeUpRoomPos(unit.DesiredRoomPos, unit);
+        }
+
+        //  free up the room we are currently in so someone else can go there
+        if (CurrentRoom && CurrentRoomPos) CurrentRoom.FreeUpRoomPos(CurrentRoomPos, unit);
+
+        //  reserve the spot we are going to for ourselves
+        unit.DesiredRoom = roomToGetTo;
+        unit.DesiredRoomPos = unit.DesiredRoom.GetNextFreeRoomPos();
+        roomToGetTo.OccupyRoomPos(unit.DesiredRoomPos, unit);
 
         //Assign the valid path
         unit.ClearUnitPath();
