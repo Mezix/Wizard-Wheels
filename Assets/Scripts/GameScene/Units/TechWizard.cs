@@ -71,8 +71,14 @@ public class TechWizard : MonoBehaviour, IUnit
 
     public void StartInteraction()
     {
-        WizardAnimator.SetBool("Interacting", true);
-        CurrentRoom.roomSystem.StartInteraction();
+        if (CurrentRoom.roomSystem != null)
+        {
+            if (!CurrentRoom.roomSystem.IsBeingInteractedWith)
+            {
+                CurrentRoom.roomSystem.StartInteraction();
+                WizardAnimator.SetBool("Interacting", true);
+            }
+        }
     }
     public void StopInteraction()
     {
@@ -133,8 +139,7 @@ public class TechWizard : MonoBehaviour, IUnit
             ClearUnitPath();
             CurrentRoom = DesiredRoom;
             CurrentRoomPos = DesiredRoomPos;
-
-            if (CurrentRoom.roomSystem != null) StartInteraction();
+            StartInteraction();
         }
         else
         {

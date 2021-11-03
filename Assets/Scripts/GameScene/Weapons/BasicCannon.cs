@@ -13,6 +13,8 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public WeaponStats _weaponStats;
     public GameObject SystemObj { get; set; }
     public string SystemName { get; set; }
+    public RoomPosition RoomPosForInteraction { get; set; }
+    public bool IsBeingInteractedWith { get; set; }
     public Sprite SystemSprite { get; set; }
     public float AttacksPerSecond { get; set; }
     public float TimeBetweenAttacks { get; private set; }
@@ -101,10 +103,12 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public void StartInteraction()
     {
         WeaponEnabled = true;
+        IsBeingInteractedWith = true;
     }
     public void StopInteraction()
     {
         WeaponEnabled = false;
+        IsBeingInteractedWith = false;
     }
 
     public void SetIndex(int i)

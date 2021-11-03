@@ -7,6 +7,8 @@ public class EngineSystem : MonoBehaviour, ISystem
     public Sprite SystemSprite { get; set; }
     public GameObject SystemObj { get; set; }
     public string SystemName { get; set; }
+    public RoomPosition RoomPosForInteraction { get; set; }
+    public bool IsBeingInteractedWith { get; set; }
     private void Awake()
     {
         SystemObj = gameObject;
@@ -17,11 +19,13 @@ public class EngineSystem : MonoBehaviour, ISystem
     }
     public void StartInteraction()
     {
+        IsBeingInteractedWith = true;
         print("Engine go brrr hahahaha :D");
     }
 
     public void StopInteraction()
     {
+        IsBeingInteractedWith = false;
         print("Engine stop go brrr");
     }
 }

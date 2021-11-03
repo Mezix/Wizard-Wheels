@@ -168,8 +168,6 @@ public class TankGeometry : MonoBehaviour
         return null;
     }
 
-
-
     public void VisualizeMatrix()
     {
         string matrix = "";

@@ -67,12 +67,12 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
                         wep.InitSystem();
                         PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.ShouldHitPlayer = false;
+                        wep.RoomPosForInteraction = tr.RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
                         IWeaponArray.Add(wep);
 
                         //Set the reference to the rooms
                         tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
                         tr.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = wep.SystemSprite;
-
                     }
                     else if(tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
                     {
@@ -84,6 +84,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
                         sys.InitSystem();
                         PositionSystemInRoom(systemObj.GetComponent<ISystem>(), systemObj.transform.parent.GetComponent<Room>());
                         ISystemArray.Add(sys);
+                        sys.RoomPosForInteraction = tr.RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
 
                         //Set the reference to the rooms
                         tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = sys;
