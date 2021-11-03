@@ -89,6 +89,11 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
                     wep.AimAtTarget = true;
                     Ref.c.AddCrosshair(wep.Room.GetComponent<Room>(), wep);
                 }
+                else
+                {
+                    wep.Room = null;
+                    wep.AimAtTarget = false;
+                }
             }
         }
     }

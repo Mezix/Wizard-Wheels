@@ -155,8 +155,15 @@ public class BasicCannon : MonoBehaviour, IWeapon
                 && hit.collider.transform.GetComponent<Room>())
             {
                 Room = hit.collider.gameObject;
-                Ref.c.AddCrosshair(Room.GetComponentInChildren<Room>(), GetComponent<IWeapon>());
-                AimAtTarget = true;
+                if (TargetRoomWithinLockOnRange())
+                {
+                    Ref.c.AddCrosshair(Room.GetComponentInChildren<Room>(), GetComponent<IWeapon>());
+                    AimAtTarget = true;
+                }
+                else
+                {
+                    //TODO: give a warning that the target is out of range on the screen!
+                }
             }
         }
         else
@@ -280,10 +287,13 @@ public class BasicCannon : MonoBehaviour, IWeapon
     {
         if (Room && AimAtTarget)
         {
-            laserLR.gameObject.SetActive(true);
-            //float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
-            laserLR.SetPosition(0, _cannonballSpot.transform.position);
-            laserLR.SetPosition(1, Room.transform.position);
+            if(TargetRoomWithinLockOnRange())
+            {
+                laserLR.gameObject.SetActive(true);
+                //float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
+                laserLR.SetPosition(0, _cannonballSpot.transform.position);
+                laserLR.SetPosition(1, Room.transform.position);
+            }
         }
         else laserLR.gameObject.SetActive(false);
 
