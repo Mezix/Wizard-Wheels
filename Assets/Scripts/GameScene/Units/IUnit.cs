@@ -24,4 +24,5 @@ public interface IUnit
     void InitUnit();
     void ClearUnitPath();
     void StopInteraction();
+    void SetNextPosIndicator(RoomPosition rPos);
 }

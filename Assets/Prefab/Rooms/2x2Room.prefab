@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 3928980102496951018}
   - component: {fileID: 8537332938246175230}
   m_Layer: 8
-  m_Name: 2x2SquareRoom
+  m_Name: 2x2Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ddd2698a1fe144e9cba05ef96298e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tr: {fileID: 0}
   roomSystemRenderer: {fileID: 7255872605098692683}
   sizeX: 2
   sizeY: 2

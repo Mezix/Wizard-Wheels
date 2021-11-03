@@ -26,6 +26,7 @@ public class TechWizard : MonoBehaviour, IUnit
     public RoomPosition DesiredRoomPos { get; set; }
     public List<RoomPosition> PathToRoom { get; set; }
     public int CurrentWaypoint { get; set; } //the index of our path
+    public GameObject MovingToPosIndicator { get; set;}
 
     private void Awake()
     {
@@ -136,6 +137,7 @@ public class TechWizard : MonoBehaviour, IUnit
             WizardAnimator.SetFloat("Speed", 0);
 
             ClearUnitPath();
+            RemovePosIndicator();
             CurrentRoom = DesiredRoom;
             CurrentRoomPos = DesiredRoomPos;
             StartInteraction();
@@ -173,5 +175,23 @@ public class TechWizard : MonoBehaviour, IUnit
             CurrentRoom = nextRoomPos.ParentRoom;
             transform.localPosition = RoomLocalPos;
         }
+    }
+
+    public void RemovePosIndicator()
+    {
+        if (MovingToPosIndicator)
+        {
+            Destroy(MovingToPosIndicator);
+            MovingToPosIndicator = null;
+        } 
+    }
+    public void SetNextPosIndicator(RoomPosition rPos)
+    {
+        if (!rPos) return;
+        if (MovingToPosIndicator) Destroy(MovingToPosIndicator);
+
+        MovingToPosIndicator = Instantiate((GameObject) Resources.Load("UnitMovingToIndicator"));
+        MovingToPosIndicator.transform.parent = rPos.transform;
+        MovingToPosIndicator.transform.localPosition = Vector3.zero;
     }
 }

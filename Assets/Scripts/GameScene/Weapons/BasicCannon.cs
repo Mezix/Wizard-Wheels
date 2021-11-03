@@ -305,7 +305,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         if(!TargetRoomWithinLockOnRange() && Room)
         {
             CancelAim();
-            print("");
+            print("cancelling lock on");
         }
     }
     public bool TargetRoomWithinLockOnRange()

@@ -40,36 +40,45 @@ public class Room : MonoBehaviour
     {
         freeRoomPositions[rPos.roomPosIndex] = rPos;
         if (WizardsInRoom.Contains(unit)) WizardsInRoom.Remove(unit);
-        
+
         //  if we have a system...
         if(roomSystem != null)
         {
             //  check if the roomPosForInteraction is free
             if(freeRoomPositions[roomSystem.RoomPosForInteraction.roomPosIndex])
             {
-                //if we have more wizards in the room
+                //if we have more wizards in the room to fill up the space
                 if (WizardsInRoom.Count > 0)
-                {
-                    IUnit wizard = WizardsInRoom[0];
+                { 
+                    for(int i = 0; i < WizardsInRoom.Count-1; i++)
+                    {
+                        if (WizardsInRoom[i].UnitSelected) continue;
+                        IUnit wizard = WizardsInRoom[i];
 
-                    //free up the wizards current Pos
-                    freeRoomPositions[wizard.CurrentRoomPos.roomPosIndex] = wizard.CurrentRoomPos;
+                        //free up the wizards current Pos
+                        freeRoomPositions[wizard.CurrentRoomPos.roomPosIndex] = wizard.CurrentRoomPos;
 
-                    //Assign where the wizard goes to
-                    wizard.DesiredRoom = roomSystem.RoomPosForInteraction.ParentRoom;
-                    wizard.DesiredRoomPos = roomSystem.RoomPosForInteraction;
+                        //Assign where the wizard goes to
+                        wizard.DesiredRoom = roomSystem.RoomPosForInteraction.ParentRoom;
+                        wizard.DesiredRoomPos = roomSystem.RoomPosForInteraction;
 
-                    //Occupy the roomPosInteraction spot again
-                    OccupyRoomPos(roomSystem.RoomPosForInteraction, wizard);
+                        //Occupy the roomPosInteraction spot again
+                        OccupyRoomPos(roomSystem.RoomPosForInteraction, wizard);
 
-                    //Assign the valid path to the roomPos
-                    wizard.ClearUnitPath();
-                    wizard.CurrentWaypoint = 0;
-                    wizard.PathToRoom = Ref.Path.FindPath(wizard.CurrentRoomPos, roomSystem.RoomPosForInteraction, Ref.PCon.TGeo._tankRoomConstellation);
+                        //Assign the valid path to the roomPos
+                        wizard.ClearUnitPath();
+                        wizard.CurrentWaypoint = 0;
+                        wizard.PathToRoom = Ref.Path.FindPath(wizard.CurrentRoomPos, roomSystem.RoomPosForInteraction, Ref.PCon.TGeo._tankRoomConstellation);
 
-                    //start the movement
-                    wizard.UnitIsMoving = true;
-                    wizard.UnitSelected = false;
+                        //start the movement
+                        wizard.UnitIsMoving = true;
+                        wizard.UnitSelected = false;
+
+                        //Set the indicator of the unit
+                        unit.SetNextPosIndicator(unit.DesiredRoomPos);
+
+                        break; //make sure we only do this for the first wizard and not multiple
+                    }
                 }
             }
         }

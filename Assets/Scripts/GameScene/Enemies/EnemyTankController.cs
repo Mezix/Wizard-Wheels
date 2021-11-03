@@ -92,6 +92,8 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     }
     public void EnemyBehaviour()
     {
+        //Maintain a certain distance away from us
+
         TMov.Accelerate();
         if(!Ref.PDead) TWep.AcquireTargetsForAllWeapons();
     }

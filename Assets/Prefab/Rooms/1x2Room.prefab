@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ddd2698a1fe144e9cba05ef96298e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tr: {fileID: 0}
   roomSystemRenderer: {fileID: 8841280608968101269}
   sizeX: 1
   sizeY: 2

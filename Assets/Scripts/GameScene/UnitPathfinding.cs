@@ -150,9 +150,6 @@ public class UnitPathfinding : MonoBehaviour
             print("no valid room found, deselecting unit and aborting pathfinding");
             return;
         }
-
-        //PrintPath(GetNeighbours(roomToGetTo.GetNextFreeRoomPos(), PlayerTankController.instance.TGeo._tankRoomConstellation));
-
         if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
         {
             Ref.mouse.DeselectAllUnits();
@@ -162,12 +159,14 @@ public class UnitPathfinding : MonoBehaviour
 
         //  Check if the room has a system
         RoomPosition roomPosToGetTo;
+        bool tryingToGetToInteractionPos = false;
         if (roomToGetTo.roomSystem != null)
         {
             //check if the rooms designated room for interaction is free
             if (roomToGetTo.freeRoomPositions[roomToGetTo.roomSystem.RoomPosForInteraction.roomPosIndex])
             {
                 roomPosToGetTo = roomToGetTo.roomSystem.RoomPosForInteraction;
+                tryingToGetToInteractionPos = true;
             }
             else roomPosToGetTo = roomToGetTo.GetNextFreeRoomPos();
         }
@@ -176,11 +175,14 @@ public class UnitPathfinding : MonoBehaviour
             roomPosToGetTo = roomToGetTo.GetNextFreeRoomPos();
         }
 
-        if (roomPosToGetTo.Equals(CurrentRoomPos))
+        if (roomToGetTo.Equals(CurrentRoom))
         {
-            Ref.mouse.DeselectAllUnits();
-            print("Trying to go to the same roomPos we are already in, Deselecting unit!");
-            return;
+            if(!tryingToGetToInteractionPos)
+            {
+                Ref.mouse.DeselectAllUnits();
+                print("Trying to go to the same position we are already in, Deselecting unit!");
+                return;
+            }
         }
 
         
@@ -190,14 +192,14 @@ public class UnitPathfinding : MonoBehaviour
         if (path.Count == 0)
         {
             Ref.mouse.DeselectAllUnits();
-            print("Path not possible, aborting!");
+            //print("Path not possible, aborting!");
             return;
         }
 
         //if we were already moving somewhere, free up the space we were last moving to and find our current room
         if (unit.PathToRoom.Count > 0)
         {
-            print("Diverting path!");
+            //print("Diverting path!");
             unit.DesiredRoom.FreeUpRoomPos(unit.DesiredRoomPos, unit);
         }
 
@@ -222,6 +224,9 @@ public class UnitPathfinding : MonoBehaviour
         //start the movement
         unit.UnitIsMoving = true;
         unit.UnitSelected = false;
+
+        //Set the indicator of the unit
+        unit.SetNextPosIndicator(unit.DesiredRoomPos);
     }
     public void SetPathToRoom(IUnit unit, RoomPosition roomPosToGetTo)
     {
