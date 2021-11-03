@@ -80,10 +80,15 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
             {
                 if (wep.AimAtTarget) return; //no need to continue to search for targets if we already have one
 
-                GameObject targetRoom = FindTarget();
-                wep.AimAtTarget = true;
+                //find the closest room to aim at
+                GameObject targetRoom = FindTarget(); //TODO: try to find the nearest room with a high priority!
                 wep.Room = targetRoom;
-                Ref.c.AddCrosshair(wep.Room.GetComponent<Room>(), wep);
+
+                if (wep.TargetRoomWithinLockOnRange())
+                {
+                    wep.AimAtTarget = true;
+                    Ref.c.AddCrosshair(wep.Room.GetComponent<Room>(), wep);
+                }
             }
         }
     }

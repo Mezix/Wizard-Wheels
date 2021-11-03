@@ -18,3 +18,4 @@ MonoBehaviour:
   _projectileSpeed: 10
   _attacksPerSecond: 0.5
   _rotationSpeed: 5
+  _lockOnRange: 20

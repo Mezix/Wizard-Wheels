@@ -7,10 +7,9 @@ using UnityEngine.Audio;
 
 public class BasicCannon : MonoBehaviour, IWeapon
 {
-
     //  Weapon stats
-
     public WeaponStats _weaponStats;
+
     public GameObject SystemObj { get; set; }
     public string SystemName { get; set; }
     public RoomPosition RoomPosForInteraction { get; set; }
@@ -21,6 +20,8 @@ public class BasicCannon : MonoBehaviour, IWeapon
     public float TimeElapsedBetweenLastAttack { get; private set; }
     public float Damage { get; set; }
     public float RotationSpeed { get; set; }
+    public float MaxLockOnRange { get; set; }
+
 
     //  Aiming
 
@@ -64,6 +65,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         TimeElapsedBetweenLastAttack += Time.deltaTime;
         UpdateWeaponUI();
         UpdateLaserLR();
+        UpdateLockOn();
         HandleWeaponSelected();
     }
 
@@ -88,6 +90,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
             AttacksPerSecond = _weaponStats._attacksPerSecond;
             Damage = _weaponStats._damage;
             RotationSpeed = _weaponStats._rotationSpeed;
+            MaxLockOnRange = _weaponStats._lockOnRange;
         }
         else  //set default stats
         {
@@ -95,6 +98,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
             Damage = 1;
             AttacksPerSecond = 1;
             RotationSpeed = 5f;
+            MaxLockOnRange = 100f;
         }
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
@@ -274,7 +278,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     private void UpdateLaserLR()
     {
-        if (Room)
+        if (Room && AimAtTarget)
         {
             laserLR.gameObject.SetActive(true);
             //float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
@@ -285,5 +289,18 @@ public class BasicCannon : MonoBehaviour, IWeapon
 
         //  if we can fire at the target, turn the laser green
         //  else keep the laser red
+    }
+    public void UpdateLockOn()
+    {
+        if(!TargetRoomWithinLockOnRange() && Room)
+        {
+            CancelAim();
+            print("");
+        }
+    }
+    public bool TargetRoomWithinLockOnRange()
+    {
+        if (!Room) return false;
+        return Vector3.Distance(_cannonballSpot.position, Room.transform.position) < MaxLockOnRange;
     }
 }

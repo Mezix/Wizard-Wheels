@@ -30,6 +30,6 @@ public interface IWeapon : ISystem
     void RotateTurretToAngle();
     void PointTurretAtTarget();
     void Attack();
-    // void SpawnCrosshair(Transform t);
-    // void DestroyCrosshair();
+    void UpdateLockOn();
+    bool TargetRoomWithinLockOnRange();
 }

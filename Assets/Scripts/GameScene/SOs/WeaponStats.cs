@@ -11,4 +11,5 @@ public class WeaponStats : ScriptableObject
     public float _projectileSpeed;
     public float _attacksPerSecond;
     public float _rotationSpeed;
+    public float _lockOnRange;
 }

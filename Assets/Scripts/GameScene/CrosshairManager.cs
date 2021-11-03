@@ -36,19 +36,23 @@ public class CrosshairManager : MonoBehaviour
             c.AddAttacker(weapon);
         }
     }
+
     public void RemoveCrosshair(IWeapon weapon)
     {
         if (weapon == null) return;
         if (!weapon.Room) return;
-
         //Remove the weapon from the crosshair
-        bool destroyCrosshair = RoomsCrosshairsDictionary[weapon.Room.GetComponentInChildren<Room>()].RemoveAttacker(weapon);
-
-        //if the crosshair isnt being used by any weapon anymore, destroy it
-        if (destroyCrosshair)
+        Room r = weapon.Room.GetComponentInChildren<Room>();
+        if (RoomsCrosshairsDictionary.ContainsKey(r))
         {
-            Destroy(RoomsCrosshairsDictionary[weapon.Room.GetComponentInChildren<Room>()].gameObject);
-            RoomsCrosshairsDictionary.Remove(weapon.Room.GetComponentInChildren<Room>());
+            bool destroyCrosshair = RoomsCrosshairsDictionary[r].RemoveAttacker(weapon);
+
+            //if the crosshair isnt being used by any weapon anymore, destroy it
+            if (destroyCrosshair)
+            {
+                Destroy(RoomsCrosshairsDictionary[weapon.Room.GetComponentInChildren<Room>()].gameObject);
+                RoomsCrosshairsDictionary.Remove(weapon.Room.GetComponentInChildren<Room>());
+            }
         }
     }
 }
