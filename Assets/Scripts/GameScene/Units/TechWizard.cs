@@ -57,7 +57,6 @@ public class TechWizard : MonoBehaviour, IUnit
         if (UIWizard)
         {
             UIWizard._UIWizardHealthbarFill.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth); //TODO: add unit health script
-            //UIWizard.UnitSelected(UnitSelected);
             UIWizard.UpdateButton(UnitSelected);
         }
     }
@@ -73,7 +72,7 @@ public class TechWizard : MonoBehaviour, IUnit
     {
         if (CurrentRoom.roomSystem != null)
         {
-            if (!CurrentRoom.roomSystem.IsBeingInteractedWith)
+            if (CurrentRoom.roomSystem.RoomPosForInteraction.Equals(CurrentRoomPos))
             {
                 CurrentRoom.roomSystem.StartInteraction();
                 WizardAnimator.SetBool("Interacting", true);
