@@ -38,11 +38,11 @@ public class PlayerTankController : TankController
         TWep.CreateWeaponsUI();
         InitTankStats();
         SpawnWizards();
-        SpawnWizardUI();
+        SpawnWizardsUI();
         //TGeo.VisualizeMatrix();
     }
 
-    private void SpawnWizardUI()
+    private void SpawnWizardsUI()
     {
         foreach (IUnit u in _spawnedWizards)
         {

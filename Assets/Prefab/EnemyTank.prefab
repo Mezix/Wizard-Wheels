@@ -398,11 +398,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2ca821a31eb8740a8c220e033efc41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TStats: {fileID: 11400000, guid: 38f853e94e77a3946a479443944be7e9, type: 2}
+  _tStats: {fileID: 11400000, guid: 38f853e94e77a3946a479443944be7e9, type: 2}
   _tankName: Druskelle
-  tankNameText: {fileID: 264041171380104351}
+  _wizardsToSpawn: []
   _dying: 0
   _dead: 0
+  tankNameText: {fileID: 264041171380104351}
   TrackCameraButton: {fileID: 5949797694568219619}
 --- !u!114 &3123129469221447086
 MonoBehaviour:
@@ -419,6 +420,9 @@ MonoBehaviour:
   _movespeed: 0.1
   velocity: 0
   _movementVector: {x: 0, y: 0, z: 0}
+  acceleration: 0.0025
+  deceleration: 0.005
+  maxVelocity: 3
   Tires: []
 --- !u!114 &3967959686328043720
 MonoBehaviour:
@@ -432,8 +436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b606d40c7d7a844a4440bd346a5982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotatableObjects: []
   rotationspeed: 50
-  tankRotation: {fileID: 3886382330648650116}
+  AngleToRotateTo: 0
 --- !u!114 &8108676546800360678
 MonoBehaviour:
   m_ObjectHideFlags: 0
