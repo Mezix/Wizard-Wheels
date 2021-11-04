@@ -26,7 +26,6 @@ public class EnemyTankMovement : MonoBehaviour
     {
         SetTireAnimationSpeed();
     }
-
     private void FixedUpdate()
     {
         Move();

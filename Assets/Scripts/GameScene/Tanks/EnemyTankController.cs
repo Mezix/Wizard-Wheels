@@ -5,34 +5,31 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class EnemyTankController : MonoBehaviour, IEnemy
+public class EnemyTankController : TankController, IEnemy
 {
     //  Important scripts
-
-    public TankStats TStats;
     public EnemyTankHealth THealth { get; private set; }
     public EnemyTankMovement TMov { get; private set; }
-    public EnemyTankRotation TRot { get; private set; }
     public EnemyTankWeaponsAndSystems TWep { get; private set; }
-    public TankGeometry TGeo { get; private set; }
 
-    public string _tankName;
     public Text tankNameText;
-    public List<IUnit> _wizardList = new List<IUnit>();
-
-    public bool _dying;
-    public bool _dead;
 
     public Button TrackCameraButton;
 
     private void Awake()
     {
+        InitEnemyScripts();
+    }
+
+    public void InitEnemyScripts()
+    {
         THealth = GetComponentInChildren<EnemyTankHealth>();
         TMov = GetComponentInChildren<EnemyTankMovement>();
-        TRot = GetComponentInChildren<EnemyTankRotation>();
+        TRot = GetComponentInChildren<TankRotation>();
         TWep = GetComponentInChildren<EnemyTankWeaponsAndSystems>();
         TGeo = GetComponentInChildren<TankGeometry>();
     }
+
     void Start()
     {
         InitEvents();
@@ -40,7 +37,7 @@ public class EnemyTankController : MonoBehaviour, IEnemy
         TWep.InitWeaponsAndSystems(TGeo._tankRoomConstellation);
         TWep.CreateWeaponsUI();
         InitTankStats();
-        InitWizards();
+        SpawnWizards();
 
         InitTrackCameraButton();
     }
@@ -65,10 +62,10 @@ public class EnemyTankController : MonoBehaviour, IEnemy
     }
     private void InitTankStats()
     {
-        if(TStats)
+        if(_tStats)
         {
-            THealth._maxHealth = TStats._tankHealth;
-            _tankName = TStats._tankName;
+            THealth._maxHealth = _tStats._tankHealth;
+            _tankName = _tStats._tankName;
         }
         else
         {
@@ -78,13 +75,6 @@ public class EnemyTankController : MonoBehaviour, IEnemy
         }
         THealth.InitHealth();
         tankNameText.text = _tankName;
-    }
-    private void InitWizards()
-    {
-        foreach (IUnit w in GetComponentsInChildren<IUnit>())
-        {
-            _wizardList.Add(w);
-        }
     }
     public void TakeDamage(int damage)
     {

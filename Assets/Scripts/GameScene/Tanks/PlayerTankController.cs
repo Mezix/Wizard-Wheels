@@ -4,28 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerTankController : MonoBehaviour
+public class PlayerTankController : TankController
 {
     public static PlayerTankController instance;
 
     //  Important scripts
 
-    public TankStats _tStats;
     public PlayerTankHealth THealth { get; private set; }
     public PlayerTankMovement TMov { get; private set; }
-    public PlayerTankRotation TRot { get; private set; }
     public PlayerTankWeaponsAndSystems TWep { get; private set; }
-    public TankGeometry TGeo { get; private set; }
 
-    public string _tankName;
-
-    //  Wizards
-    public List<GameObject> WizardsToSpawn = new List<GameObject>();
-    public List<IUnit> _spawnedWizards = new List<IUnit>();
     public List<UIWizard> _UIWizards = new List<UIWizard>();
-
-    public bool _dying;
-    public bool _dead;
 
     private void Awake()
     {
@@ -44,12 +33,22 @@ public class PlayerTankController : MonoBehaviour
     {
         TGeo.SpawnTank();
         TMov.InitTankMovement();
-        TRot.InitTankRotation();
+        TRot.GetComponent<PlayerTankRotation>().InitTankRotation();
         TWep.InitWeaponsAndSystems();
         TWep.CreateWeaponsUI();
         InitTankStats();
         SpawnWizards();
+        SpawnWizardUI();
         //TGeo.VisualizeMatrix();
+    }
+
+    private void SpawnWizardUI()
+    {
+        foreach (IUnit u in _spawnedWizards)
+        {
+            u.UIWizard = Ref.UI.CreateWizardUI(u);
+            _UIWizards.Add(u.UIWizard);
+        }
     }
 
     private void Update()
@@ -87,25 +86,6 @@ public class PlayerTankController : MonoBehaviour
             THealth._maxHealth = 10;
         }
         THealth.InitHealth();
-    }
-    private void SpawnWizards()
-    {
-        foreach (GameObject wiz in WizardsToSpawn)
-        {
-            GameObject wizGO = Instantiate(wiz);
-            IUnit u = wizGO.GetComponentInChildren<IUnit>();
-            Room room = TGeo.FindRandomRoomWithSpace();
-            wizGO.transform.parent = transform;
-            wizGO.transform.position = room.transform.position;
-            u.CurrentRoom = room;
-            u.CurrentRoom.OccupyRoomPos(room.GetNextFreeRoomPos(), u);
-            u.CurrentRoomPos = u.CurrentRoom.allRoomPositions[0];
-            _spawnedWizards.Add(wizGO.GetComponentInChildren<IUnit>());
-
-            u.InitUnit();
-            u.UIWizard = Ref.UI.CreateWizardUI(u);
-            _UIWizards.Add(u.UIWizard);
-        }
     }
     public void DeselectAllWizards()
     {

@@ -54,7 +54,7 @@ public class UIScript : MonoBehaviour
         _matchSpeedButton.onClick = new Button.ButtonClickedEvent();
         _matchSpeedButton.onClick.AddListener(() => MatchSpeed());
         _rotateBackButton.onClick = new Button.ButtonClickedEvent();
-        _rotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.TurnTankUp());
+        _rotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.GetComponent<PlayerTankRotation>().TurnTankUp());
         _settingsButton.onClick = new Button.ButtonClickedEvent();
         _settingsButton.onClick.AddListener(() => ToggleSettings());
         _pauseButton.onClick = new Button.ButtonClickedEvent();

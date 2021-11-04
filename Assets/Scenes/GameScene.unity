@@ -2859,7 +2859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tStats: {fileID: 11400000, guid: 532c8ffd236391b4192ac8feef5e64eb, type: 2}
   _tankName: Starkov
-  WizardsToSpawn:
+  _wizardsToSpawn:
   - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
   - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
   - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
