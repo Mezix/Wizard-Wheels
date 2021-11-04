@@ -34,7 +34,7 @@ public class EnemyTankMovement : MonoBehaviour
     //  MOVEMENT
     private void Move()
     {
-        _movementVector = GetComponentInChildren<EnemyTankRotation>().tankRotation.up;
+        _movementVector = GetComponentInChildren<EnemyTankRotation>().rotatableObjects[0].transform.up;
         transform.position += _movementVector * velocity * Time.deltaTime;
     }
     public void Accelerate()

@@ -2124,7 +2124,7 @@ RectTransform:
   - {fileID: 2141452204}
   - {fileID: 386988613}
   m_Father: {fileID: 694876367}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2233,7 +2233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0.17721939, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2893,11 +2893,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da5362a2e2d153468823bf0f52e0023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationspeed: 50
-  pointerAngleSet: 0
-  pointerAngle: 0
-  steeringWheelSelectedByMouse: 0
   rotatableObjects: []
+  rotationspeed: 50
+  AngleToRotateTo: 0
+  pointerAngleSet: 0
+  steeringWheelSelectedByMouse: 0
 --- !u!114 &667288263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2940,6 +2940,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1665522132}
+  - {fileID: 1684804233}
   - {fileID: 625200745}
   m_Father: {fileID: 1395727684}
   m_RootOrder: 2
@@ -4987,7 +4988,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 290861745}
-  - {fileID: 1684804233}
   m_Father: {fileID: 694876367}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5176,11 +5176,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684804232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 796, y: -383.10007, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 635266251}
-  m_Father: {fileID: 1665522132}
+  m_Father: {fileID: 694876367}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1686361125

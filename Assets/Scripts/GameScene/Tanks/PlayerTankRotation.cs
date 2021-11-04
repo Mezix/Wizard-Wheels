@@ -4,15 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerTankRotation : MonoBehaviour
+public class PlayerTankRotation : TankRotation
 {
-    public float rotationspeed = 50f;
     public bool pointerAngleSet = false;
-    [SerializeField]
-    private float pointerAngle = 0;
     public bool steeringWheelSelectedByMouse = false;
-
-    public List<GameObject> rotatableObjects = new List<GameObject>();
 
     void Update()
     {
@@ -35,10 +30,6 @@ public class PlayerTankRotation : MonoBehaviour
         pointerAngleSet = false;
         InitRotatableObjects();
     }
-    private void InitRotatableObjects()
-    {
-        foreach (Tire t in GetComponentsInChildren<Tire>()) rotatableObjects.Add(t.gameObject);
-    }
     private void HandleRotationInput()
     {
         if (pointerAngleSet) 
@@ -59,12 +50,12 @@ public class PlayerTankRotation : MonoBehaviour
     private void MovePointerLeft()
     {
         Ref.UI._steeringWheelPointer.transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
-        pointerAngle += rotationspeed * Time.deltaTime;
+        AngleToRotateTo += rotationspeed * Time.deltaTime;
     }
     private void MovePointerRight()
     {
         Ref.UI._steeringWheelPointer.transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
-        pointerAngle -= rotationspeed * Time.deltaTime;
+        AngleToRotateTo -= rotationspeed * Time.deltaTime;
     }
 
     //  Rotate Steering Wheel
@@ -73,20 +64,20 @@ public class PlayerTankRotation : MonoBehaviour
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float rot = HM.Angle2D(transform.position, mouse);
         HM.RotateTransformToAngle(Ref.UI._steeringWheelPointer.transform, new Vector3(0, 0, rot + 90));
-        pointerAngle = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
+        AngleToRotateTo = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
         pointerAngleSet = true;
     }
     private void SetPointerRotationToAngle(float angle)
     {
         HM.RotateTransformToAngle(Ref.UI._steeringWheelPointer.transform, new Vector3(0, 0, angle));
-        pointerAngle = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
+        AngleToRotateTo = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
         pointerAngleSet = true;
     }
     public void SetPointerRotationRelativeToSteeringWheel()
     {
         float rot = HM.Angle2D(Ref.UI._steeringWheel.transform.position, Input.mousePosition);
         HM.RotateTransformToAngle(Ref.UI._steeringWheelPointer.transform, new Vector3(0, 0, rot + 90));
-        pointerAngle = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
+        AngleToRotateTo = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
         pointerAngleSet = true;
     }
 
@@ -100,13 +91,13 @@ public class PlayerTankRotation : MonoBehaviour
     {
         RotateAllObjectsByRotation(rotationspeed * Time.deltaTime);
         Ref.UI._steeringWheelPointer.transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
-        pointerAngle += rotationspeed * Time.deltaTime;
+        AngleToRotateTo += rotationspeed * Time.deltaTime;
     }
     private void RotateTankRightManually()
     {
         RotateAllObjectsByRotation(-rotationspeed * Time.deltaTime);
         Ref.UI._steeringWheelPointer.transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
-        pointerAngle -= rotationspeed * Time.deltaTime;
+        AngleToRotateTo -= rotationspeed * Time.deltaTime;
     }
 
     //  Rotate Tank
@@ -114,17 +105,17 @@ public class PlayerTankRotation : MonoBehaviour
     {
         float currentRot = rotatableObjects[0].transform.rotation.eulerAngles.z;
         if (currentRot > 180) currentRot -= 360;
-        if (pointerAngle > 180) pointerAngle -= 360;
+        if (AngleToRotateTo > 180) AngleToRotateTo -= 360;
 
-        float difference = currentRot - pointerAngle;
+        float difference = currentRot - AngleToRotateTo;
 
         if (difference > 0)
         {
             if (Mathf.Abs(difference) < (rotationspeed * Time.deltaTime))
             {
                 pointerAngleSet = false;
-                RotateAllObjectsToRotation(pointerAngle);
-                HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, new Vector3(0, 0, pointerAngle));
+                RotateAllObjectsToRotation(AngleToRotateTo);
+                HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {
@@ -137,29 +128,14 @@ public class PlayerTankRotation : MonoBehaviour
             if (Mathf.Abs(difference) < (rotationspeed * Time.deltaTime))
             {
                 pointerAngleSet = false;
-                RotateAllObjectsToRotation(pointerAngle);
-                HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, new Vector3(0, 0, pointerAngle));
+                RotateAllObjectsToRotation(AngleToRotateTo);
+                HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {
                 RotateAllObjectsByRotation(rotationspeed * Time.deltaTime);
                 SetRotationOfSteeringWheel();
             }
-        }
-    }
-
-    private void RotateAllObjectsToRotation(float zRot)
-    {
-        foreach (GameObject rotatable in rotatableObjects)
-        {
-            HM.RotateTransformToAngle(rotatable.transform, new Vector3(0, 0, pointerAngle));
-        }
-    }
-    private void RotateAllObjectsByRotation(float zRot)
-    {
-        foreach (GameObject rotatable in rotatableObjects)
-        {
-            rotatable.transform.Rotate(Vector3.forward * zRot);
         }
     }
 
@@ -171,31 +147,10 @@ public class PlayerTankRotation : MonoBehaviour
     private void RotateBack()
     {
         pointerAngleSet = true;
-        pointerAngle = 0;
-        /*float vec = transform.rotation.eulerAngles.z - 180;
-        if (vec > 0)
-        {
-            transform.Rotate(Vector3.forward * rotationspeed * Time.deltaTime);
-            if (Mathf.Abs(transform.rotation.eulerAngles.z) < 1)
-            {
-                transform.rotation = new Quaternion();
-                rotateBack = false;
-                print("rotateback finished");
-            }
-        }
-        if (vec < 0)
-        {
-            transform.Rotate(Vector3.back * rotationspeed * Time.deltaTime);
-            if (Mathf.Abs(transform.rotation.eulerAngles.z) < 1)
-            {
-                transform.rotation = new Quaternion();
-                rotateBack = false;
-                print("rotateback finished");
-            }
-        }*/
-    } //TODO: use this code to fix the auto turning!
+        AngleToRotateTo = 0;
+    }
 
-    //  (De)Select SteeringWheel to drag it around
+    //  (De)select the SteeringWheel to drag it around
     public void SelectSteeringWheel()
     {
         steeringWheelSelectedByMouse = true;
