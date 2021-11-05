@@ -99,7 +99,7 @@ public class UIScript : MonoBehaviour
         go.transform.SetParent(_weaponsList.transform,false);
         return wp;
     }
-    public UIWizard CreateWizardUI(IUnit unit)
+    public UIWizard CreateWizardUI(AUnit unit)
     {
         GameObject go = Instantiate((GameObject)Resources.Load("UIWizard"));
         UIWizard u = go.GetComponent<UIWizard>();

@@ -136,7 +136,7 @@ public class UnitPathfinding : MonoBehaviour
         }
         return neighbouredRooms;
     }
-    public void SetPathToRoomWithMouse(IUnit unit)
+    public void SetPathToRoomWithMouse(AUnit unit)
     {
         Room CurrentRoom = unit.CurrentRoom;
         RoomPosition CurrentRoomPos = unit.CurrentRoomPos;
@@ -228,7 +228,7 @@ public class UnitPathfinding : MonoBehaviour
         //Set the indicator of the unit
         unit.SetNextPosIndicator(unit.DesiredRoomPos);
     }
-    public void SetPathToRoom(IUnit unit, RoomPosition roomPosToGetTo)
+    public void SetPathToRoom(AUnit unit, RoomPosition roomPosToGetTo)
     {
         Room CurrentRoom = unit.CurrentRoom;
         RoomPosition CurrentRoomPos = unit.CurrentRoomPos;

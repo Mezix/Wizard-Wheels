@@ -175,13 +175,17 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     public void CancelAim()
     {
-        Ref.c.RemoveCrosshair(GetComponent<IWeapon>());
+        IWeapon iwep = GetComponent<IWeapon>();
+        if (iwep == null) return;
+        Ref.c.RemoveCrosshair(iwep);
         AimAtTarget = false;
         Room = null;
     }
     public void ResetAim()
     {
-        Ref.c.RemoveCrosshair(GetComponent<IWeapon>());
+        IWeapon iwep = GetComponent<IWeapon>();
+        if (iwep == null) return;
+        Ref.c.RemoveCrosshair(iwep);
         AimRotationAngle = 90;
         AimAtTarget = false;
         Room = null;

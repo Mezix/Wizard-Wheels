@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIWizard : MonoBehaviour
 {
-    public IUnit wizard;
+    public AUnit wizard;
     public Image _wizardImage;
     public int _index;
     public Text _UIWizardName;

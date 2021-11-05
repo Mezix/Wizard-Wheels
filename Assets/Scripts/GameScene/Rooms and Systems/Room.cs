@@ -14,7 +14,7 @@ public class Room : MonoBehaviour
     public RoomPosition[] allRoomPositions;
     public RoomPosition[] freeRoomPositions;
 
-    public List<IUnit> WizardsInRoom = new List<IUnit>();
+    public List<AUnit> WizardsInRoom = new List<AUnit>();
     private void Awake()
     {
         InitRoomPositions();
@@ -31,12 +31,12 @@ public class Room : MonoBehaviour
         }
     }
 
-    public void OccupyRoomPos(RoomPosition rPos, IUnit unit)
+    public void OccupyRoomPos(RoomPosition rPos, AUnit unit)
     {
         freeRoomPositions[rPos.roomPosIndex] = null;
         if(!WizardsInRoom.Contains(unit)) WizardsInRoom.Add(unit);
     }
-    public void FreeUpRoomPos(RoomPosition rPos, IUnit unit)
+    public void FreeUpRoomPos(RoomPosition rPos, AUnit unit)
     {
         freeRoomPositions[rPos.roomPosIndex] = rPos;
         if (WizardsInRoom.Contains(unit)) WizardsInRoom.Remove(unit);
@@ -53,7 +53,7 @@ public class Room : MonoBehaviour
                     for(int i = 0; i < WizardsInRoom.Count-1; i++)
                     {
                         if (WizardsInRoom[i].UnitSelected) continue;
-                        IUnit wizard = WizardsInRoom[i];
+                        AUnit wizard = WizardsInRoom[i];
 
                         //free up the wizards current Pos
                         freeRoomPositions[wizard.CurrentRoomPos.roomPosIndex] = wizard.CurrentRoomPos;

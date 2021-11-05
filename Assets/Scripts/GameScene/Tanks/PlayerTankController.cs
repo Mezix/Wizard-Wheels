@@ -44,7 +44,7 @@ public class PlayerTankController : TankController
 
     private void SpawnWizardsUI()
     {
-        foreach (IUnit u in _spawnedWizards)
+        foreach (AUnit u in _spawnedWizards)
         {
             u.UIWizard = Ref.UI.CreateWizardUI(u);
             _UIWizards.Add(u.UIWizard);
@@ -53,12 +53,14 @@ public class PlayerTankController : TankController
 
     private void Update()
     {
-        if (!_dying) ;
+        if (!_dying)
+        {
+            HandleWizardSelection();
+        }
         else
         {
             if (!_dead) SlowlyDie();
         }
-        HandleWizardSelection();
     }
     private void HandleWizardSelection()
     {
@@ -150,7 +152,7 @@ public class PlayerTankController : TankController
     }
     public void DeselectAllWizards()
     {
-        foreach (IUnit wizard in _spawnedWizards) wizard.UnitSelected = false;
+        foreach (AUnit wizard in _spawnedWizards) wizard.UnitSelected = false;
     }
     public void TakeDamage(int damage)
     {
