@@ -2805,9 +2805,11 @@ MonoBehaviour:
   _movespeed: 0.1
   velocity: 0
   _movementVector: {x: 0, y: 0, z: 0}
+  acceleration: 0.0025
+  deceleration: 0.005
   maxVelocity: 5
-  cruiseModeOn: 0
   Tires: []
+  cruiseModeOn: 0
 --- !u!50 &667288258
 Rigidbody2D:
   serializedVersion: 4
@@ -2864,9 +2866,9 @@ MonoBehaviour:
   - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
   - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
   - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
-  _UIWizards: []
   _dying: 0
   _dead: 0
+  _UIWizards: []
 --- !u!114 &667288261
 MonoBehaviour:
   m_ObjectHideFlags: 0
