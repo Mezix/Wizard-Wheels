@@ -58,7 +58,68 @@ public class PlayerTankController : TankController
         {
             if (!_dead) SlowlyDie();
         }
+        HandleWizardSelection();
     }
+    private void HandleWizardSelection()
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if (!Input.GetKey(KeyCode.LeftShift)) DeselectAllWizards();
+                SelectWizard(0);
+            } 
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (!Input.GetKey(KeyCode.LeftShift)) DeselectAllWizards();
+                SelectWizard(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                if (!Input.GetKey(KeyCode.LeftShift)) DeselectAllWizards();
+                SelectWizard(2);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                if (!Input.GetKey(KeyCode.LeftShift)) DeselectAllWizards();
+                SelectWizard(3);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                if (!Input.GetKey(KeyCode.LeftShift)) DeselectAllWizards();
+                SelectWizard(4);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                if (!Input.GetKey(KeyCode.LeftShift)) DeselectAllWizards();
+                SelectWizard(5);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                if (!Input.GetKey(KeyCode.LeftShift)) DeselectAllWizards();
+                SelectWizard(6);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                if (!Input.GetKey(KeyCode.LeftShift)) DeselectAllWizards();
+                SelectWizard(7);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                if (!Input.GetKey(KeyCode.LeftShift)) DeselectAllWizards();
+                SelectWizard(8);
+            }
+        }
+    }
+
+    private void SelectWizard(int wizIndex)
+    {
+        if(wizIndex < _spawnedWizards.Count)
+        {
+            _spawnedWizards[wizIndex].UnitSelected = true;
+        }
+    }
+
     private void InitEvents()
     {
         Events.instance.EnemyTankDestroyed += RemoveEnemyRoomFromWeapons;
