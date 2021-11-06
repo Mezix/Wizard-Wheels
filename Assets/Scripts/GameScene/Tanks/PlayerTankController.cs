@@ -171,7 +171,7 @@ public class PlayerTankController : TankController
     }
     private void SlowlyDie()
     {
-        if (TMov.velocity < 0.01f)
+        if (TMov.currentSpeed < 0.01f)
         {
             _dead = true;
         }

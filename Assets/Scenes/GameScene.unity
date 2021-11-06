@@ -2802,12 +2802,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ef46f02874af145bbd92e524a0290b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movespeed: 0.1
-  velocity: 0
-  _movementVector: {x: 0, y: 0, z: 0}
+  rb: {fileID: 0}
+  currentSpeed: 0
+  moveVector: {x: 0, y: 0, z: 0}
   acceleration: 0.0025
   deceleration: 0.005
-  maxVelocity: 5
+  maxSpeed: 5
   Tires: []
   cruiseModeOn: 0
 --- !u!50 &667288258
@@ -2866,6 +2866,7 @@ MonoBehaviour:
   - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
   - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
   - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
+  _spawnedWizards: []
   _dying: 0
   _dead: 0
   _UIWizards: []

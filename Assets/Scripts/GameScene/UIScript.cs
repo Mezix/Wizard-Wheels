@@ -64,10 +64,10 @@ public class UIScript : MonoBehaviour
     }
     private void InitSliders()
     {
-        _currentSpeedSlider.value = Ref.PCon.TMov.velocity;
-        _desiredSpeedSlider.value = Ref.PCon.TMov.velocity;
-        _currentSpeedSlider.maxValue = Ref.PCon.TMov.maxVelocity;
-        _desiredSpeedSlider.maxValue = Ref.PCon.TMov.maxVelocity;
+        _currentSpeedSlider.value = Ref.PCon.TMov.currentSpeed;
+        _desiredSpeedSlider.value = Ref.PCon.TMov.currentSpeed;
+        _currentSpeedSlider.maxValue = Ref.PCon.TMov.maxSpeed;
+        _desiredSpeedSlider.maxValue = Ref.PCon.TMov.maxSpeed;
     }
     public void ToggleSettings()
     {

@@ -175,7 +175,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     public void CancelAim()
     {
-        IWeapon iwep = GetComponent<IWeapon>();
+        TryGetComponent(out IWeapon iwep);
         if (iwep == null) return;
         Ref.c.RemoveCrosshair(iwep);
         AimAtTarget = false;
@@ -183,7 +183,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
     }
     public void ResetAim()
     {
-        IWeapon iwep = GetComponent<IWeapon>();
+        TryGetComponent(out IWeapon iwep);
         if (iwep == null) return;
         Ref.c.RemoveCrosshair(iwep);
         AimRotationAngle = 90;
@@ -222,7 +222,7 @@ public class BasicCannon : MonoBehaviour, IWeapon
         if (Room.transform.root.GetComponentInChildren<EnemyTankMovement>())
         {
             EnemyTankMovement mov = Room.transform.root.GetComponentInChildren<EnemyTankMovement>();
-            TargetMoveVector = mov._movementVector * mov.velocity * TimeForProjectileToHitDistance;
+            TargetMoveVector = mov.moveVector * mov.currentSpeed * TimeForProjectileToHitDistance;
         }
 
         //  find the desired angle to face the target

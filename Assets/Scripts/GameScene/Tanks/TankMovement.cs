@@ -4,28 +4,35 @@ using UnityEngine;
 
 public class TankMovement : MonoBehaviour
 {
-    public float _movespeed = 0.1f;
-    public float velocity = 0f;
-    public Vector3 _movementVector;
+    public Rigidbody2D rb;
+    public float currentSpeed;
+    public Vector3 moveVector;
     public float acceleration = 0.0025f;
     public float deceleration = 0.005f;
-    public float maxVelocity = 3f;
+    public float maxSpeed;
 
     public List<Tire> Tires = new List<Tire>();
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        currentSpeed = 0;
+    }
+
     public void Move()
     {
-        _movementVector = GetComponentInChildren<TankRotation>().rotatableObjects[0].transform.up;
-        transform.position += _movementVector * velocity * Time.deltaTime;
+        moveVector = GetComponentInChildren<TankRotation>().rotatableObjects[0].transform.up;
+        rb.velocity = moveVector * currentSpeed * Time.deltaTime;
+        rb.MovePosition(transform.position + moveVector * currentSpeed * Time.deltaTime);
     }
     public void Accelerate()
     {
-        if (velocity < maxVelocity) velocity += acceleration * Time.timeScale;
-        else velocity = maxVelocity;
+        if (currentSpeed + acceleration * Time.timeScale < maxSpeed) currentSpeed += acceleration * Time.timeScale;
+        else currentSpeed = maxSpeed;
     }
     public void Decelerate()
     {
-        if (velocity > 0) velocity -= deceleration * Time.timeScale;
-        else velocity = 0;
+        if (currentSpeed - acceleration * Time.timeScale > 0) currentSpeed -= acceleration * Time.timeScale;
+        else currentSpeed = 0;
     }
 
     //  Change the animation of our tires
@@ -37,7 +44,7 @@ public class TankMovement : MonoBehaviour
     {
         foreach (Tire t in Tires)
         {
-            t.AnimatorSpeed(velocity / maxVelocity);
+            t.AnimatorSpeed(currentSpeed / maxSpeed);
         }
     }
 }

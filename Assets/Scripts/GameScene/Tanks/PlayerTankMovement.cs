@@ -62,7 +62,7 @@ public class PlayerTankMovement : TankMovement
     }
     private void UpdateCurrentSpeedSlider()
     {
-        Ref.UI._currentSpeedSlider.value = velocity;
+        Ref.UI._currentSpeedSlider.value = currentSpeed;
     }
     public void SlowlyMatchSpeedToSliderValue()
     {
@@ -72,7 +72,7 @@ public class PlayerTankMovement : TankMovement
             TurnOnCruise(true);
             if (Ref.UI._currentSpeedSlider.value < Ref.UI._desiredSpeedSlider.value)
             {
-                velocity = Ref.UI._desiredSpeedSlider.value;
+                currentSpeed = Ref.UI._desiredSpeedSlider.value;
                 return;
             }
         }
@@ -82,7 +82,7 @@ public class PlayerTankMovement : TankMovement
             TurnOnCruise(true);
             if (Ref.UI._currentSpeedSlider.value > Ref.UI._desiredSpeedSlider.value)
             {
-                velocity = Ref.UI._desiredSpeedSlider.value;
+                currentSpeed = Ref.UI._desiredSpeedSlider.value;
                 return;
             }
         }
@@ -95,8 +95,8 @@ public class PlayerTankMovement : TankMovement
     
     public void DeathDeacceleration()
     {
-        if (velocity > 0) velocity -= deceleration * Time.timeScale;
-        else velocity = 0;
+        if (currentSpeed > 0) currentSpeed -= deceleration * Time.timeScale;
+        else currentSpeed = 0;
     }
 
     //  Cruise Mode

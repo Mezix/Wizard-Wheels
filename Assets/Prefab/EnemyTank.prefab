@@ -401,6 +401,7 @@ MonoBehaviour:
   _tStats: {fileID: 11400000, guid: 38f853e94e77a3946a479443944be7e9, type: 2}
   _tankName: Druskelle
   _wizardsToSpawn: []
+  _spawnedWizards: []
   _dying: 0
   _dead: 0
   tankNameText: {fileID: 264041171380104351}
@@ -417,12 +418,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5b5a8a694164a4ca882e49a622357a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movespeed: 0.1
-  velocity: 0
-  _movementVector: {x: 0, y: 0, z: 0}
+  rb: {fileID: 3787077506681756485}
+  currentSpeed: 0
+  rotation: {x: 0, y: 0}
   acceleration: 0.0025
   deceleration: 0.005
-  maxVelocity: 3
+  maxSpeed: 3
   Tires: []
 --- !u!114 &3967959686328043720
 MonoBehaviour:

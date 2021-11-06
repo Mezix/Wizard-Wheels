@@ -16,6 +16,7 @@ public abstract class TankController : MonoBehaviour
 
     public bool _dying;
     public bool _dead;
+
     public void SpawnWizards()
     {
         foreach (GameObject wiz in _wizardsToSpawn)
@@ -33,5 +34,4 @@ public abstract class TankController : MonoBehaviour
             u.InitUnit();
         }
     }
-
 }

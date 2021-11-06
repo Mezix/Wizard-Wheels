@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
     private int maxEnemies;
     private void Update()
     {
-        SpawnEnemyBehaviour();
+        SpawnBehaviour();
     }
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class EnemyManager : MonoBehaviour
         maxEnemies = 1;
     }
 
-    public void SpawnEnemyBehaviour()
+    public void SpawnBehaviour()
     {
         SpawnEnemy();
     }
@@ -35,9 +35,18 @@ public class EnemyManager : MonoBehaviour
         //Check the number of enemies spawned at once
         if (_enemies.Count > maxEnemies-1) return;
 
-        Vector3 spawnPos = Vector3.zero;
+        //Get Bounds of the unit we want to spawn next
+
+        //get the positions of all tanks in the game, as well as the players, and save them to be iterated over
+
+        //get the bounds of these tanks
+
+        //define the area enemies can be spawned in; outside the max zoom out level of the player
+
+        Vector3 spawnPos;
         GameObject tmp = Instantiate(_enemyPrefab);
         _enemies.Add(tmp);
+
         if (PlayerTankController.instance)
         {
             spawnPos = PlayerTankController.instance.transform.position + new Vector3(10, -5, 0);

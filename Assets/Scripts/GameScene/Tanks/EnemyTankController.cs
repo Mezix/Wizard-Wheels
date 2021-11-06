@@ -20,7 +20,6 @@ public class EnemyTankController : TankController, IEnemy
     {
         InitEnemyScripts();
     }
-
     public void InitEnemyScripts()
     {
         THealth = GetComponentInChildren<EnemyTankHealth>();
@@ -105,7 +104,7 @@ public class EnemyTankController : TankController, IEnemy
     private void SlowlyDie()
     {
         TMov.Decelerate();
-        if(TMov.velocity < 0.01f)
+        if(TMov.currentSpeed < 0.01f)
         {
             _dead = true;
         }
