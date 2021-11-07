@@ -20,13 +20,15 @@ public abstract class AUnit : MonoBehaviour
     //  Pathfinding
 
     public Vector3 RoomLocalPos;
-    public Room CurrentRoom { get; set; }
-    public RoomPosition CurrentRoomPos { get; set; }
-    public Room DesiredRoom { get; set; }
-    public RoomPosition DesiredRoomPos { get; set; }
-    public List<RoomPosition> PathToRoom { get; set; }
-    public int CurrentWaypoint { get; set; } //the index of our path
-    public GameObject MovingToPosIndicator { get; set; }
+    public Room CurrentRoom;
+    public RoomPosition CurrentRoomPos;
+    public Room DesiredRoom;
+    public RoomPosition DesiredRoomPos;
+    public Room SavedRoom;
+    public RoomPosition SavedRoomPos;
+    public List<RoomPosition> PathToRoom;
+    public int CurrentWaypoint; //the index of our path
+    public GameObject MovingToPosIndicator;
 
     private void Update()
     {

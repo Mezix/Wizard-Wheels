@@ -14,6 +14,8 @@ public class UIScript : MonoBehaviour
     public Button _pauseButton;
     public Button _settingsButton;
     public Button _trackPlayerTankButton;
+    public Button _returnWizardsButton;
+    public Button _saveWizardsButton;
 
     //Sliders
     public Slider _currentSpeedSlider;
@@ -61,6 +63,10 @@ public class UIScript : MonoBehaviour
         _pauseButton.onClick.AddListener(() => Ref.TM.TogglePauseWhilstPlaying());
         _trackPlayerTankButton.onClick = new Button.ButtonClickedEvent();
         _trackPlayerTankButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToPlayer());
+        _returnWizardsButton.onClick = new Button.ButtonClickedEvent();
+        _returnWizardsButton.onClick.AddListener(() => Ref.PCon.ReturnAllWizardsToSavedPositions());
+        _saveWizardsButton.onClick = new Button.ButtonClickedEvent();
+        _saveWizardsButton.onClick.AddListener(() => Ref.PCon.SaveAllWizardPositions());
     }
     private void InitSliders()
     {
@@ -117,11 +123,6 @@ public class UIScript : MonoBehaviour
     {
         PlayerTankController.instance.TMov.cruiseModeOn = true;
     }
-    public void SteeringWheelPointerUpdated()
-    {
-
-    }
-
     public void TurnOnCruiseMode(bool b)
     {
         if (b) _cruiseButton.image.color = Color.black;

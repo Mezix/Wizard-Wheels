@@ -234,37 +234,23 @@ public class UnitPathfinding : MonoBehaviour
         RoomPosition CurrentRoomPos = unit.CurrentRoomPos;
         Room roomToGetTo = roomPosToGetTo.ParentRoom;
 
-        //PrintPath(GetNeighbours(roomToGetTo.GetNextFreeRoomPos(), PlayerTankController.instance.TGeo._tankRoomConstellation));
-
+        if (!unit || !roomPosToGetTo || !CurrentRoom || !CurrentRoomPos || !roomToGetTo)
+        {
+            print("Some Room is invalid");
+            return;
+        }
         if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
         {
             Ref.mouse.DeselectAllUnits();
             print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
             return;
         }
-
-        //  Check if the room has a system
-        if (roomToGetTo.roomSystem != null)
-        {
-            //check if the rooms designated room for interaction is free
-            if (roomToGetTo.freeRoomPositions[roomToGetTo.roomSystem.RoomPosForInteraction.roomPosIndex])
-            {
-                roomPosToGetTo = roomToGetTo.roomSystem.RoomPosForInteraction;
-            }
-            else roomPosToGetTo = roomToGetTo.GetNextFreeRoomPos();
-        }
-        else
-        {
-            roomPosToGetTo = roomToGetTo.GetNextFreeRoomPos();
-        }
-
         if (roomPosToGetTo.Equals(CurrentRoomPos))
         {
             Ref.mouse.DeselectAllUnits();
             print("Trying to go to the same roomPos we are already in, Deselecting unit!");
             return;
         }
-
 
         List<RoomPosition> path = FindPath(CurrentRoomPos, roomPosToGetTo, PlayerTankController.instance.TGeo._tankRoomConstellation);
 

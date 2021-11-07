@@ -62,6 +62,28 @@ public class PlayerTankController : TankController
             if (!_dead) SlowlyDie();
         }
     }
+    public void ReturnAllWizardsToSavedPositions()
+    {
+        foreach(AUnit unit in _spawnedWizards)
+        {
+            if(unit.SavedRoom && unit.SavedRoomPos)
+            {
+                //print(unit.SavedRoomPos);
+                Ref.Path.SetPathToRoom(unit, unit.SavedRoomPos);
+            }
+        }
+    }
+    public void SaveAllWizardPositions()
+    {
+        foreach (AUnit unit in _spawnedWizards)
+        {
+            if (unit.CurrentRoom && unit.CurrentRoomPos)
+            {
+                unit.SavedRoom = unit.CurrentRoom;
+                unit.SavedRoomPos = unit.CurrentRoomPos;
+            }
+        }
+    }
     private void HandleWizardSelection()
     {
         if (Input.GetKey(KeyCode.LeftControl))
