@@ -19,6 +19,7 @@ public abstract class TankController : MonoBehaviour
 
     public void SpawnWizards()
     {
+        int wizardIndex = 1;
         foreach (GameObject wiz in _wizardsToSpawn)
         {
             GameObject wizGO = Instantiate(wiz);
@@ -29,9 +30,11 @@ public abstract class TankController : MonoBehaviour
             u.CurrentRoom = room;
             u.CurrentRoom.OccupyRoomPos(room.GetNextFreeRoomPos(), u);
             u.CurrentRoomPos = u.CurrentRoom.allRoomPositions[0];
+            u.Index = wizardIndex;
             _spawnedWizards.Add(wizGO.GetComponentInChildren<AUnit>());
 
             u.InitUnit();
+            wizardIndex++;
         }
     }
 }

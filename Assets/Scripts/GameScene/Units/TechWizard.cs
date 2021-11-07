@@ -24,6 +24,7 @@ public class TechWizard : AUnit
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.LeftShift) && !Ref.mouse.IsPointerOverUIElement())
                 Ref.Path.SetPathToRoomWithMouse(GetComponent<AUnit>());
         }
+        UpdateWizardUI();
     }
     private void FixedUpdate()
     {

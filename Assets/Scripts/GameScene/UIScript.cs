@@ -111,6 +111,8 @@ public class UIScript : MonoBehaviour
         UIWizard u = go.GetComponent<UIWizard>();
         u._wizardImage.sprite = unit.Rend.sprite;
         u._UIWizardName.text = unit.UnitName;
+        u._index = unit.Index;
+        u._UIWizardKeybind.text = "CTRL + " + u._index.ToString();
         u.button.onClick = new Button.ButtonClickedEvent();
         u.button.onClick.AddListener(() => u.SelectWizard());
         u.wizard = unit;

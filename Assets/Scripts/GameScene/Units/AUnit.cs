@@ -16,6 +16,7 @@ public abstract class AUnit : MonoBehaviour
     public bool UnitIsMoving { get; set; }
     public GameObject UnitObj { get; set; }
     public UIWizard UIWizard { get; set; }
+    public int Index { get; set; }
 
     //  Pathfinding
 
@@ -30,10 +31,6 @@ public abstract class AUnit : MonoBehaviour
     public int CurrentWaypoint; //the index of our path
     public GameObject MovingToPosIndicator;
 
-    private void Update()
-    {
-        UpdateWizardUI();
-    }
     public void InitUnit()
     {
         if (_unitStats)  //if we have a scriptableobject, use its stats
@@ -157,7 +154,7 @@ public abstract class AUnit : MonoBehaviour
     {
         PathToRoom.Clear();
     }
-    private void UpdateWizardUI()
+    protected void UpdateWizardUI()
     {
         if (UIWizard)
         {
