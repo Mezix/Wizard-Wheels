@@ -167,7 +167,6 @@ public class TankGeometry : MonoBehaviour
         print("no free rooms found");
         return null;
     }
-
     public void VisualizeMatrix()
     {
         string matrix = "";
