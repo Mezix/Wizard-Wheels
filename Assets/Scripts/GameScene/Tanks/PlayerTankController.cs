@@ -68,7 +68,6 @@ public class PlayerTankController : TankController
         {
             if(unit.SavedRoom && unit.SavedRoomPos)
             {
-                //print(unit.SavedRoomPos);
                 Ref.Path.SetPathToRoom(unit, unit.SavedRoomPos);
             }
         }
@@ -77,7 +76,12 @@ public class PlayerTankController : TankController
     {
         foreach (AUnit unit in _spawnedWizards)
         {
-            if (unit.CurrentRoom && unit.CurrentRoomPos)
+            if(unit.DesiredRoom && unit.DesiredRoom)
+            {
+                unit.SavedRoom = unit.DesiredRoom;
+                unit.SavedRoomPos = unit.DesiredRoomPos;
+            }
+            else if(unit.CurrentRoom && unit.CurrentRoomPos)
             {
                 unit.SavedRoom = unit.CurrentRoom;
                 unit.SavedRoomPos = unit.CurrentRoomPos;
