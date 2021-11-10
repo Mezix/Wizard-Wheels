@@ -62,7 +62,7 @@ public class PlayerTankRotation : TankRotation
     private void SetPointerRotationRelativeToTank()
     {
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float rot = HM.Angle2D(transform.position, mouse);
+        float rot = HM.GetAngle2DBetween(transform.position, mouse);
         HM.RotateTransformToAngle(Ref.UI._steeringWheelPointer.transform, new Vector3(0, 0, rot + 90));
         AngleToRotateTo = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
         pointerAngleSet = true;
@@ -75,7 +75,7 @@ public class PlayerTankRotation : TankRotation
     }
     public void SetPointerRotationRelativeToSteeringWheel()
     {
-        float rot = HM.Angle2D(Ref.UI._steeringWheel.transform.position, Input.mousePosition);
+        float rot = HM.GetAngle2DBetween(Ref.UI._steeringWheel.transform.position, Input.mousePosition);
         HM.RotateTransformToAngle(Ref.UI._steeringWheelPointer.transform, new Vector3(0, 0, rot + 90));
         AngleToRotateTo = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
         pointerAngleSet = true;

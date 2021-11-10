@@ -11,9 +11,7 @@ public class EnemyTankController : TankController, IEnemy
     public EnemyTankHealth THealth { get; private set; }
     public EnemyTankMovement TMov { get; private set; }
     public EnemyTankWeaponsAndSystems TWep { get; private set; }
-
     public Text tankNameText;
-
     public Button TrackCameraButton;
 
     private void Awake()

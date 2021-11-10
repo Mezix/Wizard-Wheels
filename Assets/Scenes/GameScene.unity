@@ -3090,6 +3090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7e3c8dc6a89484b93c83030262f287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IWeaponArray: []
   AllUIWeapons: []
   multipleSelected: 1
 --- !u!114 &667288262
@@ -4492,6 +4493,9 @@ MonoBehaviour:
   _projectilesToPool:
   - _amountToPool: 10
     _projectilePrefab: {fileID: 1935830913290221688, guid: 495a80c8c48a48b45a29efceb7b85ab5,
+      type: 3}
+  - _amountToPool: 10
+    _projectilePrefab: {fileID: 1935830913290221688, guid: a5b4b0258b0970048899c5c3a28e7d2c,
       type: 3}
 --- !u!1 &1327889871
 GameObject:

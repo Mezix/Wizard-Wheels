@@ -33,7 +33,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     //  Misc
 
     public GameObject ProjectilePrefab { get; set; }
-    public Transform _cannonballSpot;
+    public Transform _projectileSpot;
     protected LineRenderer laserLR;
     public bool ShouldHitPlayer { get; set; }
 
@@ -131,7 +131,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         else
         {
             AimAtTarget = false;
-            AimRotationAngle = HM.Angle2D(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
+            AimRotationAngle = HM.GetAngle2DBetween(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         }
         WeaponSelected = false;
     }
@@ -177,7 +177,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     public void PointTurretAtTarget()
     {
         Vector3 TargetMoveVector = Vector3.zero;
-        float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
+        float distance = Vector3.Distance(Room.transform.position, _projectileSpot.transform.position);
         float TimeForProjectileToHitDistance = distance / (_weaponStats._projectileSpeed);
 
         //Calculate the position where our target will be
@@ -188,7 +188,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         }
 
         //  find the desired angle to face the target
-        float zRotToTarget = HM.Angle2D(Room.transform.position + TargetMoveVector, transform.position);
+        float zRotToTarget = HM.GetAngle2DBetween(Room.transform.position + TargetMoveVector, transform.position);
         //  get closer to the angle with our max rotationspeed
         float zRotActual;
         float diff = zRotToTarget - transform.rotation.eulerAngles.z;
@@ -222,7 +222,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     private void SpawnCannonball()
     {
         GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);
-        cannonball.GetComponent<AProjectile>().SetBulletStatsAndTransform(_weaponStats._damage, _cannonballSpot.transform.position, transform.rotation);
+        cannonball.GetComponent<AProjectile>().SetBulletStatsAndTransformToWeaponStats(this);
         cannonball.GetComponent<AProjectile>().HitPlayer = ShouldHitPlayer;
         cannonball.SetActive(true);
         TimeElapsedBetweenLastAttack = 0;
@@ -257,7 +257,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
             {
                 laserLR.gameObject.SetActive(true);
                 //float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
-                laserLR.SetPosition(0, _cannonballSpot.transform.position);
+                laserLR.SetPosition(0, _projectileSpot.transform.position);
                 laserLR.SetPosition(1, Room.transform.position);
             }
         }
@@ -277,6 +277,6 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     public bool TargetRoomWithinLockOnRange()
     {
         if (!Room) return false;
-        return Vector3.Distance(_cannonballSpot.position, Room.transform.position) < MaxLockOnRange;
+        return Vector3.Distance(_projectileSpot.position, Room.transform.position) < MaxLockOnRange;
     }
 }

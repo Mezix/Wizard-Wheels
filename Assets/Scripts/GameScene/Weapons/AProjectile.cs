@@ -24,10 +24,11 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     [SerializeField]
     protected float maxShadowHeight;
 
+    public AWeapon wep;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        ProjectileSpeed = 10f;
         MaxLifetime = 3;
     }
     private void OnEnable()
@@ -44,12 +45,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         CurrentLifeTime += Time.deltaTime;
         CheckLifetime();
     }
-    private void FixedUpdate()
-    {
-        if (!despawnAnimationPlaying) MoveProjectile();
-        UpdateShadowPosition();
-    }
-    protected void MoveProjectile()
+    public virtual void MoveProjectile()
     {
         rb.MovePosition(transform.position + transform.right * ProjectileSpeed * Time.deltaTime);
         UpdateShadowPosition();
@@ -70,11 +66,13 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     {
         ProjectilePool.Instance.AddToPool(gameObject);
     }
-    public void SetBulletStatsAndTransform(int gunDamage, Vector3 pos, Quaternion rot)
+    public virtual void SetBulletStatsAndTransformToWeaponStats(AWeapon weapon)
     {
-        Damage = gunDamage;
-        transform.position = pos;
-        transform.rotation = rot;
+        wep = weapon;
+        Damage = weapon._weaponStats._damage;
+        ProjectileSpeed = weapon._weaponStats._projectileSpeed;
+        transform.position = weapon.transform.position;
+        transform.rotation = weapon.transform.rotation;
     }
     public virtual void DamageEnemy(IEnemy e)
     {

@@ -7,7 +7,7 @@ using UnityEngine;
 public class ObjectPoolItem //this is an internal class, which we fill with prefabs of our projectiles
 {
     public int _amountToPool; //how many projectiles should be created each time we expand the pool
-    public GameObject _projectilePrefab; //the actual prefab of the bullet
+    public GameObject _projectilePrefab; //the actual prefab of the projectile
 }
 public class ProjectilePool : MonoBehaviour
 {

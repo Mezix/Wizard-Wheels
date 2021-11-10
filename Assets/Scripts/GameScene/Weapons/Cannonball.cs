@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Cannonball : AProjectile
 {
+    private void FixedUpdate()
+    {
+        if (!despawnAnimationPlaying) MoveProjectile();
+    }
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (!hasDoneDamage)

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Audio;
 
-public class BasicCannon : AWeapon
+public class MagicMissile : AWeapon
 {
     private void Awake()
     {
@@ -13,11 +10,11 @@ public class BasicCannon : AWeapon
     }
     private void Start()
     {
-        ProjectilePrefab = (GameObject) Resources.Load("Weapons\\CannonballProjectilePrefab");
+        ProjectilePrefab = (GameObject)Resources.Load("Weapons\\MagicMissileProjectilePrefab");
         laserLR = _projectileSpot.GetComponentInChildren<LineRenderer>();
         AimRotationAngle = 90;
 
-        if(!ShouldHitPlayer) WeaponEnabled = false;
+        if (!ShouldHitPlayer) WeaponEnabled = false;
     }
     private void Update()
     {
@@ -29,7 +26,7 @@ public class BasicCannon : AWeapon
     }
     private void FixedUpdate()
     {
-        if(WeaponEnabled)
+        if (WeaponEnabled)
         {
             if (AimAtTarget) PointTurretAtTarget();
             else if (!ShouldNotRotate) RotateTurretToAngle();
@@ -38,5 +35,5 @@ public class BasicCannon : AWeapon
         {
             StopInteraction();
         }
-    }  
+    }
 }
