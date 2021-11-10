@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIWeapon : MonoBehaviour
 {
-    public IWeapon _weapon;
+    public AWeapon _weapon;
     public Image _weaponImage;
     public int _index;
     public Text _UIWeaponName;

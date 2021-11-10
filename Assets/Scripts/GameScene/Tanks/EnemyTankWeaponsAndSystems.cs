@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyTankWeaponsAndSystems : MonoBehaviour
 {
-    public List<IWeapon> IWeaponArray = new List<IWeapon>();
+    public List<AWeapon> IWeaponArray = new List<AWeapon>();
     public List<ISystem> ISystemArray = new List<ISystem>();
 
     private void SelectWeapon(int weaponIndex)
@@ -23,12 +23,12 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
                     GameObject prefab = tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
 
                     //Our object should either be a Weapon or a System, so check for both cases
-                    if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<IWeapon>() != null)
+                    if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<AWeapon>() != null)
                     {
                         GameObject weaponObj = Instantiate(prefab);
                         weaponObj.transform.parent = tr.RoomPosMatrix[x, y].ParentRoom.transform;
                         weaponObj.transform.localPosition = Vector3.zero;
-                        IWeapon wep = weaponObj.GetComponent<IWeapon>();
+                        AWeapon wep = weaponObj.GetComponent<AWeapon>();
                         wep.InitSystem();
                         PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.ShouldHitPlayer =  wep.WeaponSelected = wep.WeaponEnabled = true;
@@ -76,7 +76,7 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
     {
         if(IWeaponArray.Count > 0)
         {
-            foreach (IWeapon wep in IWeaponArray)
+            foreach (AWeapon wep in IWeaponArray)
             {
                 if (wep.AimAtTarget) return; //no need to continue to search for targets if we already have one
 
@@ -108,7 +108,7 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
     {
         if (IWeaponArray.Count > 0)
         {
-            foreach (IWeapon wep in IWeaponArray)
+            foreach (AWeapon wep in IWeaponArray)
             {
                 wep.AimAtTarget = false;
                 wep.Room = null;
@@ -121,7 +121,7 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
     {
         if (IWeaponArray.Count > 0)
         {
-            foreach (IWeapon wep in IWeaponArray)
+            foreach (AWeapon wep in IWeaponArray)
             {
                 if(wep != null) wep.ResetAim();
             }

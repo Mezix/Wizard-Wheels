@@ -16,7 +16,7 @@ public class CrosshairManager : MonoBehaviour
     {
         RoomsCrosshairsDictionary = new Dictionary<Room, Crosshair>();
     }
-    public void AddCrosshair(Room room, IWeapon weapon)
+    public void AddCrosshair(Room room, AWeapon weapon)
     {
         if (RoomsCrosshairsDictionary.ContainsKey(room)) //  Check if weve spawned a crosshair for that specific room
         {
@@ -37,7 +37,7 @@ public class CrosshairManager : MonoBehaviour
         }
     }
 
-    public void RemoveCrosshair(IWeapon weapon)
+    public void RemoveCrosshair(AWeapon weapon)
     {
         if (weapon == null) return;
         if (!weapon.Room) return;

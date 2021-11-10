@@ -7,8 +7,8 @@ public class TankMovement : MonoBehaviour
     public Rigidbody2D rb;
     public float currentSpeed;
     public Vector3 moveVector;
-    public float acceleration = 0.0025f;
-    public float deceleration = 0.005f;
+    public float acceleration;
+    public float deceleration;
     public float maxSpeed;
 
     public List<Tire> Tires = new List<Tire>();
@@ -16,6 +16,9 @@ public class TankMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = 0;
+
+        acceleration = 0.005f;
+        deceleration = 0.01f;
     }
 
     public void Move()

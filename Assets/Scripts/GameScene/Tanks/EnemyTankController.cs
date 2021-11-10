@@ -82,7 +82,6 @@ public class EnemyTankController : TankController, IEnemy
     public void EnemyBehaviour()
     {
         //Maintain a certain distance away from us
-
         TMov.Accelerate();
         if(!Ref.PDead) TWep.AcquireTargetsForAllWeapons();
     }
@@ -90,7 +89,9 @@ public class EnemyTankController : TankController, IEnemy
     {
         TWep.ResetAllWeapons();
     }
+
     //  Death
+
     public void InitiateDeathBehaviour()
     {
         _dying = true;

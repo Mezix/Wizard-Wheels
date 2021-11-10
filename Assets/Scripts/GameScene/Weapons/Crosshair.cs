@@ -10,16 +10,16 @@ public class Crosshair : MonoBehaviour
     public Text weaponIndex;
     public Text tankName;
     public GameObject crosshair;
-    public List<IWeapon> AttackingWeapons;
+    public List<AWeapon> AttackingWeapons;
     public List<GameObject> WeaponIndices;
 
     private void Awake()
     {
-        AttackingWeapons = new List<IWeapon>();
+        AttackingWeapons = new List<AWeapon>();
         WeaponIndices = new List<GameObject>();
     }
 
-    public void AddAttacker(IWeapon weapon)
+    public void AddAttacker(AWeapon weapon)
     {
         if(!AttackingWeapons.Contains(weapon))
         {
@@ -27,7 +27,7 @@ public class Crosshair : MonoBehaviour
             UpdateCrosshair();
         }
     }
-    public bool RemoveAttacker(IWeapon wep)
+    public bool RemoveAttacker(AWeapon wep)
     {
         if (!AttackingWeapons.Contains(wep)) return false;
         AttackingWeapons.Remove(wep);
@@ -57,7 +57,7 @@ public class Crosshair : MonoBehaviour
 
         //Perhaps a sorting step by indices here?
 
-        foreach(IWeapon weapon in AttackingWeapons)
+        foreach(AWeapon weapon in AttackingWeapons)
         {
             //spawn a new Gameobject 
             GameObject wepIndexObject = Instantiate((GameObject)Resources.Load("WeaponIndex"));

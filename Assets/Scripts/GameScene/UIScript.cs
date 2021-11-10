@@ -92,7 +92,7 @@ public class UIScript : MonoBehaviour
         _settings.SetActive(false);
         _settingsOn = false;
     }
-    public UIWeapon CreateWeaponUI(IWeapon iwp)
+    public UIWeapon CreateWeaponUI(AWeapon iwp)
     {
         GameObject go = Instantiate((GameObject) Resources.Load("Weapons\\UIWeapon"));
         UIWeapon wp = go.GetComponent<UIWeapon>();

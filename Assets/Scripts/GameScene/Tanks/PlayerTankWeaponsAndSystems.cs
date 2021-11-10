@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerTankWeaponsAndSystems : MonoBehaviour
 {
-    public List<IWeapon> IWeaponArray = new List<IWeapon>();
+    public List<AWeapon> IWeaponArray = new List<AWeapon>();
     public List<ISystem> ISystemArray = new List<ISystem>();
     public List<UIWeapon> AllUIWeapons = new List<UIWeapon>();
     public bool multipleSelected = true;
@@ -40,7 +40,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
     }
     public void DeselectAllWeapons()
     {
-        foreach (IWeapon wp in IWeaponArray)
+        foreach (AWeapon wp in IWeaponArray)
         {
             if (wp != null) wp.WeaponSelected = false;
         }
@@ -57,13 +57,13 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
                     GameObject prefab = tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
 
                     //Our object should either be a Weapon or a System, so check for both cases
-                    if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<IWeapon>() != null)
+                    if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<AWeapon>() != null)
                     {
                         if (!tr.RoomPosMatrix[x, y]) continue;
                         GameObject weaponObj = Instantiate(prefab);
                         weaponObj.transform.parent = tr.RoomPosMatrix[x,y].ParentRoom.transform;
                         weaponObj.transform.localPosition = Vector3.zero;
-                        IWeapon wep = weaponObj.GetComponent<IWeapon>();
+                        AWeapon wep = weaponObj.GetComponent<AWeapon>();
                         wep.InitSystem();
                         PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.ShouldHitPlayer = false;
@@ -106,7 +106,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
     {
         Room r = Ref.PCon.TGeo.FindRandomRoomWithSpace();
         r.roomSystem = weapon.GetComponent<ISystem>();
-        r.roomSystemRenderer.sprite = weapon.GetComponent<IWeapon>().SystemSprite;
+        r.roomSystemRenderer.sprite = weapon.GetComponent<AWeapon>().SystemSprite;
     }
 
     public void ClearWeapons()
@@ -126,7 +126,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
     public void WeaponBehaviourInDeath()
     {
         DeselectAllWeapons();
-        foreach (IWeapon wp in IWeaponArray)
+        foreach (AWeapon wp in IWeaponArray)
         {
             if (wp != null) wp.WeaponSelected = false;
             wp.ShouldNotRotate = true;

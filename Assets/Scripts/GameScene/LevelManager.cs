@@ -36,8 +36,11 @@ public class LevelManager : MonoBehaviour
     }
     private void Update()
     {
-        playerPosRelativeToGrid = g.WorldToCell(Ref.PlayerGO.transform.position);
-        CreateTilemap(35, 35, playerPosRelativeToGrid);
+        if(Ref.PlayerGO)
+        {
+            playerPosRelativeToGrid = g.WorldToCell(Ref.PlayerGO.transform.position);
+            CreateTilemap(35, 35, playerPosRelativeToGrid);
+        }
     }
 
     private void CreateTilemap(int radiusX, int radiusY, Vector2 vec)

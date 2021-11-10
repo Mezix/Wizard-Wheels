@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3833d1accfcc4af448e8f883b8501b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cannonballSprite: {fileID: 9126476221999826754}
+  _projectileSprite: {fileID: 9126476221999826754}
   _shadow: {fileID: 2573193843095243027}
   _shadowRotation: {fileID: 1108643200956634821}
   maxShadowHeight: 0.2
