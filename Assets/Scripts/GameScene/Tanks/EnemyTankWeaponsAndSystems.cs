@@ -8,6 +8,8 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
     public List<AWeapon> IWeaponArray = new List<AWeapon>();
     public List<ISystem> ISystemArray = new List<ISystem>();
 
+    public WeaponStats EnemyBasicCannon;
+
     private void SelectWeapon(int weaponIndex)
     {
         if (weaponIndex < IWeaponArray.Count) IWeaponArray[weaponIndex].WeaponSelected = true;
@@ -29,6 +31,7 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
                         weaponObj.transform.parent = tr.RoomPosMatrix[x, y].ParentRoom.transform;
                         weaponObj.transform.localPosition = Vector3.zero;
                         AWeapon wep = weaponObj.GetComponent<AWeapon>();
+                        wep._weaponStats = EnemyBasicCannon;
                         wep.InitSystem();
                         PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.ShouldHitPlayer =  wep.WeaponSelected = wep.WeaponEnabled = true;

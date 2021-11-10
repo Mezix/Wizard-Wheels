@@ -29,7 +29,7 @@ public abstract class AUnit : MonoBehaviour
     public RoomPosition SavedRoomPos;
     public List<RoomPosition> PathToRoom;
     public int CurrentWaypoint; //the index of our path
-    public GameObject MovingToPosIndicator;
+    private GameObject movingToPosIndicator;
 
     public void InitUnit()
     {
@@ -135,20 +135,20 @@ public abstract class AUnit : MonoBehaviour
     }
     public void RemovePosIndicator()
     {
-        if (MovingToPosIndicator)
+        if (movingToPosIndicator)
         {
-            Destroy(MovingToPosIndicator);
-            MovingToPosIndicator = null;
+            Destroy(movingToPosIndicator);
+            movingToPosIndicator = null;
         }
     }
     public void SetNextPosIndicator(RoomPosition rPos)
     {
         if (!rPos) return;
-        if (MovingToPosIndicator) Destroy(MovingToPosIndicator);
+        if (movingToPosIndicator) Destroy(movingToPosIndicator);
 
-        MovingToPosIndicator = Instantiate((GameObject)Resources.Load("UnitMovingToIndicator"));
-        MovingToPosIndicator.transform.parent = rPos.transform;
-        MovingToPosIndicator.transform.localPosition = Vector3.zero;
+        movingToPosIndicator = Instantiate((GameObject)Resources.Load("UnitMovingToIndicator"));
+        movingToPosIndicator.transform.parent = rPos.transform;
+        movingToPosIndicator.transform.localPosition = Vector3.zero;
     }
     public void ClearUnitPath()
     {

@@ -420,7 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3787077506681756485}
   currentSpeed: 0
-  rotation: {x: 0, y: 0}
+  moveVector: {x: 0, y: 0, z: 0}
   acceleration: 0.0025
   deceleration: 0.005
   maxSpeed: 3
@@ -452,6 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08126cd1345d1374291bdb4d32c97add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IWeaponArray: []
+  EnemyBasicCannon: {fileID: 11400000, guid: e7429deb239e1f64f92b3e72426c508f, type: 2}
 --- !u!114 &8239155493298000636
 MonoBehaviour:
   m_ObjectHideFlags: 0

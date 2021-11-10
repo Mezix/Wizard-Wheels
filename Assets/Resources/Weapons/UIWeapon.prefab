@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e887445b42770534baa041ddbcd226a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weapon: {fileID: 0}
   _weaponImage: {fileID: 3661350475135399096}
   _index: 0
   _UIWeaponName: {fileID: 4453499738902429781}
@@ -398,7 +399,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.80784315, g: 0, b: 0, a: 1}
+    m_DisabledColor: {r: 0.254717, g: 0.06367925, b: 0.06367925, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
