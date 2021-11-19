@@ -1126,6 +1126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a66f28bb3a332d4c8a2ab52d743d62b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerTanks:
+  - {fileID: 11400000, guid: 74bb0e1ea42492e4491bf4e8ae060efc, type: 2}
+  - {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5, type: 2}
+  - {fileID: 11400000, guid: af7376a3ca65fc24bbaab87bd7de4ff3, type: 2}
   pixelCam: {fileID: 1802316736}
   MainMenuGO: {fileID: 1800890634}
   MenuStartButton: {fileID: 655061599}

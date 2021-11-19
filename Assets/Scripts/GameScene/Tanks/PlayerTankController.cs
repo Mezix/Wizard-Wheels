@@ -18,6 +18,11 @@ public class PlayerTankController : TankController
 
     private void Awake()
     {
+        InitTank();
+    }
+
+    public void InitTank()
+    {
         Ref.PCon = instance = this;
         Ref.PlayerGO = gameObject;
         Ref.PDead = false;
@@ -28,9 +33,9 @@ public class PlayerTankController : TankController
         TWep = GetComponentInChildren<PlayerTankWeaponsAndSystems>();
         THealth = GetComponentInChildren<PlayerTankHealth>();
     }
-
-    void Start()
+    public void SpawnTank()
     {
+
         TGeo.SpawnTank();
         TMov.InitTankMovement();
         TRot.GetComponent<PlayerTankRotation>().InitTankRotation();

@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
+    public static TankRoomConstellation playerTankConstellationFromSelectScreen;
+
     private Tilemap tm;
     private Grid g;
     private Vector3 playerPosRelativeToGrid;
@@ -33,6 +35,12 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        if (playerTankConstellationFromSelectScreen)
+        {
+            print(playerTankConstellationFromSelectScreen.name);
+            Ref.PCon.TGeo._tankRoomConstellation = playerTankConstellationFromSelectScreen;
+        }
+        Ref.PCon.SpawnTank();
     }
     private void Update()
     {

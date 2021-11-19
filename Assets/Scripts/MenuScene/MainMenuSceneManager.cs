@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class MainMenuSceneManager : MonoBehaviour
 {
+    public TankRoomConstellation[] PlayerTanks;
+    public int tankIndex;
+
     [SerializeField]
     private PixelPerfectCamera pixelCam;
 
@@ -42,6 +45,8 @@ public class MainMenuSceneManager : MonoBehaviour
     {
         ActivateMainMenuUI(true);
         ActivateSelectScreen(false);
+        tankIndex = 0;
+        UpdateSelectedTankText();
     }
     private void Update()
     {
@@ -60,11 +65,25 @@ public class MainMenuSceneManager : MonoBehaviour
 
     public void NextTank()
     {
-
+        tankIndex++;
+        if(tankIndex >= PlayerTanks.Length)
+        {
+            tankIndex = 0;
+        }
+        UpdateSelectedTankText();
     }
     public void PreviousTank()
     {
-
+        tankIndex--;
+        if (tankIndex < 0)
+        {
+            tankIndex = PlayerTanks.Length - 1;
+        }
+        UpdateSelectedTankText();
+    }
+    public void UpdateSelectedTankText()
+    {
+        SelectedTankText.text = PlayerTanks[tankIndex].name;
     }
     public void ShowSelectionScreen()
     {
@@ -97,6 +116,7 @@ public class MainMenuSceneManager : MonoBehaviour
     {
         Instantiate((GameObject) Resources.Load("LoadingScreen"));
         yield return new WaitForSeconds(0.5f);
+        LevelManager.playerTankConstellationFromSelectScreen = PlayerTanks[tankIndex];
         Loader.Load(Loader.Scene.GameScene);
     }
 
