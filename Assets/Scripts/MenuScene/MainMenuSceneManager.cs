@@ -50,17 +50,19 @@ public class MainMenuSceneManager : MonoBehaviour
     {
         cam = Camera.main;
         pixelCam = cam.GetComponent<PixelPerfectCamera>();
-        zoomLevel = 32;
-        camParent = orb.transform;
         InitButtons();
     }
     private void Start()
     {
+        tankIndex = 0;
+        pixelCam.assetsPPU = zoomLevel = 32;
+        camParent = orb.transform;
+        cam.transform.localPosition = new Vector3(0,0,-10);
+        wiz.movementLocked = true;
+
         ActivateMainMenuUI(true);
         ActivateSelectScreen(false);
-        tankIndex = 0;
         UpdateSelectedTankText();
-        wiz.movementLocked = true;
     }
     private void Update()
     {
@@ -71,19 +73,19 @@ public class MainMenuSceneManager : MonoBehaviour
             {
                 wiz.movementLocked = false;
             }
+            CheckPlayerDistanceFromOrb();
         }
-        CheckPlayerDistanceFromOrb();
     }
     private void FixedUpdate()
     {
-        Zoom();
-        MoveCamToObject();
+        ZoomSlowly();
+        MoveCamToObjectSlowly();
     }
     private void InitButtons()
     {
 
     }
-    private void MoveCamToObject()
+    private void MoveCamToObjectSlowly()
     {
         cam.transform.parent = camParent;
         Vector3 diff = Vector2.Lerp(cam.transform.localPosition, Vector2.zero, 0.1f);
@@ -95,17 +97,18 @@ public class MainMenuSceneManager : MonoBehaviour
         if(Vector3.Distance(wiz.transform.position, orb.transform.position) <= 1f)
         {
             zoomLevel = 100;
-            //MoveCamToObject(orb);
             camParent = orb.transform;
+            SelectScreenGO.SetActive(true);
+
         }
         else
         {
             zoomLevel = 32;
-            //MoveCamToObject(wiz.gameObject);
             camParent = wiz.transform;
+            SelectScreenGO.SetActive(false);
         }
     }
-    private void Zoom()
+    private void ZoomSlowly()
     {
         pixelCam.assetsPPU += Math.Sign(zoomLevel - pixelCam.assetsPPU);
     }
