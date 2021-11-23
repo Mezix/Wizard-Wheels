@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class MainMenuSceneManager : MonoBehaviour
 {
+    //  Player
+    [SerializeField]
+    private OverworldWizard wiz;
     public TankRoomConstellation[] PlayerTanks;
     public int tankIndex;
 
@@ -47,6 +50,7 @@ public class MainMenuSceneManager : MonoBehaviour
         ActivateSelectScreen(false);
         tankIndex = 0;
         UpdateSelectedTankText();
+        wiz.movementLocked = true;
     }
     private void Update()
     {
@@ -95,10 +99,12 @@ public class MainMenuSceneManager : MonoBehaviour
     private void ActivateMainMenuUI(bool b)
     {
         MainMenuGO.SetActive(b);
+        wiz.movementLocked = b;
     }
     private void ActivateSelectScreen(bool b)
     {
         SelectScreenGO.SetActive(b);
+        wiz.movementLocked = !b;
     }
 
     public void ReturnToMainMenu()
