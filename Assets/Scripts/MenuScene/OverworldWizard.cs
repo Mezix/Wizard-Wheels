@@ -15,7 +15,7 @@ public class OverworldWizard : MonoBehaviour
     {
         movementLocked = false;
         moveVector = Vector2.zero;
-        moveSpeed = 4;
+        moveSpeed = 10;
         rb = GetComponentInChildren<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
     }
@@ -25,6 +25,11 @@ public class OverworldWizard : MonoBehaviour
         {
             if(!MovementInput()) moveVector = Vector2.zero;
         }
+        else
+        {
+            moveVector = Vector2.zero;
+        }
+
         anim.SetFloat("Speed", moveVector.magnitude);
         anim.SetFloat("Horizontal", moveVector.x);
         anim.SetFloat("Vertical", moveVector.y);
@@ -59,7 +64,10 @@ public class OverworldWizard : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (!movementLocked)
+        {
+            Move();
+        }
     }
     public void Move()
     {

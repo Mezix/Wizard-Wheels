@@ -12,9 +12,14 @@ public class MainMenuSceneManager : MonoBehaviour
     private OverworldWizard wiz;
     public TankRoomConstellation[] PlayerTanks;
     public int tankIndex;
-
     [SerializeField]
+    private GameObject orb;
+
+    //  Camera
+    private Camera cam;
+    private Transform camParent;
     private PixelPerfectCamera pixelCam;
+    private int zoomLevel;
 
     //  Menu
 
@@ -40,8 +45,13 @@ public class MainMenuSceneManager : MonoBehaviour
     [SerializeField]
     private Text SelectedTankText;
 
+
     private void Awake()
     {
+        cam = Camera.main;
+        pixelCam = cam.GetComponent<PixelPerfectCamera>();
+        zoomLevel = 32;
+        camParent = orb.transform;
         InitButtons();
     }
     private void Start()
@@ -54,19 +64,51 @@ public class MainMenuSceneManager : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (!MainMenuGO.activeInHierarchy)
         {
-            if(!MainMenuGO.activeInHierarchy)
+            if (Input.GetKeyDown(KeyCode.Escape))  ReturnToMainMenu();
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
             {
-                ReturnToMainMenu();
+                wiz.movementLocked = false;
             }
         }
+        CheckPlayerDistanceFromOrb();
+    }
+    private void FixedUpdate()
+    {
+        Zoom();
+        MoveCamToObject();
     }
     private void InitButtons()
     {
 
     }
-
+    private void MoveCamToObject()
+    {
+        cam.transform.parent = camParent;
+        Vector3 diff = Vector2.Lerp(cam.transform.localPosition, Vector2.zero, 0.1f);
+        diff.z = -10;
+        cam.transform.localPosition = diff;
+    }
+    private void CheckPlayerDistanceFromOrb()
+    {
+        if(Vector3.Distance(wiz.transform.position, orb.transform.position) <= 1f)
+        {
+            zoomLevel = 100;
+            //MoveCamToObject(orb);
+            camParent = orb.transform;
+        }
+        else
+        {
+            zoomLevel = 32;
+            //MoveCamToObject(wiz.gameObject);
+            camParent = wiz.transform;
+        }
+    }
+    private void Zoom()
+    {
+        pixelCam.assetsPPU += Math.Sign(zoomLevel - pixelCam.assetsPPU);
+    }
     public void NextTank()
     {
         tankIndex++;
@@ -91,7 +133,7 @@ public class MainMenuSceneManager : MonoBehaviour
     }
     public void ShowSelectionScreen()
     {
-        pixelCam.assetsPPU = 100;
+        zoomLevel = 100;
         ActivateMainMenuUI(false);
         ActivateSelectScreen(true);
     }
@@ -109,7 +151,7 @@ public class MainMenuSceneManager : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        pixelCam.assetsPPU = 32;
+        zoomLevel = 32;
         ActivateMainMenuUI(true);
         ActivateSelectScreen(false);
     }
