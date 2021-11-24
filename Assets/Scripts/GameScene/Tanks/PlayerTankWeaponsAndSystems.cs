@@ -47,7 +47,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
     }
     public void InitWeaponsAndSystems()
     {
-        TankRoomConstellation tr = Ref.PCon.TGeo._tankRoomConstellation;
+        TankRoomConstellation tr = GetComponent<TankGeometry>()._tankRoomConstellation;
         for (int x = 0; x < tr.XTilesAmount; x++)
         {
             for (int y = 0; y < tr.YTilesAmount; y++)

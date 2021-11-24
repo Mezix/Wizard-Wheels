@@ -7,7 +7,6 @@ public class EnemyTankMovement : TankMovement
 {
     private void Awake()
     {
-        InitTires();
     }
     void Update()
     {

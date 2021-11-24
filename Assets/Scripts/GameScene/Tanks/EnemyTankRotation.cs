@@ -8,7 +8,7 @@ public class EnemyTankRotation : TankRotation
 {
     void Start()
     {
-        InitRotatableObjects();
+       // InitRotatableObjects();
     }
     public void RotateTankLeft()
     {

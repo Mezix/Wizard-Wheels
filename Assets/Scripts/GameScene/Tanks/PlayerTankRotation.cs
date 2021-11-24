@@ -28,7 +28,7 @@ public class PlayerTankRotation : TankRotation
     public void InitTankRotation()
     {
         pointerAngleSet = false;
-        InitRotatableObjects();
+        //InitRotatableObjects();
     }
     private void HandleRotationInput()
     {

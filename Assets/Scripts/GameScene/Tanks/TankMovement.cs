@@ -23,6 +23,8 @@ public class TankMovement : MonoBehaviour
 
     public void Move()
     {
+        if (GetComponentInChildren<TankRotation>().rotatableObjects.Count == 0) return;
+
         moveVector = GetComponentInChildren<TankRotation>().rotatableObjects[0].transform.up;
         rb.velocity = moveVector * currentSpeed * Time.deltaTime;
         rb.MovePosition(transform.position + moveVector * currentSpeed * Time.deltaTime);
@@ -41,7 +43,36 @@ public class TankMovement : MonoBehaviour
     //  Change the animation of our tires
     public void InitTires()
     {
-        foreach (Tire t in GetComponentsInChildren<Tire>()) Tires.Add(t);
+        TankRoomConstellation trc = GetComponent<TankGeometry>()._tankRoomConstellation;
+        TankRotation tr = GetComponent<TankRotation>();
+
+        GameObject rotatableObjects = new GameObject("RotatableObjects");
+        rotatableObjects.transform.parent = transform;
+        rotatableObjects.transform.localPosition = Vector3.zero;
+
+        for (int x = 0; x < trc.XTilesAmount; x++)
+        {
+            for (int y = 0; y < trc.YTilesAmount; y++)
+            {
+                if (trc.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab)
+                {
+                    GameObject tire = trc.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab;
+
+                    if (trc.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab.GetComponentInChildren<Tire>() != null)
+                    {
+                        //print(x.ToString() + ", " + y.ToString());
+                        if (!trc.RoomPosMatrix[x, y]) continue;
+                        GameObject tireObj = Instantiate(tire);
+                        tireObj.transform.parent = trc.RoomPosMatrix[x, y].transform;
+                        tireObj.transform.localPosition = Vector3.zero;
+                        tireObj.transform.parent = rotatableObjects.transform;
+                        Tires.Add(tireObj.GetComponentInChildren<Tire>());
+                        tr.rotatableObjects.Add(tireObj.GetComponentInChildren<Tire>().gameObject);
+                    }
+                }
+            }
+        }
+
     }
     public void SetTireAnimationSpeed()
     {
