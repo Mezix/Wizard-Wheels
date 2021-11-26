@@ -11,8 +11,7 @@ public class EnemyTankController : TankController, IEnemy
     public EnemyTankHealth THealth { get; private set; }
     public EnemyTankMovement TMov { get; private set; }
     public EnemyTankWeaponsAndSystems TWep { get; private set; }
-    public Text tankNameText;
-    public Button TrackCameraButton;
+    private EnemyUI enemyUI;
 
     private void Awake()
     {
@@ -34,16 +33,18 @@ public class EnemyTankController : TankController, IEnemy
         TMov.InitTires();
         TWep.InitWeaponsAndSystems(TGeo._tankRoomConstellation);
         TWep.CreateWeaponsUI();
-        InitTankStats();
         SpawnWizards();
-
-        InitTrackCameraButton();
+        SpawnUI();
+        InitTankStats();
     }
 
-    private void InitTrackCameraButton()
+    private void SpawnUI()
     {
-        TrackCameraButton.onClick = new Button.ButtonClickedEvent();
-        TrackCameraButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToEnemy(transform));
+        GameObject ui = (GameObject) Instantiate(Resources.Load("EnemyUI"));
+        enemyUI = ui.GetComponent<EnemyUI>();
+        enemyUI.transform.SetParent(transform);
+        enemyUI.transform.localPosition = new Vector2(0, (0.5f * 0.5f * TGeo._tankRoomConstellation.YTilesAmount) + 0.5f);
+        THealth._healthBarParent = enemyUI.hpBar;
     }
 
     private void Update()
@@ -72,7 +73,8 @@ public class EnemyTankController : TankController, IEnemy
             print("Enemy has no stats, adding defaults!");
         }
         THealth.InitHealth();
-        tankNameText.text = _tankName;
+        enemyUI.tankNameText.text = _tankName;
+        enemyUI.ScaleTankHealth(THealth._maxHealth);
     }
     public void TakeDamage(int damage)
     {

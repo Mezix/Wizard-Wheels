@@ -82,6 +82,10 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         WeaponIndex = i;
         _weaponIndexText.text = i.ToString();
     }
+    public void CounterRotateWeaponIndex()
+    {
+        HM.RotateLocalTransformToAngle(_weaponIndexText.transform.parent, new Vector3(0,0, -transform.localRotation.eulerAngles.z));
+    }
     /// <summary>
     /// This Method handles everything to do with the operation of a weapon!
     /// </summary>
@@ -237,6 +241,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
             UIWep._UIWeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
             UIWep.WeaponInteractable(WeaponEnabled);
         }
+        CounterRotateWeaponIndex();
     }
 
     //  Misc

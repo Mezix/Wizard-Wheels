@@ -65,3 +65,9 @@ TagManager:
   - name: Cursor
     uniqueID: 890199517
     locked: 0
+  - name: VehicleUI
+    uniqueID: 2892123811
+    locked: 0
+  - name: FogOfWar
+    uniqueID: 3793032447
+    locked: 0

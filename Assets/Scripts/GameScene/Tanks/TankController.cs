@@ -7,7 +7,7 @@ public abstract class TankController : MonoBehaviour
     public TankStats _tStats;
     public TankRotation TRot { get; set; }
     public TankGeometry TGeo { get; set; }
-
+    [HideInInspector]
     public string _tankName;
 
     //  Wizards

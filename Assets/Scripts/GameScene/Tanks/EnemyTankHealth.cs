@@ -10,7 +10,6 @@ public class EnemyTankHealth : MonoBehaviour
 
     public GameObject _healthBarParent;
     public List<Image> _allHealthBarUnits;
-    public GameObject _healthBarUnitPrefab;
 
     public void InitHealth()
     {
@@ -30,7 +29,7 @@ public class EnemyTankHealth : MonoBehaviour
         }
         for (int i = 0; i < maxHealth; i++)
         {
-            GameObject tmp = Instantiate(_healthBarUnitPrefab);
+            GameObject tmp = (GameObject) Instantiate(Resources.Load("HPSegment"));
             _allHealthBarUnits.Add(tmp.GetComponent<Image>());
             tmp.transform.SetParent(_healthBarParent.transform, false);
         }
