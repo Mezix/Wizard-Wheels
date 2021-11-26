@@ -67,6 +67,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
                         wep.InitSystem();
                         PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.ShouldHitPlayer = false;
+                        wep.wepUI.ShowWeaponUI(false);
                         wep.RoomPosForInteraction = tr.RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
                         IWeaponArray.Add(wep);
 

@@ -88,7 +88,7 @@ public abstract class AUnit : MonoBehaviour
         //check if we have reached the last room
         if (Vector3.Distance(transform.position, PathToRoom[PathToRoom.Count - 1].transform.position) <= (UnitSpeed * Time.deltaTime))
         {
-            Debug.Log("destination reached");
+            //Debug.Log("destination reached");
             transform.localPosition = RoomLocalPos;
             UnitIsMoving = false;
             WizardAnimator.SetFloat("Speed", 0);

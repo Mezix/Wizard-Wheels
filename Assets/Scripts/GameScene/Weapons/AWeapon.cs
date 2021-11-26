@@ -39,8 +39,8 @@ public abstract class AWeapon : MonoBehaviour, ISystem
 
     //  UI
     public UIWeapon UIWep { get; set; }
-    public int WeaponIndex { get; set; }
-    public Text _weaponIndexText;
+
+    public WeaponUI wepUI;
 
     //  Audio
     public AudioSource _weaponAudioSource = null;
@@ -79,12 +79,8 @@ public abstract class AWeapon : MonoBehaviour, ISystem
 
     public void SetIndex(int i)
     {
-        WeaponIndex = i;
-        _weaponIndexText.text = i.ToString();
-    }
-    public void CounterRotateWeaponIndex()
-    {
-        HM.RotateLocalTransformToAngle(_weaponIndexText.transform.parent, new Vector3(0,0, -transform.localRotation.eulerAngles.z));
+        wepUI.WeaponIndex = i;
+        wepUI._weaponIndexText.text = i.ToString();
     }
     /// <summary>
     /// This Method handles everything to do with the operation of a weapon!
@@ -236,12 +232,20 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     //  UI
     protected void UpdateWeaponUI()
     {
-        if (UIWep)
+        if(UIWep)
         {
             UIWep._UIWeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
             UIWep.WeaponInteractable(WeaponEnabled);
         }
-        CounterRotateWeaponIndex();
+        if(ShouldHitPlayer)
+        {
+            wepUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
+        }
+        CounterRotateUI();
+    }
+    public void CounterRotateUI()
+    {
+        HM.RotateLocalTransformToAngle(wepUI.transform, new Vector3(0, 0, -transform.localRotation.eulerAngles.z));
     }
 
     //  Misc
