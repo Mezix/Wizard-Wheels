@@ -21,7 +21,7 @@ public class EnemyUI : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         trackCameraButton.onClick = new Button.ButtonClickedEvent();
-        trackCameraButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToEnemy(transform));
+        trackCameraButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToEnemy(transform.root));
         canvas.sortingLayerName = "VehicleUI";
     }
     public void ScaleTankHealth(float maxHp)
