@@ -37,6 +37,8 @@ public class UIScript : MonoBehaviour
     public GameObject _healthBarParent;
     public List<Image> _allHealthBarUnits;
 
+    private bool matchingSpeed;
+
     private void Awake()
     {
         _settingsOn = false;
@@ -54,7 +56,7 @@ public class UIScript : MonoBehaviour
         _cruiseButton.onClick = new Button.ButtonClickedEvent();
         _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
         _matchSpeedButton.onClick = new Button.ButtonClickedEvent();
-        _matchSpeedButton.onClick.AddListener(() => MatchSpeed());
+        _matchSpeedButton.onClick.AddListener(() => StartToMatchSpeed());
         _rotateBackButton.onClick = new Button.ButtonClickedEvent();
         _rotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.GetComponent<PlayerTankRotation>().TurnTankUp());
         _settingsButton.onClick = new Button.ButtonClickedEvent();
@@ -130,9 +132,14 @@ public class UIScript : MonoBehaviour
         if (b) _cruiseButton.image.color = Color.black;
         else _cruiseButton.image.color = Color.white;
     }
-    private void MatchSpeed()
+    private void StartToMatchSpeed()
     {
-        print("implement this!");
+        if(Ref.PCon)
+        {
+            Ref.PCon.GetComponent<PlayerTankMovement>()._attemptingMatchingSpeed = true;
+            Ref.PCon.GetComponent<PlayerTankMovement>().enemyToMatch = null;
+            Ref.PCon.GetComponent<PlayerTankMovement>()._matchSpeed = false;
+        }
     }
     public void CreateHealthbar(int maxHealth)
     {

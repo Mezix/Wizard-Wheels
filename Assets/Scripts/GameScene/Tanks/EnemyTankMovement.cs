@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class EnemyTankMovement : TankMovement
 {
-    private void Awake()
-    {
-    }
     void Update()
     {
         SetTireAnimationSpeed();

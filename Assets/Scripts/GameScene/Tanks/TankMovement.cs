@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TankMovement : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     public float currentSpeed;
     public Vector3 moveVector;
     public float acceleration;

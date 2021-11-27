@@ -2,16 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerTankMovement : TankMovement
 {
     public bool cruiseModeOn;
+    public bool _attemptingMatchingSpeed;
+    public bool _matchSpeed;
+    public TankMovement enemyToMatch;
 
     void Update()
     {
+        if(_attemptingMatchingSpeed)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0)) AttemptMatchSpeed();
+        }
+        
         if (!PlayerTankController.instance._dying)
         {
             if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
+            if (_matchSpeed)
+            {
+                UpdateDesiredSpeedSlider();
+            }
             HandleMovementInput();
         }
         else DeathDeacceleration();
@@ -19,6 +32,7 @@ public class PlayerTankMovement : TankMovement
         SetTireAnimationSpeed();
         UpdateCurrentSpeedSlider();
     }
+
     private void FixedUpdate()
     {
         Move();
@@ -64,6 +78,10 @@ public class PlayerTankMovement : TankMovement
     {
         Ref.UI._currentSpeedSlider.value = currentSpeed;
     }
+    private void UpdateDesiredSpeedSlider()
+    {
+        Ref.UI._desiredSpeedSlider.value = enemyToMatch.currentSpeed;
+    }
     public void SlowlyMatchSpeedToSliderValue()
     {
         if (Ref.UI._currentSpeedSlider.value > Ref.UI._desiredSpeedSlider.value)
@@ -81,6 +99,51 @@ public class PlayerTankMovement : TankMovement
             Accelerate();
             TurnOnCruise(true);
             if (Ref.UI._currentSpeedSlider.value > Ref.UI._desiredSpeedSlider.value)
+            {
+                currentSpeed = Ref.UI._desiredSpeedSlider.value;
+                return;
+            }
+        }
+    }
+
+    private void AttemptMatchSpeed()
+    {
+        RaycastHit2D ray = HM.RaycastToMouseCursor();
+        if (ray.collider)
+        {
+            EnemyTankMovement e = ray.collider.transform.root.GetComponentInChildren<EnemyTankMovement>();
+            if (e)
+            {
+                _matchSpeed = true;
+                enemyToMatch = e;
+                TurnOnCruise(true);
+            }
+            else
+            {
+                print("error couldnt find enemy to match");
+            }
+        }
+        else
+        {
+            print("error couldnt find enemy to match");
+        }
+        _attemptingMatchingSpeed = false;
+    }
+    public void SlowlyMatchEnemySpeed()
+    {
+        if (enemyToMatch.currentSpeed < currentSpeed)
+        {
+            Decelerate();
+            if (enemyToMatch.currentSpeed > currentSpeed)
+            {
+                currentSpeed = Ref.UI._desiredSpeedSlider.value;
+                return;
+            }
+        }
+        if (enemyToMatch.currentSpeed > currentSpeed)
+        {
+            Accelerate();
+            if (enemyToMatch.currentSpeed < currentSpeed)
             {
                 currentSpeed = Ref.UI._desiredSpeedSlider.value;
                 return;
