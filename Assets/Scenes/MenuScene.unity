@@ -326,6 +326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 470241083}
+  - component: {fileID: 470241084}
   m_Layer: 0
   m_Name: Orb
   m_TagString: Untagged
@@ -349,6 +350,32 @@ Transform:
   m_Father: {fileID: 1239861551}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &470241084
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470241082}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.35}
+  m_EdgeRadius: 0
 --- !u!1 &476582649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,7 +1192,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af7376a3ca65fc24bbaab87bd7de4ff3, type: 2}
   tankIndex: 0
   orb: {fileID: 470241082}
-  pixelCam: {fileID: 1802316736}
   MainMenuGO: {fileID: 1800890634}
   MenuStartButton: {fileID: 655061599}
   MenuSettingsButton: {fileID: 1712626753}
@@ -3634,6 +3660,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1239861551}
     m_Modifications:
+    - target: {fileID: 199823446577963845, guid: 531d0b50a40815141b1c0b1268f34f32,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 199823446577963848, guid: 531d0b50a40815141b1c0b1268f34f32,
         type: 3}
       propertyPath: m_Name
@@ -3652,7 +3683,7 @@ PrefabInstance:
     - target: {fileID: 199823446577963849, guid: 531d0b50a40815141b1c0b1268f34f32,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.21
+      value: 0.267
       objectReference: {fileID: 0}
     - target: {fileID: 199823446577963849, guid: 531d0b50a40815141b1c0b1268f34f32,
         type: 3}
@@ -3693,6 +3724,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199823446577963851, guid: 531d0b50a40815141b1c0b1268f34f32,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 531d0b50a40815141b1c0b1268f34f32, type: 3}

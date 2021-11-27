@@ -57,6 +57,7 @@ public class MainMenuSceneManager : MonoBehaviour
         tankIndex = 0;
         pixelCam.assetsPPU = zoomLevel = 32;
         camParent = orb.transform;
+        cam.transform.SetParent(camParent);
         cam.transform.localPosition = new Vector3(0,0,-10);
         wiz.movementLocked = true;
 
@@ -89,6 +90,7 @@ public class MainMenuSceneManager : MonoBehaviour
     {
         cam.transform.parent = camParent;
         Vector3 diff = Vector2.Lerp(cam.transform.localPosition, Vector2.zero, 0.1f);
+        if (diff.magnitude < 0.01f) diff = Vector2.zero;
         diff.z = -10;
         cam.transform.localPosition = diff;
     }

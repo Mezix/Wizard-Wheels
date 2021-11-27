@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class EnemyTankWeaponsAndSystems : MonoBehaviour
 {
-    public List<AWeapon> IWeaponArray = new List<AWeapon>();
+    public List<AWeapon> AWeaponArray = new List<AWeapon>();
     public List<ISystem> ISystemArray = new List<ISystem>();
 
     public WeaponStats EnemyBasicCannon;
 
     private void SelectWeapon(int weaponIndex)
     {
-        if (weaponIndex < IWeaponArray.Count) IWeaponArray[weaponIndex].WeaponSelected = true;
+        if (weaponIndex < AWeaponArray.Count) AWeaponArray[weaponIndex].WeaponSelected = true;
     }
     public void InitWeaponsAndSystems(TankRoomConstellation tr)
     {
@@ -36,7 +36,7 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
                         PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.ShouldHitPlayer =  wep.WeaponSelected = wep.WeaponEnabled = true;
                         wep.wepUI.ShowWeaponUI(true);
-                        IWeaponArray.Add(wep);
+                        AWeaponArray.Add(wep);
 
                         //Set the reference to the rooms
                         tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
@@ -71,16 +71,16 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
     }
     public void CreateWeaponsUI()
     {
-        for (int i = 0; i < IWeaponArray.Count; i++)
+        for (int i = 0; i < AWeaponArray.Count; i++)
         {
-            IWeaponArray[i].SetIndex(i + 1);
+            AWeaponArray[i].SetIndex(i + 1);
         }
     }
     public void AcquireTargetsForAllWeapons()
     {
-        if(IWeaponArray.Count > 0)
+        if(AWeaponArray.Count > 0)
         {
-            foreach (AWeapon wep in IWeaponArray)
+            foreach (AWeapon wep in AWeaponArray)
             {
                 if (wep.AimAtTarget) return; //no need to continue to search for targets if we already have one
 
@@ -110,22 +110,22 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
 
     public void WeaponBehaviourInDeath()
     {
-        if (IWeaponArray.Count > 0)
+        if (AWeaponArray.Count > 0)
         {
-            foreach (AWeapon wep in IWeaponArray)
+            foreach (AWeapon wep in AWeaponArray)
             {
+                Ref.c.RemoveCrosshair(wep);
                 wep.AimAtTarget = false;
                 wep.Room = null;
                 wep.ShouldNotRotate = true;
-                Ref.c.RemoveCrosshair(wep);
             }
         }
     }
     internal void ResetAllWeapons()
     {
-        if (IWeaponArray.Count > 0)
+        if (AWeaponArray.Count > 0)
         {
-            foreach (AWeapon wep in IWeaponArray)
+            foreach (AWeapon wep in AWeaponArray)
             {
                 if(wep != null) wep.ResetAim();
             }

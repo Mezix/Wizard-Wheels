@@ -15,7 +15,7 @@ public class OverworldWizard : MonoBehaviour
     {
         movementLocked = false;
         moveVector = Vector2.zero;
-        moveSpeed = 10;
+        moveSpeed = 1.5f;
         rb = GetComponentInChildren<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
     }
@@ -40,25 +40,26 @@ public class OverworldWizard : MonoBehaviour
         bool movementInput = false;
         if (Input.GetKey(KeyCode.W))
         {
-            moveVector.y = moveSpeed;
+            moveVector.y = 1;
             movementInput = true;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            moveVector.y = -moveSpeed;
+            moveVector.y = -1;
             movementInput = true;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            moveVector.x = -moveSpeed;
+            moveVector.x = -1;
             movementInput = true;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            moveVector.x = moveSpeed;
+            moveVector.x = 1;
             movementInput = true;
         }
         moveVector.Normalize();
+        moveVector.Scale(new Vector2(moveSpeed, moveSpeed));
         return movementInput;
     }
 

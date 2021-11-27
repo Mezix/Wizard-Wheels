@@ -7,8 +7,11 @@ using UnityEngine.UI;
 public class PlayerTankMovement : TankMovement
 {
     public bool cruiseModeOn;
+    [HideInInspector]
     public bool _attemptingMatchingSpeed;
+    [HideInInspector]
     public bool _matchSpeed;
+    [HideInInspector]
     public TankMovement enemyToMatch;
 
     void Update()

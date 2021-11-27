@@ -95,8 +95,8 @@ public class EnemyTankController : TankController, IEnemy
 
     public void InitiateDeathBehaviour()
     {
-        _dying = true;
         TWep.WeaponBehaviourInDeath();
+        _dying = true;
 
         //  Send event to our player to remove the target of its weapons
         Events.instance.EnemyDestroyed(gameObject);
