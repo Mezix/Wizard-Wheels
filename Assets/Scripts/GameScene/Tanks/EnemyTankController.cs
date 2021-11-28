@@ -122,7 +122,6 @@ public class EnemyTankController : TankController, IEnemy
             yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(0.435f);
-        foreach (GameObject expl in explosions) Destroy(expl);
 
         Events.instance.EnemyDestroyed(gameObject);
         Destroy(gameObject);

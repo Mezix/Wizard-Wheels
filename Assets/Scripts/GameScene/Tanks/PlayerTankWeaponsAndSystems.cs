@@ -67,7 +67,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
                         wep.InitSystem();
                         PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.ShouldHitPlayer = false;
-                        wep.wepUI.ShowWeaponUI(false);
+                        wep.EnemyWepUI.ShowWeaponUI(false);
                         wep.RoomPosForInteraction = tr.RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
                         IWeaponArray.Add(wep);
 
@@ -121,7 +121,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
             IWeaponArray[i].SetIndex(i+1);
             UIWeapon uw = Ref.UI.CreateWeaponUI(IWeaponArray[i]);
             AllUIWeapons.Add(uw);
-            IWeaponArray[i].UIWep = uw;
+            IWeaponArray[i].PlayerUIWep = uw;
         }
     }
     public void WeaponBehaviourInDeath()

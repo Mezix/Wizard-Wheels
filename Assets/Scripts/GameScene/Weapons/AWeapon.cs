@@ -23,7 +23,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
 
     //  Aiming
 
-    public GameObject Room { get; set; }
+    public GameObject Room;
     public bool WeaponSelected { get; set; }
     public bool WeaponEnabled { get; set; }
     public bool AimAtTarget { get; set; }
@@ -38,9 +38,8 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     public bool ShouldHitPlayer { get; set; }
 
     //  UI
-    public UIWeapon UIWep { get; set; }
-
-    public WeaponUI wepUI;
+    public UIWeapon PlayerUIWep { get; set; }
+    public WeaponUI EnemyWepUI;
 
     //  Audio
     public AudioSource _weaponAudioSource = null;
@@ -79,8 +78,8 @@ public abstract class AWeapon : MonoBehaviour, ISystem
 
     public void SetIndex(int i)
     {
-        wepUI.WeaponIndex = i;
-        wepUI._weaponIndexText.text = i.ToString();
+        EnemyWepUI.WeaponIndex = i;
+        EnemyWepUI._weaponIndexText.text = i.ToString();
     }
     /// <summary>
     /// This Method handles everything to do with the operation of a weapon!
@@ -216,15 +215,15 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         {
             PlayWeaponFireSoundEffect();
             WeaponFireParticles();
-            SpawnCannonball();
+            SpawnProjectile();
         }
     }
-    private void SpawnCannonball()
+    private void SpawnProjectile()
     {
-        GameObject cannonball = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);
-        cannonball.GetComponent<AProjectile>().SetBulletStatsAndTransformToWeaponStats(this);
-        cannonball.GetComponent<AProjectile>().HitPlayer = ShouldHitPlayer;
-        cannonball.SetActive(true);
+        GameObject proj = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);
+        proj.GetComponent<AProjectile>().SetBulletStatsAndTransformToWeaponStats(this);
+        proj.GetComponent<AProjectile>().HitPlayer = ShouldHitPlayer;
+        proj.SetActive(true);
         TimeElapsedBetweenLastAttack = 0;
 
     }
@@ -232,26 +231,29 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     //  UI
     protected void UpdateWeaponUI()
     {
-        if(UIWep)
+        if(PlayerUIWep)
         {
-            UIWep._UIWeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
-            UIWep.WeaponInteractable(WeaponEnabled);
+            PlayerUIWep._UIWeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
+            PlayerUIWep.WeaponInteractable(WeaponEnabled);
         }
         if(ShouldHitPlayer)
         {
-            wepUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
+            EnemyWepUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
         }
         CounterRotateUI();
     }
     public void CounterRotateUI()
     {
-        HM.RotateLocalTransformToAngle(wepUI.transform, new Vector3(0, 0, -transform.localRotation.eulerAngles.z));
+        HM.RotateLocalTransformToAngle(EnemyWepUI.transform, new Vector3(0, 0, -transform.localRotation.eulerAngles.z));
     }
 
     //  Misc
 
     private void WeaponFireParticles()
     {
+        GameObject exp = Instantiate((GameObject)Resources.Load("SingleExplosion"));
+        exp.transform.SetParent(_projectileSpot);
+        exp.transform.localPosition = Vector3.zero;
     }
     private void PlayWeaponFireSoundEffect()
     {
@@ -260,7 +262,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     }
     protected void UpdateLaserLR()
     {
-        if (Room && AimAtTarget)
+        if (Room && AimAtTarget && ShouldHitPlayer)
         {
             if (TargetRoomWithinLockOnRange())
             {

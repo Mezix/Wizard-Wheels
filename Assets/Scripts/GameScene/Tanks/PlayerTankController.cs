@@ -167,6 +167,17 @@ public class PlayerTankController : TankController
                 wep.ResetAim();
             }
         }
+
+        if(TMov._matchSpeed)
+        {
+            if(TMov.enemyToMatch.gameObject.Equals(enemy))
+            {
+                TMov.enemyToMatch = null;
+                TMov._attemptingMatchingSpeed = false;
+                TMov._matchSpeed = false;
+                TMov.TurnOnCruise(true);
+            }
+        }
     }
 
     private void InitTankStats()
@@ -220,7 +231,7 @@ public class PlayerTankController : TankController
             yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(0.435f);
-        foreach (GameObject expl in explosions) Destroy(expl);
+        //foreach (GameObject expl in explosions) Destroy(expl);
         Destroy(gameObject);
 
         Events.instance.PlayerDestroyed();

@@ -32,8 +32,8 @@ public class Cannonball : AProjectile
         _projectileSprite.gameObject.SetActive(false);
         GameObject explosion = Instantiate((GameObject)Resources.Load("SingleExplosion"));
         explosion.transform.position = transform.position;
-        yield return new WaitForSeconds(0.43f);
-        Destroy(explosion);
+        yield return new WaitForFixedUpdate();
+        // yield return new WaitForSeconds(0.43f);
         DespawnBullet();
     }
 }

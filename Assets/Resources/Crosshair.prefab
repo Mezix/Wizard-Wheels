@@ -130,6 +130,7 @@ MonoBehaviour:
   weaponIndex: {fileID: 3094488964342370952}
   tankName: {fileID: 1169230881131341602}
   crosshair: {fileID: 3094488963969483177}
+  AttackingWeapons: []
   WeaponIndices: []
 --- !u!1 &3094488963969483177
 GameObject:

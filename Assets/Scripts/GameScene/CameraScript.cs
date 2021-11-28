@@ -38,6 +38,7 @@ public class CameraScript : MonoBehaviour
     }
     public void SetTrackedVehicleToPlayer()
     {
+        if (!Ref.PCon) return;
         tankToTrack = Ref.PlayerGO.transform;
         transform.SetParent(tankToTrack);
         cameraOffset = Vector3.zero;

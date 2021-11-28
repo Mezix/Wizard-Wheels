@@ -100,9 +100,9 @@ public class UIScript : MonoBehaviour
         UIWeapon wp = go.GetComponent<UIWeapon>();
         wp._weaponImage.sprite = iwp.SystemSprite;
         wp._UIWeaponName.text = iwp.SystemName;
-        wp._index = iwp.wepUI.WeaponIndex;
+        wp._index = iwp.EnemyWepUI.WeaponIndex;
         wp._weapon = iwp;
-        wp._UIWeaponIndex.text = iwp.wepUI.WeaponIndex.ToString();
+        wp._UIWeaponIndex.text = iwp.EnemyWepUI.WeaponIndex.ToString();
 
         go.transform.SetParent(_weaponsList.transform,false);
         return wp;

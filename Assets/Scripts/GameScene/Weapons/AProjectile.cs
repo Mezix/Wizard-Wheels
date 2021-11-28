@@ -54,6 +54,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     {
         HM.RotateLocalTransformToAngle(_shadowRotation, -transform.rotation.eulerAngles);
         _shadow.transform.localPosition = new Vector2(0, -maxShadowHeight * (1f - CurrentLifeTime / MaxLifetime));
+        HM.RotateLocalTransformToAngle(_shadowRotation.GetChild(0), transform.rotation.eulerAngles - new Vector3(0,0,90));
     }
     protected void CheckLifetime() //a function that checks if our projectile has reached the end of its lifespan, and then decides what to do now
     {
@@ -71,8 +72,8 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         wep = weapon;
         Damage = weapon._weaponStats._damage;
         ProjectileSpeed = weapon._weaponStats._projectileSpeed;
-        transform.position = weapon.transform.position;
-        transform.rotation = weapon.transform.rotation;
+        transform.position = weapon._projectileSpot.transform.position;
+        transform.rotation = weapon._projectileSpot.transform.rotation;
     }
     public virtual void DamageEnemy(IEnemy e)
     {

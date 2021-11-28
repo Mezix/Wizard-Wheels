@@ -2814,7 +2814,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ef46f02874af145bbd92e524a0290b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   currentSpeed: 0
   moveVector: {x: 0, y: 0, z: 0}
   acceleration: 0.0025
@@ -2822,6 +2821,9 @@ MonoBehaviour:
   maxSpeed: 5
   Tires: []
   cruiseModeOn: 0
+  _attemptingMatchingSpeed: 0
+  _matchSpeed: 0
+  enemyToMatch: {fileID: 0}
 --- !u!50 &667288258
 Rigidbody2D:
   serializedVersion: 4
@@ -7280,7 +7282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2140655807
 Transform:
   m_ObjectHideFlags: 0
@@ -7302,7 +7304,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140655806}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

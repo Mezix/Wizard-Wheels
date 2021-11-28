@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7325145752274536561}
   - component: {fileID: -3048575337833728911}
   m_Layer: 0
-  m_Name: Cannonball
+  m_Name: CannonballProjectilePrefab
   m_TagString: cannonball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,6 +51,7 @@ MonoBehaviour:
   _shadow: {fileID: 2573193843095243027}
   _shadowRotation: {fileID: 1108643200956634821}
   maxShadowHeight: 0.2
+  wep: {fileID: 0}
 --- !u!50 &7325145752274536561
 Rigidbody2D:
   serializedVersion: 4
@@ -143,13 +144,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2573193843095243027}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1108643200956634821}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &6689552630506530996
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -189,7 +190,7 @@ SpriteRenderer:
   m_SortingLayerID: -2065071363
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: fd35d618a6a4aa443bfe406a416e62f2, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.14117648}
   m_FlipX: 0
   m_FlipY: 0
@@ -224,13 +225,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9126476221999826755}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 6976379564008667867}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &9126476221999826754
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -270,8 +271,8 @@ SpriteRenderer:
   m_SortingLayerID: -2065071363
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+  m_Sprite: {fileID: 21300000, guid: fd35d618a6a4aa443bfe406a416e62f2, type: 3}
+  m_Color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

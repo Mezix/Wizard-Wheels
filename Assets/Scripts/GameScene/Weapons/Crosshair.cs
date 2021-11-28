@@ -63,7 +63,7 @@ public class Crosshair : MonoBehaviour
             GameObject wepIndexObject = Instantiate((GameObject)Resources.Load("WeaponIndex"));
             WeaponIndices.Add(wepIndexObject);
             wepIndexObject.transform.SetParent(weaponTextCanvas.transform, false);
-            wepIndexObject.GetComponent<Text>().text = weapon.wepUI.WeaponIndex.ToString();
+            wepIndexObject.GetComponent<Text>().text = weapon.EnemyWepUI.WeaponIndex.ToString();
 
             //move the object on a circle
             wepIndexObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(radius * Mathf.Cos(Mathf.Deg2Rad * (45 - shiftAngle * i)),
@@ -82,11 +82,16 @@ public class Crosshair : MonoBehaviour
     }
     public void SetCrosshairSizeAndPosition(int sizex, int sizey)
     {
-        crosshair.transform.localScale = new Vector2(sizex, sizey);
-        if (sizex == 2)
+        int minSize = Mathf.Min(sizex, sizey);
+        crosshair.transform.localScale = new Vector2(minSize, minSize);
+        transform.localPosition = Vector2.zero;
+
+        transform.localPosition = new Vector2(0.25f * (sizex-1), -0.25f * (sizey-1));
+        weaponTextCanvas.transform.localPosition = new Vector2(0.25f * (sizex - 1), 0.25f * (sizey - 1));
+        /*if (sizex == 2)
         {
             transform.localPosition = new Vector2(0.25f, -0.25f);
             weaponTextCanvas.transform.localPosition = new Vector2(0.25f, 0.25f);
-        }
+        }*/
     }
 }

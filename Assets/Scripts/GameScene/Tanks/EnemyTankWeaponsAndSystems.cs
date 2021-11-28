@@ -35,7 +35,7 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
                         wep.InitSystem();
                         PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.ShouldHitPlayer =  wep.WeaponSelected = wep.WeaponEnabled = true;
-                        wep.wepUI.ShowWeaponUI(true);
+                        wep.EnemyWepUI.ShowWeaponUI(true);
                         AWeaponArray.Add(wep);
 
                         //Set the reference to the rooms
