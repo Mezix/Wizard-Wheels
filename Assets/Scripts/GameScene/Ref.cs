@@ -38,4 +38,6 @@ public class Ref : MonoBehaviour
     public static CrosshairManager c;
 
     public static UnitPathfinding Path;
+
+    public static EnemyManager EM;
 }

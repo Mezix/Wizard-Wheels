@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -706261691
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b, type: 3}
   m_Color: {r: 1, g: 0.2971698, b: 0.91343284, a: 0.48235294}
@@ -129,9 +129,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4a7e428aa73a94c9f3eec46128057f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponSprites:
+  - {fileID: 6613991519206540040}
+  - {fileID: 96216211}
   _weaponStats: {fileID: 11400000, guid: e7f712543a3a5124a9915ba74eb62e4e, type: 2}
+  Room: {fileID: 0}
   _projectileSpot: {fileID: 995660803235255240}
-  _weaponParticles: {fileID: 0}
   EnemyWepUI: {fileID: 6888881169591170708}
   _weaponAudioSource: {fileID: 5770678182755424900}
 --- !u!1 &1891114875749286798
@@ -361,7 +364,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -706261691
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
@@ -489,7 +492,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -706261691
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b, type: 3}
   m_Color: {r: 0.4339623, g: 0.14943041, b: 0.14943041, a: 0.50980395}

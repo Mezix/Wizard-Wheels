@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public GameObject _enemyPrefab;
-    private List<GameObject> _enemies = new List<GameObject>();
+    public List<GameObject> _enemies = new List<GameObject>();
     private int maxEnemies;
     private void Update()
     {
@@ -14,6 +14,7 @@ public class EnemyManager : MonoBehaviour
     }
     private void Awake()
     {
+        Ref.EM = this;
         Events.instance.EnemyTankDestroyed += EnemyDestroyed;
     }
     private void EnemyDestroyed(GameObject enemy)

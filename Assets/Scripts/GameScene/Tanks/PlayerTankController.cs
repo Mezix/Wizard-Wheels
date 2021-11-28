@@ -158,7 +158,7 @@ public class PlayerTankController : TankController
     }
     private void RemoveEnemyRoomFromWeapons(GameObject enemy)
     {
-        foreach (AWeapon wep in TWep.IWeaponArray)
+        foreach (AWeapon wep in TWep.AWeaponArray)
         {
             if (!enemy || !wep.Room) return;
             if (wep.Room.transform.root.gameObject.Equals(enemy))

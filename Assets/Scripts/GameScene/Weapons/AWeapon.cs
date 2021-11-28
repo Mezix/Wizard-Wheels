@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public abstract class AWeapon : MonoBehaviour, ISystem
 {
+    [SerializeField]
+    private List<SpriteRenderer> _weaponSprites;
+
     public GameObject SystemObj { get; set; }
     public string SystemName { get; set; }
     public RoomPosition RoomPosForInteraction { get; set; }
@@ -43,6 +46,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
 
     //  Audio
     public AudioSource _weaponAudioSource = null;
+
     public void InitSystem()
     {
         if (_weaponStats)  //if we have a scriptableobject, use its stats
@@ -74,6 +78,31 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     {
         WeaponEnabled = false;
         IsBeingInteractedWith = false;
+    }
+
+    public void SetOpacity(bool transparent)
+    {
+        if(_weaponSprites.Count == 0)
+        {
+            print("Sprites of weapon not initialized");
+            return;
+        }
+        if(transparent)
+        {
+            foreach (SpriteRenderer sprite in _weaponSprites)
+            {
+                sprite.color = new Color(1, 1, 1, 0.5f);
+            }
+            print("set weapon to transparent");
+        }
+        else
+        {
+            foreach (SpriteRenderer sprite in _weaponSprites)
+            {
+                sprite.color = new Color(1, 1, 1, 1);
+            }
+            print("set weapon to solid");
+        }
     }
 
     public void SetIndex(int i)

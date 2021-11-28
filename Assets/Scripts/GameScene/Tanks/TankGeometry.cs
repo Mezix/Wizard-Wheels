@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -10,15 +11,19 @@ public class TankGeometry : MonoBehaviour
     public GameObject RoomsParent { get; private set; }
     public List<Room> AllRooms { get; private set; }
     public Tilemap FloorTilemap { get; private set; }
+    public GameObject RoofParent { get; private set; }
+    public Tilemap RoofTilemap { get; private set; }
     public void SpawnTank()
     {
         CreateTankFromRoomConstellation();
-        CreateBG();
+        CreateBGAndRoof();
         PositionTankObjects();
+
+        Ref.UI.TurnOnXRay(Ref.UI._xrayOn);
     }
-    private void CreateBG()
+    private void CreateBGAndRoof()
     {
-        CreateFloorTilemap();
+        CreateFloorAndRoofTilemap();
         for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
         {
             for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
@@ -27,28 +32,53 @@ public class TankGeometry : MonoBehaviour
                 {
                     int sizeX = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeX;
                     int sizeY = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeY;
-                    CreateBGAtPos(x, y, sizeX, sizeY);
+                    CreateFloorAtPos(x, y, sizeX, sizeY);
+                    CreateRoofAtTile(x, y, sizeX, sizeY);
                 }
             }
         }
     }
-    private void CreateFloorTilemap()
+    private void CreateFloorAndRoofTilemap()
     {
+        //  Floor
+
         GameObject floor = new GameObject("FloorTilemap");
-        floor.transform.parent = gameObject.transform;
+        floor.transform.parent = transform;
         floor.transform.localPosition = Vector3.zero;
 
         //  Create Grid
-        Grid g = floor.AddComponent<Grid>();
-        g.cellSize = new Vector3(0.5f, 0.5f, 0);
+        Grid floorGrid = floor.AddComponent<Grid>();
+        floorGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
 
         //  Create Tilemap
         FloorTilemap = floor.AddComponent<Tilemap>();
         FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
-        TilemapRenderer r = floor.AddComponent<TilemapRenderer>();
-        r.sortingLayerName = "Vehicles";
+        TilemapRenderer floorRend = floor.AddComponent<TilemapRenderer>();
+        floorRend.sortingLayerName = "Vehicles";
+
+        //  Roof
+
+        RoofParent = new GameObject("RoofParent");
+        RoofParent.transform.parent = transform;
+        RoofParent.transform.localPosition = Vector3.zero;
+
+        GameObject roofTilemap = new GameObject("RoofTilemap");
+        roofTilemap.transform.parent = RoofParent.transform;
+        roofTilemap.transform.localPosition = Vector3.zero;
+
+        //  Create Grid
+        Grid roofGrid = roofTilemap.AddComponent<Grid>();
+        roofGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
+
+        //  Create Tilemap
+        RoofTilemap = roofTilemap.AddComponent<Tilemap>();
+        RoofTilemap.tileAnchor = new Vector3(0, 1, 0);
+
+        //  Create Renderer
+        TilemapRenderer roofRend = roofTilemap.AddComponent<TilemapRenderer>();
+        roofRend.sortingLayerName = "VehicleRoof";
     }
     private void CreateWallsTilemap()
     {
@@ -71,13 +101,23 @@ public class TankGeometry : MonoBehaviour
         //  Create Collider
         TilemapCollider2D c = walls.AddComponent<TilemapCollider2D>();
     }
-    private void CreateBGAtPos(int startX, int startY, int sizeX, int sizeY)
+    private void CreateFloorAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), (Tile)Resources.Load("DefaultTile"));
+            }
+        }
+    }
+    private void CreateRoofAtTile(int startX, int startY, int sizeX, int sizeY)
+    {
+        for (int x = startX; x < startX + sizeX; x++)
+        {
+            for (int y = startY; y < startY + sizeY; y++)
+            {
+                RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), (Tile)Resources.Load("DefaultTile"));
             }
         }
     }
@@ -137,7 +177,7 @@ public class TankGeometry : MonoBehaviour
         TankGeometryParent.transform.localPosition = Vector3.zero;
 
         // parent all spawnedObjects to this parent
-        RoomsParent.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
+        RoomsParent.transform.parent = RoofParent.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
 
         //  Rooms have their transform origin point at the center of their rooms, so add a rooms x length, and subtract a rooms y length
         TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
@@ -147,13 +187,18 @@ public class TankGeometry : MonoBehaviour
 
         //print("finished creating Tank Geometry");
     }
+
+    public void ShowRoof(bool b)
+    {
+        if(RoofParent) RoofParent.SetActive(b);
+    }
     public Room FindRandomRoomWithSpace()
     {
         List<Room> allRoomsTMP = AllRooms;
         // searches through all possible rooms until it finds one it can occupy
         for(int i = 0; i < AllRooms.Count; i++)
         {
-            Room tmpRoom = allRoomsTMP[Random.Range(0, allRoomsTMP.Count - 1)];
+            Room tmpRoom = allRoomsTMP[UnityEngine.Random.Range(0, allRoomsTMP.Count - 1)];
             for(int j = 0; j < tmpRoom.freeRoomPositions.Length; j++)
             {
                 if(tmpRoom.freeRoomPositions[j] != null)

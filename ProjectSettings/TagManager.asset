@@ -53,6 +53,9 @@ TagManager:
   - name: Wizards
     uniqueID: 3031752385
     locked: 0
+  - name: VehicleRoof
+    uniqueID: 622869861
+    locked: 0
   - name: Weapons
     uniqueID: 3588705605
     locked: 0

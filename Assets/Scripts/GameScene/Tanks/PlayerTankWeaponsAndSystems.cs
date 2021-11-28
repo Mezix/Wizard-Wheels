@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerTankWeaponsAndSystems : MonoBehaviour
 {
-    public List<AWeapon> IWeaponArray = new List<AWeapon>();
+    public List<AWeapon> AWeaponArray = new List<AWeapon>();
     public List<ISystem> ISystemArray = new List<ISystem>();
     public List<UIWeapon> AllUIWeapons = new List<UIWeapon>();
     public bool multipleSelected = true;
@@ -36,11 +36,11 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
     private void SelectWeapon(int weaponIndex)
     {
         if (!multipleSelected) DeselectAllWeapons();
-        if (weaponIndex < IWeaponArray.Count) IWeaponArray[weaponIndex].WeaponSelected = true;
+        if (weaponIndex < AWeaponArray.Count) AWeaponArray[weaponIndex].WeaponSelected = true;
     }
     public void DeselectAllWeapons()
     {
-        foreach (AWeapon wp in IWeaponArray)
+        foreach (AWeapon wp in AWeaponArray)
         {
             if (wp != null) wp.WeaponSelected = false;
         }
@@ -69,7 +69,7 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
                         wep.ShouldHitPlayer = false;
                         wep.EnemyWepUI.ShowWeaponUI(false);
                         wep.RoomPosForInteraction = tr.RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
-                        IWeaponArray.Add(wep);
+                        AWeaponArray.Add(wep);
 
                         //Set the reference to the rooms
                         tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
@@ -112,22 +112,22 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
 
     public void ClearWeapons()
     {
-        IWeaponArray.Clear();
+        AWeaponArray.Clear();
     }
     public void CreateWeaponsUI()
     {
-        for (int i = 0; i < IWeaponArray.Count; i++)
+        for (int i = 0; i < AWeaponArray.Count; i++)
         {
-            IWeaponArray[i].SetIndex(i+1);
-            UIWeapon uw = Ref.UI.CreateWeaponUI(IWeaponArray[i]);
+            AWeaponArray[i].SetIndex(i+1);
+            UIWeapon uw = Ref.UI.CreateWeaponUI(AWeaponArray[i]);
             AllUIWeapons.Add(uw);
-            IWeaponArray[i].PlayerUIWep = uw;
+            AWeaponArray[i].PlayerUIWep = uw;
         }
     }
     public void WeaponBehaviourInDeath()
     {
         DeselectAllWeapons();
-        foreach (AWeapon wp in IWeaponArray)
+        foreach (AWeapon wp in AWeaponArray)
         {
             if (wp != null) wp.WeaponSelected = false;
             wp.ShouldNotRotate = true;

@@ -55,7 +55,6 @@ public class UIScript : MonoBehaviour
         InitButtons();
         InitSliders();
         _xrayOn = true;
-        TurnOnXRay(_xrayOn);
         _pauseImage.SetActive(false);
         CloseSettings();
     }
@@ -81,16 +80,7 @@ public class UIScript : MonoBehaviour
         _saveWizardsButton.onClick.AddListener(() => Ref.PCon.SaveAllWizardPositions());
     }
 
-    private void ToggleVision()
-    {
-        TurnOnXRay(!_xrayOn);
-        _xrayOn = !_xrayOn;
-    }
-    private void TurnOnXRay(bool b)
-    {
-        if (b) _xrayImage.sprite = Resources.Load("Art\\eye_opened", typeof(Sprite)) as Sprite;
-        else _xrayImage.sprite = Resources.Load("Art\\eye_closed", typeof(Sprite)) as Sprite;
-    }
+    
 
     private void InitSliders()
     {
@@ -163,6 +153,83 @@ public class UIScript : MonoBehaviour
             Ref.PCon.GetComponent<PlayerTankMovement>()._matchSpeed = false;
         }
     }
+
+    //  XRay
+
+    private void ToggleVision()
+    {
+        TurnOnXRay(!_xrayOn);
+        _xrayOn = !_xrayOn;
+    }
+    public void TurnOnXRay(bool xrayOn)
+    {
+        if (xrayOn)
+        {
+            _xrayImage.sprite = Resources.Load("Art\\eye_opened", typeof(Sprite)) as Sprite;
+
+            //  Player
+
+            if(Ref.PCon)
+            {
+                foreach(AWeapon wep in Ref.PCon.TWep.AWeaponArray)
+                {
+                    wep.SetOpacity(true);
+                }
+                Ref.PCon.TGeo.ShowRoof(false);
+            }
+
+            //  Enemies
+
+            if(Ref.EM)
+            {
+                if(Ref.EM._enemies.Count > 0)
+                {
+                    foreach(GameObject g in Ref.EM._enemies)
+                    {
+                        foreach(AWeapon wep in g.GetComponent<EnemyTankController>().TWep.AWeaponArray)
+                        {
+                             wep.SetOpacity(true);
+                        }
+                        g.GetComponent<EnemyTankController>().TGeo.ShowRoof(false);
+                    }
+                }
+            }
+        }
+        else
+        {
+            _xrayImage.sprite = Resources.Load("Art\\eye_closed", typeof(Sprite)) as Sprite;
+
+            //  Player
+
+            if (Ref.PCon)
+            {
+                foreach (AWeapon wep in Ref.PCon.TWep.AWeaponArray)
+                {
+                    wep.SetOpacity(false);
+                    Ref.PCon.TGeo.ShowRoof(true);
+                }
+            }
+            
+            //  Enemies
+
+            if (Ref.EM)
+            {
+                if (Ref.EM._enemies.Count > 0)
+                {
+                    foreach (GameObject g in Ref.EM._enemies)
+                    {
+                        foreach (AWeapon wep in g.GetComponent<EnemyTankController>().TWep.AWeaponArray)
+                        {
+                            wep.SetOpacity(false);
+                        }
+                        g.GetComponent<EnemyTankController>().TGeo.ShowRoof(true);
+                    }
+                }
+            }
+        }
+    }
+
+    //  Health
     public void CreateHealthbar(int maxHealth)
     {
         if(_allHealthBarUnits.Count > 0)
