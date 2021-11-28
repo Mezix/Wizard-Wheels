@@ -13,16 +13,36 @@ public class Cannonball : AProjectile
     {
         if (!hasDoneDamage)
         {
-            if (col.transform.root.tag == "Enemy" && !HitPlayer)
+            TankController tank = col.transform.root.GetComponentInChildren<TankController>();
+            if(tank)
             {
-                DamageEnemy(col.transform.root.GetComponentInChildren<IEnemy>());
-                hasDoneDamage = true;
+                if(HitPlayer)
+                {
+                    if (tank.GetComponent<PlayerTankController>())
+                    {
+                        DamageTank(tank);
+                        hasDoneDamage = true;
+                    }
+                }
+                else
+                {
+                    if (tank.GetComponent<EnemyTankController>())
+                    {
+                        DamageTank(tank);
+                        hasDoneDamage = true;
+                    }
+                }
             }
-            if (col.transform.root.tag == "Player" && HitPlayer)
-            {
-                DamagePlayer();
-                hasDoneDamage = true;
-            }
+            //if (col.transform.root.tag == "Enemy" && !HitPlayer)
+            //{
+            //    DamageTank(col.transform.root.GetComponentInChildren<IEnemy>());
+            //    hasDoneDamage = true;
+            //}
+            //if (col.transform.root.tag == "Player" && HitPlayer)
+            //{
+            //    DamagePlayer();
+            //    hasDoneDamage = true;
+            //}
         }
     }
     public override IEnumerator DespawnAnimation()

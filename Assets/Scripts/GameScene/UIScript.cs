@@ -12,6 +12,7 @@ public class UIScript : MonoBehaviour
     public Button _rotateBackButton;
     public Button _matchSpeedButton;
     public Button _pauseButton;
+    public Button _xrayButton;
     public Button _settingsButton;
     public Button _trackPlayerTankButton;
     public Button _returnWizardsButton;
@@ -37,6 +38,11 @@ public class UIScript : MonoBehaviour
     public GameObject _healthBarParent;
     public List<Image> _allHealthBarUnits;
 
+    //  Vision 
+    public bool _xrayOn;
+    public Image _xrayImage;
+
+    //  MatchSpeed
     private bool matchingSpeed;
 
     private void Awake()
@@ -48,6 +54,8 @@ public class UIScript : MonoBehaviour
     {
         InitButtons();
         InitSliders();
+        _xrayOn = true;
+        TurnOnXRay(_xrayOn);
         _pauseImage.SetActive(false);
         CloseSettings();
     }
@@ -63,6 +71,8 @@ public class UIScript : MonoBehaviour
         _settingsButton.onClick.AddListener(() => ToggleSettings());
         _pauseButton.onClick = new Button.ButtonClickedEvent();
         _pauseButton.onClick.AddListener(() => Ref.TM.TogglePauseWhilstPlaying());
+        _xrayButton.onClick = new Button.ButtonClickedEvent();
+        _xrayButton.onClick.AddListener(() => ToggleVision());
         _trackPlayerTankButton.onClick = new Button.ButtonClickedEvent();
         _trackPlayerTankButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToPlayer());
         _returnWizardsButton.onClick = new Button.ButtonClickedEvent();
@@ -70,6 +80,18 @@ public class UIScript : MonoBehaviour
         _saveWizardsButton.onClick = new Button.ButtonClickedEvent();
         _saveWizardsButton.onClick.AddListener(() => Ref.PCon.SaveAllWizardPositions());
     }
+
+    private void ToggleVision()
+    {
+        TurnOnXRay(!_xrayOn);
+        _xrayOn = !_xrayOn;
+    }
+    private void TurnOnXRay(bool b)
+    {
+        if (b) _xrayImage.sprite = Resources.Load("Art\\eye_opened", typeof(Sprite)) as Sprite;
+        else _xrayImage.sprite = Resources.Load("Art\\eye_closed", typeof(Sprite)) as Sprite;
+    }
+
     private void InitSliders()
     {
         _currentSpeedSlider.value = Ref.PCon.TMov.currentSpeed;

@@ -5,10 +5,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class EnemyTankController : TankController, IEnemy
+public class EnemyTankController : TankController
 {
-    //  Important scripts
-    public EnemyTankHealth THealth { get; private set; }
     public EnemyTankMovement TMov { get; private set; }
     public EnemyTankWeaponsAndSystems TWep { get; private set; }
     private EnemyUI enemyUI;
@@ -19,7 +17,7 @@ public class EnemyTankController : TankController, IEnemy
     }
     public void InitEnemyScripts()
     {
-        THealth = GetComponentInChildren<EnemyTankHealth>();
+        THealth = GetComponentInChildren<TankHealth>();
         TMov = GetComponentInChildren<EnemyTankMovement>();
         TRot = GetComponentInChildren<TankRotation>();
         TWep = GetComponentInChildren<EnemyTankWeaponsAndSystems>();
@@ -44,7 +42,7 @@ public class EnemyTankController : TankController, IEnemy
         enemyUI = ui.GetComponent<EnemyUI>();
         enemyUI.transform.SetParent(transform);
         enemyUI.transform.localPosition = new Vector2(0, (0.5f * 0.5f * TGeo._tankRoomConstellation.YTilesAmount) + 0.5f);
-        THealth._healthBarParent = enemyUI.hpBar;
+        THealth.GetComponent<EnemyTankHealth>()._healthBarParent = enemyUI.hpBar;
     }
 
     private void Update()

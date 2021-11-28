@@ -10,7 +10,6 @@ public class PlayerTankController : TankController
 
     //  Important scripts
 
-    public PlayerTankHealth THealth { get; private set; }
     public PlayerTankMovement TMov { get; private set; }
     public PlayerTankWeaponsAndSystems TWep { get; private set; }
 
@@ -31,7 +30,7 @@ public class PlayerTankController : TankController
         TMov = GetComponentInChildren<PlayerTankMovement>();
         TRot = GetComponentInChildren<PlayerTankRotation>();
         TWep = GetComponentInChildren<PlayerTankWeaponsAndSystems>();
-        THealth = GetComponentInChildren<PlayerTankHealth>();
+        THealth = GetComponentInChildren<TankHealth>();
     }
     public void SpawnTank()
     {

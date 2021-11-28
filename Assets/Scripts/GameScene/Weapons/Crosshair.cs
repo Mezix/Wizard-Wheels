@@ -88,10 +88,5 @@ public class Crosshair : MonoBehaviour
 
         transform.localPosition = new Vector2(0.25f * (sizex-1), -0.25f * (sizey-1));
         weaponTextCanvas.transform.localPosition = new Vector2(0.25f * (sizex - 1), 0.25f * (sizey - 1));
-        /*if (sizex == 2)
-        {
-            transform.localPosition = new Vector2(0.25f, -0.25f);
-            weaponTextCanvas.transform.localPosition = new Vector2(0.25f, 0.25f);
-        }*/
     }
 }

@@ -3,24 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerTankHealth : MonoBehaviour
+public class PlayerTankHealth : TankHealth
 {
-    public int _maxHealth;
-    public int _currentHealth;
-
     public AudioSource fullHealthSound;
     public AudioSource healSound;
 
-    public void InitHealth()
+    public override void InitHealth()
     {
         SetCurrentHealth(_maxHealth);
         Ref.UI.CreateHealthbar(_maxHealth);
     }
-    public void SetCurrentHealth(int health)
-    {
-        _currentHealth = health;
-    }
-    public void TakeDamage(int dmg)
+    public override void TakeDamage(int dmg)
     {
         SetCurrentHealth(_currentHealth - dmg);
         if (_currentHealth <= 0) GetComponent<PlayerTankController>().InitiateDeathBehaviour();

@@ -3,22 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyTankHealth : MonoBehaviour
+public class EnemyTankHealth : TankHealth
 {
-    public int _maxHealth;
-    public int _currentHealth;
-
     public GameObject _healthBarParent;
     public List<Image> _allHealthBarUnits;
 
-    public void InitHealth()
+    public override void InitHealth()
     {
         SetCurrentHealth(_maxHealth);
         CreateHealthBar(_maxHealth);
-    }
-    public void SetCurrentHealth(int health)
-    {
-        _currentHealth = health;
     }
     public void CreateHealthBar(int maxHealth)
     {
@@ -35,7 +28,7 @@ public class EnemyTankHealth : MonoBehaviour
         }
 
     }
-    public void TakeDamage(int dmg)
+    public override void TakeDamage(int dmg)
     {
         SetCurrentHealth(_currentHealth - dmg);
         if(_currentHealth <= 0 && !GetComponent<EnemyTankController>()._dying) GetComponent<EnemyTankController>().InitiateDeathBehaviour();

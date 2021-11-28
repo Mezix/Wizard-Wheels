@@ -7,6 +7,7 @@ public abstract class TankController : MonoBehaviour
     public TankStats _tStats;
     public TankRotation TRot { get; set; }
     public TankGeometry TGeo { get; set; }
+    public TankHealth THealth { get; set; }
     [HideInInspector]
     public string _tankName;
 
@@ -36,5 +37,9 @@ public abstract class TankController : MonoBehaviour
             u.InitUnit();
             wizardIndex++;
         }
+    }
+    public void TakeDamage(int damage)
+    {
+        THealth.TakeDamage(damage);
     }
 }

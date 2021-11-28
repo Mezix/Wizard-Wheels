@@ -112,19 +112,23 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if (hit.collider)
         {
-            if (hit.collider.transform.root.GetComponentInChildren<IEnemy>() != null
-                && hit.collider.transform.GetComponent<Room>())
+            TankController tc = hit.collider.transform.root.GetComponentInChildren<TankController>();
+            if (tc && hit.collider.transform.GetComponent<Room>())
             {
                 Room = hit.collider.gameObject;
-                if (TargetRoomWithinLockOnRange())
+                if (!(tc._dying || tc._dead))
                 {
-                    Ref.c.AddCrosshair(Room.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
-                    AimAtTarget = true;
+                    if (TargetRoomWithinLockOnRange())
+                    {
+                        Ref.c.AddCrosshair(Room.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
+                        AimAtTarget = true;
+                    }
+                    else
+                    {
+                        //TODO: give a warning that the target is out of range on the screen!
+                    }
                 }
-                else
-                {
-                    //TODO: give a warning that the target is out of range on the screen!
-                }
+                
             }
         }
         else

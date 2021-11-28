@@ -75,14 +75,9 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         transform.position = weapon._projectileSpot.transform.position;
         transform.rotation = weapon._projectileSpot.transform.rotation;
     }
-    public virtual void DamageEnemy(IEnemy e)
+    public virtual void DamageTank(TankController e)
     {
         e.TakeDamage(Damage);
-        StartCoroutine(DespawnAnimation());
-    }
-    public virtual void DamagePlayer()
-    {
-        PlayerTankController.instance.TakeDamage(Damage);
         StartCoroutine(DespawnAnimation());
     }
     public virtual IEnumerator DespawnAnimation()

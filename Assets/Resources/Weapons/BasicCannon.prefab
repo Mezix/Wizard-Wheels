@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponStats: {fileID: 11400000, guid: 76dd4a71ba13fa14d99559157cd83133, type: 2}
+  Room: {fileID: 0}
   _projectileSpot: {fileID: 995660803235255240}
   EnemyWepUI: {fileID: 244009782503478640}
   _weaponAudioSource: {fileID: 5770678182755424900}
