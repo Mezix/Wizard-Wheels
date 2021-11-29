@@ -17,6 +17,7 @@ public class CameraScript : MonoBehaviour
     }
     private void Start()
     {
+        Events.instance.PlayerIsDying += StopTracking;
         Events.instance.PlayerTankDestroyed += StopTracking;
         Events.instance.EnemyTankDestroyed += CheckForEnemy;
         SetTrackedVehicleToPlayer();

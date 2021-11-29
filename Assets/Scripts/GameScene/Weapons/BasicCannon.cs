@@ -14,7 +14,6 @@ public class BasicCannon : AWeapon
     private void Start()
     {
         ProjectilePrefab = (GameObject) Resources.Load("Weapons\\CannonballProjectilePrefab");
-        laserLR = _projectileSpot.GetComponentInChildren<LineRenderer>();
         AimRotationAngle = 90;
 
         if(!ShouldHitPlayer) WeaponEnabled = false;

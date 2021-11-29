@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DottedLine;
 
 public abstract class AWeapon : MonoBehaviour, ISystem
 {
@@ -37,7 +38,6 @@ public abstract class AWeapon : MonoBehaviour, ISystem
 
     public GameObject ProjectilePrefab { get; set; }
     public Transform _projectileSpot;
-    protected LineRenderer laserLR;
     public bool ShouldHitPlayer { get; set; }
 
     //  UI
@@ -299,16 +299,9 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         {
             if (TargetRoomWithinLockOnRange())
             {
-                laserLR.gameObject.SetActive(true);
-                //float distance = Vector3.Distance(Room.transform.position, _cannonballSpot.transform.position);
-                laserLR.SetPosition(0, _projectileSpot.transform.position);
-                laserLR.SetPosition(1, Room.transform.position);
+                DottedLine.DottedLine.Instance.DrawDottedLine(Room.transform.position, transform.position, new Color(1,0,0,0.5f));
             }
         }
-        else laserLR.gameObject.SetActive(false);
-
-        //  if we can fire at the target, turn the laser green
-        //  else keep the laser red
     }
     public void UpdateLockOn()
     {
