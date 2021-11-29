@@ -167,6 +167,7 @@ public class UIScript : MonoBehaviour
         {
             _xrayImage.sprite = Resources.Load("Art\\eye_opened", typeof(Sprite)) as Sprite;
 
+
             //  Player
 
             if(Ref.PCon)
@@ -194,6 +195,9 @@ public class UIScript : MonoBehaviour
                     }
                 }
             }
+
+            //  Toggle Icons to be underneath roof
+
         }
         else
         {
@@ -226,6 +230,8 @@ public class UIScript : MonoBehaviour
                     }
                 }
             }
+
+            //  Toggle Icons to be display over roof layer
         }
     }
 

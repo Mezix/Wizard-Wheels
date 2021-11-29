@@ -93,4 +93,13 @@ public class Room : MonoBehaviour
         }
         return null;
     }
+    public List<RoomPosition> GetAllFreeRoomPos()
+    {
+        List<RoomPosition> freePos = new List<RoomPosition>();
+        for (int i = 0; i < freeRoomPositions.Length; i++)
+        {
+            if (freeRoomPositions[i]) freePos.Add(freeRoomPositions[i]);
+        }
+        return freePos;
+    }
 }

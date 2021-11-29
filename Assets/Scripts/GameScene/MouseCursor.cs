@@ -23,6 +23,8 @@ public class MouseCursor : MonoBehaviour
 
     public RectTransform _cursorTransform;
     private Animator cursorAnimator;
+    [SerializeField]
+    private List<GameObject> movementIndicators;
 
     private void Awake()
     {
@@ -30,6 +32,7 @@ public class MouseCursor : MonoBehaviour
         mouseRend = GetComponentInChildren<SpriteRenderer>();
         pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
         cursorAnimator = _cursorTransform.GetComponent<Animator>();
+        movementIndicators = new List<GameObject>();
     }
     void Start()
     {
@@ -41,8 +44,8 @@ public class MouseCursor : MonoBehaviour
         DrawVisual();
         SetZoom(maxZoom);
         cursorAnimator.SetBool("clicked", false);
+        InitMovementIndicators();
     }
-
     void Update()
     {
         //TrackCursor();
@@ -53,6 +56,51 @@ public class MouseCursor : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             DeselectAllUnits();
+        }
+        ShowMovementIndicators();
+    }
+    private void InitMovementIndicators()
+    {
+        int amount = 10;
+        for(int i = 0; i < amount; i++)
+        {
+            movementIndicators.Add(Instantiate((GameObject)Resources.Load("MouseCursorMovingToIndicator")));
+            movementIndicators[i].SetActive(false);
+            movementIndicators[i].transform.parent = transform;
+        }
+    }
+
+    private void ShowMovementIndicators()
+    {
+        int wizCount = 0;
+        foreach(AUnit unit in Ref.PCon._spawnedWizards)
+        {
+            if (unit.UnitSelected) wizCount++;
+        }
+        foreach(GameObject g in movementIndicators)
+        {
+            g.transform.parent = transform;
+            g.transform.localPosition = Vector3.zero;
+            g.SetActive(false);
+        }
+        if (wizCount == 0) return;
+        RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
+
+        if (!hit.collider) return;
+        Room room = hit.collider.transform.GetComponent<Room>();
+        if (room.tGeo.GetComponent<EnemyTankController>()) return;
+        if (room)
+        {
+            List<RoomPosition> freeRoomPos = room.GetAllFreeRoomPos();
+            if (freeRoomPos.Count == 0) return;
+
+            int amountToSpawn = Mathf.Min(wizCount, freeRoomPos.Count);
+            for(int i = 0; i < amountToSpawn; i++)
+            {
+                movementIndicators[i].transform.parent = freeRoomPos[i].transform;
+                movementIndicators[i].transform.localPosition = Vector3.zero;
+                movementIndicators[i].SetActive(true);
+            }
         }
     }
     private void HandleZoomIn()

@@ -2928,7 +2928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56098410987c5f48bfa1f90cc65c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tankRoomConstellation: {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530,
+  _tankRoomConstellation: {fileID: 11400000, guid: 74bb0e1ea42492e4491bf4e8ae060efc,
     type: 2}
 --- !u!1 &694876366
 GameObject:
