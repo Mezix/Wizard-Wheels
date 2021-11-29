@@ -7,26 +7,43 @@ public class MainMenuUI : MonoBehaviour
 {
     //  Menu
 
-    [SerializeField]
-    private GameObject MainMenuGO;
+    public GameObject _mainMenuGO;
 
     [SerializeField]
-    private Button MenuStartButton;
+    private Button mainMenuStartButton;
     [SerializeField]
-    private Button MenuSettingsButton;
+    private Button mainMenuSettingsButton;
+    [SerializeField]
+    private Button quitGameButton;
+
+    //  Non Main Menu UI
+
+    public GameObject _nonMainMenuGO;
+
+    [SerializeField]
+    private Button returnToMainMenuButton;
+    [SerializeField]
+    private Button settingsButton;
+    [SerializeField]
+    private Button closeSettingsButton;
 
     //  Select Screen UI
 
-    [SerializeField]
-    private GameObject SelectScreenGO;
+    public GameObject _selectScreenGO;
 
     [SerializeField]
-    private Button LaunchGameButton;
+    private Button launchGameButton;
     [SerializeField]
-    private Button PreviousTankButton;
+    private Button previousTankButton;
     [SerializeField]
-    private Button NextTankButton;
-    public Text SelectedTankText;
+    private Button nextTankButton;
+    public Text _selectedTankText;
+
+    //  SettingsScreen
+
+    [SerializeField]
+    private GameObject settingsGO;
+    public bool settingsOn;
 
     private void Awake()
     {
@@ -34,77 +51,77 @@ public class MainMenuUI : MonoBehaviour
     }
     private void Start()
     {
+        settingsOn = false;
         ActivateMainMenuUI(true);
-        ActivateSelectScreen(false);
+        ActivateOverworldUI(false);
+        ShowSettings(false);
         InitButtons();
     }
     
     private void Update()
     {
-        if (!MainMenuGO.activeInHierarchy)
+        if (!_mainMenuGO.activeInHierarchy)
         {
             if (Input.GetKeyDown(KeyCode.Escape)) ReturnToMainMenu();
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
             {
                 Ref.mMenu.wiz.movementLocked = false;
             }
-            CheckPlayerDistanceFromOrb();
         }
     }
     private void InitButtons()
     {
-        MenuStartButton.onClick.AddListener(() => ShowSelectionScreen());
-        MenuSettingsButton.onClick.AddListener(() => LaunchSettings());
+        mainMenuStartButton.onClick.AddListener(() => ShowOverworldUI());
+        mainMenuSettingsButton.onClick.AddListener(() => ToggleSettings());
+        quitGameButton.onClick.AddListener(() => Ref.mMenu.QuitGame());
 
-        NextTankButton.onClick.AddListener(() => Ref.mMenu.NextTank());
-        PreviousTankButton.onClick.AddListener(() => Ref.mMenu.PreviousTank());
-        LaunchGameButton.onClick.AddListener(() => Ref.mMenu.LaunchGame());
+        returnToMainMenuButton.onClick.AddListener(() => ReturnToMainMenu());
+        settingsButton.onClick.AddListener(() => ToggleSettings());
+        closeSettingsButton.onClick.AddListener(() => ToggleSettings());
+
+        nextTankButton.onClick.AddListener(() => Ref.mMenu.NextTank());
+        previousTankButton.onClick.AddListener(() => Ref.mMenu.PreviousTank());
+        launchGameButton.onClick.AddListener(() => Ref.mMenu.LaunchGame());
     }
     public void UpdateSelectedTankText(string tankName)
     {
-        SelectedTankText.text = tankName;
-    }
-    private void CheckPlayerDistanceFromOrb()
-    {
-        if (Vector3.Distance(Ref.mMenu.wiz.transform.position, Ref.mMenu.orb.transform.position) <= 1f)
-        {
-            Ref.mCam.SetZoom(100);
-            Ref.mCam.SetCamParent(Ref.mMenu.orb.transform);
-            SelectScreenGO.SetActive(true);
-        }
-        else
-        {
-            Ref.mCam.SetZoom(32);
-            Ref.mCam.SetCamParent(Ref.mMenu.wiz.transform);
-            SelectScreenGO.SetActive(false);
-        }
-    }
-    public void ShowSelectionScreen()
-    {
-        Ref.mCam.SetZoom(100);
-        ActivateMainMenuUI(false);
-        ActivateSelectScreen(true);
-    }
-
-    private void ActivateMainMenuUI(bool b)
-    {
-        MainMenuGO.SetActive(b);
-        Ref.mMenu.wiz.movementLocked = b;
-    }
-    private void ActivateSelectScreen(bool b)
-    {
-        SelectScreenGO.SetActive(b);
-        Ref.mMenu.wiz.movementLocked = !b;
-    }
-
-    public void ReturnToMainMenu()
-    {
-        Ref.mCam.SetZoom(32);
-        ActivateMainMenuUI(true);
-        ActivateSelectScreen(false);
+        _selectedTankText.text = tankName;
     }
     
-    public void LaunchSettings()
+    public void ReturnToMainMenu()
     {
+        Ref.mCam.SetZoom(Ref.mCam.furthestZoom);
+        ActivateMainMenuUI(true);
+        ActivateOverworldUI(false);
+        ShowSettings(false);
+    }
+    public void ShowOverworldUI()
+    {
+        Ref.mCam.SetZoom(Ref.mCam.closestZoom);
+        ActivateMainMenuUI(false);
+        ActivateOverworldUI(true);
+        ShowSettings(false);
+    }
+    private void ActivateMainMenuUI(bool b)
+    {
+        _mainMenuGO.SetActive(b);
+        _nonMainMenuGO.SetActive(b);
+        Ref.mMenu.wiz.movementLocked = b;
+    }
+    private void ActivateOverworldUI(bool b)
+    {
+        _selectScreenGO.SetActive(b);
+        _nonMainMenuGO.SetActive(b);
+        Ref.mMenu.wiz.movementLocked = !b;
+    }
+    public void ToggleSettings()
+    {
+        settingsOn = !settingsOn;
+        ShowSettings(settingsOn);
+    }
+    public void ShowSettings(bool b)
+    {
+        settingsGO.SetActive(b);
+        settingsOn = b;
     }
 }

@@ -21,7 +21,12 @@ public class OverworldWizard : MonoBehaviour
     }
     void Update()
     {
-        if(!movementLocked)
+        if (!Ref.mUI._mainMenuGO.activeInHierarchy)
+        {
+            CheckPlayerDistanceFromOrb();
+        }
+
+        if (!movementLocked)
         {
             if(!MovementInput()) moveVector = Vector2.zero;
         }
@@ -29,10 +34,16 @@ public class OverworldWizard : MonoBehaviour
         {
             moveVector = Vector2.zero;
         }
-
         anim.SetFloat("Speed", moveVector.magnitude);
         anim.SetFloat("Horizontal", moveVector.x);
         anim.SetFloat("Vertical", moveVector.y);
+    }
+    private void FixedUpdate()
+    {
+        if (!movementLocked)
+        {
+            Move();
+        }
     }
 
     private bool MovementInput()
@@ -62,16 +73,23 @@ public class OverworldWizard : MonoBehaviour
         moveVector.Scale(new Vector2(moveSpeed, moveSpeed));
         return movementInput;
     }
-
-    private void FixedUpdate()
-    {
-        if (!movementLocked)
-        {
-            Move();
-        }
-    }
     public void Move()
     {
         rb.MovePosition(rb.transform.position + (Vector3) moveVector * Time.deltaTime);
+    }
+    private void CheckPlayerDistanceFromOrb()
+    {
+        if (Vector3.Distance(transform.position, Ref.mMenu.orb.transform.position) <= 1.25f)
+        {
+            Ref.mCam.SetZoom(Ref.mCam.closestZoom);
+            Ref.mCam.SetCamParent(Ref.mMenu.orb.transform);
+            Ref.mUI._selectScreenGO.SetActive(true);
+        }
+        else
+        {
+            Ref.mCam.SetZoom(Ref.mCam.furthestZoom);
+            Ref.mCam.SetCamParent(transform);
+            Ref.mUI._selectScreenGO.SetActive(false);
+        }
     }
 }

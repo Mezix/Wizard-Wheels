@@ -12,6 +12,8 @@ public class MainMenuCamera : MonoBehaviour
     private Transform camParent;
     private PixelPerfectCamera pixelCam;
     private int zoomLevel;
+    public int closestZoom;
+    public int furthestZoom;
 
     private void Awake()
     {
@@ -21,7 +23,9 @@ public class MainMenuCamera : MonoBehaviour
     }
     private void Start()
     {
-        pixelCam.assetsPPU = zoomLevel = 32;
+        closestZoom = 75;
+        furthestZoom = 30; //lowest is 1
+        pixelCam.assetsPPU = zoomLevel = furthestZoom;
         camParent = Ref.mMenu.orb.transform;
         SetCamParent(transform);
         cam.transform.localPosition = new Vector3(0, 0, -10);
@@ -33,7 +37,7 @@ public class MainMenuCamera : MonoBehaviour
     }
     public void SetCamParent(Transform t)
     {
-        cam.transform.SetParent(t);
+        camParent = t;
     }
     public void SetZoom(int zoom)
     {
