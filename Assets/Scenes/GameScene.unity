@@ -3324,6 +3324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dot: {fileID: 21300000, guid: 65ceccd6626624f42836f38d9202deaa, type: 3}
+  EndDot: {fileID: 21300000, guid: b5f49f968c74105488df1f59482d1a36, type: 3}
   Size: 0.105
   Delta: 0.431
 --- !u!1 &858954914

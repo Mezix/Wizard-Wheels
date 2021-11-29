@@ -9,6 +9,7 @@ namespace DottedLine
     {
         // Inspector fields
         public Sprite Dot;
+        public Sprite EndDot;
         [Range(0.01f, 1f)]
         public float Size;
         [Range(0.1f, 2f)]
@@ -37,7 +38,6 @@ namespace DottedLine
         {
             GrowPool();
         }
-        // Update is called once per frame
         void FixedUpdate()
         {
             if (positions.Count > 0)
@@ -58,20 +58,19 @@ namespace DottedLine
         }
         public void DrawDottedLine(Vector3 start, Vector3 end, Color c)
         {
-            //HideDots();
+            Vector3 point = end;
+            Vector3 dir = (start - end).normalized;
 
-            Vector3 point = start;
-            Vector3 dir = (end - start).normalized;
-
-            while ((end - start).magnitude > (point - start).magnitude)
+            while ((start - end).magnitude > (point - end).magnitude)
             {
                 positions.Add(point);
-                zDirections.Add(HM.GetAngle2DBetween(start, end));
+                zDirections.Add(HM.GetAngle2DBetween(end, start));
                 colors.Add(c);
                 point += (dir * Delta);
             }
             Render();
         }
+
         private void Render()
         {
             int length = positions.Count;
@@ -80,6 +79,7 @@ namespace DottedLine
                 var g = GetDotFromPool();
                 Vector3 vec3d = new Vector3(positions[i].x, positions[i].y, 1);
                 g.transform.position = vec3d;
+                g.transform.localScale = Vector3.one * Size;
                 g.GetComponent<SpriteRenderer>().color = colors[i];
                 HM.RotateLocalTransformToAngle(g.transform, new Vector3(0, 0, zDirections[i]));
                 dots.Add(g);
@@ -87,16 +87,17 @@ namespace DottedLine
         }
 
         //  Pooling
+
         private GameObject CreateDot()
         {
-            var gameObject = new GameObject();
-            gameObject.transform.localScale = Vector3.one * Size;
-            gameObject.transform.parent = transform;
+            var go = new GameObject();
+            go.transform.localScale = Vector3.one * Size;
+            go.transform.parent = transform;
 
-            var sr = gameObject.AddComponent<SpriteRenderer>();
+            var sr = go.AddComponent<SpriteRenderer>();
             sr.sortingLayerName = "Effects";
             sr.sprite = Dot;
-            return gameObject;
+            return go;
         }
 
         private void GrowPool()

@@ -43,6 +43,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     //  UI
     public UIWeapon PlayerUIWep { get; set; }
     public WeaponUI EnemyWepUI;
+    public Color UIColor;
 
     //  Audio
     public AudioSource _weaponAudioSource = null;
@@ -299,7 +300,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         {
             if (TargetRoomWithinLockOnRange())
             {
-                DottedLine.DottedLine.Instance.DrawDottedLine(Room.transform.position, transform.position, new Color(1,0,0,0.5f));
+                DottedLine.DottedLine.Instance.DrawDottedLine(transform.position, Room.transform.position, UIColor);
             }
         }
     }

@@ -22,7 +22,6 @@ public class BasicCannon : AWeapon
     {
         TimeElapsedBetweenLastAttack += Time.deltaTime;
         UpdateWeaponUI();
-        UpdateLaserLR();
         UpdateLockOn();
         HandleWeaponSelected();
     }
@@ -37,5 +36,6 @@ public class BasicCannon : AWeapon
         {
             StopInteraction();
         }
+        UpdateLaserLR();
     }  
 }
