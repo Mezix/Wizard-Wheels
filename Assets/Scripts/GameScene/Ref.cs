@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Ref : MonoBehaviour
 {
+    //  MAIN MENU
+
+    public static MainMenuSceneManager mMenu;
+
+    public static MainMenuUI mUI;
+
+    public static MainMenuCamera mCam;
+
+    //  GAME SCENE
+
+
     /// <summary>
     /// The GameObject attached to the Player Tank Controller Script
     /// </summary>

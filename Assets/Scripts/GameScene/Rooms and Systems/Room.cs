@@ -89,7 +89,6 @@ public class Room : MonoBehaviour
         for(int i = 0; i < freeRoomPositions.Length; i++)
         {
             if (freeRoomPositions[i]) return freeRoomPositions[i];
-            //try get the next free room
         }
         return null;
     }

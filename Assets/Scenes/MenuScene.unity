@@ -674,6 +674,7 @@ GameObject:
   - component: {fileID: 752362766}
   - component: {fileID: 752362765}
   - component: {fileID: 752362764}
+  - component: {fileID: 752362768}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -762,6 +763,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &752362768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752362763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71f5bd9980ed7b48b70e47e2fc1313a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainMenuGO: {fileID: 1800890634}
+  MenuStartButton: {fileID: 655061599}
+  MenuSettingsButton: {fileID: 1712626753}
+  SelectScreenGO: {fileID: 1321238871}
+  LaunchGameButton: {fileID: 791439030}
+  PreviousTankButton: {fileID: 2067611582}
+  NextTankButton: {fileID: 89185469}
+  SelectedTankText: {fileID: 476582651}
 --- !u!1 &791439028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,14 +1213,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530, type: 2}
   tankIndex: 0
   orb: {fileID: 470241082}
-  MainMenuGO: {fileID: 1800890634}
-  MenuStartButton: {fileID: 655061599}
-  MenuSettingsButton: {fileID: 1712626753}
-  SelectScreenGO: {fileID: 1321238871}
-  LaunchGameButton: {fileID: 791439030}
-  PreviousTankButton: {fileID: 2067611582}
-  NextTankButton: {fileID: 89185469}
-  SelectedTankText: {fileID: 476582651}
 --- !u!4 &1061793180
 Transform:
   m_ObjectHideFlags: 0
@@ -3197,6 +3210,7 @@ GameObject:
   - component: {fileID: 1802316734}
   - component: {fileID: 1802316733}
   - component: {fileID: 1802316736}
+  - component: {fileID: 1802316737}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3289,6 +3303,20 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &1802316737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802316732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd22dc5e4a268e74684d6f426cdcd29f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  camParent: {fileID: 0}
 --- !u!1 &1816611373
 GameObject:
   m_ObjectHideFlags: 0
