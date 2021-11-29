@@ -1189,7 +1189,7 @@ MonoBehaviour:
   PlayerTanks:
   - {fileID: 11400000, guid: 74bb0e1ea42492e4491bf4e8ae060efc, type: 2}
   - {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5, type: 2}
-  - {fileID: 11400000, guid: af7376a3ca65fc24bbaab87bd7de4ff3, type: 2}
+  - {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530, type: 2}
   tankIndex: 0
   orb: {fileID: 470241082}
   MainMenuGO: {fileID: 1800890634}

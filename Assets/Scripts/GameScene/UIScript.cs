@@ -137,7 +137,7 @@ public class UIScript : MonoBehaviour
 
     public void SpeedSliderUpdated()
     {
-        PlayerTankController.instance.TMov.cruiseModeOn = true;
+        Ref.PCon.TMov.cruiseModeOn = true;
     }
     public void TurnOnCruiseMode(bool b)
     {

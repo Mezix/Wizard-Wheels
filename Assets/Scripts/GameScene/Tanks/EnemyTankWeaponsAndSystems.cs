@@ -14,21 +14,21 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
     {
         if (weaponIndex < AWeaponArray.Count) AWeaponArray[weaponIndex].WeaponSelected = true;
     }
-    public void InitWeaponsAndSystems(TankRoomConstellation tr)
+    public void InitWeaponsAndSystems(TankGeometry tGeo)
     {
-        for (int x = 0; x < tr.XTilesAmount; x++)
+        for (int x = 0; x < tGeo._tankRoomConstellation.XTilesAmount; x++)
         {
-            for (int y = 0; y < tr.YTilesAmount; y++)
+            for (int y = 0; y < tGeo._tankRoomConstellation.YTilesAmount; y++)
             {
-                if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
+                if (tGeo._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
                 {
-                    GameObject prefab = tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
+                    GameObject prefab = tGeo._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
 
                     //Our object should either be a Weapon or a System, so check for both cases
-                    if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<AWeapon>() != null)
+                    if (tGeo._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<AWeapon>() != null)
                     {
                         GameObject weaponObj = Instantiate(prefab);
-                        weaponObj.transform.parent = tr.RoomPosMatrix[x, y].ParentRoom.transform;
+                        weaponObj.transform.parent = tGeo.RoomPosMatrix[x, y].ParentRoom.transform;
                         weaponObj.transform.localPosition = Vector3.zero;
                         AWeapon wep = weaponObj.GetComponent<AWeapon>();
                         wep._weaponStats = EnemyBasicCannon;
@@ -39,14 +39,14 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
                         AWeaponArray.Add(wep);
 
                         //Set the reference to the rooms
-                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
-                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = wep.SystemSprite;
+                        tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
+                        tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = wep.SystemSprite;
 
                     }
-                    else if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
+                    else if (tGeo._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
                     {
                         GameObject systemObj = Instantiate(prefab);
-                        systemObj.transform.parent = tr.RoomPosMatrix[x, y].ParentRoom.transform;
+                        systemObj.transform.parent = tGeo.RoomPosMatrix[x, y].ParentRoom.transform;
 
                         systemObj.transform.localPosition = Vector3.zero;
                         ISystem sys = systemObj.GetComponent<ISystem>();
@@ -55,8 +55,8 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
                         ISystemArray.Add(sys);
 
                         //Set the reference to the rooms
-                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = sys;
-                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = sys.SystemSprite;
+                        tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystem = sys;
+                        tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = sys.SystemSprite;
                     }
                 }
             }
@@ -104,7 +104,7 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
 
     private GameObject FindTarget()
     {
-        Room[] possibleTargets = PlayerTankController.instance.TGeo.RoomsParent.GetComponentsInChildren<Room>();
+        Room[] possibleTargets = Ref.PCon.TGeo.RoomsParent.GetComponentsInChildren<Room>();
         return possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Length-1)].gameObject;
     }
 

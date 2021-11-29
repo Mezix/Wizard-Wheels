@@ -93,7 +93,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
             {
                 sprite.color = new Color(1, 1, 1, 0.5f);
             }
-            print("set weapon to transparent");
+            //print("set weapon to transparent");
         }
         else
         {
@@ -101,7 +101,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
             {
                 sprite.color = new Color(1, 1, 1, 1);
             }
-            print("set weapon to solid");
+            //print("set weapon to solid");
         }
     }
 

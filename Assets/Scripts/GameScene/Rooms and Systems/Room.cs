@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
+    public TankGeometry tGeo;
     public TankRoomConstellation tr;
     public ISystem roomSystem;
     public SpriteRenderer roomSystemRenderer;
@@ -68,7 +69,7 @@ public class Room : MonoBehaviour
                         //Assign the valid path to the roomPos
                         wizard.ClearUnitPath();
                         wizard.CurrentWaypoint = 0;
-                        wizard.PathToRoom = Ref.Path.FindPath(wizard.CurrentRoomPos, roomSystem.RoomPosForInteraction, Ref.PCon.TGeo._tankRoomConstellation);
+                        wizard.PathToRoom = Ref.Path.FindPath(wizard.CurrentRoomPos, roomSystem.RoomPosForInteraction, wizard.transform.parent.GetComponentInChildren<TankGeometry>());
 
                         //start the movement
                         wizard.UnitIsMoving = true;

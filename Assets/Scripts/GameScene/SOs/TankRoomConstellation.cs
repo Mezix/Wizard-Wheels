@@ -10,7 +10,7 @@ public class TankRoomConstellation : ScriptableObject
     public int XTilesAmount; //just the amount of Tiles in a given direction
     public int YTilesAmount;
 
-    public RoomPosition[,] RoomPosMatrix;
+    //public RoomPosition[,] RoomPosMatrix;
 
     public XValues SavedPrefabRefMatrix;
     public XValues TmpPrefabRefMatrix;
@@ -21,24 +21,6 @@ public class TankRoomConstellation : ScriptableObject
         Debug.Log("SAVED");
         EditorUtility.SetDirty(this);
         AssetDatabase.SaveAssets();
-    }
-    public void InitialiseRoom() //intialises room with a new array3
-    {
-        RoomPosMatrix = new RoomPosition[XTilesAmount, YTilesAmount];
-        TmpPrefabRefMatrix = new XValues(XTilesAmount, YTilesAmount);
-        SavedPrefabRefMatrix = new XValues(XTilesAmount, YTilesAmount);
-    }
-
-    void CheckIfRoomInitialised() //simply checks if we havent initialised our room yet, and if so, creates it with the current xyz width
-    {
-        if (SavedPrefabRefMatrix.XArray.Length == 0)
-        {
-            InitialiseRoom();
-        }
-        if (!(RoomPosMatrix is object))
-        {
-            RoomPosMatrix = new RoomPosition[XTilesAmount, YTilesAmount];
-        }
     }
 
     //WRAPPER CLASSES FOR SAVING STUFF

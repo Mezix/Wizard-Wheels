@@ -21,7 +21,7 @@ public class PlayerTankMovement : TankMovement
             if (Input.GetKeyDown(KeyCode.Mouse0)) AttemptMatchSpeed();
         }
         
-        if (!PlayerTankController.instance._dying)
+        if (!Ref.PCon._dying)
         {
             if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
             if (_matchSpeed)

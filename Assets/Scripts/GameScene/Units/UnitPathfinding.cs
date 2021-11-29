@@ -8,7 +8,7 @@ public class UnitPathfinding : MonoBehaviour
     {
         Ref.Path = this;
     }
-    public List<RoomPosition> FindPath(RoomPosition startRoomPos, RoomPosition targetRoomPos, TankRoomConstellation tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
+    public List<RoomPosition> FindPath(RoomPosition startRoomPos, RoomPosition targetRoomPos, TankGeometry tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
     {
         List<RoomPosition> Path = new List<RoomPosition>();
 
@@ -99,7 +99,7 @@ public class UnitPathfinding : MonoBehaviour
         }
         return 20 * dstx + 10 * (dsty - dstx);
     }
-    public List<RoomPosition> GetNeighbours(RoomPosition roomPosToCheck, TankRoomConstellation tank)
+    public List<RoomPosition> GetNeighbours(RoomPosition roomPosToCheck, TankGeometry tank)
     {
         List<RoomPosition> neighbouredRooms = new List<RoomPosition>();
 
@@ -109,7 +109,7 @@ public class UnitPathfinding : MonoBehaviour
             if (x != 0)
             {
                 int checkX = roomPosToCheck._xPos + x;
-                if (checkX >= 0 && checkX < tank.XTilesAmount)
+                if (checkX >= 0 && checkX < tank._tankRoomConstellation.XTilesAmount)
                 {
                     if (tank.RoomPosMatrix[checkX, roomPosToCheck._yPos])
                     {
@@ -125,7 +125,7 @@ public class UnitPathfinding : MonoBehaviour
             if (y != 0)
             {
                 int checkY = roomPosToCheck._yPos + y;
-                if (checkY >= 0 && checkY < tank.YTilesAmount)
+                if (checkY >= 0 && checkY < tank._tankRoomConstellation.YTilesAmount)
                 {
                     if (tank.RoomPosMatrix[roomPosToCheck._xPos, checkY] != null)
                     {
@@ -143,14 +143,13 @@ public class UnitPathfinding : MonoBehaviour
 
         //  Attempt to find a valid room, if we dont find one, deselect units instead
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
-
         if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.GetNextFreeRoomPos() == null)
         {
             Ref.mouse.DeselectAllUnits();
             print("no valid room found, deselecting unit and aborting pathfinding");
             return;
         }
-        if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
+        if (!CurrentRoom.tGeo.Equals(roomToGetTo.tGeo))
         {
             Ref.mouse.DeselectAllUnits();
             print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
@@ -186,13 +185,13 @@ public class UnitPathfinding : MonoBehaviour
         }
 
         
-        List<RoomPosition> path = FindPath(CurrentRoomPos, roomPosToGetTo, PlayerTankController.instance.TGeo._tankRoomConstellation);
+        List<RoomPosition> path = FindPath(CurrentRoomPos, roomPosToGetTo, unit.transform.parent.GetComponentInChildren<TankGeometry>());
 
         //  Check if the path is valid!
         if (path.Count == 0)
         {
             Ref.mouse.DeselectAllUnits();
-            //print("Path not possible, aborting!");
+            print("Path is empty, aborting!");
             return;
         }
 
@@ -252,7 +251,7 @@ public class UnitPathfinding : MonoBehaviour
             return;
         }
 
-        List<RoomPosition> path = FindPath(CurrentRoomPos, roomPosToGetTo, PlayerTankController.instance.TGeo._tankRoomConstellation);
+        List<RoomPosition> path = FindPath(CurrentRoomPos, roomPosToGetTo, unit.transform.parent.GetComponentInChildren<TankGeometry>());
 
         //  Check if the path is valid!
         if (path.Count == 0)

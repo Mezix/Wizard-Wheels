@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class TankGeometry : MonoBehaviour
 {
     public TankRoomConstellation _tankRoomConstellation;
+    public RoomPosition[,] RoomPosMatrix;
     public GameObject TankGeometryParent { get; private set; }
     public GameObject RoomsParent { get; private set; }
     public List<Room> AllRooms { get; private set; }
@@ -123,7 +124,7 @@ public class TankGeometry : MonoBehaviour
     }
     private void CreateTankFromRoomConstellation()
     {
-        _tankRoomConstellation.RoomPosMatrix = new RoomPosition[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
+        RoomPosMatrix = new RoomPosition[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
         AllRooms = new List<Room>();
 
         RoomsParent = new GameObject("All Tank Rooms");
@@ -138,6 +139,7 @@ public class TankGeometry : MonoBehaviour
                 {
                     GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab);
                     Room r = rGO.GetComponent<Room>();
+                    r.tGeo = this;
                     r.tr = _tankRoomConstellation;
                     rGO.transform.parent = RoomsParent.transform;
                     rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
@@ -149,22 +151,22 @@ public class TankGeometry : MonoBehaviour
                     {
                         for (int roomX = 0; roomX < r.sizeX; roomX++)
                         {
-                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomPosNr];
-                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._xPos = x + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._xRel;
-                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._yPos = y + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._yRel;
+                            RoomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomPosNr];
+                            RoomPosMatrix[x + roomX, y + roomY]._xPos = x + RoomPosMatrix[x + roomX, y + roomY]._xRel;
+                            RoomPosMatrix[x + roomX, y + roomY]._yPos = y + RoomPosMatrix[x + roomX, y + roomY]._yRel;
 
-                            _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY].name = "X" + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString() 
-                                                                                         + " , Y" + _tankRoomConstellation.RoomPosMatrix[x + roomX, y + roomY]._yPos.ToString() + ", ";
+                            RoomPosMatrix[x + roomX, y + roomY].name = "X" + RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString() 
+                                                                  + " , Y" + RoomPosMatrix[x + roomX, y + roomY]._yPos.ToString() + ", ";
                             roomPosNr++;
                         }
                     }
 
                     //sets the corner of the room that doesnt get caught with the matrix
-                    _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY-1];
-                    _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
-                    _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
+                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY-1];
+                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
+                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
 
-                    _tankRoomConstellation.RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
+                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
                 }
             }
         }
@@ -220,7 +222,7 @@ public class TankGeometry : MonoBehaviour
             matrix += "Y:" + y.ToString() + ": ";
             for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
             {
-                if (_tankRoomConstellation.RoomPosMatrix[x, y]) matrix += "(" + _tankRoomConstellation.RoomPosMatrix[x, y].name + ") ";
+                if (RoomPosMatrix[x, y]) matrix += "(" + RoomPosMatrix[x, y].name + ") ";
                 else matrix += "__NONE__, ";
             }
             matrix += "\n";

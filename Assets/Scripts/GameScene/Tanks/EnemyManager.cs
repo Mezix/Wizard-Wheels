@@ -48,9 +48,9 @@ public class EnemyManager : MonoBehaviour
         GameObject tmp = Instantiate(_enemyPrefab);
         _enemies.Add(tmp);
 
-        if (PlayerTankController.instance)
+        if (Ref.PCon)
         {
-            spawnPos = PlayerTankController.instance.transform.position + new Vector3(10, -5, 0);
+            spawnPos = Ref.PCon.transform.position + new Vector3(10, -5, 0);
         }
         else
         {

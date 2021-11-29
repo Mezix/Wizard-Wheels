@@ -2896,7 +2896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7e3c8dc6a89484b93c83030262f287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IWeaponArray: []
+  AWeaponArray: []
   AllUIWeapons: []
   multipleSelected: 1
 --- !u!114 &667288262
@@ -2928,7 +2928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56098410987c5f48bfa1f90cc65c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tankRoomConstellation: {fileID: 11400000, guid: 74bb0e1ea42492e4491bf4e8ae060efc,
+  _tankRoomConstellation: {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530,
     type: 2}
 --- !u!1 &694876366
 GameObject:
@@ -5901,6 +5901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 6385456487747659236, guid: 231eddb096881ba4094cbf85ff6d2092,
     type: 3}
+  _enemies: []
 --- !u!1 &1848190457
 GameObject:
   m_ObjectHideFlags: 0
@@ -7576,7 +7577,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -501934849
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b, type: 3}
   m_Color: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}

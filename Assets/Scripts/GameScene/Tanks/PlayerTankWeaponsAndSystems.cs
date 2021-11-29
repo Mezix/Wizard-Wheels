@@ -47,49 +47,49 @@ public class PlayerTankWeaponsAndSystems : MonoBehaviour
     }
     public void InitWeaponsAndSystems()
     {
-        TankRoomConstellation tr = GetComponent<TankGeometry>()._tankRoomConstellation;
-        for (int x = 0; x < tr.XTilesAmount; x++)
+        TankGeometry tGeo = GetComponent<TankGeometry>();
+        for (int x = 0; x < tGeo._tankRoomConstellation.XTilesAmount; x++)
         {
-            for (int y = 0; y < tr.YTilesAmount; y++)
+            for (int y = 0; y < tGeo._tankRoomConstellation.YTilesAmount; y++)
             {
-                if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
+                if (tGeo._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
                 {
-                    GameObject prefab = tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
+                    GameObject prefab = tGeo._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
 
                     //Our object should either be a Weapon or a System, so check for both cases
-                    if (tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<AWeapon>() != null)
+                    if (tGeo._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<AWeapon>() != null)
                     {
-                        if (!tr.RoomPosMatrix[x, y]) continue;
+                        if (!tGeo.RoomPosMatrix[x, y]) continue;
                         GameObject weaponObj = Instantiate(prefab);
-                        weaponObj.transform.parent = tr.RoomPosMatrix[x,y].ParentRoom.transform;
+                        weaponObj.transform.parent = tGeo.RoomPosMatrix[x,y].ParentRoom.transform;
                         weaponObj.transform.localPosition = Vector3.zero;
                         AWeapon wep = weaponObj.GetComponent<AWeapon>();
                         wep.InitSystem();
                         PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.ShouldHitPlayer = false;
                         wep.EnemyWepUI.ShowWeaponUI(false);
-                        wep.RoomPosForInteraction = tr.RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
+                        wep.RoomPosForInteraction = tGeo.RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
                         AWeaponArray.Add(wep);
 
                         //Set the reference to the rooms
-                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
-                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = wep.SystemSprite;
+                        tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
+                        tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = wep.SystemSprite;
                     }
-                    else if(tr.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
+                    else if(tGeo._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
                     {
                         GameObject systemObj = Instantiate(prefab);
-                        systemObj.transform.parent = tr.RoomPosMatrix[x, y].ParentRoom.transform;
+                        systemObj.transform.parent = tGeo.RoomPosMatrix[x, y].ParentRoom.transform;
 
                         systemObj.transform.localPosition = Vector3.zero;
                         ISystem sys = systemObj.GetComponent<ISystem>();
                         sys.InitSystem();
                         PositionSystemInRoom(systemObj.GetComponent<ISystem>(), systemObj.transform.parent.GetComponent<Room>());
                         ISystemArray.Add(sys);
-                        sys.RoomPosForInteraction = tr.RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
+                        sys.RoomPosForInteraction = tGeo.RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
 
                         //Set the reference to the rooms
-                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystem = sys;
-                        tr.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = sys.SystemSprite;
+                        tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystem = sys;
+                        tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = sys.SystemSprite;
                     }
                 }
             }

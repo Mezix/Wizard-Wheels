@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerTankController : TankController
 {
-    public static PlayerTankController instance;
 
     //  Important scripts
 
@@ -22,7 +21,7 @@ public class PlayerTankController : TankController
 
     public void InitTank()
     {
-        Ref.PCon = instance = this;
+        Ref.PCon = this;
         Ref.PlayerGO = gameObject;
         Ref.PDead = false;
         InitEvents();
@@ -34,7 +33,6 @@ public class PlayerTankController : TankController
     }
     public void SpawnTank()
     {
-
         TGeo.SpawnTank();
         TMov.InitTankMovement();
         TRot.GetComponent<PlayerTankRotation>().InitTankRotation();

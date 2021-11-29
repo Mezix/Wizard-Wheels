@@ -55,7 +55,6 @@ MonoBehaviour:
   _spawnedWizards: []
   _dying: 0
   _dead: 0
-  tankNameText: {fileID: 0}
 --- !u!114 &3123129469221447086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5b5a8a694164a4ca882e49a622357a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 3787077506681756485}
   currentSpeed: 0
   moveVector: {x: 0, y: 0, z: 0}
   acceleration: 0.0025
@@ -102,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08126cd1345d1374291bdb4d32c97add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IWeaponArray: []
+  AWeaponArray: []
   EnemyBasicCannon: {fileID: 11400000, guid: e7429deb239e1f64f92b3e72426c508f, type: 2}
 --- !u!114 &8239155493298000636
 MonoBehaviour:
@@ -132,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56098410987c5f48bfa1f90cc65c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tankRoomConstellation: {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530,
+  _tankRoomConstellation: {fileID: 11400000, guid: 74bb0e1ea42492e4491bf4e8ae060efc,
     type: 2}
 --- !u!50 &3787077506681756485
 Rigidbody2D:

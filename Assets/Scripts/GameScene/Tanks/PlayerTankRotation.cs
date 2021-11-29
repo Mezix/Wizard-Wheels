@@ -11,7 +11,7 @@ public class PlayerTankRotation : TankRotation
 
     void Update()
     {
-        if(!PlayerTankController.instance._dying)
+        if(!Ref.PCon._dying)
         {
             if (steeringWheelSelectedByMouse)
             {

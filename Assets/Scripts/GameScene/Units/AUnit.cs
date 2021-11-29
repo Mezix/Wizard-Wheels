@@ -108,7 +108,7 @@ public abstract class AUnit : MonoBehaviour
     {
         WizardAnimator.SetBool("Interacting", false);
         //calculate the local vector of our room relative to the tank
-        RoomLocalPos = nextRoomPos.transform.position - PlayerTankController.instance.transform.position;
+        RoomLocalPos = nextRoomPos.transform.position - transform.parent.position;
         //set the z to 0 so our sprite doesnt move on the z axis
         RoomLocalPos.z = 0;
 

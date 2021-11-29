@@ -43,27 +43,27 @@ public class TankMovement : MonoBehaviour
     //  Change the animation of our tires
     public void InitTires()
     {
-        TankRoomConstellation trc = GetComponent<TankGeometry>()._tankRoomConstellation;
+        TankGeometry tank = GetComponent<TankGeometry>();
         TankRotation tr = GetComponent<TankRotation>();
 
         GameObject rotatableObjects = new GameObject("RotatableObjects");
         rotatableObjects.transform.parent = transform;
         rotatableObjects.transform.localPosition = Vector3.zero;
 
-        for (int x = 0; x < trc.XTilesAmount; x++)
+        for (int x = 0; x < tank._tankRoomConstellation.XTilesAmount; x++)
         {
-            for (int y = 0; y < trc.YTilesAmount; y++)
+            for (int y = 0; y < tank._tankRoomConstellation.YTilesAmount; y++)
             {
-                if (trc.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab)
+                if (tank._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab)
                 {
-                    GameObject tire = trc.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab;
+                    GameObject tire = tank._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab;
 
-                    if (trc.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab.GetComponentInChildren<Tire>() != null)
+                    if (tank._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab.GetComponentInChildren<Tire>() != null)
                     {
                         //print(x.ToString() + ", " + y.ToString());
-                        if (!trc.RoomPosMatrix[x, y]) continue;
+                        if (!tank.RoomPosMatrix[x, y]) continue;
                         GameObject tireObj = Instantiate(tire);
-                        tireObj.transform.parent = trc.RoomPosMatrix[x, y].transform;
+                        tireObj.transform.parent = tank.RoomPosMatrix[x, y].transform;
                         tireObj.transform.localPosition = Vector3.zero;
                         tireObj.transform.parent = rotatableObjects.transform;
                         Tires.Add(tireObj.GetComponentInChildren<Tire>());

@@ -29,7 +29,7 @@ public class EnemyTankController : TankController
         InitEvents();
         TGeo.SpawnTank();
         TMov.InitTires();
-        TWep.InitWeaponsAndSystems(TGeo._tankRoomConstellation);
+        TWep.InitWeaponsAndSystems(TGeo);
         TWep.CreateWeaponsUI();
         SpawnWizards();
         SpawnUI();
