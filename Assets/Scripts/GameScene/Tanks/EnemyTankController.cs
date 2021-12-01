@@ -28,10 +28,10 @@ public class EnemyTankController : TankController
     {
         InitEvents();
         TGeo.CreateTankGeometry();
-        TMov.InitTires();
-        TWep.SetUpWeapons(false);
+        TWep.SetUpWeapons(false, _tankColor);
         TWep.SetUpSystems(false);
         TWep.CreateWeaponsUI();
+        TMov.InitTires();
         SpawnWizards();
         SpawnUI();
         InitTankStats();

@@ -7,6 +7,15 @@ public class EnemyManager : MonoBehaviour
 {
     public GameObject _enemyPrefab;
     public List<GameObject> _enemies = new List<GameObject>();
+    public List<EnemyColor> EnemyColors;
+
+    [Serializable]
+    public class EnemyColor
+    {
+        public bool taken;
+        public Color color;
+        public GameObject enemyTakingColor;
+    }
     private int maxEnemies;
     private void Update()
     {
@@ -19,7 +28,11 @@ public class EnemyManager : MonoBehaviour
     }
     private void EnemyDestroyed(GameObject enemy)
     {
-        if (_enemies.Contains(enemy)) _enemies.Remove(enemy);
+        if (_enemies.Contains(enemy))
+        {
+            _enemies.Remove(enemy);
+            ReturnColor(enemy);
+        }
     }
 
     private void Start()
@@ -45,8 +58,9 @@ public class EnemyManager : MonoBehaviour
         //define the area enemies can be spawned in; outside the max zoom out level of the player
 
         Vector3 spawnPos;
-        GameObject tmp = Instantiate(_enemyPrefab);
-        _enemies.Add(tmp);
+        GameObject enemy = Instantiate(_enemyPrefab);
+        enemy.GetComponent<EnemyTankController>()._tankColor = GetNextColor(enemy);
+        _enemies.Add(enemy);
 
         if (Ref.PCon)
         {
@@ -59,9 +73,34 @@ public class EnemyManager : MonoBehaviour
 
         //Check if we are spawning something on an object
         spawnPos = CheckSpawnPos(spawnPos);
-        tmp.transform.position = spawnPos;
+        enemy.transform.position = spawnPos;
     }
 
+    private Color GetNextColor(GameObject enemy)
+    {
+        foreach(EnemyColor c in EnemyColors)
+        {
+            if (!c.taken)
+            {
+                c.taken = true;
+                c.enemyTakingColor = enemy;
+                return c.color;
+            }
+        }
+        return Color.red;
+    }
+    private void ReturnColor(GameObject enemy)
+    {
+        foreach (EnemyColor c in EnemyColors)
+        {
+            if (c.enemyTakingColor.Equals(enemy))
+            {
+                c.taken = false;
+                c.enemyTakingColor = null;
+                print("returning");
+            }
+        }
+    }
     private Vector3 CheckSpawnPos(Vector3 checkPos)
     {
         //returns the same vector if it works, otherwise modifies the vector and returnsa viable position

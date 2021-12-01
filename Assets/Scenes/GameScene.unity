@@ -2884,6 +2884,7 @@ MonoBehaviour:
   _spawnedWizards: []
   _dying: 0
   _dead: 0
+  _tankColor: {r: 0, g: 0, b: 0, a: 0}
   _UIWizards: []
 --- !u!114 &667288261
 MonoBehaviour:
@@ -5950,6 +5951,28 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 6385456487747659236, guid: 231eddb096881ba4094cbf85ff6d2092,
     type: 3}
   _enemies: []
+  EnemyColors:
+  - taken: 0
+    color: {r: 1, g: 0, b: 0, a: 1}
+    enemyTakingColor: {fileID: 0}
+  - taken: 0
+    color: {r: 1, g: 0.63016504, b: 0, a: 1}
+    enemyTakingColor: {fileID: 0}
+  - taken: 0
+    color: {r: 0.31857443, g: 1, b: 0, a: 1}
+    enemyTakingColor: {fileID: 0}
+  - taken: 0
+    color: {r: 0, g: 1, b: 0.6848593, a: 1}
+    enemyTakingColor: {fileID: 0}
+  - taken: 0
+    color: {r: 0, g: 0.27043867, b: 1, a: 1}
+    enemyTakingColor: {fileID: 0}
+  - taken: 0
+    color: {r: 0.38232803, g: 0, b: 1, a: 1}
+    enemyTakingColor: {fileID: 0}
+  - taken: 0
+    color: {r: 1, g: 0, b: 0.99701786, a: 1}
+    enemyTakingColor: {fileID: 0}
 --- !u!1 &1848190457
 GameObject:
   m_ObjectHideFlags: 0

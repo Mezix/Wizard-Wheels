@@ -19,7 +19,7 @@ public class TankWeaponsAndSystems : MonoBehaviour
             Ref.c.RemoveCrosshair(wp);
         }
     }
-    public void SetUpWeapons(bool player)
+    public void SetUpWeapons(bool player, Color color)
     {
         if (player)
         {
@@ -38,6 +38,7 @@ public class TankWeaponsAndSystems : MonoBehaviour
                 wep.ShouldHitPlayer = wep.WeaponSelected = wep.WeaponEnabled = true;
                 wep.EnemyWepUI.ShowWeaponUI(true);
                 wep.InitSystemStats();
+                wep.UIColor = color;
             }
         }
     }

@@ -8,6 +8,7 @@ public abstract class TankController : MonoBehaviour
     public TankRotation TRot { get; set; }
     public TankGeometry TGeo { get; set; }
     public TankHealth THealth { get; set; }
+
     [HideInInspector]
     public string _tankName;
 
@@ -17,6 +18,8 @@ public abstract class TankController : MonoBehaviour
 
     public bool _dying;
     public bool _dead;
+
+    public Color _tankColor;
 
     public void SpawnWizards()
     {

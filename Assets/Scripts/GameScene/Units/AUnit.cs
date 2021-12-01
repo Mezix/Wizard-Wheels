@@ -11,11 +11,12 @@ public abstract class AUnit : MonoBehaviour
     public float UnitHealth { get; set; }
     public float UnitSpeed { get; set; }
     public SpriteRenderer Rend { get; set; }
+    private Shader defaultShader;
     public Animator WizardAnimator { get; set; }
     public bool UnitSelected { get; set; }
     public bool UnitIsMoving { get; set; }
     public GameObject UnitObj { get; set; }
-    public UIWizard UIWizard { get; set; }
+    public PlayerWizardUI PlayerWizardUI { get; set; }
     public int Index { get; set; }
 
     //  Pathfinding
@@ -33,6 +34,7 @@ public abstract class AUnit : MonoBehaviour
 
     public void InitUnit()
     {
+        defaultShader = Rend.material.shader;
         if (_unitStats)  //if we have a scriptableobject, use its stats
         {
             UnitName = _unitStats._unitName;
@@ -68,6 +70,17 @@ public abstract class AUnit : MonoBehaviour
             }
         }
     }
+
+    public void Highlight()
+    {
+        //print(name);
+        //Rend.material.shader = (Shader) Resources.Load("Outline");
+    }
+    public void DeHighlight()
+    {
+        Rend.material.shader = defaultShader;
+    }
+
     public void StopInteraction()
     {
         WizardAnimator.SetBool("Interacting", false);
@@ -156,10 +169,10 @@ public abstract class AUnit : MonoBehaviour
     }
     protected void UpdateWizardUI()
     {
-        if (UIWizard)
+        if (PlayerWizardUI)
         {
-            UIWizard._UIWizardHealthbarFill.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth); //TODO: add unit health script
-            UIWizard.UpdateButton(UnitSelected);
+            PlayerWizardUI._UIWizardHealthbarFill.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth); //TODO: add unit health script
+            PlayerWizardUI.UpdateButton(UnitSelected);
         }
     }
 }

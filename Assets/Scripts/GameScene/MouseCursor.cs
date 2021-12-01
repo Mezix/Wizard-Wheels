@@ -48,17 +48,32 @@ public class MouseCursor : MonoBehaviour
     }
     void Update()
     {
-        //TrackCursor();
         HandleMouseSelectionInput();
         HandleZoomIn();
         TrackMouse();
         HandleMouseAnimation();
+        AttemptOutlineWizards();
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             DeselectAllUnits();
         }
         ShowMovementIndicators();
     }
+
+    private void AttemptOutlineWizards()
+    {
+        foreach (AUnit u in Ref.PCon._spawnedWizards)
+        {
+            u.DeHighlight();
+        }
+        RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Wizard"));
+        if (!hit.collider) return;
+        if(hit.collider.transform.parent.TryGetComponent(out AUnit unit))
+        {
+            if(unit.CurrentRoom.tGeo.GetComponent<PlayerTankController>()) unit.Highlight();
+        }
+    }
+
     private void InitMovementIndicators()
     {
         int amount = 10;

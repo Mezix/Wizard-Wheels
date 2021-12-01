@@ -12,7 +12,7 @@ public class PlayerTankController : TankController
     public PlayerTankMovement TMov { get; private set; }
     public PlayerTankWeaponsAndSystems TWep { get; private set; }
 
-    public List<UIWizard> _UIWizards = new List<UIWizard>();
+    public List<PlayerWizardUI> _UIWizards = new List<PlayerWizardUI>();
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class PlayerTankController : TankController
     public void SpawnTank()
     {
         TGeo.CreateTankGeometry();
-        TWep.SetUpWeapons(true);
+        TWep.SetUpWeapons(true, _tankColor);
         TWep.SetUpSystems(true);
         TMov.InitTankMovement();
         TRot.GetComponent<PlayerTankRotation>().InitTankRotation();
@@ -49,8 +49,8 @@ public class PlayerTankController : TankController
     {
         foreach (AUnit u in _spawnedWizards)
         {
-            u.UIWizard = Ref.UI.CreateWizardUI(u);
-            _UIWizards.Add(u.UIWizard);
+            u.PlayerWizardUI = Ref.UI.CreateWizardUI(u);
+            _UIWizards.Add(u.PlayerWizardUI);
         }
     }
 

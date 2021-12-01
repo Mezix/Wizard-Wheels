@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIWizard : MonoBehaviour
+public class PlayerWizardUI : MonoBehaviour
 {
     public AUnit wizard;
     public Image _wizardImage;
