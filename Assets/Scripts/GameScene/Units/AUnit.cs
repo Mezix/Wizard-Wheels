@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class AUnit : MonoBehaviour
 {
@@ -19,17 +20,34 @@ public abstract class AUnit : MonoBehaviour
     public PlayerWizardUI PlayerWizardUI { get; set; }
     public int Index { get; set; }
 
+    //  Wizard UI
+
+    public GameObject WizardUI;
+    public Text UIName;
+    public Image WizardHealthbar;
+    public bool _showUI;
+
     //  Pathfinding
 
+    [HideInInspector]
     public Vector3 RoomLocalPos;
+    [HideInInspector]
     public Room CurrentRoom;
+    [HideInInspector]
     public RoomPosition CurrentRoomPos;
+    [HideInInspector]
     public Room DesiredRoom;
+    [HideInInspector]
     public RoomPosition DesiredRoomPos;
+    [HideInInspector]
     public Room SavedRoom;
+    [HideInInspector]
     public RoomPosition SavedRoomPos;
+    [HideInInspector]
     public List<RoomPosition> PathToRoom;
+    [HideInInspector]
     public int CurrentWaypoint; //the index of our path
+    [HideInInspector]
     private GameObject movingToPosIndicator;
 
     public void InitUnit()
@@ -51,6 +69,8 @@ public abstract class AUnit : MonoBehaviour
             UnitHealth = 100f;
             UnitSpeed = 5f;
         }
+
+        UIName.text = UnitName;
         UnitIsMoving = false;
         UnitSelected = false;
 
@@ -73,11 +93,13 @@ public abstract class AUnit : MonoBehaviour
 
     public void Highlight()
     {
+        _showUI = true;
         //print(name);
         //Rend.material.shader = (Shader) Resources.Load("Outline");
     }
     public void DeHighlight()
     {
+        _showUI = false;
         Rend.material.shader = defaultShader;
     }
 
@@ -169,10 +191,14 @@ public abstract class AUnit : MonoBehaviour
     }
     protected void UpdateWizardUI()
     {
+        //TODO: add unit health script
+
+        WizardUI.SetActive(_showUI);
         if (PlayerWizardUI)
         {
-            PlayerWizardUI._UIWizardHealthbarFill.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth); //TODO: add unit health script
+            PlayerWizardUI._UIWizardHealthbarFill.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth);
             PlayerWizardUI.UpdateButton(UnitSelected);
         }
+        WizardHealthbar.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth);
     }
 }

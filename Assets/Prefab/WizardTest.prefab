@@ -718,6 +718,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitStats: {fileID: 11400000, guid: 7384851a862317e448911ed5c8fa4461, type: 2}
+  WizardUI: {fileID: 3052949227477263527}
+  UIName: {fileID: 7593667953222834501}
+  WizardHealthbar: {fileID: 7799865912086552248}
   RoomLocalPos: {x: 0, y: 0, z: 0}
   CurrentRoom: {fileID: 0}
   CurrentRoomPos: {fileID: 0}
