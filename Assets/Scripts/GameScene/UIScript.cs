@@ -167,7 +167,6 @@ public class UIScript : MonoBehaviour
         {
             _xrayImage.sprite = Resources.Load("Art\\eye_opened", typeof(Sprite)) as Sprite;
 
-
             //  Player
 
             if(Ref.PCon)

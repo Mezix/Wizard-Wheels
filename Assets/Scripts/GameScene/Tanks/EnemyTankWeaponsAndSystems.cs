@@ -40,8 +40,6 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
 
                         //Set the reference to the rooms
                         tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
-                        tGeo.RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = wep.SystemSprite;
-
                     }
                     else if (tGeo._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
                     {
@@ -82,7 +80,7 @@ public class EnemyTankWeaponsAndSystems : MonoBehaviour
         {
             foreach (AWeapon wep in AWeaponArray)
             {
-                if (wep.AimAtTarget) return; //no need to continue to search for targets if we already have one
+                if (wep.AimAtTarget) continue; //no need to continue to search for targets if we already have one
 
                 //find the closest room to aim at
                 GameObject targetRoom = FindTarget(); //TODO: try to find the nearest room with a high priority!

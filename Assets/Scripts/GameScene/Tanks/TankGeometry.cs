@@ -14,11 +14,13 @@ public class TankGeometry : MonoBehaviour
     public Tilemap FloorTilemap { get; private set; }
     public GameObject RoofParent { get; private set; }
     public Tilemap RoofTilemap { get; private set; }
+    private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     public void SpawnTank()
     {
         CreateTankFromRoomConstellation();
         CreateBGAndRoof();
         PositionTankObjects();
+        InitSystemIcons();
 
         Ref.UI.TurnOnXRay(Ref.UI._xrayOn);
     }
@@ -193,6 +195,42 @@ public class TankGeometry : MonoBehaviour
     public void ShowRoof(bool b)
     {
         if(RoofParent) RoofParent.SetActive(b);
+        SetSystemIconLayer(b);
+    }
+    public void InitSystemIcons()
+    {
+        for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
+        {
+            for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
+            {
+                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
+                {
+                    ISystem sys = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>();
+                    RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = sys.SystemSprite;
+                    if (!_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.TryGetComponent(out AWeapon wep))
+                    {
+                        systemIcons.Add(RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer);
+                    }
+                }
+            }
+        }
+    }
+    public void SetSystemIconLayer(bool top)
+    {
+        if (systemIcons.Count == 0) return;
+        foreach(SpriteRenderer sr in systemIcons)
+        {
+            if (top)
+            {
+                sr.sortingLayerName = "VehicleUI";
+                sr.sortingOrder = 1;
+            }
+            else
+            {
+                sr.sortingLayerName = "Vehicles";
+                sr.sortingOrder = 2;
+            }
+        }
     }
     public Room FindRandomRoomWithSpace()
     {
