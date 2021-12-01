@@ -10,7 +10,7 @@ public interface ISystem
     RoomPosition RoomPosForInteraction { get; set; }
 
     bool IsBeingInteractedWith { get; set; }
-    void InitSystem();
+    void InitSystemStats();
     void StartInteraction();
     void StopInteraction();
 }

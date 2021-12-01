@@ -15,11 +15,12 @@ public class TankGeometry : MonoBehaviour
     public GameObject RoofParent { get; private set; }
     public Tilemap RoofTilemap { get; private set; }
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
-    public void SpawnTank()
+    public void CreateTankGeometry()
     {
-        CreateTankFromRoomConstellation();
+        CreateRooms();
         CreateBGAndRoof();
         PositionTankObjects();
+        InitWeaponsAndSystems();
         InitSystemIcons();
 
         Ref.UI.TurnOnXRay(Ref.UI._xrayOn);
@@ -124,7 +125,7 @@ public class TankGeometry : MonoBehaviour
             }
         }
     }
-    private void CreateTankFromRoomConstellation()
+    private void CreateRooms()
     {
         RoomPosMatrix = new RoomPosition[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
         AllRooms = new List<Room>();
@@ -173,6 +174,55 @@ public class TankGeometry : MonoBehaviour
             }
         }
     }
+    public void InitWeaponsAndSystems()
+    {
+        TankWeaponsAndSystems twep = GetComponent<TankWeaponsAndSystems>();
+        for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
+        {
+            for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
+            {
+                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
+                {
+                    GameObject prefab = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
+                    //Our object should either be a Weapon or a System, so check for both cases
+                    if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<AWeapon>() != null)
+                    {
+                        //if (!RoomPosMatrix[x, y]) continue;
+                        GameObject weaponObj = Instantiate(prefab);
+                        weaponObj.transform.parent = RoomPosMatrix[x, y].ParentRoom.transform;
+                        weaponObj.transform.localPosition = Vector3.zero;
+                        AWeapon wep = weaponObj.GetComponent<AWeapon>();
+                        PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
+                        wep.RoomPosForInteraction = RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
+                        twep.AWeaponArray.Add(wep);
+
+                        //Set the reference to the rooms
+                        RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
+                    }
+                    else if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
+                    {
+                        GameObject systemObj = Instantiate(prefab);
+                        systemObj.transform.parent = RoomPosMatrix[x, y].ParentRoom.transform;
+
+                        systemObj.transform.localPosition = Vector3.zero;
+                        ISystem sys = systemObj.GetComponent<ISystem>();
+                        PositionSystemInRoom(systemObj.GetComponent<ISystem>(), systemObj.transform.parent.GetComponent<Room>());
+                        twep.ISystemArray.Add(sys);
+                        sys.RoomPosForInteraction = RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
+
+                        //Set the reference to the rooms
+                        RoomPosMatrix[x, y].ParentRoom.roomSystem = sys;
+                    }
+                }
+            }
+        }
+    }
+    private void PositionSystemInRoom(ISystem system, Room parentRoom)
+    {
+        system.SystemObj.transform.localPosition = Vector2.zero;
+        if (parentRoom.sizeX > 1) system.SystemObj.transform.localPosition += new Vector3(0.25f, 0);
+        if (parentRoom.sizeY > 1) system.SystemObj.transform.localPosition += new Vector3(0, -0.25f);
+    }
     private void PositionTankObjects()
     {
         //create overarching object for all our spawned objects
@@ -191,7 +241,6 @@ public class TankGeometry : MonoBehaviour
 
         //print("finished creating Tank Geometry");
     }
-
     public void ShowRoof(bool b)
     {
         if(RoofParent) RoofParent.SetActive(b);

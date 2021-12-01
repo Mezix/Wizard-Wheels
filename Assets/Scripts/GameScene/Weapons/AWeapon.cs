@@ -48,7 +48,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     //  Audio
     public AudioSource _weaponAudioSource = null;
 
-    public void InitSystem()
+    public void InitSystemStats()
     {
         if (_weaponStats)  //if we have a scriptableobject, use its stats
         {

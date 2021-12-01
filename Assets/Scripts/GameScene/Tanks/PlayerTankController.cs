@@ -33,10 +33,11 @@ public class PlayerTankController : TankController
     }
     public void SpawnTank()
     {
-        TGeo.SpawnTank();
+        TGeo.CreateTankGeometry();
+        TWep.SetUpWeapons(true);
+        TWep.SetUpSystems(true);
         TMov.InitTankMovement();
         TRot.GetComponent<PlayerTankRotation>().InitTankRotation();
-        TWep.InitWeaponsAndSystems();
         TWep.CreateWeaponsUI();
         InitTankStats();
         SpawnWizards();

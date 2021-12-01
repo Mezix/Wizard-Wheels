@@ -13,7 +13,7 @@ public class EngineSystem : MonoBehaviour, ISystem
     {
         SystemObj = gameObject;
     }
-    public void InitSystem()
+    public void InitSystemStats()
     {
         SystemSprite = Resources.Load("Art\\EngineSprite", typeof(Sprite)) as Sprite;
     }
