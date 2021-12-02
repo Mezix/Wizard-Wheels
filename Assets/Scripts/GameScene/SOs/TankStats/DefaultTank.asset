@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f674d45ae9713ba41a769dacb7086dbb, type: 3}
   m_Name: DefaultTank
   m_EditorClassIdentifier: 
-  _tankName: Wizard Wheeler
-  _tankHealth: 20
-  _tankMaxSpeed: 5
+  _tankName: Starkov
+  _tankHealth: 30
+  _tankMaxSpeed: 8
+  _tankAccel: 0.01
+  _tankDecel: 0.02
+  _rotationSpeed: 100

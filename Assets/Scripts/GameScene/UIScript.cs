@@ -56,7 +56,6 @@ public class UIScript : MonoBehaviour
     {
         timeBetweenMouseClicks = 0;
         InitButtons();
-        InitSliders();
         _xrayOn = true;
         _pauseImage.SetActive(false);
         CloseSettings();
@@ -100,7 +99,7 @@ public class UIScript : MonoBehaviour
         _saveWizardsButton.onClick = new Button.ButtonClickedEvent();
         _saveWizardsButton.onClick.AddListener(() => Ref.PCon.SaveAllWizardPositions());
     }
-    private void InitSliders()
+    public void InitSliders()
     {
         _currentSpeedSlider.value = Ref.PCon.TMov.currentSpeed;
         _desiredSpeedSlider.value = Ref.PCon.TMov.currentSpeed;

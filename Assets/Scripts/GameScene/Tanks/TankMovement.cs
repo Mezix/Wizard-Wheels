@@ -6,8 +6,11 @@ public class TankMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float currentSpeed;
+    [HideInInspector]
     public Vector3 moveVector;
+    [HideInInspector]
     public float acceleration;
+    [HideInInspector]
     public float deceleration;
     public float maxSpeed;
 
@@ -16,11 +19,23 @@ public class TankMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = 0;
-
-        acceleration = 0.005f;
-        deceleration = 0.01f;
     }
-
+    public void InitSpeedStats()
+    {
+        if (!TryGetComponent(out TankController tc)) return;
+        if (tc._tStats)
+        {
+            acceleration = tc._tStats._tankAccel;
+            deceleration = tc._tStats._tankDecel;
+            maxSpeed = tc._tStats._tankMaxSpeed;
+        }
+        else
+        {
+            acceleration = 0.005f;
+            deceleration = 0.01f;
+        }
+        Ref.UI.InitSliders();
+    }
     public void Move()
     {
         if (GetComponentInChildren<TankRotation>().rotatableObjects.Count == 0) return;

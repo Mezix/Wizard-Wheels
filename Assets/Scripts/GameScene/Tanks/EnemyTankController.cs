@@ -31,7 +31,9 @@ public class EnemyTankController : TankController
         TWep.SetUpWeapons(false, _tankColor);
         TWep.SetUpSystems(false);
         TWep.CreateWeaponsUI();
+        TMov.InitSpeedStats();
         TMov.InitTires();
+        TRot.InitRotationSpeed();
         SpawnWizards();
         SpawnUI();
         InitTankStats();

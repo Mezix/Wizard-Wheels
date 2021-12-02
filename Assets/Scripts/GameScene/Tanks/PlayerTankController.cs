@@ -36,7 +36,9 @@ public class PlayerTankController : TankController
         TGeo.CreateTankGeometry();
         TWep.SetUpWeapons(true, _tankColor);
         TWep.SetUpSystems(true);
+        TMov.InitSpeedStats();
         TMov.InitTankMovement();
+        TRot.InitRotationSpeed();
         TRot.GetComponent<PlayerTankRotation>().InitTankRotation();
         TWep.CreateWeaponsUI();
         InitTankStats();
