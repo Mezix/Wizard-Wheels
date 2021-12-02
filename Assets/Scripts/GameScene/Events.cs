@@ -13,6 +13,7 @@ public class Events : MonoBehaviour
     public event Action<GameObject> EnemyTankDestroyed;
     public event Action PlayerTankDestroyed;
     public event Action PlayerIsDying;
+    public event Action<GameObject> WizardOrWeaponClicked;
     public void EnemyDestroyed(GameObject enemyTank)
     {
         if (EnemyTankDestroyed != null)
@@ -32,6 +33,13 @@ public class Events : MonoBehaviour
         if (PlayerIsDying != null)
         {
             PlayerIsDying();
+        }
+    }
+    public void WizOrWepClicked(GameObject obj)
+    {
+        if (WizardOrWeaponClicked != null)
+        {
+            WizardOrWeaponClicked(obj);
         }
     }
 }

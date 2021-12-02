@@ -94,8 +94,7 @@ public abstract class AUnit : MonoBehaviour
     public void Highlight()
     {
         _showUI = true;
-        //print(name);
-        //Rend.material.shader = (Shader) Resources.Load("Outline");
+        Rend.material.shader = (Shader) Resources.Load("Outline");
     }
     public void DeHighlight()
     {

@@ -45,6 +45,8 @@ public class UIScript : MonoBehaviour
     //  MatchSpeed
     private bool matchingSpeed;
 
+    public float timeBetweenMouseClicks;
+    public GameObject LastWizardOrWeaponClicked;
     private void Awake()
     {
         _settingsOn = false;
@@ -52,11 +54,30 @@ public class UIScript : MonoBehaviour
     }
     private void Start()
     {
+        timeBetweenMouseClicks = 0;
         InitButtons();
         InitSliders();
         _xrayOn = true;
         _pauseImage.SetActive(false);
         CloseSettings();
+        Events.instance.WizardOrWeaponClicked += CheckDoubleClick;
+    }
+
+    private void CheckDoubleClick(GameObject obj)
+    {
+        if(LastWizardOrWeaponClicked)
+        if(LastWizardOrWeaponClicked.Equals(obj))
+        if(timeBetweenMouseClicks < 0.25f)
+        Ref.Cam.SetTrackedVehicleToObject(obj.transform);
+        Ref.Cam.SetDesiredZoom(Ref.Cam.maxZoom);
+
+        LastWizardOrWeaponClicked = obj;
+        timeBetweenMouseClicks = 0;
+    }
+
+    private void Update()
+    {
+        timeBetweenMouseClicks += Time.deltaTime;
     }
     private void InitButtons()
     {
@@ -79,9 +100,6 @@ public class UIScript : MonoBehaviour
         _saveWizardsButton.onClick = new Button.ButtonClickedEvent();
         _saveWizardsButton.onClick.AddListener(() => Ref.PCon.SaveAllWizardPositions());
     }
-
-    
-
     private void InitSliders()
     {
         _currentSpeedSlider.value = Ref.PCon.TMov.currentSpeed;
@@ -106,10 +124,10 @@ public class UIScript : MonoBehaviour
         _settings.SetActive(false);
         _settingsOn = false;
     }
-    public UIWeapon CreateWeaponUI(AWeapon iwp)
+    public PlayerWeaponUI CreateWeaponUI(AWeapon iwp)
     {
-        GameObject go = Instantiate((GameObject) Resources.Load("Weapons\\UIWeapon"));
-        UIWeapon wp = go.GetComponent<UIWeapon>();
+        GameObject go = Instantiate((GameObject) Resources.Load("Weapons\\PlayerWeaponUI"));
+        PlayerWeaponUI wp = go.GetComponent<PlayerWeaponUI>();
         wp._weaponImage.sprite = iwp.SystemSprite;
         wp._UIWeaponName.text = iwp.SystemName;
         wp._index = iwp.EnemyWepUI.WeaponIndex;
@@ -121,7 +139,7 @@ public class UIScript : MonoBehaviour
     }
     public PlayerWizardUI CreateWizardUI(AUnit unit)
     {
-        GameObject go = Instantiate((GameObject)Resources.Load("UIWizard"));
+        GameObject go = Instantiate((GameObject)Resources.Load("PlayerWizardUI"));
         PlayerWizardUI u = go.GetComponent<PlayerWizardUI>();
         u._wizardImage.sprite = unit.Rend.sprite;
         u._UIWizardName.text = unit.UnitName;

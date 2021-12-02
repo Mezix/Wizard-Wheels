@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIWeapon : MonoBehaviour
+public class PlayerWeaponUI : MonoBehaviour
 {
     public AWeapon _weapon;
     public Image _weaponImage;
@@ -15,9 +15,12 @@ public class UIWeapon : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
+        button.onClick = new Button.ButtonClickedEvent();
+        button.onClick.AddListener(() => SelectWeapon());
     }
     public void SelectWeapon()
     {
+        Events.instance.WizOrWepClicked(_weapon.gameObject);
         if (_weapon != null) _weapon.WeaponSelected = true;
     }
     public void WeaponInteractable(bool b)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
 {
-    public List<UIWeapon> AllUIWeapons = new List<UIWeapon>();
+    public List<PlayerWeaponUI> AllUIWeapons = new List<PlayerWeaponUI>();
     public bool multipleSelected = true;
 
     private void Update()
@@ -50,7 +50,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
         for (int i = 0; i < AWeaponArray.Count; i++)
         {
             AWeaponArray[i].SetIndex(i+1);
-            UIWeapon uw = Ref.UI.CreateWeaponUI(AWeaponArray[i]);
+            PlayerWeaponUI uw = Ref.UI.CreateWeaponUI(AWeaponArray[i]);
             AllUIWeapons.Add(uw);
             AWeaponArray[i].PlayerUIWep = uw;
         }

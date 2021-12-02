@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.U2D;
 
 public class MouseCursor : MonoBehaviour
 {
@@ -16,10 +15,6 @@ public class MouseCursor : MonoBehaviour
     private Vector2 endPosition;
 
     private Rect selectionBox;
-    private PixelPerfectCamera pixelCam;
-    public int zoomAmount;
-    public int maxZoom;
-    public int minZoom;
 
     public RectTransform _cursorTransform;
     private Animator cursorAnimator;
@@ -30,26 +25,21 @@ public class MouseCursor : MonoBehaviour
     {
         Ref.mouse = this;
         mouseRend = GetComponentInChildren<SpriteRenderer>();
-        pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
         cursorAnimator = _cursorTransform.GetComponent<Animator>();
         movementIndicators = new List<GameObject>();
     }
     void Start()
     {
         //Cursor.visible = false; //disable the unity default mouse cursor
-        zoomAmount = 10;
-        minZoom = 30;
-        maxZoom = 350;
+        
         selectionBox = new Rect();
         DrawVisual();
-        SetZoom(maxZoom);
         cursorAnimator.SetBool("clicked", false);
         InitMovementIndicators();
     }
     void Update()
     {
         HandleMouseSelectionInput();
-        HandleZoomIn();
         TrackMouse();
         HandleMouseAnimation();
         AttemptOutlineWizards();
@@ -62,6 +52,7 @@ public class MouseCursor : MonoBehaviour
 
     private void AttemptOutlineWizards()
     {
+        if (Ref.PCon._dying || Ref.PCon._dead) return;
         foreach (AUnit u in Ref.PCon._spawnedWizards)
         {
             u.DeHighlight();
@@ -118,20 +109,7 @@ public class MouseCursor : MonoBehaviour
             }
         }
     }
-    private void HandleZoomIn()
-    {
-        if(Input.mouseScrollDelta.y != 0 && !Ref.UI._settingsOn)
-        {
-            if(Input.mouseScrollDelta.y > 0)
-            {
-                ZoomIn();
-            }
-            else if (Input.mouseScrollDelta.y < 0)
-            {
-                ZoomOut();
-            }
-        }
-    }
+    
 
     public void HandleMouseSelectionInput()
     {
@@ -213,20 +191,7 @@ public class MouseCursor : MonoBehaviour
 
     //  Zooming
 
-    private void ZoomIn()
-    {
-        if (pixelCam.assetsPPU + zoomAmount > maxZoom) SetZoom(maxZoom);
-        else SetZoom(pixelCam.assetsPPU += zoomAmount);
-    }
-    private void ZoomOut()
-    {
-        if (pixelCam.assetsPPU - zoomAmount < minZoom) SetZoom(minZoom);
-        else SetZoom(pixelCam.assetsPPU -= zoomAmount);
-    }
-    private void SetZoom(int zoomLevel)
-    {
-        pixelCam.assetsPPU = zoomLevel;
-    }
+    
 
     //  Mouse Cursor
 

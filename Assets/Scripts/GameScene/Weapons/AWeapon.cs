@@ -41,7 +41,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     public bool ShouldHitPlayer { get; set; }
 
     //  UI
-    public UIWeapon PlayerUIWep { get; set; }
+    public PlayerWeaponUI PlayerUIWep { get; set; }
     public WeaponUI EnemyWepUI;
     public Color UIColor;
 
