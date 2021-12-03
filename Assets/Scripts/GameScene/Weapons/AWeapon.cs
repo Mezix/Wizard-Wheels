@@ -164,7 +164,9 @@ public abstract class AWeapon : MonoBehaviour, ISystem
                     }
                     else
                     {
-                        //TODO: give a warning that the target is out of range on the screen!
+                        StopCoroutine(Ref.UI.FlashWeaponOutOfRangeWarning());
+                        StartCoroutine(Ref.UI.FlashWeaponOutOfRangeWarning());
+                        print("target is out of range on the screen");
                     }
                 }
                 

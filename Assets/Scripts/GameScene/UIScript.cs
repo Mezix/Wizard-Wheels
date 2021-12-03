@@ -45,8 +45,16 @@ public class UIScript : MonoBehaviour
     //  MatchSpeed
     private bool matchingSpeed;
 
+    //  Double Clicks
+
     public float timeBetweenMouseClicks;
     public GameObject LastWizardOrWeaponClicked;
+
+
+    //  Weapon Out Of Range
+
+    public GameObject WeaponOutOfRangeParent;
+
     private void Awake()
     {
         _settingsOn = false;
@@ -294,5 +302,31 @@ public class UIScript : MonoBehaviour
             b.onClick = new Button.ButtonClickedEvent();
             b.onClick.AddListener(() => LevelManager.instance.GoToMainMenu());
         }
+    }
+
+    public IEnumerator FlashWeaponOutOfRangeWarning()
+    {
+        List<Image> images = WeaponOutOfRangeParent.GetComponentsInChildren<Image>().ToList();
+        int time = 50;
+        WeaponOutOfRangeParent.SetActive(true);
+        for(int i = 0; i < time/2; i++)
+        {
+            foreach(Image img in images)
+            {
+                Color c = img.color;
+                img.color = new Color(c.r, c.g, c.b, i/(time/2f));
+            }
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+        for (int i = 0; i < time / 2; i++)
+        {
+            foreach (Image img in images)
+            {
+                Color c = img.color;
+                img.color = new Color(c.r, c.g, c.b, 1 - i/(time/2f));
+            }
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+        WeaponOutOfRangeParent.SetActive(false);
     }
 }
