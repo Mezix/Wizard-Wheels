@@ -27,7 +27,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
 
     //  Aiming
 
-    public GameObject Room;
+    public GameObject TargetedRoom;
     public bool WeaponSelected { get; set; }
     public bool WeaponEnabled { get; set; }
     public bool AimAtTarget { get; set; }
@@ -48,6 +48,10 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     //  Audio
     public AudioSource _weaponAudioSource = null;
 
+    private void Awake()
+    {
+        ShouldHitPlayer = false;
+    }
     public void InitSystemStats()
     {
         if (_weaponStats)  //if we have a scriptableobject, use its stats
@@ -137,20 +141,25 @@ public abstract class AWeapon : MonoBehaviour, ISystem
 
     public void AimWithMouse()
     {
-        if (Room) Ref.c.RemoveCrosshair(GetComponent<AWeapon>());
+        if (TargetedRoom) Ref.c.RemoveCrosshair(GetComponent<AWeapon>());
 
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if (hit.collider)
         {
-            TankController tc = hit.collider.transform.root.GetComponentInChildren<TankController>();
-            if (tc && hit.collider.transform.GetComponent<Room>())
+            TankController targetTC = hit.collider.transform.root.GetComponentInChildren<TankController>();
+            if (targetTC && hit.collider.transform.TryGetComponent(out Room targetRoom))
             {
-                Room = hit.collider.gameObject;
-                if (!(tc._dying || tc._dead))
+                if (targetRoom.tGeo.GetComponent<TankController>().Equals(transform.root.GetComponentInChildren<TankController>()))
+                {
+                    print("Trying to target own Tank");
+                    return;
+                }
+                TargetedRoom = targetRoom.gameObject;
+                if (!(targetTC._dying || targetTC._dead))
                 {
                     if (TargetRoomWithinLockOnRange())
                     {
-                        Ref.c.AddCrosshair(Room.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
+                        Ref.c.AddCrosshair(TargetedRoom.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
                         AimAtTarget = true;
                     }
                     else
@@ -174,7 +183,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         if (iwep == null) return;
         Ref.c.RemoveCrosshair(iwep);
         AimAtTarget = false;
-        Room = null;
+        TargetedRoom = null;
     }
     public void ResetAim()
     {
@@ -183,14 +192,14 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         Ref.c.RemoveCrosshair(iwep);
         AimRotationAngle = 90;
         AimAtTarget = false;
-        Room = null;
+        TargetedRoom = null;
     }
 
     //  ROTATE
 
     public void RotateTurretToAngle()
     {
-        Room = null;
+        TargetedRoom = null;
         float zRotActual = 0;
         float diff = AimRotationAngle - transform.rotation.eulerAngles.z;
         if (diff < -180) diff += 360;
@@ -210,18 +219,18 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     public void PointTurretAtTarget()
     {
         Vector3 TargetMoveVector = Vector3.zero;
-        float distance = Vector3.Distance(Room.transform.position, _projectileSpot.transform.position);
+        float distance = Vector3.Distance(TargetedRoom.transform.position, _projectileSpot.transform.position);
         float TimeForProjectileToHitDistance = distance / (_weaponStats._projectileSpeed);
 
         //Calculate the position where our target will be
-        if (Room.transform.root.GetComponentInChildren<EnemyTankMovement>())
+        if (TargetedRoom.transform.root.GetComponentInChildren<EnemyTankMovement>())
         {
-            EnemyTankMovement mov = Room.transform.root.GetComponentInChildren<EnemyTankMovement>();
+            EnemyTankMovement mov = TargetedRoom.transform.root.GetComponentInChildren<EnemyTankMovement>();
             TargetMoveVector = mov.moveVector * mov.currentSpeed * TimeForProjectileToHitDistance;
         }
 
         //  find the desired angle to face the target
-        float zRotToTarget = HM.GetAngle2DBetween(Room.transform.position + TargetMoveVector, transform.position);
+        float zRotToTarget = HM.GetAngle2DBetween(TargetedRoom.transform.position + TargetMoveVector, transform.position);
         //  get closer to the angle with our max rotationspeed
         float zRotActual;
         float diff = zRotToTarget - transform.rotation.eulerAngles.z;
@@ -296,17 +305,17 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     }
     protected void UpdateLaserLR()
     {
-        if (Room && AimAtTarget && ShouldHitPlayer)
+        if (TargetedRoom && AimAtTarget && ShouldHitPlayer)
         {
             if (TargetRoomWithinLockOnRange())
             {
-                DottedLine.DottedLine.Instance.DrawDottedLine(transform.position, Room.transform.position, UIColor);
+                DottedLine.DottedLine.Instance.DrawDottedLine(transform.position, TargetedRoom.transform.position, UIColor);
             }
         }
     }
     public void UpdateLockOn()
     {
-        if (!TargetRoomWithinLockOnRange() && Room)
+        if (!TargetRoomWithinLockOnRange() && TargetedRoom)
         {
             CancelAim();
             //print("cancelling lock on");
@@ -314,7 +323,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     }
     public bool TargetRoomWithinLockOnRange()
     {
-        if (!Room) return false;
-        return Vector3.Distance(_projectileSpot.position, Room.transform.position) < MaxLockOnRange;
+        if (!TargetedRoom) return false;
+        return Vector3.Distance(_projectileSpot.position, TargetedRoom.transform.position) < MaxLockOnRange;
     }
 }

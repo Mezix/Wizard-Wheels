@@ -161,8 +161,8 @@ public class PlayerTankController : TankController
     {
         foreach (AWeapon wep in TWep.AWeaponArray)
         {
-            if (!enemy || !wep.Room) return;
-            if (wep.Room.transform.root.gameObject.Equals(enemy))
+            if (!enemy || !wep.TargetedRoom) return;
+            if (wep.TargetedRoom.transform.root.gameObject.Equals(enemy))
             {
                 wep.ResetAim();
             }

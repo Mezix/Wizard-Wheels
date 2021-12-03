@@ -65,7 +65,7 @@ public class MagicMissileProjectile : AProjectile
     }
     public override void SetBulletStatsAndTransformToWeaponStats(AWeapon weapon)
     {
-        target = weapon.Room;
+        target = weapon.TargetedRoom;
         Damage = weapon._weaponStats._damage;
         ProjectileSpeed = weapon._weaponStats._projectileSpeed;
         transform.position = weapon.transform.position;
