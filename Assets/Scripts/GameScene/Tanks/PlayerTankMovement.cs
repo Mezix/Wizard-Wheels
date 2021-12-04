@@ -13,6 +13,7 @@ public class PlayerTankMovement : TankMovement
     public bool _matchSpeed;
     [HideInInspector]
     public TankMovement enemyToMatch;
+    public bool movementInput;
 
     void Update()
     {
@@ -20,7 +21,6 @@ public class PlayerTankMovement : TankMovement
         {
             if (Input.GetKeyDown(KeyCode.Mouse0)) AttemptMatchSpeed();
         }
-        
         if (!Ref.PCon._dying)
         {
             if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
@@ -34,12 +34,13 @@ public class PlayerTankMovement : TankMovement
 
         SetTireAnimationSpeed();
         UpdateCurrentSpeedSlider();
+
+        if (!cruiseModeOn && !movementInput) Decelerate();
     }
 
     private void FixedUpdate()
     {
         Move();
-        if (!cruiseModeOn) Decelerate();
     }
     public void InitTankMovement()
     {
@@ -48,6 +49,7 @@ public class PlayerTankMovement : TankMovement
     }
     private void HandleMovementInput()
     {
+        movementInput = false;
         if (cruiseModeOn)
         {
             SlowlyMatchSpeedToSliderValue();
@@ -58,10 +60,12 @@ public class PlayerTankMovement : TankMovement
         {
             if (Input.GetKey(KeyCode.W))
             {
+                movementInput = true;
                 Accelerate();
             }
             if (Input.GetKey(KeyCode.S))
             {
+                movementInput = true;
                 Decelerate();
             }
         }
@@ -177,10 +181,12 @@ public class PlayerTankMovement : TankMovement
         {
             TurnOnCruise(false);
         }
+        _matchSpeed = false;
     }
     public void TurnOnCruise(bool b)
     {
         cruiseModeOn = b;
+        _matchSpeed = false;
         Ref.UI.TurnOnCruiseMode(b);
     }
 }

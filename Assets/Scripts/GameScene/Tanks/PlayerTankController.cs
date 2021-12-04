@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerTankController : TankController
 {
-
-    //  Important scripts
-
     public PlayerTankMovement TMov { get; private set; }
     public PlayerTankWeaponsAndSystems TWep { get; private set; }
 
