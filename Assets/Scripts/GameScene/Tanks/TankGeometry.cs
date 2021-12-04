@@ -22,7 +22,8 @@ public class TankGeometry : MonoBehaviour
         CreateBGAndRoof();
         PositionTankObjects();
         InitWeaponsAndSystems();
-        InitSystemIcons();
+        CreateSystemIcons();
+        CreateWalls();
 
         Ref.UI.TurnOnXRay(Ref.UI._xrayOn);
     }
@@ -175,6 +176,61 @@ public class TankGeometry : MonoBehaviour
             }
         }
     }
+    public void CreateSystemIcons()
+    {
+        for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
+        {
+            for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
+            {
+                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
+                {
+                    ISystem sys = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>();
+                    if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.TryGetComponent(out AWeapon wep))
+                    {
+                        RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = Resources.Load("Art\\WeaponSystemIcon", typeof(Sprite)) as Sprite;
+                    }
+                    else
+                    {
+                        RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = sys.SystemSprite;
+                        systemIcons.Add(RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer);
+                    }
+                }
+            }
+        }
+    }
+    public void CreateWalls()
+    {
+        for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
+        {
+            for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
+            {
+                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallUp)
+                {
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallUp"));
+                    wall.transform.SetParent(RoomPosMatrix[x, y].transform);
+                    wall.transform.localPosition = Vector3.zero;
+                }
+                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallRight)
+                {
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallRight"));
+                    wall.transform.SetParent(RoomPosMatrix[x, y].transform);
+                    wall.transform.localPosition = Vector3.zero;
+                }
+                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallDown)
+                {
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallDown"));
+                    wall.transform.SetParent(RoomPosMatrix[x, y].transform);
+                    wall.transform.localPosition = Vector3.zero;
+                }
+                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallLeft)
+                {
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallLeft"));
+                    wall.transform.SetParent(RoomPosMatrix[x, y].transform);
+                    wall.transform.localPosition = Vector3.zero;
+                }
+            }
+        }
+    }
     public void InitWeaponsAndSystems()
     {
         TankWeaponsAndSystems twep = GetComponent<TankWeaponsAndSystems>();
@@ -246,28 +302,6 @@ public class TankGeometry : MonoBehaviour
     {
         if(RoofParent) RoofParent.SetActive(b);
         SetSystemIconLayer(b);
-    }
-    public void InitSystemIcons()
-    {
-        for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
-        {
-            for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
-            {
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
-                {
-                    ISystem sys = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>();
-                    if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.TryGetComponent(out AWeapon wep))
-                    {
-                        RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = Resources.Load("Art\\WeaponSystemIcon", typeof(Sprite)) as Sprite;
-                    }
-                    else
-                    {
-                        RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = sys.SystemSprite;
-                        systemIcons.Add(RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer);
-                    }
-                }
-            }
-        }
     }
     public void SetSystemIconLayer(bool top)
     {

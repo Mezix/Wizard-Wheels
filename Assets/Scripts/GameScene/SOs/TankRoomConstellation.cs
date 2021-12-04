@@ -53,10 +53,9 @@ public class TankRoomConstellation : ScriptableObject
         public GameObject RoomPrefab;
         public GameObject RoomSystemPrefab;
         public GameObject TirePrefab;
-        public RoomInfo(GameObject prefab = null, GameObject sys = null)
-        {
-            RoomPrefab = prefab;
-            RoomSystemPrefab = sys;
-        }
+        public bool WallUp;
+        public bool WallRight;
+        public bool WallDown;
+        public bool WallLeft;
     }
 }

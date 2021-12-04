@@ -80,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tGeo: {fileID: 0}
   tr: {fileID: 0}
+  roomSystem: {fileID: 0}
   roomSystemRenderer: {fileID: 8841280608968101269}
   sizeX: 1
   sizeY: 1
