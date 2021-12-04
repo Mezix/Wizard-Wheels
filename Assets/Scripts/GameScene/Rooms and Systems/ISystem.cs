@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISystem
+public abstract class ISystem : MonoBehaviour
 {
-    Sprite SystemSprite { get; set; }
-    GameObject SystemObj { get; set; }
-    string SystemName { get; set; }
-    RoomPosition RoomPosForInteraction { get; set; }
+    public Sprite SystemSprite;
+    [HideInInspector]
+    public GameObject SystemObj;
+    [HideInInspector]
+    public string SystemName;
+    [HideInInspector]
+    public RoomPosition RoomPosForInteraction;
 
-    bool IsBeingInteractedWith { get; set; }
-    void InitSystemStats();
-    void StartInteraction();
-    void StopInteraction();
+    protected bool IsBeingInteractedWith;
+    public abstract void InitSystemStats();
+    public abstract void StartInteraction();
+    public abstract void StopInteraction();
 }

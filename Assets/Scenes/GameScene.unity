@@ -1528,7 +1528,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 120, y: 120}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &436181312
 MonoBehaviour:
@@ -1549,7 +1549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4d84a49e73cccb94ba957fed0ad6e013, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e8d730aba51372e48970904bac05a5b6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1762,7 +1762,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objToTrack: {fileID: 0}
-  pixelCam: {fileID: 0}
   zoomAmount: 0
   desiredZoom: 0
   maxZoom: 0
@@ -3089,6 +3088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AWeaponArray: []
+  ISystemArray: []
   AllUIWeapons: []
   multipleSelected: 1
 --- !u!114 &667288262

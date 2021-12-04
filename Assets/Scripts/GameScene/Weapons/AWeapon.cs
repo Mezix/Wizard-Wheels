@@ -4,16 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using DottedLine;
 
-public abstract class AWeapon : MonoBehaviour, ISystem
+public abstract class AWeapon : ISystem
 {
     [SerializeField]
     private List<SpriteRenderer> _weaponSprites;
-
-    public GameObject SystemObj { get; set; }
-    public string SystemName { get; set; }
-    public RoomPosition RoomPosForInteraction { get; set; }
-    public bool IsBeingInteractedWith { get; set; }
-    public Sprite SystemSprite { get; set; }
 
     //  Stats
 
@@ -52,7 +46,7 @@ public abstract class AWeapon : MonoBehaviour, ISystem
     {
         ShouldHitPlayer = false;
     }
-    public void InitSystemStats()
+    public override void InitSystemStats()
     {
         if (_weaponStats)  //if we have a scriptableobject, use its stats
         {
@@ -74,12 +68,12 @@ public abstract class AWeapon : MonoBehaviour, ISystem
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
     }
-    public void StartInteraction()
+    public override void StartInteraction()
     {
         WeaponEnabled = true;
         IsBeingInteractedWith = true;
     }
-    public void StopInteraction()
+    public override void StopInteraction()
     {
         WeaponEnabled = false;
         IsBeingInteractedWith = false;
