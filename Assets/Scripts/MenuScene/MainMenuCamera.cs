@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class MainMenuCamera : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class MainMenuCamera : MonoBehaviour
     [HideInInspector]
     public Camera cam;
     private Transform camParent;
+    [SerializeField]
     private PixelPerfectCamera pixelCam;
     private int zoomLevel;
     public int closestZoom;
@@ -19,7 +20,7 @@ public class MainMenuCamera : MonoBehaviour
     {
         Ref.mCam = this;
         cam = GetComponent<Camera>();
-        pixelCam = GetComponent<PixelPerfectCamera>();
+        //pixelCam = GetComponent<PixelPerfectCamera>();
     }
     private void Start()
     {

@@ -12,7 +12,7 @@ public abstract class AUnit : MonoBehaviour
     public float UnitHealth { get; set; }
     public float UnitSpeed { get; set; }
     public SpriteRenderer Rend { get; set; }
-    private Shader defaultShader;
+    protected Shader defaultShader;
     public Animator WizardAnimator { get; set; }
     public bool UnitSelected { get; set; }
     public bool UnitIsMoving { get; set; }
@@ -94,7 +94,9 @@ public abstract class AUnit : MonoBehaviour
     public void Highlight()
     {
         _showUI = true;
-        Rend.material.shader = (Shader) Resources.Load("Outline");
+        Rend.material.shader = (Shader) Resources.Load("Shaders\\SpriteOutline");
+        Rend.material.SetFloat("Vector1_53CFC1A5", 0.05f);
+        Rend.material.SetColor("Color_B1427637", Color.red);
     }
     public void DeHighlight()
     {

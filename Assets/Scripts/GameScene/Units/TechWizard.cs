@@ -8,6 +8,7 @@ public class TechWizard : AUnit
     private void Awake()
     {
         Rend = GetComponentInChildren<SpriteRenderer>();
+        defaultShader = Rend.material.shader;
         WizardAnimator = GetComponentInChildren<Animator>();
         UnitObj = gameObject;
     }
