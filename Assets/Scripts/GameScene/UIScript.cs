@@ -85,6 +85,10 @@ public class UIScript : MonoBehaviour
     private void Update()
     {
         timeBetweenMouseClicks += Time.deltaTime;
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            ToggleVision();
+        }
     }
     private void InitButtons()
     {

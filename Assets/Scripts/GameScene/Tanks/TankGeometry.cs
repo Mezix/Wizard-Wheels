@@ -14,6 +14,7 @@ public class TankGeometry : MonoBehaviour
     public Tilemap FloorTilemap { get; private set; }
     public GameObject RoofParent { get; private set; }
     public Tilemap RoofTilemap { get; private set; }
+    [SerializeField]
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     public void CreateTankGeometry()
     {
