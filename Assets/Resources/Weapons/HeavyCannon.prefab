@@ -111,7 +111,6 @@ Transform:
   m_Children:
   - {fileID: 1635649774529234165}
   - {fileID: 4486056113902708837}
-  - {fileID: 995660803235255240}
   - {fileID: 4020247864400121667}
   - {fileID: 3233156011727659326}
   - {fileID: 918583642829459664}
@@ -137,6 +136,7 @@ MonoBehaviour:
   _weaponSprites:
   - {fileID: 3277609481205325202}
   - {fileID: 5819993075432099822}
+  PlayerUISprite: {fileID: 21300000, guid: c206abb1ac8886244bb187e47f4f817a, type: 3}
   _weaponStats: {fileID: 11400000, guid: 76dd4a71ba13fa14d99559157cd83133, type: 2}
   RotatablePart: {fileID: 4486056113902708837}
   TargetedRoom: {fileID: 0}
@@ -173,7 +173,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 740911756729272562}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &5770678182755424900
 AudioSource:
@@ -282,7 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 995660803235255240}
   m_Layer: 0
-  m_Name: Cannonball Instantiation
+  m_Name: ProjectileSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,8 +299,8 @@ Transform:
   m_LocalPosition: {x: 1.333, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 740911756729272562}
-  m_RootOrder: 2
+  m_Father: {fileID: 4486056113902708837}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4021755587979710805
 GameObject:
@@ -330,7 +330,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 740911756729272562}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4852491321411585132
 GameObject:
@@ -441,6 +441,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7462867490529183650}
+  - {fileID: 995660803235255240}
   m_Father: {fileID: 740911756729272562}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -464,7 +465,7 @@ PrefabInstance:
     - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}

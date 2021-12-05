@@ -369,6 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tGeo: {fileID: 0}
   tr: {fileID: 0}
+  roomSystem: {fileID: 0}
   roomSystemRenderer: {fileID: 7255872605098692683}
   sizeX: 2
   sizeY: 2
@@ -421,7 +422,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3928980103185105768
 Transform:
   m_ObjectHideFlags: 0

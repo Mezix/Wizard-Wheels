@@ -8,7 +8,6 @@ public class PlayerTankController : TankController
 {
     public PlayerTankMovement TMov { get; private set; }
     public PlayerTankWeaponsAndSystems TWep { get; private set; }
-
     public List<PlayerWizardUI> _UIWizards = new List<PlayerWizardUI>();
 
     private void Awake()

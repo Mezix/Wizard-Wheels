@@ -6,7 +6,7 @@ using UnityEngine;
 public class WeaponStats : ScriptableObject
 {
     public string _weaponName = "";
-    public Sprite _weaponSprite;
+    public Sprite _UISprite;
     public int _damage;
     public float _projectileSpeed;
     public float _attacksPerSecond;

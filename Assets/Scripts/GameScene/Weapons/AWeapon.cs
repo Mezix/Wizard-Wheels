@@ -37,6 +37,7 @@ public abstract class AWeapon : ISystem
 
     //  UI
     public PlayerWeaponUI PlayerUIWep { get; set; }
+
     public WeaponUI EnemyWepUI;
     public Color UIColor;
 
@@ -52,7 +53,6 @@ public abstract class AWeapon : ISystem
         if (_weaponStats)  //if we have a scriptableobject, use its stats
         {
             SystemName = _weaponStats._weaponName;
-            SystemSprite = _weaponStats._weaponSprite;
             AttacksPerSecond = _weaponStats._attacksPerSecond;
             Damage = _weaponStats._damage;
             RotationSpeed = _weaponStats._rotationSpeed;
@@ -218,6 +218,7 @@ public abstract class AWeapon : ISystem
     public void PointTurretAtTarget()
     {
         Vector3 TargetMoveVector = Vector3.zero;
+        if (!TargetedRoom) return;
         float distance = Vector3.Distance(TargetedRoom.transform.position, _projectileSpot.transform.position);
         float TimeForProjectileToHitDistance = distance / (_weaponStats._projectileSpeed);
 

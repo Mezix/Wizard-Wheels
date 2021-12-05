@@ -24,7 +24,7 @@ public class MagicMissileProjectile : AProjectile
             //  TODO: Rotate towards target slowly instead of facing it immediately
             HM.RotateTransformToAngle(transform, angleTowardsRoom);
         }
-        rb.MovePosition(transform.position - transform.right * ProjectileSpeed * Time.deltaTime);
+        rb.MovePosition(transform.position - transform.right * (Mathf.Max(1, ProjectileSpeed * CurrentLifeTime/MaxLifetime)) * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -57,10 +57,7 @@ public class MagicMissileProjectile : AProjectile
         despawnAnimationPlaying = true;
         _shadow.SetActive(false);
         _projectileSprite.gameObject.SetActive(false);
-        //GameObject explosion = Instantiate((GameObject)Resources.Load("SingleExplosion"));
-        //explosion.transform.position = transform.position;
         yield return new WaitForSeconds(0.05f);
-        //Destroy(explosion);
         DespawnBullet();
     }
     public override void SetBulletStatsAndTransformToWeaponStats(AWeapon weapon)
@@ -69,6 +66,6 @@ public class MagicMissileProjectile : AProjectile
         Damage = weapon._weaponStats._damage;
         ProjectileSpeed = weapon._weaponStats._projectileSpeed;
         transform.position = weapon._projectileSpot.position;
-        transform.rotation = weapon.transform.rotation;
+        transform.rotation = weapon._projectileSpot.rotation;
     }
 }

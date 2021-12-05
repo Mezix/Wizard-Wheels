@@ -135,6 +135,8 @@ MonoBehaviour:
   _tankRoomConstellation: {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530,
     type: 2}
   systemIcons: []
+  FloorColor: {r: 1, g: 0.80230397, b: 0.7122642, a: 1}
+  RoofColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!50 &3787077506681756485
 Rigidbody2D:
   serializedVersion: 4

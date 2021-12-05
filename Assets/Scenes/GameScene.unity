@@ -3123,6 +3123,8 @@ MonoBehaviour:
   _tankRoomConstellation: {fileID: 11400000, guid: 74bb0e1ea42492e4491bf4e8ae060efc,
     type: 2}
   systemIcons: []
+  FloorColor: {r: 1, g: 0.84445155, b: 0.6933962, a: 1}
+  RoofColor: {r: 0.6, g: 1, b: 0.91100854, a: 1}
 --- !u!1 &694876366
 GameObject:
   m_ObjectHideFlags: 0
@@ -3454,7 +3456,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e10b79a17a108f3418b964a49bb56d04, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d24afc7acd8ae7e4eb85325fc6b4663f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

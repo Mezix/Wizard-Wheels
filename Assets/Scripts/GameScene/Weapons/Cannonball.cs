@@ -33,16 +33,6 @@ public class Cannonball : AProjectile
                     }
                 }
             }
-            //if (col.transform.root.tag == "Enemy" && !HitPlayer)
-            //{
-            //    DamageTank(col.transform.root.GetComponentInChildren<IEnemy>());
-            //    hasDoneDamage = true;
-            //}
-            //if (col.transform.root.tag == "Player" && HitPlayer)
-            //{
-            //    DamagePlayer();
-            //    hasDoneDamage = true;
-            //}
         }
     }
     public override IEnumerator DespawnAnimation()
@@ -53,7 +43,6 @@ public class Cannonball : AProjectile
         GameObject explosion = Instantiate((GameObject)Resources.Load("SingleExplosion"));
         explosion.transform.position = transform.position;
         yield return new WaitForFixedUpdate();
-        // yield return new WaitForSeconds(0.43f);
         DespawnBullet();
     }
 }

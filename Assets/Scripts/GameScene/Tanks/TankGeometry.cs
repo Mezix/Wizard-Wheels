@@ -16,6 +16,8 @@ public class TankGeometry : MonoBehaviour
     public Tilemap RoofTilemap { get; private set; }
     [SerializeField]
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
+    public Color FloorColor;
+    public Color RoofColor;
     public void CreateTankGeometry()
     {
         CreateRooms();
@@ -113,7 +115,10 @@ public class TankGeometry : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), (Tile)Resources.Load("DefaultTile"));
+                Tile t = (Tile)Resources.Load("Tiles\\Floor\\DefaultFloorTile");
+                t.color = FloorColor;
+                FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                
             }
         }
     }
@@ -123,7 +128,9 @@ public class TankGeometry : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), (Tile)Resources.Load("DefaultTile"));
+                Tile t = (Tile)Resources.Load("Tiles\\Roof\\DefaultRoofTile");
+                t.color = RoofColor;
+                RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
     }

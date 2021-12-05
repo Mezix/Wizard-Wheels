@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 995660803235255240}
   m_Layer: 0
-  m_Name: ProjectileInstantiationSpot
+  m_Name: ProjectileSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

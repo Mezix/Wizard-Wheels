@@ -97,7 +97,7 @@ public class EnemyManager : MonoBehaviour
             {
                 c.taken = false;
                 c.enemyTakingColor = null;
-                print("returning");
+                //print("returning");
             }
         }
     }

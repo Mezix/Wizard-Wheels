@@ -186,7 +186,8 @@ public class PlayerTankMovement : TankMovement
     public void TurnOnCruise(bool b)
     {
         cruiseModeOn = b;
-        _matchSpeed = false;
         Ref.UI.TurnOnCruiseMode(b);
+
+        if (!b) _matchSpeed = false;
     }
 }
