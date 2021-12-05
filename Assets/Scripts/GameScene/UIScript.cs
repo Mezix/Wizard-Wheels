@@ -37,7 +37,7 @@ public class UIScript : MonoBehaviour
     public GameObject _healthBarParent;
     public List<Image> _allHealthBarUnits;
 
-    //  Vision 
+    //  XRay 
     public bool _xrayOn;
     public Image _xrayImage;
 
@@ -211,7 +211,7 @@ public class UIScript : MonoBehaviour
     {
         if (xrayOn)
         {
-            _xrayImage.sprite = Resources.Load("Art\\eye_opened", typeof(Sprite)) as Sprite;
+            _xrayImage.sprite = Resources.Load("Art\\UI\\eye_opened", typeof(Sprite)) as Sprite;
 
             //  Player
 
@@ -246,7 +246,7 @@ public class UIScript : MonoBehaviour
         }
         else
         {
-            _xrayImage.sprite = Resources.Load("Art\\eye_closed", typeof(Sprite)) as Sprite;
+            _xrayImage.sprite = Resources.Load("Art\\UI\\eye_closed", typeof(Sprite)) as Sprite;
 
             //  Player
 
