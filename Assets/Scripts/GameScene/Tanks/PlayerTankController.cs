@@ -151,9 +151,9 @@ public class PlayerTankController : TankController
 
     private void InitEvents()
     {
-        Events.instance.EnemyTankDestroyed += RemoveEnemyRoomFromWeapons;
+        Events.instance.EnemyTankDestroyed += RemoveEnemy;
     }
-    private void RemoveEnemyRoomFromWeapons(GameObject enemy)
+    private void RemoveEnemy(GameObject enemy)
     {
         foreach (AWeapon wep in TWep.AWeaponArray)
         {
@@ -172,6 +172,7 @@ public class PlayerTankController : TankController
                 TMov._attemptingMatchingSpeed = false;
                 TMov._matchSpeed = false;
                 TMov.TurnOnCruise(true);
+                Ref.UI.SetMatchSpeedButton(0);
             }
         }
     }

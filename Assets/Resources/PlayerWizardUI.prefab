@@ -165,7 +165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3890738035988884413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 2699681104995956162}
   - component: {fileID: 7548554337628491782}
   m_Layer: 5
-  m_Name: UIWizard
+  m_Name: PlayerWizardUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5cc1b2cc9d8c874a851b27590a6ba66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wizard: {fileID: 0}
   _wizardImage: {fileID: 3661350475135399096}
   _index: 0
   _UIWizardName: {fileID: 4453499738902429781}
@@ -450,8 +451,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: 0, y: -3.7}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7548554337654263635
 CanvasRenderer:
@@ -480,7 +481,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f7710d0a77cbef74cbaef6abf24e6326, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e87efa29c3f8d5f4d9b084e47020c794, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

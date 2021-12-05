@@ -9,7 +9,6 @@ public class PlayerTankMovement : TankMovement
     public bool cruiseModeOn;
     [HideInInspector]
     public bool _attemptingMatchingSpeed;
-    [HideInInspector]
     public bool _matchSpeed;
     [HideInInspector]
     public TankMovement enemyToMatch;
@@ -124,15 +123,18 @@ public class PlayerTankMovement : TankMovement
                 _matchSpeed = true;
                 enemyToMatch = e;
                 TurnOnCruise(true);
+                Ref.UI.SetMatchSpeedButton(2);
             }
             else
             {
                 print("error couldnt find enemy to match");
+                Ref.UI.SetMatchSpeedButton(0);
             }
         }
         else
         {
             print("error couldnt find enemy to match");
+            Ref.UI.SetMatchSpeedButton(0);
         }
         _attemptingMatchingSpeed = false;
     }
@@ -188,6 +190,10 @@ public class PlayerTankMovement : TankMovement
         cruiseModeOn = b;
         Ref.UI.TurnOnCruiseMode(b);
 
-        if (!b) _matchSpeed = false;
+        if (b)
+        {
+            _matchSpeed = false;
+            Ref.UI.SetMatchSpeedButton(0);
+        }
     }
 }

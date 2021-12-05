@@ -8,7 +8,7 @@ public class MagicMissileProjectile : AProjectile
     private void FixedUpdate()
     {
         if (!despawnAnimationPlaying) MoveProjectile();
-        UpdateShadowPosition();
+        //UpdateShadowPosition();
     }
     private void Start()
     {
@@ -24,7 +24,7 @@ public class MagicMissileProjectile : AProjectile
             //  TODO: Rotate towards target slowly instead of facing it immediately
             HM.RotateTransformToAngle(transform, angleTowardsRoom);
         }
-        rb.MovePosition(transform.position - transform.right * (Mathf.Max(1, ProjectileSpeed * CurrentLifeTime/MaxLifetime)) * Time.deltaTime);
+        rb.MovePosition(transform.position - transform.right * (Mathf.Max(3, ProjectileSpeed * CurrentLifeTime/MaxLifetime)) * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D col)
     {

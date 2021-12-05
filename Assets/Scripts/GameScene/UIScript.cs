@@ -10,7 +10,6 @@ public class UIScript : MonoBehaviour
     //Buttons
     public Button _cruiseButton;
     public Button _rotateBackButton;
-    public Button _matchSpeedButton;
     public Button _pauseButton;
     public Button _xrayButton;
     public Button _settingsButton;
@@ -43,7 +42,9 @@ public class UIScript : MonoBehaviour
     public Image _xrayImage;
 
     //  MatchSpeed
-    private bool matchingSpeed;
+    public Image matchSpeedButtonBG;
+    public Button _matchSpeedButton;
+
 
     //  Double Clicks
 
@@ -95,7 +96,7 @@ public class UIScript : MonoBehaviour
         _cruiseButton.onClick = new Button.ButtonClickedEvent();
         _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
         _matchSpeedButton.onClick = new Button.ButtonClickedEvent();
-        _matchSpeedButton.onClick.AddListener(() => StartToMatchSpeed());
+        _matchSpeedButton.onClick.AddListener(() => AttemptToMatchSpeed());
         _rotateBackButton.onClick = new Button.ButtonClickedEvent();
         _rotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.GetComponent<PlayerTankRotation>().TurnTankUp());
         _settingsButton.onClick = new Button.ButtonClickedEvent();
@@ -152,14 +153,13 @@ public class UIScript : MonoBehaviour
     {
         GameObject go = Instantiate((GameObject)Resources.Load("PlayerWizardUI"));
         PlayerWizardUI u = go.GetComponent<PlayerWizardUI>();
-        u._wizardImage.sprite = unit.Rend.sprite;
+        u._wizardImage.sprite = unit.PlayerUIWizardIcon;
         u._UIWizardName.text = unit.UnitName;
         u._index = unit.Index;
         u._UIWizardKeybind.text = "CTRL + " + u._index.ToString();
         u.button.onClick = new Button.ButtonClickedEvent();
         u.button.onClick.AddListener(() => u.SelectWizard());
         u.wizard = unit;
-
         go.transform.SetParent(_wizardsList.transform, false);
         return u;
     }
@@ -173,13 +173,30 @@ public class UIScript : MonoBehaviour
         if (b) _cruiseButton.image.color = Color.black;
         else _cruiseButton.image.color = Color.white;
     }
-    private void StartToMatchSpeed()
+    private void AttemptToMatchSpeed()
     {
         if(Ref.PCon)
         {
             Ref.PCon.GetComponent<PlayerTankMovement>()._attemptingMatchingSpeed = true;
             Ref.PCon.GetComponent<PlayerTankMovement>().enemyToMatch = null;
             Ref.PCon.GetComponent<PlayerTankMovement>()._matchSpeed = false;
+            SetMatchSpeedButton(1);
+        }
+    }
+    public void SetMatchSpeedButton(int i)
+    {
+        if (i == 0)
+        {
+            matchSpeedButtonBG.color = Color.white;
+        }
+        else if (i == 1)
+        {
+            matchSpeedButtonBG.color = Color.red;
+        }
+        else
+        {
+            matchSpeedButtonBG.color = Color.black;
+
         }
     }
 

@@ -12,6 +12,7 @@ public abstract class AUnit : MonoBehaviour
     public float UnitHealth { get; set; }
     public float UnitSpeed { get; set; }
     public SpriteRenderer Rend { get; set; }
+    public Sprite PlayerUIWizardIcon;
     protected Shader defaultShader;
     public Animator WizardAnimator { get; set; }
     public bool UnitSelected { get; set; }
