@@ -68,7 +68,7 @@ public class MagicMissileProjectile : AProjectile
         target = weapon.TargetedRoom;
         Damage = weapon._weaponStats._damage;
         ProjectileSpeed = weapon._weaponStats._projectileSpeed;
-        transform.position = weapon.transform.position;
+        transform.position = weapon._projectileSpot.position;
         transform.rotation = weapon.transform.rotation;
     }
 }

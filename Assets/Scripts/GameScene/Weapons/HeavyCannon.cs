@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public class BasicCannon : AWeapon
+public class HeavyCannon : AWeapon
 {
     private void Awake()
     {

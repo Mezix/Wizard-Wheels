@@ -21,12 +21,13 @@ public abstract class AWeapon : ISystem
 
     //  Aiming
 
-    public GameObject TargetedRoom;
     public bool WeaponSelected { get; set; }
     public bool WeaponEnabled { get; set; }
     public bool AimAtTarget { get; set; }
     public float AimRotationAngle { get; set; }
     public bool ShouldNotRotate { get; set; }
+    public Transform RotatablePart;
+    public GameObject TargetedRoom;
 
     //  Misc
 
@@ -90,7 +91,8 @@ public abstract class AWeapon : ISystem
         {
             foreach (SpriteRenderer sprite in _weaponSprites)
             {
-                sprite.color = new Color(1, 1, 1, 0.5f);
+                Color c = sprite.color;
+                sprite.color = new Color(c.r, c.g, c.b, 0.5f);
             }
             //print("set weapon to transparent");
         }
@@ -98,7 +100,8 @@ public abstract class AWeapon : ISystem
         {
             foreach (SpriteRenderer sprite in _weaponSprites)
             {
-                sprite.color = new Color(1, 1, 1, 1);
+                Color c = sprite.color;
+                sprite.color = new Color(c.r, c.g, c.b, 1);
             }
             //print("set weapon to solid");
         }
@@ -197,19 +200,19 @@ public abstract class AWeapon : ISystem
     {
         TargetedRoom = null;
         float zRotActual = 0;
-        float diff = AimRotationAngle - transform.rotation.eulerAngles.z;
+        float diff = AimRotationAngle - RotatablePart.rotation.eulerAngles.z;
         if (diff < -180) diff += 360;
 
         if (Mathf.Abs(diff) > RotationSpeed)
         {
-            zRotActual = transform.rotation.eulerAngles.z + Mathf.Sign(diff) * RotationSpeed;
+            zRotActual = RotatablePart.rotation.eulerAngles.z + Mathf.Sign(diff) * RotationSpeed;
         }
         else
         {
             zRotActual = AimRotationAngle;
         }
         //  rotate to this newly calculate angle
-        HM.RotateTransformToAngle(transform, new Vector3(0, 0, zRotActual));
+        HM.RotateTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
 
     }
     public void PointTurretAtTarget()
@@ -229,12 +232,12 @@ public abstract class AWeapon : ISystem
         float zRotToTarget = HM.GetAngle2DBetween(TargetedRoom.transform.position + TargetMoveVector, transform.position);
         //  get closer to the angle with our max rotationspeed
         float zRotActual;
-        float diff = zRotToTarget - transform.rotation.eulerAngles.z;
+        float diff = zRotToTarget - RotatablePart.rotation.eulerAngles.z;
         if (diff < -180) diff += 360;
 
         if (Mathf.Abs(diff) > RotationSpeed)
         {
-            zRotActual = transform.rotation.eulerAngles.z + Mathf.Sign(diff) * RotationSpeed;
+            zRotActual = RotatablePart.rotation.eulerAngles.z + Mathf.Sign(diff) * RotationSpeed;
         }
         else
         {
@@ -243,7 +246,7 @@ public abstract class AWeapon : ISystem
         }
 
         //  rotate to this newly calculate angle
-        HM.RotateTransformToAngle(transform, new Vector3(0, 0, zRotActual));
+        HM.RotateTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
     }
 
     //  USE WEAPON
@@ -279,12 +282,12 @@ public abstract class AWeapon : ISystem
         {
             EnemyWepUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
         }
-        CounterRotateUI();
+        //CounterRotateUI();
     }
-    public void CounterRotateUI()
+    /*public void CounterRotateUI()
     {
-        HM.RotateLocalTransformToAngle(EnemyWepUI.transform, new Vector3(0, 0, -transform.localRotation.eulerAngles.z));
-    }
+        HM.RotateLocalTransformToAngle(EnemyWepUI.transform, new Vector3(0, 0, -RotatablePart.localRotation.eulerAngles.z));
+    }*/
 
     //  Misc
 

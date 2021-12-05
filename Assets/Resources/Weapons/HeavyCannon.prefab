@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 740911756729272562}
   - component: {fileID: 9180991118512004129}
   m_Layer: 0
-  m_Name: BasicCannon
+  m_Name: HeavyCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1635649774529234165}
-  - {fileID: 7462867490529183650}
+  - {fileID: 4486056113902708837}
   - {fileID: 995660803235255240}
   - {fileID: 4020247864400121667}
   - {fileID: 3233156011727659326}
@@ -130,11 +130,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5acb4ef1891b66947baa0c1ef4519f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SystemSprite: {fileID: 0}
+  SystemObj: {fileID: 0}
+  SystemName: 
+  RoomPosForInteraction: {fileID: 0}
   _weaponSprites:
   - {fileID: 3277609481205325202}
   - {fileID: 5819993075432099822}
   _weaponStats: {fileID: 11400000, guid: 76dd4a71ba13fa14d99559157cd83133, type: 2}
-  Room: {fileID: 0}
+  RotatablePart: {fileID: 4486056113902708837}
+  TargetedRoom: {fileID: 0}
   _projectileSpot: {fileID: 995660803235255240}
   EnemyWepUI: {fileID: 244009782503478640}
   UIColor: {r: 1, g: 0, b: 0, a: 0.54509807}
@@ -351,12 +356,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4852491321411585132}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.486, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 0.75000006, y: 0.75000006, z: 0.75}
   m_Children: []
-  m_Father: {fileID: 740911756729272562}
-  m_RootOrder: 1
+  m_Father: {fileID: 4486056113902708837}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &3277609481205325202
 SpriteRenderer:
@@ -396,7 +401,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -706261691
   m_SortingLayer: 4
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 4724bd571854f0c4eb7580e56ccde5b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.54509807}
   m_FlipX: 0
@@ -408,6 +413,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6400358241398785091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4486056113902708837}
+  m_Layer: 0
+  m_Name: RotatablePart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4486056113902708837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6400358241398785091}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7462867490529183650}
+  m_Father: {fileID: 740911756729272562}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2833889530868258708
 PrefabInstance:
   m_ObjectHideFlags: 0

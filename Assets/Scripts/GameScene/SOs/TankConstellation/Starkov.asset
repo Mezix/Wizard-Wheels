@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
-  m_Name: PlayerRooms
+  m_Name: Starkov
   m_EditorClassIdentifier: 
   XTilesAmount: 7
   YTilesAmount: 5
@@ -40,8 +40,8 @@ MonoBehaviour:
         TirePrefab: {fileID: 0}
         WallUp: 0
         WallRight: 0
-        WallDown: 0
-        WallLeft: 0
+        WallDown: 1
+        WallLeft: 1
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
@@ -60,7 +60,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
-        WallUp: 0
+        WallUp: 1
         WallRight: 0
         WallDown: 0
         WallLeft: 0
@@ -100,15 +100,15 @@ MonoBehaviour:
           type: 3}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
+        WallUp: 1
+        WallRight: 1
         WallDown: 0
         WallLeft: 0
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         WallUp: 0
-        WallRight: 0
+        WallRight: 1
         WallDown: 0
         WallLeft: 0
       - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
@@ -135,8 +135,10 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
     - YStuff:
-      - RoomPrefab: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
+      - RoomPrefab: {fileID: 3928980102496950996, guid: dd297aab04eed1541be16c0cc84b6f5f,
+          type: 3}
+        RoomSystemPrefab: {fileID: 1723648633549023116, guid: f8f43c915f3802a4393bca830b2776b4,
+          type: 3}
         TirePrefab: {fileID: 0}
         WallUp: 0
         WallRight: 0
