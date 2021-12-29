@@ -35,7 +35,7 @@ public class UIScript : MonoBehaviour
 
     // Health
     public GameObject _healthBarParent;
-    public List<Image> _allHealthBarUnits;
+    public List<Image> _allHPSegments;
 
     //  XRay 
     public bool _xrayOn;
@@ -283,34 +283,42 @@ public class UIScript : MonoBehaviour
     //  Health
     public void CreateHealthbar(int maxHealth)
     {
-        if(_allHealthBarUnits.Count > 0)
+        if(_allHPSegments.Count > 0)
         {
-            foreach(Image g in _allHealthBarUnits) Destroy(g);
-            _allHealthBarUnits.Clear();
+            foreach(Image g in _allHPSegments) Destroy(g);
+            _allHPSegments.Clear();
         }
         for(int i = 0; i < maxHealth; i++)
         {
             GameObject tmp = Instantiate((GameObject) Resources.Load("HPSegment"));
-            _allHealthBarUnits.Add(tmp.GetComponent<Image>());
+            Image img = tmp.GetComponent<Image>();
+
+            if (i == 0) img.sprite = Resources.Load("Art\\UI\\HP Segment Left", typeof(Sprite)) as Sprite;
+            else if(i == maxHealth-1) img.sprite = Resources.Load("Art\\UI\\HP Segment Right", typeof(Sprite)) as Sprite;
+            else img.sprite = Resources.Load("Art\\UI\\HP Segment Middle", typeof(Sprite)) as Sprite;
+
+            _allHPSegments.Add(img);
             tmp.transform.SetParent(_healthBarParent.transform, false);
         }
     }
     public void UpdateHealthBar(int current, int maxHealth)
     {
         current = Mathf.Max(0, current);
-        for (int i = 0; i < maxHealth - 1; i++)
+        for (int i = maxHealth - 1; i > 0; i--)
         {
-            SetHealthUnitStatus(i, true); //set all health to full
+            if(i > current)
+            {
+                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Broken Left", typeof(Sprite)) as Sprite;
+                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Broken Right", typeof(Sprite)) as Sprite;
+                else _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Broken Middle", typeof(Sprite)) as Sprite;
+            }
+            else
+            {
+                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Left", typeof(Sprite)) as Sprite;
+                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Right", typeof(Sprite)) as Sprite;
+                else _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Middle", typeof(Sprite)) as Sprite;
+            }
         }
-        for (int i = maxHealth-1; i > current-1; i--)
-        {
-            SetHealthUnitStatus(i, false); //now set all the destroyed health
-        }
-    }
-    public void SetHealthUnitStatus(int i, bool full)
-    {
-        if(full) _allHealthBarUnits[i].color = Color.white;
-        else _allHealthBarUnits[i].color = Color.black;
     }
     public void SpawnGameOverScreen()
     {
