@@ -42,8 +42,8 @@ public class UIScript : MonoBehaviour
     public Image _xrayImage;
 
     //  MatchSpeed
-    public Image matchSpeedButtonBG;
-    public Button _matchSpeedButton;
+    //public Image matchSpeedButtonBG;
+    //public Button _matchSpeedButton;
 
 
     //  Double Clicks
@@ -95,8 +95,8 @@ public class UIScript : MonoBehaviour
     {
         _cruiseButton.onClick = new Button.ButtonClickedEvent();
         _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
-        _matchSpeedButton.onClick = new Button.ButtonClickedEvent();
-        _matchSpeedButton.onClick.AddListener(() => AttemptToMatchSpeed());
+        //_matchSpeedButton.onClick = new Button.ButtonClickedEvent();
+        //_matchSpeedButton.onClick.AddListener(() => AttemptToMatchSpeed());
         _rotateBackButton.onClick = new Button.ButtonClickedEvent();
         _rotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.GetComponent<PlayerTankRotation>().TurnTankUp());
         _settingsButton.onClick = new Button.ButtonClickedEvent();
@@ -180,10 +180,10 @@ public class UIScript : MonoBehaviour
             Ref.PCon.GetComponent<PlayerTankMovement>()._attemptingMatchingSpeed = true;
             Ref.PCon.GetComponent<PlayerTankMovement>().enemyToMatch = null;
             Ref.PCon.GetComponent<PlayerTankMovement>()._matchSpeed = false;
-            SetMatchSpeedButton(1);
+            //SetMatchSpeedButton(1);
         }
     }
-    public void SetMatchSpeedButton(int i)
+    /*public void SetMatchSpeedButton(int i)
     {
         if (i == 0)
         {
@@ -198,7 +198,7 @@ public class UIScript : MonoBehaviour
             matchSpeedButtonBG.color = Color.black;
 
         }
-    }
+    }*/
 
     //  XRay
 

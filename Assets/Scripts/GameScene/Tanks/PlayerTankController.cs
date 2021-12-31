@@ -172,7 +172,7 @@ public class PlayerTankController : TankController
                 TMov._attemptingMatchingSpeed = false;
                 TMov._matchSpeed = false;
                 TMov.TurnOnCruise(true);
-                Ref.UI.SetMatchSpeedButton(0);
+                //Ref.UI.SetMatchSpeedButton(0);
             }
         }
     }

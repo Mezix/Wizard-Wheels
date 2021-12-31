@@ -123,18 +123,18 @@ public class PlayerTankMovement : TankMovement
                 _matchSpeed = true;
                 enemyToMatch = e;
                 TurnOnCruise(true);
-                Ref.UI.SetMatchSpeedButton(2);
+               // Ref.UI.SetMatchSpeedButton(2);
             }
             else
             {
                 print("error couldnt find enemy to match");
-                Ref.UI.SetMatchSpeedButton(0);
+                //Ref.UI.SetMatchSpeedButton(0);
             }
         }
         else
         {
             print("error couldnt find enemy to match");
-            Ref.UI.SetMatchSpeedButton(0);
+            //Ref.UI.SetMatchSpeedButton(0);
         }
         _attemptingMatchingSpeed = false;
     }
@@ -193,7 +193,7 @@ public class PlayerTankMovement : TankMovement
         if (b)
         {
             _matchSpeed = false;
-            Ref.UI.SetMatchSpeedButton(0);
+            //Ref.UI.SetMatchSpeedButton(0);
         }
     }
 }

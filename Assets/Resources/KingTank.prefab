@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6385456487747659236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6385456487747659243}
+  - component: {fileID: 5027062046961988352}
+  - component: {fileID: 3123129469221447086}
+  - component: {fileID: 3967959686328043720}
+  - component: {fileID: 8108676546800360678}
+  - component: {fileID: 8239155493298000636}
+  - component: {fileID: 1291034475881204564}
+  - component: {fileID: 3787077506681756485}
+  m_Layer: 0
+  m_Name: KingTank
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6385456487747659243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -7.02, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5027062046961988352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2ca821a31eb8740a8c220e033efc41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tStats: {fileID: 11400000, guid: 38f853e94e77a3946a479443944be7e9, type: 2}
+  _tankName: Druskelle
+  _wizardsToSpawn: []
+  _spawnedWizards: []
+  _dying: 0
+  _dead: 0
+  _tankColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &3123129469221447086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb5b5a8a694164a4ca882e49a622357a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSpeed: 0
+  moveVector: {x: 0, y: 0, z: 0}
+  acceleration: 0.0025
+  deceleration: 0.005
+  maxSpeed: 3
+  Tires: []
+--- !u!114 &3967959686328043720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87b606d40c7d7a844a4440bd346a5982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotatableObjects: []
+  rotationspeed: 50
+  AngleToRotateTo: 0
+--- !u!114 &8108676546800360678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08126cd1345d1374291bdb4d32c97add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AWeaponArray: []
+  ISystemArray: []
+  EnemyBasicCannon: {fileID: 11400000, guid: e7429deb239e1f64f92b3e72426c508f, type: 2}
+--- !u!114 &8239155493298000636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e809fbaafb0d15d459e53d47588aa279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 0
+  _currentHealth: 0
+  _healthBarParent: {fileID: 0}
+  _allHealthBarUnits: []
+--- !u!114 &1291034475881204564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b56098410987c5f48bfa1f90cc65c626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tankRoomConstellation: {fileID: 11400000, guid: fa1f9daad944bfc4e9dbeedea4ca2b79,
+    type: 2}
+  systemIcons: []
+  FloorColor: {r: 1, g: 0.80230397, b: 0.7122642, a: 1}
+  RoofColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!50 &3787077506681756485
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
