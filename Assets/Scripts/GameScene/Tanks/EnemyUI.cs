@@ -8,7 +8,7 @@ public class EnemyUI : MonoBehaviour
     [SerializeField]
     private Button trackCameraButton;
     [SerializeField]
-    private GameObject hpBG;
+    private Button matchSpeedButton;
     private Canvas canvas;
     public GameObject hpBar;
     public Text tankNameText;
@@ -23,10 +23,5 @@ public class EnemyUI : MonoBehaviour
         trackCameraButton.onClick = new Button.ButtonClickedEvent();
         trackCameraButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToObject(transform.root));
         canvas.sortingLayerName = "VehicleUI";
-    }
-    public void ScaleTankHealth(float maxHp)
-    {
-        RectTransform r = hpBG.GetComponent<RectTransform>();
-        r.sizeDelta = new Vector2(maxHp * (20 + hpBar.GetComponent<HorizontalLayoutGroup>().spacing) + 75, r.sizeDelta.y);
     }
 }

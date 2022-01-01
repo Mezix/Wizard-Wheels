@@ -75,7 +75,6 @@ public class EnemyTankController : TankController
         }
         THealth.InitHealth();
         enemyUI.tankNameText.text = _tankName;
-        enemyUI.ScaleTankHealth(THealth._maxHealth);
     }
     public void TakeDamage(int damage)
     {

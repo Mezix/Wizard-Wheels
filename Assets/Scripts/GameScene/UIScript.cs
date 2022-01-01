@@ -211,7 +211,7 @@ public class UIScript : MonoBehaviour
     {
         if (xrayOn)
         {
-            _xrayImage.sprite = Resources.Load("Art\\UI\\eye_opened", typeof(Sprite)) as Sprite;
+            _xrayImage.sprite = Resources.Load("Art\\UI\\XRayOn", typeof(Sprite)) as Sprite;
 
             //  Player
 
@@ -246,7 +246,7 @@ public class UIScript : MonoBehaviour
         }
         else
         {
-            _xrayImage.sprite = Resources.Load("Art\\UI\\eye_closed", typeof(Sprite)) as Sprite;
+            _xrayImage.sprite = Resources.Load("Art\\UI\\XRayOff", typeof(Sprite)) as Sprite;
 
             //  Player
 
@@ -293,9 +293,9 @@ public class UIScript : MonoBehaviour
             GameObject tmp = Instantiate((GameObject) Resources.Load("HPSegment"));
             Image img = tmp.GetComponent<Image>();
 
-            if (i == 0) img.sprite = Resources.Load("Art\\UI\\HP Segment Left", typeof(Sprite)) as Sprite;
-            else if(i == maxHealth-1) img.sprite = Resources.Load("Art\\UI\\HP Segment Right", typeof(Sprite)) as Sprite;
-            else img.sprite = Resources.Load("Art\\UI\\HP Segment Middle", typeof(Sprite)) as Sprite;
+            if (i == 0) img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Left", typeof(Sprite)) as Sprite;
+            else if(i == maxHealth-1) img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Right", typeof(Sprite)) as Sprite;
+            else img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Middle", typeof(Sprite)) as Sprite;
 
             _allHPSegments.Add(img);
             tmp.transform.SetParent(_healthBarParent.transform, false);
@@ -308,15 +308,15 @@ public class UIScript : MonoBehaviour
         {
             if(i > current)
             {
-                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Broken Left", typeof(Sprite)) as Sprite;
-                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Broken Right", typeof(Sprite)) as Sprite;
-                else _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Broken Middle", typeof(Sprite)) as Sprite;
+                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Broken Left", typeof(Sprite)) as Sprite;
+                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Broken Right", typeof(Sprite)) as Sprite;
+                else _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Broken Middle", typeof(Sprite)) as Sprite;
             }
             else
             {
-                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Left", typeof(Sprite)) as Sprite;
-                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Right", typeof(Sprite)) as Sprite;
-                else _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Segment Middle", typeof(Sprite)) as Sprite;
+                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Left", typeof(Sprite)) as Sprite;
+                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Right", typeof(Sprite)) as Sprite;
+                else _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Middle", typeof(Sprite)) as Sprite;
             }
         }
     }

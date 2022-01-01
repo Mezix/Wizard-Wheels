@@ -116,7 +116,7 @@ public class TankGeometry : MonoBehaviour
             for (int y = startY; y < startY + sizeY; y++)
             {
                 Tile t = (Tile)Resources.Load("Tiles\\Floor\\DefaultFloorTile");
-                t.color = FloorColor;
+                //t.color = FloorColor;
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
                 
             }
