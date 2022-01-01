@@ -42,15 +42,13 @@ public class UIScript : MonoBehaviour
     public Image _xrayImage;
 
     //  MatchSpeed
-    //public Image matchSpeedButtonBG;
-    //public Button _matchSpeedButton;
-
+    public Image _matchSpeedImage;
+    public Button _unmatchSpeedButton;
 
     //  Double Clicks
 
     public float timeBetweenMouseClicks;
     public GameObject LastWizardOrWeaponClicked;
-
 
     //  Weapon Out Of Range
 
@@ -95,8 +93,7 @@ public class UIScript : MonoBehaviour
     {
         _cruiseButton.onClick = new Button.ButtonClickedEvent();
         _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
-        //_matchSpeedButton.onClick = new Button.ButtonClickedEvent();
-        //_matchSpeedButton.onClick.AddListener(() => AttemptToMatchSpeed());
+        _unmatchSpeedButton.onClick.AddListener(() => UnmatchSpeed());
         _rotateBackButton.onClick = new Button.ButtonClickedEvent();
         _rotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.GetComponent<PlayerTankRotation>().TurnTankUp());
         _settingsButton.onClick = new Button.ButtonClickedEvent();
@@ -112,6 +109,13 @@ public class UIScript : MonoBehaviour
         _saveWizardsButton.onClick = new Button.ButtonClickedEvent();
         _saveWizardsButton.onClick.AddListener(() => Ref.PCon.SaveAllWizardPositions());
     }
+
+    private void UnmatchSpeed()
+    {
+        _unmatchSpeedButton.gameObject.SetActive(false);
+        Ref.PCon.TMov.enemyToMatch.GetComponent<EnemyTankController>().enemyUI.MatchSpeed(Ref.PCon.TMov.enemyToMatch, false);
+    }
+
     public void InitSliders()
     {
         _currentSpeedSlider.value = Ref.PCon.TMov.currentSpeed;
@@ -168,28 +172,6 @@ public class UIScript : MonoBehaviour
     {
         Ref.PCon.TMov.cruiseModeOn = true;
     }
-    public void TurnOnCruiseMode(bool b)
-    {
-        if (b) _cruiseButton.image.color = Color.black;
-        else _cruiseButton.image.color = Color.white;
-    }
-    
-    /*public void SetMatchSpeedButton(int i)
-    {
-        if (i == 0)
-        {
-            matchSpeedButtonBG.color = Color.white;
-        }
-        else if (i == 1)
-        {
-            matchSpeedButtonBG.color = Color.red;
-        }
-        else
-        {
-            matchSpeedButtonBG.color = Color.black;
-
-        }
-    }*/
 
     //  XRay
 

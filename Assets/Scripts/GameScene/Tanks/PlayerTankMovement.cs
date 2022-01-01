@@ -9,7 +9,7 @@ public class PlayerTankMovement : TankMovement
     public bool cruiseModeOn;
     public bool _matchSpeed;
     [HideInInspector]
-    public TankMovement enemyToMatch;
+    public EnemyTankMovement enemyToMatch;
     public bool movementInput;
 
     void Update()
@@ -26,6 +26,7 @@ public class PlayerTankMovement : TankMovement
         else DeathDeacceleration();
 
         SetTireAnimationSpeed();
+        UpdateEngineUI(cruiseModeOn);
         UpdateCurrentSpeedSlider();
 
         if (!cruiseModeOn && !movementInput) Decelerate();
@@ -104,26 +105,20 @@ public class PlayerTankMovement : TankMovement
                 return;
             }
         }
-        Ref.SD.SetSpeed(currentSpeed);
     }
 
-    public void MatchSpeed(EnemyTankMovement e)
+    public void MatchSpeed(EnemyTankMovement e, bool b)
     {
         if (e)
         {
-            _matchSpeed = true;
+            _matchSpeed = b;
             enemyToMatch = e;
             TurnOnCruise(true);
-
-            //  Set UI to say we are matching speed, unhide the button that lets us stop matching
-
-            // Ref.UI.SetMatchSpeedButton(2);
         }
         else
         {
             _matchSpeed = false;
             print("error couldnt find enemy to match");
-            //Ref.UI.SetMatchSpeedButton(0);
         }
     }
     public void SlowlyMatchEnemySpeed()
@@ -176,12 +171,16 @@ public class PlayerTankMovement : TankMovement
     public void TurnOnCruise(bool b)
     {
         cruiseModeOn = b;
-        Ref.UI.TurnOnCruiseMode(b);
-
         if (!b)
         {
             _matchSpeed = false;
-            //Ref.UI.SetMatchSpeedButton(0);
         }
+    }
+    public void UpdateEngineUI(bool b)
+    {
+        if (b) Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 1 + (currentSpeed/maxSpeed * 4);
+        else Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 0;
+
+        Ref.SD.SetSpeed(currentSpeed);
     }
 }

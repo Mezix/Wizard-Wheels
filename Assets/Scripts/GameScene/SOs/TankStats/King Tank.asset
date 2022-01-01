@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f674d45ae9713ba41a769dacb7086dbb, type: 3}
   m_Name: King Tank
   m_EditorClassIdentifier: 
-  _tankName: Laputa
+  _tankName: Mooshka
   _tankHealth: 40
   _tankMaxSpeed: 1
   _tankAccel: 0.005

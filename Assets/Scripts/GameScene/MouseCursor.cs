@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class MouseCursor : MonoBehaviour
 {
     private SpriteRenderer mouseRend;
-
+    private bool select;
     [SerializeField]
     private RectTransform boxVisual;
 
@@ -33,7 +33,6 @@ public class MouseCursor : MonoBehaviour
         //Cursor.visible = false; //disable the unity default mouse cursor
         
         selectionBox = new Rect();
-        DrawVisual();
         cursorAnimator.SetBool("clicked", false);
         InitMovementIndicators();
     }
@@ -114,20 +113,29 @@ public class MouseCursor : MonoBehaviour
     public void HandleMouseSelectionInput()
     {
         //Check for selecting ui first!
-        
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             startPosition = Input.mousePosition;
+            if (IsPointerOverUIElement())
+            {
+                boxVisual.gameObject.SetActive(false);
+                select = false;
+            }
+            else
+            {
+                boxVisual.gameObject.SetActive(true);
+                select = true;
+            }
         }
         if (Input.GetMouseButton(0))
         {
             endPosition = Input.mousePosition;
             DrawVisual();
-            DrawSelection();
+            CreateRectSelection();
         }
         if (Input.GetMouseButtonUp(0))
         {
-            SelectUnits();
+            if(select) SelectUnits();
             startPosition = Vector2.zero;
             endPosition = Vector2.zero;
             DrawVisual();
@@ -145,7 +153,7 @@ public class MouseCursor : MonoBehaviour
 
         boxVisual.sizeDelta = boxSize;
     }
-    public void DrawSelection()
+    public void CreateRectSelection()
     {
         if(Input.mousePosition.x < startPosition.x)
         {
@@ -188,10 +196,6 @@ public class MouseCursor : MonoBehaviour
             wizard.UnitSelected = false;
         }
     }
-
-    //  Zooming
-
-    
 
     //  Mouse Cursor
 

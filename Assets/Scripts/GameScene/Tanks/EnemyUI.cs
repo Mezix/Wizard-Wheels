@@ -17,11 +17,9 @@ public class EnemyUI : MonoBehaviour
     public Text tankNameText;
     void Awake()
     {
-        matching = false;
+        matching = true;
         canvas = GetComponent<Canvas>();
-        //InitUI(e);
     }
-
     public void InitUI(string name, EnemyTankMovement e)
     {
         tankNameText.text = name;
@@ -31,12 +29,12 @@ public class EnemyUI : MonoBehaviour
         matchSpeedButton.onClick.AddListener(() => MatchSpeed(e, matching));
         canvas.sortingLayerName = "VehicleUI";
     }
-
     public void MatchSpeed(EnemyTankMovement e, bool b)
     {
+        Ref.UI._matchSpeedImage.gameObject.SetActive(b);
+        Ref.PCon.TMov.MatchSpeed(e, b);
         if (b) matchSpeedImg.sprite = Resources.Load("Art\\UI\\Match_Speed_On", typeof(Sprite)) as Sprite;
         else matchSpeedImg.sprite = Resources.Load("Art\\UI\\Match_Speed_Off", typeof(Sprite)) as Sprite;
         matching = !b;
-        Ref.PCon.TMov.MatchSpeed(e);
     }
 }
