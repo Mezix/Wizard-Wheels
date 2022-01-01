@@ -110,6 +110,7 @@ public class PlayerTankMovement : TankMovement
                 return;
             }
         }
+        Ref.SD.SetSpeed(currentSpeed);
     }
 
     private void AttemptMatchSpeed()

@@ -29,25 +29,12 @@ public class Ref : MonoBehaviour
     /// Wether or not the player is dead
     /// </summary>
     public static bool PDead;
-    /// <summary>
-    /// The Camera Script
-    /// </summary>
+
     public static CameraScript Cam;
-    /// <summary>
-    /// The UI Script
-    /// </summary>
     public static UIScript UI;
-    /// <summary>
-    /// timeManager
-    /// </summary>
+    public static SpeedDisplay SD;
     public static TimeManager TM;
-    /// <summary>
-    /// The MouseCursorScript
-    /// </summary>
     public static MouseCursor mouse;
-    /// <summary>
-    /// The CrosshairManager Script
-    /// </summary>
     public static CrosshairManager c;
 
     public static UnitPathfinding Path;
