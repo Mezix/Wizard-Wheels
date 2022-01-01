@@ -654,7 +654,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 72a75c503b200664b8a7e2b3168f0945, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ad576e5d506a5de41b42338ab79bdafc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -777,8 +777,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trackCameraButton: {fileID: 1222826905599123341}
-  matchSpeedButton: {fileID: 0}
-  hpBG: {fileID: 3428478152624646297}
+  matchSpeedButton: {fileID: 4681004788366893655}
+  matchSpeedImg: {fileID: 1666546628384717815}
   hpBar: {fileID: 806130188320315697}
   tankNameText: {fileID: 4738815842263478513}
 --- !u!1 &9214294901194540403

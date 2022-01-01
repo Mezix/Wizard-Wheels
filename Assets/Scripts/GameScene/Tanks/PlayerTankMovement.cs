@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class PlayerTankMovement : TankMovement
 {
     public bool cruiseModeOn;
-    [HideInInspector]
-    public bool _attemptingMatchingSpeed;
     public bool _matchSpeed;
     [HideInInspector]
     public TankMovement enemyToMatch;
@@ -16,10 +14,6 @@ public class PlayerTankMovement : TankMovement
 
     void Update()
     {
-        if(_attemptingMatchingSpeed)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0)) AttemptMatchSpeed();
-        }
         if (!Ref.PCon._dying)
         {
             if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
@@ -113,31 +107,24 @@ public class PlayerTankMovement : TankMovement
         Ref.SD.SetSpeed(currentSpeed);
     }
 
-    private void AttemptMatchSpeed()
+    public void MatchSpeed(EnemyTankMovement e)
     {
-        RaycastHit2D ray = HM.RaycastToMouseCursor();
-        if (ray.collider)
+        if (e)
         {
-            EnemyTankMovement e = ray.collider.transform.root.GetComponentInChildren<EnemyTankMovement>();
-            if (e)
-            {
-                _matchSpeed = true;
-                enemyToMatch = e;
-                TurnOnCruise(true);
-               // Ref.UI.SetMatchSpeedButton(2);
-            }
-            else
-            {
-                print("error couldnt find enemy to match");
-                //Ref.UI.SetMatchSpeedButton(0);
-            }
+            _matchSpeed = true;
+            enemyToMatch = e;
+            TurnOnCruise(true);
+
+            //  Set UI to say we are matching speed, unhide the button that lets us stop matching
+
+            // Ref.UI.SetMatchSpeedButton(2);
         }
         else
         {
+            _matchSpeed = false;
             print("error couldnt find enemy to match");
             //Ref.UI.SetMatchSpeedButton(0);
         }
-        _attemptingMatchingSpeed = false;
     }
     public void SlowlyMatchEnemySpeed()
     {
@@ -163,7 +150,7 @@ public class PlayerTankMovement : TankMovement
 
     private void EmergencyBrake()
     {
-
+        //Damage shield or hull once and stop extremely quickly
     }
     
     public void DeathDeacceleration()
@@ -191,7 +178,7 @@ public class PlayerTankMovement : TankMovement
         cruiseModeOn = b;
         Ref.UI.TurnOnCruiseMode(b);
 
-        if (b)
+        if (!b)
         {
             _matchSpeed = false;
             //Ref.UI.SetMatchSpeedButton(0);

@@ -74,7 +74,7 @@ public class EnemyTankController : TankController
             print("Enemy has no stats, adding defaults!");
         }
         THealth.InitHealth();
-        enemyUI.tankNameText.text = _tankName;
+        enemyUI.InitUI(_tankName, TMov);
     }
     public void TakeDamage(int damage)
     {

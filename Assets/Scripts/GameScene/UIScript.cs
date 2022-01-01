@@ -173,16 +173,7 @@ public class UIScript : MonoBehaviour
         if (b) _cruiseButton.image.color = Color.black;
         else _cruiseButton.image.color = Color.white;
     }
-    private void AttemptToMatchSpeed()
-    {
-        if(Ref.PCon)
-        {
-            Ref.PCon.GetComponent<PlayerTankMovement>()._attemptingMatchingSpeed = true;
-            Ref.PCon.GetComponent<PlayerTankMovement>().enemyToMatch = null;
-            Ref.PCon.GetComponent<PlayerTankMovement>()._matchSpeed = false;
-            //SetMatchSpeedButton(1);
-        }
-    }
+    
     /*public void SetMatchSpeedButton(int i)
     {
         if (i == 0)
