@@ -14,8 +14,6 @@ public class UIScript : MonoBehaviour
     public Button _xrayButton;
     public Button _settingsButton;
     public Button _trackPlayerTankButton;
-    public Button _returnWizardsButton;
-    public Button _saveWizardsButton;
 
     //Sliders
     public Slider _currentSpeedSlider;
@@ -54,13 +52,27 @@ public class UIScript : MonoBehaviour
 
     public GameObject WeaponOutOfRangeParent;
 
+    //  Save and return Wizards to Positions
+
+    public Button _saveWizardsButton;
+    public Image _saveWizardsImage;
+    public Button _returnWizardsButton;
+    public Image _returnWizardsImage;
+    private bool wizardsSaved;
+
+    //  Emergency Brake
+
+    public Toggle EmergencyBrakeToggle;
+
     private void Awake()
     {
         _settingsOn = false;
+        wizardsSaved = false;
         Ref.UI = this;
     }
     private void Start()
     {
+        SaveWizards(wizardsSaved);
         timeBetweenMouseClicks = 0;
         InitButtons();
         _xrayOn = true;
@@ -71,10 +83,10 @@ public class UIScript : MonoBehaviour
 
     private void CheckDoubleClick(GameObject obj)
     {
-        if(LastWizardOrWeaponClicked)
-        if(LastWizardOrWeaponClicked.Equals(obj))
-        if(timeBetweenMouseClicks < 0.25f)
-        Ref.Cam.SetTrackedVehicleToObject(obj.transform);
+        if (LastWizardOrWeaponClicked)
+            if (LastWizardOrWeaponClicked.Equals(obj))
+                if (timeBetweenMouseClicks < 0.25f)
+                    Ref.Cam.SetTrackedVehicleToObject(obj.transform);
         Ref.Cam.SetDesiredZoom(Ref.Cam.maxZoom);
 
         LastWizardOrWeaponClicked = obj;
@@ -84,7 +96,7 @@ public class UIScript : MonoBehaviour
     private void Update()
     {
         timeBetweenMouseClicks += Time.deltaTime;
-        if(Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             ToggleVision();
         }
@@ -107,7 +119,9 @@ public class UIScript : MonoBehaviour
         _returnWizardsButton.onClick = new Button.ButtonClickedEvent();
         _returnWizardsButton.onClick.AddListener(() => Ref.PCon.ReturnAllWizardsToSavedPositions());
         _saveWizardsButton.onClick = new Button.ButtonClickedEvent();
-        _saveWizardsButton.onClick.AddListener(() => Ref.PCon.SaveAllWizardPositions());
+        _saveWizardsButton.onClick.AddListener(() => SaveWizards(true));
+        EmergencyBrakeToggle.onValueChanged = new Toggle.ToggleEvent();
+        EmergencyBrakeToggle.onValueChanged.AddListener(delegate {EmergencyBrake(EmergencyBrakeToggle);});
     }
 
     private void UnmatchSpeed()
@@ -136,13 +150,13 @@ public class UIScript : MonoBehaviour
     }
     public void CloseSettings()
     {
-        if(!TimeManager.paused) Ref.TM.UnfreezeTime();
+        if (!TimeManager.paused) Ref.TM.UnfreezeTime();
         _settings.SetActive(false);
         _settingsOn = false;
     }
     public PlayerWeaponUI CreateWeaponUI(AWeapon iwp)
     {
-        GameObject go = Instantiate((GameObject) Resources.Load("Weapons\\PlayerWeaponUI"));
+        GameObject go = Instantiate((GameObject)Resources.Load("Weapons\\PlayerWeaponUI"));
         PlayerWeaponUI wp = go.GetComponent<PlayerWeaponUI>();
         wp._weaponImage.sprite = iwp._weaponStats._UISprite;
         wp._UIWeaponName.text = iwp.SystemName;
@@ -150,7 +164,7 @@ public class UIScript : MonoBehaviour
         wp._weapon = iwp;
         wp._UIWeaponIndex.text = iwp.EnemyWepUI.WeaponIndex.ToString();
 
-        go.transform.SetParent(_weaponsList.transform,false);
+        go.transform.SetParent(_weaponsList.transform, false);
         return wp;
     }
     public PlayerWizardUI CreateWizardUI(AUnit unit)
@@ -188,9 +202,9 @@ public class UIScript : MonoBehaviour
 
             //  Player
 
-            if(Ref.PCon)
+            if (Ref.PCon)
             {
-                foreach(AWeapon wep in Ref.PCon.TWep.AWeaponArray)
+                foreach (AWeapon wep in Ref.PCon.TWep.AWeaponArray)
                 {
                     wep.SetOpacity(true);
                 }
@@ -199,15 +213,15 @@ public class UIScript : MonoBehaviour
 
             //  Enemies
 
-            if(Ref.EM)
+            if (Ref.EM)
             {
-                if(Ref.EM._enemies.Count > 0)
+                if (Ref.EM._enemies.Count > 0)
                 {
-                    foreach(GameObject g in Ref.EM._enemies)
+                    foreach (GameObject g in Ref.EM._enemies)
                     {
-                        foreach(AWeapon wep in g.GetComponent<EnemyTankController>().TWep.AWeaponArray)
+                        foreach (AWeapon wep in g.GetComponent<EnemyTankController>().TWep.AWeaponArray)
                         {
-                             wep.SetOpacity(true);
+                            wep.SetOpacity(true);
                         }
                         g.GetComponent<EnemyTankController>().TGeo.ShowRoof(false);
                     }
@@ -231,7 +245,7 @@ public class UIScript : MonoBehaviour
                     Ref.PCon.TGeo.ShowRoof(true);
                 }
             }
-            
+
             //  Enemies
 
             if (Ref.EM)
@@ -256,18 +270,18 @@ public class UIScript : MonoBehaviour
     //  Health
     public void CreateHealthbar(int maxHealth)
     {
-        if(_allHPSegments.Count > 0)
+        if (_allHPSegments.Count > 0)
         {
-            foreach(Image g in _allHPSegments) Destroy(g);
+            foreach (Image g in _allHPSegments) Destroy(g);
             _allHPSegments.Clear();
         }
-        for(int i = 0; i < maxHealth; i++)
+        for (int i = 0; i < maxHealth; i++)
         {
-            GameObject tmp = Instantiate((GameObject) Resources.Load("HPSegment"));
+            GameObject tmp = Instantiate((GameObject)Resources.Load("HPSegment"));
             Image img = tmp.GetComponent<Image>();
 
             if (i == 0) img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Left", typeof(Sprite)) as Sprite;
-            else if(i == maxHealth-1) img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Right", typeof(Sprite)) as Sprite;
+            else if (i == maxHealth - 1) img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Right", typeof(Sprite)) as Sprite;
             else img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Middle", typeof(Sprite)) as Sprite;
 
             _allHPSegments.Add(img);
@@ -279,7 +293,7 @@ public class UIScript : MonoBehaviour
         current = Mathf.Max(0, current);
         for (int i = maxHealth - 1; i > 0; i--)
         {
-            if(i > current)
+            if (i > current)
             {
                 if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Broken Left", typeof(Sprite)) as Sprite;
                 else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Broken Right", typeof(Sprite)) as Sprite;
@@ -295,11 +309,11 @@ public class UIScript : MonoBehaviour
     }
     public void SpawnGameOverScreen()
     {
-        GameObject gameOver = Instantiate((GameObject) Resources.Load("GameOverScreen"));
+        GameObject gameOver = Instantiate((GameObject)Resources.Load("GameOverScreen"));
         gameOver.transform.position = Vector3.zero;
         gameOver.transform.SetParent(transform, false);
-        List<Button> buttons =  gameOver.GetComponentsInChildren<Button>().ToList();
-        foreach(Button b in buttons)
+        List<Button> buttons = gameOver.GetComponentsInChildren<Button>().ToList();
+        foreach (Button b in buttons)
         {
             b.onClick = new Button.ButtonClickedEvent();
             b.onClick.AddListener(() => LevelManager.instance.GoToMainMenu());
@@ -311,12 +325,12 @@ public class UIScript : MonoBehaviour
         List<Image> images = WeaponOutOfRangeParent.GetComponentsInChildren<Image>().ToList();
         int time = 50;
         WeaponOutOfRangeParent.SetActive(true);
-        for(int i = 0; i < time/2; i++)
+        for (int i = 0; i < time / 2; i++)
         {
-            foreach(Image img in images)
+            foreach (Image img in images)
             {
                 Color c = img.color;
-                img.color = new Color(c.r, c.g, c.b, i/(time/2f));
+                img.color = new Color(c.r, c.g, c.b, i / (time / 2f));
             }
             yield return new WaitForSecondsRealtime(0.01f);
         }
@@ -325,10 +339,32 @@ public class UIScript : MonoBehaviour
             foreach (Image img in images)
             {
                 Color c = img.color;
-                img.color = new Color(c.r, c.g, c.b, 1 - i/(time/2f));
+                img.color = new Color(c.r, c.g, c.b, 1 - i / (time / 2f));
             }
             yield return new WaitForSecondsRealtime(0.01f);
         }
         WeaponOutOfRangeParent.SetActive(false);
+    }
+
+    private void SaveWizards(bool b)
+    {
+        if(b)
+        {
+            _saveWizardsImage.sprite = Resources.Load("Art\\UI\\Save_Wizards_Green", typeof(Sprite)) as Sprite;
+            _returnWizardsImage.sprite = Resources.Load("Art\\UI\\Return_Wizards_Brown", typeof(Sprite)) as Sprite;
+            _returnWizardsButton.interactable = true;
+        }
+        else
+        {
+            _saveWizardsImage.sprite = Resources.Load("Art\\UI\\Save_Wizards_Brown", typeof(Sprite)) as Sprite;
+            _returnWizardsImage.sprite = Resources.Load("Art\\UI\\Return_Wizards_Red", typeof(Sprite)) as Sprite;
+            _returnWizardsButton.interactable = false;
+        }
+        Ref.PCon.SaveAllWizardPositions();
+    }
+
+    private void EmergencyBrake(Toggle t)
+    {
+        Ref.PCon.TMov.EmergencyBrake(t.isOn);
     }
 }

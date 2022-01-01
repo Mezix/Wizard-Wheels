@@ -143,8 +143,9 @@ public class PlayerTankMovement : TankMovement
         }
     }
 
-    private void EmergencyBrake()
+    public void EmergencyBrake(bool b)
     {
+        print("brake initiated");
         //Damage shield or hull once and stop extremely quickly
     }
     
@@ -178,7 +179,7 @@ public class PlayerTankMovement : TankMovement
     }
     public void UpdateEngineUI(bool b)
     {
-        if (b) Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 1 + (currentSpeed/maxSpeed * 4);
+        if (b) Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 1 + (currentSpeed/maxSpeed * 5);
         else Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 0;
 
         Ref.SD.SetSpeed(currentSpeed);
