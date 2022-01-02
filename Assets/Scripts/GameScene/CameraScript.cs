@@ -25,9 +25,9 @@ public class CameraScript : MonoBehaviour
     }
     private void Start()
     {
-        zoomAmount = 10;
-        minZoom = 30;
-        desiredZoom = maxZoom = 350;
+        zoomAmount = 16;
+        minZoom = 32;
+        desiredZoom = maxZoom = 256;
         SetZoom(maxZoom);
         Events.instance.PlayerIsDying += StopTracking;
         Events.instance.PlayerTankDestroyed += StopTracking;
@@ -124,12 +124,12 @@ public class CameraScript : MonoBehaviour
     }
     private void ZoomToDesiredZoom()
     {
-        if (desiredZoom + zoomAmount < maxZoom)
+        if (desiredZoom + zoomAmount <= maxZoom)
         {
             SetZoom(desiredZoom + zoomAmount);
         }
         else SetZoom(maxZoom);
-        if (desiredZoom - zoomAmount > minZoom)
+        if (desiredZoom - zoomAmount >= minZoom)
         {
             SetZoom(desiredZoom - zoomAmount);
         }
@@ -137,12 +137,12 @@ public class CameraScript : MonoBehaviour
     }
     private void ZoomIn()
     {
-        if (desiredZoom + zoomAmount > maxZoom) desiredZoom = maxZoom;
+        if (desiredZoom + zoomAmount >= maxZoom) desiredZoom = maxZoom;
         else desiredZoom += zoomAmount; 
     }
     private void ZoomOut()
     {
-        if (desiredZoom - zoomAmount < minZoom) desiredZoom = minZoom;
+        if (desiredZoom - zoomAmount <= minZoom) desiredZoom = minZoom;
         else desiredZoom -= zoomAmount;
     }
     private void SetZoom(int zoomLevel)
