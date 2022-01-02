@@ -11,7 +11,11 @@ public class PlayerTankMovement : TankMovement
     [HideInInspector]
     public EnemyTankMovement enemyToMatch;
     public bool movementInput;
-
+    public bool emergencyBrakeOn;
+    private void Start()
+    {
+        emergencyBrakeOn = false;
+    }
     void Update()
     {
         if (!Ref.PCon._dying)
@@ -19,7 +23,7 @@ public class PlayerTankMovement : TankMovement
             if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
             if (_matchSpeed)
             {
-                UpdateDesiredSpeedSlider();
+                MatchDesiredSpeedSliderToEnemy();
             }
             HandleMovementInput();
         }
@@ -30,6 +34,9 @@ public class PlayerTankMovement : TankMovement
         UpdateCurrentSpeedSlider();
 
         if (!cruiseModeOn && !movementInput) Decelerate();
+
+        if (emergencyBrakeOn) deceleration = 4 * Ref.PCon._tStats._tankDecel;
+        else deceleration = Ref.PCon._tStats._tankDecel;
     }
 
     private void FixedUpdate()
@@ -55,11 +62,13 @@ public class PlayerTankMovement : TankMovement
             if (Input.GetKey(KeyCode.W))
             {
                 movementInput = true;
+                Ref.UI.ActivateEmergencyBrake(false);
                 Accelerate();
             }
             if (Input.GetKey(KeyCode.S))
             {
                 movementInput = true;
+                Ref.UI.ActivateEmergencyBrake(false);
                 Decelerate();
             }
         }
@@ -70,16 +79,18 @@ public class PlayerTankMovement : TankMovement
     private void ChangeDesiredSliderSpeedUp()
     {
         Ref.UI._desiredSpeedSlider.value += acceleration;
+        Ref.UI.ActivateEmergencyBrake(false);
     }
     private void ChangeDesiredSliderSpeedDown()
     {
         Ref.UI._desiredSpeedSlider.value -= deceleration;
+        Ref.UI.ActivateEmergencyBrake(false);
     }
     private void UpdateCurrentSpeedSlider()
     {
         Ref.UI._currentSpeedSlider.value = currentSpeed;
     }
-    private void UpdateDesiredSpeedSlider()
+    private void MatchDesiredSpeedSliderToEnemy()
     {
         Ref.UI._desiredSpeedSlider.value = enemyToMatch.currentSpeed;
     }
@@ -143,15 +154,17 @@ public class PlayerTankMovement : TankMovement
         }
     }
 
-    public void EmergencyBrake(bool b)
+    public void TankEmergencyBrakeEffects()
     {
-        print("brake initiated");
+        print("brake effects initiated");
+        emergencyBrakeOn = true;
+
         //Damage shield or hull once and stop extremely quickly
     }
     
     public void DeathDeacceleration()
     {
-        if (currentSpeed > 0) currentSpeed -= deceleration * Time.timeScale;
+        if (currentSpeed > 0) currentSpeed -= deceleration * 2 * Time.timeScale;
         else currentSpeed = 0;
     }
 
@@ -181,7 +194,7 @@ public class PlayerTankMovement : TankMovement
     {
         if (b) Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 1 + (currentSpeed/maxSpeed * 5);
         else Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 0;
-
+        currentSpeed = Mathf.Max(0, currentSpeed);
         Ref.SD.SetSpeed(currentSpeed);
     }
 }

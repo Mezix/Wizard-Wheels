@@ -37,7 +37,6 @@ public class LevelManager : MonoBehaviour
     {
         if (playerTankConstellationFromSelectScreen)
         {
-            //print(playerTankConstellationFromSelectScreen.name);
             Ref.PCon.TGeo._tankRoomConstellation = playerTankConstellationFromSelectScreen;
         }
         Ref.PCon.SpawnTank();

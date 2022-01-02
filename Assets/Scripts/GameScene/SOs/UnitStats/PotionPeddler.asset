@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b309681b6b389554db25a4e669be0291, type: 3}
-  m_Name: TechWizard
+  m_Name: PotionPeddler
   m_EditorClassIdentifier: 
-  _unitName: Merlina
-  _unitClass: Tech Wizard
-  _unitHealth: 100
-  _unitSpeed: 1
+  _unitName: Dr. Emilia
+  _unitClass: Potion Peddler
+  _unitHealth: 75
+  _unitSpeed: 2

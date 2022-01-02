@@ -2632,7 +2632,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -2, y: 0}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &436181312
@@ -4618,6 +4618,7 @@ MonoBehaviour:
   _matchSpeed: 0
   enemyToMatch: {fileID: 0}
   movementInput: 0
+  emergencyBrakeOn: 0
 --- !u!50 &667288258
 Rigidbody2D:
   serializedVersion: 4
@@ -4670,10 +4671,11 @@ MonoBehaviour:
   _tStats: {fileID: 11400000, guid: 532c8ffd236391b4192ac8feef5e64eb, type: 2}
   _tankName: Starkov
   _wizardsToSpawn:
-  - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
-  - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
-  - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
-  - {fileID: 4608201922242700205, guid: b1a43ac307d3cd24ab255c84a1f82439, type: 3}
+  - {fileID: 4608201922242700205, guid: a3d6bbe3b515c6143b3ecd4ca27a42b0, type: 3}
+  - {fileID: 4608201922242700205, guid: ff820002e706de34fbe6d8e8b3b434f9, type: 3}
+  - {fileID: 4608201922242700205, guid: d6590031bbb1a90459c0ebb06c3959f0, type: 3}
+  - {fileID: 4608201922242700205, guid: a04566bd806cacf4f9cde8781d10d256, type: 3}
+  - {fileID: 4608201922242700205, guid: 707e3f56abab10843acfe0ec74e086a6, type: 3}
   _spawnedWizards: []
   _dying: 0
   _dead: 0

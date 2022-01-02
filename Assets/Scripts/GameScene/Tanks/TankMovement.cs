@@ -51,7 +51,7 @@ public class TankMovement : MonoBehaviour
     }
     public void Decelerate()
     {
-        if (currentSpeed - acceleration * Time.timeScale > 0) currentSpeed -= acceleration * Time.timeScale;
+        if (currentSpeed - acceleration * Time.timeScale > 0) currentSpeed -= deceleration * Time.timeScale;
         else currentSpeed = 0;
     }
 

@@ -169,7 +169,7 @@ public class UIScript : MonoBehaviour
     }
     public PlayerWizardUI CreateWizardUI(AUnit unit)
     {
-        GameObject go = Instantiate((GameObject)Resources.Load("PlayerWizardUI"));
+        GameObject go = Instantiate((GameObject)Resources.Load("Wizards\\PlayerWizardUI"));
         PlayerWizardUI u = go.GetComponent<PlayerWizardUI>();
         u._wizardImage.sprite = unit.PlayerUIWizardIcon;
         u._UIWizardName.text = unit.UnitName;
@@ -185,6 +185,7 @@ public class UIScript : MonoBehaviour
     public void SpeedSliderUpdated()
     {
         Ref.PCon.TMov.cruiseModeOn = true;
+        if(EmergencyBrakeToggle.isOn) Ref.UI.ActivateEmergencyBrake(false);
     }
 
     //  XRay
@@ -365,6 +366,18 @@ public class UIScript : MonoBehaviour
 
     private void EmergencyBrake(Toggle t)
     {
-        Ref.PCon.TMov.EmergencyBrake(t.isOn);
+        print(t.isOn);
+        ActivateEmergencyBrake(t.isOn);
+    }
+    public void ActivateEmergencyBrake(bool b)
+    {
+        EmergencyBrakeToggle.isOn = b;
+        Ref.PCon.TMov.emergencyBrakeOn = b;
+        if(b)
+        {
+            Ref.PCon.TMov._matchSpeed = false;
+            _desiredSpeedSlider.value = 0;
+            Ref.PCon.TMov.TankEmergencyBrakeEffects();
+        }
     }
 }
