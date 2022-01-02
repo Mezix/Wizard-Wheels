@@ -168,10 +168,10 @@ public class PlayerTankController : TankController
         {
             if(TMov.enemyToMatch.gameObject.Equals(enemy))
             {
+                Ref.UI.UnmatchSpeedUI();
                 TMov.enemyToMatch = null;
                 TMov._matchSpeed = false;
                 TMov.TurnOnCruise(true);
-                //Ref.UI.SetMatchSpeedButton(0);
             }
         }
     }

@@ -105,7 +105,7 @@ public class UIScript : MonoBehaviour
     {
         _cruiseButton.onClick = new Button.ButtonClickedEvent();
         _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
-        _unmatchSpeedButton.onClick.AddListener(() => UnmatchSpeed());
+        _unmatchSpeedButton.onClick.AddListener(() => UnmatchSpeedUI());
         _rotateBackButton.onClick = new Button.ButtonClickedEvent();
         _rotateBackButton.onClick.AddListener(() => Ref.PCon.TRot.GetComponent<PlayerTankRotation>().TurnTankUp());
         _settingsButton.onClick = new Button.ButtonClickedEvent();
@@ -124,7 +124,7 @@ public class UIScript : MonoBehaviour
         EmergencyBrakeToggle.onValueChanged.AddListener(delegate {EmergencyBrake(EmergencyBrakeToggle);});
     }
 
-    private void UnmatchSpeed()
+    public void UnmatchSpeedUI()
     {
         _unmatchSpeedButton.gameObject.SetActive(false);
         Ref.PCon.TMov.enemyToMatch.GetComponent<EnemyTankController>().enemyUI.MatchSpeed(Ref.PCon.TMov.enemyToMatch, false);
