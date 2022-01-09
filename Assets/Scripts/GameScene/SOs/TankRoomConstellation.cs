@@ -10,17 +10,30 @@ public class TankRoomConstellation : ScriptableObject
     public int XTilesAmount; //just the amount of Tiles in a given direction
     public int YTilesAmount;
 
-    //public RoomPosition[,] RoomPosMatrix;
-
     public XValues SavedPrefabRefMatrix;
     public XValues TmpPrefabRefMatrix;
 
-    public void SaveConstellation()
+    public void SaveTank(string newName)
     {
         SavedPrefabRefMatrix = TmpPrefabRefMatrix; //overwrite our old matrix with what is currently being shown
-        Debug.Log("SAVED");
+        //change name
+        if (newName != "")
+        {
+            string assetPath = AssetDatabase.GetAssetPath(GetInstanceID());
+            AssetDatabase.RenameAsset(assetPath, newName);
+        }
         EditorUtility.SetDirty(this);
         AssetDatabase.SaveAssets();
+        Debug.Log("SAVED");
+    }
+    public void InitTankForCreation()
+    {
+        TmpPrefabRefMatrix = SavedPrefabRefMatrix;
+    }
+
+    public void ClearTank()
+    {
+        TmpPrefabRefMatrix = SavedPrefabRefMatrix;
     }
 
     //WRAPPER CLASSES FOR SAVING STUFF

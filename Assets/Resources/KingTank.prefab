@@ -49,13 +49,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2ca821a31eb8740a8c220e033efc41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tStats: {fileID: 11400000, guid: 38f853e94e77a3946a479443944be7e9, type: 2}
+  _tStats: {fileID: 11400000, guid: 095e88922a57c6b4ea21b5e483aaa819, type: 2}
   _tankName: Druskelle
   _wizardsToSpawn: []
   _spawnedWizards: []
   _dying: 0
   _dead: 0
   _tankColor: {r: 0, g: 0, b: 0, a: 0}
+  enemyUI: {fileID: 0}
 --- !u!114 &3123129469221447086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +120,7 @@ MonoBehaviour:
   _maxHealth: 0
   _currentHealth: 0
   _healthBarParent: {fileID: 0}
-  _allHealthBarUnits: []
+  _allHPSegments: []
 --- !u!114 &1291034475881204564
 MonoBehaviour:
   m_ObjectHideFlags: 0

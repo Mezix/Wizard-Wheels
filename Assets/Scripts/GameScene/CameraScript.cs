@@ -11,24 +11,24 @@ public class CameraScript : MonoBehaviour
     private Vector3 mouseStartDragPos;
     private bool isMovingToPos;
 
-    private PixelPerfectCamera pixelCam;
-    public int zoomAmount;
-    public int desiredZoom;
-    public int maxZoom;
-    public int minZoom;
+    //private PixelPerfectCamera pixelCam;
+    public float zoomAmount;
+    public float desiredZoom;
+    public float minZoom;
+    public float maxZoom;
 
     private void Awake()
     {
         Ref.Cam = this;
-        pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
+        //pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
         isMovingToPos = false;
     }
     private void Start()
     {
-        zoomAmount = 16;
-        minZoom = 32;
-        desiredZoom = maxZoom = 256;
-        SetZoom(maxZoom);
+        zoomAmount = 0.75f;
+        maxZoom = 2;
+        desiredZoom = minZoom = 12;
+        SetZoom(minZoom);
         Events.instance.PlayerIsDying += StopTracking;
         Events.instance.PlayerTankDestroyed += StopTracking;
         Events.instance.EnemyTankDestroyed += CheckForEnemy;
@@ -114,45 +114,46 @@ public class CameraScript : MonoBehaviour
         {
             if (Input.mouseScrollDelta.y > 0)
             {
-                ZoomIn();
+                ZoomOut();
             }
             else if (Input.mouseScrollDelta.y < 0)
             {
-                ZoomOut();
+                ZoomIn();
             }
         }
     }
     private void ZoomToDesiredZoom()
     {
-        if (desiredZoom + zoomAmount <= maxZoom)
+        if (desiredZoom + zoomAmount <= minZoom)
         {
             SetZoom(desiredZoom + zoomAmount);
         }
-        else SetZoom(maxZoom);
-        if (desiredZoom - zoomAmount >= minZoom)
+        else SetZoom(minZoom);
+        if (desiredZoom - zoomAmount >= maxZoom)
         {
             SetZoom(desiredZoom - zoomAmount);
         }
-        else SetZoom(minZoom);
+        else SetZoom(maxZoom);
     }
     private void ZoomIn()
     {
-        if (desiredZoom + zoomAmount >= maxZoom) desiredZoom = maxZoom;
+        if (desiredZoom + zoomAmount >= minZoom) desiredZoom = minZoom;
         else desiredZoom += zoomAmount; 
     }
     private void ZoomOut()
     {
-        if (desiredZoom - zoomAmount <= minZoom) desiredZoom = minZoom;
+        if (desiredZoom - zoomAmount <= maxZoom) desiredZoom = maxZoom;
         else desiredZoom -= zoomAmount;
     }
-    private void SetZoom(int zoomLevel)
+    private void SetZoom(float zoomLevel)
     {
-        pixelCam.assetsPPU = zoomLevel;
+        Camera.main.orthographicSize = zoomLevel;
+        //pixelCam.assetsPPU = zoomLevel;
     }
-    public void SetDesiredZoom(int zoom)
+    public void SetDesiredZoom(float zoom)
     {
-        if (desiredZoom > maxZoom) desiredZoom = maxZoom;
-        else if (desiredZoom < minZoom) desiredZoom = minZoom;
+        if (desiredZoom > minZoom) desiredZoom = minZoom;
+        else if (desiredZoom < maxZoom) desiredZoom = maxZoom;
         else desiredZoom = zoom;
     }
 }
