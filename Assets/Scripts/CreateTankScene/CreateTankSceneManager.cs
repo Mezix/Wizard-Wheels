@@ -7,7 +7,7 @@ using UnityEditor;
 public class CreateTankSceneManager : MonoBehaviour
 {
     public static CreateTankSceneManager instance;
-    public TankGeometry _tGeo;
+    public CreateTankGeometry _tGeo;
     public CreateTankUI _tUI;
     public TankRoomConstellation tankToEdit;
     private bool newTank;
@@ -42,7 +42,7 @@ public class CreateTankSceneManager : MonoBehaviour
     public void LoadTank()
     {
         tankToEdit.InitTankForCreation();
-        _tGeo.CreateTankGeometry();
+        _tGeo.SpawnTankForCreator();
         _tUI._inputField.placeholder.GetComponent<Text>().text = tankToEdit.name;
     }
 }

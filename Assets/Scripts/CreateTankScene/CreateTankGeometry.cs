@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TankGeometry : MonoBehaviour
+public class CreateTankGeometry : MonoBehaviour
 {
     public TankRoomConstellation _tankRoomConstellation;
     public RoomPosition[,] RoomPosMatrix;
@@ -18,16 +18,13 @@ public class TankGeometry : MonoBehaviour
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     public Color FloorColor;
     public Color RoofColor;
-    public void CreateTankGeometry()
+    public void SpawnTankForCreator()
     {
         CreateRooms();
         CreateBGAndRoof();
         PositionTankObjects();
-        InitWeaponsAndSystems();
-        CreateSystemIcons();
+        //InitWeaponsAndSystems();
         CreateWalls();
-
-        if(Ref.UI) Ref.UI.TurnOnXRay(Ref.UI._xrayOn);
     }
     private void CreateBGAndRoof()
     {
@@ -118,7 +115,7 @@ public class TankGeometry : MonoBehaviour
                 Tile t = (Tile)Resources.Load("Tiles\\Floor\\DefaultFloorTile");
                 //t.color = FloorColor;
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-                
+
             }
         }
     }
@@ -151,7 +148,6 @@ public class TankGeometry : MonoBehaviour
                 {
                     GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab);
                     Room r = rGO.GetComponent<Room>();
-                    r.tGeo = this;
                     r.tr = _tankRoomConstellation;
                     rGO.transform.parent = RoomsParent.transform;
                     rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
@@ -167,14 +163,14 @@ public class TankGeometry : MonoBehaviour
                             RoomPosMatrix[x + roomX, y + roomY]._xPos = x + RoomPosMatrix[x + roomX, y + roomY]._xRel;
                             RoomPosMatrix[x + roomX, y + roomY]._yPos = y + RoomPosMatrix[x + roomX, y + roomY]._yRel;
 
-                            RoomPosMatrix[x + roomX, y + roomY].name = "X" + RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString() 
+                            RoomPosMatrix[x + roomX, y + roomY].name = "X" + RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString()
                                                                   + " , Y" + RoomPosMatrix[x + roomX, y + roomY]._yPos.ToString() + ", ";
                             roomPosNr++;
                         }
                     }
 
                     //sets the corner of the room that doesnt get caught with the matrix
-                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY-1];
+                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY - 1];
                     RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
                     RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
 
@@ -307,13 +303,13 @@ public class TankGeometry : MonoBehaviour
     }
     public void ShowRoof(bool b)
     {
-        if(RoofParent) RoofParent.SetActive(b);
+        if (RoofParent) RoofParent.SetActive(b);
         SetSystemIconLayer(b);
     }
     public void SetSystemIconLayer(bool top)
     {
         if (systemIcons.Count == 0) return;
-        foreach(SpriteRenderer sr in systemIcons)
+        foreach (SpriteRenderer sr in systemIcons)
         {
             if (top)
             {
@@ -331,12 +327,12 @@ public class TankGeometry : MonoBehaviour
     {
         List<Room> allRoomsTMP = AllRooms;
         // searches through all possible rooms until it finds one it can occupy
-        for(int i = 0; i < AllRooms.Count; i++)
+        for (int i = 0; i < AllRooms.Count; i++)
         {
             Room tmpRoom = allRoomsTMP[UnityEngine.Random.Range(0, allRoomsTMP.Count - 1)];
-            for(int j = 0; j < tmpRoom.freeRoomPositions.Length; j++)
+            for (int j = 0; j < tmpRoom.freeRoomPositions.Length; j++)
             {
-                if(tmpRoom.freeRoomPositions[j] != null)
+                if (tmpRoom.freeRoomPositions[j] != null)
                 {
                     //print("found a random free room");
                     return tmpRoom;
