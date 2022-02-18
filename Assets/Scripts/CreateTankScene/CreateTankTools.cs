@@ -5,15 +5,17 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 public class CreateTankTools : MonoBehaviour
 {
-    [HideInInspector]
-    public Grid tempGrid;
-    [HideInInspector]
-    public Tilemap tempTilemap;
+    public Grid _tempFloorGrid;
+    private Tilemap tempFloorTilemap;
+
+    public Grid _tempRoofGrid;
+    private Tilemap tempRoofTilemap;
+
     private bool brushing;
     public void Awake()
     {
-        tempGrid = GetComponentInChildren<Grid>();
-        tempTilemap = GetComponentInChildren<Tilemap>();
+        tempFloorTilemap = _tempFloorGrid.GetComponent<Tilemap>();
+        tempRoofTilemap = _tempRoofGrid.GetComponent<Tilemap>();
     }
     private void Start()
     {
@@ -27,23 +29,40 @@ public class CreateTankTools : MonoBehaviour
 
     private void HandleMouseInput()
     {
-        tempTilemap.ClearAllTiles();
+        tempFloorTilemap.ClearAllTiles();
+        tempRoofTilemap.ClearAllTiles();
+
+        Tilemap currentlySelectedTempTilemap;
+        Tilemap currentlySelectedTilemap;
+        int tileType = CreateTankSceneManager.instance._tUI._tileTypeIndex;
+        if (tileType == 0)
+        {
+            currentlySelectedTempTilemap = tempFloorTilemap;
+            currentlySelectedTilemap = CreateTankSceneManager.instance._tGeo.FloorTilemap;
+        }
+        else
+        {
+            currentlySelectedTempTilemap = tempRoofTilemap;
+            currentlySelectedTilemap = CreateTankSceneManager.instance._tGeo.RoofTilemap;
+        }
 
         RaycastHit2D hit = HM.RaycastToMouseCursor();
-        Vector3Int cellpos = tempTilemap.WorldToCell(hit.point);
+        Vector3Int tempCellPos = currentlySelectedTempTilemap.WorldToCell(hit.point);
+        //Show the currently selected tile were painting with on the temporary tilemap
         CreateTankUI ui = CreateTankSceneManager.instance._tUI;
-        tempTilemap.SetTile(cellpos, ui._useableTiles[ui.currentTileIndex]);
+        if (brushing) currentlySelectedTempTilemap.SetTile(tempCellPos, ui.GetTile());
 
-        if(Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
-            Tilemap currentlySelectedTilemap = CreateTankSceneManager.instance._tGeo.FloorTilemap;
-            cellpos = currentlySelectedTilemap.WorldToCell(hit.point);
+            Vector3Int cellpos = currentlySelectedTilemap.WorldToCell(hit.point);
             if (brushing)
             {
-                currentlySelectedTilemap.SetTile(cellpos, ui._useableTiles[ui.currentTileIndex]);
+                //paint on the correct tilemap
+                currentlySelectedTilemap.SetTile(cellpos, ui.GetTile());
             }
             else
             {
+                //erase from the correct tilemap
                 currentlySelectedTilemap.SetTile(cellpos, null);
             }
         }
@@ -61,13 +80,25 @@ public class CreateTankTools : MonoBehaviour
         }
     }
 
+    public void SelectTool(int value)
+    {
+        if (value == 0)
+        {
+            SelectBrush();
+        }
+        else if (value == 1)
+        {
+            SelectEraser();
+        }
+    }
     private void SelectBrush()
     {
         brushing = true;
+        CreateTankSceneManager.instance.mouse._mouseState = "Brush";
     }
-
     private void SelectEraser()
     {
         brushing = false;
+        CreateTankSceneManager.instance.mouse._mouseState = "Eraser";
     }
 }

@@ -7,8 +7,10 @@ using UnityEditor;
 public class CreateTankSceneManager : MonoBehaviour
 {
     public static CreateTankSceneManager instance;
+    public CreateTankTools _tools;
     public CreateTankGeometry _tGeo;
     public CreateTankUI _tUI;
+    public CreateTankMouseScript mouse;
     public TankRoomConstellation tankToEdit;
     private bool newTank;
 
