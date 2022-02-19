@@ -21,12 +21,30 @@ public class CreateTankGeometry : MonoBehaviour
     public Color RoofColor;
     public void SpawnTankForCreator()
     {
-        CreateRooms();
+        LoadRooms();
         CreateBGAndRoof();
         PositionTankObjects();
         //InitWeaponsAndSystems();
-        CreateWalls();
-        ExpandTank(1,0,1,0);
+        //CreateWalls();
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            ExpandTank(-1, 0, 0, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            ExpandTank(0, -1, 0, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            ExpandTank(0, 0, -1, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            ExpandTank(0, 0, 0, -1);
+        }
     }
     private void CreateBGAndRoof()
     {
@@ -40,8 +58,8 @@ public class CreateTankGeometry : MonoBehaviour
                 {
                     int sizeX = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeX;
                     int sizeY = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeY;
-                    CreateFloorAtPos(x, y, sizeX, sizeY);
-                    CreateRoofAtPos(x, y, sizeX, sizeY);
+                    LoadFloorAtPos(x, y, sizeX, sizeY);
+                    LoadRoofAtPos(x, y, sizeX, sizeY);
                 }
             }
         }
@@ -111,7 +129,7 @@ public class CreateTankGeometry : MonoBehaviour
         //  Create Collider
         TilemapCollider2D c = walls.AddComponent<TilemapCollider2D>();
     }
-    public void CreateFloorAtPos(int startX, int startY, int sizeX, int sizeY)
+    public void LoadFloorAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
@@ -126,95 +144,52 @@ public class CreateTankGeometry : MonoBehaviour
     }
     public void CreateFloorAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
     {
-        if(t)
+        //  Check if we need to expand our matrix to paint here!
+
+        if (RoomPosMatrix[startX, startY])
         {
-            GameObject rGO = Instantiate((GameObject)Resources.Load("Rooms\\1x1Room"));
+        }
+        else
+        { 
+            GameObject roomToLoad = (GameObject)Resources.Load("Rooms\\1x1Room");
             if (sizeX == 1)
+            {
+                if (sizeY == 2)
+                {
+                    roomToLoad = (GameObject)Resources.Load("Rooms\\1x2Room");
+                }
+            }
+            if (sizeX == 2)
             {
                 if (sizeY == 1)
                 {
-                    rGO = Instantiate((GameObject)Resources.Load("Rooms\\1x1Room"));
+                    roomToLoad = (GameObject)Resources.Load("Rooms\\2x1Room");
+                }
+                if (sizeY == 2)
+                {
+                    roomToLoad = (GameObject)Resources.Load("Rooms\\2x2Room");
                 }
             }
-            Room r = rGO.GetComponent<Room>();
-            rGO.transform.parent = RoomsParent.transform;
-            rGO.transform.localPosition = new Vector2(startX * 0.5f, startY * -0.5f);
+            CreateNewRoomAtPos(startX, startY, roomToLoad);
         }
-        else
-        {
-
-        }
-
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
                 //t.color = FloorColor;
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                print("set null");
             }
         }
-    }
-    public void ExpandTank(int left, int right, int up, int down)
-    {
-        int xOldTankSize = _tankRoomConstellation.XTilesAmount;
-        int yOldTankSize = _tankRoomConstellation.YTilesAmount;
 
-        int xExpandedTankSize = _tankRoomConstellation.XTilesAmount + left + right;
-        int yExpandedTankSize = _tankRoomConstellation.YTilesAmount + up + down;
+        //  If we were erasing, check here if we can make our matrix smaller again!
 
-        //  move tank origin point to offset
-
-        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * left, 0.25f * up, 0);
-
-        //  Create Temp Matrix of new size and add each room into the correct position
-
-        XValues expandedMatrix = new XValues(xExpandedTankSize, yExpandedTankSize);
-        RoomPosition[,] expandedPosMatrix = new RoomPosition[xExpandedTankSize, yExpandedTankSize];
-
-        for (int y = 0; y < yExpandedTankSize; y++)
+        if(t == null)
         {
-            for (int x = 0; x < xExpandedTankSize; x++)
-            {
-                int xCopyPos = x - left + right;
-                int yCopyPos = y - up + down;
 
-                if (   xCopyPos < 0 || xCopyPos >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length 
-                    || yCopyPos < 0 || yCopyPos >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
-
-                //  Fix References for the matrix
-                expandedMatrix.XArray[x].YStuff[y] = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[xCopyPos].YStuff[yCopyPos];
-
-                //  Set indices of individual room positions and move them to the appropriate position
-                if (!RoomPosMatrix[xCopyPos, yCopyPos]) continue;
-                expandedPosMatrix[x, y] = RoomPosMatrix[xCopyPos, yCopyPos];
-                expandedPosMatrix[x, y]._xPos = x;
-                expandedPosMatrix[x, y]._yPos = y;
-                if(expandedPosMatrix[x, y]._xRel == 0 && expandedPosMatrix[x, y]._yRel == 0)
-                expandedPosMatrix[x, y].ParentRoom.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-            }
         }
-
-        //  Reposition geometry
-
-        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * left, 0.25f * up, 0);
-
-        //  Reposition Tilemaps
-
-        FloorTilemap.transform.position += new Vector3(0.5f * left, -0.5f * up, 0);
-        RoofTilemap.transform.position += new Vector3(0.5f * left, -0.5f * up, 0);
-
-        //  Save Changes
-
-        _tankRoomConstellation.SavedPrefabRefMatrix = expandedMatrix;
-        RoomPosMatrix = expandedPosMatrix;
-        _tankRoomConstellation.XTilesAmount = xExpandedTankSize;
-        _tankRoomConstellation.YTilesAmount = yExpandedTankSize;
     }
-    public void CreateRoomAtPos()
-    {
-
-    }
-    public void CreateRoofAtPos(int startX, int startY, int sizeX, int sizeY)
+    public void LoadRoofAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
@@ -226,7 +201,7 @@ public class CreateTankGeometry : MonoBehaviour
             }
         }
     }
-    private void CreateRooms()
+    private void LoadRooms()
     {
         RoomPosMatrix = new RoomPosition[_tankRoomConstellation.XTilesAmount, _tankRoomConstellation.YTilesAmount];
         AllRooms = new List<Room>();
@@ -242,38 +217,75 @@ public class CreateTankGeometry : MonoBehaviour
                 if (x >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length || y >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
-                    GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab);
-                    Room r = rGO.GetComponent<Room>();
-                    r.tr = _tankRoomConstellation;
-                    rGO.transform.parent = RoomsParent.transform;
-                    rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-                    AllRooms.Add(r);
-
-                    // Set the Room Positions
-                    int roomPosNr = 0;
-                    for (int roomY = 0; roomY < r.sizeY; roomY++)
-                    {
-                        for (int roomX = 0; roomX < r.sizeX; roomX++)
-                        {
-                            RoomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomPosNr];
-                            RoomPosMatrix[x + roomX, y + roomY]._xPos = x + RoomPosMatrix[x + roomX, y + roomY]._xRel;
-                            RoomPosMatrix[x + roomX, y + roomY]._yPos = y + RoomPosMatrix[x + roomX, y + roomY]._yRel;
-
-                            RoomPosMatrix[x + roomX, y + roomY].name = "X" + RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString()
-                                                                  + " , Y" + RoomPosMatrix[x + roomX, y + roomY]._yPos.ToString() + ", ";
-                            roomPosNr++;
-                        }
-                    }
-
-                    //sets the corner of the room that doesnt get caught with the matrix
-                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY - 1];
-                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
-                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
-
-                    RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
+                    LoadRoomAtPos(x,y);
                 }
             }
         }
+    }
+    public void LoadRoomAtPos(int x, int y)
+    {
+        GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab);
+        Room r = rGO.GetComponent<Room>();
+        r.tr = _tankRoomConstellation;
+        rGO.transform.parent = RoomsParent.transform;
+        rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+        AllRooms.Add(r);
+
+        // Set the Room Positions
+        int roomPosNr = 0;
+        for (int roomY = 0; roomY < r.sizeY; roomY++)
+        {
+            for (int roomX = 0; roomX < r.sizeX; roomX++)
+            {
+                RoomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomPosNr];
+                RoomPosMatrix[x + roomX, y + roomY]._xPos = x + RoomPosMatrix[x + roomX, y + roomY]._xRel;
+                RoomPosMatrix[x + roomX, y + roomY]._yPos = y + RoomPosMatrix[x + roomX, y + roomY]._yRel;
+
+                RoomPosMatrix[x + roomX, y + roomY].name = "X" + RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString()
+                                                      + " , Y" + RoomPosMatrix[x + roomX, y + roomY]._yPos.ToString() + ", ";
+                roomPosNr++;
+            }
+        }
+
+        //sets the corner of the room that doesnt get caught with the matrix
+        RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY - 1];
+        RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
+        RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
+
+        RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
+    }
+
+    public void CreateNewRoomAtPos(int x, int y, GameObject roomToCreate)
+    {
+        GameObject rGO = Instantiate(roomToCreate);
+        Room r = rGO.GetComponent<Room>();
+        r.tr = _tankRoomConstellation;
+        rGO.transform.parent = RoomsParent.transform;
+        rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+        AllRooms.Add(r);
+
+        // Set the Room Positions
+        int roomPosNr = 0;
+        for (int roomY = 0; roomY < r.sizeY; roomY++)
+        {
+            for (int roomX = 0; roomX < r.sizeX; roomX++)
+            {
+                RoomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomPosNr];
+                RoomPosMatrix[x + roomX, y + roomY]._xPos = x + RoomPosMatrix[x + roomX, y + roomY]._xRel;
+                RoomPosMatrix[x + roomX, y + roomY]._yPos = y + RoomPosMatrix[x + roomX, y + roomY]._yRel;
+
+                RoomPosMatrix[x + roomX, y + roomY].name = "X" + RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString()
+                                                      + " , Y" + RoomPosMatrix[x + roomX, y + roomY]._yPos.ToString() + ", ";
+                roomPosNr++;
+            }
+        }
+
+        //sets the corner of the room that doesnt get caught with the matrix
+        RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY - 1];
+        RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
+        RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
+
+        RoomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
     }
     public void CreateSystemIcons()
     {
@@ -459,5 +471,132 @@ public class CreateTankGeometry : MonoBehaviour
     public Vector2Int TilemapToCellPos(Vector3Int tmPos)
     {
         return new Vector2Int(tmPos.x, -(tmPos.y + 1));
+    }
+    public void ExpandTank(int left, int right, int up, int down)
+    {
+        int xOldTankSize = _tankRoomConstellation.XTilesAmount;
+        int yOldTankSize = _tankRoomConstellation.YTilesAmount;
+
+        int xExpandedTankSize = _tankRoomConstellation.XTilesAmount + left + right;
+        int yExpandedTankSize = _tankRoomConstellation.YTilesAmount + up + down;
+
+
+        //  Shrink in case of negative parameters
+        if (yExpandedTankSize <= 0 || xExpandedTankSize <= 0) return;
+        if (left < 0)
+        {
+            for (int y = 0; y < yOldTankSize; y++)
+            {
+                for (int x = 0; x < Mathf.Abs(left); x++)
+                {
+                    if (RoomPosMatrix[x, y])
+                    {
+                        Vector2Int roomsize = GetRoomSize(x, y);
+                        if(RoomPosMatrix[x,y]._xRel == 0 && RoomPosMatrix[x, y]._yRel == 0)
+                            CreateFloorAtPos(x, y, roomsize.x, roomsize.y, null);
+                        Destroy(RoomPosMatrix[x, y].ParentRoom.gameObject);
+                    }
+                }
+            }
+        }
+        if (right < 0)
+        {
+            for (int y = 0; y < yOldTankSize; y++)
+            {
+                for (int x = xOldTankSize + right + 1; x < Mathf.Abs(xOldTankSize - 1); x++)
+                {
+                    if (RoomPosMatrix[x, y])
+                    {
+                        Vector2Int roomsize = GetRoomSize(x, y);
+                        if (RoomPosMatrix[x, y]._xRel == 0 && RoomPosMatrix[x, y]._yRel == 0)
+                            CreateFloorAtPos(x, y, roomsize.x, roomsize.y, null);
+                        Destroy(RoomPosMatrix[x, y].ParentRoom.gameObject);
+                    }
+                }
+            }
+        }
+        if (up < 0)
+        {
+            for (int x = 0; x < xOldTankSize; x++)
+            {
+                for (int y = 0; y < Mathf.Abs(up); y++)
+                {
+                    if (RoomPosMatrix[x, y])
+                    {
+                        Vector2Int roomsize = GetRoomSize(x, y);
+                        if (RoomPosMatrix[x, y]._xRel == 0 && RoomPosMatrix[x, y]._yRel == 0)
+                            CreateFloorAtPos(x, y, roomsize.x, roomsize.y, null);
+                        Destroy(RoomPosMatrix[x, y].ParentRoom.gameObject);
+                    }
+                }
+            }
+        }
+        if (down < 0)
+        {
+            for (int x = 0; x < xOldTankSize; x++)
+            {
+                for (int y = yOldTankSize + down + 1; y < Mathf.Abs(yOldTankSize - 1); y++)
+                {
+                    if (RoomPosMatrix[x, y])
+                    {
+                        Vector2Int roomsize = GetRoomSize(x, y);
+                        if (RoomPosMatrix[x, y]._xRel == 0 && RoomPosMatrix[x, y]._yRel == 0)
+                            CreateFloorAtPos(x, y, roomsize.x, roomsize.y, null);
+                        Destroy(RoomPosMatrix[x, y].ParentRoom.gameObject);
+                    }
+                }
+            }
+        }
+
+        //  Create Temp Matrix of new size and add each room into the correct position
+
+        XValues expandedMatrix = new XValues(xExpandedTankSize, yExpandedTankSize);
+        RoomPosition[,] expandedPosMatrix = new RoomPosition[xExpandedTankSize, yExpandedTankSize];
+
+        for (int y = 0; y < yExpandedTankSize; y++)
+        {
+            for (int x = 0; x < xExpandedTankSize; x++)
+            {
+                int xCopyPos = x - left + right;
+                int yCopyPos = y - up + down;
+
+                if (xCopyPos < 0 || xCopyPos >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length
+                    || yCopyPos < 0 || yCopyPos >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
+
+                //  Fix References for the matrix
+                expandedMatrix.XArray[x].YStuff[y] = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[xCopyPos].YStuff[yCopyPos];
+
+                //  Set indices of individual room positions and move them to the appropriate position
+                if (!RoomPosMatrix[xCopyPos, yCopyPos]) continue;
+                expandedPosMatrix[x, y] = RoomPosMatrix[xCopyPos, yCopyPos];
+                expandedPosMatrix[x, y]._xPos = x;
+                expandedPosMatrix[x, y]._yPos = y;
+                if (expandedPosMatrix[x, y]._xRel == 0 && expandedPosMatrix[x, y]._yRel == 0)
+                    expandedPosMatrix[x, y].ParentRoom.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+            }
+        }
+
+        //  Reposition geometry
+
+        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * left, 0.25f * up, 0);
+
+        //  Reposition Tilemaps
+
+        FloorTilemap.transform.position += new Vector3(0.5f * left, -0.5f * up, 0);
+        CreateTankSceneManager.instance._tools._tempFloorGrid.transform.position = FloorTilemap.transform.position;
+        RoofTilemap.transform.position += new Vector3(0.5f * left, -0.5f * up, 0);
+        CreateTankSceneManager.instance._tools._tempRoofGrid.transform.position = FloorTilemap.transform.position;
+
+        //  Save Changes
+
+        _tankRoomConstellation.SavedPrefabRefMatrix = expandedMatrix;
+        RoomPosMatrix = expandedPosMatrix;
+        _tankRoomConstellation.XTilesAmount = xExpandedTankSize;
+        _tankRoomConstellation.YTilesAmount = yExpandedTankSize;
+    }
+
+    private Vector2Int GetRoomSize(int x, int y)
+    {
+        return new Vector2Int(RoomPosMatrix[x, y].ParentRoom.sizeX, RoomPosMatrix[x, y].ParentRoom.sizeY);
     }
 }
