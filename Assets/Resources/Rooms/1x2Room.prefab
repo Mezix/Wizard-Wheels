@@ -464,7 +464,7 @@ MonoBehaviour:
   _xPos: 0
   _yPos: 0
   _xRel: 0
-  _yRel: 0
+  _yRel: 1
 --- !u!212 &3331353572730123869
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static TankRoomConstellation;
 
 public class CreateTankGeometry : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class CreateTankGeometry : MonoBehaviour
         PositionTankObjects();
         //InitWeaponsAndSystems();
         CreateWalls();
+        ExpandTank(1,0,1,0);
     }
     private void CreateBGAndRoof()
     {
@@ -33,12 +35,13 @@ public class CreateTankGeometry : MonoBehaviour
         {
             for (int y = 0; y < _tankRoomConstellation.YTilesAmount; y++)
             {
+                if (x >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length || y >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
                     int sizeX = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeX;
                     int sizeY = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeY;
                     CreateFloorAtPos(x, y, sizeX, sizeY);
-                    CreateRoofAtTile(x, y, sizeX, sizeY);
+                    CreateRoofAtPos(x, y, sizeX, sizeY);
                 }
             }
         }
@@ -57,6 +60,7 @@ public class CreateTankGeometry : MonoBehaviour
 
         //  Create Tilemap
         FloorTilemap = floor.AddComponent<Tilemap>();
+        //FloorTilemap.tileAnchor = new Vector3(0.5f, 0.5f, 0);
         FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
@@ -79,6 +83,7 @@ public class CreateTankGeometry : MonoBehaviour
 
         //  Create Tilemap
         RoofTilemap = roofTilemap.AddComponent<Tilemap>();
+        //RoofTilemap.tileAnchor = new Vector3(0.5f, 0.5f, 0);
         RoofTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
@@ -106,20 +111,110 @@ public class CreateTankGeometry : MonoBehaviour
         //  Create Collider
         TilemapCollider2D c = walls.AddComponent<TilemapCollider2D>();
     }
-    private void CreateFloorAtPos(int startX, int startY, int sizeX, int sizeY)
+    public void CreateFloorAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                Tile t = (Tile)Resources.Load("Tiles\\Floor\\DefaultFloorTile");
                 //t.color = FloorColor;
+                Tile t = (Tile)Resources.Load("Tiles\\Floor\\DefaultFloorTile");
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
 
             }
         }
     }
-    private void CreateRoofAtTile(int startX, int startY, int sizeX, int sizeY)
+    public void CreateFloorAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
+    {
+        if(t)
+        {
+            GameObject rGO = Instantiate((GameObject)Resources.Load("Rooms\\1x1Room"));
+            if (sizeX == 1)
+            {
+                if (sizeY == 1)
+                {
+                    rGO = Instantiate((GameObject)Resources.Load("Rooms\\1x1Room"));
+                }
+            }
+            Room r = rGO.GetComponent<Room>();
+            rGO.transform.parent = RoomsParent.transform;
+            rGO.transform.localPosition = new Vector2(startX * 0.5f, startY * -0.5f);
+        }
+        else
+        {
+
+        }
+
+        for (int x = startX; x < startX + sizeX; x++)
+        {
+            for (int y = startY; y < startY + sizeY; y++)
+            {
+                //t.color = FloorColor;
+                FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+            }
+        }
+    }
+    public void ExpandTank(int left, int right, int up, int down)
+    {
+        int xOldTankSize = _tankRoomConstellation.XTilesAmount;
+        int yOldTankSize = _tankRoomConstellation.YTilesAmount;
+
+        int xExpandedTankSize = _tankRoomConstellation.XTilesAmount + left + right;
+        int yExpandedTankSize = _tankRoomConstellation.YTilesAmount + up + down;
+
+        //  move tank origin point to offset
+
+        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * left, 0.25f * up, 0);
+
+        //  Create Temp Matrix of new size and add each room into the correct position
+
+        XValues expandedMatrix = new XValues(xExpandedTankSize, yExpandedTankSize);
+        RoomPosition[,] expandedPosMatrix = new RoomPosition[xExpandedTankSize, yExpandedTankSize];
+
+        for (int y = 0; y < yExpandedTankSize; y++)
+        {
+            for (int x = 0; x < xExpandedTankSize; x++)
+            {
+                int xCopyPos = x - left + right;
+                int yCopyPos = y - up + down;
+
+                if (   xCopyPos < 0 || xCopyPos >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length 
+                    || yCopyPos < 0 || yCopyPos >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
+
+                //  Fix References for the matrix
+                expandedMatrix.XArray[x].YStuff[y] = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[xCopyPos].YStuff[yCopyPos];
+
+                //  Set indices of individual room positions and move them to the appropriate position
+                if (!RoomPosMatrix[xCopyPos, yCopyPos]) continue;
+                expandedPosMatrix[x, y] = RoomPosMatrix[xCopyPos, yCopyPos];
+                expandedPosMatrix[x, y]._xPos = x;
+                expandedPosMatrix[x, y]._yPos = y;
+                if(expandedPosMatrix[x, y]._xRel == 0 && expandedPosMatrix[x, y]._yRel == 0)
+                expandedPosMatrix[x, y].ParentRoom.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+            }
+        }
+
+        //  Reposition geometry
+
+        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * left, 0.25f * up, 0);
+
+        //  Reposition Tilemaps
+
+        FloorTilemap.transform.position += new Vector3(0.5f * left, -0.5f * up, 0);
+        RoofTilemap.transform.position += new Vector3(0.5f * left, -0.5f * up, 0);
+
+        //  Save Changes
+
+        _tankRoomConstellation.SavedPrefabRefMatrix = expandedMatrix;
+        RoomPosMatrix = expandedPosMatrix;
+        _tankRoomConstellation.XTilesAmount = xExpandedTankSize;
+        _tankRoomConstellation.YTilesAmount = yExpandedTankSize;
+    }
+    public void CreateRoomAtPos()
+    {
+
+    }
+    public void CreateRoofAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
@@ -144,6 +239,7 @@ public class CreateTankGeometry : MonoBehaviour
         {
             for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
             {
+                if (x >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length || y >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
                     GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab);
@@ -207,6 +303,7 @@ public class CreateTankGeometry : MonoBehaviour
         {
             for (int x = 0; x < _tankRoomConstellation.XTilesAmount; x++)
             {
+                if (x >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length || y >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallUp)
                 {
                     GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallUp"));
@@ -357,5 +454,10 @@ public class CreateTankGeometry : MonoBehaviour
             matrix += "\n";
         }
         print(matrix);
+    }
+
+    public Vector2Int TilemapToCellPos(Vector3Int tmPos)
+    {
+        return new Vector2Int(tmPos.x, -(tmPos.y + 1));
     }
 }

@@ -23,12 +23,21 @@ public class CreateTankMouseScript : MonoBehaviour
 
         if(MouseCursor.IsPointerOverUIElement())
         {
-            CreateTankSceneManager.instance.mouse._mouse.sprite = Resources.Load("Art\\UI\\Cursor", typeof(Sprite)) as Sprite;
+            CreateTankSceneManager.instance.mouse._mouse.sprite = Resources.Load("Art\\UI\\Cursor3", typeof(Sprite)) as Sprite;
+            CreateTankSceneManager.instance._tools.previewTile = false;
         }
         else
         {
-            if(_mouseState == "Brush") CreateTankSceneManager.instance.mouse._mouse.sprite = Resources.Load("Art\\UI\\Brush", typeof(Sprite)) as Sprite;
-            if(_mouseState == "Eraser") CreateTankSceneManager.instance.mouse._mouse.sprite = Resources.Load("Art\\UI\\Eraser", typeof(Sprite)) as Sprite;
+            if(_mouseState == "Brush")
+            {
+                CreateTankSceneManager.instance.mouse._mouse.sprite = Resources.Load("Art\\UI\\Brush", typeof(Sprite)) as Sprite;
+                CreateTankSceneManager.instance._tools.previewTile = true;
+            }
+            if(_mouseState == "Eraser")
+            {
+                CreateTankSceneManager.instance.mouse._mouse.sprite = Resources.Load("Art\\UI\\Eraser", typeof(Sprite)) as Sprite;
+                CreateTankSceneManager.instance._tools.previewTile = false;
+            }
         }
     }
 }

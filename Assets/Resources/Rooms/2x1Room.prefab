@@ -463,7 +463,7 @@ MonoBehaviour:
   _pathfindParent: {fileID: 0}
   _xPos: 0
   _yPos: 0
-  _xRel: 0
+  _xRel: 1
   _yRel: 0
 --- !u!212 &6826320090485570672
 SpriteRenderer:

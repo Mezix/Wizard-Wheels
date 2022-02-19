@@ -33,7 +33,7 @@ public class TankRoomConstellation : ScriptableObject
 
     public void ClearTank()
     {
-        TmpPrefabRefMatrix = SavedPrefabRefMatrix;
+        TmpPrefabRefMatrix = new XValues(0,0);
     }
 
     //WRAPPER CLASSES FOR SAVING STUFF
@@ -66,6 +66,7 @@ public class TankRoomConstellation : ScriptableObject
         public GameObject RoomPrefab;
         public GameObject RoomSystemPrefab;
         public GameObject TirePrefab;
+        public GameObject Roof;
         public bool WallUp;
         public bool WallRight;
         public bool WallDown;

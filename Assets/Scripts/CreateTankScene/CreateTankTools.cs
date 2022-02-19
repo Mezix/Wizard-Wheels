@@ -12,6 +12,7 @@ public class CreateTankTools : MonoBehaviour
     private Tilemap tempRoofTilemap;
 
     private bool brushing;
+    public bool previewTile;
     public void Awake()
     {
         tempFloorTilemap = _tempFloorGrid.GetComponent<Tilemap>();
@@ -20,6 +21,7 @@ public class CreateTankTools : MonoBehaviour
     private void Start()
     {
         brushing = true;
+        previewTile = true;
     }
     void Update()
     {
@@ -55,15 +57,29 @@ public class CreateTankTools : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
             Vector3Int cellpos = currentlySelectedTilemap.WorldToCell(hit.point);
+            Vector2Int pos = CreateTankSceneManager.instance._tGeo.TilemapToCellPos(cellpos);
+
             if (brushing)
             {
+
                 //paint on the correct tilemap
-                currentlySelectedTilemap.SetTile(cellpos, ui.GetTile());
+                //currentlySelectedTilemap.SetTile(cellpos, ui.GetTile());
+
+                //  Floor
+                if (tileType == 0)
+                {
+                    CreateTankSceneManager.instance._tGeo.CreateFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                }
             }
             else
             {
                 //erase from the correct tilemap
-                currentlySelectedTilemap.SetTile(cellpos, null);
+                //currentlySelectedTilemap.SetTile(cellpos, null);
+
+                if (tileType == 0)
+                {
+                    CreateTankSceneManager.instance._tGeo.CreateFloorAtPos(pos.x, pos.y, 1, 1, null);
+                }
             }
         }
     }
@@ -94,11 +110,13 @@ public class CreateTankTools : MonoBehaviour
     private void SelectBrush()
     {
         brushing = true;
+        previewTile = false;
         CreateTankSceneManager.instance.mouse._mouseState = "Brush";
     }
     private void SelectEraser()
     {
         brushing = false;
+        previewTile = false;
         CreateTankSceneManager.instance.mouse._mouseState = "Eraser";
     }
 }
