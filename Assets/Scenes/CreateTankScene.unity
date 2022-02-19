@@ -5287,7 +5287,7 @@ MonoBehaviour:
   _tGeo: {fileID: 604466275}
   _tUI: {fileID: 1423311042}
   mouse: {fileID: 1685808525}
-  tankToEdit: {fileID: 11400000, guid: 90eae26fa1b0815428b286148bfcaa81, type: 2}
+  tankToEdit: {fileID: 11400000, guid: a1e34954b7d766246828e6458892f13b, type: 2}
 --- !u!1 &2141647519
 GameObject:
   m_ObjectHideFlags: 0

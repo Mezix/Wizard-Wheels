@@ -17,8 +17,8 @@ public class CreateTankGeometry : MonoBehaviour
     public Tilemap RoofTilemap { get; private set; }
     [SerializeField]
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
-    public Color FloorColor;
-    public Color RoofColor;
+    //public Color FloorColor;
+    //public Color RoofColor;
     public void SpawnTankForCreator()
     {
         LoadRooms();
@@ -196,7 +196,18 @@ public class CreateTankGeometry : MonoBehaviour
             for (int y = startY; y < startY + sizeY; y++)
             {
                 Tile t = (Tile)Resources.Load("Tiles\\Roof\\DefaultRoofTile");
-                t.color = RoofColor;
+                //t.color = RoofColor;
+                RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+            }
+        }
+    }
+    public void CreateRoofAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
+    {
+        for (int x = startX; x < startX + sizeX; x++)
+        {
+            for (int y = startY; y < startY + sizeY; y++)
+            {
+                //t.color = RoofColor;
                 RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
@@ -492,8 +503,11 @@ public class CreateTankGeometry : MonoBehaviour
                     if (RoomPosMatrix[x, y])
                     {
                         Vector2Int roomsize = GetRoomSize(x, y);
-                        if(RoomPosMatrix[x,y]._xRel == 0 && RoomPosMatrix[x, y]._yRel == 0)
+                        if (RoomPosMatrix[x, y]._xRel == 0 && RoomPosMatrix[x, y]._yRel == 0)
+                        {
                             CreateFloorAtPos(x, y, roomsize.x, roomsize.y, null);
+                            CreateRoofAtPos(x, y, roomsize.x, roomsize.y, null);
+                        }
                         Destroy(RoomPosMatrix[x, y].ParentRoom.gameObject);
                     }
                 }
@@ -509,7 +523,10 @@ public class CreateTankGeometry : MonoBehaviour
                     {
                         Vector2Int roomsize = GetRoomSize(x, y);
                         if (RoomPosMatrix[x, y]._xRel == 0 && RoomPosMatrix[x, y]._yRel == 0)
+                        {
                             CreateFloorAtPos(x, y, roomsize.x, roomsize.y, null);
+                            CreateRoofAtPos(x, y, roomsize.x, roomsize.y, null);
+                        }
                         Destroy(RoomPosMatrix[x, y].ParentRoom.gameObject);
                     }
                 }
@@ -525,7 +542,10 @@ public class CreateTankGeometry : MonoBehaviour
                     {
                         Vector2Int roomsize = GetRoomSize(x, y);
                         if (RoomPosMatrix[x, y]._xRel == 0 && RoomPosMatrix[x, y]._yRel == 0)
+                        {
                             CreateFloorAtPos(x, y, roomsize.x, roomsize.y, null);
+                            CreateRoofAtPos(x, y, roomsize.x, roomsize.y, null);
+                        }
                         Destroy(RoomPosMatrix[x, y].ParentRoom.gameObject);
                     }
                 }
@@ -541,7 +561,10 @@ public class CreateTankGeometry : MonoBehaviour
                     {
                         Vector2Int roomsize = GetRoomSize(x, y);
                         if (RoomPosMatrix[x, y]._xRel == 0 && RoomPosMatrix[x, y]._yRel == 0)
+                        {
                             CreateFloorAtPos(x, y, roomsize.x, roomsize.y, null);
+                            CreateRoofAtPos(x, y, roomsize.x, roomsize.y, null);
+                        }
                         Destroy(RoomPosMatrix[x, y].ParentRoom.gameObject);
                     }
                 }
