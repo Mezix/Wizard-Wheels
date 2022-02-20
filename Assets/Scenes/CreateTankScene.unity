@@ -1564,7 +1564,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 5, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &873256502
 MonoBehaviour:
@@ -3900,7 +3900,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 0, y: 0, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 1, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -5191,7 +5191,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 0, y: 0, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 1, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -5285,7 +5285,7 @@ MonoBehaviour:
   _tGeo: {fileID: 604466275}
   _tUI: {fileID: 1423311042}
   mouse: {fileID: 1685808525}
-  tankToEdit: {fileID: 11400000, guid: 2efe9b89f21cba9428eaeaeceea93088, type: 2}
+  tankToEdit: {fileID: 11400000, guid: 4cf2639f6fc522941a767ef4d7a4449a, type: 2}
 --- !u!1 &2141647519
 GameObject:
   m_ObjectHideFlags: 0
