@@ -7,33 +7,47 @@ using System;
 [CreateAssetMenu(menuName = "ScriptableObjects/TankRoomConstellations")]
 public class TankRoomConstellation : ScriptableObject
 {
-    public int XTilesAmount; //just the amount of Tiles in a given direction
-    public int YTilesAmount;
+    public int _X; //just the amount of Tiles in a given direction
+    public int _Y;
+
+    public int _tmpX;
+    public int _tmpY;
 
     public XValues SavedPrefabRefMatrix;
-    public XValues TmpPrefabRefMatrix;
+    public XValues _tmpPrefabRefMatrix;
 
     public void SaveTank(string newName)
     {
-        SavedPrefabRefMatrix = TmpPrefabRefMatrix; //overwrite our old matrix with what is currently being shown
         //change name
         if (newName != "")
         {
             string assetPath = AssetDatabase.GetAssetPath(GetInstanceID());
             AssetDatabase.RenameAsset(assetPath, newName);
         }
+        SavedPrefabRefMatrix = _tmpPrefabRefMatrix; //overwrite our old matrix with what is currently being shown
+        _X = _tmpX;
+        _Y = _tmpY;
         EditorUtility.SetDirty(this);
         AssetDatabase.SaveAssets();
         Debug.Log("SAVED");
     }
     public void InitTankForCreation()
     {
-        TmpPrefabRefMatrix = SavedPrefabRefMatrix;
+        if(SavedPrefabRefMatrix.XArray.Length > 0)
+        {
+            _X = SavedPrefabRefMatrix.XArray.Length;
+            _Y = SavedPrefabRefMatrix.XArray[0].YStuff.Length;
+        }
+        _tmpPrefabRefMatrix = SavedPrefabRefMatrix;
+        _tmpX = _X;
+        _tmpY = _Y;
     }
 
     public void ClearTank()
     {
-        TmpPrefabRefMatrix = new XValues(0,0);
+        _tmpPrefabRefMatrix = new XValues(0,0);
+        _tmpX = 0;
+        _tmpY = 0;
     }
 
     //WRAPPER CLASSES FOR SAVING STUFF

@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
   m_Name: Starkov
   m_EditorClassIdentifier: 
-  XTilesAmount: 7
-  YTilesAmount: 5
+  _X: 7
+  _Y: 5
+  _tmpX: 0
+  _tmpY: 0
   SavedPrefabRefMatrix:
     XArray:
     - YStuff:
@@ -23,6 +25,7 @@ MonoBehaviour:
           type: 3}
         TirePrefab: {fileID: 7613949203658757165, guid: 7ac089229eaa84c40aae6f43ba1d1d2a,
           type: 3}
+        Roof: {fileID: 0}
         WallUp: 1
         WallRight: 0
         WallDown: 0
@@ -30,6 +33,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -39,6 +43,7 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 1723648633549023116, guid: 26bcb7eb185396848aed8d45c73b04fe,
           type: 3}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 1
@@ -46,6 +51,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -53,6 +59,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -61,6 +68,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 1
         WallRight: 0
         WallDown: 0
@@ -68,6 +76,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -76,6 +85,7 @@ MonoBehaviour:
           type: 3}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -85,6 +95,7 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 7ac089229eaa84c40aae6f43ba1d1d2a,
           type: 3}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -92,6 +103,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -101,6 +113,7 @@ MonoBehaviour:
           type: 3}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 1
         WallRight: 1
         WallDown: 0
@@ -108,6 +121,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 1
         WallDown: 0
@@ -116,6 +130,7 @@ MonoBehaviour:
           type: 3}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -124,6 +139,7 @@ MonoBehaviour:
           type: 3}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -131,6 +147,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -141,6 +158,7 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 1723648633549023116, guid: f8f43c915f3802a4393bca830b2776b4,
           type: 3}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -148,6 +166,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -156,6 +175,7 @@ MonoBehaviour:
           type: 3}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -165,6 +185,7 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 8917419255669800742, guid: bca6aa83df32f6d4d95ebc226be46774,
           type: 3}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -172,6 +193,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -180,6 +202,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -187,6 +210,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -195,6 +219,7 @@ MonoBehaviour:
           type: 3}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -203,6 +228,7 @@ MonoBehaviour:
           type: 3}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -210,6 +236,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -220,6 +247,7 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 1723648633549023116, guid: 32430ef957ea24a4eae0cc1b70d80ded,
           type: 3}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -227,6 +255,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -235,6 +264,7 @@ MonoBehaviour:
           type: 3}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -244,6 +274,7 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af,
           type: 3}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -251,6 +282,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -260,6 +292,7 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af,
           type: 3}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -267,6 +300,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -276,6 +310,7 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 1723648633549023116, guid: 26bcb7eb185396848aed8d45c73b04fe,
           type: 3}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -283,6 +318,7 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -290,9 +326,10 @@ MonoBehaviour:
       - RoomPrefab: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
+        Roof: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
         WallLeft: 0
-  TmpPrefabRefMatrix:
+  _tmpPrefabRefMatrix:
     XArray: []

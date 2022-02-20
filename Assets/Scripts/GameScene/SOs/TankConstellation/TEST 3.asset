@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
   m_Name: TEST 3
   m_EditorClassIdentifier: 
-  XTilesAmount: 7
-  YTilesAmount: 5
+  _X: 0
+  _Y: 0
+  _tmpX: 0
+  _tmpY: 0
   SavedPrefabRefMatrix:
     XArray:
     - YStuff:
@@ -329,5 +331,5 @@ MonoBehaviour:
         WallRight: 0
         WallDown: 0
         WallLeft: 0
-  TmpPrefabRefMatrix:
+  _tmpPrefabRefMatrix:
     XArray: []
