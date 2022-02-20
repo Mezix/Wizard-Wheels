@@ -54,6 +54,7 @@ public class CreateTankTools : MonoBehaviour
 
         CreateTankUI ui = CreateTankSceneManager.instance._tUI;
         if (brushing) currentlySelectedTempTilemap.SetTile(tempCellPos, ui.GetTile());
+        else currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof (Tile)) as Tile);
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
