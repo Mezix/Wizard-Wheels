@@ -17,6 +17,8 @@ public class CreateTankGeometry : MonoBehaviour
     public Tilemap RoofTilemap { get; private set; }
     [SerializeField]
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
+    private GameObject _visibleGrid;
+
     //public Color FloorColor;
     //public Color RoofColor;
     public void SpawnTankForCreator()
@@ -29,21 +31,23 @@ public class CreateTankGeometry : MonoBehaviour
     }
     private void Update()
     {
+        int modifier = 1;
+        if (Input.GetKey(KeyCode.LeftShift)) modifier = -1;
         if (Input.GetKeyDown(KeyCode.A))
         {
-            ModifyTankSize(-1, 0, 0, 0);
+            ModifyTankSize(1 * modifier, 0, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            ModifyTankSize(0, -1, 0, 0);
+            ModifyTankSize(0, 1 * modifier, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            ModifyTankSize(0, 0, -1, 0);
+            ModifyTankSize(0, 0, 1 * modifier, 0);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            ModifyTankSize(0, 0, 0, -1);
+            ModifyTankSize(0, 0, 0, 1 * modifier);
         }
     }
     private void CreateBGAndRoof()
@@ -282,7 +286,6 @@ public class CreateTankGeometry : MonoBehaviour
 
         _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
     }
-
     public void CreateNewRoomAtPos(int x, int y, GameObject roomToCreate)
     {
         //  TODO: Check if we need to expand here!
@@ -438,7 +441,11 @@ public class CreateTankGeometry : MonoBehaviour
         //  Now move to the halfway point
         TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation._X, 0.25f * _tankRoomConstellation._Y, 0);
 
-        //print("finished creating Tank Geometry");
+        _visibleGrid = new GameObject("VisibleGrid");
+        SpriteRenderer sr = _visibleGrid.AddComponent<SpriteRenderer>();
+        sr.sprite = Resources.Load("Art\\white_square_border", typeof(Sprite)) as Sprite;
+
+        ResizeGrid();
     }
     public void ShowRoof(bool b)
     {
@@ -550,7 +557,7 @@ public class CreateTankGeometry : MonoBehaviour
 
         //  Reposition geometry
 
-        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * (left - right), 0.25f * (up - down), 0);
+        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * (left + right), 0.25f * (up + down), 0);
 
         //  Reposition Tilemaps
 
@@ -565,6 +572,14 @@ public class CreateTankGeometry : MonoBehaviour
         _roomPosMatrix = expandedPosMatrix;
         _tankRoomConstellation._tmpX = xExpandedTankSize;
         _tankRoomConstellation._tmpY = yExpandedTankSize;
+
+        //Show Grid Size
+
+        ResizeGrid();
+    }
+    private void ResizeGrid()
+    {
+        _visibleGrid.transform.localScale = new Vector3(_tankRoomConstellation._tmpX, _tankRoomConstellation._tmpY, 0);
     }
 
     private Vector2Int GetRoomSize(int x, int y)
