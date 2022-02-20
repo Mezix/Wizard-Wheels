@@ -18,7 +18,7 @@ public class CreateTankMouseScript : MonoBehaviour
     {
         Cursor.visible = false;
         zoomAmount = 0.75f;
-        maxZoom = 2;
+        maxZoom = 1;
         minZoom = 12;
         desiredZoom = maxZoom;
 

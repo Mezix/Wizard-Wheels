@@ -153,51 +153,51 @@ public class CreateTankGeometry : MonoBehaviour
     }
     public void ChangeFloorAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
     {
-        startX += offsetL;
-        startY += offsetU;
-        //  Check if we overstepped the edges of our matrix and need to expand first!
-        if (startX < 0 || startY < 0 || startX > _tankRoomConstellation._tmpX-1 || startY > _tankRoomConstellation._tmpY-1)
-        {
-            int expandL = Math.Abs(Math.Min(0, startX));
-            int expandR = Math.Max(_tankRoomConstellation._tmpX-1, startX) - _tankRoomConstellation._tmpX+1;
-            int expandU = Math.Abs(Math.Min(0, startY));
-            int expandD = Math.Max(_tankRoomConstellation._tmpY-1, startY) - _tankRoomConstellation._tmpY+1;
-            ModifyTankSize(expandL, expandR, expandU, expandD);
-            //print("left: " + expandL + ", right: " + expandR +  ", up :" + expandU + ", down: " + expandD);
-        }
-        else
-        {
-            GameObject roomToLoad = (GameObject)Resources.Load("Rooms\\1x1Room");
-            if (sizeX == 1)
-            {
-                if (sizeY == 2)
-                {
-                    roomToLoad = (GameObject)Resources.Load("Rooms\\1x2Room");
-
-                    //check if we overlap with a room and we have to delete
-                }
-            }
-            if (sizeX == 2)
-            {
-                if (sizeY == 1)
-                {
-                    roomToLoad = (GameObject)Resources.Load("Rooms\\2x1Room");
-
-                    //check if we overlap with a room and we have to delete
-                }
-                if (sizeY == 2)
-                {
-                    roomToLoad = (GameObject)Resources.Load("Rooms\\2x2Room");
-
-                    //check if we overlap with a room and we have to delete
-                }
-            }
-            CreateNewRoomAtPos(startX, startY, roomToLoad);
-        }
-        //startX -= offsetL;
-        //startY -= offsetU;
         if (t != null)
         {
+            startX += offsetL;
+            startY += offsetU;
+            //  Check if we overstepped the edges of our matrix and need to expand first!
+            if (startX < 0 || startY < 0 || startX > _tankRoomConstellation._tmpX - 1 || startY > _tankRoomConstellation._tmpY - 1)
+            {
+                int expandL = Math.Abs(Math.Min(0, startX));
+                int expandR = Math.Max(_tankRoomConstellation._tmpX - 1, startX) - _tankRoomConstellation._tmpX + 1;
+                int expandU = Math.Abs(Math.Min(0, startY));
+                int expandD = Math.Max(_tankRoomConstellation._tmpY - 1, startY) - _tankRoomConstellation._tmpY + 1;
+                ModifyTankSize(expandL, expandR, expandU, expandD);
+                //print("left: " + expandL + ", right: " + expandR +  ", up :" + expandU + ", down: " + expandD);
+            }
+            else
+            {
+                GameObject roomToLoad = (GameObject)Resources.Load("Rooms\\1x1Room");
+                if (sizeX == 1)
+                {
+                    if (sizeY == 2)
+                    {
+                        roomToLoad = (GameObject)Resources.Load("Rooms\\1x2Room");
+
+                        //check if we overlap with a room and we have to delete
+                    }
+                }
+                if (sizeX == 2)
+                {
+                    if (sizeY == 1)
+                    {
+                        roomToLoad = (GameObject)Resources.Load("Rooms\\2x1Room");
+
+                        //check if we overlap with a room and we have to delete
+                    }
+                    if (sizeY == 2)
+                    {
+                        roomToLoad = (GameObject)Resources.Load("Rooms\\2x2Room");
+
+                        //check if we overlap with a room and we have to delete
+                    }
+                }
+                CreateNewRoomAtPos(startX, startY, roomToLoad);
+            }
+            //startX -= offsetL;
+            //startY -= offsetU;
             for (int x = startX; x < startX + sizeX; x++)
             {
                 for (int y = startY; y < startY + sizeY; y++)
