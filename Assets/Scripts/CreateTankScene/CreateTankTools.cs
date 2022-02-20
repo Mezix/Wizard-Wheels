@@ -28,7 +28,6 @@ public class CreateTankTools : MonoBehaviour
         HandleKeyboardInput();
         HandleMouseInput();
     }
-
     private void HandleMouseInput()
     {
         tempFloorTilemap.ClearAllTiles();
@@ -50,11 +49,13 @@ public class CreateTankTools : MonoBehaviour
 
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         Vector3Int tempCellPos = currentlySelectedTempTilemap.WorldToCell(hit.point);
+
         //Show the currently selected tile were painting with on the temporary tilemap
+
         CreateTankUI ui = CreateTankSceneManager.instance._tUI;
         if (brushing) currentlySelectedTempTilemap.SetTile(tempCellPos, ui.GetTile());
 
-        if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
             Vector3Int cellpos = currentlySelectedTilemap.WorldToCell(hit.point);
             Vector2Int pos = CreateTankSceneManager.instance._tGeo.TilemapToCellPos(cellpos);
@@ -68,7 +69,7 @@ public class CreateTankTools : MonoBehaviour
                 //  Floor
                 if (tileType == 0)
                 {
-                    CreateTankSceneManager.instance._tGeo.CreateFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                    CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
                 }
             }
             else
@@ -78,12 +79,11 @@ public class CreateTankTools : MonoBehaviour
 
                 if (tileType == 0)
                 {
-                    CreateTankSceneManager.instance._tGeo.CreateFloorAtPos(pos.x, pos.y, 1, 1, null);
+                    CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, null);
                 }
             }
         }
     }
-
     private void HandleKeyboardInput()
     {
         if(Input.GetKeyDown(KeyCode.B))
@@ -95,7 +95,6 @@ public class CreateTankTools : MonoBehaviour
             SelectEraser();
         }
     }
-
     public void SelectTool(int value)
     {
         if (value == 0)

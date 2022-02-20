@@ -19,6 +19,11 @@ public class CreateTankGeometry : MonoBehaviour
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     private GameObject _visibleGrid;
 
+    public int offsetL = 0;
+    public int offsetR = 0;
+    public int offsetU = 0;
+    public int offsetD = 0;
+
     //public Color FloorColor;
     //public Color RoofColor;
     public void SpawnTankForCreator()
@@ -146,23 +151,30 @@ public class CreateTankGeometry : MonoBehaviour
             }
         }
     }
-    public void CreateFloorAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
+    public void ChangeFloorAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
     {
-        //  Check if we need to expand our matrix to paint here!
-        if(startX > 0 && startY > 0 && startX < _tankRoomConstellation._tmpX && startY < _tankRoomConstellation._tmpY)
+        startX += offsetL;
+        startY += offsetU;
+        //  Check if we overstepped the edges of our matrix and need to expand first!
+        if (startX < 0 || startY < 0 || startX > _tankRoomConstellation._tmpX-1 || startY > _tankRoomConstellation._tmpY-1)
         {
-            if (_roomPosMatrix[startX, startY])
-            {
-            }
+            int expandL = Math.Abs(Math.Min(0, startX));
+            int expandR = Math.Max(_tankRoomConstellation._tmpX-1, startX) - _tankRoomConstellation._tmpX+1;
+            int expandU = Math.Abs(Math.Min(0, startY));
+            int expandD = Math.Max(_tankRoomConstellation._tmpY-1, startY) - _tankRoomConstellation._tmpY+1;
+            ModifyTankSize(expandL, expandR, expandU, expandD);
+            //print("left: " + expandL + ", right: " + expandR +  ", up :" + expandU + ", down: " + expandD);
         }
         else
-        { 
+        {
             GameObject roomToLoad = (GameObject)Resources.Load("Rooms\\1x1Room");
             if (sizeX == 1)
             {
                 if (sizeY == 2)
                 {
                     roomToLoad = (GameObject)Resources.Load("Rooms\\1x2Room");
+
+                    //check if we overlap with a room and we have to delete
                 }
             }
             if (sizeX == 2)
@@ -170,28 +182,35 @@ public class CreateTankGeometry : MonoBehaviour
                 if (sizeY == 1)
                 {
                     roomToLoad = (GameObject)Resources.Load("Rooms\\2x1Room");
+
+                    //check if we overlap with a room and we have to delete
                 }
                 if (sizeY == 2)
                 {
                     roomToLoad = (GameObject)Resources.Load("Rooms\\2x2Room");
+
+                    //check if we overlap with a room and we have to delete
                 }
             }
-            //CreateNewRoomAtPos(startX, startY, roomToLoad);
+            CreateNewRoomAtPos(startX, startY, roomToLoad);
         }
-        for (int x = startX; x < startX + sizeX; x++)
+        //startX -= offsetL;
+        //startY -= offsetU;
+        if (t != null)
         {
-            for (int y = startY; y < startY + sizeY; y++)
+            for (int x = startX; x < startX + sizeX; x++)
             {
-                //t.color = FloorColor;
-                FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                for (int y = startY; y < startY + sizeY; y++)
+                {
+                    //t.color = FloorColor;
+                    FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                }
             }
         }
-
         //  If we were erasing, check here if we can make our matrix smaller again!
-
-        if(t == null)
+        else
         {
-
+            DeleteRoomAtPos(startX, startY);
         }
     }
     public void DeleteRoomAtPos(int roomPositionX, int roomPositionY)
@@ -204,8 +223,14 @@ public class CreateTankGeometry : MonoBehaviour
                 Vector2Int roomsize = GetRoomSize(roomPositionX, roomPositionY);
                 int firstRoomPosX = rParent.allRoomPositions[0]._xPos;
                 int firstRoomPosY = rParent.allRoomPositions[0]._yPos;
-                CreateFloorAtPos(firstRoomPosX, firstRoomPosY, roomsize.x, roomsize.y, null);
-                CreateRoofAtPos(firstRoomPosX, firstRoomPosY, roomsize.x, roomsize.y, null);
+                for (int x = firstRoomPosX; x < firstRoomPosX + roomsize.x; x++)
+                {
+                    for (int y = firstRoomPosY; y < firstRoomPosY + roomsize.y; y++)
+                    {
+                        FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), null);
+                        RoofTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
+                    }
+                }
                 Destroy(_roomPosMatrix[roomPositionX, roomPositionY].ParentRoom.gameObject);
             }
         }
@@ -288,8 +313,6 @@ public class CreateTankGeometry : MonoBehaviour
     }
     public void CreateNewRoomAtPos(int x, int y, GameObject roomToCreate)
     {
-        //  TODO: Check if we need to expand here!
-
         GameObject rGO = Instantiate(roomToCreate);
         Room r = rGO.GetComponent<Room>();
         r.tr = _tankRoomConstellation;
@@ -504,13 +527,17 @@ public class CreateTankGeometry : MonoBehaviour
         }
         print(matrix);
     }
-
     public Vector2Int TilemapToCellPos(Vector3Int tmPos)
     {
         return new Vector2Int(tmPos.x, -(tmPos.y + 1));
     }
     public void ModifyTankSize(int left, int right, int up, int down)
     {
+        offsetL += left;
+        offsetR += right;
+        offsetU += up;
+        offsetD += down;
+
         int xOldTankSize = _tankRoomConstellation._tmpX;
         int yOldTankSize = _tankRoomConstellation._tmpY;
 
@@ -561,9 +588,9 @@ public class CreateTankGeometry : MonoBehaviour
 
         //  Reposition Tilemaps
 
-        FloorTilemap.transform.position += new Vector3(0.5f * left, -0.5f * up, 0);
+        FloorTilemap.transform.position += new Vector3(0.5f * (left + right), -0.5f * (up + down), 0);
         CreateTankSceneManager.instance._tools._tempFloorGrid.transform.position = FloorTilemap.transform.position;
-        RoofTilemap.transform.position += new Vector3(0.5f * left, -0.5f * up, 0);
+        RoofTilemap.transform.position += new Vector3(0.5f * (left + right), -0.5f * (up + down), 0);
         CreateTankSceneManager.instance._tools._tempRoofGrid.transform.position = FloorTilemap.transform.position;
 
         //  Save Changes into the temp
@@ -581,7 +608,6 @@ public class CreateTankGeometry : MonoBehaviour
     {
         _visibleGrid.transform.localScale = new Vector3(_tankRoomConstellation._tmpX, _tankRoomConstellation._tmpY, 0);
     }
-
     private Vector2Int GetRoomSize(int x, int y)
     {
         return new Vector2Int(_roomPosMatrix[x, y].ParentRoom.sizeX, _roomPosMatrix[x, y].ParentRoom.sizeY);
