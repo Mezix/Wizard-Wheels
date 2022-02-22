@@ -175,7 +175,6 @@ public class CreateTankGeometry : MonoBehaviour
                     if (sizeY == 2)
                     {
                         roomToLoad = (GameObject)Resources.Load("Rooms\\1x2Room");
-
                         //check if we overlap with a room and we have to delete
                     }
                 }
@@ -213,10 +212,14 @@ public class CreateTankGeometry : MonoBehaviour
     }
     public void DeleteRoomAtPos(int roomPositionX, int roomPositionY)
     {
+        FloorTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
+        RoofTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
         if (_roomPosMatrix[roomPositionX, roomPositionY])
         {
             if(_roomPosMatrix[roomPositionX, roomPositionY].ParentRoom)
             {
+                _tankRoomConstellation._tmpPrefabRefMatrix.XArray[roomPositionX].YStuff[roomPositionY].RoomPrefab = null;
+
                 Room rParent = _roomPosMatrix[roomPositionX, roomPositionY].ParentRoom;
                 Vector2Int roomsize = GetRoomSize(roomPositionX, roomPositionY);
                 int firstRoomPosX = rParent.allRoomPositions[0]._xPos;
@@ -311,6 +314,8 @@ public class CreateTankGeometry : MonoBehaviour
     }
     public void CreateNewRoomAtPos(int x, int y, GameObject roomToCreate)
     {
+        _tankRoomConstellation._tmpPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab = roomToCreate;
+
         GameObject rGO = Instantiate(roomToCreate);
         Room r = rGO.GetComponent<Room>();
         r.tr = _tankRoomConstellation;
@@ -531,11 +536,6 @@ public class CreateTankGeometry : MonoBehaviour
     }
     public void ModifyTankSize(int left, int right, int up, int down)
     {
-        //offsetL += left;
-        //offsetR += right;
-        //offsetU += up;
-        //offsetD += down;
-
         int xOldTankSize = _tankRoomConstellation._tmpX;
         int yOldTankSize = _tankRoomConstellation._tmpY;
 
@@ -587,11 +587,11 @@ public class CreateTankGeometry : MonoBehaviour
         //  Reposition Tilemaps
 
         //FloorTilemap.transform.position += new Vector3(0.5f * (left + right), -0.5f * (up + down), 0);
-        FloorTilemap = ShiftTilemap(FloorTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
+        ShiftTilemap(FloorTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
         CreateTankSceneManager.instance._tools._tempFloorGrid.transform.position = FloorTilemap.transform.position;
 
         //RoofTilemap.transform.position += new Vector3(0.5f * (left + right), -0.5f * (up + down), 0);
-        RoofTilemap = ShiftTilemap(RoofTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
+        ShiftTilemap(RoofTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
         CreateTankSceneManager.instance._tools._tempRoofGrid.transform.position = FloorTilemap.transform.position;
 
         //  Save Changes into the temp
@@ -605,25 +605,34 @@ public class CreateTankGeometry : MonoBehaviour
 
         ResizeGrid();
     }
-    private Tilemap ShiftTilemap(Tilemap oldTM, int sizeX, int sizeY, int left, int right, int up, int down)
+    private void ShiftTilemap(Tilemap actualTilemap, int sizeX, int sizeY, int left, int right, int up, int down)
     {
-        GameObject tmp = new GameObject("tmp");
-        Grid tmpGrid = tmp.AddComponent<Grid>();
+        GameObject tmpObj = new GameObject("tmp");
+        Grid tmpGrid = tmpObj.AddComponent<Grid>();
         tmpGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
 
-        Tilemap tmpTilemap = tmp.AddComponent<Tilemap>();
-        tmpTilemap.tileAnchor = new Vector3(0, 1, 0);
+        Tilemap tilemapStorage = tmpObj.AddComponent<Tilemap>();
+        tilemapStorage.tileAnchor = new Vector3(0, 1, 0);
 
         for (int y = 0; y < sizeY; y++)
         {
             for (int x = 0; x < sizeX; x++)
             {
-                tmpTilemap.SetTile(new Vector3Int(x, y, 0), oldTM.GetTile(new Vector3Int(x + left, y - up, 0)));
+                tilemapStorage.SetTile(new Vector3Int(x, -y, 0), actualTilemap.GetTile(new Vector3Int(x, -y, 0)));
             }
         }
-        Destroy(tmp);
-        return tmpTilemap;
+        actualTilemap.ClearAllTiles();
+
+        for (int y = 0; y < sizeY; y++)
+        {
+            for (int x = 0; x < sizeX; x++)
+            {
+                actualTilemap.SetTile(new Vector3Int(x+left, -y, 0), tilemapStorage.GetTile(new Vector3Int(x, -(y - up), 0)));
+            }
+        }
+        Destroy(tmpObj);
     }
+
     private void ResizeGrid()
     {
         _visibleGrid.transform.localScale = new Vector3(_tankRoomConstellation._tmpX, _tankRoomConstellation._tmpY, 0);

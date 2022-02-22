@@ -601,10 +601,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tankRoomConstellation: {fileID: 0}
   systemIcons: []
-  offsetL: 0
-  offsetR: 0
-  offsetU: 0
-  offsetD: 0
 --- !u!1 &644653395
 GameObject:
   m_ObjectHideFlags: 0
