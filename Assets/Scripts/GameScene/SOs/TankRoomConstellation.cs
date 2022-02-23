@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
+using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/TankRoomConstellations")]
 public class TankRoomConstellation : ScriptableObject
@@ -14,7 +15,7 @@ public class TankRoomConstellation : ScriptableObject
     public int _tmpY;
 
     public XValues SavedPrefabRefMatrix;
-    public XValues _tmpPrefabRefMatrix;
+    public XValues _tmpMatrix;
 
     public void SaveTank(string newName)
     {
@@ -24,7 +25,7 @@ public class TankRoomConstellation : ScriptableObject
             string assetPath = AssetDatabase.GetAssetPath(GetInstanceID());
             AssetDatabase.RenameAsset(assetPath, newName);
         }
-        SavedPrefabRefMatrix = _tmpPrefabRefMatrix; //overwrite our old matrix with what is currently being shown
+        SavedPrefabRefMatrix = _tmpMatrix; //overwrite our old matrix with what is currently being shown
         _X = _tmpX;
         _Y = _tmpY;
         EditorUtility.SetDirty(this);
@@ -38,14 +39,14 @@ public class TankRoomConstellation : ScriptableObject
             _X = SavedPrefabRefMatrix.XArray.Length;
             _Y = SavedPrefabRefMatrix.XArray[0].YStuff.Length;
         }
-        _tmpPrefabRefMatrix = SavedPrefabRefMatrix;
+        _tmpMatrix = SavedPrefabRefMatrix;
         _tmpX = _X;
         _tmpY = _Y;
     }
 
     public void ClearTank()
     {
-        _tmpPrefabRefMatrix = new XValues(0,0);
+        _tmpMatrix = new XValues(0,0);
         _tmpX = 0;
         _tmpY = 0;
     }
@@ -78,9 +79,10 @@ public class TankRoomConstellation : ScriptableObject
     public class RoomInfo
     {
         public GameObject RoomPrefab;
+        public Tile FloorTile;
         public GameObject RoomSystemPrefab;
         public GameObject TirePrefab;
-        public GameObject Roof;
+        public Tile RoofTile;
         public bool WallUp;
         public bool WallRight;
         public bool WallDown;

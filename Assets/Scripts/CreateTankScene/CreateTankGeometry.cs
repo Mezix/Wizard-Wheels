@@ -7,7 +7,7 @@ using static TankRoomConstellation;
 
 public class CreateTankGeometry : MonoBehaviour
 {
-    public TankRoomConstellation _tankRoomConstellation;
+    public TankRoomConstellation _tRC;
     public RoomPosition[,] _roomPosMatrix;
     public GameObject TankGeometryParent { get; private set; }
     public GameObject RoomsParent { get; private set; }
@@ -19,11 +19,6 @@ public class CreateTankGeometry : MonoBehaviour
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     private GameObject _visibleGrid;
 
-    //public int offsetL = 0;
-    //public int offsetR = 0;
-    //public int offsetU = 0;
-    //public int offsetD = 0;
-
     //public Color FloorColor;
     //public Color RoofColor;
     public void SpawnTankForCreator()
@@ -31,8 +26,12 @@ public class CreateTankGeometry : MonoBehaviour
         LoadRooms();
         CreateBGAndRoof();
         PositionTankObjects();
-        //InitWeaponsAndSystems();
         //CreateWalls();
+        CreateTires();
+        //InitWeaponsAndSystems();
+
+        CreateTankSceneManager.instance._tools._tempFloorGrid.transform.position = FloorTilemap.transform.position;
+        CreateTankSceneManager.instance._tools._tempRoofGrid.transform.position = RoofTilemap.transform.position;
     }
     private void Update()
     {
@@ -58,15 +57,15 @@ public class CreateTankGeometry : MonoBehaviour
     private void CreateBGAndRoof()
     {
         CreateFloorAndRoofTilemap();
-        for (int x = 0; x < _tankRoomConstellation._X; x++)
+        for (int x = 0; x < _tRC._X; x++)
         {
-            for (int y = 0; y < _tankRoomConstellation._Y; y++)
+            for (int y = 0; y < _tRC._Y; y++)
             {
-                if (x >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length || y >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
+                if (x >= _tRC.SavedPrefabRefMatrix.XArray.Length || y >= _tRC.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
+                if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
-                    int sizeX = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeX;
-                    int sizeY = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeY;
+                    int sizeX = _tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeX;
+                    int sizeY = _tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeY;
                     LoadFloorAtPos(x, y, sizeX, sizeY);
                     LoadRoofAtPos(x, y, sizeX, sizeY);
                 }
@@ -87,7 +86,6 @@ public class CreateTankGeometry : MonoBehaviour
 
         //  Create Tilemap
         FloorTilemap = floor.AddComponent<Tilemap>();
-        //FloorTilemap.tileAnchor = new Vector3(0.5f, 0.5f, 0);
         FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
@@ -110,7 +108,6 @@ public class CreateTankGeometry : MonoBehaviour
 
         //  Create Tilemap
         RoofTilemap = roofTilemap.AddComponent<Tilemap>();
-        //RoofTilemap.tileAnchor = new Vector3(0.5f, 0.5f, 0);
         RoofTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
@@ -144,26 +141,23 @@ public class CreateTankGeometry : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
+                Tile t = _tRC._tmpMatrix.XArray[x].YStuff[y].FloorTile;
                 //t.color = FloorColor;
-                Tile t = (Tile)Resources.Load("Tiles\\Floor\\DefaultFloorTile");
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-
             }
         }
     }
     public void ChangeFloorAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
     {
-        //startX += offsetL;
-        //startY += offsetU;
         if (t != null)
         {
             //  Check if we overstepped the edges of our matrix and need to expand first!
-            if (startX < 0 || startY < 0 || startX > _tankRoomConstellation._tmpX - 1 || startY > _tankRoomConstellation._tmpY - 1)
+            if (startX < 0 || startY < 0 || startX > _tRC._tmpX - 1 || startY > _tRC._tmpY - 1)
             {
                 int expandL = Math.Abs(Math.Min(0, startX));
-                int expandR = Math.Max(_tankRoomConstellation._tmpX - 1, startX) - _tankRoomConstellation._tmpX + 1;
+                int expandR = Math.Max(_tRC._tmpX - 1, startX) - _tRC._tmpX + 1;
                 int expandU = Math.Abs(Math.Min(0, startY));
-                int expandD = Math.Max(_tankRoomConstellation._tmpY - 1, startY) - _tankRoomConstellation._tmpY + 1;
+                int expandD = Math.Max(_tRC._tmpY - 1, startY) - _tRC._tmpY + 1;
                 ModifyTankSize(expandL, expandR, expandU, expandD);
                 //print("left: " + expandL + ", right: " + expandR +  ", up :" + expandU + ", down: " + expandD);
             }
@@ -193,7 +187,7 @@ public class CreateTankGeometry : MonoBehaviour
                         //check if we overlap with a room and we have to delete
                     }
                 }
-                CreateNewRoomAtPos(startX, startY, roomToLoad);
+                CreateNewEmptyRoomAtPos(startX, startY, roomToLoad);
             }
             for (int x = startX; x < startX + sizeX; x++)
             {
@@ -201,6 +195,7 @@ public class CreateTankGeometry : MonoBehaviour
                 {
                     //t.color = FloorColor;
                     FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                    _tRC._tmpMatrix.XArray[x].YStuff[y].FloorTile = t;
                 }
             }
         }
@@ -218,7 +213,7 @@ public class CreateTankGeometry : MonoBehaviour
         {
             if(_roomPosMatrix[roomPositionX, roomPositionY].ParentRoom)
             {
-                _tankRoomConstellation._tmpPrefabRefMatrix.XArray[roomPositionX].YStuff[roomPositionY].RoomPrefab = null;
+                _tRC._tmpMatrix.XArray[roomPositionX].YStuff[roomPositionY].RoomPrefab = null;
 
                 Room rParent = _roomPosMatrix[roomPositionX, roomPositionY].ParentRoom;
                 Vector2Int roomsize = GetRoomSize(roomPositionX, roomPositionY);
@@ -236,19 +231,24 @@ public class CreateTankGeometry : MonoBehaviour
             }
         }
     }
+
+    //  Roof
+
     public void LoadRoofAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                Tile t = (Tile)Resources.Load("Tiles\\Roof\\DefaultRoofTile");
+                Tile t = _tRC._tmpMatrix.XArray[x].YStuff[y].RoofTile;
                 //t.color = RoofColor;
+
+                //  TODO: roof isnt loading if the ystuff array is empty there
                 RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
     }
-    public void CreateRoofAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
+    public void ChangeRoofAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
@@ -256,24 +256,32 @@ public class CreateTankGeometry : MonoBehaviour
             {
                 //t.color = RoofColor;
                 RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                _tRC._tmpMatrix.XArray[x].YStuff[y].RoofTile = t;
             }
         }
     }
+
+    //  Rooms
+
     private void LoadRooms()
     {
-        _roomPosMatrix = new RoomPosition[_tankRoomConstellation._X, _tankRoomConstellation._Y];
+        _roomPosMatrix = new RoomPosition[_tRC._X, _tRC._Y];
         AllRooms = new List<Room>();
+        if (FloorTilemap) FloorTilemap.ClearAllTiles();
+        if (RoofTilemap) RoofTilemap.ClearAllTiles();
+        if (_visibleGrid) Destroy(_visibleGrid);
 
+        if (RoomsParent) Destroy(RoomsParent);
         RoomsParent = new GameObject("All Tank Rooms");
         RoomsParent.transform.parent = gameObject.transform;
         RoomsParent.transform.localPosition = Vector3.zero;
 
-        for (int y = 0; y < _tankRoomConstellation._Y; y++)
+        for (int y = 0; y < _tRC._Y; y++)
         {
-            for (int x = 0; x < _tankRoomConstellation._X; x++)
+            for (int x = 0; x < _tRC._X; x++)
             {
-                if (x >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length || y >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
+                if (x >= _tRC.SavedPrefabRefMatrix.XArray.Length || y >= _tRC.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
+                if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
                     LoadRoomAtPos(x,y);
                 }
@@ -282,9 +290,9 @@ public class CreateTankGeometry : MonoBehaviour
     }
     public void LoadRoomAtPos(int x, int y)
     {
-        GameObject rGO = Instantiate(_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab);
+        GameObject rGO = Instantiate(_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab);
         Room r = rGO.GetComponent<Room>();
-        r.tr = _tankRoomConstellation;
+        r.tr = _tRC;
         rGO.transform.parent = RoomsParent.transform;
         rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
         AllRooms.Add(r);
@@ -312,13 +320,13 @@ public class CreateTankGeometry : MonoBehaviour
 
         _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
     }
-    public void CreateNewRoomAtPos(int x, int y, GameObject roomToCreate)
+    public void CreateNewEmptyRoomAtPos(int x, int y, GameObject roomToCreate)
     {
-        _tankRoomConstellation._tmpPrefabRefMatrix.XArray[x].YStuff[y].RoomPrefab = roomToCreate;
+        _tRC._tmpMatrix.XArray[x].YStuff[y].RoomPrefab = roomToCreate;
 
         GameObject rGO = Instantiate(roomToCreate);
         Room r = rGO.GetComponent<Room>();
-        r.tr = _tankRoomConstellation;
+        r.tr = _tRC;
         rGO.transform.parent = RoomsParent.transform;
         rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
         AllRooms.Add(r);
@@ -346,16 +354,87 @@ public class CreateTankGeometry : MonoBehaviour
 
         _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
     }
+
+    //  Walls
+
+    public void CreateWalls()
+    {
+        for (int y = 0; y < _tRC._Y; y++)
+        {
+            for (int x = 0; x < _tRC._X; x++)
+            {
+                if (x >= _tRC.SavedPrefabRefMatrix.XArray.Length || y >= _tRC.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
+                if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallUp)
+                {
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallUp"));
+                    wall.transform.SetParent(_roomPosMatrix[x, y].transform);
+                    wall.transform.localPosition = Vector3.zero;
+                }
+                if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallRight)
+                {
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallRight"));
+                    wall.transform.SetParent(_roomPosMatrix[x, y].transform);
+                    wall.transform.localPosition = Vector3.zero;
+                }
+                if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallDown)
+                {
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallDown"));
+                    wall.transform.SetParent(_roomPosMatrix[x, y].transform);
+                    wall.transform.localPosition = Vector3.zero;
+                }
+                if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallLeft)
+                {
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallLeft"));
+                    wall.transform.SetParent(_roomPosMatrix[x, y].transform);
+                    wall.transform.localPosition = Vector3.zero;
+                }
+            }
+        }
+    }
+
+    //  Tires
+
+    public void CreateTires()
+    {
+        GameObject rotatableObjects = new GameObject("RotatableObjects");
+        rotatableObjects.transform.parent = transform;
+        rotatableObjects.transform.localPosition = Vector3.zero;
+
+        for (int x = 0; x < _tRC._X; x++)
+        {
+            for (int y = 0; y < _tRC._Y; y++)
+            {
+                if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab)
+                {
+                    GameObject tire = _tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab;
+
+                    if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab.GetComponentInChildren<Tire>() != null)
+                    {
+                        //print(x.ToString() + ", " + y.ToString());
+                        if (!_roomPosMatrix[x, y]) continue;
+                        GameObject tireObj = Instantiate(tire);
+                        tireObj.transform.parent = _roomPosMatrix[x, y].transform;
+                        tireObj.transform.localPosition = Vector3.zero;
+                        tireObj.transform.parent = rotatableObjects.transform;
+                    }
+                }
+            }
+        }
+
+    }
+
+    //  Systems
+
     public void CreateSystemIcons()
     {
-        for (int x = 0; x < _tankRoomConstellation._X; x++)
+        for (int x = 0; x < _tRC._X; x++)
         {
-            for (int y = 0; y < _tankRoomConstellation._Y; y++)
+            for (int y = 0; y < _tRC._Y; y++)
             {
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
+                if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
                 {
-                    ISystem sys = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>();
-                    if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.TryGetComponent(out AWeapon wep))
+                    ISystem sys = _tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>();
+                    if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.TryGetComponent(out AWeapon wep))
                     {
                         _roomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = Resources.Load("Art\\WeaponSystemIcon", typeof(Sprite)) as Sprite;
                     }
@@ -368,52 +447,18 @@ public class CreateTankGeometry : MonoBehaviour
             }
         }
     }
-    public void CreateWalls()
-    {
-        for (int y = 0; y < _tankRoomConstellation._Y; y++)
-        {
-            for (int x = 0; x < _tankRoomConstellation._X; x++)
-            {
-                if (x >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray.Length || y >= _tankRoomConstellation.SavedPrefabRefMatrix.XArray[0].YStuff.Length) continue;
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallUp)
-                {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallUp"));
-                    wall.transform.SetParent(_roomPosMatrix[x, y].transform);
-                    wall.transform.localPosition = Vector3.zero;
-                }
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallRight)
-                {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallRight"));
-                    wall.transform.SetParent(_roomPosMatrix[x, y].transform);
-                    wall.transform.localPosition = Vector3.zero;
-                }
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallDown)
-                {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallDown"));
-                    wall.transform.SetParent(_roomPosMatrix[x, y].transform);
-                    wall.transform.localPosition = Vector3.zero;
-                }
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallLeft)
-                {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallLeft"));
-                    wall.transform.SetParent(_roomPosMatrix[x, y].transform);
-                    wall.transform.localPosition = Vector3.zero;
-                }
-            }
-        }
-    }
     public void InitWeaponsAndSystems()
     {
         TankWeaponsAndSystems twep = GetComponent<TankWeaponsAndSystems>();
-        for (int x = 0; x < _tankRoomConstellation._X; x++)
+        for (int x = 0; x < _tRC._X; x++)
         {
-            for (int y = 0; y < _tankRoomConstellation._Y; y++)
+            for (int y = 0; y < _tRC._Y; y++)
             {
-                if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
+                if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
                 {
-                    GameObject prefab = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
+                    GameObject prefab = _tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab;
                     //Our object should either be a Weapon or a System, so check for both cases
-                    if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<AWeapon>() != null)
+                    if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<AWeapon>() != null)
                     {
                         //if (!RoomPosMatrix[x, y]) continue;
                         GameObject weaponObj = Instantiate(prefab);
@@ -427,7 +472,7 @@ public class CreateTankGeometry : MonoBehaviour
                         //Set the reference to the rooms
                         _roomPosMatrix[x, y].ParentRoom.roomSystem = wep;
                     }
-                    else if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
+                    else if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
                     {
                         GameObject systemObj = Instantiate(prefab);
                         systemObj.transform.parent = _roomPosMatrix[x, y].ParentRoom.transform;
@@ -465,18 +510,13 @@ public class CreateTankGeometry : MonoBehaviour
         TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
 
         //  Now move to the halfway point
-        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation._X, 0.25f * _tankRoomConstellation._Y, 0);
+        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tRC._X, 0.25f * _tRC._Y, 0);
 
         _visibleGrid = new GameObject("VisibleGrid");
         SpriteRenderer sr = _visibleGrid.AddComponent<SpriteRenderer>();
         sr.sprite = Resources.Load("Art\\white_square_border", typeof(Sprite)) as Sprite;
 
         ResizeGrid();
-    }
-    public void ShowRoof(bool b)
-    {
-        if (RoofParent) RoofParent.SetActive(b);
-        SetSystemIconLayer(b);
     }
     public void SetSystemIconLayer(bool top)
     {
@@ -518,10 +558,10 @@ public class CreateTankGeometry : MonoBehaviour
     public void VisualizeMatrix()
     {
         string matrix = "";
-        for (int y = 0; y < _tankRoomConstellation._Y; y++)
+        for (int y = 0; y < _tRC._Y; y++)
         {
             matrix += "Y:" + y.ToString() + ": ";
-            for (int x = 0; x < _tankRoomConstellation._X; x++)
+            for (int x = 0; x < _tRC._X; x++)
             {
                 if (_roomPosMatrix[x, y]) matrix += "(" + _roomPosMatrix[x, y].name + ") ";
                 else matrix += "__NONE__, ";
@@ -536,8 +576,8 @@ public class CreateTankGeometry : MonoBehaviour
     }
     public void ModifyTankSize(int left, int right, int up, int down)
     {
-        int xOldTankSize = _tankRoomConstellation._tmpX;
-        int yOldTankSize = _tankRoomConstellation._tmpY;
+        int xOldTankSize = _tRC._tmpX;
+        int yOldTankSize = _tRC._tmpY;
 
         int xExpandedTankSize = xOldTankSize + left + right;
         int yExpandedTankSize = yOldTankSize + up + down;
@@ -564,11 +604,11 @@ public class CreateTankGeometry : MonoBehaviour
                 int xCopyPos = x - left;
                 int yCopyPos = y - up;
 
-                if (xCopyPos < 0 || xCopyPos >= _tankRoomConstellation._tmpPrefabRefMatrix.XArray.Length
-                    || yCopyPos < 0 || yCopyPos >= _tankRoomConstellation._tmpPrefabRefMatrix.XArray[0].YStuff.Length) continue;
+                if (xCopyPos < 0 || xCopyPos >= _tRC._tmpMatrix.XArray.Length
+                    || yCopyPos < 0 || yCopyPos >= _tRC._tmpMatrix.XArray[0].YStuff.Length) continue;
 
                 //  Fix References for the matrix
-                expandedMatrix.XArray[x].YStuff[y] = _tankRoomConstellation._tmpPrefabRefMatrix.XArray[xCopyPos].YStuff[yCopyPos];
+                expandedMatrix.XArray[x].YStuff[y] = _tRC._tmpMatrix.XArray[xCopyPos].YStuff[yCopyPos];
 
                 //  Set indices of individual room positions and move them to the appropriate position
                 if (!_roomPosMatrix[xCopyPos, yCopyPos]) continue;
@@ -596,10 +636,10 @@ public class CreateTankGeometry : MonoBehaviour
 
         //  Save Changes into the temp
 
-        _tankRoomConstellation._tmpPrefabRefMatrix = expandedMatrix;
+        _tRC._tmpMatrix = expandedMatrix;
         _roomPosMatrix = expandedPosMatrix;
-        _tankRoomConstellation._tmpX = xExpandedTankSize;
-        _tankRoomConstellation._tmpY = yExpandedTankSize;
+        _tRC._tmpX = xExpandedTankSize;
+        _tRC._tmpY = yExpandedTankSize;
 
         //Show Grid Size
 
@@ -614,6 +654,7 @@ public class CreateTankGeometry : MonoBehaviour
         Tilemap tilemapStorage = tmpObj.AddComponent<Tilemap>();
         tilemapStorage.tileAnchor = new Vector3(0, 1, 0);
 
+        //  Copy the entire old tilemap
         for (int y = 0; y < sizeY; y++)
         {
             for (int x = 0; x < sizeX; x++)
@@ -621,21 +662,22 @@ public class CreateTankGeometry : MonoBehaviour
                 tilemapStorage.SetTile(new Vector3Int(x, -y, 0), actualTilemap.GetTile(new Vector3Int(x, -y, 0)));
             }
         }
+        //  Clear the old tilemap
         actualTilemap.ClearAllTiles();
 
-        for (int y = 0; y < sizeY; y++)
+        //  Copy the old tiles into the cleared tilemap
+        for (int y = 0; y < sizeY + up + down; y++)
         {
-            for (int x = 0; x < sizeX; x++)
+            for (int x = 0; x < sizeX + left + right; x++)
             {
-                actualTilemap.SetTile(new Vector3Int(x+left, -y, 0), tilemapStorage.GetTile(new Vector3Int(x, -(y - up), 0)));
+                actualTilemap.SetTile(new Vector3Int(x, -y, 0), tilemapStorage.GetTile(new Vector3Int(x + left, -(y - up), 0)));
             }
         }
         Destroy(tmpObj);
     }
-
     private void ResizeGrid()
     {
-        _visibleGrid.transform.localScale = new Vector3(_tankRoomConstellation._tmpX, _tankRoomConstellation._tmpY, 0);
+        _visibleGrid.transform.localScale = new Vector3(_tRC._tmpX, _tRC._tmpY, 0);
     }
     private Vector2Int GetRoomSize(int x, int y)
     {

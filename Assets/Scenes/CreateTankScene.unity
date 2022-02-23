@@ -380,7 +380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 9, y: 284}
+  m_AnchoredPosition: {x: 9, y: 443.61}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &388915497
@@ -599,7 +599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0efbfe8b98b84d42aec13747acf506f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tankRoomConstellation: {fileID: 0}
+  _tRC: {fileID: 0}
   systemIcons: []
 --- !u!1 &644653395
 GameObject:
@@ -2671,6 +2671,10 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Roof
       m_Image: {fileID: 0}
+    - m_Text: Walls
+      m_Image: {fileID: 0}
+    - m_Text: Tires
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3129,8 +3133,16 @@ MonoBehaviour:
   _roofTiles:
   - {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
   roofTileIndex: 0
-  _wallTiles: []
+  _wallsGOList:
+  - {fileID: 6970086284754415879, guid: 56547e9ffbd597b458d36429f5f9854e, type: 3}
+  - {fileID: 6970086284754415879, guid: 3bd31771363a72d4b8bdbb27bd5ea016, type: 3}
+  - {fileID: 6970086284754415879, guid: f83117ed70b0cdb4e950163575dacc4a, type: 3}
+  - {fileID: 6970086284754415879, guid: 4b12a038431314545bcb27deef51769f, type: 3}
   wallTileIndex: 0
+  _tiresGOList:
+  - {fileID: 7613949203658757165, guid: 7ac089229eaa84c40aae6f43ba1d1d2a, type: 3}
+  - {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af, type: 3}
+  tiresIndex: 0
 --- !u!1 &1429884355
 GameObject:
   m_ObjectHideFlags: 0

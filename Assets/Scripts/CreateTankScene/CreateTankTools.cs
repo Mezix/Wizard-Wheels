@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class CreateTankTools : MonoBehaviour
 {
     public Grid _tempFloorGrid;
+    CreateTankUI ui;
     private Tilemap tempFloorTilemap;
 
     public Grid _tempRoofGrid;
@@ -13,6 +14,10 @@ public class CreateTankTools : MonoBehaviour
 
     private bool brushing;
     public bool previewTile;
+
+    private GameObject tirePreview;
+    private GameObject wallPreview;
+
     public void Awake()
     {
         tempFloorTilemap = _tempFloorGrid.GetComponent<Tilemap>();
@@ -22,6 +27,7 @@ public class CreateTankTools : MonoBehaviour
     {
         brushing = true;
         previewTile = true;
+        ui = CreateTankSceneManager.instance._tUI;
     }
     void Update()
     {
@@ -32,6 +38,8 @@ public class CreateTankTools : MonoBehaviour
     {
         tempFloorTilemap.ClearAllTiles();
         tempRoofTilemap.ClearAllTiles();
+        if (wallPreview) Destroy(wallPreview);
+        if (tirePreview) Destroy(tirePreview);
 
         Tilemap currentlySelectedTempTilemap;
         Tilemap currentlySelectedTilemap;
@@ -52,38 +60,77 @@ public class CreateTankTools : MonoBehaviour
 
         //Show the currently selected tile were painting with on the temporary tilemap
 
-        CreateTankUI ui = CreateTankSceneManager.instance._tUI;
-        if (brushing) currentlySelectedTempTilemap.SetTile(tempCellPos, ui.GetTile());
+        if (brushing)
+        {
+            if(tileType == 0 || tileType == 1) currentlySelectedTempTilemap.SetTile(tempCellPos, ui.GetTile());
+            else if (tileType == 2)
+            {
+                Vector3 wallPos = tempFloorTilemap.CellToWorld(tempCellPos);
+                HoverWall(wallPos);
+                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof(Tile)) as Tile);
+            }
+            else if (tileType == 3)
+            {
+                Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
+                HoverTire(tirepos);
+                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof(Tile)) as Tile);
+            }
+        }
         else currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof (Tile)) as Tile);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
+        if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
             Vector3Int cellpos = currentlySelectedTilemap.WorldToCell(hit.point);
             Vector2Int pos = CreateTankSceneManager.instance._tGeo.TilemapToCellPos(cellpos);
 
+            //paint on the correct tilemap
             if (brushing)
             {
-
-                //paint on the correct tilemap
-                //currentlySelectedTilemap.SetTile(cellpos, ui.GetTile());
-
-                //  Floor
                 if (tileType == 0)
                 {
                     CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
                 }
+                else if (tileType == 1)
+                {
+                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                }
+                else if (tileType == 2)
+                {
+                }
+                else if (tileType == 3)
+                {
+                }
             }
+
+            //erase from the correct tilemap
             else
             {
-                //erase from the correct tilemap
-                //currentlySelectedTilemap.SetTile(cellpos, null);
-
                 if (tileType == 0)
                 {
                     CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, null);
                 }
+                else if (tileType == 1)
+                {
+                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, null);
+                }
+                else if (tileType == 2)
+                {
+                }
+                else if (tileType == 3)
+                {
+                }
             }
         }
+    }
+    private void HoverWall(Vector3 wallPos)
+    {
+        wallPreview = Instantiate(ui._wallsGOList[ui.wallIndex]);
+        wallPreview.transform.position = wallPos + new Vector3(0, 0.5f, 0);
+    }
+    private void HoverTire(Vector3 tirePos)
+    {
+        tirePreview = Instantiate(ui._tiresGOList[ui.tiresIndex]);
+        tirePreview.transform.position = tirePos + new Vector3(0, 0.5f, 0);
     }
     private void HandleKeyboardInput()
     {
@@ -94,6 +141,22 @@ public class CreateTankTools : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E))
         {
             SelectEraser();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ui.SelectList(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ui.SelectList(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ui.SelectList(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ui.SelectList(3);
         }
     }
     public void SelectTool(int value)
