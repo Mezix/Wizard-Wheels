@@ -20,12 +20,16 @@ public class CreateTankSceneManager : MonoBehaviour
     }
     private void Start()
     {
-        if (tankToEdit) newTank = false;
+        if (tankToEdit)
+        {
+            newTank = false;
+            _tUI._inputField.text = tankToEdit.name;
+        }
         else
         {
             newTank = true;
             tankToEdit = new TankRoomConstellation();
-            _tUI._inputField.textComponent.text = "tmp";
+            _tUI._inputField.textComponent.text = "Untitled";
         }
 
         _tGeo._tRC = tankToEdit;
@@ -34,6 +38,7 @@ public class CreateTankSceneManager : MonoBehaviour
     public void SaveTank()
     {
         string newName = _tUI._inputField.textComponent.text;
+        _tUI._inputField.text = newName;
         if (newTank)
         {
             if (newName == "") newName = "tmp";

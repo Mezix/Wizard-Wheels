@@ -12,7 +12,6 @@ public class CreateTankUI : MonoBehaviour
     public InputField _inputField;
     public Dropdown _partsDropDown;
     public Dropdown _layersDropDown;
-    public CreateTankMouseScript _mouse;
 
     public GameObject _layersParent;
     private List<UILayer> layers = new List<UILayer>();
@@ -116,18 +115,22 @@ public class CreateTankUI : MonoBehaviour
         if (listNr == 0)
         {
             _partsDropDown.options = floorTilesList;
+            SelectPart(floorIndex);
         }
         if (listNr == 1)
         {
             _partsDropDown.options = roofTilesList;
+            SelectPart(roofIndex);
         }
         if (listNr == 2)
         {
             _partsDropDown.options = wallTilesList;
+            SelectPart(wallIndex);
         }
         if (listNr == 3)
         {
             _partsDropDown.options = tiresList;
+            SelectPart(tiresIndex);
         }
     }
     public void ShowLayer(bool b, int index)
@@ -167,6 +170,7 @@ public class CreateTankUI : MonoBehaviour
         {
             tiresIndex = partNr;
         }
+        _partsDropDown.value = partNr;
     }
     public Tile GetTile()
     {
