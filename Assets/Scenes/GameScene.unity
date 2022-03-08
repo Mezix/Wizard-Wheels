@@ -2981,8 +2981,8 @@ MonoBehaviour:
   objToTrack: {fileID: 0}
   zoomAmount: 0
   desiredZoom: 0
-  maxZoom: 0
   minZoom: 0
+  maxZoom: 0
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8476,6 +8476,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: KingTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385456487747659236, guid: e377e643fae0ba0458b0e5109b09128b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6385456487747659243, guid: e377e643fae0ba0458b0e5109b09128b,
         type: 3}

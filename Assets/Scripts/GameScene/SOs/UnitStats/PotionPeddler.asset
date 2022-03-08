@@ -15,4 +15,4 @@ MonoBehaviour:
   _unitName: Dr. Emilia
   _unitClass: Potion Peddler
   _unitHealth: 75
-  _unitSpeed: 2
+  _unitSpeed: 1.75
