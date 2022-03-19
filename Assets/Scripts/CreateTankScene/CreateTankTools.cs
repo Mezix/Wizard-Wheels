@@ -99,6 +99,12 @@ public class CreateTankTools : MonoBehaviour
                 }
                 else if (tileType == 2)
                 {
+                    string tileDirection = "";
+                    if (ui.wallIndex == 0) tileDirection = "up";
+                    if (ui.wallIndex == 1) tileDirection = "left";
+                    if (ui.wallIndex == 2) tileDirection = "down";
+                    if (ui.wallIndex == 3) tileDirection = "right";
+                    CreateTankSceneManager.instance._tGeo.CreateWallAtPos(pos.x, pos.y, tileDirection);
                 }
                 else if (tileType == 3)
                 {

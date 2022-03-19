@@ -640,7 +640,7 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
       - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
+        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 0}
@@ -1553,7 +1553,7 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
       - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
+        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 0}

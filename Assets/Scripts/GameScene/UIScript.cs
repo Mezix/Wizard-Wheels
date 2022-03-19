@@ -64,6 +64,11 @@ public class UIScript : MonoBehaviour
 
     public Toggle EmergencyBrakeToggle;
 
+    //  Engine Level
+
+    public Transform _engineLevel;
+    private List<Image> engineLevelSegments;
+
     private void Awake()
     {
         _settingsOn = false;
@@ -75,6 +80,7 @@ public class UIScript : MonoBehaviour
         SaveWizards(wizardsSaved);
         timeBetweenMouseClicks = 0;
         InitButtons();
+        InitEngineLevel();
         _xrayOn = true;
         _pauseImage.SetActive(false);
         CloseSettings();
@@ -378,6 +384,44 @@ public class UIScript : MonoBehaviour
             Ref.PCon.TMov._matchSpeed = false;
             _desiredSpeedSlider.value = 0;
             Ref.PCon.TMov.TankEmergencyBrakeEffects();
+        }
+    }
+
+    //  Engine Level
+
+    private void InitEngineLevel()
+    {
+        engineLevelSegments = new List<Image>();
+        for(int i = 0; i < 5; i++)
+        {
+            GameObject engineSegment = Instantiate((GameObject) Resources.Load("EngineLevelSegment"));
+            engineSegment.transform.parent = _engineLevel;
+            engineSegment.transform.localScale = Vector3.one;
+            Image engineSegmentImg = engineSegment.GetComponent<Image>();
+            engineLevelSegments.Add(engineSegmentImg);
+        }
+        UpdateEngineLevel(3);
+    }
+    public void UpdateEngineLevel(int level)
+    {
+        //  Init Empty
+
+        for (int i = 0; i < 5; i++)
+        {
+            Image engineSegmentImg = engineLevelSegments[i];
+            if (i == 0) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Left_Empty", typeof(Sprite)) as Sprite;
+            else if (i == 4) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Right_Empty", typeof(Sprite)) as Sprite;
+            else engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Middle_Empty", typeof(Sprite)) as Sprite;
+        }
+
+        //   Update the full ones
+
+        for (int i = 0; i < level; i++)
+        {
+            Image engineSegmentImg = engineLevelSegments[i];
+            if (i == 0) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Left_Full", typeof(Sprite)) as Sprite;
+            else if (i == 4) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Right_Full", typeof(Sprite)) as Sprite;
+            else engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Middle_Full", typeof(Sprite)) as Sprite;
         }
     }
 }

@@ -7,6 +7,7 @@ TagManager:
   - cannonball
   - Enemy
   - magicmissile
+  - wall
   layers:
   - Default
   - TransparentFX

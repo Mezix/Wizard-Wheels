@@ -26,7 +26,7 @@ public class CreateTankGeometry : MonoBehaviour
         LoadRooms();
         CreateBGAndRoof();
         PositionTankObjects();
-        //CreateWalls();
+        CreateWalls();
         CreateTires();
         //InitWeaponsAndSystems();
 
@@ -390,6 +390,42 @@ public class CreateTankGeometry : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void CreateWallAtPos(int posX, int posY, string direction)
+    {
+        if (direction == "delete")
+        {
+            //  Get a roomprefab
+            //_tRC.SavedPrefabRefMatrix.XArray[posX].YStuff[posY].RoomPrefab.tag
+            return;
+        }
+
+        //  TODO: only spawn if a wall doesnt already exist!
+
+        GameObject wall = null;
+        if (direction == "up")
+        {
+            _tRC.SavedPrefabRefMatrix.XArray[posX].YStuff[posY].WallUp = true;
+            wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallUp"));
+        }
+        else if (direction == "left")
+        {
+            _tRC.SavedPrefabRefMatrix.XArray[posX].YStuff[posY].WallLeft = true;
+            wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallLeft"));
+        }
+        else if (direction == "right")
+        {
+            _tRC.SavedPrefabRefMatrix.XArray[posX].YStuff[posY].WallRight = true;
+            wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallRight"));
+        }
+        else if (direction == "down")
+        {
+            _tRC.SavedPrefabRefMatrix.XArray[posX].YStuff[posY].WallDown = true;
+            wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallDown"));
+        }
+        wall.transform.SetParent(_roomPosMatrix[posX, posY].transform);
+        wall.transform.localPosition = Vector3.zero;
     }
 
     //  Tires
