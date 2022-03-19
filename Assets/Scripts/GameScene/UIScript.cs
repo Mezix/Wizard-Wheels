@@ -69,6 +69,10 @@ public class UIScript : MonoBehaviour
     public Transform _engineLevel;
     private List<Image> engineLevelSegments;
 
+    //  Upgrade Screen
+
+    public UpgradeScreen _upgradeScreen; 
+
     private void Awake()
     {
         _settingsOn = false;
@@ -400,10 +404,12 @@ public class UIScript : MonoBehaviour
             Image engineSegmentImg = engineSegment.GetComponent<Image>();
             engineLevelSegments.Add(engineSegmentImg);
         }
-        UpdateEngineLevel(3);
     }
-    public void UpdateEngineLevel(int level)
+    public void UpdateEngineLevel(int level, int maxLevel)
     {
+        //  Just in case of syncing issues, make sure we have a bar to update
+        if (engineLevelSegments.Count == 0) InitEngineLevel();
+
         //  Init Empty
 
         for (int i = 0; i < 5; i++)
@@ -423,5 +429,7 @@ public class UIScript : MonoBehaviour
             else if (i == 4) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Right_Full", typeof(Sprite)) as Sprite;
             else engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Middle_Full", typeof(Sprite)) as Sprite;
         }
+
+        Ref.PCon.TMov.engineLevelMultiplier = 1 + (level / (float)maxLevel);
     }
 }

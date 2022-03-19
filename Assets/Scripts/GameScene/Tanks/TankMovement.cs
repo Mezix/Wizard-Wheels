@@ -14,11 +14,14 @@ public class TankMovement : MonoBehaviour
     public float deceleration;
     public float maxSpeed;
 
+    public float engineLevelMultiplier;
+
     public List<Tire> Tires = new List<Tire>();
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = 0;
+        engineLevelMultiplier = 1f;
     }
     public void InitSpeedStats()
     {
@@ -41,8 +44,12 @@ public class TankMovement : MonoBehaviour
         if (GetComponentInChildren<TankRotation>().rotatableObjects.Count == 0) return;
 
         moveVector = GetComponentInChildren<TankRotation>().rotatableObjects[0].transform.up;
-        rb.velocity = moveVector * currentSpeed * Time.deltaTime;
-        rb.MovePosition(transform.position + moveVector * currentSpeed * Time.deltaTime);
+
+        float speedMultiplier = currentSpeed * Time.deltaTime;
+        if (Ref.PCon.TMov._matchSpeed) speedMultiplier *= engineLevelMultiplier;
+
+        rb.velocity = moveVector * speedMultiplier;
+        rb.MovePosition(transform.position + moveVector * speedMultiplier);
     }
     public void Accelerate()
     {

@@ -14,32 +14,25 @@ public class Events : MonoBehaviour
     public event Action PlayerTankDestroyed;
     public event Action PlayerIsDying;
     public event Action<GameObject> WizardOrWeaponClicked;
+    public event Action UpgradesSaved;
     public void EnemyDestroyed(GameObject enemyTank)
     {
-        if (EnemyTankDestroyed != null)
-        {
-            EnemyTankDestroyed(enemyTank);
-        }
+        if (EnemyTankDestroyed != null) EnemyTankDestroyed(enemyTank);
     }
     public void PlayerDestroyed()
     {
-        if (PlayerTankDestroyed != null)
-        {
-            PlayerTankDestroyed();
-        }
+        if (PlayerTankDestroyed != null) PlayerTankDestroyed();
     }
     public void PlayerDying()
     {
-        if (PlayerIsDying != null)
-        {
-            PlayerIsDying();
-        }
+        if (PlayerIsDying != null)PlayerIsDying();
     }
     public void WizOrWepClicked(GameObject obj)
     {
-        if (WizardOrWeaponClicked != null)
-        {
-            WizardOrWeaponClicked(obj);
-        }
+        if (WizardOrWeaponClicked != null) WizardOrWeaponClicked(obj);
+    }
+    public void SaveUpgrades()
+    {
+        if (UpgradesSaved != null) UpgradesSaved(); 
     }
 }

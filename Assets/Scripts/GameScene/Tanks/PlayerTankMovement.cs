@@ -12,6 +12,7 @@ public class PlayerTankMovement : TankMovement
     public EnemyTankMovement enemyToMatch;
     public bool movementInput;
     public bool emergencyBrakeOn;
+
     private void Start()
     {
         emergencyBrakeOn = false;
