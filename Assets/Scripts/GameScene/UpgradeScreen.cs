@@ -13,9 +13,9 @@ public class UpgradeScreen : MonoBehaviour
     public bool _closed;
     public Transform _layoutGroup;
 
-    public Text _pointsRemainingText;
-    public int _remainingPoints;
-    public int _totalPoints;
+    public Text _remainingScrapText;
+    public int _remainingScrap;
+    public int _totalScrap;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class UpgradeScreen : MonoBehaviour
 
     private void Start()
     {
-        _remainingPoints = 350;
+        _remainingScrap = 350;
         InitPoints();
         UpdateUpgradeScreen();
 
@@ -37,36 +37,36 @@ public class UpgradeScreen : MonoBehaviour
     }
     private void InitPoints()
     {
-        _totalPoints = 0;
+        _totalScrap = 0;
         foreach(UIUpgradeField ui in _upgradeFields)
         {
             int lvl = ui.currentLevel;
             foreach(int i in ui._upgradeLevels)
             {
-                _totalPoints += i;
+                _totalScrap += i;
             }
         }
-        _totalPoints += _remainingPoints;
+        _totalScrap += _remainingScrap;
     }
     private void UpdateUpgradeScreen()
     {
         string pointsString = "";
-        string remaining = _remainingPoints.ToString();
+        string remaining = _remainingScrap.ToString();
         for (int i = 3 - remaining.Length; i > 0; i--)
         {
             pointsString += "0";
         }
         pointsString += remaining;
-        _pointsRemainingText.text = pointsString;
+        _remainingScrapText.text = pointsString;
     }
     public void AddPoints(int points)
     {
-        _remainingPoints += points;
+        _remainingScrap += points;
         UpdateUpgradeScreen();
     }
     public void RemovePoints(int points)
     {
-        if(_remainingPoints > 0) _remainingPoints -= points;
+        if(_remainingScrap > 0) _remainingScrap -= points;
         UpdateUpgradeScreen();
     }
 

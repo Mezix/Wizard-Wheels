@@ -2412,9 +2412,9 @@ MonoBehaviour:
   _toggleUpgrades: {fileID: 1788375507}
   _closed: 0
   _layoutGroup: {fileID: 1587943508}
-  _pointsRemainingText: {fileID: 8424690}
-  _remainingPoints: 0
-  _totalPoints: 0
+  _remainingScrapText: {fileID: 8424690}
+  _remainingScrap: 0
+  _totalScrap: 0
 --- !u!1 &331044519
 GameObject:
   m_ObjectHideFlags: 0

@@ -65,7 +65,7 @@ public class EngineSystem : ISystem
     public void Upgrade()
     {
         if (_tempLevel >= _maxEngineLevel) return;
-        if (Ref.UI._upgradeScreen._remainingPoints <= _upgradeLevels[_tempLevel+1]) return;
+        if (Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_tempLevel+1]) return;
         _tempLevel++;
         Ref.UI._upgradeScreen.RemovePoints(_upgradeLevels[_tempLevel]);
         _upgradeField.SetTempLevel(_tempLevel);

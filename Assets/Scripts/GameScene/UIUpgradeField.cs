@@ -46,7 +46,7 @@ public class UIUpgradeField : MonoBehaviour
     {
         _upgradeLevel.text = tempCurrentLevel.ToString();
 
-        if (tempCurrentLevel == maxLevel || Ref.UI._upgradeScreen._remainingPoints <= _upgradeLevels[currentLevel+1]) _upgradeButton.interactable = false;
+        if (tempCurrentLevel == maxLevel || Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[currentLevel+1]) _upgradeButton.interactable = false;
         else _upgradeButton.interactable = true;
 
         if (tempCurrentLevel == 0) _downgradeButton.interactable = false;
