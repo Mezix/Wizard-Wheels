@@ -71,13 +71,19 @@ public class UIScript : MonoBehaviour
 
     //  Upgrade Screen
 
-    public UpgradeScreen _upgradeScreen; 
+    public UpgradeScreen _upgradeScreen;
+
+    //  Steering Wheel
+
+    public RectTransform _steeringWheelObject;
+    private bool steeringWheelOpen;
 
     private void Awake()
     {
         _settingsOn = false;
         wizardsSaved = false;
         Ref.UI = this;
+        steeringWheelOpen = false;
     }
     private void Start()
     {
@@ -110,7 +116,12 @@ public class UIScript : MonoBehaviour
         {
             ToggleVision();
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ToggleSteeringWheel();
+        }
     }
+
     private void InitButtons()
     {
         _cruiseButton.onClick = new Button.ButtonClickedEvent();
@@ -405,6 +416,7 @@ public class UIScript : MonoBehaviour
             engineLevelSegments.Add(engineSegmentImg);
         }
     }
+
     public void UpdateEngineLevel(int level, int maxLevel)
     {
         //  Just in case of syncing issues, make sure we have a bar to update
@@ -431,5 +443,29 @@ public class UIScript : MonoBehaviour
         }
 
         Ref.PCon.TMov.engineLevelMultiplier = 1 + (level / (float)maxLevel);
+    }
+
+    //  Steering Wheel
+    private void ToggleSteeringWheel()
+    {
+        if (steeringWheelOpen)
+        {
+            CloseSteeringWheel();
+        }
+        else
+        {
+            OpenSteeringWheel();
+        }
+    }
+
+    private void CloseSteeringWheel()
+    {
+        steeringWheelOpen = false;
+        _steeringWheelObject.anchoredPosition = new Vector3(0, -540, 0);
+    }
+    private void OpenSteeringWheel()
+    {
+        steeringWheelOpen = true;
+        _steeringWheelObject.anchoredPosition = new Vector3(0, -390, 0);
     }
 }

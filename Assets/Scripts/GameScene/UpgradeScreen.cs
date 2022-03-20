@@ -14,12 +14,13 @@ public class UpgradeScreen : MonoBehaviour
     public Transform _layoutGroup;
 
     public Text _remainingScrapText;
+    [HideInInspector]
     public int _remainingScrap;
+    [HideInInspector]
     public int _totalScrap;
 
     private void Awake()
     {
-        CloseUpgrades();
         _saveButton.onClick.AddListener(() => SaveUpgrades());
         _closeWindow.onClick.AddListener(() => CloseUpgrades());
         _toggleUpgrades.onClick.AddListener(() => ToggleUpgradeScreen());
@@ -34,6 +35,7 @@ public class UpgradeScreen : MonoBehaviour
         ShowSaveButton(false);
 
         Events.instance.UpgradeScreenUpdated += CheckSaveStatus;
+        CloseUpgrades();
     }
     private void InitPoints()
     {
