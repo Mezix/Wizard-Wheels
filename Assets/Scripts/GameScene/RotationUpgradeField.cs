@@ -37,20 +37,21 @@ public class RotationUpgradeField : MonoBehaviour
         ui._downgradeButton.onClick.AddListener(() => Downgrade());
 
         Events.instance.UpgradesSaved += SaveChanges;
+        Events.instance.UpgradesReverted += RevertChanges;
     }
     public void Upgrade()
     {
         if (_tempLevel >= _maxLevel) return;
         if (Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_tempLevel+1]) return;
         _tempLevel++;
-        Ref.UI._upgradeScreen.RemovePoints(_upgradeLevels[_tempLevel]);
+        Ref.UI._upgradeScreen.RemoveScrap(_upgradeLevels[_tempLevel]);
         _upgradeField.SetTempLevel(_tempLevel);
     }
     public void Downgrade()
     {
         if (_tempLevel <= 0) return;
         _tempLevel--;
-        Ref.UI._upgradeScreen.AddPoints(_upgradeLevels[_tempLevel+1]);
+        Ref.UI._upgradeScreen.AddScrap(_upgradeLevels[_tempLevel+1]);
         _upgradeField.SetTempLevel(_tempLevel);
     }
     public void SaveChanges()
@@ -59,5 +60,23 @@ public class RotationUpgradeField : MonoBehaviour
         Ref.PCon.GetComponent<PlayerTankRotation>()._rotationSpeedMultiplier = 1 + _rotationLevel/(float)_maxLevel;
         Ref.PCon.TWep._weaponRotationSpeedMultiplier = 1 +  weaponRotationIncreaseModifier * (_rotationLevel / (float)_maxLevel);
         Ref.PCon.TWep.UpdateWeaponRotationSpeed();
+    }
+    public void RevertChanges()
+    {
+        int diff = _rotationLevel - _tempLevel;
+        if (diff < 0)
+        {
+            for (int i = -1 * diff; i > 0; i--)
+            {
+                Downgrade();
+            }
+        }
+        else
+        {
+            for (int i = 0; i < diff; i++)
+            {
+                Upgrade();
+            }
+        }
     }
 }

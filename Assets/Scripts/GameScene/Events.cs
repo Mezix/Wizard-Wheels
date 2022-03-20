@@ -17,6 +17,7 @@ public class Events : MonoBehaviour
 
     //  UI
     public event Action UpgradesSaved;
+    public event Action UpgradesReverted;
     public event Action UpgradeScreenUpdated;
 
     public void EnemyDestroyed(GameObject enemyTank)
@@ -42,5 +43,9 @@ public class Events : MonoBehaviour
     public void UpdateUpgradeScreen()
     {
         if (UpgradeScreenUpdated != null) UpgradeScreenUpdated();
+    }
+    public void RevertUpgrades()
+    {
+        if (UpgradesReverted != null) UpgradesReverted();
     }
 }

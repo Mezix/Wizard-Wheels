@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class UpgradeScreen : MonoBehaviour
 {
+    [HideInInspector]
     public List<UIUpgradeField> _upgradeFields = new List<UIUpgradeField>();
     public Button _saveButton;
+    public Button _revertButton;
     public Button _closeWindow;
     public Button _toggleUpgrades;
     public bool _closed;
@@ -22,6 +24,7 @@ public class UpgradeScreen : MonoBehaviour
     private void Awake()
     {
         _saveButton.onClick.AddListener(() => SaveUpgrades());
+        _revertButton.onClick.AddListener(() => RevertUpgrades());
         _closeWindow.onClick.AddListener(() => CloseUpgrades());
         _toggleUpgrades.onClick.AddListener(() => ToggleUpgradeScreen());
     }
@@ -33,8 +36,9 @@ public class UpgradeScreen : MonoBehaviour
         UpdateUpgradeScreen();
 
         ShowSaveButton(false);
+        ShowRevertButton(false);
 
-        Events.instance.UpgradeScreenUpdated += CheckSaveStatus;
+        Events.instance.UpgradeScreenUpdated += CheckSaveAndRevertStatus;
         CloseUpgrades();
     }
     private void InitPoints()
@@ -61,17 +65,16 @@ public class UpgradeScreen : MonoBehaviour
         pointsString += remaining;
         _remainingScrapText.text = pointsString;
     }
-    public void AddPoints(int points)
+    public void AddScrap(int points)
     {
         _remainingScrap += points;
         UpdateUpgradeScreen();
     }
-    public void RemovePoints(int points)
+    public void RemoveScrap(int points)
     {
         if(_remainingScrap > 0) _remainingScrap -= points;
         UpdateUpgradeScreen();
     }
-
     public UIUpgradeField CreateUpgradeField()
     {
         GameObject field = Instantiate((GameObject)Resources.Load("UpgradeField"));
@@ -82,7 +85,10 @@ public class UpgradeScreen : MonoBehaviour
 
         return upgrade;
     }
-    private void CheckSaveStatus()
+
+    //  Save and Revert
+
+    private void CheckSaveAndRevertStatus()
     {
         bool savingPossible = false;
         foreach(UIUpgradeField ui in _upgradeFields)
@@ -90,16 +96,31 @@ public class UpgradeScreen : MonoBehaviour
             if (ui.tempCurrentLevel != ui.currentLevel) savingPossible = true;
         }
         ShowSaveButton(savingPossible);
-    }
-    public void ShowSaveButton(bool b)
-    {
-        _saveButton.interactable = b;
+        ShowRevertButton(savingPossible);
     }
     public void SaveUpgrades()
     {
         Events.instance.SaveUpgrades();
         ShowSaveButton(false);
+        ShowRevertButton(false);
     }
+    public void ShowSaveButton(bool b)
+    {
+        _saveButton.interactable = b;
+    }
+    public void RevertUpgrades()
+    {
+        Events.instance.RevertUpgrades();
+        ShowSaveButton(false);
+        ShowRevertButton(false);
+    }
+    public void ShowRevertButton(bool b)
+    {
+        _revertButton.interactable = b;
+    }
+
+    //   Open and Close screen
+
     public void ToggleUpgradeScreen()
     {
         if (_closed) OpenUpgrades();

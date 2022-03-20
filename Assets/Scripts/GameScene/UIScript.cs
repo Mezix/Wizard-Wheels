@@ -43,16 +43,13 @@ public class UIScript : MonoBehaviour
     public Button _unmatchSpeedButton;
 
     //  Double Clicks
-
     public float timeBetweenMouseClicks;
     public GameObject LastWizardOrWeaponClicked;
 
     //  Weapon Out Of Range
-
     public GameObject WeaponOutOfRangeParent;
 
     //  Save and return Wizards to Positions
-
     public Button _saveWizardsButton;
     public Image _saveWizardsImage;
     public Button _returnWizardsButton;
@@ -60,20 +57,16 @@ public class UIScript : MonoBehaviour
     private bool wizardsSaved;
 
     //  Emergency Brake
-
     public Toggle EmergencyBrakeToggle;
 
     //  Engine Level
-
     public Transform _engineLevel;
     private List<Image> engineLevelSegments;
 
     //  Upgrade Screen
-
     public UpgradeScreen _upgradeScreen;
 
     //  Steering Wheel
-
     public RectTransform _steeringWheelObject;
     public Transform steeringWheelParent;
     public Button _rotateBackButton;
