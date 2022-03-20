@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIUpgradeField : MonoBehaviour
 {
     public Text _updateFieldName;
-    public Text _upgradeLevel;
+    public Text _nextScrapUpgrade;
     public Image _fillLevel;
     public Button _upgradeButton;
     public Button _downgradeButton;
@@ -17,12 +17,9 @@ public class UIUpgradeField : MonoBehaviour
 
     public List<int> _upgradeLevels = new List<int>();
 
-    private void Awake()
-    {
-        Events.instance.UpgradeScreenUpdated += UpdateUpgradeField;
-    }
     private void Start()
     {
+        Events.instance.UpgradeScreenUpdated += UpdateUpgradeField;
         Events.instance.UpdateUpgradeScreen();
     }
     public void InitUpgradeField(string fieldName, int currentLvl, int maxLvl, List<int> levels)
@@ -44,7 +41,8 @@ public class UIUpgradeField : MonoBehaviour
     }
     public void UpdateUpgradeField()
     {
-        _upgradeLevel.text = tempCurrentLevel.ToString();
+        if (tempCurrentLevel != maxLevel) _nextScrapUpgrade.text = _upgradeLevels[tempCurrentLevel + 1].ToString();
+        else _nextScrapUpgrade.text = "--";
 
         if (tempCurrentLevel == maxLevel || Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[currentLevel+1]) _upgradeButton.interactable = false;
         else _upgradeButton.interactable = true;

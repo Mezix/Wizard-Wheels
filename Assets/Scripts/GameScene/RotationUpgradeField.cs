@@ -44,14 +44,14 @@ public class RotationUpgradeField : MonoBehaviour
         if (_tempLevel >= _maxLevel) return;
         if (Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_tempLevel+1]) return;
         _tempLevel++;
-        Ref.UI._upgradeScreen.RemoveScrap(_upgradeLevels[_tempLevel]);
+        Ref.UI._upgradeScreen.RemoveTempScrap(_upgradeLevels[_tempLevel]);
         _upgradeField.SetTempLevel(_tempLevel);
     }
     public void Downgrade()
     {
         if (_tempLevel <= 0) return;
         _tempLevel--;
-        Ref.UI._upgradeScreen.AddScrap(_upgradeLevels[_tempLevel+1]);
+        Ref.UI._upgradeScreen.AddTempScrap(_upgradeLevels[_tempLevel+1]);
         _upgradeField.SetTempLevel(_tempLevel);
     }
     public void SaveChanges()
@@ -60,6 +60,7 @@ public class RotationUpgradeField : MonoBehaviour
         Ref.PCon.GetComponent<PlayerTankRotation>()._rotationSpeedMultiplier = 1 + _rotationLevel/(float)_maxLevel;
         Ref.PCon.TWep._weaponRotationSpeedMultiplier = 1 +  weaponRotationIncreaseModifier * (_rotationLevel / (float)_maxLevel);
         Ref.PCon.TWep.UpdateWeaponRotationSpeed();
+        Ref.UI._upgradeScreen.UpdateScrapCounter();
     }
     public void RevertChanges()
     {
@@ -78,5 +79,6 @@ public class RotationUpgradeField : MonoBehaviour
                 Upgrade();
             }
         }
+        Ref.UI._upgradeScreen.UpdateScrapCounter();
     }
 }

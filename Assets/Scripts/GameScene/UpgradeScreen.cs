@@ -20,6 +20,7 @@ public class UpgradeScreen : MonoBehaviour
     public Button _popUpSaveButton;
     public Button _popUpRevertButton;
 
+    public Text _mainUIScrapCounter;
 
     public Text _remainingScrapText;
     [HideInInspector]
@@ -39,7 +40,7 @@ public class UpgradeScreen : MonoBehaviour
 
     private void Start()
     {
-        _remainingScrap = 350;
+        AddNewScrap(350);
         _popUpOpened = false;
         InitPoints();
         UpdateUpgradeScreen();
@@ -75,15 +76,31 @@ public class UpgradeScreen : MonoBehaviour
         pointsString += remaining;
         _remainingScrapText.text = pointsString;
     }
-    public void AddScrap(int points)
+    public void AddNewScrap(int points)
+    {
+        _remainingScrap += points;
+        UpdateScrapCounter();
+    }
+    public void AddTempScrap(int points)
     {
         _remainingScrap += points;
         UpdateUpgradeScreen();
     }
-    public void RemoveScrap(int points)
+    public void RemoveTempScrap(int points)
     {
         if(_remainingScrap > 0) _remainingScrap -= points;
         UpdateUpgradeScreen();
+    }
+    public void UpdateScrapCounter()
+    {
+        string pointsString = "";
+        string remaining = _remainingScrap.ToString();
+        for (int i = 3 - remaining.Length; i > 0; i--)
+        {
+            pointsString += "0";
+        }
+        pointsString += remaining;
+        _mainUIScrapCounter.text = pointsString;
     }
     public UIUpgradeField CreateUpgradeField()
     {
