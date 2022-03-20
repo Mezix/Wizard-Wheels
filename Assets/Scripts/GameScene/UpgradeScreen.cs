@@ -15,6 +15,12 @@ public class UpgradeScreen : MonoBehaviour
     public bool _closed;
     public Transform _layoutGroup;
 
+    public GameObject _popUpWindow;
+    private bool _popUpOpened;
+    public Button _popUpSaveButton;
+    public Button _popUpRevertButton;
+
+
     public Text _remainingScrapText;
     [HideInInspector]
     public int _remainingScrap;
@@ -25,21 +31,25 @@ public class UpgradeScreen : MonoBehaviour
     {
         _saveButton.onClick.AddListener(() => SaveUpgrades());
         _revertButton.onClick.AddListener(() => RevertUpgrades());
-        _closeWindow.onClick.AddListener(() => CloseUpgrades());
+        _popUpSaveButton.onClick.AddListener(() => SaveUpgrades());
+        _popUpRevertButton.onClick.AddListener(() => RevertUpgrades());
+        _closeWindow.onClick.AddListener(() => CloseUpgradeScreen());
         _toggleUpgrades.onClick.AddListener(() => ToggleUpgradeScreen());
     }
 
     private void Start()
     {
         _remainingScrap = 350;
+        _popUpOpened = false;
         InitPoints();
         UpdateUpgradeScreen();
 
         ShowSaveButton(false);
         ShowRevertButton(false);
+        ShowPopUpWindow(false);
 
-        Events.instance.UpgradeScreenUpdated += CheckSaveAndRevertStatus;
-        CloseUpgrades();
+        Events.instance.UpgradeScreenUpdated += UpdateSaveAndRevertStatus;
+        CloseUpgradeScreen();
     }
     private void InitPoints()
     {
@@ -88,21 +98,33 @@ public class UpgradeScreen : MonoBehaviour
 
     //  Save and Revert
 
-    private void CheckSaveAndRevertStatus()
+    private void UpdateSaveAndRevertStatus()
     {
         bool savingPossible = false;
-        foreach(UIUpgradeField ui in _upgradeFields)
+        foreach (UIUpgradeField ui in _upgradeFields)
         {
             if (ui.tempCurrentLevel != ui.currentLevel) savingPossible = true;
         }
         ShowSaveButton(savingPossible);
         ShowRevertButton(savingPossible);
     }
+    private bool CheckSaveAndRevertStatus()
+    {
+        bool savingPossible = false;
+        foreach (UIUpgradeField ui in _upgradeFields)
+        {
+            if (ui.tempCurrentLevel != ui.currentLevel) savingPossible = true;
+        }
+        return savingPossible;
+    }
     public void SaveUpgrades()
     {
         Events.instance.SaveUpgrades();
         ShowSaveButton(false);
         ShowRevertButton(false);
+
+        if (_popUpOpened) CloseUpgradeScreen();
+        ShowPopUpWindow(false);
     }
     public void ShowSaveButton(bool b)
     {
@@ -113,18 +135,21 @@ public class UpgradeScreen : MonoBehaviour
         Events.instance.RevertUpgrades();
         ShowSaveButton(false);
         ShowRevertButton(false);
+
+        if(_popUpOpened) CloseUpgradeScreen();
+        ShowPopUpWindow(false);
     }
     public void ShowRevertButton(bool b)
     {
         _revertButton.interactable = b;
     }
 
-    //   Open and Close screen
+    //   Open and Close Upgrade screen
 
     public void ToggleUpgradeScreen()
     {
         if (_closed) OpenUpgrades();
-        else CloseUpgrades();
+        else CloseUpgradeScreen();
     }
     public void OpenUpgrades()
     {
@@ -133,9 +158,25 @@ public class UpgradeScreen : MonoBehaviour
         //  Set everything back to temp without saving!
         _closed = false;
     }
-    public void CloseUpgrades()
+    public void CloseUpgradeScreen()
     {
-        gameObject.SetActive(false);
-        _closed = true;
+        if(CheckSaveAndRevertStatus() && !_popUpOpened)
+        {
+            ShowPopUpWindow(true);
+        }
+        else
+        {
+            ShowPopUpWindow(false);
+            gameObject.SetActive(false);
+            _closed = true;
+        }
+    }
+
+    //  Open and Close Pop Up Window
+
+    public void ShowPopUpWindow(bool b)
+    {
+        _popUpWindow.SetActive(b);
+        _popUpOpened = b;
     }
 }
