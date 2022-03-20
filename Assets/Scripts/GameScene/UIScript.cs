@@ -9,7 +9,6 @@ public class UIScript : MonoBehaviour
 {
     //Buttons
     public Button _cruiseButton;
-    public Button _rotateBackButton;
     public Button _pauseButton;
     public Button _xrayButton;
     public Button _settingsButton;
@@ -76,7 +75,11 @@ public class UIScript : MonoBehaviour
     //  Steering Wheel
 
     public RectTransform _steeringWheelObject;
+    public Transform steeringWheelParent;
+    public Button _rotateBackButton;
     private bool steeringWheelOpen;
+    private float minHoldTime = 0.75f;
+    private float holdTime = 0;
 
     private void Awake()
     {
@@ -120,6 +123,30 @@ public class UIScript : MonoBehaviour
         {
             ToggleSteeringWheel();
         }
+        if(Input.GetKey(KeyCode.R))
+        {
+            holdTime += Time.deltaTime;
+        }
+        else
+        {
+            holdTime = 0;
+            ResetSteeringWheel();
+        }
+
+        if(holdTime >= minHoldTime)
+        {
+            SteeringWheelTrackMouse();
+        }
+        else
+        {
+            ResetSteeringWheel();
+        }
+    }
+
+    private void ResetSteeringWheel()
+    {
+        if (steeringWheelOpen) OpenSteeringWheel();
+        else CloseSteeringWheel();
     }
 
     private void InitButtons()
@@ -448,24 +475,34 @@ public class UIScript : MonoBehaviour
     //  Steering Wheel
     private void ToggleSteeringWheel()
     {
-        if (steeringWheelOpen)
-        {
-            CloseSteeringWheel();
-        }
-        else
-        {
-            OpenSteeringWheel();
-        }
+        if (steeringWheelOpen) CloseSteeringWheel(); 
+        else  OpenSteeringWheel(); 
     }
-
     private void CloseSteeringWheel()
     {
         steeringWheelOpen = false;
         _steeringWheelObject.anchoredPosition = new Vector3(0, -540, 0);
+        _steeringWheelObject.transform.parent = steeringWheelParent;
+        if (Input.GetKey(KeyCode.Mouse0)) _rotateBackButton.gameObject.SetActive(true);
     }
     private void OpenSteeringWheel()
     {
         steeringWheelOpen = true;
         _steeringWheelObject.anchoredPosition = new Vector3(0, -390, 0);
+        _steeringWheelObject.transform.parent = steeringWheelParent;
+        if (Input.GetKey(KeyCode.Mouse0)) _rotateBackButton.gameObject.SetActive(true);
+    }
+    private void SteeringWheelTrackMouse()
+    {
+        //TODO: maybe have some cord connection the steering wheel to the bottom like it was wrenched off :)
+
+        _rotateBackButton.gameObject.SetActive(false);
+        if (Input.GetKey(KeyCode.Mouse0)) _steeringWheelObject.transform.parent = transform;
+        else
+        {
+            _steeringWheelObject.transform.parent = Ref.mouse.mouseGameObject.transform;
+            _steeringWheelObject.anchoredPosition = Vector3.zero;
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0)) holdTime = 0;
     }
 }

@@ -10051,6 +10051,7 @@ MonoBehaviour:
   _engineLevel: {fileID: 1641816956}
   _upgradeScreen: {fileID: 319251174}
   _steeringWheelObject: {fileID: 345413408}
+  steeringWheelParent: {fileID: 694876367}
 --- !u!1 &1424727087
 GameObject:
   m_ObjectHideFlags: 0
@@ -13498,6 +13499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be669bb3a4175f641b03dafde92c978e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseGameObject: {fileID: 642053697}
   boxVisual: {fileID: 50690456}
   _cursorTransform: {fileID: 642053698}
   movementIndicators: []

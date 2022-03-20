@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class MouseCursor : MonoBehaviour
 {
-    private SpriteRenderer mouseRend;
+    public GameObject mouseGameObject;
     private bool select;
     [SerializeField]
     private RectTransform boxVisual;
@@ -24,7 +24,6 @@ public class MouseCursor : MonoBehaviour
     private void Awake()
     {
         Ref.mouse = this;
-        mouseRend = GetComponentInChildren<SpriteRenderer>();
         cursorAnimator = _cursorTransform.GetComponent<Animator>();
         movementIndicators = new List<GameObject>();
     }
