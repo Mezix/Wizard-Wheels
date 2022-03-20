@@ -11,10 +11,15 @@ public class UIUpgradeField : MonoBehaviour
     public Button _upgradeButton;
     public Button _downgradeButton;
 
-    public int maxLevel;
-    public int currentLevel;
-    public int tempCurrentLevel;
+    public HorizontalLayoutGroup _layout;
 
+    [HideInInspector]
+    public int maxLevel;
+    [HideInInspector]
+    public int currentLevel;
+    [HideInInspector]
+    public int tempCurrentLevel;
+    [HideInInspector]
     public List<int> _upgradeLevels = new List<int>();
 
     private void Start()
@@ -31,7 +36,14 @@ public class UIUpgradeField : MonoBehaviour
         foreach(int i in levels)
         {
             _upgradeLevels.Add(i);
+            GameObject go = Instantiate((GameObject) Resources.Load("UpgradeFieldBarSplitter"));
+            go.transform.parent = _layout.transform;
+            go.transform.localScale = Vector3.one;
         }
+        float a = 51 - levels.Count + 2;
+        float b = levels.Count - 1;
+        float spacing = a / b;
+        _layout.spacing = spacing;
         UpdateUpgradeField();
     }
     public void SetTempLevel(int lvl)
