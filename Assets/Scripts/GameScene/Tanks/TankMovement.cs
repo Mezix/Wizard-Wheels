@@ -46,7 +46,7 @@ public class TankMovement : MonoBehaviour
         moveVector = GetComponentInChildren<TankRotation>().rotatableObjects[0].transform.up;
 
         float speedMultiplier = currentSpeed * Time.deltaTime;
-        if (Ref.PCon.TMov._matchSpeed) speedMultiplier *= engineLevelMultiplier;
+        if (!Ref.PCon.TMov._matchSpeed) speedMultiplier *= engineLevelMultiplier;
 
         rb.velocity = moveVector * speedMultiplier;
         rb.MovePosition(transform.position + moveVector * speedMultiplier);

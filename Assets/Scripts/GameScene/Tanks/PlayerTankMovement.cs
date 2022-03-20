@@ -196,6 +196,6 @@ public class PlayerTankMovement : TankMovement
         if (b) Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 1 + (currentSpeed/maxSpeed * 5);
         else Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 0;
         currentSpeed = Mathf.Max(0, currentSpeed);
-        Ref.SD.SetSpeed(currentSpeed);
+        Ref.SD.SetSpeed(currentSpeed * engineLevelMultiplier);
     }
 }

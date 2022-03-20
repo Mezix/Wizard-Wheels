@@ -14,7 +14,11 @@ public class Events : MonoBehaviour
     public event Action PlayerTankDestroyed;
     public event Action PlayerIsDying;
     public event Action<GameObject> WizardOrWeaponClicked;
+
+    //  UI
     public event Action UpgradesSaved;
+    public event Action UpgradeScreenUpdated;
+
     public void EnemyDestroyed(GameObject enemyTank)
     {
         if (EnemyTankDestroyed != null) EnemyTankDestroyed(enemyTank);
@@ -33,6 +37,10 @@ public class Events : MonoBehaviour
     }
     public void SaveUpgrades()
     {
-        if (UpgradesSaved != null) UpgradesSaved(); 
+        if (UpgradesSaved != null) UpgradesSaved();
+    }
+    public void UpdateUpgradeScreen()
+    {
+        if (UpgradeScreenUpdated != null) UpgradeScreenUpdated();
     }
 }

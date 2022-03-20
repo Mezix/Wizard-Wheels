@@ -678,6 +678,9 @@ MonoBehaviour:
   _fillLevel: {fileID: 1364928775944568423}
   _upgradeButton: {fileID: 1364928774376706949}
   _downgradeButton: {fileID: 1364928774809544502}
+  maxLevel: 0
+  currentLevel: 0
+  tempCurrentLevel: 0
 --- !u!1 &1364928775295840770
 GameObject:
   m_ObjectHideFlags: 0

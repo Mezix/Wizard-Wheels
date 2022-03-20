@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 8424691}
   - component: {fileID: 8424690}
   m_Layer: 5
-  m_Name: UpgradeFieldNameText (1)
+  m_Name: RemainingScrapText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,8 +229,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.84, y: -0.2}
-  m_SizeDelta: {x: 241, y: 198}
+  m_AnchoredPosition: {x: 39.97, y: -0.2}
+  m_SizeDelta: {x: 575.92, y: 198}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8424690
 MonoBehaviour:
@@ -264,7 +264,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '0
+  m_Text: '000
 
 '
 --- !u!222 &8424691
@@ -2412,6 +2412,9 @@ MonoBehaviour:
   _toggleUpgrades: {fileID: 1788375507}
   _closed: 0
   _layoutGroup: {fileID: 1587943508}
+  _pointsRemainingText: {fileID: 8424690}
+  _remainingPoints: 0
+  _totalPoints: 0
 --- !u!1 &331044519
 GameObject:
   m_ObjectHideFlags: 0
@@ -4509,7 +4512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &646668465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4907,6 +4910,7 @@ GameObject:
   - component: {fileID: 667288260}
   - component: {fileID: 667288259}
   - component: {fileID: 667288257}
+  - component: {fileID: 667288264}
   - component: {fileID: 667288262}
   - component: {fileID: 667288261}
   - component: {fileID: 667288263}
@@ -5036,6 +5040,7 @@ MonoBehaviour:
   ISystemArray: []
   AllUIWeapons: []
   multipleSelected: 1
+  _weaponRotationSpeedMultiplier: 0
 --- !u!114 &667288262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5053,6 +5058,7 @@ MonoBehaviour:
   AngleToRotateTo: 0
   pointerAngleSet: 0
   steeringWheelSelectedByMouse: 0
+  _rotationSpeedMultiplier: 0
 --- !u!114 &667288263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5070,6 +5076,21 @@ MonoBehaviour:
   systemIcons: []
   FloorColor: {r: 1, g: 0.84445155, b: 0.6933962, a: 1}
   RoofColor: {r: 0.6, g: 1, b: 0.91100854, a: 1}
+--- !u!114 &667288264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667288255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1384d72d21b00624eae9b6cdb8d773e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationLevel: 0
+  _tempLevel: 0
+  _maxLevel: 0
 --- !u!1 &676143417
 GameObject:
   m_ObjectHideFlags: 0
@@ -8843,7 +8864,7 @@ GameObject:
   - component: {fileID: 1302452365}
   - component: {fileID: 1302452364}
   m_Layer: 5
-  m_Name: UpgradeFieldNameText
+  m_Name: BGLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8900,7 +8921,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: REMAINING POINTS
+  m_Text: REMAINING SCRAP
 --- !u!222 &1302452365
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10836,7 +10857,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 28.1}
+  m_AnchoredPosition: {x: 12.4, y: 46}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1587943509
@@ -11636,7 +11657,7 @@ GameObject:
   - component: {fileID: 1716640004}
   - component: {fileID: 1716640005}
   m_Layer: 5
-  m_Name: Remaining Points
+  m_Name: RemainingScrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14332,7 +14353,7 @@ GameObject:
   - component: {fileID: 2056491061}
   - component: {fileID: 2056491060}
   m_Layer: 5
-  m_Name: BG (1)
+  m_Name: PointBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14354,8 +14375,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.6, y: 0}
-  m_SizeDelta: {x: 9.9, y: 9.06}
+  m_AnchoredPosition: {x: 40.21, y: 0}
+  m_SizeDelta: {x: 19.91, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056491060
 MonoBehaviour:

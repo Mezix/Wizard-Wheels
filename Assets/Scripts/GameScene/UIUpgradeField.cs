@@ -10,30 +10,48 @@ public class UIUpgradeField : MonoBehaviour
     public Image _fillLevel;
     public Button _upgradeButton;
     public Button _downgradeButton;
-    private int maxLevel;
-    private int currentLevel;
-    private int tempCurrentLevel;
 
-    public void InitUpgradeField(string fieldName, int currentLvl, int maxLvl)
+    public int maxLevel;
+    public int currentLevel;
+    public int tempCurrentLevel;
+
+    public List<int> _upgradeLevels = new List<int>();
+
+    private void Awake()
+    {
+        Events.instance.UpgradeScreenUpdated += UpdateUpgradeField;
+    }
+    private void Start()
+    {
+        Events.instance.UpdateUpgradeScreen();
+    }
+    public void InitUpgradeField(string fieldName, int currentLvl, int maxLvl, List<int> levels)
     {
         _updateFieldName.text = fieldName;
         maxLevel = maxLvl;
         tempCurrentLevel = currentLevel = currentLvl;
 
-        UpdateLevel();
+        foreach(int i in levels)
+        {
+            _upgradeLevels.Add(i);
+        }
+        UpdateUpgradeField();
     }
-    public void SetLevel(int lvl)
+    public void SetTempLevel(int lvl)
     {
         tempCurrentLevel = lvl;
-        UpdateLevel();
+        Events.instance.UpdateUpgradeScreen();
     }
-    public void UpdateLevel()
+    public void UpdateUpgradeField()
     {
         _upgradeLevel.text = tempCurrentLevel.ToString();
-        _fillLevel.fillAmount = tempCurrentLevel/ (float)maxLevel;
-    }
-    public void SaveChanges()
-    {
 
+        if (tempCurrentLevel == maxLevel || Ref.UI._upgradeScreen._remainingPoints <= _upgradeLevels[currentLevel+1]) _upgradeButton.interactable = false;
+        else _upgradeButton.interactable = true;
+
+        if (tempCurrentLevel == 0) _downgradeButton.interactable = false;
+        else _downgradeButton.interactable = true;
+
+        _fillLevel.fillAmount = tempCurrentLevel / (float)maxLevel;
     }
 }

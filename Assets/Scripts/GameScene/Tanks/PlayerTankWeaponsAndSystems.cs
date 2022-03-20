@@ -8,6 +8,12 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
     public List<PlayerWeaponUI> AllUIWeapons = new List<PlayerWeaponUI>();
     public bool multipleSelected = true;
 
+    public float _weaponRotationSpeedMultiplier;
+
+    private void Awake()
+    {
+        _weaponRotationSpeedMultiplier = 1;
+    }
     private void Update()
     {
         if (!Ref.PCon._dying)
@@ -63,6 +69,14 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
             if (wp != null) wp.WeaponSelected = false;
             wp.ShouldNotRotate = true;
             Ref.c.RemoveCrosshair(wp);
+        }
+    }
+
+    public void UpdateWeaponRotationSpeed()
+    {
+        foreach(PlayerWeaponUI wep in AllUIWeapons)
+        {
+            wep._weapon.RotationSpeed = wep._weapon._weaponStats._rotationSpeed * _weaponRotationSpeedMultiplier;
         }
     }
 }

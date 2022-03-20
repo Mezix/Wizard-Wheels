@@ -12,7 +12,7 @@ public class EnemyTankRotation : TankRotation
     }
     public void RotateTankLeft()
     {
-        RotateAllObjectsByRotation(rotationspeed * Time.deltaTime);
+        RotateAllObjectsByRotation(rotationspeed* Time.deltaTime);
     }
     public void RotateTankRight()
     {
