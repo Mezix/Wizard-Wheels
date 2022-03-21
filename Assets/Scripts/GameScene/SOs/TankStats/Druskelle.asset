@@ -16,5 +16,5 @@ MonoBehaviour:
   _tankHealth: 20
   _tankMaxSpeed: 3
   _tankAccel: 0.005
-  _tankDecel: 0
+  _tankDecel: 0.01
   _rotationSpeed: 50

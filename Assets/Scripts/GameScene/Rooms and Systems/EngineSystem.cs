@@ -73,7 +73,7 @@ public class EngineSystem : ISystem
     }
     public void Downgrade()
     {
-        if (_tempLevel <= 0) return;
+        if (_tempLevel <= _engineLevel) return;
         _tempLevel--;
         Ref.UI._upgradeScreen.AddTempScrap(_upgradeLevels[_tempLevel+1]);
         _upgradeField.SetTempLevel(_tempLevel);
@@ -83,7 +83,7 @@ public class EngineSystem : ISystem
     {
         _engineLevel = _tempLevel;
         if (Ref.UI) Ref.UI.UpdateEngineLevel(_engineLevel, _maxEngineLevel);
-        Ref.UI._upgradeScreen.UpdateScrapCounter();
+        Ref.UI._upgradeScreen.UpdateMainScrapCounter();
     }
     public void RevertChanges()
     {
@@ -102,6 +102,6 @@ public class EngineSystem : ISystem
                 Upgrade();
             }
         }
-        Ref.UI._upgradeScreen.UpdateScrapCounter();
+        Ref.UI._upgradeScreen.UpdateMainScrapCounter();
     }
 }

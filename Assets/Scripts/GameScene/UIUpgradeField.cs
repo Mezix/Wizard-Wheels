@@ -25,6 +25,7 @@ public class UIUpgradeField : MonoBehaviour
     private void Start()
     {
         Events.instance.UpgradeScreenUpdated += UpdateUpgradeField;
+        Events.instance.UpgradesSaved += UpdateUpgradeField;
         Events.instance.UpdateUpgradeScreen();
     }
     public void InitUpgradeField(string fieldName, int currentLvl, int maxLvl, List<int> levels)
@@ -59,9 +60,9 @@ public class UIUpgradeField : MonoBehaviour
         if (tempCurrentLevel == maxLevel || Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[currentLevel+1]) _upgradeButton.interactable = false;
         else _upgradeButton.interactable = true;
 
-        if (tempCurrentLevel == 0) _downgradeButton.interactable = false;
+        if (tempCurrentLevel <= currentLevel || currentLevel == maxLevel) _downgradeButton.interactable = false;
         else _downgradeButton.interactable = true;
 
-        _fillLevel.fillAmount = tempCurrentLevel / (float)maxLevel;
+        _fillLevel.fillAmount = tempCurrentLevel / (float) maxLevel;
     }
 }

@@ -49,7 +49,7 @@ public class RotationUpgradeField : MonoBehaviour
     }
     public void Downgrade()
     {
-        if (_tempLevel <= 0) return;
+        if (_tempLevel <= _rotationLevel) return;
         _tempLevel--;
         Ref.UI._upgradeScreen.AddTempScrap(_upgradeLevels[_tempLevel+1]);
         _upgradeField.SetTempLevel(_tempLevel);
@@ -60,7 +60,7 @@ public class RotationUpgradeField : MonoBehaviour
         Ref.PCon.GetComponent<PlayerTankRotation>()._rotationSpeedMultiplier = 1 + _rotationLevel/(float)_maxLevel;
         Ref.PCon.TWep._weaponRotationSpeedMultiplier = 1 +  weaponRotationIncreaseModifier * (_rotationLevel / (float)_maxLevel);
         Ref.PCon.TWep.UpdateWeaponRotationSpeed();
-        Ref.UI._upgradeScreen.UpdateScrapCounter();
+        Ref.UI._upgradeScreen.UpdateMainScrapCounter();
     }
     public void RevertChanges()
     {
@@ -79,6 +79,6 @@ public class RotationUpgradeField : MonoBehaviour
                 Upgrade();
             }
         }
-        Ref.UI._upgradeScreen.UpdateScrapCounter();
+        Ref.UI._upgradeScreen.UpdateMainScrapCounter();
     }
 }

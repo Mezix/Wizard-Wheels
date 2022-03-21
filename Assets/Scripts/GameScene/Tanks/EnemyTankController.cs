@@ -47,7 +47,6 @@ public class EnemyTankController : TankController
         enemyUI.transform.localPosition = new Vector2(0, (0.5f * 0.5f * TGeo._tankRoomConstellation._Y) + 1f);
         THealth.GetComponent<EnemyTankHealth>()._healthBarParent = enemyUI.hpBar;
     }
-
     private void Update()
     {
         if (!_dying) EnemyBehaviour();
@@ -102,10 +101,10 @@ public class EnemyTankController : TankController
         //  Send event to our player to remove the target of its weapons
         Events.instance.EnemyDestroyed(gameObject);
         StartCoroutine(DeathAnimation());
-        print("enemy tank being destroyed");
     }
     private void SlowlyDie()
     {
+        print("dying");
         TMov.Decelerate();
         if(TMov.currentSpeed < 0.01f)
         {
@@ -123,6 +122,11 @@ public class EnemyTankController : TankController
             yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(0.435f);
+
+        GameObject g = Instantiate((GameObject) Resources.Load("ScrapPile"));
+        g.transform.position = transform.position;
+        ScrapPile scrap = g.GetComponent<ScrapPile>();
+        scrap.InitScrap(UnityEngine.Random.Range(30,41));
 
         Events.instance.EnemyDestroyed(gameObject);
         Destroy(gameObject);

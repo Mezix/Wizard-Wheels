@@ -29,8 +29,13 @@ public class TankMovement : MonoBehaviour
         if (tc._tStats)
         {
             acceleration = tc._tStats._tankAccel;
+            if (acceleration == 0) Debug.LogWarning("No Acceleration Stat!");
+
             deceleration = tc._tStats._tankDecel;
+            if (deceleration == 0) Debug.LogWarning("No Deceleration Stat!");
+
             maxSpeed = tc._tStats._tankMaxSpeed;
+            if (maxSpeed == 0) Debug.LogWarning("No max Speed");
         }
         else
         {

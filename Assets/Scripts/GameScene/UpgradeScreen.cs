@@ -28,6 +28,8 @@ public class UpgradeScreen : MonoBehaviour
     [HideInInspector]
     public int _totalScrap;
 
+    public GameObject _upgradeScreenObj; 
+
     private void Awake()
     {
         _saveButton.onClick.AddListener(() => SaveUpgrades());
@@ -40,10 +42,10 @@ public class UpgradeScreen : MonoBehaviour
 
     private void Start()
     {
-        AddNewScrap(350);
+        AddNewScrap(350, false);
         _popUpOpened = false;
         InitPoints();
-        UpdateUpgradeScreen();
+        UpdateUpgradeScrapCounter();
 
         ShowSaveButton(false);
         ShowRevertButton(false);
@@ -51,6 +53,13 @@ public class UpgradeScreen : MonoBehaviour
 
         Events.instance.UpgradeScreenUpdated += UpdateSaveAndRevertStatus;
         CloseUpgradeScreen();
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            AddNewScrap(25, true);
+        }
     }
     private void InitPoints()
     {
@@ -65,7 +74,7 @@ public class UpgradeScreen : MonoBehaviour
         }
         _totalScrap += _remainingScrap;
     }
-    private void UpdateUpgradeScreen()
+    private void UpdateUpgradeScrapCounter()
     {
         string pointsString = "";
         string remaining = _remainingScrap.ToString();
@@ -76,22 +85,46 @@ public class UpgradeScreen : MonoBehaviour
         pointsString += remaining;
         _remainingScrapText.text = pointsString;
     }
-    public void AddNewScrap(int points)
+    public void AddNewScrap(int points, bool animPlay)
     {
         _remainingScrap += points;
-        UpdateScrapCounter();
+        UpdateMainScrapCounter();
+        UpdateUpgradeScrapCounter();
+        if (animPlay) StartCoroutine(AddScrapAnim(points));
     }
+    private IEnumerator AddScrapAnim(int points)
+    {
+        GameObject g = Instantiate((GameObject) Resources.Load("ScrapText"));
+        g.transform.parent = _mainUIScrapCounter.transform.parent;
+
+        RectTransform rect = g.GetComponent<RectTransform>();
+        rect.anchoredPosition = _mainUIScrapCounter.rectTransform.anchoredPosition + new Vector2(0,0);
+        rect.transform.localScale = _mainUIScrapCounter.transform.localScale;
+
+        Text t = g.GetComponent<Text>();
+        t.text = "+" + points.ToString();
+        //  TODO: Add sound effect to prefab
+
+        for(int i = 0; i < 50; i++)
+        {
+            rect.anchoredPosition += new Vector2(i/4f, -i/6f);
+            t.color = new Color(1,1,1, (50 - i)/50f);
+            yield return new WaitForFixedUpdate();
+        }
+        Destroy(g);
+    }
+
     public void AddTempScrap(int points)
     {
         _remainingScrap += points;
-        UpdateUpgradeScreen();
+        UpdateUpgradeScrapCounter();
     }
     public void RemoveTempScrap(int points)
     {
         if(_remainingScrap > 0) _remainingScrap -= points;
-        UpdateUpgradeScreen();
+        UpdateUpgradeScrapCounter();
     }
-    public void UpdateScrapCounter()
+    public void UpdateMainScrapCounter()
     {
         string pointsString = "";
         string remaining = _remainingScrap.ToString();
@@ -170,7 +203,7 @@ public class UpgradeScreen : MonoBehaviour
     }
     public void OpenUpgrades()
     {
-        gameObject.SetActive(true);
+        _upgradeScreenObj.SetActive(true);
 
         //  Set everything back to temp without saving!
         _closed = false;
@@ -184,7 +217,7 @@ public class UpgradeScreen : MonoBehaviour
         else
         {
             ShowPopUpWindow(false);
-            gameObject.SetActive(false);
+            _upgradeScreenObj.SetActive(false);
             _closed = true;
         }
     }
