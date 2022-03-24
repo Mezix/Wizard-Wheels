@@ -59,6 +59,7 @@ MonoBehaviour:
   _projectileSpot: {fileID: 995660803235255240}
   EnemyWepUI: {fileID: 244009782503478640}
   UIColor: {r: 1, g: 0, b: 0, a: 0.49019608}
+  lr: {fileID: 0}
   _weaponAudioSource: {fileID: 5770678182755424900}
 --- !u!1 &1891114875749286798
 GameObject:

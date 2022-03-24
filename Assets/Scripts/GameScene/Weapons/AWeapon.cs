@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DottedLine;
+using System;
 
 public abstract class AWeapon : ISystem
 {
@@ -28,6 +29,7 @@ public abstract class AWeapon : ISystem
     public bool ShouldNotRotate { get; set; }
     public Transform RotatablePart;
     public GameObject TargetedRoom;
+    private GameObject _targetingCircle;
 
     //  Misc
 
@@ -40,13 +42,16 @@ public abstract class AWeapon : ISystem
 
     public WeaponUI EnemyWepUI;
     public Color UIColor;
+    public LineRenderer lr;
 
     //  Audio
     public AudioSource _weaponAudioSource = null;
 
-    private void Awake()
+    public void Awake()
     {
         ShouldHitPlayer = false;
+        SystemObj = gameObject;
+        InitLineRenderer();
     }
     public override void InitSystemStats()
     {
@@ -68,6 +73,23 @@ public abstract class AWeapon : ISystem
         }
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
+        InitCircle();
+    }
+    public void InitLineRenderer()
+    {
+        GameObject go = Instantiate((GameObject) Resources.Load("LineRendererPrefab"));
+        go.transform.parent = transform;
+        lr = go.GetComponent<LineRenderer>();
+        lr.gameObject.SetActive(false);
+    }
+    private void InitCircle()
+    {
+        GameObject go = Instantiate((GameObject) Resources.Load("WeaponRangeCircle"));
+        go.transform.localScale = Vector3.one * MaxLockOnRange;
+        go.transform.parent = transform;
+        go.transform.localPosition = Vector3.zero;
+        _targetingCircle = go;
+        _targetingCircle.SetActive(false);
     }
     public override void StartInteraction()
     {
@@ -119,6 +141,7 @@ public abstract class AWeapon : ISystem
     {
         if (WeaponSelected && WeaponEnabled && !ShouldHitPlayer)
         {
+            _targetingCircle.SetActive(true);
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 AimWithMouse();
@@ -175,6 +198,7 @@ public abstract class AWeapon : ISystem
             AimRotationAngle = HM.GetAngle2DBetween(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         }
         WeaponSelected = false;
+        _targetingCircle.SetActive(false);
     }
     public void CancelAim()
     {
@@ -183,6 +207,7 @@ public abstract class AWeapon : ISystem
         Ref.c.RemoveCrosshair(iwep);
         AimAtTarget = false;
         TargetedRoom = null;
+        _targetingCircle.SetActive(false);
     }
     public void ResetAim()
     {
@@ -192,6 +217,7 @@ public abstract class AWeapon : ISystem
         AimRotationAngle = 90;
         AimAtTarget = false;
         TargetedRoom = null;
+        _targetingCircle.SetActive(false);
     }
 
     //  ROTATE
@@ -283,13 +309,7 @@ public abstract class AWeapon : ISystem
         {
             EnemyWepUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
         }
-        //CounterRotateUI();
     }
-    /*public void CounterRotateUI()
-    {
-        HM.RotateLocalTransformToAngle(EnemyWepUI.transform, new Vector3(0, 0, -RotatablePart.localRotation.eulerAngles.z));
-    }*/
-
     //  Misc
 
     private void WeaponFireParticles()
@@ -305,11 +325,17 @@ public abstract class AWeapon : ISystem
     }
     protected void UpdateLaserLR()
     {
+        lr.gameObject.SetActive(false);
         if (TargetedRoom && AimAtTarget && ShouldHitPlayer)
         {
             if (TargetRoomWithinLockOnRange())
             {
-                DottedLine.DottedLine.Instance.DrawDottedLine(transform.position, TargetedRoom.transform.position, UIColor);
+                //DottedLine.DottedLine.Instance.DrawDottedLine(transform.position, TargetedRoom.transform.position, UIColor);
+
+                lr.gameObject.SetActive(true);
+                lr.SetPosition(0, transform.position);
+                lr.SetPosition(1, TargetedRoom.transform.position);
+                lr.material.color = UIColor;
             }
         }
     }

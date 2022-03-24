@@ -70,6 +70,7 @@ public class UIScript : MonoBehaviour
     public RectTransform _steeringWheelObject;
     public Transform steeringWheelParent;
     public Button _rotateBackButton;
+    public GameObject _steeringWheelPrompt;
     private bool steeringWheelOpen;
     private float minHoldTime = 0.75f;
     private float holdTime = 0;
@@ -124,6 +125,7 @@ public class UIScript : MonoBehaviour
         {
             holdTime = 0;
             ResetSteeringWheel();
+            _rotateBackButton.gameObject.SetActive(true);
         }
 
         if(holdTime >= minHoldTime)
@@ -361,7 +363,6 @@ public class UIScript : MonoBehaviour
             b.onClick.AddListener(() => LevelManager.instance.GoToMainMenu());
         }
     }
-
     public IEnumerator FlashWeaponOutOfRangeWarning()
     {
         List<Image> images = WeaponOutOfRangeParent.GetComponentsInChildren<Image>().ToList();
@@ -387,7 +388,6 @@ public class UIScript : MonoBehaviour
         }
         WeaponOutOfRangeParent.SetActive(false);
     }
-
     private void SaveWizards(bool b)
     {
         if(b)
@@ -405,6 +405,7 @@ public class UIScript : MonoBehaviour
         Ref.PCon.SaveAllWizardPositions();
     }
 
+    //  Emergency Brake
     private void EmergencyBrake(Toggle t)
     {
         print(t.isOn);
@@ -423,7 +424,6 @@ public class UIScript : MonoBehaviour
     }
 
     //  Engine Level
-
     private void InitEngineLevel()
     {
         engineLevelSegments = new List<Image>();
@@ -436,7 +436,6 @@ public class UIScript : MonoBehaviour
             engineLevelSegments.Add(engineSegmentImg);
         }
     }
-
     public void UpdateEngineLevel(int level, int maxLevel)
     {
         //  Just in case of syncing issues, make sure we have a bar to update
@@ -476,20 +475,21 @@ public class UIScript : MonoBehaviour
         steeringWheelOpen = false;
         _steeringWheelObject.anchoredPosition = new Vector3(0, -540, 0);
         _steeringWheelObject.transform.parent = steeringWheelParent;
-        if (Input.GetKey(KeyCode.Mouse0)) _rotateBackButton.gameObject.SetActive(true);
+        _steeringWheelPrompt.SetActive(true);
     }
     private void OpenSteeringWheel()
     {
         steeringWheelOpen = true;
         _steeringWheelObject.anchoredPosition = new Vector3(0, -390, 0);
         _steeringWheelObject.transform.parent = steeringWheelParent;
-        if (Input.GetKey(KeyCode.Mouse0)) _rotateBackButton.gameObject.SetActive(true);
+        _steeringWheelPrompt.SetActive(true);
     }
     private void SteeringWheelTrackMouse()
     {
         //TODO: maybe have some cord connection the steering wheel to the bottom like it was wrenched off :)
 
         _rotateBackButton.gameObject.SetActive(false);
+        _steeringWheelPrompt.SetActive(false);
         if (Input.GetKey(KeyCode.Mouse0)) _steeringWheelObject.transform.parent = transform;
         else
         {

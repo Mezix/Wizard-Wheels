@@ -9,7 +9,7 @@ public class HeavyCannon : AWeapon
 {
     private void Awake()
     {
-        SystemObj = gameObject;
+        base.Awake();
     }
     private void Start()
     {

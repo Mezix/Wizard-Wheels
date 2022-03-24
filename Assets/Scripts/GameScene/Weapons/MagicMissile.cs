@@ -6,7 +6,7 @@ public class MagicMissile : AWeapon
 {
     private void Awake()
     {
-        SystemObj = gameObject;
+        base.Awake();
     }
     private void Start()
     {

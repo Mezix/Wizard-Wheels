@@ -12,7 +12,7 @@ namespace DottedLine
         public Sprite EndDot;
         [Range(0.01f, 1f)]
         public float Size;
-        [Range(0.1f, 2f)]
+        [Range(0.01f, 2f)]
         public float Delta;
 
         //Static Property with backing field
@@ -56,7 +56,7 @@ namespace DottedLine
             zDirections.Clear();
             colors.Clear();
         }
-        public void DrawDottedLine(Vector3 start, Vector3 end, Color c)
+        public void DrawDottedLine(Vector3 start, Vector3 end, Color c, Sprite sp)
         {
             Vector3 point = end;
             Vector3 dir = (start - end).normalized;
@@ -68,10 +68,10 @@ namespace DottedLine
                 colors.Add(c);
                 point += (dir * Delta);
             }
-            Render();
+            Render(sp);
         }
 
-        private void Render()
+        private void Render(Sprite sp = null)
         {
             int length = positions.Count;
             for (int i = 0; i < length; i++)
@@ -80,6 +80,7 @@ namespace DottedLine
                 Vector3 vec3d = new Vector3(positions[i].x, positions[i].y, 1);
                 g.transform.position = vec3d;
                 g.transform.localScale = Vector3.one * Size;
+                if(sp != null) g.GetComponent<SpriteRenderer>().sprite = sp;
                 g.GetComponent<SpriteRenderer>().color = colors[i];
                 HM.RotateLocalTransformToAngle(g.transform, new Vector3(0, 0, zDirections[i]));
                 dots.Add(g);
