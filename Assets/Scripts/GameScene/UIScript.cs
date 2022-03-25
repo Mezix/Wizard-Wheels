@@ -115,11 +115,11 @@ public class UIScript : MonoBehaviour
         {
             ToggleVision();
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyUp(KeyCode.R))
         {
             ToggleSteeringWheel();
         }
-        if(Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.R))
         {
             holdTime += Time.deltaTime;
         }
@@ -138,6 +138,10 @@ public class UIScript : MonoBehaviour
         {
             ResetSteeringWheel();
         }
+    }
+    private void LateUpdate()
+    {
+        
     }
 
     private void ResetSteeringWheel()
