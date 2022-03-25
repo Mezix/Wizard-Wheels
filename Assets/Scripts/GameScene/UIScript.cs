@@ -69,11 +69,13 @@ public class UIScript : MonoBehaviour
     //  Steering Wheel
     public RectTransform _steeringWheelObject;
     public Transform steeringWheelParent;
+    public GameObject _steeringWheelBG;
     public Button _rotateBackButton;
     public GameObject _steeringWheelPrompt;
     private bool steeringWheelOpen;
     private float minHoldTime = 0.75f;
     private float holdTime = 0;
+    public Transform _dottedLinesParent;
 
     private void Awake()
     {
@@ -473,23 +475,31 @@ public class UIScript : MonoBehaviour
     private void CloseSteeringWheel()
     {
         steeringWheelOpen = false;
-        _steeringWheelObject.anchoredPosition = new Vector3(0, -540, 0);
+        _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = _steeringWheelObject.anchoredPosition = new Vector3(0, -540, 0);
         _steeringWheelObject.transform.parent = steeringWheelParent;
         _steeringWheelPrompt.SetActive(true);
     }
     private void OpenSteeringWheel()
     {
         steeringWheelOpen = true;
-        _steeringWheelObject.anchoredPosition = new Vector3(0, -390, 0);
+        _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = _steeringWheelObject.anchoredPosition = new Vector3(0, -390, 0);
         _steeringWheelObject.transform.parent = steeringWheelParent;
         _steeringWheelPrompt.SetActive(true);
     }
     private void SteeringWheelTrackMouse()
     {
-        //TODO: maybe have some cord connection the steering wheel to the bottom like it was wrenched off :)
+        _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -390, 0);
+        Vector3 startPos = new Vector3(0, -390, 0);
+        Vector3 endPos;
+        if (!Input.GetKey(KeyCode.Mouse0)) endPos = Ref.mouse._cursorTransform.anchoredPosition;
+        else endPos = _steeringWheelObject.GetComponent<RectTransform>().anchoredPosition;
+        Sprite sp = Resources.Load("Art/Weapons/chain_link", typeof (Sprite)) as Sprite;
+
+        DottedLine.DottedLine.Instance.DrawDottedUILine(startPos, endPos, Color.white, sp);
 
         _rotateBackButton.gameObject.SetActive(false);
         _steeringWheelPrompt.SetActive(false);
+
         if (Input.GetKey(KeyCode.Mouse0)) _steeringWheelObject.transform.parent = transform;
         else
         {
