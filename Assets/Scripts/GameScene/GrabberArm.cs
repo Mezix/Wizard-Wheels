@@ -11,68 +11,127 @@ public class GrabberArm : MonoBehaviour
     public GrabberClaw _clawScript;
     [SerializeField]
     private Animator _grabberArmAnimator;
+    private float grabberSpeed;
+
+    private Vector3 scrapPos;
+    private ScrapPile scrap;
+    private bool scrapCollection;
+    private void Awake()
+    {
+        _armLaunched = false;
+        scrapCollection = false;
+        grabberSpeed = 10f;
+    }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        HighlightScrap();
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            ToggleArm();
+            TryLaunchToScrap();
         }
-        if(_armLaunched)
+        if (_armLaunched)
         {
-            MoveClawToMouse();
+            MoveClawToScrapSlowly();
         }
         else
         {
-            _clawScript.transform.parent = _grabberArmCrossbowBody;
-            _clawScript.transform.localPosition = Vector3.zero;
-            _clawScript._clawAnimator.transform.localPosition = new Vector3(0.166f, 0, 0);
+            if (!scrapCollection) RotateToMouse();
+            else RetractClawSlowly();
         }
-        RotateToMouse();
-        CreateChain();
     }
-
-    private void CreateChain()
+    private void LateUpdate()
     {
-        Sprite chain = Resources.Load("Art/Weapons/chain_link", typeof (Sprite)) as Sprite;
-        Vector3 clawStartingPos = _clawScript._clawAnimator.transform.position;
-        clawStartingPos += (_chainStartingPos.position - clawStartingPos).normalized * 0.1f;
-        DottedLine.DottedLine.Instance.DrawDottedLine(_chainStartingPos.position, clawStartingPos, Color.white, chain);
+        if (scrapCollection) CreateChain();
     }
 
+    private void HighlightScrap()
+    {
+        RaycastHit2D hit = HM.RaycastToMouseCursor();
+        if (!hit.collider) return;
+        if (hit.collider.TryGetComponent(out ScrapPile s))
+        {
+            s.Highlight();
+        }
+    }
+    private void TryLaunchToScrap()
+    {
+        if (_armLaunched) return;
+
+        RaycastHit2D hit = HM.RaycastToMouseCursor();
+        if (!hit.collider) return;
+        if (hit.collider.TryGetComponent(out ScrapPile s))
+        {
+            FireCrossbow();
+            scrapPos = s.transform.position;
+            _armLaunched = true;
+            scrapCollection = true;
+            scrap = s;
+        }
+    }
     private void RotateToMouse()
     {
         float angle = HM.GetAngle2DBetween(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         HM.RotateTransformToAngle(_grabberArmCrossbowBody.transform, new Vector3(0, 0, angle));
         HM.RotateTransformToAngle(_clawScript.transform, new Vector3(0, 0, angle));
     }
-
-    private void MoveClawToMouse()
+    private void RotateToScrap()
     {
-        _clawScript.transform.parent = null;
-        _clawScript.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        _clawScript.transform.position = new Vector3(_clawScript.transform.position.x, _clawScript.transform.position.y, 0);
-        _clawScript._clawAnimator.transform.localPosition = Vector3.zero;
+        if (!scrap) return;
+        float angle = HM.GetAngle2DBetween(scrap.transform.position, transform.position);
+        HM.RotateTransformToAngle(_grabberArmCrossbowBody.transform, new Vector3(0, 0, angle));
+        HM.RotateTransformToAngle(_clawScript.transform, new Vector3(0, 0, angle));
     }
-    private void ToggleArm()
+    private void MoveClawToScrapSlowly()
     {
-        if(!_armLaunched)
+        RotateToScrap();
+        _clawScript.transform.parent = null;
+        _clawScript._clawAnimator.transform.localPosition = Vector3.zero;
+
+        Vector3 nextPos = (scrapPos - _clawScript.transform.position).normalized * grabberSpeed * Time.deltaTime;
+        if (Vector3.Distance(_clawScript.transform.position + nextPos, scrapPos) < 0.5f)
         {
-            LaunchGrabberArm();
+            scrap.PickUpScrap(_clawScript._clawAnimator.transform);
+            _armLaunched = false;
+            _clawScript.transform.position = scrapPos;
+            _clawScript.transform.parent = null;
+            _clawScript._clawAnimator.transform.localPosition = Vector3.zero;
         }
         else
         {
-            RetractGrabberArm();
+            _clawScript.transform.position += nextPos;
         }
     }
-    public void LaunchGrabberArm()
+    private void RetractClawSlowly()
+    {
+        Vector3 nextPos = (_grabberArmCrossbowBody.position - _clawScript.transform.position).normalized * grabberSpeed * 1.5f * Time.deltaTime;
+        if (Vector3.Distance(_clawScript.transform.position + nextPos, _grabberArmCrossbowBody.position) < 0.5f)
+        {
+            _clawScript.transform.parent = _grabberArmCrossbowBody;
+            _clawScript.transform.localPosition = Vector3.zero;
+            _clawScript._clawAnimator.transform.localPosition = new Vector3(0.166f, 0, 0);
+            _clawScript._clawAnimator.SetBool("CloseClaw", false);
+            scrap.RemoveScrap();
+            scrap = null;
+            scrapPos = Vector3.zero;
+            scrapCollection = false;
+        }
+        else
+        {
+            _clawScript.transform.position += nextPos;
+        }
+    }
+    public void FireCrossbow()
     {
         _grabberArmAnimator.SetTrigger("FireCrossbow");
-        _armLaunched = true;
-    }
-    public void RetractGrabberArm()
-    {
-        _armLaunched = false;
     }
 
-    //TODO add the connected points package to the arm as an extension!
+    //  Chain
+
+    private void CreateChain()
+    {
+        Sprite chain = Resources.Load("Art/Weapons/chain_link", typeof(Sprite)) as Sprite;
+        Vector3 clawStartingPos = _clawScript._clawAnimator.transform.position;
+        clawStartingPos += (_chainStartingPos.position - clawStartingPos).normalized * 0.1f;
+        DottedLine.DottedLine.Instance.DrawDottedLine(_chainStartingPos.position, clawStartingPos, Color.white, chain);
+    }
 }

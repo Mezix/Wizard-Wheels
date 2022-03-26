@@ -10,14 +10,7 @@ public class GrabberClaw : MonoBehaviour
         if (other.GetComponent<ScrapPile>())
         {
             _clawAnimator.SetBool("CloseClaw", true);
-            other.GetComponent<ScrapPile>().PickUpScrap();
+            //other.GetComponent<ScrapPile>().PickUpScrap(_arm);
         }
     }
-    //private void OnTriggerExit2D(Collider2D other)
-    //{
-    //    if (other.GetComponent<ScrapPile>())
-    //    {
-    //        _clawAnimator.SetBool("CloseClaw", false);
-    //    }
-    //}
 }

@@ -129,8 +129,10 @@ public class UIScript : MonoBehaviour
             ResetSteeringWheel();
             _rotateBackButton.gameObject.SetActive(true);
         }
-
-        if(holdTime >= minHoldTime)
+    }
+    private void FixedUpdate()
+    {
+        if (holdTime >= minHoldTime)
         {
             SteeringWheelTrackMouse();
         }
@@ -138,10 +140,6 @@ public class UIScript : MonoBehaviour
         {
             ResetSteeringWheel();
         }
-    }
-    private void LateUpdate()
-    {
-        
     }
 
     private void ResetSteeringWheel()
