@@ -189,7 +189,7 @@ namespace DottedLine
                 {
                     img.sprite = sp;
                     rect.sizeDelta = new Vector2(sp.rect.width, sp.rect.height);
-                    rect.transform.localScale = Vector3.one * 3;
+                    rect.transform.localScale = Vector3.one * 2;
                 }
                 img.color = uiColors[i];
                 HM.RotateLocalTransformToAngle(g.transform, new Vector3(0, 0, uiZDirections[i]));

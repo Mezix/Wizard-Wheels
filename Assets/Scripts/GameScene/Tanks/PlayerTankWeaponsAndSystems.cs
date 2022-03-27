@@ -46,7 +46,11 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
     {
         foreach (AWeapon wp in AWeaponArray)
         {
-            if (wp != null) wp.WeaponSelected = false;
+            if (wp != null)
+            {
+                wp.WeaponSelected = false;
+                wp.PlayerUIWep.WeaponUISelected(false);
+            }
         }
     }
     public void ClearWeapons()
