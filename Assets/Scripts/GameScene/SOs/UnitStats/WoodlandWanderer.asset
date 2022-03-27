@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b309681b6b389554db25a4e669be0291, type: 3}
   m_Name: WoodlandWanderer
   m_EditorClassIdentifier: 
-  _unitName: Groot
+  _unitName: Rolbunctor
   _unitClass: WoodlandWanderer
   _unitHealth: 200
   _unitSpeed: 0.5

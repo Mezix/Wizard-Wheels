@@ -26,7 +26,7 @@ public class CameraScript : MonoBehaviour
     private void Start()
     {
         zoomAmount = 0.75f;
-        maxZoom = 2;
+        maxZoom = 1f;
         desiredZoom = minZoom = 12;
         SetZoom(minZoom);
         Events.instance.PlayerIsDying += StopTracking;
