@@ -8874,11 +8874,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScrapPile (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 2871170223660053233, guid: 501ff8fff019f2642a16cc34c70a3ef0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2871170223660053238, guid: 501ff8fff019f2642a16cc34c70a3ef0,
         type: 3}
       propertyPath: m_RootOrder

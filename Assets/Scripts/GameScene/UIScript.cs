@@ -102,7 +102,7 @@ public class UIScript : MonoBehaviour
             if (LastWizardOrWeaponClicked.Equals(obj))
                 if (timeBetweenMouseClicks < 0.25f)
                     Ref.Cam.SetTrackedVehicleToObject(obj.transform);
-        Ref.Cam.SetDesiredZoom(Ref.Cam.minZoom);
+        Ref.Cam.SetDesiredZoom(Ref.Cam.maxZoom);
 
         LastWizardOrWeaponClicked = obj;
         timeBetweenMouseClicks = 0;

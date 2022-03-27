@@ -196,6 +196,7 @@ public class PlayerTankController : TankController
     public void DeselectAllWizards()
     {
         foreach (AUnit wizard in _spawnedWizards) wizard.UnitSelected = false;
+        foreach (PlayerWizardUI ui in _UIWizards) ui.UpdateButton(false);
     }
     public void TakeDamage(int damage)
     {

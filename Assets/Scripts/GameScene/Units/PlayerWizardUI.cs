@@ -12,9 +12,11 @@ public class PlayerWizardUI : MonoBehaviour
     public Text _UIWizardKeybind;
     public Image _UIWizardHealthbarFill;
     public Button button;
+    public GameObject _wizardSelected;
     private void Awake()
     {
         button = GetComponent<Button>();
+        UpdateButton(false);
     }
     public void SelectWizard()
     {
@@ -24,11 +26,14 @@ public class PlayerWizardUI : MonoBehaviour
         //first deselect all other wizards unless shift is pressed
         if (!Input.GetKey(KeyCode.LeftShift)) Ref.PCon.DeselectAllWizards();
 
-        if (wizard != null) wizard.UnitSelected = true;
+        if (wizard != null)
+        {
+            wizard.UnitSelected = true;
+            UpdateButton(true);
+        }
     }
     public void UpdateButton(bool selected)
     {
-        if (selected) _wizardImage.color = Color.black;
-        else _wizardImage.color = Color.white;
+        _wizardSelected.SetActive(selected);
     }
 }
