@@ -139,6 +139,7 @@ public abstract class AWeapon : ISystem
     /// </summary>
     public void HandleWeaponSelected()
     {
+        _targetingCircle.SetActive(false);
         if (WeaponSelected && WeaponEnabled && !ShouldHitPlayer)
         {
             _targetingCircle.SetActive(true);

@@ -20,7 +20,9 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
         {
             if (Input.GetKey(KeyCode.LeftShift)) multipleSelected = true;
             else multipleSelected = false;
-            HandleWeaponSelection();
+
+            if (!(Input.GetKey(KeyCode.LeftControl))) HandleWeaponSelection();
+            else DeselectAllWeapons();
         }
     }
     private void HandleWeaponSelection()

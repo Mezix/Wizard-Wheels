@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b309681b6b389554db25a4e669be0291, type: 3}
   m_Name: ImmolatingImp
   m_EditorClassIdentifier: 
-  _unitName: Zuko
-  _unitClass: Pyro Practioner
+  _unitName: Jimbo
+  _unitClass: Immolating Imp
   _unitHealth: 75
   _unitSpeed: 1.5
