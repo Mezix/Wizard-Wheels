@@ -8,39 +8,39 @@ public class TankMovement : MonoBehaviour
     public float currentSpeed;
     [HideInInspector]
     public Vector3 moveVector;
-    [HideInInspector]
     public float acceleration;
-    [HideInInspector]
     public float deceleration;
     public float maxSpeed;
 
-    public float engineLevelMultiplier;
+    public float baseAcceleration;
+    public float baseDeceleration;
+    public float baseMaxSpeed;
 
     public List<Tire> Tires = new List<Tire>();
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = 0;
-        engineLevelMultiplier = 1f;
     }
     public void InitSpeedStats()
     {
         if (!TryGetComponent(out TankController tc)) return;
         if (tc._tStats)
         {
-            acceleration = tc._tStats._tankAccel;
+            baseAcceleration = acceleration = tc._tStats._tankAccel;
             if (acceleration == 0) Debug.LogWarning("No Acceleration Stat!");
 
-            deceleration = tc._tStats._tankDecel;
+            baseDeceleration = deceleration = tc._tStats._tankDecel;
             if (deceleration == 0) Debug.LogWarning("No Deceleration Stat!");
 
-            maxSpeed = tc._tStats._tankMaxSpeed;
+            baseMaxSpeed = maxSpeed = tc._tStats._tankMaxSpeed;
             if (maxSpeed == 0) Debug.LogWarning("No max Speed");
         }
         else
         {
-            acceleration = 0.005f;
-            deceleration = 0.01f;
+            baseAcceleration = acceleration = 0.005f;
+            baseDeceleration = deceleration = 0.01f;
+            baseMaxSpeed = maxSpeed = 5;
         }
         Ref.UI.InitSliders();
     }
@@ -51,7 +51,6 @@ public class TankMovement : MonoBehaviour
         moveVector = GetComponentInChildren<TankRotation>().rotatableObjects[0].transform.up;
 
         float speedMultiplier = currentSpeed * Time.deltaTime;
-        if (!Ref.PCon.TMov._matchSpeed) speedMultiplier *= engineLevelMultiplier;
 
         rb.velocity = moveVector * speedMultiplier;
         rb.MovePosition(transform.position + moveVector * speedMultiplier);

@@ -464,8 +464,14 @@ public class UIScript : MonoBehaviour
             else if (i == 4) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Right_Full", typeof(Sprite)) as Sprite;
             else engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Middle_Full", typeof(Sprite)) as Sprite;
         }
+        PlayerTankMovement tmov = Ref.PCon.TMov;
+        float multiplier = 1 + (level / (float)maxLevel);
+        tmov.maxSpeed = tmov.baseMaxSpeed * multiplier;
+        tmov.acceleration = tmov.baseAcceleration * multiplier;
+        tmov.deceleration = tmov.baseDeceleration * multiplier;
 
-        Ref.PCon.TMov.engineLevelMultiplier = 1 + (level / (float)maxLevel);
+        InitSliders();
+        //Ref.PCon.TMov.engineLevelMultiplier = 1 + (level / (float)maxLevel);
     }
 
     //  Steering Wheel

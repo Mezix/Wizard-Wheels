@@ -5528,7 +5528,9 @@ MonoBehaviour:
   acceleration: 0.0025
   deceleration: 0.005
   maxSpeed: 5
-  engineLevelMultiplier: 0
+  baseAcceleration: 0
+  baseDeceleration: 0
+  baseMaxSpeed: 0
   Tires: []
   cruiseModeOn: 0
   _matchSpeed: 0

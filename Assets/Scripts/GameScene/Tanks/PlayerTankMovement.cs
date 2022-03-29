@@ -54,9 +54,24 @@ public class PlayerTankMovement : TankMovement
         movementInput = false;
         if (cruiseModeOn)
         {
-            SlowlyMatchSpeedToSliderValue();
-            if (Input.GetKey(KeyCode.W)) ChangeDesiredSliderSpeedUp();
-            if (Input.GetKey(KeyCode.S)) ChangeDesiredSliderSpeedDown();
+            if (_matchSpeed)
+            {
+                if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)))
+                {
+                    if (Input.GetKey(KeyCode.W)) Accelerate();
+                    if (Input.GetKey(KeyCode.S)) Decelerate();
+                }
+                else
+                {
+                    SlowlyMatchSpeedToSliderValue();
+                }
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.W)) ChangeDesiredSliderSpeedUp();
+                if (Input.GetKey(KeyCode.S)) ChangeDesiredSliderSpeedDown();
+                SlowlyMatchSpeedToSliderValue();
+            }
         }
         else
         {
@@ -133,28 +148,6 @@ public class PlayerTankMovement : TankMovement
             print("error couldnt find enemy to match");
         }
     }
-    public void SlowlyMatchEnemySpeed()
-    {
-        if (enemyToMatch.currentSpeed < currentSpeed)
-        {
-            Decelerate();
-            if (enemyToMatch.currentSpeed > currentSpeed)
-            {
-                currentSpeed = Ref.UI._desiredSpeedSlider.value;
-                return;
-            }
-        }
-        if (enemyToMatch.currentSpeed > currentSpeed)
-        {
-            Accelerate();
-            if (enemyToMatch.currentSpeed < currentSpeed)
-            {
-                currentSpeed = Ref.UI._desiredSpeedSlider.value;
-                return;
-            }
-        }
-    }
-
     public void TankEmergencyBrakeEffects()
     {
         print("brake effects initiated");
@@ -196,6 +189,6 @@ public class PlayerTankMovement : TankMovement
         if (b) Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 1 + (currentSpeed/maxSpeed * 5);
         else Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 0;
         currentSpeed = Mathf.Max(0, currentSpeed);
-        Ref.SD.SetSpeed(currentSpeed * engineLevelMultiplier);
+        Ref.SD.SetSpeed(currentSpeed);
     }
 }
