@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class CreateTankSceneManager : MonoBehaviour
 {
@@ -42,7 +44,9 @@ public class CreateTankSceneManager : MonoBehaviour
         if (newTank)
         {
             if (newName == "") newName = "tmp";
+            #if UNITY_EDITOR
             AssetDatabase.CreateAsset(tankToEdit, "Assets\\Scripts\\GameScene\\SOs\\TankConstellation\\" + newName);
+            #endif
         }
         tankToEdit.SaveTank(newName);
     }

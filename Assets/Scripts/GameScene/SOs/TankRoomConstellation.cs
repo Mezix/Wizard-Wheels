@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 using System;
 using UnityEngine.Tilemaps;
 
@@ -22,14 +24,19 @@ public class TankRoomConstellation : ScriptableObject
         //change name
         if (newName != "")
         {
+            #if UNITY_EDITOR
             string assetPath = AssetDatabase.GetAssetPath(GetInstanceID());
             AssetDatabase.RenameAsset(assetPath, newName);
+            #endif
         }
         SavedPrefabRefMatrix = _tmpMatrix; //overwrite our old matrix with what is currently being shown
         _X = _tmpX;
         _Y = _tmpY;
-        EditorUtility.SetDirty(this);
-        AssetDatabase.SaveAssets();
+
+        #if UNITY_EDITOR
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
+        #endif
         Debug.Log("SAVED");
     }
     public void InitTankForCreation()

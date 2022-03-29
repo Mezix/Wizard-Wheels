@@ -412,7 +412,6 @@ public class UIScript : MonoBehaviour
     //  Emergency Brake
     private void EmergencyBrake(Toggle t)
     {
-        print(t.isOn);
         ActivateEmergencyBrake(t.isOn);
     }
     public void ActivateEmergencyBrake(bool b)
