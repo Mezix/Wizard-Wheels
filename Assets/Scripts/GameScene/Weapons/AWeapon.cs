@@ -187,7 +187,6 @@ public abstract class AWeapon : ISystem
                     {
                         StopCoroutine(Ref.UI.FlashWeaponOutOfRangeWarning());
                         StartCoroutine(Ref.UI.FlashWeaponOutOfRangeWarning());
-                        print("target is out of range on the screen");
                     }
                 }
                 
