@@ -3,20 +3,20 @@ guid: 9b283283a7bc27f4381dfbc07333b246
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7742629136420185953
-    second: rotate_back_Sheet_0
+      213: 2214066411827127982
+    second: rotate_back_sheet_0
   - first:
-      213: -4372460391263359815
-    second: rotate_back_Sheet_1
+      213: 1854130628131744276
+    second: rotate_back_sheet_1
   - first:
-      213: -3199043840140680767
-    second: rotate_back_Sheet_2
+      213: -3736593084830849651
+    second: rotate_back_sheet_2
   - first:
-      213: 4812305984042369910
-    second: rotate_back_Sheet_3
+      213: -7710423688091879658
+    second: rotate_back_sheet_3
   - first:
-      213: -7105191651434488689
-    second: rotate_back_Sheet_4
+      213: -1353600254537183927
+    second: rotate_back_sheet_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -60,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 256
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -102,7 +102,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rotate_back_Sheet_0
+      name: rotate_back_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -116,14 +116,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1672ae76d28537b60800000000000000
-      internalID: 7742629136420185953
+      spriteID: ea66412cba1f9be10800000000000000
+      internalID: 2214066411827127982
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rotate_back_Sheet_1
+      name: rotate_back_sheet_1
       rect:
         serializedVersion: 2
         x: 25
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bc2840c076e153c0800000000000000
-      internalID: -4372460391263359815
+      spriteID: 41ae6f09bf13bb910800000000000000
+      internalID: 1854130628131744276
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rotate_back_Sheet_2
+      name: rotate_back_sheet_2
       rect:
         serializedVersion: 2
         x: 50
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c1638f9396ba93d0800000000000000
-      internalID: -3199043840140680767
+      spriteID: d85e97cf264f42cc0800000000000000
+      internalID: -3736593084830849651
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rotate_back_Sheet_3
+      name: rotate_back_sheet_3
       rect:
         serializedVersion: 2
         x: 75
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6730559bbceb8c240800000000000000
-      internalID: 4812305984042369910
+      spriteID: 617b68bd1821ff490800000000000000
+      internalID: -7710423688091879658
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rotate_back_Sheet_4
+      name: rotate_back_sheet_4
       rect:
         serializedVersion: 2
         x: 100
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8c1d2386d9456d90800000000000000
-      internalID: -7105191651434488689
+      spriteID: 94dce6c7dbb073de0800000000000000
+      internalID: -1353600254537183927
       vertices: []
       indices: 
       edges: []

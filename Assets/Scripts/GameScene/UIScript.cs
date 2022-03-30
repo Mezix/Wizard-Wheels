@@ -58,8 +58,9 @@ public class UIScript : MonoBehaviour
     //  Emergency Brake
     public Toggle EmergencyBrakeToggle;
 
-    //  Engine Level
+    //  Engine
     public Transform _engineLevel;
+    public Animator _engineAnimator;
     private List<Image> engineLevelSegments;
 
     //  Upgrade Screen

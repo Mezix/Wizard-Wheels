@@ -35,7 +35,7 @@ public class PlayerTankMovement : TankMovement
         else DeathDeacceleration();
 
         SetTireAnimationSpeed();
-        UpdateEngineUI(cruiseModeOn);
+        UpdateEngineUI();
         UpdateCurrentSpeedSlider();
 
         if (!cruiseModeOn && !movementInput) Decelerate();
@@ -199,15 +199,19 @@ public class PlayerTankMovement : TankMovement
     public void TurnOnCruise(bool b)
     {
         cruiseModeOn = b;
-        if (!b)
+        if (b)
         {
+            Ref.UI._cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_on", typeof(Sprite)) as Sprite;
+        }
+        else
+        {
+            Ref.UI._cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_off", typeof(Sprite)) as Sprite;
             _matchSpeed = false;
         }
     }
-    public void UpdateEngineUI(bool b)
+    public void UpdateEngineUI()
     {
-        if (b) Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 1 + (currentSpeed/maxSpeed * 5);
-        else Ref.UI._cruiseButton.targetGraphic.GetComponent<Animator>().speed = 0;
+        Ref.UI._engineAnimator.speed = currentSpeed/maxSpeed * 5;
         currentSpeed = Mathf.Max(0, currentSpeed);
         Ref.SD.SetSpeed(currentSpeed);
     }

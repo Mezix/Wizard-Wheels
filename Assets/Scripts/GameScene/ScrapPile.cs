@@ -7,6 +7,11 @@ public class ScrapPile : MonoBehaviour
 {
     public int scrapValue = 0;
     public GameObject _targetingCircle;
+    public bool _collecting;
+    private void Awake()
+    {
+        _collecting = false;
+    }
     private void FixedUpdate()
     {
         _targetingCircle.SetActive(false);
@@ -28,6 +33,6 @@ public class ScrapPile : MonoBehaviour
     }
     public void Highlight()
     {
-        _targetingCircle.SetActive(true);
+        if(!_collecting) _targetingCircle.SetActive(true);
     }
 }
