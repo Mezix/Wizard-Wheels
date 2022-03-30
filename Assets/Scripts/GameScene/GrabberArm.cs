@@ -69,6 +69,7 @@ public class GrabberArm : MonoBehaviour
             _armLaunched = true;
             scrapCollection = true;
             scrap = s;
+            s._collecting = true;
         }
     }
     private void RotateToMouse()
