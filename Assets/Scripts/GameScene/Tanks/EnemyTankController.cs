@@ -10,6 +10,7 @@ public class EnemyTankController : TankController
     public EnemyTankMovement TMov { get; private set; }
     public EnemyTankWeaponsAndSystems TWep { get; private set; }
     public EnemyUI enemyUI;
+    public EnemyIndicator _indicator;
 
     private void Awake()
     {

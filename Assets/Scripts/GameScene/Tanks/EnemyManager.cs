@@ -9,6 +9,9 @@ public class EnemyManager : MonoBehaviour
     public List<EnemyTankController> _enemyTanks = new List<EnemyTankController>();
     public List<EnemyColor> EnemyColors;
 
+    public List<EnemyIndicator> _enemyIndicators = new List<EnemyIndicator>();
+    public Transform _enemyIndicatorParent;
+
     [Serializable]
     public class EnemyColor
     {
@@ -31,6 +34,10 @@ public class EnemyManager : MonoBehaviour
         EnemyTankController enemyTank = enemy.GetComponent<EnemyTankController>();
         if (_enemyTanks.Contains(enemyTank))
         {
+            if (_enemyIndicators.Contains(enemyTank._indicator))
+            {
+                Destroy(enemyTank._indicator);
+            }
             _enemyTanks.Remove(enemyTank);
             ReturnColor(enemy);
         }
@@ -76,13 +83,17 @@ public class EnemyManager : MonoBehaviour
         //Check if we are spawning something on an object
         spawnPos = CheckSpawnPos(spawnPos);
         enemy.transform.position = spawnPos;
-    }
 
+        GameObject g = Instantiate((GameObject) Resources.Load("EnemyIndicator"));
+        EnemyIndicator eIndicator = g.GetComponent<EnemyIndicator>();
+        eIndicator.InitIndicator(_enemyIndicatorParent, enemyTank);
+        enemyTank._indicator = eIndicator;
+        _enemyIndicators.Add(eIndicator);
+    }
     public void UntrackAllEnemyTanks()
     {
         foreach (EnemyTankController g in _enemyTanks) g.enemyUI.TrackTank(false);
     }
-
     private Color GetNextColor(GameObject enemy)
     {
         foreach(EnemyColor c in EnemyColors)

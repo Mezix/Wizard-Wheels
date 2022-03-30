@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
   m_Name: TEST
   m_EditorClassIdentifier: 
-  _X: 12
+  _X: 5
   _Y: 8
-  _tmpX: 12
+  _tmpX: 5
   _tmpY: 8
   SavedPrefabRefMatrix:
     XArray:
@@ -92,8 +92,9 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
     - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
+      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
+          type: 3}
+        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 0}
@@ -165,8 +166,9 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
     - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
+      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
+          type: 3}
+        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 0}
@@ -187,7 +189,7 @@ MonoBehaviour:
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
+        RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -240,8 +242,9 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
     - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
+      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
+          type: 3}
+        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 0}
@@ -262,7 +265,7 @@ MonoBehaviour:
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
+        RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -294,246 +297,13 @@ MonoBehaviour:
         RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
-        WallDown: 0
+        WallDown: 1
         WallLeft: 0
       - RoomPrefab: {fileID: 0}
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 1723648633549023116, guid: f8f43c915f3802a4393bca830b2776b4,
           type: 3}
         TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 1723648633549023116, guid: 32430ef957ea24a4eae0cc1b70d80ded,
-          type: 3}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af,
-          type: 3}
         RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
@@ -549,44 +319,6 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
     - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
       - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
           type: 3}
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
@@ -597,35 +329,6 @@ MonoBehaviour:
         WallRight: 0
         WallDown: 0
         WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
       - RoomPrefab: {fileID: 0}
         FloorTile: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
@@ -644,22 +347,11 @@ MonoBehaviour:
         WallRight: 0
         WallDown: 0
         WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
+      - RoomPrefab: {fileID: 0}
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
+        RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -682,7 +374,7 @@ MonoBehaviour:
         RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
-        WallDown: 0
+        WallDown: 1
         WallLeft: 0
       - RoomPrefab: {fileID: 0}
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
@@ -698,229 +390,6 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -1001,8 +470,9 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
     - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
+      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
+          type: 3}
+        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 0}
@@ -1074,8 +544,9 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
     - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
+      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
+          type: 3}
+        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 0}
@@ -1096,7 +567,7 @@ MonoBehaviour:
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
+        RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -1149,8 +620,9 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
     - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
+      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
+          type: 3}
+        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 0}
@@ -1171,7 +643,7 @@ MonoBehaviour:
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
+        RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -1203,246 +675,13 @@ MonoBehaviour:
         RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
-        WallDown: 0
+        WallDown: 1
         WallLeft: 0
       - RoomPrefab: {fileID: 0}
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 1723648633549023116, guid: f8f43c915f3802a4393bca830b2776b4,
           type: 3}
         TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 1723648633549023116, guid: 32430ef957ea24a4eae0cc1b70d80ded,
-          type: 3}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af,
-          type: 3}
         RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
@@ -1458,44 +697,6 @@ MonoBehaviour:
         WallDown: 0
         WallLeft: 0
     - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
       - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
           type: 3}
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
@@ -1506,35 +707,6 @@ MonoBehaviour:
         WallRight: 0
         WallDown: 0
         WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
       - RoomPrefab: {fileID: 0}
         FloorTile: {fileID: 0}
         RoomSystemPrefab: {fileID: 0}
@@ -1553,22 +725,11 @@ MonoBehaviour:
         WallRight: 0
         WallDown: 0
         WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
+      - RoomPrefab: {fileID: 0}
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
+        RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
@@ -1591,7 +752,7 @@ MonoBehaviour:
         RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
-        WallDown: 0
+        WallDown: 1
         WallLeft: 0
       - RoomPrefab: {fileID: 0}
         FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
@@ -1607,229 +768,6 @@ MonoBehaviour:
         RoomSystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 3928980102496950996, guid: ff33df852499cee4784caa85f448e678,
-          type: 3}
-        FloorTile: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-    - YStuff:
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
-        WallUp: 0
-        WallRight: 0
-        WallDown: 0
-        WallLeft: 0
-      - RoomPrefab: {fileID: 0}
-        FloorTile: {fileID: 0}
-        RoomSystemPrefab: {fileID: 0}
-        TirePrefab: {fileID: 0}
-        RoofTile: {fileID: 0}
         WallUp: 0
         WallRight: 0
         WallDown: 0
