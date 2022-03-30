@@ -19,3 +19,5 @@ MonoBehaviour:
   _attacksPerSecond: 0.125
   _rotationSpeed: 2
   _lockOnRange: 20
+  _recoil: 0.2
+  _recoilDuration: 0.2

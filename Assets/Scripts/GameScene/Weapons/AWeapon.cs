@@ -19,6 +19,9 @@ public abstract class AWeapon : ISystem
     public float Damage { get; set; }
     public float RotationSpeed { get; set; }
     public float MaxLockOnRange { get; set; }
+    public float Recoil { get; set; }
+    public float RecoilDuration { get; set; }
+
 
     //  Aiming
 
@@ -62,6 +65,8 @@ public abstract class AWeapon : ISystem
             Damage = _weaponStats._damage;
             RotationSpeed = _weaponStats._rotationSpeed;
             MaxLockOnRange = _weaponStats._lockOnRange;
+            Recoil = _weaponStats._recoil;
+            RecoilDuration = _weaponStats._recoilDuration;
         }
         else  //set default stats
         {
@@ -70,6 +75,8 @@ public abstract class AWeapon : ISystem
             AttacksPerSecond = 1;
             RotationSpeed = 5f;
             MaxLockOnRange = 100f;
+            Recoil = 0.05f;
+            RecoilDuration = 0.05f;
         }
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
@@ -285,8 +292,16 @@ public abstract class AWeapon : ISystem
             PlayWeaponFireSoundEffect();
             WeaponFireParticles();
             SpawnProjectile();
+            if (!ShouldHitPlayer) WeaponFeedback();
         }
     }
+
+    private void WeaponFeedback()
+    {
+        //  Change to have a feedback stat and duration for the weapons!
+        Ref.Cam.StartShake(0.05f * Damage, 0.05f * Damage);
+    }
+
     private void SpawnProjectile()
     {
         GameObject proj = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);

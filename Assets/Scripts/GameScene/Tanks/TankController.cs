@@ -41,7 +41,7 @@ public abstract class TankController : MonoBehaviour
             wizardIndex++;
         }
     }
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         THealth.TakeDamage(damage);
     }

@@ -12,4 +12,6 @@ public class WeaponStats : ScriptableObject
     public float _attacksPerSecond;
     public float _rotationSpeed;
     public float _lockOnRange;
+    public float _recoil;
+    public float _recoilDuration;
 }

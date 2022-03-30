@@ -52,8 +52,6 @@ public class CameraScript : MonoBehaviour
         if (objToTrack) MoveCameraToLocalPos();
     }
 
-    
-
     //  Cam Movement
 
     public void SetTrackedVehicleToPlayer()
@@ -155,5 +153,28 @@ public class CameraScript : MonoBehaviour
         if (desiredZoom > minZoom) desiredZoom = minZoom;
         else if (desiredZoom < maxZoom) desiredZoom = maxZoom;
         else desiredZoom = zoom;
+    }
+
+    //  Camera Shake
+
+    public void StartShake(float duration, float magnitude)
+    {
+        StartCoroutine(Shake(duration, magnitude));
+    }
+    private IEnumerator Shake(float duration, float magnitude)
+    {
+        Camera cam = GetComponentInChildren<Camera>();
+        Vector3 originalPos = cam.transform.localPosition;
+        float elapsed = 0.0f;
+        while(elapsed < duration)
+        {
+            float x = UnityEngine.Random.Range(-1f, 1f) * magnitude;
+            float y = UnityEngine.Random.Range(-1f, 1f) * magnitude;
+            cam.transform.localPosition = new Vector3(x, y, 0);
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+        cam.transform.localPosition = originalPos;
     }
 }

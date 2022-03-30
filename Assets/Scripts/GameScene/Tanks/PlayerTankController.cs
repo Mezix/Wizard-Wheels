@@ -151,6 +151,7 @@ public class PlayerTankController : TankController
         if(wizIndex < _spawnedWizards.Count)
         {
             _spawnedWizards[wizIndex].UnitSelected = true;
+            TWep.DeselectAllWeapons();
         }
     }
 
@@ -198,9 +199,10 @@ public class PlayerTankController : TankController
         foreach (AUnit wizard in _spawnedWizards) wizard.UnitSelected = false;
         foreach (PlayerWizardUI ui in _UIWizards) ui.UpdateButton(false);
     }
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         THealth.TakeDamage(damage);
+        Ref.Cam.StartShake(0.1f, 0.1f);
     }
     public void InitiateDeathBehaviour()
     {
@@ -233,7 +235,6 @@ public class PlayerTankController : TankController
             yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(0.435f);
-        //foreach (GameObject expl in explosions) Destroy(expl);
         Destroy(gameObject);
 
         Events.instance.PlayerDestroyed();

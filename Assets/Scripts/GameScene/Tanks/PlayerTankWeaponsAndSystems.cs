@@ -22,7 +22,6 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
             else multipleSelected = false;
 
             if (!(Input.GetKey(KeyCode.LeftControl))) HandleWeaponSelection();
-            else DeselectAllWeapons();
         }
     }
     private void HandleWeaponSelection()
@@ -41,6 +40,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
     {
         if (!multipleSelected) DeselectAllWeapons();
         if (weaponIndex < AWeaponArray.Count) AWeaponArray[weaponIndex].WeaponSelected = true;
+        Ref.PCon.DeselectAllWizards();
     }
     public void DeselectAllWeapons()
     {
