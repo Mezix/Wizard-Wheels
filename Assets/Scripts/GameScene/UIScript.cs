@@ -70,6 +70,7 @@ public class UIScript : MonoBehaviour
     public Transform steeringWheelParent;
     public GameObject _steeringWheelBG;
     public Button _rotateBackButton;
+    public Animator _rotateBackButtonAnimator;
     public GameObject _steeringWheelPrompt;
     private bool steeringWheelOpen;
     private float minHoldTime = 0.75f;
@@ -524,10 +525,19 @@ public class UIScript : MonoBehaviour
         if (steeringWheelOpen) OpenSteeringWheel();
         else CloseSteeringWheel();
     }
-
     public void TrackingTank(bool b)
     {
         if (b) _trackPlayerImage.sprite = Resources.Load("Art/UI/TrackTankTrue", typeof (Sprite)) as Sprite;
         else _trackPlayerImage.sprite = Resources.Load("Art/UI/TrackTankFalse", typeof(Sprite)) as Sprite;
+    }
+    public void RotateFlash()
+    {
+        _rotateBackButtonAnimator.SetBool("Flash", true);
+        print("flash");
+    }
+    public void RotateIdle()
+    {
+        _rotateBackButtonAnimator.SetBool("Flash", false);
+        print("dont");
     }
 }
