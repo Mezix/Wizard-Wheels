@@ -22,7 +22,7 @@ public class PlayerWizardUI : MonoBehaviour
     {
         if (Ref.PCon._dying || Ref.PCon._dead) return;
 
-        Events.instance.WizOrWepClicked(wizard.gameObject);
+        Events.instance.DoubleClickAttempted(wizard.gameObject);
         //first deselect all other wizards unless shift is pressed
         if (!Input.GetKey(KeyCode.LeftShift)) Ref.PCon.DeselectAllWizards();
 

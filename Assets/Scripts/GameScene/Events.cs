@@ -13,7 +13,7 @@ public class Events : MonoBehaviour
     public event Action<GameObject> EnemyTankDestroyed;
     public event Action PlayerTankDestroyed;
     public event Action PlayerIsDying;
-    public event Action<GameObject> WizardOrWeaponClicked;
+    public event Action<GameObject> CheckDoubleClick;
 
     //  UI
     public event Action UpgradesSaved;
@@ -32,9 +32,9 @@ public class Events : MonoBehaviour
     {
         if (PlayerIsDying != null)PlayerIsDying();
     }
-    public void WizOrWepClicked(GameObject obj)
+    public void DoubleClickAttempted(GameObject obj)
     {
-        if (WizardOrWeaponClicked != null) WizardOrWeaponClicked(obj);
+        if (CheckDoubleClick != null) CheckDoubleClick(obj);
     }
     public void SaveUpgrades()
     {

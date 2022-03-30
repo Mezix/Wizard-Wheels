@@ -96,7 +96,7 @@ public class UIScript : MonoBehaviour
         _xrayOn = true;
         _pauseImage.SetActive(false);
         CloseSettings();
-        Events.instance.WizardOrWeaponClicked += CheckDoubleClick;
+        Events.instance.CheckDoubleClick += CheckDoubleClick;
     }
 
     private void CheckDoubleClick(GameObject obj)

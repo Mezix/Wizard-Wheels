@@ -24,7 +24,7 @@ public class PlayerWeaponUI : MonoBehaviour
     public void SelectWeapon()
     {
         if (!Input.GetKey(KeyCode.LeftShift)) Ref.PCon.TWep.DeselectAllWeapons();
-        Events.instance.WizOrWepClicked(_weapon.gameObject);
+        Events.instance.DoubleClickAttempted(_weapon.gameObject);
         if (_weapon != null)
         {
             WeaponUISelected(true);

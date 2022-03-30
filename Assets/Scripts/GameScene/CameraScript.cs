@@ -56,8 +56,11 @@ public class CameraScript : MonoBehaviour
 
     public void SetTrackedVehicleToPlayer()
     {
-        Ref.EM.UntrackAllEnemyTanks();
         if (!Ref.PCon) return;
+
+        Events.instance.DoubleClickAttempted(Ref.PCon.gameObject);
+
+        Ref.EM.UntrackAllEnemyTanks();
         Ref.UI.TrackingTank(true);
         objToTrack = Ref.PlayerGO.transform;
         transform.SetParent(objToTrack);
