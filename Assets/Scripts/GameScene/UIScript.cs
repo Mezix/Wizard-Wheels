@@ -12,7 +12,6 @@ public class UIScript : MonoBehaviour
     public Button _pauseButton;
     public Button _xrayButton;
     public Button _settingsButton;
-    public Button _trackPlayerTankButton;
 
     //Sliders
     public Slider _currentSpeedSlider;
@@ -77,6 +76,10 @@ public class UIScript : MonoBehaviour
     private float holdTime = 0;
     public Transform _dottedLinesParent;
 
+    //  Track Tank
+    public Button _trackPlayerTankButton;
+    public Image _trackPlayerImage;
+
     private void Awake()
     {
         _settingsOn = false;
@@ -98,12 +101,22 @@ public class UIScript : MonoBehaviour
 
     private void CheckDoubleClick(GameObject obj)
     {
+        GameObject objToTrack = obj;
         if (LastWizardOrWeaponClicked)
             if (LastWizardOrWeaponClicked.Equals(obj))
                 if (timeBetweenMouseClicks < 0.25f)
-                    Ref.Cam.SetTrackedVehicleToObject(obj.transform);
-        Ref.Cam.SetDesiredZoom(Ref.Cam.maxZoom);
-
+                {
+                    if (obj.TryGetComponent(out AUnit unit))
+                    {
+                        if (unit.PlayerUIWizardIcon) objToTrack = Ref.PCon.transform.root.gameObject;
+                    }
+                    if(obj.TryGetComponent(out AWeapon weapon))
+                    {
+                        if (!weapon.ShouldHitPlayer) objToTrack = Ref.PCon.transform.root.gameObject;
+                    }
+                    Ref.Cam.SetTrackedVehicleToObject(objToTrack.transform);
+                    Ref.Cam.SetDesiredZoom(Ref.Cam.maxZoom);
+                }
         LastWizardOrWeaponClicked = obj;
         timeBetweenMouseClicks = 0;
     }
@@ -141,13 +154,6 @@ public class UIScript : MonoBehaviour
             ResetSteeringWheel();
         }
     }
-
-    private void ResetSteeringWheel()
-    {
-        if (steeringWheelOpen) OpenSteeringWheel();
-        else CloseSteeringWheel();
-    }
-
     private void InitButtons()
     {
         _cruiseButton.onClick = new Button.ButtonClickedEvent();
@@ -170,13 +176,11 @@ public class UIScript : MonoBehaviour
         EmergencyBrakeToggle.onValueChanged = new Toggle.ToggleEvent();
         EmergencyBrakeToggle.onValueChanged.AddListener(delegate {EmergencyBrake(EmergencyBrakeToggle);});
     }
-
     public void UnmatchSpeedUI()
     {
         _unmatchSpeedButton.gameObject.SetActive(false);
         Ref.PCon.TMov.enemyToMatch.GetComponent<EnemyTankController>().enemyUI.MatchSpeed(Ref.PCon.TMov.enemyToMatch, false);
     }
-
     public void InitSliders()
     {
         _currentSpeedSlider.value = Ref.PCon.TMov.currentSpeed;
@@ -263,11 +267,11 @@ public class UIScript : MonoBehaviour
 
             if (Ref.EM)
             {
-                if (Ref.EM._enemies.Count > 0)
+                if (Ref.EM._enemyTanks.Count > 0)
                 {
-                    foreach (GameObject g in Ref.EM._enemies)
+                    foreach (EnemyTankController g in Ref.EM._enemyTanks)
                     {
-                        foreach (AWeapon wep in g.GetComponent<EnemyTankController>().TWep.AWeaponArray)
+                        foreach (AWeapon wep in g.TWep.AWeaponArray)
                         {
                             wep.SetOpacity(true);
                         }
@@ -298,11 +302,11 @@ public class UIScript : MonoBehaviour
 
             if (Ref.EM)
             {
-                if (Ref.EM._enemies.Count > 0)
+                if (Ref.EM._enemyTanks.Count > 0)
                 {
-                    foreach (GameObject g in Ref.EM._enemies)
+                    foreach (EnemyTankController g in Ref.EM._enemyTanks)
                     {
-                        foreach (AWeapon wep in g.GetComponent<EnemyTankController>().TWep.AWeaponArray)
+                        foreach (AWeapon wep in g.TWep.AWeaponArray)
                         {
                             wep.SetOpacity(false);
                         }
@@ -422,7 +426,7 @@ public class UIScript : MonoBehaviour
         {
             Ref.PCon.TMov._matchSpeed = false;
             _desiredSpeedSlider.value = 0;
-            Ref.PCon.TMov.TankEmergencyBrakeEffects();
+            Ref.PCon.TMov.StartEmergencyBrake();
         }
     }
 
@@ -514,5 +518,16 @@ public class UIScript : MonoBehaviour
             _steeringWheelObject.anchoredPosition = Vector3.zero;
         }
         if (Input.GetKeyUp(KeyCode.Mouse0)) holdTime = 0;
+    }
+    private void ResetSteeringWheel()
+    {
+        if (steeringWheelOpen) OpenSteeringWheel();
+        else CloseSteeringWheel();
+    }
+
+    public void TrackingTank(bool b)
+    {
+        if (b) _trackPlayerImage.sprite = Resources.Load("Art/UI/TrackTankTrue", typeof (Sprite)) as Sprite;
+        else _trackPlayerImage.sprite = Resources.Load("Art/UI/TrackTankFalse", typeof(Sprite)) as Sprite;
     }
 }

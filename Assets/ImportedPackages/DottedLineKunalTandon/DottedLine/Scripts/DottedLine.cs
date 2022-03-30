@@ -49,13 +49,16 @@ namespace DottedLine
         }
         void FixedUpdate()
         {
-            if (positions.Count > 0)
+            if(Time.timeScale > 0)
             {
-                HideDots();
-            }
-            if (uiPositions.Count > 0)
-            {
-                HideUIDots();
+                if (positions.Count > 0)
+                {
+                    HideDots();
+                }
+                if (uiPositions.Count > 0)
+                {
+                    HideUIDots();
+                }
             }
         }
 

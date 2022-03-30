@@ -30,7 +30,7 @@ public class PlayerTankController : TankController
         TMov = GetComponentInChildren<PlayerTankMovement>();
         TRot = GetComponentInChildren<PlayerTankRotation>();
         TWep = GetComponentInChildren<PlayerTankWeaponsAndSystems>();
-        THealth = GetComponentInChildren<TankHealth>();
+        THealth = GetComponentInChildren<PlayerTankHealth>();
     }
     public void SpawnTank()
     {
@@ -56,7 +56,6 @@ public class PlayerTankController : TankController
             _UIWizards.Add(u.PlayerWizardUI);
         }
     }
-
     private void Update()
     {
         if (!_dying)
@@ -201,7 +200,7 @@ public class PlayerTankController : TankController
     }
     public override void TakeDamage(int damage)
     {
-        THealth.TakeDamage(damage);
+        THealth.GetComponent<PlayerTankHealth>().TakeDamage(damage);
         Ref.Cam.StartShake(0.1f, 0.1f);
     }
     public void InitiateDeathBehaviour()

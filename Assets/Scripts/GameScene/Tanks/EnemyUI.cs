@@ -8,6 +8,8 @@ public class EnemyUI : MonoBehaviour
     [SerializeField]
     private Button trackCameraButton;
     [SerializeField]
+    private Image trackEnemyTankImage;
+    [SerializeField]
     private Button matchSpeedButton;
     [SerializeField]
     private Image matchSpeedImg;
@@ -36,5 +38,10 @@ public class EnemyUI : MonoBehaviour
         if (b) matchSpeedImg.sprite = Resources.Load("Art\\UI\\Match_Speed_On", typeof(Sprite)) as Sprite;
         else matchSpeedImg.sprite = Resources.Load("Art\\UI\\Match_Speed_Off", typeof(Sprite)) as Sprite;
         matching = !b;
+    }
+    public void TrackTank(bool b)
+    {
+        if (b) trackEnemyTankImage.sprite = Resources.Load("Art/UI/TrackTankTrue", typeof(Sprite)) as Sprite;
+        else trackEnemyTankImage.sprite = Resources.Load("Art/UI/TrackTankFalse", typeof(Sprite)) as Sprite;
     }
 }

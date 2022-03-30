@@ -11,7 +11,11 @@ public class PlayerTankMovement : TankMovement
     [HideInInspector]
     public EnemyTankMovement enemyToMatch;
     public bool movementInput;
+
+    //  Brake
+
     public bool emergencyBrakeOn;
+    private float emergencyBrakeSpeedStart;
 
     private void Start()
     {
@@ -36,7 +40,14 @@ public class PlayerTankMovement : TankMovement
 
         if (!cruiseModeOn && !movementInput) Decelerate();
 
-        if (emergencyBrakeOn) deceleration = 4 * Ref.PCon._tStats._tankDecel;
+        if (emergencyBrakeOn)
+        {
+            deceleration = 3 * Ref.PCon._tStats._tankDecel;
+            if(currentSpeed <= 1)
+            {
+                StopEmergencyBrake();
+            }
+        }
         else deceleration = Ref.PCon._tStats._tankDecel;
     }
 
@@ -148,14 +159,23 @@ public class PlayerTankMovement : TankMovement
             print("error couldnt find enemy to match");
         }
     }
-    public void TankEmergencyBrakeEffects()
-    {
-        print("brake effects initiated");
-        emergencyBrakeOn = true;
 
-        //Damage shield or hull once and stop extremely quickly
+    //  Emergency Brake
+
+    public void StartEmergencyBrake()
+    {
+        emergencyBrakeOn = true;
+        emergencyBrakeSpeedStart = currentSpeed;
     }
-    
+    private void StopEmergencyBrake()
+    {
+        //  Play sound effect!
+            emergencyBrakeOn = false;
+        if (emergencyBrakeSpeedStart > (maxSpeed * 0.5f))
+        {
+            Ref.PCon.TakeDamage(1);
+        }
+    }
     public void DeathDeacceleration()
     {
         if (currentSpeed > 0) currentSpeed -= deceleration * 2 * Time.timeScale;

@@ -41,7 +41,10 @@ public class GrabberArm : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (scrapCollection) CreateChain();
+        if(Time.timeScale > 0)
+        {
+            if (scrapCollection) CreateChain();
+        }
     }
 
     private void HighlightScrap()

@@ -56,7 +56,9 @@ public class CameraScript : MonoBehaviour
 
     public void SetTrackedVehicleToPlayer()
     {
+        Ref.EM.UntrackAllEnemyTanks();
         if (!Ref.PCon) return;
+        Ref.UI.TrackingTank(true);
         objToTrack = Ref.PlayerGO.transform;
         transform.SetParent(objToTrack);
         cameraOffset = Vector3.zero;
@@ -64,6 +66,12 @@ public class CameraScript : MonoBehaviour
     }
     public void SetTrackedVehicleToObject(Transform t)
     {
+        if (t.GetComponentInChildren<PlayerTankController>()) Ref.UI.TrackingTank(true);
+        else Ref.UI.TrackingTank(false);
+
+        Ref.EM.UntrackAllEnemyTanks();
+        if (t.GetComponentInChildren<EnemyTankController>()) t.GetComponentInChildren<EnemyTankController>().enemyUI.TrackTank(true);
+
         objToTrack = t;
         transform.SetParent(objToTrack);
         HM.RotateTransformToAngle(transform, Vector3.zero);

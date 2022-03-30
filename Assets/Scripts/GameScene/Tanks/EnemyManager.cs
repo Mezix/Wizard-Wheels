@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public GameObject _enemyPrefab;
-    public List<GameObject> _enemies = new List<GameObject>();
+    public List<EnemyTankController> _enemyTanks = new List<EnemyTankController>();
     public List<EnemyColor> EnemyColors;
 
     [Serializable]
@@ -28,9 +28,10 @@ public class EnemyManager : MonoBehaviour
     }
     private void EnemyDestroyed(GameObject enemy)
     {
-        if (_enemies.Contains(enemy))
+        EnemyTankController enemyTank = enemy.GetComponent<EnemyTankController>();
+        if (_enemyTanks.Contains(enemyTank))
         {
-            _enemies.Remove(enemy);
+            _enemyTanks.Remove(enemyTank);
             ReturnColor(enemy);
         }
     }
@@ -47,7 +48,7 @@ public class EnemyManager : MonoBehaviour
     private void SpawnEnemy()
     {
         //Check the number of enemies spawned at once
-        if (_enemies.Count > maxEnemies-1) return;
+        if (_enemyTanks.Count > maxEnemies-1) return;
 
         //Get Bounds of the unit we want to spawn next
 
@@ -59,8 +60,9 @@ public class EnemyManager : MonoBehaviour
 
         Vector3 spawnPos;
         GameObject enemy = Instantiate(_enemyPrefab);
-        enemy.GetComponent<EnemyTankController>()._tankColor = GetNextColor(enemy);
-        _enemies.Add(enemy);
+        EnemyTankController enemyTank = enemy.GetComponent<EnemyTankController>();
+        enemyTank._tankColor = GetNextColor(enemy);
+        _enemyTanks.Add(enemyTank);
 
         if (Ref.PCon)
         {
@@ -74,6 +76,11 @@ public class EnemyManager : MonoBehaviour
         //Check if we are spawning something on an object
         spawnPos = CheckSpawnPos(spawnPos);
         enemy.transform.position = spawnPos;
+    }
+
+    public void UntrackAllEnemyTanks()
+    {
+        foreach (EnemyTankController g in _enemyTanks) g.enemyUI.TrackTank(false);
     }
 
     private Color GetNextColor(GameObject enemy)
