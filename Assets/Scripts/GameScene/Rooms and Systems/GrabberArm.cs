@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrabberArm : MonoBehaviour
+public class GrabberArm : ISystem
 {
     public bool _armLaunched;
     public Transform _grabberArmCrossbowBody;
@@ -137,5 +137,20 @@ public class GrabberArm : MonoBehaviour
         Vector3 clawStartingPos = _clawScript._clawAnimator.transform.position;
         clawStartingPos += (_chainStartingPos.position - clawStartingPos).normalized * 0.1f;
         DottedLine.DottedLine.Instance.DrawDottedLine(_chainStartingPos.position, clawStartingPos, Color.white, chain);
+    }
+
+    //  System Interface
+
+    public override void InitSystemStats()
+    {
+
+    }
+    public override void StartInteraction()
+    {
+        IsBeingInteractedWith = true;
+    }
+    public override void StopInteraction()
+    {
+        IsBeingInteractedWith = true;
     }
 }

@@ -37,20 +37,7 @@ public class EngineSystem : ISystem
         _upgradeLevels.Add(80);
         _upgradeLevels.Add(150);
     }
-    public override void InitSystemStats()
-    {
-
-    }
-    public override void StartInteraction()
-    {
-        IsBeingInteractedWith = true;
-        //print("Engine go brrr hahahaha :D");
-    }
-    public override void StopInteraction()
-    {
-        IsBeingInteractedWith = false;
-        //print("Engine stop go brrr");
-    }
+    
     private void CreateUpgradeField()
     {
         UIUpgradeField ui = Ref.UI._upgradeScreen.CreateUpgradeField();
@@ -103,5 +90,17 @@ public class EngineSystem : ISystem
             }
         }
         Ref.UI._upgradeScreen.UpdateMainScrapCounter();
+    }
+    public override void InitSystemStats()
+    {
+
+    }
+    public override void StartInteraction()
+    {
+        IsBeingInteractedWith = true;
+    }
+    public override void StopInteraction()
+    {
+        IsBeingInteractedWith = false;
     }
 }

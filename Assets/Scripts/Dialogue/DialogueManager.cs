@@ -65,7 +65,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         timeSinceLastLine = 0;
-        timeSinceLastWeaponFired = timeBetweenFireCommands = 5;
+        timeSinceLastWeaponFired = timeBetweenFireCommands = 30;
         lastFireCommandGiven = 0;
         FramesBetweenCharacters = 16 / dialogueSpeed; // 0 frames between text is max dialogue speed
         Ref.UI.TurnOffDialogue();
