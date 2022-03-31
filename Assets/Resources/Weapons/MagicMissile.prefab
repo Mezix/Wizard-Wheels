@@ -139,7 +139,7 @@ MonoBehaviour:
   RotatablePart: {fileID: 9144540732161924692}
   TargetedRoom: {fileID: 0}
   _projectileSpot: {fileID: 995660803235255240}
-  EnemyWepUI: {fileID: 6888881169591170708}
+  WeaponUI: {fileID: 6888881169591170708}
   UIColor: {r: 0, g: 0, b: 0, a: 1}
   lr: {fileID: 0}
   _weaponAudioSource: {fileID: 5770678182755424900}

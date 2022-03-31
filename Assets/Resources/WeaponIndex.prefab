@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7581934590085742654}
   - component: {fileID: 7581934590085742652}
-  - component: {fileID: 7581934590085742653}
+  - component: {fileID: 4527827241392620643}
   m_Layer: 5
-  m_Name: weaponIndex
+  m_Name: WeaponIndex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7581934590085742655}
   m_CullTransparentMesh: 0
---- !u!114 &7581934590085742653
+--- !u!114 &4527827241392620643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,9 +65,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 100
-    m_FontStyle: 1
+    m_Font: {fileID: 12800000, guid: 63db89a88dee60e46b131196e2331fb2, type: 3}
+    m_FontSize: 67
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 211

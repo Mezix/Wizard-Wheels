@@ -231,9 +231,9 @@ public class UIScript : MonoBehaviour
         PlayerWeaponUI wp = go.GetComponent<PlayerWeaponUI>();
         wp._weaponImage.sprite = iwp._weaponStats._UISprite;
         wp._UIWeaponName.text = iwp.SystemName;
-        wp._index = iwp.EnemyWepUI.WeaponIndex;
+        wp._index = iwp.WeaponUI.WeaponIndex;
         wp._weapon = iwp;
-        wp._UIWeaponIndex.text = iwp.EnemyWepUI.WeaponIndex.ToString();
+        wp._UIWeaponIndex.text = iwp.WeaponUI.WeaponIndex.ToString();
 
         go.transform.SetParent(_weaponsList.transform, false);
         return wp;
@@ -269,9 +269,11 @@ public class UIScript : MonoBehaviour
     }
     public void TurnOnXRay(bool xrayOn)
     {
+        //  SHOW XRAY
+
         if (xrayOn)
         {
-            _xrayImage.sprite = Resources.Load("Art\\UI\\XRayOn", typeof(Sprite)) as Sprite;
+            _xrayImage.sprite = Resources.Load("Art/UI/XRayOn", typeof(Sprite)) as Sprite;
 
             //  Player
 
@@ -280,6 +282,7 @@ public class UIScript : MonoBehaviour
                 foreach (AWeapon wep in Ref.PCon.TWep.AWeaponArray)
                 {
                     wep.SetOpacity(true);
+                    wep.WeaponUI._weaponIndexText.transform.parent.gameObject.SetActive(true);
                 }
                 Ref.PCon.TGeo.ShowRoof(false);
             }
@@ -304,9 +307,12 @@ public class UIScript : MonoBehaviour
             //  Toggle Icons to be underneath roof
 
         }
+
+        //  SHOW ROOF
+
         else
         {
-            _xrayImage.sprite = Resources.Load("Art\\UI\\XRayOff", typeof(Sprite)) as Sprite;
+            _xrayImage.sprite = Resources.Load("Art/UI/XRayOff", typeof(Sprite)) as Sprite;
 
             //  Player
 
@@ -316,6 +322,7 @@ public class UIScript : MonoBehaviour
                 {
                     wep.SetOpacity(false);
                     Ref.PCon.TGeo.ShowRoof(true);
+                    wep.WeaponUI._weaponIndexText.transform.parent.gameObject.SetActive(false);
                 }
             }
 

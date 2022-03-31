@@ -136,13 +136,13 @@ MonoBehaviour:
   _weaponSprites:
   - {fileID: 3277609481205325202}
   - {fileID: 5819993075432099822}
-  PlayerUISprite: {fileID: 21300000, guid: c206abb1ac8886244bb187e47f4f817a, type: 3}
   _weaponStats: {fileID: 11400000, guid: 76dd4a71ba13fa14d99559157cd83133, type: 2}
   RotatablePart: {fileID: 4486056113902708837}
   TargetedRoom: {fileID: 0}
   _projectileSpot: {fileID: 995660803235255240}
-  EnemyWepUI: {fileID: 244009782503478640}
+  WeaponUI: {fileID: 244009782503478640}
   UIColor: {r: 1, g: 0, b: 0, a: 0.54509807}
+  lr: {fileID: 0}
   _weaponAudioSource: {fileID: 5770678182755424900}
 --- !u!1 &1891114875749286798
 GameObject:

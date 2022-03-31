@@ -57,7 +57,7 @@ MonoBehaviour:
   RotatablePart: {fileID: 4486056113902708837}
   TargetedRoom: {fileID: 0}
   _projectileSpot: {fileID: 995660803235255240}
-  EnemyWepUI: {fileID: 244009782503478640}
+  WeaponUI: {fileID: 244009782503478640}
   UIColor: {r: 1, g: 0, b: 0, a: 0.49019608}
   lr: {fileID: 0}
   _weaponAudioSource: {fileID: 5770678182755424900}
@@ -457,7 +457,7 @@ PrefabInstance:
     - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.304
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
@@ -474,10 +474,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 2310391802880552936, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310391802880552936, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 25.6
+      objectReference: {fileID: 0}
     - target: {fileID: 5206752808315137815, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
       propertyPath: m_Name
       value: WeaponUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072743643766095511, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -30.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072743643766095511, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25.600002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c, type: 3}

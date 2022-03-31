@@ -12,9 +12,17 @@ public class WeaponUI : MonoBehaviour
     [SerializeField]
     private Image fill;
 
-    public void ShowWeaponUI(bool b)
+    public void ShowWeaponUI(bool player)
     {
-        weaponChargeBar.SetActive(b);
+        weaponChargeBar.SetActive(!player);
+        if (player)
+        {
+            _weaponIndexText.transform.parent.localPosition = Vector3.zero;
+        }
+        else
+        {
+            _weaponIndexText.transform.parent.gameObject.SetActive(false);
+        }
     }
     public void SetCharge(float pct)
     {

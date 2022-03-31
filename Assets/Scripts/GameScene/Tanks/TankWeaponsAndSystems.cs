@@ -26,7 +26,7 @@ public class TankWeaponsAndSystems : MonoBehaviour
             foreach(AWeapon wep in AWeaponArray)
             {
                 wep.ShouldHitPlayer = false;
-                wep.EnemyWepUI.ShowWeaponUI(false);
+                wep.WeaponUI.ShowWeaponUI(player);
                 wep.InitSystemStats();
             }
         }
@@ -36,7 +36,7 @@ public class TankWeaponsAndSystems : MonoBehaviour
             {
                 wep._weaponStats = GetComponent<EnemyTankWeaponsAndSystems>().EnemyBasicCannon;
                 wep.ShouldHitPlayer = wep.WeaponSelected = wep.WeaponEnabled = true;
-                wep.EnemyWepUI.ShowWeaponUI(true);
+                wep.WeaponUI.ShowWeaponUI(player);
                 wep.InitSystemStats();
                 wep.UIColor = color;
             }

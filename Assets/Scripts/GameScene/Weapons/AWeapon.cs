@@ -43,7 +43,7 @@ public abstract class AWeapon : ISystem
     //  UI
     public PlayerWeaponUI PlayerUIWep { get; set; }
 
-    public WeaponUI EnemyWepUI;
+    public WeaponUI WeaponUI;
     public Color UIColor;
     public LineRenderer lr;
 
@@ -108,7 +108,6 @@ public abstract class AWeapon : ISystem
         WeaponEnabled = false;
         IsBeingInteractedWith = false;
     }
-
     public void SetOpacity(bool transparent)
     {
         if(_weaponSprites.Count == 0)
@@ -123,7 +122,6 @@ public abstract class AWeapon : ISystem
                 Color c = sprite.color;
                 sprite.color = new Color(c.r, c.g, c.b, 0.5f);
             }
-            //print("set weapon to transparent");
         }
         else
         {
@@ -138,8 +136,8 @@ public abstract class AWeapon : ISystem
 
     public void SetIndex(int i)
     {
-        EnemyWepUI.WeaponIndex = i;
-        EnemyWepUI._weaponIndexText.text = i.ToString();
+        WeaponUI.WeaponIndex = i;
+        WeaponUI._weaponIndexText.text = i.ToString();
     }
     /// <summary>
     /// This Method handles everything to do with the operation of a weapon!
@@ -322,7 +320,7 @@ public abstract class AWeapon : ISystem
         }
         if(ShouldHitPlayer)
         {
-            EnemyWepUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
+            WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
         }
     }
     //  Misc
