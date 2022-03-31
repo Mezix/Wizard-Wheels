@@ -152,15 +152,6 @@ public class UIScript : MonoBehaviour
             ResetSteeringWheel();
             _rotateBackButton.gameObject.SetActive(true);
         }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Ref.Dialog.StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
-        }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            Ref.Dialog.DisplayNextSentence();
-        }
     }
     private void FixedUpdate()
     {

@@ -35,17 +35,24 @@ public class DialogueManager : MonoBehaviour
 
     //  Misc
 
+    [Range(1,16)]
     public int dialogueSpeed;
     private int FramesBetweenCharacters;
     public float speakerHeight;
     [SerializeField]
     private Queue<Line> sentences = new Queue<Line>();
     private Line currentSentence;
-    [SerializeField]
     private float timeSinceLastLine;
     private bool mouseHoveringOverText;
     private bool typing;
     private enum Speaker { Left, Right  }
+
+    //  Commands
+
+    [SerializeField]
+    private float timeSinceLastWeaponFired;
+    private float timeBetweenFireCommands;
+    private int lastFireCommandGiven;
 
     private void Awake()
     {
@@ -58,18 +65,24 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         timeSinceLastLine = 0;
-        dialogueSpeed = 8; // => 0 frames between text, this is max dialogue speed
-        FramesBetweenCharacters = 4 / dialogueSpeed;
+        timeSinceLastWeaponFired = timeBetweenFireCommands = 5;
+        lastFireCommandGiven = 0;
+        FramesBetweenCharacters = 16 / dialogueSpeed; // 0 frames between text is max dialogue speed
         Ref.UI.TurnOffDialogue();
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Ref.Dialog.DisplayNextSentence();
+        }
         timeSinceLastLine += Time.deltaTime;
+        timeSinceLastWeaponFired += Time.deltaTime;
         if (mouseHoveringOverText || typing) timeSinceLastLine = 0;
         UpdateDialogueLength();
         AutoCheckNextsentence();
     }
-    public void StartDialogue(ConversationScriptObj convo)
+    public void StartDialogue(ConversationScriptObj convo, bool showDialogueTime = true, bool buttonsInteractable = true)
     {
         Ref.UI.DialogueShown = true;
         Ref.UI.TurnOnDialogue();
@@ -84,7 +97,10 @@ public class DialogueManager : MonoBehaviour
             }
             DisplayNextSentence();
         }
+        ShowDialogueTimes(showDialogueTime);
+        ButtonsInteractable(buttonsInteractable);
     }
+
     private void AutoCheckNextsentence()
     {
         if (currentSentence.LineTimer == 0) return;
@@ -102,8 +118,8 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            _leftDialogueTime.fillAmount = Mathf.Max(0, 1 - Mathf.Min(1, timeSinceLastLine, currentSentence.LineTimer));
-            _rightDialogueTime.fillAmount = Mathf.Max(0, 1 - Mathf.Min(1, timeSinceLastLine, currentSentence.LineTimer));
+            _leftDialogueTime.fillAmount = Mathf.Max(0, 1 - Mathf.Min(1, timeSinceLastLine / currentSentence.LineTimer));
+            _rightDialogueTime.fillAmount = Mathf.Max(0, 1 - Mathf.Min(1, timeSinceLastLine / currentSentence.LineTimer));
         }
     }
     public void DisplayNextSentence()
@@ -230,6 +246,16 @@ public class DialogueManager : MonoBehaviour
             img.color = new Color(1, 1, 1, 0);
         }
     }
+    private void ShowDialogueTimes(bool showDialogueTime)
+    {
+        _leftDialogueTime.transform.parent.gameObject.SetActive(showDialogueTime);
+        _rightDialogueTime.transform.parent.gameObject.SetActive(showDialogueTime);
+    }
+    private void ButtonsInteractable(bool interactable)
+    {
+        _leftButton.interactable = interactable;
+        _rightButton.interactable = interactable;
+    }
     public void MouseHoveringOverText()
     {
         mouseHoveringOverText = true;
@@ -237,5 +263,25 @@ public class DialogueManager : MonoBehaviour
     public void MouseNoLongerHoveringOverText()
     {
         mouseHoveringOverText = false;
+    }
+
+    //  Specific Conversations
+
+    public void FireWeapon()
+    {
+        if (timeSinceLastWeaponFired < timeBetweenFireCommands) return;
+
+        timeSinceLastWeaponFired = 0;
+        int convoIndex = UnityEngine.Random.Range(0, 3);
+        ConversationScriptObj conversation = Resources.Load("Dialogue/Conversations/FireCommand0", typeof(ConversationScriptObj)) as ConversationScriptObj;
+        if (convoIndex == lastFireCommandGiven) convoIndex += 1;
+        if (convoIndex > 2) convoIndex = 0;
+
+        if (convoIndex == 0) conversation = Resources.Load("Dialogue/Conversations/FireCommand1", typeof(ConversationScriptObj)) as ConversationScriptObj;
+        else if (convoIndex == 1) conversation = Resources.Load("Dialogue/Conversations/FireCommand2", typeof(ConversationScriptObj)) as ConversationScriptObj;
+        else if (convoIndex == 2) conversation = Resources.Load("Dialogue/Conversations/FireCommand3", typeof(ConversationScriptObj)) as ConversationScriptObj;
+
+        lastFireCommandGiven = convoIndex;
+        StartDialogue(conversation, false, false);
     }
 }

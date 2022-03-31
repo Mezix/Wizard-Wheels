@@ -290,7 +290,11 @@ public abstract class AWeapon : ISystem
             PlayWeaponFireSoundEffect();
             WeaponFireParticles();
             SpawnProjectile();
-            if (!ShouldHitPlayer) WeaponFeedback();
+            if (!ShouldHitPlayer)
+            {
+                WeaponFeedback();
+                Ref.Dialog.FireWeapon();
+            }
         }
     }
 
