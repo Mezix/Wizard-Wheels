@@ -82,6 +82,14 @@ public class UIScript : MonoBehaviour
     public Button _trackPlayerTankButton;
     public Image _trackPlayerImage;
 
+    //  Dialogue 
+    public GameObject UIDialogObj;
+    public bool DialogueShown;
+    public float timeSinceLastDialogueStarted;
+
+    //  Zoom
+    public Slider ZoomSlider;
+
     private void Awake()
     {
         _settingsOn = false;
@@ -93,7 +101,7 @@ public class UIScript : MonoBehaviour
     {
         SaveWizards(wizardsSaved);
         timeBetweenMouseClicks = 0;
-        InitButtons();
+        InitButtonsSlidersToggles();
         InitEngineLevel();
         _xrayOn = true;
         _pauseImage.SetActive(false);
@@ -144,6 +152,15 @@ public class UIScript : MonoBehaviour
             ResetSteeringWheel();
             _rotateBackButton.gameObject.SetActive(true);
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Ref.Dialog.StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
+        }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Ref.Dialog.DisplayNextSentence();
+        }
     }
     private void FixedUpdate()
     {
@@ -156,7 +173,7 @@ public class UIScript : MonoBehaviour
             ResetSteeringWheel();
         }
     }
-    private void InitButtons()
+    private void InitButtonsSlidersToggles()
     {
         _cruiseButton.onClick = new Button.ButtonClickedEvent();
         _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
@@ -177,6 +194,7 @@ public class UIScript : MonoBehaviour
         _saveWizardsButton.onClick.AddListener(() => SaveWizards(true));
         EmergencyBrakeToggle.onValueChanged = new Toggle.ToggleEvent();
         EmergencyBrakeToggle.onValueChanged.AddListener(delegate {EmergencyBrake(EmergencyBrakeToggle);});
+        ZoomSlider.onValueChanged.AddListener(delegate { Ref.Cam.SetZoom(ZoomSlider.value);});
     }
     public void UnmatchSpeedUI()
     {
@@ -232,6 +250,7 @@ public class UIScript : MonoBehaviour
         u.button.onClick.AddListener(() => u.SelectWizard());
         u.wizard = unit;
         go.transform.SetParent(_wizardsList.transform, false);
+        go.transform.localScale = new Vector3(-1, 1, 1);
         return u;
     }
 
@@ -540,5 +559,16 @@ public class UIScript : MonoBehaviour
     {
         _rotateBackButtonAnimator.SetBool("Flash", false);
         print("dont");
+    }
+
+    //  Dialogue
+
+    public void TurnOnDialogue()
+    {
+        UIDialogObj.SetActive(true);
+    }
+    public void TurnOffDialogue()
+    {
+        UIDialogObj.SetActive(false);
     }
 }

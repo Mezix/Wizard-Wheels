@@ -32,6 +32,7 @@ public class Ref : MonoBehaviour
 
     public static CameraScript Cam;
     public static UIScript UI;
+    public static DialogueManager Dialog;
     public static SpeedDisplay SD;
     public static TimeManager TM;
     public static MouseCursor mouse;

@@ -28,6 +28,8 @@ public class CameraScript : MonoBehaviour
         zoomAmount = 0.75f;
         maxZoom = 1f;
         desiredZoom = minZoom = 12;
+        Ref.UI.ZoomSlider.minValue = maxZoom;
+        Ref.UI.ZoomSlider.maxValue = minZoom;
         SetZoom(minZoom);
         Events.instance.PlayerIsDying += StopTracking;
         Events.instance.PlayerTankDestroyed += StopTracking;
@@ -43,7 +45,7 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         HandleZoomInput();
-        ZoomToDesiredZoom();
+        //ZoomToDesiredZoom();
         if (Input.GetKey(KeyCode.LeftShift))
         {
             if(Input.GetKeyDown(KeyCode.Mouse2)) mouseStartDragPos = Input.mousePosition; //initially set from where we are draggin
@@ -131,32 +133,22 @@ public class CameraScript : MonoBehaviour
             }
         }
     }
-    private void ZoomToDesiredZoom()
-    {
-        if (desiredZoom + zoomAmount <= minZoom)
-        {
-            SetZoom(desiredZoom + zoomAmount);
-        }
-        else SetZoom(minZoom);
-        if (desiredZoom - zoomAmount >= maxZoom)
-        {
-            SetZoom(desiredZoom - zoomAmount);
-        }
-        else SetZoom(maxZoom);
-    }
     private void ZoomIn()
     {
-        if (desiredZoom + zoomAmount >= minZoom) desiredZoom = minZoom;
-        else desiredZoom += zoomAmount; 
+        if (desiredZoom + zoomAmount > minZoom) desiredZoom = minZoom;
+        else desiredZoom += zoomAmount;
+        SetZoom(desiredZoom);
     }
     private void ZoomOut()
     {
-        if (desiredZoom - zoomAmount <= maxZoom) desiredZoom = maxZoom;
+        if (desiredZoom - zoomAmount < maxZoom) desiredZoom = maxZoom;
         else desiredZoom -= zoomAmount;
+        SetZoom(desiredZoom);
     }
-    private void SetZoom(float zoomLevel)
+    public void SetZoom(float zoomLevel)
     {
         Camera.main.orthographicSize = zoomLevel;
+        Ref.UI.ZoomSlider.value = (zoomLevel / minZoom) * minZoom;
         //pixelCam.assetsPPU = zoomLevel;
     }
     public void SetDesiredZoom(float zoom)
