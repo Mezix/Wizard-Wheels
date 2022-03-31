@@ -18,8 +18,6 @@ public class UIScript : MonoBehaviour
     public Slider _desiredSpeedSlider;
 
     public GameObject _pauseImage;
-    public GameObject _steeringWheel;
-    public GameObject _steeringWheelPointer;
 
     // Weapons
     public GameObject _weaponsList;
@@ -67,13 +65,16 @@ public class UIScript : MonoBehaviour
     public UpgradeScreen _upgradeScreen;
 
     //  Steering Wheel
-    public RectTransform _steeringWheelObject;
     public Transform steeringWheelParent;
+    public RectTransform _steeringWheelObject;
+    public GameObject _steeringWheel;
+    public GameObject _steeringWheelPointer;
     public GameObject _steeringWheelBG;
-    public Button _rotateBackButton;
-    public Animator _rotateBackButtonAnimator;
     public GameObject _steeringWheelPrompt;
     private bool steeringWheelOpen;
+
+    public Button _rotateBackButton;
+    public Animator _rotateBackButtonAnimator;
     private float minHoldTime = 0.75f;
     private float holdTime = 0;
     public Transform _dottedLinesParent;
@@ -94,6 +95,12 @@ public class UIScript : MonoBehaviour
 
     public HorizontalLayoutGroup _systems;
 
+    //  Minimap
+
+    public Button _smallMapButton;
+    public Button _closeMapButton;
+    public GameObject _bigMap;
+
     private void Awake()
     {
         _settingsOn = false;
@@ -111,6 +118,7 @@ public class UIScript : MonoBehaviour
         _pauseImage.SetActive(false);
         CloseSettings();
         Events.instance.CheckDoubleClick += CheckDoubleClick;
+        CloseMap();
     }
 
     private void CheckDoubleClick(GameObject obj)
@@ -170,6 +178,7 @@ public class UIScript : MonoBehaviour
     }
     private void InitButtonsSlidersToggles()
     {
+        //Buttons
         _cruiseButton.onClick = new Button.ButtonClickedEvent();
         _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
         _unmatchSpeedButton.onClick.AddListener(() => UnmatchSpeedUI());
@@ -187,8 +196,14 @@ public class UIScript : MonoBehaviour
         _returnWizardsButton.onClick.AddListener(() => Ref.PCon.ReturnAllWizardsToSavedPositions());
         _saveWizardsButton.onClick = new Button.ButtonClickedEvent();
         _saveWizardsButton.onClick.AddListener(() => SaveWizards(true));
+        _smallMapButton.onClick.AddListener(() => OpenMap());
+        _closeMapButton.onClick.AddListener(() => CloseMap());
+
+        //  Toggles
         EmergencyBrakeToggle.onValueChanged = new Toggle.ToggleEvent();
         EmergencyBrakeToggle.onValueChanged.AddListener(delegate {EmergencyBrake(EmergencyBrakeToggle);});
+
+        //  Sliders
         ZoomSlider.onValueChanged.AddListener(delegate { Ref.Cam.SetZoom(ZoomSlider.value);});
     }
     public void UnmatchSpeedUI()
@@ -525,21 +540,21 @@ public class UIScript : MonoBehaviour
     private void CloseSteeringWheel()
     {
         steeringWheelOpen = false;
-        _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = _steeringWheelObject.anchoredPosition = new Vector3(0, -540, 0);
+        _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = _steeringWheelObject.anchoredPosition = Vector3.zero;
         _steeringWheelObject.transform.parent = steeringWheelParent;
         _steeringWheelPrompt.SetActive(true);
     }
     private void OpenSteeringWheel()
     {
         steeringWheelOpen = true;
-        _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = _steeringWheelObject.anchoredPosition = new Vector3(0, -412, 0);
+        _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = _steeringWheelObject.anchoredPosition = new Vector3(0, 128, 0);
         _steeringWheelObject.transform.parent = steeringWheelParent;
         _steeringWheelPrompt.SetActive(true);
     }
     private void SteeringWheelTrackMouse()
     {
-        _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -412, 0);
-        Vector3 startPos = new Vector3(0, -412, 0);
+        _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 128, 0);
+        Vector3 startPos = new Vector3(0, 128, 0);
         Vector3 endPos;
         if (!Input.GetKey(KeyCode.Mouse0)) endPos = Ref.mouse._cursorTransform.anchoredPosition;
         else endPos = _steeringWheelObject.GetComponent<RectTransform>().anchoredPosition;
@@ -588,5 +603,16 @@ public class UIScript : MonoBehaviour
     public void TurnOffDialogue()
     {
         UIDialogObj.SetActive(false);
+    }
+
+    //  Minimap
+
+    public void OpenMap()
+    {
+        _bigMap.SetActive(true);
+    }
+    public void CloseMap()
+    {
+        _bigMap.SetActive(false);
     }
 }

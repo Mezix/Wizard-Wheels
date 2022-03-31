@@ -28,7 +28,9 @@ public abstract class AWeapon : ASystem
     public float AimRotationAngle { get; set; }
     public bool ShouldNotRotate { get; set; }
     public Transform RotatablePart;
+    [HideInInspector]
     public GameObject TargetedRoom;
+    [HideInInspector]
     private GameObject _targetingCircle;
 
     //  Misc
