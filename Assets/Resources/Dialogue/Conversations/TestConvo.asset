@@ -15,33 +15,41 @@ MonoBehaviour:
   lines:
   - characterLeft: {fileID: 11400000, guid: 3854b3c9f83b5474d95e0b213ef4acf2, type: 2}
     characterRight: {fileID: 0}
+    LineTimer: 0
     textLeft: Yo.
     textRight: 
   - characterLeft: {fileID: 0}
     characterRight: {fileID: 11400000, guid: 04295756e6ae12a4bbb4b384e5d772d7, type: 2}
+    LineTimer: 0
     textLeft: 
     textRight: ...
   - characterLeft: {fileID: 11400000, guid: 3854b3c9f83b5474d95e0b213ef4acf2, type: 2}
     characterRight: {fileID: 0}
+    LineTimer: 0
     textLeft: Shoutout to Rolbunctor, gotta be one of my favorite genders.
     textRight: 
   - characterLeft: {fileID: 0}
     characterRight: {fileID: 11400000, guid: 04295756e6ae12a4bbb4b384e5d772d7, type: 2}
+    LineTimer: 0
     textLeft: 
     textRight: Wh-
   - characterLeft: {fileID: 11400000, guid: 3854b3c9f83b5474d95e0b213ef4acf2, type: 2}
     characterRight: {fileID: 0}
+    LineTimer: 0
     textLeft: ...Gotta be one of my favorite genders aha
     textRight: 
   - characterLeft: {fileID: 0}
     characterRight: {fileID: 11400000, guid: 04295756e6ae12a4bbb4b384e5d772d7, type: 2}
+    LineTimer: 0
     textLeft: 
     textRight: Umm....
   - characterLeft: {fileID: 11400000, guid: 3854b3c9f83b5474d95e0b213ef4acf2, type: 2}
     characterRight: {fileID: 0}
+    LineTimer: 0
     textLeft: What?
     textRight: 
   - characterLeft: {fileID: 0}
     characterRight: {fileID: 11400000, guid: 04295756e6ae12a4bbb4b384e5d772d7, type: 2}
+    LineTimer: 1
     textLeft: 
     textRight: Huh?

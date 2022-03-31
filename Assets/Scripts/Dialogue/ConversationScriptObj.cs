@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using System;
 
-[System.Serializable]
+[Serializable]
 public struct Line
 {
     public DialogueCharacterScriptObj characterLeft;
     public DialogueCharacterScriptObj characterRight;
+
+    [Range(0, 60)]
+    public float LineTimer;
 
     [TextArea(2, 5)]
     public string textLeft;

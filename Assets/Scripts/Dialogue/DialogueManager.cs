@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject _dialoguePromptLeft;
     public Text _dialogueLeftText;
     public Button _leftButton;
+    public Image _leftDialogueTime;
     public GameObject _speakerLeft;
     public Image _speakerLeftImage;
     public GameObject _speakerLeftImageBackground;
@@ -22,6 +24,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject _dialoguePromptRight;
     public Text _dialogueRightText;
     public Button _rightButton;
+    public Image _rightDialogueTime;
     public Image _speakerRightImage;
     public GameObject _speakerRightImageBackground;
     public GameObject _speakerRight;
@@ -37,25 +40,34 @@ public class DialogueManager : MonoBehaviour
     public float speakerHeight;
     [SerializeField]
     private Queue<Line> sentences = new Queue<Line>();
-
-    private enum Speaker
-    {
-        Left,
-        Right
-    }
+    private Line currentSentence;
+    [SerializeField]
+    private float timeSinceLastLine;
+    private bool mouseHoveringOverText;
+    private bool typing;
+    private enum Speaker { Left, Right  }
 
     private void Awake()
     {
         Ref.Dialog = this;
+        typing = false;
         speakerHeight = _speakerRightImage.rectTransform.sizeDelta.y;
         _leftButton.onClick.AddListener(() => DisplayNextSentence());
         _rightButton.onClick.AddListener(() => DisplayNextSentence());
     }
     private void Start()
     {
+        timeSinceLastLine = 0;
         dialogueSpeed = 8; // => 0 frames between text, this is max dialogue speed
         FramesBetweenCharacters = 4 / dialogueSpeed;
         Ref.UI.TurnOffDialogue();
+    }
+    private void Update()
+    {
+        timeSinceLastLine += Time.deltaTime;
+        if (mouseHoveringOverText || typing) timeSinceLastLine = 0;
+        UpdateDialogueLength();
+        AutoCheckNextsentence();
     }
     public void StartDialogue(ConversationScriptObj convo)
     {
@@ -73,9 +85,31 @@ public class DialogueManager : MonoBehaviour
             DisplayNextSentence();
         }
     }
-
+    private void AutoCheckNextsentence()
+    {
+        if (currentSentence.LineTimer == 0) return;
+        if (timeSinceLastLine >= currentSentence.LineTimer)
+        {
+            DisplayNextSentence();
+        }
+    }
+    private void UpdateDialogueLength()
+    {
+        if (typing || currentSentence.LineTimer == 0)
+        {
+            _leftDialogueTime.fillAmount = 1;
+            _rightDialogueTime.fillAmount = 1;
+        }
+        else
+        {
+            _leftDialogueTime.fillAmount = Mathf.Max(0, 1 - Mathf.Min(1, timeSinceLastLine, currentSentence.LineTimer));
+            _rightDialogueTime.fillAmount = Mathf.Max(0, 1 - Mathf.Min(1, timeSinceLastLine, currentSentence.LineTimer));
+        }
+    }
     public void DisplayNextSentence()
     {
+        mouseHoveringOverText = false;
+        timeSinceLastLine = 0;
         HideDialoguePrompt();
 
         _speakerLeft.SetActive(false);
@@ -91,6 +125,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         Line line = sentences.Dequeue();
+        currentSentence = line;
         StopAllCoroutines();
         StartCoroutine(ShowDialoguePrompt());
 
@@ -139,12 +174,14 @@ public class DialogueManager : MonoBehaviour
     }
     private IEnumerator TypeSentence(string sentence, Speaker speaker)
     {
-         _dialogueLeftText.text = "";
+        timeSinceLastLine = 0;
+        typing = true;
+        _dialogueLeftText.text = "";
         _dialogueRightText.text = "";
 
         foreach (char letter in sentence.ToCharArray())
         {
-            if(speaker == Speaker.Left) _dialogueLeftText.text += letter;
+            if (speaker == Speaker.Left) _dialogueLeftText.text += letter;
             else _dialogueRightText.text += letter;
 
             for (int i = 0; i <= FramesBetweenCharacters; i++)
@@ -152,13 +189,18 @@ public class DialogueManager : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
         }
+
+        typing = false;
+        timeSinceLastLine = 0;
     }
     public void EndDialogue()
     {
+        currentSentence = new Line();
         playingConversation = false;
         Ref.UI.TurnOffDialogue();
         Ref.UI.DialogueShown = false;
         Ref.UI.timeSinceLastDialogueStarted = 0f;
+        mouseHoveringOverText = false;
     }
     public IEnumerator ShowDialoguePrompt()
     {
@@ -187,5 +229,13 @@ public class DialogueManager : MonoBehaviour
         {
             img.color = new Color(1, 1, 1, 0);
         }
+    }
+    public void MouseHoveringOverText()
+    {
+        mouseHoveringOverText = true;
+    }
+    public void MouseNoLongerHoveringOverText()
+    {
+        mouseHoveringOverText = false;
     }
 }
