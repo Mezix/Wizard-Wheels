@@ -47,12 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86aaabf3002a8a4c93d61c107d67a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _systemSprites:
+  - {fileID: 3277609481205325202}
   SystemSprite: {fileID: 0}
   SystemObj: {fileID: 0}
   SystemName: 
   RoomPosForInteraction: {fileID: 0}
-  _weaponSprites:
-  - {fileID: 3277609481205325202}
   _weaponStats: {fileID: 11400000, guid: d29f2dacd7353614cafbd2e2e3702209, type: 2}
   RotatablePart: {fileID: 4486056113902708837}
   TargetedRoom: {fileID: 0}

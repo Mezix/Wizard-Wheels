@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PotionCraftingUI : MonoBehaviour
 {
     public Image _currentBottle;
     public Button _currentBottleButton;
     public bool _showingBottles;
-    public HorizontalLayoutGroup _layout;
+    public bool mouseHoveringOver;
+    public VerticalLayoutGroup _layout;
 
     public List<GameObject> _potionsToSpawn;
     public List<APotionType> _spawnedPotions;
@@ -19,12 +21,27 @@ public class PotionCraftingUI : MonoBehaviour
     }
     private void Start()
     {
+        InitTriggers();
         InitPotionUI();
         ShowPotions(false);
     }
     private void Update()
     {
-        
+        CheckHover();
+    }
+    private void InitTriggers()
+    {
+        EventTrigger trigger = _currentBottleButton.gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerEnter;
+        entry.callback.AddListener((data) => { OnPointerEnterDelegate((PointerEventData)data); });
+        trigger.triggers.Add(entry);
+
+        entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerExit;
+        entry.callback.AddListener((data) => { OnPointerExitDelegate((PointerEventData)data); });
+        trigger.triggers.Add(entry);
     }
     public void InitPotionUI()
     {
@@ -38,6 +55,20 @@ public class PotionCraftingUI : MonoBehaviour
             p._pUI = this;
             p.InitButtonsTriggers();
         }
+    }
+    private void CheckHover()
+    {
+        if (mouseHoveringOver) return;
+        bool showBottles = false;
+        foreach(APotionType pot in _spawnedPotions)
+        {
+            if (pot.mouseHoveringOver)
+            {
+                showBottles = true;
+                break;
+            }
+        }
+        ShowPotions(showBottles);
     }
     public void ToggleBottles()
     {
@@ -53,5 +84,13 @@ public class PotionCraftingUI : MonoBehaviour
     {
         _currentBottle.sprite = potionType._potionImage.sprite;
         ShowPotions(false);
+    }
+    public void OnPointerEnterDelegate(PointerEventData data)
+    {
+        mouseHoveringOver = true;
+    }
+    public void OnPointerExitDelegate(PointerEventData data)
+    {
+        mouseHoveringOver = false;
     }
 }

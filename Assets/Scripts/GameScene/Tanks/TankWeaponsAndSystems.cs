@@ -5,7 +5,7 @@ using UnityEngine;
 public class TankWeaponsAndSystems : MonoBehaviour
 {
     public List<AWeapon> AWeaponArray = new List<AWeapon>();
-    public List<ISystem> ISystemArray = new List<ISystem>();
+    public List<ASystem> ASystemArray = new List<ASystem>();
 
     public virtual void SelectWeapon(int weaponIndex)
     {
@@ -46,14 +46,14 @@ public class TankWeaponsAndSystems : MonoBehaviour
     {
         if (player)
         {
-            foreach (ISystem sys in ISystemArray)
+            foreach (ASystem sys in ASystemArray)
             {
                 sys.InitSystemStats();
             }
         }
         else
         {
-            foreach (ISystem sys in ISystemArray)
+            foreach (ASystem sys in ASystemArray)
             {
                 sys.InitSystemStats();
             }

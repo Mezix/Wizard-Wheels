@@ -7,7 +7,7 @@ public class Room : MonoBehaviour
 {
     public TankGeometry tGeo;
     public TankRoomConstellation tr;
-    public ISystem roomSystem;
+    public ASystem roomSystem;
     public SpriteRenderer roomSystemRenderer;
     public int sizeX;
     public int sizeY;

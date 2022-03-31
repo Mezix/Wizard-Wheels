@@ -44,7 +44,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6511882901302503620}
-  - component: {fileID: 2987441057403678090}
+  - component: {fileID: 7173300391727330384}
   m_Layer: 5
   m_Name: BottleLayoutGroup
   m_TagString: Untagged
@@ -72,7 +72,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &2987441057403678090
+--- !u!114 &7173300391727330384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2521808441845077797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -181,8 +181,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8548109126283607423}
   - component: {fileID: 8548109126283607417}
-  - component: {fileID: 8548109126283607422}
   - component: {fileID: 8173053270214702907}
+  - component: {fileID: 8548109126283607422}
   m_Layer: 5
   m_Name: PotionCraftingUI
   m_TagString: Untagged
@@ -220,6 +220,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8548109126283607420}
   m_CullTransparentMesh: 0
+--- !u!114 &8173053270214702907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8548109126283607420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9829bd5ab0a398c43b03029058c0debe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentBottle: {fileID: 8548109126584443944}
+  _currentBottleButton: {fileID: 8548109126283607422}
+  _showingBottles: 0
+  _layout: {fileID: 7173300391727330384}
+  _potionsToSpawn:
+  - {fileID: 1733454502907513352, guid: 39668645a5a5a1d458002d2d9de69d4a, type: 3}
+  - {fileID: 1733454502907513352, guid: 1f7462da611469548ad6fb94fd7ea10b, type: 3}
+  - {fileID: 1733454502907513352, guid: fb4bb4ac3603df340b47f405dfa63507, type: 3}
+  - {fileID: 1733454502907513352, guid: 63189bef6e1518b4d81c1e19eec61e1b, type: 3}
+  - {fileID: 1733454502907513352, guid: f518ae6fe25509e428ed0a278a37d978, type: 3}
+  - {fileID: 1733454502907513352, guid: 365f4bc3e1ff0964b9bf2ff40c542218, type: 3}
+  _spawnedPotions: []
 --- !u!114 &8548109126283607422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,30 +287,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8173053270214702907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8548109126283607420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9829bd5ab0a398c43b03029058c0debe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentBottle: {fileID: 8548109126584443944}
-  _currentBottleButton: {fileID: 8548109126283607422}
-  _showingBottles: 0
-  _layout: {fileID: 2987441057403678090}
-  _potionsToSpawn:
-  - {fileID: 1733454502907513352, guid: 39668645a5a5a1d458002d2d9de69d4a, type: 3}
-  - {fileID: 1733454502907513352, guid: 1f7462da611469548ad6fb94fd7ea10b, type: 3}
-  - {fileID: 1733454502907513352, guid: fb4bb4ac3603df340b47f405dfa63507, type: 3}
-  - {fileID: 1733454502907513352, guid: 63189bef6e1518b4d81c1e19eec61e1b, type: 3}
-  - {fileID: 1733454502907513352, guid: f518ae6fe25509e428ed0a278a37d978, type: 3}
-  - {fileID: 1733454502907513352, guid: 365f4bc3e1ff0964b9bf2ff40c542218, type: 3}
-  _spawnedPotions: []
 --- !u!1 &8548109126584443950
 GameObject:
   m_ObjectHideFlags: 0

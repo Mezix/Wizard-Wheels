@@ -128,13 +128,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4a7e428aa73a94c9f3eec46128057f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _systemSprites:
+  - {fileID: 6613991519206540040}
+  - {fileID: 96216211}
   SystemSprite: {fileID: 0}
   SystemObj: {fileID: 0}
   SystemName: 
   RoomPosForInteraction: {fileID: 0}
-  _weaponSprites:
-  - {fileID: 6613991519206540040}
-  - {fileID: 96216211}
   _weaponStats: {fileID: 11400000, guid: e7f712543a3a5124a9915ba74eb62e4e, type: 2}
   RotatablePart: {fileID: 9144540732161924692}
   TargetedRoom: {fileID: 0}

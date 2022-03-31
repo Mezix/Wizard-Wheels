@@ -176,7 +176,7 @@ public class CameraScript : MonoBehaviour
             cam.transform.localPosition = new Vector3(x, y, 0);
             elapsed += Time.deltaTime;
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         cam.transform.localPosition = originalPos;
     }

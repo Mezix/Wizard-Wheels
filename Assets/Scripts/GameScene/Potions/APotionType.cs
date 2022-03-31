@@ -22,7 +22,7 @@ public abstract class APotionType : MonoBehaviour
         _amountOfPotions = 0;
         UpdatePotionAmount();
     }
-    internal void InitButtonsTriggers()
+    public void InitButtonsTriggers()
     {
         EventTrigger trigger = _potionButton.gameObject.AddComponent<EventTrigger>();
 

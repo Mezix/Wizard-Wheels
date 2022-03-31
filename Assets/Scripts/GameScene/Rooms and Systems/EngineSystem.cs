@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EngineSystem : ISystem
+public class EngineSystem : ASystem
 {
     public int _engineLevel;
     public int _tempLevel;
@@ -14,6 +14,7 @@ public class EngineSystem : ISystem
 
     private void Awake()
     {
+        base.Awake();
         SystemObj = gameObject;
         _maxEngineLevel = 5;
         _tempLevel = _engineLevel = 3;

@@ -469,7 +469,7 @@ public class CreateTankGeometry : MonoBehaviour
             {
                 if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab)
                 {
-                    ISystem sys = _tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>();
+                    ASystem sys = _tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ASystem>();
                     if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.TryGetComponent(out AWeapon wep))
                     {
                         _roomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = Resources.Load("Art\\WeaponSystemIcon", typeof(Sprite)) as Sprite;
@@ -501,22 +501,22 @@ public class CreateTankGeometry : MonoBehaviour
                         weaponObj.transform.parent = _roomPosMatrix[x, y].ParentRoom.transform;
                         weaponObj.transform.localPosition = Vector3.zero;
                         AWeapon wep = weaponObj.GetComponent<AWeapon>();
-                        PositionSystemInRoom(weaponObj.GetComponent<ISystem>(), weaponObj.transform.parent.GetComponent<Room>());
+                        PositionSystemInRoom(weaponObj.GetComponent<ASystem>(), weaponObj.transform.parent.GetComponent<Room>());
                         wep.RoomPosForInteraction = _roomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
                         twep.AWeaponArray.Add(wep);
 
                         //Set the reference to the rooms
                         _roomPosMatrix[x, y].ParentRoom.roomSystem = wep;
                     }
-                    else if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ISystem>() != null)
+                    else if (_tRC.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ASystem>() != null)
                     {
                         GameObject systemObj = Instantiate(prefab);
                         systemObj.transform.parent = _roomPosMatrix[x, y].ParentRoom.transform;
 
                         systemObj.transform.localPosition = Vector3.zero;
-                        ISystem sys = systemObj.GetComponent<ISystem>();
-                        PositionSystemInRoom(systemObj.GetComponent<ISystem>(), systemObj.transform.parent.GetComponent<Room>());
-                        twep.ISystemArray.Add(sys);
+                        ASystem sys = systemObj.GetComponent<ASystem>();
+                        PositionSystemInRoom(systemObj.GetComponent<ASystem>(), systemObj.transform.parent.GetComponent<Room>());
+                        twep.ASystemArray.Add(sys);
                         sys.RoomPosForInteraction = _roomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
 
                         //Set the reference to the rooms
@@ -526,7 +526,7 @@ public class CreateTankGeometry : MonoBehaviour
             }
         }
     }
-    private void PositionSystemInRoom(ISystem system, Room parentRoom)
+    private void PositionSystemInRoom(ASystem system, Room parentRoom)
     {
         system.SystemObj.transform.localPosition = Vector2.zero;
         if (parentRoom.sizeX > 1) system.SystemObj.transform.localPosition += new Vector3(0.25f, 0);

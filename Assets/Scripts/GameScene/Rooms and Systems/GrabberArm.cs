@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrabberArm : ISystem
+public class GrabberArm : ASystem
 {
     public bool _armLaunched;
     public Transform _grabberArmCrossbowBody;
@@ -18,6 +18,7 @@ public class GrabberArm : ISystem
     private bool scrapCollection;
     private void Awake()
     {
+        base.Awake();
         _armLaunched = false;
         scrapCollection = false;
         grabberSpeed = 10f;

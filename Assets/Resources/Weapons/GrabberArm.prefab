@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 6756651002276288011}
   - component: {fileID: 7476119631777416661}
   m_Layer: 0
-  m_Name: Grabber Arm
+  m_Name: GrabberArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -362,6 +362,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ff41bc3f394004699c0df90b1b699d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _systemSprites:
+  - {fileID: 6756651001319766104}
+  - {fileID: 4474100487372909424}
+  - {fileID: 213044625112107280}
+  SystemSprite: {fileID: 0}
+  SystemObj: {fileID: 0}
+  SystemName: 
+  RoomPosForInteraction: {fileID: 0}
   _armLaunched: 0
   _grabberArmCrossbowBody: {fileID: 5379652150642874910}
   _chainStartingPos: {fileID: 2780111413643779721}

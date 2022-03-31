@@ -5,11 +5,8 @@ using UnityEngine.UI;
 using DottedLine;
 using System;
 
-public abstract class AWeapon : ISystem
+public abstract class AWeapon : ASystem
 {
-    [SerializeField]
-    private List<SpriteRenderer> _weaponSprites;
-
     //  Stats
 
     public WeaponStats _weaponStats;
@@ -21,7 +18,7 @@ public abstract class AWeapon : ISystem
     public float MaxLockOnRange { get; set; }
     public float Recoil { get; set; }
     public float RecoilDuration { get; set; }
-
+    public GameObject WeaponFireExplosion { get; set; }
 
     //  Aiming
 
@@ -108,32 +105,6 @@ public abstract class AWeapon : ISystem
         WeaponEnabled = false;
         IsBeingInteractedWith = false;
     }
-    public void SetOpacity(bool transparent)
-    {
-        if(_weaponSprites.Count == 0)
-        {
-            print("Sprites of weapon not initialized");
-            return;
-        }
-        if(transparent)
-        {
-            foreach (SpriteRenderer sprite in _weaponSprites)
-            {
-                Color c = sprite.color;
-                sprite.color = new Color(c.r, c.g, c.b, 0.5f);
-            }
-        }
-        else
-        {
-            foreach (SpriteRenderer sprite in _weaponSprites)
-            {
-                Color c = sprite.color;
-                sprite.color = new Color(c.r, c.g, c.b, 1);
-            }
-            //print("set weapon to solid");
-        }
-    }
-
     public void SetIndex(int i)
     {
         WeaponUI.WeaponIndex = i;
@@ -288,7 +259,7 @@ public abstract class AWeapon : ISystem
         if (TimeElapsedBetweenLastAttack >= TimeBetweenAttacks)
         {
             PlayWeaponFireSoundEffect();
-            WeaponFireParticles();
+            WeaponFireParticles(WeaponFireExplosion);
             SpawnProjectile();
             if (!ShouldHitPlayer)
             {
@@ -329,9 +300,10 @@ public abstract class AWeapon : ISystem
     }
     //  Misc
 
-    private void WeaponFireParticles()
+    private void WeaponFireParticles(GameObject explosion = null)
     {
-        GameObject exp = Instantiate((GameObject)Resources.Load("SingleExplosion"));
+        if (explosion == null) explosion = (GameObject) Resources.Load("SingleExplosion");
+        GameObject exp = Instantiate(explosion);
         exp.transform.SetParent(_projectileSpot);
         exp.transform.localPosition = Vector3.zero;
     }

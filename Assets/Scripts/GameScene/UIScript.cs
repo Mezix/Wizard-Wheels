@@ -90,6 +90,10 @@ public class UIScript : MonoBehaviour
     //  Zoom
     public Slider ZoomSlider;
 
+    //  Systems
+
+    public HorizontalLayoutGroup _systems;
+
     private void Awake()
     {
         _settingsOn = false;
@@ -275,6 +279,10 @@ public class UIScript : MonoBehaviour
                     wep.SetOpacity(true);
                     wep.WeaponUI._weaponIndexText.transform.parent.gameObject.SetActive(true);
                 }
+                foreach(ASystem sys in Ref.PCon.TWep.ASystemArray)
+                {
+                    sys.SetOpacity(true);
+                }
                 Ref.PCon.TGeo.ShowRoof(false);
             }
 
@@ -289,6 +297,10 @@ public class UIScript : MonoBehaviour
                         foreach (AWeapon wep in g.TWep.AWeaponArray)
                         {
                             wep.SetOpacity(true);
+                        }
+                        foreach (ASystem sys in g.TWep.ASystemArray)
+                        {
+                            sys.SetOpacity(true);
                         }
                         g.GetComponent<EnemyTankController>().TGeo.ShowRoof(false);
                     }
@@ -312,9 +324,13 @@ public class UIScript : MonoBehaviour
                 foreach (AWeapon wep in Ref.PCon.TWep.AWeaponArray)
                 {
                     wep.SetOpacity(false);
-                    Ref.PCon.TGeo.ShowRoof(true);
                     wep.WeaponUI._weaponIndexText.transform.parent.gameObject.SetActive(false);
                 }
+                foreach (ASystem sys in Ref.PCon.TWep.ASystemArray)
+                {
+                    sys.SetOpacity(false);
+                }
+                Ref.PCon.TGeo.ShowRoof(true);
             }
 
             //  Enemies
@@ -328,6 +344,10 @@ public class UIScript : MonoBehaviour
                         foreach (AWeapon wep in g.TWep.AWeaponArray)
                         {
                             wep.SetOpacity(false);
+                        }
+                        foreach (ASystem sys in g.TWep.ASystemArray)
+                        {
+                            sys.SetOpacity(false);
                         }
                         g.GetComponent<EnemyTankController>().TGeo.ShowRoof(true);
                     }
