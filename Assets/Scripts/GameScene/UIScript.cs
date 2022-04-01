@@ -25,6 +25,7 @@ public class UIScript : MonoBehaviour
 
     // Settings
     public GameObject _settings;
+    public Button _closeSettingsButton;
     public bool _settingsOn;
 
     // Health
@@ -100,6 +101,9 @@ public class UIScript : MonoBehaviour
     public Button _smallMapButton;
     public Button _closeMapButton;
     public GameObject _bigMap;
+    public Image _bigMapImage;
+    public RectTransform _bigMapRect;
+    public bool _mapOpen;
 
     private void Awake()
     {
@@ -146,6 +150,10 @@ public class UIScript : MonoBehaviour
     private void Update()
     {
         timeBetweenMouseClicks += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            ToggleMap();
+        }
         if (Input.GetKeyDown(KeyCode.V))
         {
             ToggleVision();
@@ -198,6 +206,7 @@ public class UIScript : MonoBehaviour
         _saveWizardsButton.onClick.AddListener(() => SaveWizards(true));
         _smallMapButton.onClick.AddListener(() => OpenMap());
         _closeMapButton.onClick.AddListener(() => CloseMap());
+        _closeSettingsButton.onClick.AddListener(() => CloseSettings());
 
         //  Toggles
         EmergencyBrakeToggle.onValueChanged = new Toggle.ToggleEvent();
@@ -586,12 +595,10 @@ public class UIScript : MonoBehaviour
     public void RotateFlash()
     {
         _rotateBackButtonAnimator.SetBool("Flash", true);
-        print("flash");
     }
     public void RotateIdle()
     {
         _rotateBackButtonAnimator.SetBool("Flash", false);
-        print("dont");
     }
 
     //  Dialogue
@@ -607,12 +614,19 @@ public class UIScript : MonoBehaviour
 
     //  Minimap
 
+    public void ToggleMap()
+    {
+        if (!_mapOpen) OpenMap();
+        else CloseMap();
+    }
     public void OpenMap()
     {
         _bigMap.SetActive(true);
+        _mapOpen = true;
     }
     public void CloseMap()
     {
         _bigMap.SetActive(false);
+        _mapOpen = false;
     }
 }
