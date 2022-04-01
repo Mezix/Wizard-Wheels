@@ -7,11 +7,10 @@ using UnityEngine.UI;
 
 public class UIScript : MonoBehaviour
 {
-    //Buttons
+    // Misc Buttons
     public Button _cruiseButton;
     public Button _pauseButton;
     public Button _xrayButton;
-    public Button _settingsButton;
 
     //Sliders
     public Slider _currentSpeedSlider;
@@ -22,11 +21,6 @@ public class UIScript : MonoBehaviour
     // Weapons
     public GameObject _weaponsList;
     public GameObject _wizardsList;
-
-    // Settings
-    public GameObject _settings;
-    public Button _closeSettingsButton;
-    public bool _settingsOn;
 
     // Health
     public GameObject _healthBarParent;
@@ -61,6 +55,16 @@ public class UIScript : MonoBehaviour
     public Transform _engineLevel;
     public Animator _engineAnimator;
     private List<Image> engineLevelSegments;
+
+    //  Settings
+
+    public GameObject _settings;
+    public Button _closeSettingsButton;
+    public bool _settingsOn;
+    public Button _settingsButton;
+    public Button _applySettingsButton;
+    public Button _revertSettingsButton;
+    public Toggle _fullScreenToggle;
 
     //  Upgrade Screen
     public UpgradeScreen _upgradeScreen;
@@ -103,7 +107,19 @@ public class UIScript : MonoBehaviour
     public GameObject _bigMap;
     public Image _bigMapImage;
     public RectTransform _bigMapRect;
+    public Image _fogOfWarImage;
+    public RectTransform _fogOfWarRect;
     public bool _mapOpen;
+
+    //  FULLSCREEN AND RESOLUTION
+
+    public bool _fullscreen;
+    Resolution[] resolutions;
+    public Text _resolutionText;
+    public int _tempSelectedResolution;
+    public int _currentlySelectedResolution;
+    public Button _nextResolutionButton;
+    public Button _previousResolutionButton;
 
     private void Awake()
     {
@@ -123,6 +139,7 @@ public class UIScript : MonoBehaviour
         CloseSettings();
         Events.instance.CheckDoubleClick += CheckDoubleClick;
         CloseMap();
+        InitResolutions();
     }
 
     private void CheckDoubleClick(GameObject obj)
@@ -207,10 +224,15 @@ public class UIScript : MonoBehaviour
         _smallMapButton.onClick.AddListener(() => OpenMap());
         _closeMapButton.onClick.AddListener(() => CloseMap());
         _closeSettingsButton.onClick.AddListener(() => CloseSettings());
+        _nextResolutionButton.onClick.AddListener(() => NextResolution());
+        _previousResolutionButton.onClick.AddListener(() => PreviousResolution());
+        _applySettingsButton.onClick.AddListener(() => ApplySettings());
+        _revertSettingsButton.onClick.AddListener(() => RevertSettings());
 
         //  Toggles
-        EmergencyBrakeToggle.onValueChanged = new Toggle.ToggleEvent();
-        EmergencyBrakeToggle.onValueChanged.AddListener(delegate {EmergencyBrake(EmergencyBrakeToggle);});
+        //EmergencyBrakeToggle.onValueChanged = new Toggle.ToggleEvent();
+        EmergencyBrakeToggle.onValueChanged.AddListener(delegate { EmergencyBrake(EmergencyBrakeToggle); });
+        _fullScreenToggle.onValueChanged.AddListener(delegate { SetFullscreen(_fullScreenToggle); });
 
         //  Sliders
         ZoomSlider.onValueChanged.AddListener(delegate { Ref.Cam.SetZoom(ZoomSlider.value);});
@@ -628,5 +650,92 @@ public class UIScript : MonoBehaviour
     {
         _bigMap.SetActive(false);
         _mapOpen = false;
+    }
+
+    //RESOLUTION AND FULLSCREEN
+
+    private void InitResolutions()
+    {
+        resolutions = new Resolution[8];
+
+        resolutions[0].width = 600;
+        resolutions[0].height = 480;
+
+        resolutions[1].width = 1024;
+        resolutions[1].height = 768;
+
+        resolutions[2].width = 1152;
+        resolutions[2].height = 768;
+
+        resolutions[3].width = 1280;
+        resolutions[3].height = 960;
+
+        resolutions[4].width = 1366;
+        resolutions[4].height = 768;
+
+        resolutions[5].width = 1600;
+        resolutions[5].height = 900;
+
+        resolutions[6].width = 1920;
+        resolutions[6].height = 1080;
+
+        resolutions[7].width = 3840;
+        resolutions[7].height = 2160;
+
+        _currentlySelectedResolution = 5;
+        _tempSelectedResolution = 5;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
+            {
+                _currentlySelectedResolution = i;
+                SetResolutionText(_currentlySelectedResolution);
+            }
+        }
+    }
+
+    public void NextResolution()
+    {
+        if (_tempSelectedResolution < resolutions.Length - 1)
+        {
+            _tempSelectedResolution++;
+        }
+        else
+        {
+            _tempSelectedResolution = 0;
+        }
+        SetResolutionText(_tempSelectedResolution);
+    }
+
+    public void PreviousResolution()
+    {
+        if (_tempSelectedResolution > 0)
+        {
+            _tempSelectedResolution--;
+        }
+        else
+        {
+            _tempSelectedResolution = resolutions.Length - 1;
+        }
+        SetResolutionText(_tempSelectedResolution);
+    }
+    public void SetResolutionText(int index)
+    {
+        _resolutionText.text = resolutions[index].width.ToString() + "x" + resolutions[index].height.ToString();
+    }
+    public void SetFullscreen(bool isFullscreen)
+    {
+        _fullscreen = isFullscreen;
+    }
+    public void ApplySettings()
+    {
+        Screen.fullScreen = _fullscreen;
+        _currentlySelectedResolution = _tempSelectedResolution;
+        Screen.SetResolution(resolutions[_currentlySelectedResolution].width, resolutions[_currentlySelectedResolution].height, _fullscreen);
+    }
+    public void RevertSettings()
+    {
+
     }
 }
