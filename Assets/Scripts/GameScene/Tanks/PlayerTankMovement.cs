@@ -89,13 +89,13 @@ public class PlayerTankMovement : TankMovement
             if (Input.GetKey(KeyCode.W))
             {
                 movementInput = true;
-                Ref.UI.ActivateEmergencyBrake(false);
+                Ref.UI._engineUIScript.ActivateEmergencyBrake(false);
                 Accelerate();
             }
             if (Input.GetKey(KeyCode.S))
             {
                 movementInput = true;
-                Ref.UI.ActivateEmergencyBrake(false);
+                Ref.UI._engineUIScript.ActivateEmergencyBrake(false);
                 Decelerate();
             }
         }
@@ -105,41 +105,41 @@ public class PlayerTankMovement : TankMovement
     
     private void ChangeDesiredSliderSpeedUp()
     {
-        Ref.UI._desiredSpeedSlider.value += acceleration;
-        Ref.UI.ActivateEmergencyBrake(false);
+        Ref.UI._engineUIScript._desiredSpeedSlider.value += acceleration;
+        Ref.UI._engineUIScript.ActivateEmergencyBrake(false);
     }
     private void ChangeDesiredSliderSpeedDown()
     {
-        Ref.UI._desiredSpeedSlider.value -= deceleration;
-        Ref.UI.ActivateEmergencyBrake(false);
+        Ref.UI._engineUIScript._desiredSpeedSlider.value -= deceleration;
+        Ref.UI._engineUIScript.ActivateEmergencyBrake(false);
     }
     private void UpdateCurrentSpeedSlider()
     {
-        Ref.UI._currentSpeedSlider.value = currentSpeed;
+        Ref.UI._engineUIScript._currentSpeedSlider.value = currentSpeed;
     }
     private void MatchDesiredSpeedSliderToEnemy()
     {
-        Ref.UI._desiredSpeedSlider.value = enemyToMatch.currentSpeed;
+        Ref.UI._engineUIScript._desiredSpeedSlider.value = enemyToMatch.currentSpeed;
     }
     public void SlowlyMatchSpeedToSliderValue()
     {
-        if (Ref.UI._currentSpeedSlider.value > Ref.UI._desiredSpeedSlider.value)
+        if (Ref.UI._engineUIScript._currentSpeedSlider.value > Ref.UI._engineUIScript._desiredSpeedSlider.value)
         {
             Decelerate();
             TurnOnCruise(true);
-            if (Ref.UI._currentSpeedSlider.value < Ref.UI._desiredSpeedSlider.value)
+            if (Ref.UI._engineUIScript._currentSpeedSlider.value < Ref.UI._engineUIScript._desiredSpeedSlider.value)
             {
-                currentSpeed = Ref.UI._desiredSpeedSlider.value;
+                currentSpeed = Ref.UI._engineUIScript._desiredSpeedSlider.value;
                 return;
             }
         }
-        if (Ref.UI._currentSpeedSlider.value < Ref.UI._desiredSpeedSlider.value)
+        if (Ref.UI._engineUIScript._currentSpeedSlider.value < Ref.UI._engineUIScript._desiredSpeedSlider.value)
         {
             Accelerate();
             TurnOnCruise(true);
-            if (Ref.UI._currentSpeedSlider.value > Ref.UI._desiredSpeedSlider.value)
+            if (Ref.UI._engineUIScript._currentSpeedSlider.value > Ref.UI._engineUIScript._desiredSpeedSlider.value)
             {
-                currentSpeed = Ref.UI._desiredSpeedSlider.value;
+                currentSpeed = Ref.UI._engineUIScript._desiredSpeedSlider.value;
                 return;
             }
         }
@@ -201,17 +201,17 @@ public class PlayerTankMovement : TankMovement
         cruiseModeOn = b;
         if (b)
         {
-            Ref.UI._cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_on", typeof(Sprite)) as Sprite;
+            Ref.UI._engineUIScript._cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_on", typeof(Sprite)) as Sprite;
         }
         else
         {
-            Ref.UI._cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_off", typeof(Sprite)) as Sprite;
+            Ref.UI._engineUIScript._cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_off", typeof(Sprite)) as Sprite;
             _matchSpeed = false;
         }
     }
     public void UpdateEngineUI()
     {
-        Ref.UI._engineAnimator.speed = currentSpeed/maxSpeed * 5;
+        Ref.UI._engineUIScript._engineAnimator.speed = currentSpeed/maxSpeed * 5;
         currentSpeed = Mathf.Max(0, currentSpeed);
         Ref.SD.SetSpeed(currentSpeed);
     }

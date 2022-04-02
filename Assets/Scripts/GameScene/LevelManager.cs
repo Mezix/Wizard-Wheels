@@ -199,11 +199,11 @@ public class LevelManager : MonoBehaviour
                                              new Rect(0.0f, 0.0f, minimapTex.width, minimapTex.height), 
                                              new Vector2(0.5f, 0.5f), 
                                              100.0f);
-        Ref.UI._bigMapRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
-        Ref.UI._bigMapImage.sprite = minimapSprite;
+        Ref.UI._minimapScript._bigMapRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
+        Ref.UI._minimapScript._bigMapImage.sprite = minimapSprite;
 
-        Ref.UI._fogOfWarRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
-        Ref.UI._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
+        Ref.UI._minimapScript._fogOfWarRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
+        Ref.UI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
                                              new Rect(0.0f, 0.0f, fogOfWarTex.width, fogOfWarTex.height),
                                              new Vector2(0.5f, 0.5f), 
                                              100.0f);
@@ -211,8 +211,8 @@ public class LevelManager : MonoBehaviour
     private void TrackPlayerInMinimap()
     {
         float scale = 2;
-        Ref.UI._bigMapRect.anchoredPosition = -1 * Ref.PCon.transform.position * scale;
-        UpdateFogOfWar(-1 * Ref.UI._bigMapRect.anchoredPosition);
+        Ref.UI._minimapScript._bigMapRect.anchoredPosition = -1 * Ref.PCon.transform.position * scale;
+        UpdateFogOfWar(-1 * Ref.UI._minimapScript._bigMapRect.anchoredPosition);
     }
     private void UpdateFogOfWar(Vector2 playerPos)
     {
@@ -224,7 +224,7 @@ public class LevelManager : MonoBehaviour
         int radius = Math.Max(visionRadiusWidth, visionRadiusHeight);
 
         DrawCircle(fogOfWarTex, pos.x, pos.y, radius);
-        Ref.UI._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
+        Ref.UI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
                                              new Rect(0.0f, 0.0f, fogOfWarTex.width, fogOfWarTex.height),
                                              new Vector2(0.5f, 0.5f),
                                              100.0f);

@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    public GameObject UIDialogObj;
+    public bool DialogueShown;
+    public float timeSinceLastDialogueStarted;
+
     //  Left
 
     public GameObject _dialoguePromptLeft;
@@ -68,13 +72,17 @@ public class DialogueManager : MonoBehaviour
         timeSinceLastWeaponFired = timeBetweenFireCommands = 30;
         lastFireCommandGiven = 0;
         FramesBetweenCharacters = 16 / dialogueSpeed; // 0 frames between text is max dialogue speed
-        Ref.UI.TurnOffDialogue();
+        TurnOffDialogue();
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             Ref.Dialog.DisplayNextSentence();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Ref.Dialog.StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
         }
         timeSinceLastLine += Time.deltaTime;
         timeSinceLastWeaponFired += Time.deltaTime;
@@ -84,8 +92,8 @@ public class DialogueManager : MonoBehaviour
     }
     public void StartDialogue(ConversationScriptObj convo, bool showDialogueTime = true, bool buttonsInteractable = true)
     {
-        Ref.UI.DialogueShown = true;
-        Ref.UI.TurnOnDialogue();
+        DialogueShown = true;
+        TurnOnDialogue();
         if (!playingConversation)
         {
             playingConversation = true;
@@ -209,13 +217,23 @@ public class DialogueManager : MonoBehaviour
         typing = false;
         timeSinceLastLine = 0;
     }
+
+    public void TurnOnDialogue()
+    {
+        UIDialogObj.SetActive(true);
+    }
+    public void TurnOffDialogue()
+    {
+        UIDialogObj.SetActive(false);
+    }
+
     public void EndDialogue()
     {
         currentSentence = new Line();
         playingConversation = false;
-        Ref.UI.TurnOffDialogue();
-        Ref.UI.DialogueShown = false;
-        Ref.UI.timeSinceLastDialogueStarted = 0f;
+        TurnOffDialogue();
+        DialogueShown = false;
+        timeSinceLastDialogueStarted = 0f;
         mouseHoveringOverText = false;
     }
     public IEnumerator ShowDialoguePrompt()

@@ -42,7 +42,7 @@ public class TankMovement : MonoBehaviour
             baseDeceleration = deceleration = 0.01f;
             baseMaxSpeed = maxSpeed = 5;
         }
-        Ref.UI.InitSliders();
+        Ref.UI._engineUIScript.InitSliders();
     }
     public void Move()
     {

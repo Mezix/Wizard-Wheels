@@ -25,7 +25,7 @@ public class EngineSystem : ASystem
     {
         if (Ref.UI)
         {
-            Ref.UI.UpdateEngineLevel(_engineLevel, _maxEngineLevel);
+            Ref.UI._engineUIScript.UpdateEngineLevel(_engineLevel, _maxEngineLevel);
             if (!_upgradeField) CreateUpgradeField();
         }
     }
@@ -70,7 +70,7 @@ public class EngineSystem : ASystem
     public void SaveChanges()
     {
         _engineLevel = _tempLevel;
-        if (Ref.UI) Ref.UI.UpdateEngineLevel(_engineLevel, _maxEngineLevel);
+        if (Ref.UI) Ref.UI._engineUIScript.UpdateEngineLevel(_engineLevel, _maxEngineLevel);
         Ref.UI._upgradeScreen.UpdateMainScrapCounter();
     }
     public void RevertChanges()

@@ -54,12 +54,12 @@ public class PlayerTankRotation : TankRotation
 
     private void MovePointerLeft()
     {
-        Ref.UI._steeringWheelPointer.transform.Rotate(Vector3.forward * rotationspeed * _rotationSpeedMultiplier *  Time.deltaTime);
+        Ref.UI._steeringWheelScript._steeringWheelPointer.transform.Rotate(Vector3.forward * rotationspeed * _rotationSpeedMultiplier *  Time.deltaTime);
         AngleToRotateTo += rotationspeed * _rotationSpeedMultiplier * Time.deltaTime;
     }
     private void MovePointerRight()
     {
-        Ref.UI._steeringWheelPointer.transform.Rotate(Vector3.back * rotationspeed * _rotationSpeedMultiplier *  Time.deltaTime);
+        Ref.UI._steeringWheelScript._steeringWheelPointer.transform.Rotate(Vector3.back * rotationspeed * _rotationSpeedMultiplier *  Time.deltaTime);
         AngleToRotateTo -= rotationspeed * _rotationSpeedMultiplier * Time.deltaTime;
     }
 
@@ -68,40 +68,40 @@ public class PlayerTankRotation : TankRotation
     {
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float rot = HM.GetAngle2DBetween(transform.position, mouse);
-        HM.RotateTransformToAngle(Ref.UI._steeringWheelPointer.transform, new Vector3(0, 0, rot + 90));
-        AngleToRotateTo = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
+        HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheelPointer.transform, new Vector3(0, 0, rot + 90));
+        AngleToRotateTo = Ref.UI._steeringWheelScript._steeringWheelPointer.transform.eulerAngles.z;
         pointerAngleSet = true;
     }
     private void SetPointerRotationToAngle(float angle)
     {
-        HM.RotateTransformToAngle(Ref.UI._steeringWheelPointer.transform, new Vector3(0, 0, angle));
-        AngleToRotateTo = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
+        HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheelPointer.transform, new Vector3(0, 0, angle));
+        AngleToRotateTo = Ref.UI._steeringWheelScript._steeringWheelPointer.transform.eulerAngles.z;
         pointerAngleSet = true;
     }
     public void SetPointerRotationRelativeToSteeringWheel()
     {
-        float rot = HM.GetAngle2DBetween(Ref.UI._steeringWheel.transform.position, Input.mousePosition);
-        HM.RotateTransformToAngle(Ref.UI._steeringWheelPointer.transform, new Vector3(0, 0, rot + 90));
-        AngleToRotateTo = Ref.UI._steeringWheelPointer.transform.eulerAngles.z;
+        float rot = HM.GetAngle2DBetween(Ref.UI._steeringWheelScript._steeringWheel.transform.position, Input.mousePosition);
+        HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheelPointer.transform, new Vector3(0, 0, rot + 90));
+        AngleToRotateTo = Ref.UI._steeringWheelScript._steeringWheelPointer.transform.eulerAngles.z;
         pointerAngleSet = true;
     }
 
     private void SetRotationOfSteeringWheel()
     {
-        HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, rotatableObjects[0].transform.rotation.eulerAngles);
+        HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheel.transform, rotatableObjects[0].transform.rotation.eulerAngles);
     }
 
     //  Rotate Tank Manually using the arrow keys
     private void RotateTankLeftManually()
     {
         RotateAllObjectsByRotation(rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
-        Ref.UI._steeringWheelPointer.transform.Rotate(Vector3.forward * rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
+        Ref.UI._steeringWheelScript._steeringWheelPointer.transform.Rotate(Vector3.forward * rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
         AngleToRotateTo += rotationspeed * Time.deltaTime;
     }
     private void RotateTankRightManually()
     {
         RotateAllObjectsByRotation(-rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
-        Ref.UI._steeringWheelPointer.transform.Rotate(Vector3.back * rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
+        Ref.UI._steeringWheelScript._steeringWheelPointer.transform.Rotate(Vector3.back * rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
         AngleToRotateTo -= rotationspeed * Time.deltaTime;
     }
 
@@ -120,7 +120,7 @@ public class PlayerTankRotation : TankRotation
             {
                 pointerAngleSet = false;
                 RotateAllObjectsToRotation(AngleToRotateTo);
-                HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
+                HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {
@@ -134,7 +134,7 @@ public class PlayerTankRotation : TankRotation
             {
                 pointerAngleSet = false;
                 RotateAllObjectsToRotation(AngleToRotateTo);
-                HM.RotateTransformToAngle(Ref.UI._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
+                HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {

@@ -19,7 +19,7 @@ public class TimeManager : MonoBehaviour
     }
     public void TogglePauseWhilstPlaying()
     {
-        if (Ref.UI._settingsOn) return;
+        if (Ref.UI._settingsScript._settingsOn) return;
         if (!paused)
         {
             FreezeTime();

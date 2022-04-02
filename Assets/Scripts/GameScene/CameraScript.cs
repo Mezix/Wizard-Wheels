@@ -121,7 +121,7 @@ public class CameraScript : MonoBehaviour
 
     private void HandleZoomInput()
     {
-        if (Input.mouseScrollDelta.y != 0 && !Ref.UI._settingsOn)
+        if (Input.mouseScrollDelta.y != 0 && !Ref.UI._settingsScript._settingsOn)
         {
             if (Input.mouseScrollDelta.y > 0)
             {
