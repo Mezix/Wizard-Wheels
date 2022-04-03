@@ -367,8 +367,6 @@ public class UIScript : MonoBehaviour
     }
 
     //  Emergency Brake
-    
-    
    
     public void TrackingTank(bool b)
     {

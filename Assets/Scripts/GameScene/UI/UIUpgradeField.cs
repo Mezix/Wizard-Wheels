@@ -14,11 +14,11 @@ public class UIUpgradeField : MonoBehaviour
     public HorizontalLayoutGroup _layout;
 
     [HideInInspector]
-    public int maxLevel;
+    public int _maxLevel;
     [HideInInspector]
-    public int currentLevel;
+    public int _currentLevel;
     [HideInInspector]
-    public int tempCurrentLevel;
+    public int _tempLevel;
     [HideInInspector]
     public List<int> _upgradeLevels = new List<int>();
 
@@ -31,8 +31,8 @@ public class UIUpgradeField : MonoBehaviour
     public void InitUpgradeField(string fieldName, int currentLvl, int maxLvl, List<int> levels)
     {
         _updateFieldName.text = fieldName;
-        maxLevel = maxLvl;
-        tempCurrentLevel = currentLevel = currentLvl;
+        _maxLevel = maxLvl;
+        _tempLevel = _currentLevel = currentLvl;
 
         foreach(int i in levels)
         {
@@ -49,20 +49,20 @@ public class UIUpgradeField : MonoBehaviour
     }
     public void SetTempLevel(int lvl)
     {
-        tempCurrentLevel = lvl;
+        _tempLevel = lvl;
         Events.instance.UpdateUpgradeScreen();
     }
     public void UpdateUpgradeField()
     {
-        if (tempCurrentLevel != maxLevel) _nextScrapUpgrade.text = _upgradeLevels[tempCurrentLevel + 1].ToString();
+        if (_tempLevel != _maxLevel) _nextScrapUpgrade.text = _upgradeLevels[_tempLevel + 1].ToString();
         else _nextScrapUpgrade.text = "--";
 
-        if (tempCurrentLevel == maxLevel || Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[currentLevel+1]) _upgradeButton.interactable = false;
+        if (_tempLevel == _maxLevel || Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_currentLevel+1]) _upgradeButton.interactable = false;
         else _upgradeButton.interactable = true;
 
-        if (tempCurrentLevel <= currentLevel || currentLevel == maxLevel) _downgradeButton.interactable = false;
+        if (_tempLevel <= _currentLevel || _currentLevel == _maxLevel) _downgradeButton.interactable = false;
         else _downgradeButton.interactable = true;
 
-        _fillLevel.fillAmount = tempCurrentLevel / (float) maxLevel;
+        _fillLevel.fillAmount = _tempLevel / (float) _maxLevel;
     }
 }

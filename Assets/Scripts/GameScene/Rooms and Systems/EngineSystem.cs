@@ -5,31 +5,18 @@ using UnityEngine;
 
 public class EngineSystem : ASystem
 {
-    public int _engineLevel;
-    public int _tempLevel;
-    public int _maxEngineLevel;
-    public UIUpgradeField _upgradeField;
-
+    private UIUpgradeField _upgradeField;
     private List<int> _upgradeLevels = new List<int>();
 
-    private void Awake()
+    public override void Awake()
     {
         base.Awake();
-        SystemObj = gameObject;
-        _maxEngineLevel = 5;
-        _tempLevel = _engineLevel = 3;
-        
-        InitUpgradeLevels();
     }
     private void Start()
     {
-        if (Ref.UI)
-        {
-            Ref.UI._engineUIScript.UpdateEngineLevel(_engineLevel, _maxEngineLevel);
-            if (!_upgradeField) CreateUpgradeField();
-        }
+        if (!_upgradeField) CreateUpgradeField();
     }
-    private void InitUpgradeLevels()
+    private void InitUpgradeField()
     {
         _upgradeLevels.Add(0);
         _upgradeLevels.Add(20);
@@ -37,45 +24,48 @@ public class EngineSystem : ASystem
         _upgradeLevels.Add(60);
         _upgradeLevels.Add(80);
         _upgradeLevels.Add(150);
+
+        _upgradeField._tempLevel = _upgradeField._currentLevel = 3;
+        _upgradeField._maxLevel = 5;
     }
-    
     private void CreateUpgradeField()
     {
-        UIUpgradeField ui = Ref.UI._upgradeScreen.CreateUpgradeField();
-        _upgradeField = ui;
+        _upgradeField = Ref.UI._upgradeScreen.CreateUpgradeField();
+        InitUpgradeField();
 
-        ui.InitUpgradeField("Engine", _engineLevel, _maxEngineLevel, _upgradeLevels);
-        ui._upgradeButton.onClick.AddListener(() => Upgrade());
-        ui._downgradeButton.onClick.AddListener(() => Downgrade());
+        _upgradeField.InitUpgradeField("Engine", _upgradeField._currentLevel, _upgradeField._maxLevel, _upgradeLevels);
+        _upgradeField._upgradeButton.onClick.AddListener(() => Upgrade());
+        _upgradeField._downgradeButton.onClick.AddListener(() => Downgrade());
+
+        Ref.UI._engineUIScript.UpdateEngineLevel(_upgradeField._currentLevel, _upgradeField._maxLevel);
 
         Events.instance.UpgradesSaved += SaveChanges;
         Events.instance.UpgradesReverted += RevertChanges;
     }
     public void Upgrade()
     {
-        if (_tempLevel >= _maxEngineLevel) return;
-        if (Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_tempLevel+1]) return;
-        _tempLevel++;
-        Ref.UI._upgradeScreen.RemoveTempScrap(_upgradeLevels[_tempLevel]);
-        _upgradeField.SetTempLevel(_tempLevel);
+        if (_upgradeField._tempLevel >= _upgradeField._maxLevel) return;
+        if (Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_upgradeField._tempLevel +1]) return;
+        _upgradeField._tempLevel++;
+        Ref.UI._upgradeScreen.RemoveTempScrap(_upgradeLevels[_upgradeField._tempLevel]);
+        _upgradeField.SetTempLevel(_upgradeField._tempLevel);
     }
     public void Downgrade()
     {
-        if (_tempLevel <= _engineLevel) return;
-        _tempLevel--;
-        Ref.UI._upgradeScreen.AddTempScrap(_upgradeLevels[_tempLevel+1]);
-        _upgradeField.SetTempLevel(_tempLevel);
+        if (_upgradeField._tempLevel <= _upgradeField._currentLevel) return;
+        _upgradeField._tempLevel--;
+        Ref.UI._upgradeScreen.AddTempScrap(_upgradeLevels[_upgradeField._tempLevel +1]);
+        _upgradeField.SetTempLevel(_upgradeField._tempLevel);
     }
-
     public void SaveChanges()
     {
-        _engineLevel = _tempLevel;
-        if (Ref.UI) Ref.UI._engineUIScript.UpdateEngineLevel(_engineLevel, _maxEngineLevel);
+        _upgradeField._currentLevel = _upgradeField._tempLevel;
+        if (Ref.UI) Ref.UI._engineUIScript.UpdateEngineLevel(_upgradeField._currentLevel, _upgradeField._maxLevel);
         Ref.UI._upgradeScreen.UpdateMainScrapCounter();
     }
     public void RevertChanges()
     {
-        int diff = _engineLevel - _tempLevel;
+        int diff = _upgradeField._currentLevel - _upgradeField._tempLevel;
         if (diff < 0)
         {
             for(int i = -1 * diff; i > 0; i--)
@@ -92,6 +82,9 @@ public class EngineSystem : ASystem
         }
         Ref.UI._upgradeScreen.UpdateMainScrapCounter();
     }
+
+    //  System Stuff
+
     public override void InitSystemStats()
     {
 

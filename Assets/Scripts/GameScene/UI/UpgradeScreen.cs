@@ -66,7 +66,7 @@ public class UpgradeScreen : MonoBehaviour
         _totalScrap = 0;
         foreach(UIUpgradeField ui in _upgradeFields)
         {
-            int lvl = ui.currentLevel;
+            int lvl = ui._currentLevel;
             foreach(int i in ui._upgradeLevels)
             {
                 _totalScrap += i;
@@ -150,21 +150,23 @@ public class UpgradeScreen : MonoBehaviour
 
     private void UpdateSaveAndRevertStatus()
     {
-        bool savingPossible = false;
-        foreach (UIUpgradeField ui in _upgradeFields)
-        {
-            if (ui.tempCurrentLevel != ui.currentLevel) savingPossible = true;
-        }
+        bool savingPossible = UnconfirmedChanges();
+        
         ShowSaveButton(savingPossible);
         ShowRevertButton(savingPossible);
     }
-    private bool CheckSaveAndRevertStatus()
+    private bool UnconfirmedChanges()
     {
         bool savingPossible = false;
         foreach (UIUpgradeField ui in _upgradeFields)
         {
-            if (ui.tempCurrentLevel != ui.currentLevel) savingPossible = true;
+            if (ui._tempLevel != ui._currentLevel)
+            {
+                savingPossible = true;
+                break;
+            }
         }
+        print(savingPossible);
         return savingPossible;
     }
     public void SaveUpgrades()
@@ -210,7 +212,7 @@ public class UpgradeScreen : MonoBehaviour
     }
     public void CloseUpgradeScreen()
     {
-        if(CheckSaveAndRevertStatus() && !_popUpOpened)
+        if(UnconfirmedChanges() && !_popUpOpened)
         {
             ShowPopUpWindow(true);
         }

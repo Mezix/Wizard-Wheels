@@ -20,7 +20,7 @@ public abstract class ASystem : MonoBehaviour
     public abstract void StartInteraction();
     public abstract void StopInteraction();
 
-    public void Awake()
+    public virtual void Awake()
     {
         SystemObj = gameObject;
     }
