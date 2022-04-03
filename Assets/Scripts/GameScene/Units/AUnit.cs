@@ -95,7 +95,7 @@ public abstract class AUnit : MonoBehaviour
     public void Highlight()
     {
         _showUI = true;
-        Rend.material.shader = (Shader) Resources.Load("Shaders\\SpriteOutline");
+        Rend.material.shader = (Shader) Resources.Load("Shaders/SpriteOutline");
         Rend.material.SetFloat("Vector1_53CFC1A5", 0.05f);
         Rend.material.SetColor("Color_B1427637", Color.red);
     }

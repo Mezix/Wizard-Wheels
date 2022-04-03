@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class PlayerTankController : TankController
@@ -35,6 +36,7 @@ public class PlayerTankController : TankController
     public void SpawnTank()
     {
         TGeo.CreateTankGeometry();
+        TGeo.AddScrapCollector();
         TWep.SetUpWeapons(true, _tankColor);
         TWep.SetUpSystems(true);
         TMov.InitSpeedStats();

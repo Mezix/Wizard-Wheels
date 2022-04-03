@@ -46,6 +46,14 @@ public class TankGeometry : MonoBehaviour
             }
         }
     }
+
+    public void AddScrapCollector()
+    {
+        FloorTilemap.gameObject.AddComponent<TilemapCollider2D>();
+        FloorTilemap.gameObject.GetComponent<TilemapCollider2D>().isTrigger = true;
+        FloorTilemap.gameObject.AddComponent<TankScrapCollector>();
+    }
+
     private void CreateFloorAndRoofTilemap()
     {
         //  Floor
@@ -53,7 +61,6 @@ public class TankGeometry : MonoBehaviour
         GameObject floor = new GameObject("FloorTilemap");
         floor.transform.parent = transform;
         floor.transform.localPosition = Vector3.zero;
-
         //  Create Grid
         Grid floorGrid = floor.AddComponent<Grid>();
         floorGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
@@ -115,7 +122,7 @@ public class TankGeometry : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                Tile t = (Tile)Resources.Load("Tiles\\Floor\\DefaultFloorTile");
+                Tile t = (Tile)Resources.Load("Tiles/Floor/DefaultFloorTile");
                 //t.color = FloorColor;
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
                 
@@ -128,7 +135,7 @@ public class TankGeometry : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                Tile t = (Tile)Resources.Load("Tiles\\Roof\\DefaultRoofTile");
+                Tile t = (Tile)Resources.Load("Tiles/Roof/DefaultRoofTile");
                 t.color = RoofColor;
                 RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
@@ -194,7 +201,7 @@ public class TankGeometry : MonoBehaviour
                     ASystem sys = _tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.GetComponent<ASystem>();
                     if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].RoomSystemPrefab.TryGetComponent(out AWeapon wep))
                     {
-                        RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = Resources.Load("Art\\WeaponSystemIcon", typeof(Sprite)) as Sprite;
+                        RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = Resources.Load("Art/WeaponSystemIcon", typeof(Sprite)) as Sprite;
                     }
                     else
                     {
@@ -213,25 +220,25 @@ public class TankGeometry : MonoBehaviour
             {
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallUp)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallUp"));
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallUp"));
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                 }
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallRight)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallRight"));
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallRight"));
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                 }
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallDown)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallDown"));
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallDown"));
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                 }
                 if (_tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].WallLeft)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms\\Walls\\WallLeft"));
+                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallLeft"));
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                 }

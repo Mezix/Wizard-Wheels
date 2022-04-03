@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8917419255669800741}
   - component: {fileID: 8103871899159610101}
   m_Layer: 0
-  m_Name: PotionCraftingSystem
+  m_Name: PotionSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d43c02a23bbc84a890857f94510c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SystemSprite: {fileID: 21300000, guid: ad5b141f160a7f140a7368fd5d5a34af, type: 3}
+  _systemSprites: []
+  SystemSprite: {fileID: 0}
   SystemObj: {fileID: 0}
   SystemName: 
   RoomPosForInteraction: {fileID: 0}
@@ -74,7 +75,7 @@ Transform:
   m_GameObject: {fileID: 8917419256512497040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8917419255669800741}
   m_RootOrder: 0
@@ -118,7 +119,7 @@ SpriteRenderer:
   m_SortingLayerID: -2064992911
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: ad5b141f160a7f140a7368fd5d5a34af, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 99d31d9c7b3557345a05f74c601983b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

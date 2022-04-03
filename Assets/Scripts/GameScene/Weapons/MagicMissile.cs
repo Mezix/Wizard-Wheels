@@ -10,7 +10,7 @@ public class MagicMissile : AWeapon
     }
     private void Start()
     {
-        ProjectilePrefab = (GameObject)Resources.Load("Weapons\\MagicMissileProjectilePrefab");
+        ProjectilePrefab = (GameObject)Resources.Load("Weapons/MagicMissileProjectilePrefab");
         AimRotationAngle = 90;
 
         if (!ShouldHitPlayer) WeaponEnabled = false;

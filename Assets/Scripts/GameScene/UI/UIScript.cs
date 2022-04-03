@@ -141,7 +141,7 @@ public class UIScript : MonoBehaviour
     
     public PlayerWeaponUI CreateWeaponUI(AWeapon iwp)
     {
-        GameObject go = Instantiate((GameObject)Resources.Load("Weapons\\PlayerWeaponUI"));
+        GameObject go = Instantiate((GameObject)Resources.Load("Weapons/PlayerWeaponUI"));
         PlayerWeaponUI wp = go.GetComponent<PlayerWeaponUI>();
         wp._weaponImage.sprite = iwp._weaponStats._UISprite;
         wp._UIWeaponName.text = iwp.SystemName;
@@ -154,7 +154,7 @@ public class UIScript : MonoBehaviour
     }
     public PlayerWizardUI CreateWizardUI(AUnit unit)
     {
-        GameObject go = Instantiate((GameObject)Resources.Load("Wizards\\PlayerWizardUI"));
+        GameObject go = Instantiate((GameObject)Resources.Load("Wizards/PlayerWizardUI"));
         PlayerWizardUI u = go.GetComponent<PlayerWizardUI>();
         u._wizardImage.sprite = unit.PlayerUIWizardIcon;
         u._UIWizardName.text = unit.UnitName;
@@ -285,9 +285,9 @@ public class UIScript : MonoBehaviour
             GameObject tmp = Instantiate((GameObject)Resources.Load("HPSegment"));
             Image img = tmp.GetComponent<Image>();
 
-            if (i == 0) img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Left", typeof(Sprite)) as Sprite;
-            else if (i == maxHealth - 1) img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Right", typeof(Sprite)) as Sprite;
-            else img.sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Middle", typeof(Sprite)) as Sprite;
+            if (i == 0) img.sprite = Resources.Load("Art/UI/HP Bar/HP Segment Left", typeof(Sprite)) as Sprite;
+            else if (i == maxHealth - 1) img.sprite = Resources.Load("Art/UI/HP Bar/HP Segment Right", typeof(Sprite)) as Sprite;
+            else img.sprite = Resources.Load("Art/UI/HP Bar/HP Segment Middle", typeof(Sprite)) as Sprite;
 
             _allHPSegments.Add(img);
             tmp.transform.SetParent(_healthBarParent.transform, false);
@@ -300,15 +300,15 @@ public class UIScript : MonoBehaviour
         {
             if (i > current)
             {
-                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Broken Left", typeof(Sprite)) as Sprite;
-                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Broken Right", typeof(Sprite)) as Sprite;
-                else _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Broken Middle", typeof(Sprite)) as Sprite;
+                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Broken Left", typeof(Sprite)) as Sprite;
+                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Broken Right", typeof(Sprite)) as Sprite;
+                else _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Broken Middle", typeof(Sprite)) as Sprite;
             }
             else
             {
-                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Left", typeof(Sprite)) as Sprite;
-                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Right", typeof(Sprite)) as Sprite;
-                else _allHPSegments[i].sprite = Resources.Load("Art\\UI\\HP Bar\\HP Segment Middle", typeof(Sprite)) as Sprite;
+                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Left", typeof(Sprite)) as Sprite;
+                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Right", typeof(Sprite)) as Sprite;
+                else _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Middle", typeof(Sprite)) as Sprite;
             }
         }
     }
@@ -353,14 +353,14 @@ public class UIScript : MonoBehaviour
     {
         if(b)
         {
-            _saveWizardsImage.sprite = Resources.Load("Art\\UI\\Save_Wizards_Green", typeof(Sprite)) as Sprite;
-            _returnWizardsImage.sprite = Resources.Load("Art\\UI\\Return_Wizards_Brown", typeof(Sprite)) as Sprite;
+            _saveWizardsImage.sprite = Resources.Load("Art/UI/Save_Wizards_Green", typeof(Sprite)) as Sprite;
+            _returnWizardsImage.sprite = Resources.Load("Art/UI/Return_Wizards_Brown", typeof(Sprite)) as Sprite;
             _returnWizardsButton.interactable = true;
         }
         else
         {
-            _saveWizardsImage.sprite = Resources.Load("Art\\UI\\Save_Wizards_Brown", typeof(Sprite)) as Sprite;
-            _returnWizardsImage.sprite = Resources.Load("Art\\UI\\Return_Wizards_Red", typeof(Sprite)) as Sprite;
+            _saveWizardsImage.sprite = Resources.Load("Art/UI/Save_Wizards_Brown", typeof(Sprite)) as Sprite;
+            _returnWizardsImage.sprite = Resources.Load("Art/UI/Return_Wizards_Red", typeof(Sprite)) as Sprite;
             _returnWizardsButton.interactable = false;
         }
         Ref.PCon.SaveAllWizardPositions();

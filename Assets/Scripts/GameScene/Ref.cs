@@ -41,4 +41,6 @@ public class Ref : MonoBehaviour
     public static UnitPathfinding Path;
 
     public static EnemyManager EM;
+
+    public static MapGeneration MapGen;
 }

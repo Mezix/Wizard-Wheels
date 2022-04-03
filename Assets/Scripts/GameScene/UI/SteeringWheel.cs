@@ -65,14 +65,14 @@ public class SteeringWheel : MonoBehaviour
     {
         steeringWheelOpen = false;
         _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = _steeringWheelRect.anchoredPosition = Vector3.zero;
-        _steeringWheelRect.transform.parent = steeringWheelParent;
+        _steeringWheelRect.SetParent(steeringWheelParent);
         _steeringWheelPrompt.SetActive(true);
     }
     private void OpenSteeringWheel()
     {
         steeringWheelOpen = true;
         _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = _steeringWheelRect.anchoredPosition = new Vector3(0, 128, 0);
-        _steeringWheelRect.transform.parent = steeringWheelParent;
+        _steeringWheelRect.SetParent(steeringWheelParent);
         _steeringWheelPrompt.SetActive(true);
     }
     private void SteeringWheelTrackMouse()

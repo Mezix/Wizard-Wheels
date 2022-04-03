@@ -38,7 +38,7 @@ public class UIUpgradeField : MonoBehaviour
         {
             _upgradeLevels.Add(i);
             GameObject go = Instantiate((GameObject) Resources.Load("UpgradeFieldBarSplitter"));
-            go.transform.parent = _layout.transform;
+            go.transform.SetParent(_layout.transform);
             go.transform.localScale = Vector3.one;
         }
         float a = 51 - levels.Count + 2;

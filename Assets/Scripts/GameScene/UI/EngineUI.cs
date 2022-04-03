@@ -53,7 +53,7 @@ public class EngineUI : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             GameObject engineSegment = Instantiate((GameObject)Resources.Load("EngineLevelSegment"));
-            engineSegment.transform.parent = _engineLevelLayoutGroup.transform;
+            engineSegment.transform.SetParent(_engineLevelLayoutGroup.transform);
             engineSegment.transform.localScale = Vector3.one;
             Image engineSegmentImg = engineSegment.GetComponent<Image>();
             engineLevelSegments.Add(engineSegmentImg);

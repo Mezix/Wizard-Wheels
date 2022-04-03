@@ -94,7 +94,7 @@ public class CreateTankUI : MonoBehaviour
         int i = 0;
         foreach(Dropdown.OptionData data in _layersDropDown.options)
         {
-            GameObject go = Instantiate((GameObject) Resources.Load("TankCreator\\LayerPrefab"));
+            GameObject go = Instantiate((GameObject) Resources.Load("TankCreator/LayerPrefab"));
             go.GetComponentInChildren<Text>().text = data.text;
             go.transform.parent = _layersParent.transform;
             go.transform.position = Vector3.zero;

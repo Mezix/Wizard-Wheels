@@ -138,7 +138,7 @@ public class UpgradeScreen : MonoBehaviour
     public UIUpgradeField CreateUpgradeField()
     {
         GameObject field = Instantiate((GameObject)Resources.Load("UpgradeField"));
-        field.transform.parent = _layoutGroup;
+        field.transform.SetParent(_layoutGroup);
         field.transform.localScale = Vector3.one;
         UIUpgradeField upgrade = field.GetComponent<UIUpgradeField>();
         Ref.UI._upgradeScreen._upgradeFields.Add(upgrade);
@@ -166,7 +166,6 @@ public class UpgradeScreen : MonoBehaviour
                 break;
             }
         }
-        print(savingPossible);
         return savingPossible;
     }
     public void SaveUpgrades()

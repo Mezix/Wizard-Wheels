@@ -35,8 +35,8 @@ public class EnemyUI : MonoBehaviour
     {
         Ref.UI._engineUIScript._matchSpeedImage.gameObject.SetActive(b);
         Ref.PCon.TMov.MatchSpeed(e, b);
-        if (b) matchSpeedImg.sprite = Resources.Load("Art\\UI\\Match_Speed_On", typeof(Sprite)) as Sprite;
-        else matchSpeedImg.sprite = Resources.Load("Art\\UI\\Match_Speed_Off", typeof(Sprite)) as Sprite;
+        if (b) matchSpeedImg.sprite = Resources.Load("Art/UI/Match_Speed_On", typeof(Sprite)) as Sprite;
+        else matchSpeedImg.sprite = Resources.Load("Art/UI/Match_Speed_Off", typeof(Sprite)) as Sprite;
         matching = !b;
     }
     public void TrackTank(bool b)

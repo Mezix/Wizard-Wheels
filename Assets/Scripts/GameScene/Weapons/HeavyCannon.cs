@@ -13,7 +13,7 @@ public class HeavyCannon : AWeapon
     }
     private void Start()
     {
-        ProjectilePrefab = (GameObject) Resources.Load("Weapons\\CannonballProjectilePrefab");
+        ProjectilePrefab = (GameObject) Resources.Load("Weapons/CannonballProjectilePrefab");
         AimRotationAngle = 90;
 
         if(!ShouldHitPlayer) WeaponEnabled = false;

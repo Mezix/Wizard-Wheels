@@ -589,6 +589,7 @@ GameObject:
   - component: {fileID: 46604055}
   - component: {fileID: 46604056}
   - component: {fileID: 46604057}
+  - component: {fileID: 46604058}
   m_Layer: 0
   m_Name: BG Tilemap
   m_TagString: Untagged
@@ -603,11 +604,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46604053}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2107104131}
+  m_Father: {fileID: 393006672}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &46604055
@@ -707,6 +708,22 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!19719996 &46604058
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46604053}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!1 &48835916
 GameObject:
   m_ObjectHideFlags: 0
@@ -4828,6 +4845,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387690997}
   m_CullTransparentMesh: 0
+--- !u!1 &393006671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 393006672}
+  - component: {fileID: 393006673}
+  m_Layer: 0
+  m_Name: MapGeneration
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &393006672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393006671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 46604054}
+  m_Father: {fileID: 2107104131}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &393006673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393006671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73745df9f22e9f147aca29a15be375b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
+  grid: {fileID: 0}
+  playerPosRelativeToGrid: {x: 0, y: 0, z: 0}
+  StoneColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
+  GrassColor: {r: 0.48197982, g: 0.6698113, b: 0.3949359, a: 1}
+  chunkWidth: 150
+  chunkHeight: 150
+  RandomFillPercent: 44
+  seed: 
+  useRandomSeed: 1
 --- !u!1 &401437237
 GameObject:
   m_ObjectHideFlags: 0
@@ -5725,7 +5796,6 @@ Transform:
   - {fileID: 1314033764}
   - {fileID: 1112912549}
   - {fileID: 1507245698}
-  - {fileID: 2140655807}
   - {fileID: 854631260}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -8589,6 +8659,7 @@ Transform:
   m_Children:
   - {fileID: 1563533201}
   - {fileID: 1110507170}
+  - {fileID: 2140655807}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8745,9 +8816,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1384d72d21b00624eae9b6cdb8d773e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationLevel: 0
-  _tempLevel: 0
-  _maxLevel: 0
 --- !u!1 &676143417
 GameObject:
   m_ObjectHideFlags: 0
@@ -10523,7 +10591,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 458083270}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -24959,7 +25027,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3770766fb0645d04c8b2efcb92e48c75, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc4408ff57abe5840a3cc8d9c5c6b3f6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25515,7 +25583,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 46604054}
+  - {fileID: 393006672}
   m_Father: {fileID: 458083270}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25531,13 +25599,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c55b527ca843ca4b9cfb1d4cfcace3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoneColor: {r: 0.26299998, g: 0.20686702, b: 0.08573799, a: 1}
-  GrassColor: {r: 0.5665238, g: 0.764151, b: 0.3280082, a: 1}
-  chunkWidth: 150
-  chunkHeight: 150
-  RandomFillPercent: 44
-  seed: 
-  useRandomSeed: 1
 --- !u!1 &2116335586
 GameObject:
   m_ObjectHideFlags: 0
@@ -25883,6 +25944,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2140655807}
+  - component: {fileID: 2140655809}
   - component: {fileID: 2140655808}
   m_Layer: 0
   m_Name: FogOfWar
@@ -25890,7 +25952,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2140655807
 Transform:
   m_ObjectHideFlags: 0
@@ -25898,12 +25960,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140655806}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20000, y: 20000, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 458083270}
-  m_RootOrder: 8
+  m_Father: {fileID: 667288256}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2140655808
 SpriteRenderer:
@@ -25944,17 +26006,31 @@ SpriteRenderer:
   m_SortingLayerID: -501934849
   m_SortingLayer: 9
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b, type: 3}
-  m_Color: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.3, y: 0.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2140655809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140655806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa70b2c37c11c0b4eb022b1af8a950f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fogOfWarSpriteRenderer: {fileID: 2140655808}
+  _fogOfWarColor: {r: 0.277, g: 0.277, b: 0.277, a: 1}
 --- !u!1001 &6756651001233008809
 PrefabInstance:
   m_ObjectHideFlags: 0

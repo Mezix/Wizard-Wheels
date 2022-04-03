@@ -45,7 +45,7 @@ public class CreateTankSceneManager : MonoBehaviour
         {
             if (newName == "") newName = "tmp";
             #if UNITY_EDITOR
-            AssetDatabase.CreateAsset(tankToEdit, "Assets\\Scripts\\GameScene\\SOs\\TankConstellation\\" + newName);
+            AssetDatabase.CreateAsset(tankToEdit, "Assets/Scripts/GameScene/SOs/TankConstellation/" + newName);
             #endif
         }
         tankToEdit.SaveTank(newName);
