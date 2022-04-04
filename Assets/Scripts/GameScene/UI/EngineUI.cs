@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,12 @@ public class EngineUI : MonoBehaviour
     public Button _cruiseButton;
     public Slider _currentSpeedSlider;
     public Slider _desiredSpeedSlider;
-    public Toggle EmergencyBrakeToggle;
+    public Toggle _emergencyBrakeToggle;
+
+    public AudioSource _engineIdleSound;
+    public AudioSource _engineStartingSound;
+    public AudioSource _engineStoppingSound;
+    public bool engineSoundOn;
 
     //  MatchSpeed
 
@@ -20,10 +26,11 @@ public class EngineUI : MonoBehaviour
     [Header("Match Speed Button")]
     public Image _matchSpeedImage;
     public Button _unmatchSpeedButton;
+
     private void Awake()
     {
         _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
-        EmergencyBrakeToggle.onValueChanged.AddListener(delegate { EmergencyBrake(EmergencyBrakeToggle); });
+        _emergencyBrakeToggle.onValueChanged.AddListener(delegate { EmergencyBrake(_emergencyBrakeToggle); });
         _unmatchSpeedButton.onClick.AddListener(() => UnmatchSpeedUI());
     }
     private void EmergencyBrake(Toggle t)
@@ -36,7 +43,7 @@ public class EngineUI : MonoBehaviour
     }
     public void ActivateEmergencyBrake(bool b)
     {
-        EmergencyBrakeToggle.isOn = b;
+        _emergencyBrakeToggle.isOn = b;
         Ref.PCon.TMov.emergencyBrakeOn = b;
         if (b)
         {
@@ -101,11 +108,40 @@ public class EngineUI : MonoBehaviour
     public void SpeedSliderUpdated()
     {
         Ref.PCon.TMov.cruiseModeOn = true;
-        if (EmergencyBrakeToggle.isOn) ActivateEmergencyBrake(false);
+        if (_emergencyBrakeToggle.isOn) ActivateEmergencyBrake(false);
     }
     public void UnmatchSpeedUI()
     {
         _unmatchSpeedButton.gameObject.SetActive(false);
         Ref.PCon.TMov.enemyToMatch.GetComponent<EnemyTankController>().enemyUI.MatchSpeed(Ref.PCon.TMov.enemyToMatch, false);
+    }
+    public void TurnOnCruiseUI(bool on)
+    {
+        if (on)_cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_on", typeof(Sprite)) as Sprite;
+        else _cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_off", typeof(Sprite)) as Sprite;
+        StartStopEngineSound(on);
+    }
+    public void StartStopEngineSound(bool engineStarting, float level = 1)
+    {
+        _engineStartingSound.volume = level;
+        _engineStoppingSound.volume = level;
+        if (engineStarting)
+        {
+            _engineIdleSound.gameObject.SetActive(true);
+
+            if (!Ref.PCon.TMov.cruiseModeOn && !engineSoundOn)
+            {
+                _engineStartingSound.Play();
+            }
+        }
+        else
+        {
+            if(!Ref.PCon.TMov.cruiseModeOn) _engineIdleSound.gameObject.SetActive(false);
+            if (engineSoundOn)
+            {
+                _engineStoppingSound.Play();
+            }
+        }
+        engineSoundOn = engineStarting;
     }
 }

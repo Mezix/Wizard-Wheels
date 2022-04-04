@@ -38,7 +38,10 @@ public class PlayerTankMovement : TankMovement
         UpdateEngineUI();
         UpdateCurrentSpeedSlider();
 
-        if (!cruiseModeOn && !movementInput) Decelerate();
+        if (!cruiseModeOn && !movementInput)
+        {
+            Decelerate();
+        }
 
         if (emergencyBrakeOn)
         {
@@ -198,16 +201,9 @@ public class PlayerTankMovement : TankMovement
     }
     public void TurnOnCruise(bool b)
     {
+        if(!b) _matchSpeed = false;
+        Ref.UI._engineUIScript.TurnOnCruiseUI(b);
         cruiseModeOn = b;
-        if (b)
-        {
-            Ref.UI._engineUIScript._cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_on", typeof(Sprite)) as Sprite;
-        }
-        else
-        {
-            Ref.UI._engineUIScript._cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_off", typeof(Sprite)) as Sprite;
-            _matchSpeed = false;
-        }
     }
     public void UpdateEngineUI()
     {

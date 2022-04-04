@@ -25,7 +25,7 @@ public class EngineSystem : ASystem
         _upgradeLevels.Add(80);
         _upgradeLevels.Add(150);
 
-        _upgradeField._tempLevel = _upgradeField._currentLevel = 3;
+        _upgradeField._tempLevel = _upgradeField._currentLevel = 0;
         _upgradeField._maxLevel = 5;
     }
     private void CreateUpgradeField()

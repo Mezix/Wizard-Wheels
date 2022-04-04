@@ -107,7 +107,7 @@ public class UpgradeScreen : MonoBehaviour
 
         for(int i = 0; i < 50; i++)
         {
-            rect.anchoredPosition += new Vector2(i/4f, -i/6f);
+            rect.anchoredPosition += new Vector2(i/50f, -i/10f);
             t.color = new Color(1,1,1, (50 - i)/50f);
             yield return new WaitForFixedUpdate();
         }
