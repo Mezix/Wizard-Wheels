@@ -49,10 +49,18 @@ public abstract class AWeapon : ASystem
     //  Audio
     public AudioSource _weaponAudioSource = null;
 
-    public void Awake()
+    //  TankMovement
+
+    [HideInInspector]
+    public TankMovement tMov;
+    [HideInInspector]
+    public float tankSpeedProjectileModifier;
+
+    public virtual void Awake()
     {
         ShouldHitPlayer = false;
         SystemObj = gameObject;
+        tankSpeedProjectileModifier = 0;
         InitLineRenderer();
     }
     public override void InitSystemStats()
@@ -221,16 +229,25 @@ public abstract class AWeapon : ASystem
     }
     public void PointTurretAtTarget()
     {
-        Vector3 TargetMoveVector = Vector3.zero;
         if (!TargetedRoom) return;
-        float distance = Vector3.Distance(TargetedRoom.transform.position, _projectileSpot.transform.position);
-        float TimeForProjectileToHitDistance = distance / (_weaponStats._projectileSpeed);
+        Vector3 TargetMoveVector = Vector3.zero;
+        UpdateTankSpeedProjectileModifier();
 
-        //Calculate the position where our target will be
-        if (TargetedRoom.transform.root.GetComponentInChildren<EnemyTankMovement>())
+        float distance = Vector3.Distance(TargetedRoom.transform.position, _projectileSpot.transform.position);
+        float TimeForProjectileToHitDistance = distance / (_weaponStats._projectileSpeed + tankSpeedProjectileModifier * tMov.currentSpeed);
+
+        if(ShouldHitPlayer)
         {
-            EnemyTankMovement mov = TargetedRoom.transform.root.GetComponentInChildren<EnemyTankMovement>();
-            TargetMoveVector = mov.moveVector * mov.currentSpeed * TimeForProjectileToHitDistance;
+            TargetMoveVector = Ref.PCon.TMov.moveVector * Ref.PCon.TMov.currentSpeed * TimeForProjectileToHitDistance;
+        }
+        else
+        {
+            //Calculate the position where our target will be
+            if (TargetedRoom.transform.root.GetComponentInChildren<EnemyTankMovement>())
+            {
+                EnemyTankMovement mov = TargetedRoom.transform.root.GetComponentInChildren<EnemyTankMovement>();
+                TargetMoveVector = mov.moveVector * mov.currentSpeed * TimeForProjectileToHitDistance;
+            }
         }
 
         //  find the desired angle to face the target
@@ -284,7 +301,6 @@ public abstract class AWeapon : ASystem
         proj.GetComponent<AProjectile>().HitPlayer = ShouldHitPlayer;
         proj.SetActive(true);
         TimeElapsedBetweenLastAttack = 0;
-
     }
 
     //  UI
@@ -342,5 +358,20 @@ public abstract class AWeapon : ASystem
     {
         if (!TargetedRoom) return false;
         return Vector3.Distance(_projectileSpot.position, TargetedRoom.transform.position) < MaxLockOnRange;
+    }
+    public void UpdateTankSpeedProjectileModifier()
+    {
+        float tankRotation = tMov.GetComponent<TankRotation>().rotatableObjects[0].transform.rotation.eulerAngles.z + 90;
+        tankSpeedProjectileModifier = 0;
+        if (tankRotation > 180) tankRotation -= 360;
+        if (AimRotationAngle > 180) AimRotationAngle -= 360;
+        float angle = tankRotation - AimRotationAngle;
+        angle = Mathf.Abs(angle);
+        angle = Mathf.Min(90, angle);
+        tankSpeedProjectileModifier = angle/90;
+        tankSpeedProjectileModifier = 1 - tankSpeedProjectileModifier;
+
+        //  Minimum of 0
+        tankSpeedProjectileModifier = Mathf.Max(0, tankSpeedProjectileModifier);
     }
 }

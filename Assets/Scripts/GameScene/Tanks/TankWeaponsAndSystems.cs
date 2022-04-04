@@ -28,6 +28,7 @@ public class TankWeaponsAndSystems : MonoBehaviour
                 wep.ShouldHitPlayer = false;
                 wep.WeaponUI.ShowWeaponUI(player);
                 wep.InitSystemStats();
+                wep.tMov = GetComponent<TankMovement>();
             }
         }
         else
@@ -39,6 +40,7 @@ public class TankWeaponsAndSystems : MonoBehaviour
                 wep.WeaponUI.ShowWeaponUI(player);
                 wep.InitSystemStats();
                 wep.UIColor = color;
+                wep.tMov = GetComponent<TankMovement>();
             }
         }
     }

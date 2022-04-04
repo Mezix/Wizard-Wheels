@@ -8,7 +8,7 @@ public class ScrapPile : MonoBehaviour
     public int scrapValue = 0;
     public GameObject _targetingCircle;
     public bool _collecting;
-    public Collider2D collider;
+    public Collider2D _scrapCollider;
     private void Awake()
     {
         _collecting = false;
@@ -27,7 +27,7 @@ public class ScrapPile : MonoBehaviour
 
         transform.parent = scrapParent;
         transform.localPosition = Vector3.zero;
-        collider.enabled = false;
+        _scrapCollider.enabled = false;
     }
     public void RemoveScrap()
     {

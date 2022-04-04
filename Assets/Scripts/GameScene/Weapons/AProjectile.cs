@@ -72,6 +72,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         wep = weapon;
         Damage = weapon._weaponStats._damage;
         ProjectileSpeed = weapon._weaponStats._projectileSpeed;
+        if (weapon.tMov) ProjectileSpeed += weapon.tankSpeedProjectileModifier * weapon.tMov.currentSpeed;
         transform.position = weapon._projectileSpot.transform.position;
         transform.rotation = weapon._projectileSpot.transform.rotation;
     }

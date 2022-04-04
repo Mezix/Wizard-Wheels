@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MagicMissile : AWeapon
 {
-    private void Awake()
+    public override void Awake()
     {
         base.Awake();
     }

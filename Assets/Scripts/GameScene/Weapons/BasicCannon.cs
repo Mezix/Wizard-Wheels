@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 
 public class BasicCannon : AWeapon
 {
-    private void Awake()
+    public override void Awake()
     {
         base.Awake();
     }
