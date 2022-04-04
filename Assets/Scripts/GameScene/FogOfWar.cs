@@ -9,7 +9,7 @@ public class FogOfWar : MonoBehaviour
     private Texture2D fogOfWarTex;
     private int fogOfWarSizeWidth;
     private int fogOfWarSizeHeight;
-    private int radius;
+    private int visionRadius;
     public SpriteRenderer _fogOfWarSpriteRenderer;
     public Color _fogOfWarColor;
 
@@ -17,10 +17,10 @@ public class FogOfWar : MonoBehaviour
     {
         fogOfWarSizeWidth = 1000;
         fogOfWarSizeHeight = 1000;
-        radius = 100;
+        visionRadius = 150;
         fogOfWarTex = new Texture2D(fogOfWarSizeWidth, fogOfWarSizeHeight);
         CreateFogOfWar();
-        DrawCircle(fogOfWarTex, 0, 0, radius, Color.clear);
+        ClearBlurryCircle(fogOfWarTex, 0, 0, visionRadius, _fogOfWarColor);
     }
     public void CreateFogOfWar()
     {
@@ -103,6 +103,26 @@ public class FogOfWar : MonoBehaviour
                 if ((x - u) * (x - u) + (y - v) * (y - v) < rSquared)
                     tex.SetPixel(u, v, color);
 
+        tex.Apply();
+    }
+    private void ClearBlurryCircle(Texture2D tex, int x, int y, int radius, Color color)
+    {
+        float taperFactor = 0.01f;
+        float rSquared = radius * radius;
+        x += tex.width / 2;
+        y += tex.height / 2;
+
+        for (int u = x - radius; u < x + radius + 1; u++)
+            for (int v = y - radius; v < y + radius + 1; v++)
+                if ((x - u) * (x - u) + (y - v) * (y - v) < rSquared)
+                {
+                    float centeredU = Mathf.Abs((float)u - x);
+                    float centeredV = Mathf.Abs((float)v - y);
+                    float uDistance = centeredU / radius;
+                    float vDistance = centeredV / radius;
+                    float alpha = (uDistance * centeredU + vDistance * centeredV) * taperFactor;
+                    tex.SetPixel(u, v, new Color(color.r, color.g, color.b, alpha));
+                }
         tex.Apply();
     }
 }

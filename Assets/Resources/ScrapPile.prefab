@@ -210,6 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrapValue: 0
   _targetingCircle: {fileID: 7100836014675250008}
+  _collecting: 0
+  collider: {fileID: 2721833806268146668}
 --- !u!50 &1745966173177636388
 Rigidbody2D:
   serializedVersion: 4

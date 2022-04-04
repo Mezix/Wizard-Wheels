@@ -4783,7 +4783,7 @@ GameObject:
   - component: {fileID: 387691000}
   - component: {fileID: 387690999}
   m_Layer: 5
-  m_Name: FogOfWar
+  m_Name: MapFogOfWar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25947,7 +25947,7 @@ GameObject:
   - component: {fileID: 2140655809}
   - component: {fileID: 2140655808}
   m_Layer: 0
-  m_Name: FogOfWar
+  m_Name: FogOfWarScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26030,7 +26030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fogOfWarSpriteRenderer: {fileID: 2140655808}
-  _fogOfWarColor: {r: 0.277, g: 0.277, b: 0.277, a: 1}
+  _fogOfWarColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
 --- !u!1001 &6756651001233008809
 PrefabInstance:
   m_ObjectHideFlags: 0
