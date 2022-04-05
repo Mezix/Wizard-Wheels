@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ff41bc3f394004699c0df90b1b699d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _systemSprites:
+  _systemRoofSprites:
   - {fileID: 6756651001319766104}
   - {fileID: 4474100487372909424}
   - {fileID: 213044625112107280}

@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4a7e428aa73a94c9f3eec46128057f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _systemSprites:
+  _systemRoofSprites:
   - {fileID: 6613991519206540040}
   - {fileID: 96216211}
   SystemSprite: {fileID: 0}
@@ -143,6 +143,9 @@ MonoBehaviour:
   UIColor: {r: 0, g: 0, b: 0, a: 1}
   lr: {fileID: 0}
   _weaponAudioSource: {fileID: 5770678182755424900}
+  tMov: {fileID: 0}
+  tankSpeedProjectileModifier: 0
+  _weaponSelectedUI: {fileID: 0}
 --- !u!1 &1891114875749286798
 GameObject:
   m_ObjectHideFlags: 0

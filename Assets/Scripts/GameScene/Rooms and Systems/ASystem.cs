@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class ASystem : MonoBehaviour
 {
     [SerializeField]
-    private List<SpriteRenderer> _systemSprites;
+    private List<SpriteRenderer> _systemRoofSprites;
 
     public Sprite SystemSprite;
     [HideInInspector]
@@ -26,14 +26,14 @@ public abstract class ASystem : MonoBehaviour
     }
     public void SetOpacity(bool transparent)
     {
-        if (_systemSprites.Count == 0)
+        if (_systemRoofSprites.Count == 0)
         {
             Debug.LogWarning("Sprites of "+ gameObject.name + " not initialized");
             return;
         }
         if (transparent)
         {
-            foreach (SpriteRenderer sprite in _systemSprites)
+            foreach (SpriteRenderer sprite in _systemRoofSprites)
             {
                 Color c = sprite.color;
                 sprite.color = new Color(c.r, c.g, c.b, 0.5f);
@@ -41,7 +41,7 @@ public abstract class ASystem : MonoBehaviour
         }
         else
         {
-            foreach (SpriteRenderer sprite in _systemSprites)
+            foreach (SpriteRenderer sprite in _systemRoofSprites)
             {
                 Color c = sprite.color;
                 sprite.color = new Color(c.r, c.g, c.b, 1);
