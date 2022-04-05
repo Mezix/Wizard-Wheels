@@ -31,7 +31,6 @@ Transform:
   - {fileID: 4486056113902708837}
   - {fileID: 4020247864400121667}
   - {fileID: 3233156011727659326}
-  - {fileID: 918583642829459664}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -61,6 +60,9 @@ MonoBehaviour:
   UIColor: {r: 1, g: 0, b: 0, a: 0.49019608}
   lr: {fileID: 0}
   _weaponAudioSource: {fileID: 5770678182755424900}
+  tMov: {fileID: 0}
+  tankSpeedProjectileModifier: 0
+  _weaponSelectedLR: {fileID: 0}
 --- !u!1 &1891114875749286798
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,36 +220,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4486056113902708837}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4021755587979710805
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 918583642829459664}
-  m_Layer: 0
-  m_Name: DottedLine
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &918583642829459664
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4021755587979710805}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 740911756729272562}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4852491321411585132
 GameObject:

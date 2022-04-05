@@ -30,8 +30,6 @@ public abstract class AWeapon : ASystem
     public Transform RotatablePart;
     [HideInInspector]
     public GameObject TargetedRoom;
-    [HideInInspector]
-    private GameObject _targetingCircle;
 
     //  Misc
 
@@ -56,12 +54,13 @@ public abstract class AWeapon : ASystem
     [HideInInspector]
     public float tankSpeedProjectileModifier;
 
+    //  Selected
+    public WeaponSelectedUI _weaponSelectedLR;
     public virtual void Awake()
     {
         ShouldHitPlayer = false;
         SystemObj = gameObject;
         tankSpeedProjectileModifier = 0;
-        InitLineRenderer();
     }
     public override void InitSystemStats()
     {
@@ -87,7 +86,9 @@ public abstract class AWeapon : ASystem
         }
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
-        InitCircle();
+        InitWeaponSelectedUI();
+        _weaponSelectedLR.UpdateWeaponSelectedLR();
+        InitLineRenderer();
     }
     public void InitLineRenderer()
     {
@@ -96,14 +97,12 @@ public abstract class AWeapon : ASystem
         lr = go.GetComponent<LineRenderer>();
         lr.gameObject.SetActive(false);
     }
-    private void InitCircle()
+    private void InitWeaponSelectedUI()
     {
-        GameObject go = Instantiate((GameObject) Resources.Load("WeaponRangeCircle"));
-        go.transform.localScale = Vector3.one * MaxLockOnRange;
-        go.transform.parent = transform;
-        go.transform.localPosition = Vector3.zero;
-        _targetingCircle = go;
-        _targetingCircle.SetActive(false);
+        GameObject wSLR = Instantiate((GameObject)Resources.Load("WeaponSelectedUI"));
+        _weaponSelectedLR = wSLR.GetComponent<WeaponSelectedUI>();
+        _weaponSelectedLR.InitWeaponSelectedUI(this);
+        wSLR.transform.SetParent(transform);
     }
     public override void StartInteraction()
     {
@@ -125,10 +124,8 @@ public abstract class AWeapon : ASystem
     /// </summary>
     public void HandleWeaponSelected()
     {
-        _targetingCircle.SetActive(false);
         if (WeaponSelected && WeaponEnabled && !ShouldHitPlayer)
         {
-            _targetingCircle.SetActive(true);
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 AimWithMouse();
@@ -142,6 +139,10 @@ public abstract class AWeapon : ASystem
                 CancelAim();
             }
         }
+        if(_weaponSelectedLR)
+        {
+            _weaponSelectedLR.UpdateWeaponSelectedLR();
+        }
     }
 
     //  AIMING
@@ -151,7 +152,7 @@ public abstract class AWeapon : ASystem
         if (TargetedRoom) Ref.c.RemoveCrosshair(GetComponent<AWeapon>());
 
         RaycastHit2D hit = HM.RaycastToMouseCursor();
-        if (hit.collider)
+        if (hit.collider && hit.collider.tag != "Level")
         {
             TankController targetTC = hit.collider.transform.root.GetComponentInChildren<TankController>();
             if (targetTC && hit.collider.transform.TryGetComponent(out Room targetRoom))
@@ -184,7 +185,7 @@ public abstract class AWeapon : ASystem
             AimRotationAngle = HM.GetAngle2DBetween(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         }
         WeaponSelected = false;
-        _targetingCircle.SetActive(false);
+        _weaponSelectedLR._targetingCircle.SetActive(false);
     }
     public void CancelAim()
     {
@@ -193,7 +194,7 @@ public abstract class AWeapon : ASystem
         Ref.c.RemoveCrosshair(iwep);
         AimAtTarget = false;
         TargetedRoom = null;
-        _targetingCircle.SetActive(false);
+        _weaponSelectedLR._targetingCircle.SetActive(false);
     }
     public void ResetAim()
     {
@@ -203,7 +204,7 @@ public abstract class AWeapon : ASystem
         AimRotationAngle = 90;
         AimAtTarget = false;
         TargetedRoom = null;
-        _targetingCircle.SetActive(false);
+        _weaponSelectedLR._targetingCircle.SetActive(false);
     }
 
     //  ROTATE
