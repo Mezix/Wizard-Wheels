@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using System;
 
 public class AudioManager : MonoBehaviour
 {
@@ -21,7 +22,17 @@ public class AudioManager : MonoBehaviour
     {
         defaultVol = 0.75f;
         InitVolume();
+
+        InitSliders();
     }
+
+    private void InitSliders()
+    {
+        MasterVolumeSlider.onValueChanged.AddListener(delegate { SetMasterVolume(MasterVolumeSlider.value); });
+        MusicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(MusicVolumeSlider.value); });
+        SFXVolumeSlider.onValueChanged.AddListener(delegate { SetSFXVolume(SFXVolumeSlider.value); });
+    }
+
     public void InitVolume()
     {
         SetMasterVolume(defaultVol);

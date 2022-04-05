@@ -13,7 +13,6 @@ public class MainMenuSceneManager : MonoBehaviour
     public int tankIndex;
     public GameObject orb;
 
-
     private void Awake()
     {
         Ref.mMenu = this;

@@ -12,7 +12,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField]
     private Button mainMenuStartButton;
     [SerializeField]
-    private Button mainMenuSettingsButton;
+    private Button nonMainMenuSettingsButton;
     [SerializeField]
     private Button quitGameButton;
 
@@ -22,10 +22,6 @@ public class MainMenuUI : MonoBehaviour
 
     [SerializeField]
     private Button returnToMainMenuButton;
-    [SerializeField]
-    private Button settingsButton;
-    [SerializeField]
-    private Button closeSettingsButton;
 
     //  Select Screen UI
 
@@ -41,9 +37,7 @@ public class MainMenuUI : MonoBehaviour
 
     //  SettingsScreen
 
-    [SerializeField]
-    private GameObject settingsGO;
-    public bool settingsOn;
+    public Settings _settingsScript;
 
     private void Awake()
     {
@@ -51,11 +45,10 @@ public class MainMenuUI : MonoBehaviour
     }
     private void Start()
     {
-        settingsOn = false;
         ActivateMainMenuUI(true);
         ActivateOverworldUI(false);
-        ShowSettings(false);
         InitButtons();
+        _settingsScript.CloseSettings();
     }
     
     private void Update()
@@ -71,13 +64,17 @@ public class MainMenuUI : MonoBehaviour
     }
     private void InitButtons()
     {
+        //  Main Menu
+
         mainMenuStartButton.onClick.AddListener(() => ShowOverworldUI());
-        mainMenuSettingsButton.onClick.AddListener(() => ToggleSettings());
         quitGameButton.onClick.AddListener(() => Ref.mMenu.QuitGame());
 
+        //  Non Main Menu
+
         returnToMainMenuButton.onClick.AddListener(() => ReturnToMainMenu());
-        settingsButton.onClick.AddListener(() => ToggleSettings());
-        closeSettingsButton.onClick.AddListener(() => ToggleSettings());
+        nonMainMenuSettingsButton.onClick.AddListener(() => _settingsScript.ToggleSettings());
+
+        //  Select Screen
 
         nextTankButton.onClick.AddListener(() => Ref.mMenu.NextTank());
         previousTankButton.onClick.AddListener(() => Ref.mMenu.PreviousTank());
@@ -93,14 +90,14 @@ public class MainMenuUI : MonoBehaviour
         Ref.mCam.SetZoom(Ref.mCam.furthestZoom);
         ActivateMainMenuUI(true);
         ActivateOverworldUI(false);
-        ShowSettings(false);
+        _settingsScript.CloseSettings();
     }
     public void ShowOverworldUI()
     {
         Ref.mCam.SetZoom(Ref.mCam.closestZoom);
         ActivateMainMenuUI(false);
         ActivateOverworldUI(true);
-        ShowSettings(false);
+        _settingsScript.CloseSettings();
     }
     private void ActivateMainMenuUI(bool b)
     {
@@ -113,15 +110,5 @@ public class MainMenuUI : MonoBehaviour
         _selectScreenGO.SetActive(b);
         _nonMainMenuGO.SetActive(b);
         Ref.mMenu.wiz.movementLocked = !b;
-    }
-    public void ToggleSettings()
-    {
-        settingsOn = !settingsOn;
-        ShowSettings(settingsOn);
-    }
-    public void ShowSettings(bool b)
-    {
-        settingsGO.SetActive(b);
-        settingsOn = b;
     }
 }

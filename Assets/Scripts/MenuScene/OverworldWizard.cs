@@ -28,11 +28,7 @@ public class OverworldWizard : MonoBehaviour
 
         if (!movementLocked)
         {
-            if(!MovementInput()) moveVector = Vector2.zero;
-        }
-        else
-        {
-            moveVector = Vector2.zero;
+            MovementInput();
         }
         anim.SetFloat("Speed", moveVector.magnitude);
         anim.SetFloat("Horizontal", moveVector.x);
@@ -48,6 +44,7 @@ public class OverworldWizard : MonoBehaviour
 
     private bool MovementInput()
     {
+        moveVector = Vector2.zero;
         bool movementInput = false;
         if (Input.GetKey(KeyCode.W))
         {
