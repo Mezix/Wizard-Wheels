@@ -79,9 +79,9 @@ public class SteeringWheel : MonoBehaviour
     {
         _steeringWheelBG.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 128, 0);
         Vector3 startPos = new Vector3(0, 128, 0);
-        Vector3 endPos = _steeringWheelRect.anchoredPosition;
-        //if (!Input.GetKey(KeyCode.Mouse0)) endPos = Ref.mouse._cursorTransform.anchoredPosition;
-        //else endPos = _steeringWheelRect.anchoredPosition;
+        Vector3 endPos;
+        if (!Input.GetKey(KeyCode.Mouse0)) endPos = Ref.mouse._cursorTransform.anchoredPosition;
+        else endPos = _steeringWheelObject.GetComponent<RectTransform>().anchoredPosition;
         Sprite sp = Resources.Load("Art/Weapons/chain_link", typeof(Sprite)) as Sprite;
 
         DottedLine.DottedLine.Instance.DrawDottedUILine(startPos, endPos, Color.white, sp);
@@ -89,7 +89,7 @@ public class SteeringWheel : MonoBehaviour
         _rotateBackButton.gameObject.SetActive(false);
         _steeringWheelPrompt.SetActive(false);
 
-        if (Input.GetKey(KeyCode.Mouse0)) _steeringWheelRect.transform.SetParent(transform);
+        if (Input.GetKey(KeyCode.Mouse0)) _steeringWheelRect.transform.SetParent(transform, true);
         else _steeringWheelRect.transform.SetParent(Ref.mouse.mouseGameObject.transform, false);
         if (Input.GetKeyUp(KeyCode.Mouse0)) holdTime = 0;
     }

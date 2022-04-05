@@ -113,6 +113,8 @@ public class CameraScript : MonoBehaviour
         cameraOffset = new Vector3(cameraOffset.x, cameraOffset.y, 0) + 
                                    Camera.main.ScreenToWorldPoint(mouseStartDragPos) - 
                                    Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if(!cameraOffset.Equals(Vector3.zero)) Ref.UI.TrackingTank(false);
         mouseStartDragPos = Input.mousePosition;
         isMovingToPos = false;
     }

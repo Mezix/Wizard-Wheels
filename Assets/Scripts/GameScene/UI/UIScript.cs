@@ -123,15 +123,10 @@ public class UIScript : MonoBehaviour
     {
         //Buttons
         _pauseButton.onClick.AddListener(() => Ref.TM.TogglePauseWhilstPlaying());
-        _xrayButton.onClick = new Button.ButtonClickedEvent();
         _xrayButton.onClick.AddListener(() => ToggleVision());
-        _trackPlayerTankButton.onClick = new Button.ButtonClickedEvent();
         _trackPlayerTankButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToPlayer());
-        _returnWizardsButton.onClick = new Button.ButtonClickedEvent();
         _returnWizardsButton.onClick.AddListener(() => Ref.PCon.ReturnAllWizardsToSavedPositions());
-        _saveWizardsButton.onClick = new Button.ButtonClickedEvent();
         _saveWizardsButton.onClick.AddListener(() => SaveWizards(true));
-        _pauseButton.onClick = new Button.ButtonClickedEvent();
 
         //  Toggles
 
