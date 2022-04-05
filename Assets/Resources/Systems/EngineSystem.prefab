@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6907bbe78660114a9265342679ac615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _systemSprites: []
   SystemSprite: {fileID: 21300000, guid: e8d730aba51372e48970904bac05a5b6, type: 3}
   SystemObj: {fileID: 0}
   SystemName: 
@@ -118,12 +119,13 @@ SpriteRenderer:
   m_SortingLayerID: -2064992911
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 8d4e22481b9fbbd408e6521c15f484d7, type: 3}
+  m_Sprite: {fileID: 2685958311515368412, guid: cf9f131f4e53f834696dab2706a5c62e,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

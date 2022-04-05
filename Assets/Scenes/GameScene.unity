@@ -4140,7 +4140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 345413408}
   m_Layer: 5
-  m_Name: SteeringWheel
+  m_Name: SteeringWheelRect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4158,6 +4158,7 @@ RectTransform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 1665522132}
+  - {fileID: 625200745}
   - {fileID: 1684804233}
   m_Father: {fileID: 614429994}
   m_RootOrder: 1
@@ -5834,7 +5835,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 614429994}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7586,7 +7587,6 @@ RectTransform:
   m_Children:
   - {fileID: 124926532}
   - {fileID: 345413408}
-  - {fileID: 625200745}
   - {fileID: 458191757}
   m_Father: {fileID: 1658040418}
   m_RootOrder: 0
@@ -7625,15 +7625,15 @@ RectTransform:
   m_GameObject: {fileID: 625200744}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 386988613}
-  m_Father: {fileID: 614429994}
-  m_RootOrder: 2
+  m_Father: {fileID: 345413408}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 113.39998}
+  m_AnchoredPosition: {x: 0, y: 56.699974}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625200746
@@ -7696,7 +7696,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1395727688}
+        - m_Target: {fileID: 1658040419}
           m_MethodName: RotateFlash
           m_Mode: 1
           m_Arguments:
@@ -7711,7 +7711,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1395727688}
+        - m_Target: {fileID: 1658040419}
           m_MethodName: RotateIdle
           m_Mode: 1
           m_Arguments:
@@ -16048,7 +16048,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.0605445, y: -0.15682876}
+  m_AnchoredPosition: {x: -6.0605445, y: -0.15802173}
   m_SizeDelta: {x: 10, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1342106105
@@ -19757,13 +19757,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   steeringWheelParent: {fileID: 614429994}
   _steeringWheelRect: {fileID: 345413408}
-  _steeringWheel: {fileID: 345413407}
+  _steeringWheelObject: {fileID: 1665522131}
   _steeringWheelPointer: {fileID: 1684804232}
   _steeringWheelBG: {fileID: 124926531}
   _steeringWheelPrompt: {fileID: 1939465190}
   _rotateBackButton: {fileID: 625200746}
   _rotateBackButtonAnimator: {fileID: 386988616}
-  _dottedLinesParent: {fileID: 458191757}
+  _chainParent: {fileID: 458191757}
 --- !u!1 &1665522131
 GameObject:
   m_ObjectHideFlags: 0
@@ -20217,7 +20217,7 @@ Transform:
   m_Children:
   - {fileID: 635266251}
   m_Father: {fileID: 345413408}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1686361125
 GameObject:

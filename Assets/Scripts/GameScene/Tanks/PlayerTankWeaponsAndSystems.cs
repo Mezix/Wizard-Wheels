@@ -39,7 +39,10 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
     public override void SelectWeapon(int weaponIndex)
     {
         if (!multipleSelected) DeselectAllWeapons();
-        if (weaponIndex < AWeaponArray.Count) AWeaponArray[weaponIndex].WeaponSelected = true;
+        if (weaponIndex < AWeaponArray.Count)
+        {
+            if(AWeaponArray[weaponIndex].WeaponEnabled) AWeaponArray[weaponIndex].WeaponSelected = true;
+        }
         Ref.PCon.DeselectAllWizards();
     }
     public void DeselectAllWeapons()
@@ -50,6 +53,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
             {
                 wp.WeaponSelected = false;
                 wp.PlayerUIWep.WeaponUISelected(false);
+                wp._weaponSelectedUI.UpdateWeaponSelectedLR();
             }
         }
     }

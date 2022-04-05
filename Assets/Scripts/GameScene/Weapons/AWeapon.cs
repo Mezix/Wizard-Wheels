@@ -55,7 +55,7 @@ public abstract class AWeapon : ASystem
     public float tankSpeedProjectileModifier;
 
     //  Selected
-    public WeaponSelectedUI _weaponSelectedLR;
+    public WeaponSelectedUI _weaponSelectedUI;
     public virtual void Awake()
     {
         ShouldHitPlayer = false;
@@ -87,7 +87,7 @@ public abstract class AWeapon : ASystem
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
         InitWeaponSelectedUI();
-        _weaponSelectedLR.UpdateWeaponSelectedLR();
+        _weaponSelectedUI.UpdateWeaponSelectedLR();
         InitLineRenderer();
     }
     public void InitLineRenderer()
@@ -100,8 +100,8 @@ public abstract class AWeapon : ASystem
     private void InitWeaponSelectedUI()
     {
         GameObject wSLR = Instantiate((GameObject)Resources.Load("WeaponSelectedUI"));
-        _weaponSelectedLR = wSLR.GetComponent<WeaponSelectedUI>();
-        _weaponSelectedLR.InitWeaponSelectedUI(this);
+        _weaponSelectedUI = wSLR.GetComponent<WeaponSelectedUI>();
+        _weaponSelectedUI.InitWeaponSelectedUI(this);
         wSLR.transform.SetParent(transform);
     }
     public override void StartInteraction()
@@ -138,10 +138,10 @@ public abstract class AWeapon : ASystem
             {
                 CancelAim();
             }
-        }
-        if(_weaponSelectedLR)
-        {
-            _weaponSelectedLR.UpdateWeaponSelectedLR();
+            if (_weaponSelectedUI)
+            {
+                _weaponSelectedUI.UpdateWeaponSelectedLR();
+            }
         }
     }
 
@@ -185,7 +185,7 @@ public abstract class AWeapon : ASystem
             AimRotationAngle = HM.GetAngle2DBetween(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         }
         WeaponSelected = false;
-        _weaponSelectedLR._targetingCircle.SetActive(false);
+        //_weaponSelectedLR._targetingCircle.SetActive(false);
     }
     public void CancelAim()
     {
@@ -194,7 +194,7 @@ public abstract class AWeapon : ASystem
         Ref.c.RemoveCrosshair(iwep);
         AimAtTarget = false;
         TargetedRoom = null;
-        _weaponSelectedLR._targetingCircle.SetActive(false);
+        //_weaponSelectedLR._targetingCircle.SetActive(false);
     }
     public void ResetAim()
     {
@@ -204,7 +204,7 @@ public abstract class AWeapon : ASystem
         AimRotationAngle = 90;
         AimAtTarget = false;
         TargetedRoom = null;
-        _weaponSelectedLR._targetingCircle.SetActive(false);
+        //_weaponSelectedLR._targetingCircle.SetActive(false);
     }
 
     //  ROTATE

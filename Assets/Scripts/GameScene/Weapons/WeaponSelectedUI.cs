@@ -25,7 +25,7 @@ public class WeaponSelectedUI : MonoBehaviour
     public void UpdateWeaponSelectedLR()
     {
         _targetingCircle.SetActive(false);
-        if (weapon.WeaponSelected && !weapon.ShouldHitPlayer)
+        if (weapon.WeaponSelected && weapon.WeaponEnabled &&!weapon.ShouldHitPlayer)
         {
             _targetingCircle.SetActive(true);
             Vector3 weaponPos = weapon.transform.position;

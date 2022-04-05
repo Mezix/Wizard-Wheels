@@ -198,7 +198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3596a8e2bd10f2d4c97f759e7c19803a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetingCircle: {fileID: 0}
   _selectedLR: {fileID: 9065804015824814728}
   _outOfRangeIndicator: {fileID: 5939602376056591659}
   _distanceText: {fileID: 8178502164215502204}
@@ -324,7 +323,7 @@ LineRenderer:
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 3
-    alignment: 0
+    alignment: 1
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
@@ -621,9 +620,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -2078505873
+  m_SortingLayer: 6
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 568c28d5390ba8b47a9d455ac491090a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -80,7 +80,7 @@ public class PlayerTankRotation : TankRotation
     }
     public void SetPointerRotationRelativeToSteeringWheel()
     {
-        float rot = HM.GetAngle2DBetween(Ref.UI._steeringWheelScript._steeringWheel.transform.position, Input.mousePosition);
+        float rot = HM.GetAngle2DBetween(Ref.UI._steeringWheelScript._steeringWheelObject.transform.position, Input.mousePosition);
         HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheelPointer.transform, new Vector3(0, 0, rot + 90));
         AngleToRotateTo = Ref.UI._steeringWheelScript._steeringWheelPointer.transform.eulerAngles.z;
         pointerAngleSet = true;
@@ -88,7 +88,7 @@ public class PlayerTankRotation : TankRotation
 
     private void SetRotationOfSteeringWheel()
     {
-        HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheel.transform, rotatableObjects[0].transform.rotation.eulerAngles);
+        HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheelObject.transform, rotatableObjects[0].transform.rotation.eulerAngles);
     }
 
     //  Rotate Tank Manually using the arrow keys
@@ -120,7 +120,7 @@ public class PlayerTankRotation : TankRotation
             {
                 pointerAngleSet = false;
                 RotateAllObjectsToRotation(AngleToRotateTo);
-                HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
+                HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheelObject.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {
@@ -134,7 +134,7 @@ public class PlayerTankRotation : TankRotation
             {
                 pointerAngleSet = false;
                 RotateAllObjectsToRotation(AngleToRotateTo);
-                HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheel.transform, new Vector3(0, 0, AngleToRotateTo));
+                HM.RotateTransformToAngle(Ref.UI._steeringWheelScript._steeringWheelObject.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {

@@ -27,8 +27,11 @@ public class PlayerWeaponUI : MonoBehaviour
         Events.instance.DoubleClickAttempted(_weapon.gameObject);
         if (_weapon != null)
         {
-            WeaponUISelected(true);
-            _weapon.WeaponSelected = true;
+            if(_weapon.WeaponEnabled)
+            {
+                WeaponUISelected(true);
+                _weapon.WeaponSelected = true;
+            }
         }
     }
     public void WeaponInteractable(bool b)
