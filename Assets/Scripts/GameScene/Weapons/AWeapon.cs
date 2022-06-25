@@ -331,8 +331,9 @@ public abstract class AWeapon : ASystem
         if (_weaponAudioSource) _weaponAudioSource.Play();
         else Debug.LogError("missing audio clip for weapon!");
     }
-    protected void UpdateLaserLR()
+    public void UpdateLaserLR()
     {
+        if (!lr) return;
         lr.gameObject.SetActive(false);
         if (TargetedRoom && AimAtTarget && ShouldHitPlayer)
         {

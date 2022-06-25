@@ -16,10 +16,11 @@ public class CreateTankTools : MonoBehaviour
     public Dropdown _toolSelecterDropdown;
 
     public bool previewTile;
-    private GameObject tirePreview;
     private GameObject wallPreview;
+    private GameObject tirePreview;
+    private GameObject systemPreview;
 
-    CreateTankUI ui;
+    private CreateTankUI ui;
 
     public void Awake()
     {
@@ -36,17 +37,33 @@ public class CreateTankTools : MonoBehaviour
     {
         HandleKeyboardInput();
         HandleMouseInput();
+        HandleScrollWheel();
     }
+
+    private void HandleScrollWheel()
+    {
+        if (Input.GetKey(KeyCode.LeftShift)) return; //exclusion with camera movement using the shift key
+        if (Input.mouseScrollDelta.y > 0)
+        {
+            ui.NextItemInList();
+        }
+        if (Input.mouseScrollDelta.y < 0)
+        {
+            ui.PreviousItemInList();
+        }
+    }
+
     private void HandleMouseInput()
     {
         tempFloorTilemap.ClearAllTiles();
         tempRoofTilemap.ClearAllTiles();
         if (wallPreview) Destroy(wallPreview);
         if (tirePreview) Destroy(tirePreview);
+        if (systemPreview) Destroy(systemPreview);
 
         Tilemap currentlySelectedTempTilemap;
         Tilemap currentlySelectedTilemap;
-        int tileType = CreateTankSceneManager.instance._tUI._tileTypeIndex;
+        int tileType = CreateTankSceneManager.instance._tUI._partTypeIndex;
         if (tileType == 0)
         {
             currentlySelectedTempTilemap = tempFloorTilemap;
@@ -76,6 +93,12 @@ public class CreateTankTools : MonoBehaviour
             {
                 Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
                 HoverTire(tirepos);
+                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof(Tile)) as Tile);
+            }
+            else if (tileType == 4)
+            {
+                Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
+                HoverSystem(tirepos);
                 currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof(Tile)) as Tile);
             }
         }
@@ -108,6 +131,11 @@ public class CreateTankTools : MonoBehaviour
                 }
                 else if (tileType == 3)
                 {
+                    CreateTankSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, ui.GetTirePrefab());
+                }
+                else if (tileType == 4)
+                {
+                    CreateTankSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, ui.GetWeaponPrefab());
                 }
             }
 
@@ -124,9 +152,15 @@ public class CreateTankTools : MonoBehaviour
                 }
                 else if (tileType == 2)
                 {
+                    CreateTankSceneManager.instance._tGeo.CreateWallAtPos(pos.x, pos.y, "delete");
                 }
                 else if (tileType == 3)
                 {
+                    CreateTankSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, null);
+                }
+                else if (tileType == 3)
+                {
+                    CreateTankSceneManager.instance._tGeo.CreateSystemAtPos(pos.x, pos.y, null);
                 }
             }
         }
@@ -140,6 +174,11 @@ public class CreateTankTools : MonoBehaviour
     {
         tirePreview = Instantiate(ui._tiresGOList[ui.tiresIndex]);
         tirePreview.transform.position = tirePos + new Vector3(0, 0.5f, 0);
+    }
+    private void HoverSystem(Vector3 systemPos)
+    {
+        systemPreview = Instantiate(ui._systemGOList[ui.systemsIndex]);
+        systemPreview.transform.position = systemPos + new Vector3(0, 0.5f, 0);
     }
     private void HandleKeyboardInput()
     {
@@ -191,4 +230,5 @@ public class CreateTankTools : MonoBehaviour
         previewTile = false;
         CreateTankSceneManager.instance.mouse._mouseState = "Eraser";
     }
+
 }

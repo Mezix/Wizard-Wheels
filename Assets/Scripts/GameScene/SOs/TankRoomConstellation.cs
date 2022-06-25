@@ -85,14 +85,24 @@ public class TankRoomConstellation : ScriptableObject
     [Serializable]
     public class RoomInfo
     {
+        //  Fields for loading and saving
         public GameObject RoomPrefab;
         public Tile FloorTile;
-        public GameObject RoomSystemPrefab;
+        public GameObject systemPrefab;
         public GameObject TirePrefab;
         public Tile RoofTile;
-        public bool WallUp;
-        public bool WallRight;
-        public bool WallDown;
-        public bool WallLeft;
+        public bool _topWallExists;
+        public bool _rightWallExists;
+        public bool _bottomWallExists;
+        public bool _leftWallExists;
+
+        //spawned objects for referencing
+
+        public GameObject _topWall = null;
+        public GameObject _rightWall = null;
+        public GameObject _bottomWall = null;
+        public GameObject _leftWall = null;
+
+        public GameObject _spawnedTire;
     }
 }

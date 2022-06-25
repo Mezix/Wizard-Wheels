@@ -718,7 +718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitStats: {fileID: 11400000, guid: 584bdd98e3f37a84ea49a59611525939, type: 2}
-  PlayerUIWizardIcon: {fileID: 21300000, guid: 93b68e4c47048684f868c530651008ed, type: 3}
+  PlayerUIWizardIcon: {fileID: 21300000, guid: 4330a538fff05384db4413f5e258fbf0, type: 3}
   WizardUI: {fileID: 3052949227477263527}
   UIName: {fileID: 7593667953222834501}
   WizardHealthbar: {fileID: 7799865912086552248}

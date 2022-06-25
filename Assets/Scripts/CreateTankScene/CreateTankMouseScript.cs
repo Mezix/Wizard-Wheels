@@ -87,6 +87,7 @@ public class CreateTankMouseScript : MonoBehaviour
     }
     private void HandleZoomInput()
     {
+        if (!Input.GetKey(KeyCode.LeftShift)) return;
         if (Input.mouseScrollDelta.y != 0)
         {
             if (Input.mouseScrollDelta.y > 0)

@@ -9,4 +9,5 @@ public class UnitStats : ScriptableObject
     public string _unitClass = "";
     public float _unitHealth;
     public float _unitSpeed;
+
 }

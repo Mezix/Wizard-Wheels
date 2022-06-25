@@ -11,6 +11,7 @@ public class OverworldWizard : MonoBehaviour
     private Animator anim;
 
     public bool movementLocked;
+    public SpriteRenderer _orb;
     private void Awake()
     {
         movementLocked = false;
@@ -33,6 +34,8 @@ public class OverworldWizard : MonoBehaviour
         anim.SetFloat("Speed", moveVector.magnitude);
         anim.SetFloat("Horizontal", moveVector.x);
         anim.SetFloat("Vertical", moveVector.y);
+
+        UpdateOrbSortingLayer();
     }
     private void FixedUpdate()
     {
@@ -88,5 +91,9 @@ public class OverworldWizard : MonoBehaviour
             Ref.mCam.SetCamParent(transform);
             Ref.mUI._selectScreenGO.SetActive(false);
         }
+    }
+    private void UpdateOrbSortingLayer()
+    {
+        _orb.sortingOrder = Mathf.Clamp(Mathf.FloorToInt(transform.position.y * 10),-1, 1);
     }
 }

@@ -76,8 +76,8 @@ public class MainMenuUI : MonoBehaviour
 
         //  Select Screen
 
-        nextTankButton.onClick.AddListener(() => Ref.mMenu.NextTank());
-        previousTankButton.onClick.AddListener(() => Ref.mMenu.PreviousTank());
+        nextTankButton.onClick.AddListener(() => Ref.mMenu._mmTankPreview.NextTank());
+        previousTankButton.onClick.AddListener(() => Ref.mMenu._mmTankPreview.PreviousTank());
         launchGameButton.onClick.AddListener(() => Ref.mMenu.LaunchGame());
     }
     public void UpdateSelectedTankText(string tankName)

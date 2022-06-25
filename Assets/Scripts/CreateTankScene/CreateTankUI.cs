@@ -17,7 +17,7 @@ public class CreateTankUI : MonoBehaviour
     private List<UILayer> layers = new List<UILayer>();
 
     //  ALL TILES
-    public int _tileTypeIndex;
+    public int _partTypeIndex;
 
     //  Floor
     public List<Tile> _floorTiles;
@@ -39,14 +39,19 @@ public class CreateTankUI : MonoBehaviour
     private List<Dropdown.OptionData> tiresList = new List<Dropdown.OptionData>();
     public int tiresIndex;
 
+    //  Tires
+    public List<GameObject> _systemGOList;
+    private List<Dropdown.OptionData> systemsList = new List<Dropdown.OptionData>();
+    public int systemsIndex;
+
     private void Start()
     {
-        _tileTypeIndex = 0;
+        _partTypeIndex = 0;
         InitButtons();
         InitPartsDropdown();
         InitLayers();
         SelectPart(0);
-        SelectList(_tileTypeIndex);
+        SelectList(_partTypeIndex);
     }
     public void InitButtons()
     {
@@ -84,10 +89,18 @@ public class CreateTankUI : MonoBehaviour
             //newOptData.image = t.sprite;
             tiresList.Add(newOptData);
         }
+        foreach (GameObject system in _systemGOList)
+        {
+            Dropdown.OptionData newOptData = new Dropdown.OptionData();
+            newOptData.text = system.name;
+            //newOptData.image = t.sprite;
+            systemsList.Add(newOptData);
+        }
         floorIndex = 0;
         roofIndex = 0;
         wallIndex = 0;
         tiresIndex = 0;
+        systemsIndex = 0;
     }
     private void InitLayers()
     {
@@ -105,32 +118,95 @@ public class CreateTankUI : MonoBehaviour
             i++;
         }
     }
-    public void SelectList(int listNr)
+    public void NextItemInList()
     {
-        _tileTypeIndex = listNr;
+        if (_partTypeIndex == 0)
+        {
+            floorIndex++;
+            if (floorIndex > floorTilesList.Count - 1) floorIndex = 0;
+        }
+        if (_partTypeIndex == 1)
+        {
+            roofIndex++;
+            if (roofIndex > roofTilesList.Count - 1) roofIndex = 0;
+        }
+        if (_partTypeIndex == 2)
+        {
+            wallIndex++;
+            if (wallIndex > wallTilesList.Count - 1) wallIndex = 0;
+        }
+        if (_partTypeIndex == 3)
+        {
+            tiresIndex++;
+            if (tiresIndex > tiresList.Count - 1) tiresIndex = 0;
+        }
+        if (_partTypeIndex == 4)
+        {
+            systemsIndex++;
+            if (systemsIndex > systemsList.Count - 1) systemsIndex = 0;
+        }
+        SelectList(_partTypeIndex);
+    }
+    public void PreviousItemInList()
+    {
+        if (_partTypeIndex == 0)
+        {
+            floorIndex--;
+            if (floorIndex < 0) floorIndex = floorTilesList.Count-1;
+        }
+        if (_partTypeIndex == 1)
+        {
+            roofIndex--;
+            if (roofIndex < 0) roofIndex = roofTilesList.Count - 1;
+        }
+        if (_partTypeIndex == 2)
+        {
+            wallIndex--;
+            if (wallIndex < 0) wallIndex = wallTilesList.Count - 1;
+        }
+        if (_partTypeIndex == 3)
+        {
+            tiresIndex--;
+            if (tiresIndex < 0) tiresIndex = tiresList.Count - 1;
+        }
+        if (_partTypeIndex == 4)
+        {
+            systemsIndex--;
+            if (systemsIndex < 0) systemsIndex = systemsList.Count - 1;
+        }
+        SelectList(_partTypeIndex);
+    }
+    public void SelectList(int partType)
+    {
+        _partTypeIndex = partType;
 
         foreach (UILayer uil in layers) uil.BG.color = Color.gray;
-        layers[_tileTypeIndex].BG.color = Color.white;
+        layers[_partTypeIndex].BG.color = Color.white;
 
-        if (listNr == 0)
+        if (partType == 0)
         {
             _partsDropDown.options = floorTilesList;
             SelectPart(floorIndex);
         }
-        if (listNr == 1)
+        if (partType == 1)
         {
             _partsDropDown.options = roofTilesList;
             SelectPart(roofIndex);
         }
-        if (listNr == 2)
+        if (partType == 2)
         {
             _partsDropDown.options = wallTilesList;
             SelectPart(wallIndex);
         }
-        if (listNr == 3)
+        if (partType == 3)
         {
             _partsDropDown.options = tiresList;
             SelectPart(tiresIndex);
+        }
+        if (partType == 4)
+        {
+            _partsDropDown.options = systemsList;
+            SelectPart(systemsIndex);
         }
     }
     public void ShowLayer(bool b, int index)
@@ -154,34 +230,46 @@ public class CreateTankUI : MonoBehaviour
     }
     public void SelectPart(int partNr)
     {
-        if(_tileTypeIndex == 0)
+        if(_partTypeIndex == 0)
         {
             floorIndex = partNr;
         }
-        if (_tileTypeIndex == 1)
+        if (_partTypeIndex == 1)
         {
             roofIndex = partNr;
         }
-        if (_tileTypeIndex == 2)
+        if (_partTypeIndex == 2)
         {
             wallIndex = partNr;
         }
-        if (_tileTypeIndex == 3)
+        if (_partTypeIndex == 3)
         {
             tiresIndex = partNr;
+        }
+        if (_partTypeIndex == 4)
+        {
+            systemsIndex = partNr;
         }
         _partsDropDown.value = partNr;
     }
     public Tile GetTile()
     {
-        if (_tileTypeIndex == 0)
+        if (_partTypeIndex == 0)
         {
             return _floorTiles[floorIndex];
         }
-        else if (_tileTypeIndex == 1)
+        else if (_partTypeIndex == 1)
         {
             return _roofTiles[roofIndex];
         }
         else return _floorTiles[floorIndex];
+    }
+    public GameObject GetTirePrefab()
+    {
+        return _tiresGOList[tiresIndex];
+    }
+    public GameObject GetWeaponPrefab()
+    {
+        return _tiresGOList[tiresIndex];
     }
 }

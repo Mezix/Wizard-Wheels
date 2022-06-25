@@ -8705,7 +8705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56098410987c5f48bfa1f90cc65c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tankRoomConstellation: {fileID: 11400000, guid: 74bb0e1ea42492e4491bf4e8ae060efc,
+  _tankRoomConstellation: {fileID: 11400000, guid: 7fb3cf5fc41c85447ab5b9f52b05a7a5,
     type: 2}
   systemIcons: []
   FloorColor: {r: 1, g: 0.84445155, b: 0.6933962, a: 1}
