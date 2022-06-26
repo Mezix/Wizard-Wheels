@@ -109,7 +109,7 @@ public class UnitPathfinding : MonoBehaviour
             if (x != 0)
             {
                 int checkX = roomPosToCheck._xPos + x;
-                if (checkX >= 0 && checkX < tank._tankRoomConstellation._XSize)
+                if (checkX >= 0 && checkX < tank._tankRoomConstellation._savedXSize)
                 {
                     if (tank.RoomPosMatrix[checkX, roomPosToCheck._yPos])
                     {
@@ -125,7 +125,7 @@ public class UnitPathfinding : MonoBehaviour
             if (y != 0)
             {
                 int checkY = roomPosToCheck._yPos + y;
-                if (checkY >= 0 && checkY < tank._tankRoomConstellation._YSize)
+                if (checkY >= 0 && checkY < tank._tankRoomConstellation._savedYSize)
                 {
                     if (tank.RoomPosMatrix[roomPosToCheck._xPos, checkY] != null)
                     {

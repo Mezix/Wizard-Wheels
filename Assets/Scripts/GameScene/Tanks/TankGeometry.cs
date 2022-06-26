@@ -32,9 +32,9 @@ public class TankGeometry : MonoBehaviour
     private void CreateBGAndRoof()
     {
         CreateFloorAndRoofTilemap();
-        for (int x = 0; x < _tankRoomConstellation._XSize; x++)
+        for (int x = 0; x < _tankRoomConstellation._savedXSize; x++)
         {
-            for (int y = 0; y < _tankRoomConstellation._YSize; y++)
+            for (int y = 0; y < _tankRoomConstellation._savedYSize; y++)
             {
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
@@ -143,16 +143,16 @@ public class TankGeometry : MonoBehaviour
     }
     private void CreateRooms()
     {
-        RoomPosMatrix = new RoomPosition[_tankRoomConstellation._XSize, _tankRoomConstellation._YSize];
+        RoomPosMatrix = new RoomPosition[_tankRoomConstellation._savedXSize, _tankRoomConstellation._savedYSize];
         AllRooms = new List<Room>();
 
         RoomsParent = new GameObject("All Tank Rooms");
         RoomsParent.transform.parent = gameObject.transform;
         RoomsParent.transform.localPosition = Vector3.zero;
 
-        for (int y = 0; y < _tankRoomConstellation._YSize; y++)
+        for (int y = 0; y < _tankRoomConstellation._savedYSize; y++)
         {
-            for (int x = 0; x < _tankRoomConstellation._XSize; x++)
+            for (int x = 0; x < _tankRoomConstellation._savedXSize; x++)
             {
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].RoomPrefab)
                 {
@@ -192,9 +192,9 @@ public class TankGeometry : MonoBehaviour
     }
     public void CreateSystemIcons()
     {
-        for (int x = 0; x < _tankRoomConstellation._XSize; x++)
+        for (int x = 0; x < _tankRoomConstellation._savedXSize; x++)
         {
-            for (int y = 0; y < _tankRoomConstellation._YSize; y++)
+            for (int y = 0; y < _tankRoomConstellation._savedYSize; y++)
             {
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].SystemPrefab)
                 {
@@ -214,9 +214,9 @@ public class TankGeometry : MonoBehaviour
     }
     public void CreateWalls()
     {
-        for (int y = 0; y < _tankRoomConstellation._YSize; y++)
+        for (int y = 0; y < _tankRoomConstellation._savedYSize; y++)
         {
-            for (int x = 0; x < _tankRoomConstellation._XSize; x++)
+            for (int x = 0; x < _tankRoomConstellation._savedXSize; x++)
             {
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y]._topWallExists)
                 {
@@ -248,9 +248,9 @@ public class TankGeometry : MonoBehaviour
     public void InitWeaponsAndSystems()
     {
         TankWeaponsAndSystems twep = GetComponent<TankWeaponsAndSystems>();
-        for (int x = 0; x < _tankRoomConstellation._XSize; x++)
+        for (int x = 0; x < _tankRoomConstellation._savedXSize; x++)
         {
-            for (int y = 0; y < _tankRoomConstellation._YSize; y++)
+            for (int y = 0; y < _tankRoomConstellation._savedYSize; y++)
             {
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].SystemPrefab)
                 {
@@ -308,7 +308,7 @@ public class TankGeometry : MonoBehaviour
         TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
 
         //  Now move to the halfway point
-        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation._XSize, 0.25f * _tankRoomConstellation._YSize, 0);
+        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _tankRoomConstellation._savedXSize, 0.25f * _tankRoomConstellation._savedYSize, 0);
 
         //print("finished creating Tank Geometry");
     }
@@ -357,10 +357,10 @@ public class TankGeometry : MonoBehaviour
     public void VisualizeMatrix()
     {
         string matrix = "";
-        for (int y = 0; y < _tankRoomConstellation._YSize; y++)
+        for (int y = 0; y < _tankRoomConstellation._savedYSize; y++)
         {
             matrix += "Y:" + y.ToString() + ": ";
-            for (int x = 0; x < _tankRoomConstellation._XSize; x++)
+            for (int x = 0; x < _tankRoomConstellation._savedXSize; x++)
             {
                 if (RoomPosMatrix[x, y]) matrix += "(" + RoomPosMatrix[x, y].name + ") ";
                 else matrix += "__NONE__, ";

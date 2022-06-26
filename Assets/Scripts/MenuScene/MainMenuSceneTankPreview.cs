@@ -94,9 +94,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     private void CreateBGAndRoof()
     {
         CreateFloorAndRoofTilemap();
-        for (int x = 0; x < _currentTRC._XSize; x++)
+        for (int x = 0; x < _currentTRC._savedXSize; x++)
         {
-            for (int y = 0; y < _currentTRC._YSize; y++)
+            for (int y = 0; y < _currentTRC._savedYSize; y++)
             {
                 if (x >= _currentTRC._savedMatrix.XArray.Length || y >= _currentTRC._savedMatrix.XArray[0].YStuff.Length) continue;
                 if (_currentTRC._savedMatrix.XArray[x].YStuff[y].RoomPrefab)
@@ -302,7 +302,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
 
     private void LoadRooms()
     {
-        _roomPosMatrix = new RoomPosition[_currentTRC._XSize, _currentTRC._YSize];
+        _roomPosMatrix = new RoomPosition[_currentTRC._savedXSize, _currentTRC._savedYSize];
         AllRooms = new List<Room>();
         if (FloorTilemap) FloorTilemap.ClearAllTiles();
         if (RoofTilemap) RoofTilemap.ClearAllTiles();
@@ -313,9 +313,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         RoomsParent.transform.parent = gameObject.transform;
         RoomsParent.transform.localPosition = Vector3.zero;
 
-        for (int y = 0; y < _currentTRC._YSize; y++)
+        for (int y = 0; y < _currentTRC._savedYSize; y++)
         {
-            for (int x = 0; x < _currentTRC._XSize; x++)
+            for (int x = 0; x < _currentTRC._savedXSize; x++)
             {
                 if (x >= _currentTRC._savedMatrix.XArray.Length || y >= _currentTRC._savedMatrix.XArray[0].YStuff.Length) continue;
                 if (_currentTRC._savedMatrix.XArray[x].YStuff[y].RoomPrefab)
@@ -396,9 +396,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
 
     public void CreateWalls()
     {
-        for (int y = 0; y < _currentTRC._YSize; y++)
+        for (int y = 0; y < _currentTRC._savedYSize; y++)
         {
-            for (int x = 0; x < _currentTRC._XSize; x++)
+            for (int x = 0; x < _currentTRC._savedXSize; x++)
             {
                 if (x >= _currentTRC._savedMatrix.XArray.Length || y >= _currentTRC._savedMatrix.XArray[0].YStuff.Length) continue;
                 if (_currentTRC._savedMatrix.XArray[x].YStuff[y]._topWallExists)
@@ -473,9 +473,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         rotatableObjects.transform.parent = transform;
         rotatableObjects.transform.localPosition = Vector3.zero;
 
-        for (int x = 0; x < _currentTRC._XSize; x++)
+        for (int x = 0; x < _currentTRC._savedXSize; x++)
         {
-            for (int y = 0; y < _currentTRC._YSize; y++)
+            for (int y = 0; y < _currentTRC._savedYSize; y++)
             {
                 if (_currentTRC._savedMatrix.XArray[x].YStuff[y].TirePrefab)
                 {
@@ -500,9 +500,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
 
     public void CreateSystemIcons()
     {
-        for (int x = 0; x < _currentTRC._XSize; x++)
+        for (int x = 0; x < _currentTRC._savedXSize; x++)
         {
-            for (int y = 0; y < _currentTRC._YSize; y++)
+            for (int y = 0; y < _currentTRC._savedYSize; y++)
             {
                 if (_currentTRC._savedMatrix.XArray[x].YStuff[y].SystemPrefab)
                 {
@@ -523,9 +523,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     public void InitWeaponsAndSystems()
     {
         TankWeaponsAndSystems twep = GetComponent<TankWeaponsAndSystems>();
-        for (int x = 0; x < _currentTRC._XSize; x++)
+        for (int x = 0; x < _currentTRC._savedXSize; x++)
         {
-            for (int y = 0; y < _currentTRC._YSize; y++)
+            for (int y = 0; y < _currentTRC._savedYSize; y++)
             {
                 if (_currentTRC._savedMatrix.XArray[x].YStuff[y].SystemPrefab)
                 {
@@ -584,7 +584,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
 
         //  Now move to the halfway point
-        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _currentTRC._XSize, 0.25f * _currentTRC._YSize, 0);
+        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _currentTRC._savedXSize, 0.25f * _currentTRC._savedYSize, 0);
 
         _visibleGrid = new GameObject("VisibleGrid");
         SpriteRenderer sr = _visibleGrid.AddComponent<SpriteRenderer>();
@@ -632,10 +632,10 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     public void VisualizeMatrix()
     {
         string matrix = "";
-        for (int y = 0; y < _currentTRC._YSize; y++)
+        for (int y = 0; y < _currentTRC._savedYSize; y++)
         {
             matrix += "Y:" + y.ToString() + ": ";
-            for (int x = 0; x < _currentTRC._XSize; x++)
+            for (int x = 0; x < _currentTRC._savedXSize; x++)
             {
                 if (_roomPosMatrix[x, y]) matrix += "(" + _roomPosMatrix[x, y].name + ") ";
                 else matrix += "__NONE__, ";

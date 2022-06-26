@@ -78,9 +78,9 @@ public class TankMovement : MonoBehaviour
         rotatableObjects.transform.parent = transform;
         rotatableObjects.transform.localPosition = Vector3.zero;
 
-        for (int x = 0; x < tank._tankRoomConstellation._XSize; x++)
+        for (int x = 0; x < tank._tankRoomConstellation._savedXSize; x++)
         {
-            for (int y = 0; y < tank._tankRoomConstellation._YSize; y++)
+            for (int y = 0; y < tank._tankRoomConstellation._savedYSize; y++)
             {
                 if (tank._tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].TirePrefab)
                 {

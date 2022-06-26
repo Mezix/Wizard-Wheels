@@ -12,6 +12,8 @@ public class CreateTankUI : MonoBehaviour
     public InputField _inputField;
     public Dropdown _partsDropDown;
     public Dropdown _layersDropDown;
+    public Text _tankWidth;
+    public Text _tankHeight;
 
     public GameObject _layersParent;
     private List<UILayer> layers = new List<UILayer>();
@@ -271,5 +273,10 @@ public class CreateTankUI : MonoBehaviour
     public GameObject GetSystemPrefab()
     {
         return _systemGOList[systemsIndex];
+    }
+    public void UpdateSize(int width, int height)
+    {
+        _tankWidth.text = width.ToString();
+        _tankHeight.text = height.ToString();
     }
 }
