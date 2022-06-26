@@ -135,7 +135,7 @@ public class CreateTankTools : MonoBehaviour
                 }
                 else if (tileType == 4)
                 {
-                    CreateTankSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, ui.GetWeaponPrefab());
+                    CreateTankSceneManager.instance._tGeo.CreateSystemAtPos(pos.x, pos.y, ui.GetSystemPrefab());
                 }
             }
 
@@ -158,7 +158,7 @@ public class CreateTankTools : MonoBehaviour
                 {
                     CreateTankSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, null);
                 }
-                else if (tileType == 3)
+                else if (tileType == 4)
                 {
                     CreateTankSceneManager.instance._tGeo.CreateSystemAtPos(pos.x, pos.y, null);
                 }

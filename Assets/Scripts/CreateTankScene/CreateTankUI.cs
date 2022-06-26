@@ -268,8 +268,8 @@ public class CreateTankUI : MonoBehaviour
     {
         return _tiresGOList[tiresIndex];
     }
-    public GameObject GetWeaponPrefab()
+    public GameObject GetSystemPrefab()
     {
-        return _tiresGOList[tiresIndex];
+        return _systemGOList[systemsIndex];
     }
 }

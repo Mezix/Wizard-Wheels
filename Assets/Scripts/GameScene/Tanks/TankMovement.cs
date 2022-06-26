@@ -78,15 +78,15 @@ public class TankMovement : MonoBehaviour
         rotatableObjects.transform.parent = transform;
         rotatableObjects.transform.localPosition = Vector3.zero;
 
-        for (int x = 0; x < tank._tankRoomConstellation._X; x++)
+        for (int x = 0; x < tank._tankRoomConstellation._XSize; x++)
         {
-            for (int y = 0; y < tank._tankRoomConstellation._Y; y++)
+            for (int y = 0; y < tank._tankRoomConstellation._YSize; y++)
             {
-                if (tank._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab)
+                if (tank._tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].TirePrefab)
                 {
-                    GameObject tire = tank._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab;
+                    GameObject tire = tank._tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].TirePrefab;
 
-                    if (tank._tankRoomConstellation.SavedPrefabRefMatrix.XArray[x].YStuff[y].TirePrefab.GetComponentInChildren<Tire>() != null)
+                    if (tank._tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].TirePrefab.GetComponentInChildren<Tire>() != null)
                     {
                         //print(x.ToString() + ", " + y.ToString());
                         if (!tank.RoomPosMatrix[x, y]) continue;

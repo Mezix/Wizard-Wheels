@@ -10,14 +10,14 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(menuName = "ScriptableObjects/TankRoomConstellations")]
 public class TankRoomConstellation : ScriptableObject
 {
-    public int _X; //just the amount of Tiles in a given direction
-    public int _Y;
+    public int _XSize = 0; //just the amount of Tiles in a given direction
+    public int _YSize = 0;
 
-    public int _tmpX;
-    public int _tmpY;
+    public int _tmpXSize = 0;
+    public int _tmpYSize = 0;
 
-    public XValues SavedPrefabRefMatrix;
-    public XValues _tmpMatrix;
+    public XValues _savedMatrix = null;
+    public XValues _tmpMatrix = null;
 
     public void SaveTank(string newName)
     {
@@ -29,9 +29,9 @@ public class TankRoomConstellation : ScriptableObject
             AssetDatabase.RenameAsset(assetPath, newName);
             #endif
         }
-        SavedPrefabRefMatrix = _tmpMatrix; //overwrite our old matrix with what is currently being shown
-        _X = _tmpX;
-        _Y = _tmpY;
+        _savedMatrix = _tmpMatrix; //overwrite our old matrix with what is currently being shown
+        _XSize = _tmpXSize;
+        _YSize = _tmpYSize;
 
         #if UNITY_EDITOR
             EditorUtility.SetDirty(this);
@@ -41,21 +41,21 @@ public class TankRoomConstellation : ScriptableObject
     }
     public void InitTankForCreation()
     {
-        if(SavedPrefabRefMatrix.XArray.Length > 0)
+        if(_savedMatrix.XArray.Length > 0)
         {
-            _X = SavedPrefabRefMatrix.XArray.Length;
-            _Y = SavedPrefabRefMatrix.XArray[0].YStuff.Length;
+            _XSize = _savedMatrix.XArray.Length;
+            _YSize = _savedMatrix.XArray[0].YStuff.Length;
         }
-        _tmpMatrix = SavedPrefabRefMatrix;
-        _tmpX = _X;
-        _tmpY = _Y;
+        _tmpMatrix = _savedMatrix;
+        _tmpXSize = _XSize;
+        _tmpYSize = _YSize;
     }
 
     public void ClearTank()
     {
         _tmpMatrix = new XValues(0,0);
-        _tmpX = 0;
-        _tmpY = 0;
+        _tmpXSize = 0;
+        _tmpYSize = 0;
     }
 
     //WRAPPER CLASSES FOR SAVING STUFF
@@ -63,7 +63,7 @@ public class TankRoomConstellation : ScriptableObject
     [Serializable]
     public class XValues
     {
-        public YValues[] XArray;
+        public YValues[] XArray = null;
         public XValues(int xLength, int yLength)
         {
             XArray = new YValues[xLength];
@@ -76,7 +76,7 @@ public class TankRoomConstellation : ScriptableObject
     [Serializable]
     public class YValues
     {
-        public RoomInfo[] YStuff;
+        public RoomInfo[] YStuff = null;
         public YValues(int yLength)
         {
             YStuff = new RoomInfo[yLength];
@@ -86,23 +86,16 @@ public class TankRoomConstellation : ScriptableObject
     public class RoomInfo
     {
         //  Fields for loading and saving
-        public GameObject RoomPrefab;
-        public Tile FloorTile;
-        public GameObject systemPrefab;
-        public GameObject TirePrefab;
-        public Tile RoofTile;
-        public bool _topWallExists;
-        public bool _rightWallExists;
-        public bool _bottomWallExists;
-        public bool _leftWallExists;
+        public GameObject RoomPrefab = null;
+        public Tile FloorTilePrefab = null;
+        public Tile RoofTilePrefab = null;
+        public GameObject SystemPrefab = null;
+        public GameObject TirePrefab = null;
+        public bool _topWallExists = false;
+        public bool _rightWallExists = false;
+        public bool _bottomWallExists = false;
+        public bool _leftWallExists = false;
 
         //spawned objects for referencing
-
-        public GameObject _topWall = null;
-        public GameObject _rightWall = null;
-        public GameObject _bottomWall = null;
-        public GameObject _leftWall = null;
-
-        public GameObject _spawnedTire;
     }
 }

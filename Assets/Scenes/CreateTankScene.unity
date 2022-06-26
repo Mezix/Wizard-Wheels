@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3128,8 +3128,7 @@ MonoBehaviour:
   _partTypeIndex: 0
   _floorTiles:
   - {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-  - {fileID: 11400000, guid: 4607b72fa53a81347a22d14ba855d535, type: 2}
-  - {fileID: 11400000, guid: 4607b72fa53a81347a22d14ba855d535, type: 2}
+  - {fileID: 11400000, guid: 7f9692d0e79c0d74bbaa14ce6ef6c3de, type: 2}
   floorIndex: 0
   _roofTiles:
   - {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
@@ -3153,7 +3152,7 @@ MonoBehaviour:
   - {fileID: 6756651002276288008, guid: beb5ee0181bb80c4cb4e0eea375b3675, type: 3}
   - {fileID: 8917419255669800742, guid: bca6aa83df32f6d4d95ebc226be46774, type: 3}
   - {fileID: 8917419255669800742, guid: 3cdea1608cd169247b6e978bb5e3c469, type: 3}
-  _systemsIndex: 0
+  systemsIndex: 0
 --- !u!1 &1429884355
 GameObject:
   m_ObjectHideFlags: 0
@@ -5416,7 +5415,7 @@ MonoBehaviour:
   _tGeo: {fileID: 604466275}
   _tUI: {fileID: 1423311042}
   mouse: {fileID: 873256501}
-  tankToEdit: {fileID: 11400000, guid: 43c1e85dbc0e41c4fb6b01add235040e, type: 2}
+  tankToEdit: {fileID: 11400000, guid: fa1f9daad944bfc4e9dbeedea4ca2b79, type: 2}
 --- !u!1 &2141647519
 GameObject:
   m_ObjectHideFlags: 0

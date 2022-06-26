@@ -45,7 +45,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        maxEnemies = 1;
+        maxEnemies = 0;
     }
 
     public void SpawnBehaviour()
