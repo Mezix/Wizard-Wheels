@@ -10,10 +10,10 @@ public class CreateTankMouseScript : MonoBehaviour
 
     private Vector2 cameraOffset;
     private Vector3 mouseStartDragPos;
-    public float zoomAmount;
-    public float desiredZoom;
-    public float minZoom;
-    public float maxZoom;
+    [HideInInspector] public float zoomAmount;
+    [HideInInspector] public float desiredZoom;
+    [HideInInspector] public float minZoom;
+    [HideInInspector] public float maxZoom;
     private void Start()
     {
         Cursor.visible = false;
