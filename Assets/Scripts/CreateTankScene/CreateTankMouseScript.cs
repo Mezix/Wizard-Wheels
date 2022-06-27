@@ -45,7 +45,7 @@ public class CreateTankMouseScript : MonoBehaviour
 
         if(MouseCursor.IsPointerOverUIElement())
         {
-            CreateTankSceneManager.instance.mouse._mouse.sprite = Resources.Load("Art/UI/Cursor", typeof(Sprite)) as Sprite;
+            CreateTankSceneManager.instance.mouse._mouse.sprite = Resources.Load("Art/UI/CreateTankCursor", typeof(Sprite)) as Sprite;
             CreateTankSceneManager.instance._tools.previewTile = false;
         }
         else

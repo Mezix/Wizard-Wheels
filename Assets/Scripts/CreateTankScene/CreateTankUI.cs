@@ -185,7 +185,6 @@ public class CreateTankUI : MonoBehaviour
             if (systemsIndex < 0) systemsIndex = systemsList.Count - 1;
         }
         SelectList(_partTypeIndex);
-        ShowColorSelecter(_partTypeIndex);
     }
     public void SelectList(int partType)
     {
@@ -219,6 +218,8 @@ public class CreateTankUI : MonoBehaviour
             _partsDropDown.options = systemsList;
             SelectPart(systemsIndex);
         }
+
+        ShowColorSelecter(_partTypeIndex);
     }
     public void ShowLayer(bool b, int index)
     {

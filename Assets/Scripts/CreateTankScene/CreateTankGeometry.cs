@@ -810,7 +810,9 @@ public class CreateTankGeometry : MonoBehaviour
         {
             for (int x = 0; x < sizeX; x++)
             {
-                tilemapStorage.SetTile(new Vector3Int(x, -y, 0), actualTilemap.GetTile(new Vector3Int(x, -y, 0)));
+                TileBase t = actualTilemap.GetTile(new Vector3Int(x, -y, 0));
+                //TODO set tile color!
+                tilemapStorage.SetTile(new Vector3Int(x, -y, 0), t);
             }
         }
         //  Clear the old tilemap
