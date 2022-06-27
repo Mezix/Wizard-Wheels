@@ -97,7 +97,9 @@ public class TankRoomConstellation : ScriptableObject
         //  Fields for loading and saving
         public GameObject RoomPrefab = null;
         public Tile FloorTilePrefab = null;
+        [HideInInspector] public Color FloorColor = Color.white;
         public Tile RoofTilePrefab = null;
+        [HideInInspector] public Color RoofColor = Color.white;
         public GameObject SystemPrefab = null;
         public GameObject TirePrefab = null;
 
@@ -128,6 +130,8 @@ public class TankRoomConstellation : ScriptableObject
                 _tmpMatrix.XArray[x].YStuff[y]._bottomWallExists = _savedMatrix.XArray[x].YStuff[y]._bottomWallExists;
                 _tmpMatrix.XArray[x].YStuff[y]._leftWallExists = _savedMatrix.XArray[x].YStuff[y]._leftWallExists;
                 _tmpMatrix.XArray[x].YStuff[y]._rightWallExists = _savedMatrix.XArray[x].YStuff[y]._rightWallExists;
+                _tmpMatrix.XArray[x].YStuff[y].FloorColor = _savedMatrix.XArray[x].YStuff[y].FloorColor;
+                _tmpMatrix.XArray[x].YStuff[y].RoofColor = _savedMatrix.XArray[x].YStuff[y].RoofColor;
             }
         }
     }
@@ -152,6 +156,8 @@ public class TankRoomConstellation : ScriptableObject
                 _savedMatrix.XArray[x].YStuff[y]._bottomWallExists = _tmpMatrix.XArray[x].YStuff[y]._bottomWallExists;
                 _savedMatrix.XArray[x].YStuff[y]._leftWallExists = _tmpMatrix.XArray[x].YStuff[y]._leftWallExists;
                 _savedMatrix.XArray[x].YStuff[y]._rightWallExists = _tmpMatrix.XArray[x].YStuff[y]._rightWallExists;
+                _savedMatrix.XArray[x].YStuff[y].FloorColor = _tmpMatrix.XArray[x].YStuff[y].FloorColor;
+                _savedMatrix.XArray[x].YStuff[y].RoofColor = _tmpMatrix.XArray[x].YStuff[y].RoofColor;
             }
         }
     }

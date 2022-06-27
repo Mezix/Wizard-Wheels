@@ -82,7 +82,13 @@ public class CreateTankTools : MonoBehaviour
 
         if (brushing)
         {
-            if(tileType == 0 || tileType == 1) currentlySelectedTempTilemap.SetTile(tempCellPos, ui.GetTile());
+            if(tileType == 0 || tileType == 1)
+            {
+                Tile t = ui.GetTile();
+                t.color = ui._tileColor;
+                currentlySelectedTempTilemap.SetTile(tempCellPos, t);
+                t.color = Color.white;
+            }
             else if (tileType == 2)
             {
                 Vector3 wallPos = tempFloorTilemap.CellToWorld(tempCellPos);
@@ -114,11 +120,11 @@ public class CreateTankTools : MonoBehaviour
             {
                 if (tileType == 0)
                 {
-                    CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                    CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile(), ui._tileColor);
                 }
                 else if (tileType == 1)
                 {
-                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, ui.GetTile(), ui._tileColor);
                 }
                 else if (tileType == 2)
                 {
@@ -144,11 +150,11 @@ public class CreateTankTools : MonoBehaviour
             {
                 if (tileType == 0)
                 {
-                    CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, null);
+                    CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, null, Color.white);
                 }
                 else if (tileType == 1)
                 {
-                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, null);
+                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, null, Color.white);
                 }
                 else if (tileType == 2)
                 {
@@ -205,6 +211,10 @@ public class CreateTankTools : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             ui.SelectList(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ui.SelectList(4);
         }
     }
     public void SelectTool(int value)

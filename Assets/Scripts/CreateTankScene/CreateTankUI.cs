@@ -9,6 +9,10 @@ public class CreateTankUI : MonoBehaviour
 {
     public Button _saveTankButton;
     public Button _loadTankButton;
+    public Button _colorButton;
+    public Image _colorImage;
+    [HideInInspector]
+    public Color _tileColor;
     public InputField _inputField;
     public Dropdown _partsDropDown;
     public Dropdown _layersDropDown;
@@ -54,11 +58,15 @@ public class CreateTankUI : MonoBehaviour
         InitLayers();
         SelectPart(0);
         SelectList(_partTypeIndex);
+
+        _tileColor = new Color(144/255f, 84/255f, 47/255f, 1); //start with brown
+        ChangeColor(_tileColor);
     }
     public void InitButtons()
     {
         _saveTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.SaveTank());
         _loadTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.LoadTank());
+        _colorButton.onClick.AddListener(() => RandomColor());
     }
     private void InitPartsDropdown()
     {
@@ -177,6 +185,7 @@ public class CreateTankUI : MonoBehaviour
             if (systemsIndex < 0) systemsIndex = systemsList.Count - 1;
         }
         SelectList(_partTypeIndex);
+        ShowColorSelecter(_partTypeIndex);
     }
     public void SelectList(int partType)
     {
@@ -278,5 +287,26 @@ public class CreateTankUI : MonoBehaviour
     {
         _tankWidth.text = width.ToString();
         _tankHeight.text = height.ToString();
+    }
+
+    //  Color Selection
+
+    public void ShowColorSelecter(int partType)
+    {
+        if(partType > 1) _colorButton.gameObject.SetActive(false);
+        else  _colorButton.gameObject.SetActive(true);
+    }
+
+    public void RandomColor()
+    {
+        int r = UnityEngine.Random.Range(0, 255);
+        int g = UnityEngine.Random.Range(0, 255);
+        int b = UnityEngine.Random.Range(0, 255);
+        _tileColor = new Color(r/25f, g/255f, b/255f,1);
+        ChangeColor(_tileColor);
+    }
+    public void ChangeColor(Color c)
+    {
+        _colorImage.color = c;
     }
 }

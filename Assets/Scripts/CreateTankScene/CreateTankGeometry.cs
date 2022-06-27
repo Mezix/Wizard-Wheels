@@ -25,7 +25,7 @@ public class CreateTankGeometry : MonoBehaviour
     public void SpawnTankForCreator()
     {
         LoadRooms();
-        CreateBGAndRoof();
+        CreateFloorAndRoof();
         PositionTankObjects();
         CreateWalls();
         CreateTires();
@@ -57,7 +57,7 @@ public class CreateTankGeometry : MonoBehaviour
             ModifyTankSize(0, 0, 0, 1 * modifier);
         }
     }
-    private void CreateBGAndRoof()
+    private void CreateFloorAndRoof()
     {
         CreateFloorAndRoofTilemap();
         for (int x = 0; x < _tRC._savedXSize; x++)
@@ -145,23 +145,26 @@ public class CreateTankGeometry : MonoBehaviour
             for (int y = startY; y < startY + sizeY; y++)
             {
                 Tile t = _tRC._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefab;
-                //t.color = FloorColor;
+                t.color = _tRC._tmpMatrix.XArray[x].YStuff[y].FloorColor;
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                t.color = Color.white;
             }
         }
     }
-    public void ChangeFloorAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
+    public void ChangeFloorAtPos(int startX, int startY, int sizeX, int sizeY, Tile t, Color c)
     {
         if (t != null)
         {
             //  Check if we overstepped the edges of our matrix and need to expand first!
             if (startX < 0 || startY < 0 || startX > _tRC._tmpXSize - 1 || startY > _tRC._tmpYSize - 1)
             {
+                /*
                 int expandL = Math.Abs(Math.Min(0, startX));
                 int expandR = Math.Max(_tRC._tmpXSize - 1, startX) - _tRC._tmpXSize + 1;
                 int expandU = Math.Abs(Math.Min(0, startY));
                 int expandD = Math.Max(_tRC._tmpYSize - 1, startY) - _tRC._tmpYSize + 1;
                 ModifyTankSize(expandL, expandR, expandU, expandD);
+                */
                 //print("left: " + expandL + ", right: " + expandR +  ", up :" + expandU + ", down: " + expandD);
             }
             else if(!_roomPosMatrix[startX, startY])
@@ -196,9 +199,11 @@ public class CreateTankGeometry : MonoBehaviour
             {
                 for (int y = startY; y < startY + sizeY; y++)
                 {
-                    //t.color = FloorColor;
+                    t.color = c;
                     FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
                     _tRC._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefab = t;
+                    _tRC._tmpMatrix.XArray[x].YStuff[y].FloorColor = c;
+                    t.color = Color.white; //   reset the tile objects color
                 }
             }
         }
@@ -248,22 +253,24 @@ public class CreateTankGeometry : MonoBehaviour
             for (int y = startY; y < startY + sizeY; y++)
             {
                 Tile t = _tRC._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefab;
-                //t.color = RoofColor;
-
-                //  TODO: roof isnt loading if the ystuff array is empty there
+                t.color = _tRC._tmpMatrix.XArray[x].YStuff[y].RoofColor;
                 RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                t.color = Color.white;
             }
         }
     }
-    public void ChangeRoofAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
+    public void ChangeRoofAtPos(int startX, int startY, int sizeX, int sizeY, Tile t, Color c)
     {
+        print(t);
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                //t.color = RoofColor;
                 RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
                 _tRC._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefab = t;
+                t.color = c;
+                _tRC._tmpMatrix.XArray[x].YStuff[y].RoofColor = c;
+                t.color = Color.white;
             }
         }
     }
