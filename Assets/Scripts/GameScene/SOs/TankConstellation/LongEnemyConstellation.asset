@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
-  m_Name: LongEnemyConstellati
+  m_Name: LongEnemyConstellation
   m_EditorClassIdentifier: 
   _savedXSize: 6
   _savedYSize: 12
