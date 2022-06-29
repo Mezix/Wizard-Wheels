@@ -65294,7 +65294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0efbfe8b98b84d42aec13747acf506f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tRC: {fileID: 0}
+  _trc: {fileID: 0}
   systemIcons: []
 --- !u!1 &616626815
 GameObject:
@@ -71911,4 +71911,4 @@ MonoBehaviour:
   _tGeo: {fileID: 604466275}
   _tUI: {fileID: 1423311042}
   mouse: {fileID: 873256501}
-  tankToEdit: {fileID: 11400000, guid: 43c1e85dbc0e41c4fb6b01add235040e, type: 2}
+  tankToEdit: {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530, type: 2}

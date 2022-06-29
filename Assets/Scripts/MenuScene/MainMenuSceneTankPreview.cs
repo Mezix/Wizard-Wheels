@@ -168,7 +168,6 @@ public class MainMenuSceneTankPreview : MonoBehaviour
             for (int y = startY; y < startY + sizeY; y++)
             {
                 Tile t = _trc._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefab;
-                t.color = _translucentColor;
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
@@ -368,6 +367,8 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         {
             rend.color = _translucentColor;
         }
+        FloorTilemap.color = _translucentColor;
+        RoofTilemap.color = _translucentColor;
     }
     private Vector2Int GetRoomSize(int x, int y)
     {
