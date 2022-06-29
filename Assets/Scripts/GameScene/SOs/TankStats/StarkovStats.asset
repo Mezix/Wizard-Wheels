@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StarkovStats
   m_EditorClassIdentifier: 
   _tankName: Starkov
-  _tankHealth: 2000
+  _tankHealth: 30
   _tankMaxSpeed: 8
   _tankAccel: 0.01
   _tankDecel: 0.02

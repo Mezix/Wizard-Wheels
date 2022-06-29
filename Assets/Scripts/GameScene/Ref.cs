@@ -43,4 +43,6 @@ public class Ref : MonoBehaviour
     public static EnemyManager EM;
 
     public static MapGeneration MapGen;
+
+    public static MainMenuSceneTankPreview TankPreview;
 }

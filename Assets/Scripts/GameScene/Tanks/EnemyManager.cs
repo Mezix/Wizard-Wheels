@@ -29,6 +29,10 @@ public class EnemyManager : MonoBehaviour
         Ref.EM = this;
         Events.instance.EnemyTankDestroyed += EnemyDestroyed;
     }
+    private void Start()
+    {
+        maxEnemies = 1;
+    }
     private void EnemyDestroyed(GameObject enemy)
     {
         EnemyTankController enemyTank = enemy.GetComponent<EnemyTankController>();
@@ -42,12 +46,6 @@ public class EnemyManager : MonoBehaviour
             ReturnColor(enemy);
         }
     }
-
-    private void Start()
-    {
-        maxEnemies = 0;
-    }
-
     public void SpawnBehaviour()
     {
         SpawnEnemy();
@@ -124,4 +122,6 @@ public class EnemyManager : MonoBehaviour
         //returns the same vector if it works, otherwise modifies the vector and returnsa viable position
         return checkPos;
     }
+
+
 }

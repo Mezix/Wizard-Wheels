@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
   m_Name: SmallEnemyConstellation
   m_EditorClassIdentifier: 
-  _XSize: 3
-  _YSize: 3
+  _savedXSize: 3
+  _savedYSize: 3
   _tmpXSize: 3
   _tmpYSize: 3
   _savedMatrix:
@@ -21,7 +21,9 @@ MonoBehaviour:
     - YStuff:
       - RoomPrefab: {fileID: 0}
         FloorTilePrefab: {fileID: 0}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         _topWallExists: 0
@@ -32,7 +34,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 7ac089229eaa84c40aae6f43ba1d1d2a,
           type: 3}
@@ -44,7 +48,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 7ac089229eaa84c40aae6f43ba1d1d2a,
           type: 3}
@@ -57,7 +63,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 1723648633549023116, guid: 32430ef957ea24a4eae0cc1b70d80ded,
           type: 3}
         TirePrefab: {fileID: 0}
@@ -69,7 +77,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         _topWallExists: 0
@@ -80,7 +90,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 8917419255669800742, guid: bca6aa83df32f6d4d95ebc226be46774,
           type: 3}
         TirePrefab: {fileID: 0}
@@ -91,7 +103,9 @@ MonoBehaviour:
     - YStuff:
       - RoomPrefab: {fileID: 0}
         FloorTilePrefab: {fileID: 0}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         _topWallExists: 0
@@ -102,7 +116,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af,
           type: 3}
@@ -114,7 +130,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af,
           type: 3}
@@ -127,7 +145,9 @@ MonoBehaviour:
     - YStuff:
       - RoomPrefab: {fileID: 0}
         FloorTilePrefab: {fileID: 0}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         _topWallExists: 0
@@ -138,7 +158,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 7ac089229eaa84c40aae6f43ba1d1d2a,
           type: 3}
@@ -150,7 +172,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 7ac089229eaa84c40aae6f43ba1d1d2a,
           type: 3}
@@ -163,7 +187,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 1723648633549023116, guid: 32430ef957ea24a4eae0cc1b70d80ded,
           type: 3}
         TirePrefab: {fileID: 0}
@@ -175,7 +201,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         _topWallExists: 0
@@ -186,7 +214,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 8917419255669800742, guid: bca6aa83df32f6d4d95ebc226be46774,
           type: 3}
         TirePrefab: {fileID: 0}
@@ -197,7 +227,9 @@ MonoBehaviour:
     - YStuff:
       - RoomPrefab: {fileID: 0}
         FloorTilePrefab: {fileID: 0}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 0}
         _topWallExists: 0
@@ -208,7 +240,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af,
           type: 3}
@@ -220,7 +254,9 @@ MonoBehaviour:
           type: 3}
         FloorTilePrefab: {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02,
           type: 2}
+        FloorColor: {r: 1, g: 1, b: 1, a: 1}
         RoofTilePrefab: {fileID: 0}
+        RoofColor: {r: 1, g: 1, b: 1, a: 1}
         SystemPrefab: {fileID: 0}
         TirePrefab: {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af,
           type: 3}

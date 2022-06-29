@@ -50,11 +50,11 @@ public class EnemyTankController : TankController
     }
     private void Update()
     {
-        //if (!_dying) EnemyBehaviour();
-        //else
-        //{
-        //    if(!_dead) SlowlyDie();
-        //}
+        if (!_dying) EnemyBehaviour();
+        else
+        {
+            if (!_dead) SlowlyDie();
+        }
     }
     private void InitEvents()
     {

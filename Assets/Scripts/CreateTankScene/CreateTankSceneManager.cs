@@ -34,7 +34,7 @@ public class CreateTankSceneManager : MonoBehaviour
             _tUI._inputField.textComponent.text = "Untitled";
         }
 
-        _tGeo._tRC = tankToEdit;
+        _tGeo._trc = tankToEdit;
         LoadTank();
     }
     public void SaveTank()

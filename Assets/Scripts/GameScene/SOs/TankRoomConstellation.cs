@@ -10,21 +10,21 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(menuName = "ScriptableObjects/TankRoomConstellations")]
 public class TankRoomConstellation : ScriptableObject
 {
-    [ReadOnly] public int _savedXSize = 0; //just the amount of Tiles in a given direction
-    [ReadOnly] public int _savedYSize = 0;
+    public int _savedXSize = 0; //just the amount of Tiles in a given direction
+    public int _savedYSize = 0;
 
-    [ReadOnly] public int _tmpXSize = 0;
-    [ReadOnly] public int _tmpYSize = 0;
+    public int _tmpXSize = 0;
+    public int _tmpYSize = 0;
 
     public XValues _savedMatrix = null;
     public XValues _tmpMatrix = null;
     public void InitTankForCreation()
     {
-        //if (_savedMatrix.XArray.Length > 0)
-        //{
-        //    _savedXSize = _savedMatrix.XArray.Length;
-        //    _savedYSize = _savedMatrix.XArray[0].YStuff.Length;
-        //}
+        if (_savedMatrix.XArray.Length > 0)
+        {
+            _savedXSize = _savedMatrix.XArray.Length;
+            _savedYSize = _savedMatrix.XArray[0].YStuff.Length;
+        }
         ClearTmpMatrix();
         SavedToTmpMatrix();
         //CopyMatrixFromTo(_savedMatrix, _tmpMatrix);

@@ -13,8 +13,9 @@ public class MainMenuCamera : MonoBehaviour
     [SerializeField]
     private PixelPerfectCamera pixelCam;
     private int zoomLevel;
-    public int closestZoom;
-    public int furthestZoom;
+    [HideInInspector] public int closestZoom;
+    [HideInInspector] public int furthestZoom;
+    private int zoomAmount;
 
     private void Awake()
     {
@@ -24,7 +25,8 @@ public class MainMenuCamera : MonoBehaviour
     }
     private void Start()
     {
-        closestZoom = 75;
+        zoomAmount = 5;
+        closestZoom = 300;
         furthestZoom = 30; //lowest is 1
         pixelCam.assetsPPU = zoomLevel = furthestZoom;
         camParent = Ref.mMenu.orb.transform;
@@ -46,7 +48,7 @@ public class MainMenuCamera : MonoBehaviour
     }
     private void ZoomSlowly()
     {
-        pixelCam.assetsPPU += Math.Sign(zoomLevel - pixelCam.assetsPPU);
+        pixelCam.assetsPPU += Math.Sign(zoomLevel - pixelCam.assetsPPU) * zoomAmount;
     }
     private void MoveCamToObjectSlowly()
     {
