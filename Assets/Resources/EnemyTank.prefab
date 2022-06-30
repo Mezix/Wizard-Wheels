@@ -51,11 +51,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tStats: {fileID: 11400000, guid: 38f853e94e77a3946a479443944be7e9, type: 2}
   _tankName: Druskelle
-  _wizardsToSpawn: []
+  _wizardsToSpawn:
+  - {fileID: 4608201922242700205, guid: 8b05b2f1bec399942ad7a9785f8f1691, type: 3}
+  - {fileID: 4608201922242700205, guid: 8b05b2f1bec399942ad7a9785f8f1691, type: 3}
   _spawnedWizards: []
   _dying: 0
   _dead: 0
   _tankColor: {r: 0, g: 0, b: 0, a: 0}
+  enemyUI: {fileID: 0}
+  _indicator: {fileID: 0}
 --- !u!114 &3123129469221447086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +77,9 @@ MonoBehaviour:
   acceleration: 0.0025
   deceleration: 0.005
   maxSpeed: 3
+  baseAcceleration: 0
+  baseDeceleration: 0
+  baseMaxSpeed: 0
   Tires: []
 --- !u!114 &3967959686328043720
 MonoBehaviour:
@@ -102,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AWeaponArray: []
-  ISystemArray: []
+  ASystemArray: []
   EnemyBasicCannon: {fileID: 11400000, guid: e7429deb239e1f64f92b3e72426c508f, type: 2}
 --- !u!114 &8239155493298000636
 MonoBehaviour:
@@ -119,7 +126,7 @@ MonoBehaviour:
   _maxHealth: 0
   _currentHealth: 0
   _healthBarParent: {fileID: 0}
-  _allHealthBarUnits: []
+  _allHPSegments: []
 --- !u!114 &1291034475881204564
 MonoBehaviour:
   m_ObjectHideFlags: 0
