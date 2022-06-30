@@ -67,14 +67,14 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     {
         ProjectilePool.Instance.AddToPool(gameObject);
     }
-    public virtual void SetBulletStatsAndTransformToWeaponStats(AWeapon weapon)
+    public virtual void SetBulletStatsAndTransformToWeaponStats(AWeapon weapon, Transform t)
     {
         wep = weapon;
         Damage = weapon._weaponStats._damage;
         ProjectileSpeed = weapon._weaponStats._projectileSpeed;
         if (weapon.tMov) ProjectileSpeed += weapon.tankSpeedProjectileModifier * weapon.tMov.currentSpeed;
-        transform.position = weapon._projectileSpot.transform.position;
-        transform.rotation = weapon._projectileSpot.transform.rotation;
+        transform.position = t.transform.position;
+        transform.rotation = t.transform.rotation;
     }
     public virtual void DamageTank(TankController e)
     {

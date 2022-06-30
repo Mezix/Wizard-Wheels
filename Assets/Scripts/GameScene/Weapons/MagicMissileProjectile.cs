@@ -60,12 +60,12 @@ public class MagicMissileProjectile : AProjectile
         yield return new WaitForSeconds(0.05f);
         DespawnBullet();
     }
-    public override void SetBulletStatsAndTransformToWeaponStats(AWeapon weapon)
+    public override void SetBulletStatsAndTransformToWeaponStats(AWeapon weapon, Transform t)
     {
         target = weapon.TargetedRoom;
         Damage = weapon._weaponStats._damage;
         ProjectileSpeed = weapon._weaponStats._projectileSpeed;
-        transform.position = weapon._projectileSpot.position;
-        transform.rotation = weapon._projectileSpot.rotation;
+        transform.position = t.position;
+        transform.rotation = t.rotation;
     }
 }

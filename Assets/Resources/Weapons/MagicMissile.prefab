@@ -138,7 +138,8 @@ MonoBehaviour:
   _weaponStats: {fileID: 11400000, guid: e7f712543a3a5124a9915ba74eb62e4e, type: 2}
   RotatablePart: {fileID: 9144540732161924692}
   TargetedRoom: {fileID: 0}
-  _projectileSpot: {fileID: 995660803235255240}
+  _projectileSpots:
+  - {fileID: 995660803235255240}
   WeaponUI: {fileID: 6888881169591170708}
   UIColor: {r: 0, g: 0, b: 0, a: 1}
   lr: {fileID: 0}

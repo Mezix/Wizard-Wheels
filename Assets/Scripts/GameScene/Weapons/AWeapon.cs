@@ -34,7 +34,7 @@ public abstract class AWeapon : ASystem
     //  Misc
 
     public GameObject ProjectilePrefab { get; set; }
-    public Transform _projectileSpot;
+    public List<Transform> _projectileSpots = new List<Transform>();
     public bool ShouldHitPlayer { get; set; }
 
     //  UI
@@ -234,7 +234,7 @@ public abstract class AWeapon : ASystem
         Vector3 TargetMoveVector = Vector3.zero;
         UpdateTankSpeedProjectileModifier();
 
-        float distance = Vector3.Distance(TargetedRoom.transform.position, _projectileSpot.transform.position);
+        float distance = Vector3.Distance(TargetedRoom.transform.position, _projectileSpots[0].transform.position);
         float TimeForProjectileToHitDistance = distance / (_weaponStats._projectileSpeed + tankSpeedProjectileModifier * tMov.currentSpeed);
 
         if(ShouldHitPlayer)
@@ -297,11 +297,14 @@ public abstract class AWeapon : ASystem
 
     internal void SpawnProjectile()
     {
-        GameObject proj = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);
-        proj.GetComponent<AProjectile>().SetBulletStatsAndTransformToWeaponStats(this);
-        proj.GetComponent<AProjectile>().HitPlayer = ShouldHitPlayer;
-        proj.SetActive(true);
-        TimeElapsedBetweenLastAttack = 0;
+        foreach(Transform t in _projectileSpots)
+        {
+            GameObject proj = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);
+            proj.GetComponent<AProjectile>().SetBulletStatsAndTransformToWeaponStats(this, t);
+            proj.GetComponent<AProjectile>().HitPlayer = ShouldHitPlayer;
+            proj.SetActive(true);
+            TimeElapsedBetweenLastAttack = 0;
+        }
     }
 
     //  UI
@@ -323,7 +326,7 @@ public abstract class AWeapon : ASystem
     {
         if (explosion == null) explosion = (GameObject) Resources.Load("SingleExplosion");
         GameObject exp = Instantiate(explosion);
-        exp.transform.SetParent(_projectileSpot);
+        foreach(Transform t in _projectileSpots) exp.transform.SetParent(t);
         exp.transform.localPosition = Vector3.zero;
     }
     internal void PlayWeaponFireSoundEffect()
@@ -359,7 +362,7 @@ public abstract class AWeapon : ASystem
     public bool TargetRoomWithinLockOnRange()
     {
         if (!TargetedRoom) return false;
-        return Vector3.Distance(_projectileSpot.position, TargetedRoom.transform.position) < MaxLockOnRange;
+        return Vector3.Distance(_projectileSpots[0].position, TargetedRoom.transform.position) < MaxLockOnRange;
     }
     public void UpdateTankSpeedProjectileModifier()
     {

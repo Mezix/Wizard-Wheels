@@ -55,7 +55,8 @@ MonoBehaviour:
   _weaponStats: {fileID: 11400000, guid: d29f2dacd7353614cafbd2e2e3702209, type: 2}
   RotatablePart: {fileID: 4486056113902708837}
   TargetedRoom: {fileID: 0}
-  _projectileSpot: {fileID: 995660803235255240}
+  _projectileSpots:
+  - {fileID: 995660803235255240}
   WeaponUI: {fileID: 244009782503478640}
   UIColor: {r: 1, g: 0, b: 0, a: 0.49019608}
   lr: {fileID: 0}
@@ -291,7 +292,7 @@ SpriteRenderer:
   m_SortingLayerID: -706261691
   m_SortingLayer: 4
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 2f4e9e0462155454da712fa8f9bff10e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e92ded7b8edaeb44b28e05d22a94642, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.54509807}
   m_FlipX: 0
   m_FlipY: 0
