@@ -13,7 +13,7 @@ public abstract class AWeapon : ASystem
     public float AttacksPerSecond { get; set; }
     public float TimeBetweenAttacks { get; private set; }
     public float TimeElapsedBetweenLastAttack { get; protected set; }
-    public float Damage { get; set; }
+    public int Damage { get; set; }
     public float RotationSpeed { get; set; }
     public float MaxLockOnRange { get; set; }
     public float Recoil { get; set; }
@@ -228,7 +228,7 @@ public abstract class AWeapon : ASystem
         HM.RotateTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
 
     }
-    public void PointTurretAtTarget()
+    public virtual void PointTurretAtTarget()
     {
         if (!TargetedRoom) return;
         Vector3 TargetMoveVector = Vector3.zero;
@@ -274,7 +274,7 @@ public abstract class AWeapon : ASystem
 
     //  USE WEAPON
 
-    public void Attack()
+    public virtual void Attack()
     {
         if (TimeElapsedBetweenLastAttack >= TimeBetweenAttacks)
         {
@@ -289,13 +289,13 @@ public abstract class AWeapon : ASystem
         }
     }
 
-    private void WeaponFeedback()
+    internal void WeaponFeedback()
     {
         //  Change to have a feedback stat and duration for the weapons!
         Ref.Cam.StartShake(0.05f * Damage, 0.05f * Damage);
     }
 
-    private void SpawnProjectile()
+    internal void SpawnProjectile()
     {
         GameObject proj = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);
         proj.GetComponent<AProjectile>().SetBulletStatsAndTransformToWeaponStats(this);
@@ -319,14 +319,14 @@ public abstract class AWeapon : ASystem
     }
     //  Misc
 
-    private void WeaponFireParticles(GameObject explosion = null)
+    internal void WeaponFireParticles(GameObject explosion = null)
     {
         if (explosion == null) explosion = (GameObject) Resources.Load("SingleExplosion");
         GameObject exp = Instantiate(explosion);
         exp.transform.SetParent(_projectileSpot);
         exp.transform.localPosition = Vector3.zero;
     }
-    private void PlayWeaponFireSoundEffect()
+    internal void PlayWeaponFireSoundEffect()
     {
         if (_weaponAudioSource) _weaponAudioSource.Play();
         else Debug.LogError("missing audio clip for weapon!");
