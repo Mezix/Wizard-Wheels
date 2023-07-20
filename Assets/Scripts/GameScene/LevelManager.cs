@@ -9,12 +9,10 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
     public static TankRoomConstellation playerTankConstellationFromSelectScreen;
 
-
     private void Awake()
     {
         instance = this;
         Events.instance.PlayerTankDestroyed += GameOver;
-
     }
     private void Start()
     {

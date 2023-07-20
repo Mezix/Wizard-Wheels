@@ -57,7 +57,7 @@ public class MapGeneration : MonoBehaviour
     }
     private void InitTiles()
     {
-        object[] tiles = Resources.LoadAll("Tiles/BGTiles");
+        object[] tiles = Resources.LoadAll(GS.Tiles("BG Tiles"));
         foreach (object t in tiles)
         {
             Tile tile = (Tile)t;
@@ -106,11 +106,11 @@ public class MapGeneration : MonoBehaviour
                 Tile t = Resources.Load("Tiles/BGTiles/StoneTile", typeof(Tile)) as Tile;
                 if (map[x, y] == 0)
                 {
-                    object[] grassTiles = Resources.LoadAll("Tiles/BGTiles/GrassTiles");
+                    object[] grassTiles = Resources.LoadAll(GS.BGTiles("Grass Tiles"));
                     int index = UnityEngine.Random.Range(0, grassTiles.Length);
                     t = (Tile)grassTiles[index];
                 }
-                else if (map[x, y] == 1) t = Resources.Load("Tiles/BGTiles/StoneTile", typeof(Tile)) as Tile;
+                else if (map[x, y] == 1) t = Resources.Load(GS.BGTiles("Stone Tiles/Stone Tile"), typeof(Tile)) as Tile;
 
                 tilemap.SetTile(new Vector3Int(x + offset.x, y + offset.y, 0), t);
             }
