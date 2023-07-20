@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Stone Tile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -5406406159863178423, guid: de1ca6f3a22852b44b39f8a4f1d327b8,
+  m_Sprite: {fileID: 3298437507839409036, guid: 7adc338194939f042a9ce045fc2fb74c,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8207547, g: 0.5149074, b: 0.5149074, a: 1}
   m_Transform:
     e00: 1
     e01: 0
