@@ -23,7 +23,7 @@ public class TechWizard : AUnit
         if (UnitSelected)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.LeftShift) && !MouseCursor.IsPointerOverUIElement())
-                Ref.Path.SetPathToRoomWithMouse(GetComponent<AUnit>());
+                REF.Path.SetPathToRoomWithMouse(GetComponent<AUnit>());
         }
         UpdateWizardUI();
     }

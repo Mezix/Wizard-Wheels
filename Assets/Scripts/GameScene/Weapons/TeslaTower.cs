@@ -102,7 +102,7 @@ public class TeslaTower : AWeapon
         if (!ShouldHitPlayer)
         {
             WeaponFeedback();
-            Ref.Dialog.FireWeapon();
+            REF.Dialog.FireWeapon();
         }
     }
 }

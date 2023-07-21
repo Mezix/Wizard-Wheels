@@ -44,7 +44,7 @@ public class EnemyIndicator : MonoBehaviour
 
     private void UpdateText()
     {
-        _tankDistance.text = Mathf.RoundToInt(Vector3.Distance(Ref.PCon.transform.position, _enemy.transform.position)).ToString() + " M";
+        _tankDistance.text = Mathf.RoundToInt(Vector3.Distance(REF.PCon.transform.position, _enemy.transform.position)).ToString() + " M";
     }
 
     public void InitIndicator(Transform parent, EnemyTankController e)
@@ -62,7 +62,7 @@ public class EnemyIndicator : MonoBehaviour
 
         _arrowButton.onClick.AddListener(() => OpenOverview());
         _overviewButton.onClick.AddListener(() => OpenArrow());
-        _trackTankButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToObject(e.transform.root));
+        _trackTankButton.onClick.AddListener(() => REF.Cam.SetTrackedVehicleToObject(e.transform.root));
     }
     private void RotateArrow()
     {

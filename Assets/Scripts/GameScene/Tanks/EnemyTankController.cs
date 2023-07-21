@@ -84,7 +84,7 @@ public class EnemyTankController : TankController
     {
         //Maintain a certain distance away from us
         TMov.Accelerate();
-        if(!Ref.PDead) TWep.AcquireTargetsForAllWeapons();
+        if(!REF.PDead) TWep.AcquireTargetsForAllWeapons();
     }
     private void StopAimingAtPlayer()
     {

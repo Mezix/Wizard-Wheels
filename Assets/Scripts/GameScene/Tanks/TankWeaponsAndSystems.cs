@@ -16,7 +16,7 @@ public class TankWeaponsAndSystems : MonoBehaviour
         {
             if (wp != null) wp.WeaponSelected = false;
             wp.ShouldNotRotate = true;
-            Ref.c.RemoveCrosshair(wp);
+            REF.c.RemoveCrosshair(wp);
         }
     }
     public void SetUpWeapons(bool player, Color color)

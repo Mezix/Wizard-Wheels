@@ -6,4 +6,11 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
     public Image _inventoryItemImage;
+
+    public AudioSource _highlightedSound;
+
+    public void PlayHighlightedSound()
+    {
+        _highlightedSound.Play();
+    }
 }

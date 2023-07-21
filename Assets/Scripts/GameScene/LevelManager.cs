@@ -18,16 +18,16 @@ public class LevelManager : MonoBehaviour
     {
         if (playerTankConstellationFromSelectScreen)
         {
-            Ref.PCon.TGeo._tankRoomConstellation = playerTankConstellationFromSelectScreen;
+            REF.PCon.TGeo._tankRoomConstellation = playerTankConstellationFromSelectScreen;
         }
-        Ref.PCon.SpawnTank();
+        REF.PCon.SpawnTank();
     }
 
     //  Random Gen
 
     private void GameOver()
     {
-        Ref.UI.SpawnGameOverScreen();
+        REF.UI.SpawnGameOverScreen();
     }
     public void GoToMainMenu()
     {

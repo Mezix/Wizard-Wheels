@@ -37,7 +37,7 @@ public class InventoryUI : MonoBehaviour
     {
         int rowsToSpawn = Mathf.CeilToInt(_inventorySlotsToSpawn / 4f);
         float rowHeight = 32 * 5; //5 = scale of objects
-        _content.sizeDelta = new Vector2(0, rowsToSpawn * rowHeight + _verticalLayoutGroup.spacing * (rowsToSpawn - 1));
+        _content.sizeDelta = new Vector2(0, rowsToSpawn * rowHeight + 5* _verticalLayoutGroup.spacing * (rowsToSpawn - 1));
 
         GameObject currentHorizontalLayoutGroup = (GameObject) Instantiate(Resources.Load(GS.UIPrefabs("InventoryHorizontalGroup")), _verticalLayoutGroup.transform, false);
         int slotCounter = 0;

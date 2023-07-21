@@ -55,13 +55,13 @@ public class Settings : MonoBehaviour
     }
     public void OpenSettings()
     {
-        Ref.TM.FreezeTime();
+        REF.TM.FreezeTime();
         _settingsObj.SetActive(true);
         _settingsOn = true;
     }
     public void CloseSettings()
     {
-        if (!TimeManager.paused) Ref.TM.UnfreezeTime();
+        if (!TimeManager.paused) REF.TM.UnfreezeTime();
         _settingsObj.SetActive(false);
         _settingsOn = false;
     }

@@ -23,7 +23,7 @@ public class MouseCursor : MonoBehaviour
 
     private void Awake()
     {
-        Ref.mouse = this;
+        REF.mouse = this;
         cursorAnimator = _cursorTransform.GetComponent<Animator>();
         movementIndicators = new List<GameObject>();
     }
@@ -51,8 +51,8 @@ public class MouseCursor : MonoBehaviour
 
     private void AttemptOutlineWizards()
     {
-        if (Ref.PCon._dying || Ref.PCon._dead) return;
-        foreach (AUnit u in Ref.PCon._spawnedWizards)
+        if (REF.PCon._dying || REF.PCon._dead) return;
+        foreach (AUnit u in REF.PCon._spawnedWizards)
         {
             u.DeHighlight();
         }
@@ -78,7 +78,7 @@ public class MouseCursor : MonoBehaviour
     private void ShowMovementIndicators()
     {
         int wizCount = 0;
-        foreach(AUnit unit in Ref.PCon._spawnedWizards)
+        foreach(AUnit unit in REF.PCon._spawnedWizards)
         {
             if (unit.UnitSelected) wizCount++;
         }
@@ -179,8 +179,8 @@ public class MouseCursor : MonoBehaviour
 
     private void SelectUnits()
     {
-        if (Ref.PDead) return;
-        foreach(AUnit wizard in Ref.PCon._spawnedWizards)
+        if (REF.PDead) return;
+        foreach(AUnit wizard in REF.PCon._spawnedWizards)
         {
             if (selectionBox.Contains(Camera.main.WorldToScreenPoint(wizard.UnitObj.transform.position)))
             {
@@ -190,8 +190,8 @@ public class MouseCursor : MonoBehaviour
     }
     public void DeselectAllUnits()
     {
-        if (Ref.PDead) return;
-        foreach (AUnit wizard in Ref.PCon._spawnedWizards)
+        if (REF.PDead) return;
+        foreach (AUnit wizard in REF.PCon._spawnedWizards)
         {
             wizard.UnitSelected = false;
         }

@@ -9,7 +9,7 @@ public class CrosshairManager : MonoBehaviour
 
     private void Awake()
     {
-        Ref.c = this;
+        REF.c = this;
         crosshairPrefab = (GameObject)Resources.Load("Crosshair");
     }
     private void Start()

@@ -149,7 +149,7 @@ public abstract class AWeapon : ASystem
 
     public void AimWithMouse()
     {
-        if (TargetedRoom) Ref.c.RemoveCrosshair(GetComponent<AWeapon>());
+        if (TargetedRoom) REF.c.RemoveCrosshair(GetComponent<AWeapon>());
 
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if (hit.collider && hit.collider.tag != "Level")
@@ -167,13 +167,13 @@ public abstract class AWeapon : ASystem
                 {
                     if (TargetRoomWithinLockOnRange())
                     {
-                        Ref.c.AddCrosshair(TargetedRoom.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
+                        REF.c.AddCrosshair(TargetedRoom.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
                         AimAtTarget = true;
                     }
                     else
                     {
-                        StopCoroutine(Ref.UI.FlashWeaponOutOfRangeWarning());
-                        StartCoroutine(Ref.UI.FlashWeaponOutOfRangeWarning());
+                        StopCoroutine(REF.UI.FlashWeaponOutOfRangeWarning());
+                        StartCoroutine(REF.UI.FlashWeaponOutOfRangeWarning());
                     }
                 }
                 
@@ -191,7 +191,7 @@ public abstract class AWeapon : ASystem
     {
         TryGetComponent(out AWeapon iwep);
         if (iwep == null) return;
-        Ref.c.RemoveCrosshair(iwep);
+        REF.c.RemoveCrosshair(iwep);
         AimAtTarget = false;
         TargetedRoom = null;
         //_weaponSelectedLR._targetingCircle.SetActive(false);
@@ -200,7 +200,7 @@ public abstract class AWeapon : ASystem
     {
         TryGetComponent(out AWeapon iwep);
         if (iwep == null) return;
-        Ref.c.RemoveCrosshair(iwep);
+        REF.c.RemoveCrosshair(iwep);
         AimRotationAngle = 90;
         AimAtTarget = false;
         TargetedRoom = null;
@@ -239,7 +239,7 @@ public abstract class AWeapon : ASystem
 
         if(ShouldHitPlayer)
         {
-            TargetMoveVector = Ref.PCon.TMov.moveVector * Ref.PCon.TMov.currentSpeed * TimeForProjectileToHitDistance;
+            TargetMoveVector = REF.PCon.TMov.moveVector * REF.PCon.TMov.currentSpeed * TimeForProjectileToHitDistance;
         }
         else
         {
@@ -284,7 +284,7 @@ public abstract class AWeapon : ASystem
             if (!ShouldHitPlayer)
             {
                 WeaponFeedback();
-                Ref.Dialog.FireWeapon();
+                REF.Dialog.FireWeapon();
             }
         }
     }
@@ -292,7 +292,7 @@ public abstract class AWeapon : ASystem
     internal void WeaponFeedback()
     {
         //  Change to have a feedback stat and duration for the weapons!
-        Ref.Cam.StartShake(0.05f * Damage, 0.05f * Damage);
+        REF.Cam.StartShake(0.05f * Damage, 0.05f * Damage);
     }
 
     internal void SpawnProjectile()

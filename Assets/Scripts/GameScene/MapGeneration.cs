@@ -37,7 +37,7 @@ public class MapGeneration : MonoBehaviour
     {
         tilemap = GetComponentInChildren<Tilemap>();
         grid = tilemap.GetComponent<Grid>();
-        Ref.MapGen = this;
+        REF.MapGen = this;
 
         InitTiles();
     }
@@ -49,9 +49,9 @@ public class MapGeneration : MonoBehaviour
     }
     private void Update()
     {
-        if (Ref.PlayerGO)
+        if (REF.PlayerGO)
         {
-            playerPosRelativeToGrid = grid.WorldToCell(Ref.PlayerGO.transform.position);
+            playerPosRelativeToGrid = grid.WorldToCell(REF.PlayerGO.transform.position);
         }
         TrackPlayerInMinimap();
     }
@@ -189,11 +189,11 @@ public class MapGeneration : MonoBehaviour
                                              new Rect(0.0f, 0.0f, minimapTex.width, minimapTex.height),
                                              new Vector2(0.5f, 0.5f),
                                              100.0f);
-        Ref.UI._minimapScript._bigMapRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
-        Ref.UI._minimapScript._bigMapImage.sprite = minimapSprite;
+        REF.UI._minimapScript._bigMapRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
+        REF.UI._minimapScript._bigMapImage.sprite = minimapSprite;
 
-        Ref.UI._minimapScript._fogOfWarRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
-        Ref.UI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
+        REF.UI._minimapScript._fogOfWarRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
+        REF.UI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
                                              new Rect(0.0f, 0.0f, fogOfWarTex.width, fogOfWarTex.height),
                                              new Vector2(0.5f, 0.5f),
                                              100.0f);
@@ -201,8 +201,8 @@ public class MapGeneration : MonoBehaviour
     private void TrackPlayerInMinimap()
     {
         float scale = 2;
-        Ref.UI._minimapScript._bigMapRect.anchoredPosition = -1 * Ref.PCon.transform.position * scale;
-        UpdateFogOfWar(-1 * Ref.UI._minimapScript._bigMapRect.anchoredPosition);
+        REF.UI._minimapScript._bigMapRect.anchoredPosition = -1 * REF.PCon.transform.position * scale;
+        UpdateFogOfWar(-1 * REF.UI._minimapScript._bigMapRect.anchoredPosition);
     }
     private void UpdateFogOfWar(Vector2 playerPos)
     {
@@ -214,7 +214,7 @@ public class MapGeneration : MonoBehaviour
         int radius = Math.Max(visionRadiusWidth, visionRadiusHeight);
 
         DrawCircle(fogOfWarTex, pos.x, pos.y, radius, Color.clear);
-        Ref.UI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
+        REF.UI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
                                              new Rect(0.0f, 0.0f, fogOfWarTex.width, fogOfWarTex.height),
                                              new Vector2(0.5f, 0.5f),
                                              100.0f);

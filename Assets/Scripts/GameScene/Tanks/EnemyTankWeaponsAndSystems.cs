@@ -33,7 +33,7 @@ public class EnemyTankWeaponsAndSystems : TankWeaponsAndSystems
                 if (wep.TargetRoomWithinLockOnRange())
                 {
                     wep.AimAtTarget = true;
-                    Ref.c.AddCrosshair(wep.TargetedRoom.GetComponent<Room>(), wep);
+                    REF.c.AddCrosshair(wep.TargetedRoom.GetComponent<Room>(), wep);
                 }
                 else
                 {
@@ -46,7 +46,7 @@ public class EnemyTankWeaponsAndSystems : TankWeaponsAndSystems
 
     private GameObject FindTarget()
     {
-        Room[] possibleTargets = Ref.PCon.TGeo.RoomsParent.GetComponentsInChildren<Room>();
+        Room[] possibleTargets = REF.PCon.TGeo.RoomsParent.GetComponentsInChildren<Room>();
         return possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Length-1)].gameObject;
     }
     public override void WeaponBehaviourInDeath()
@@ -55,7 +55,7 @@ public class EnemyTankWeaponsAndSystems : TankWeaponsAndSystems
         {
             foreach (AWeapon wep in AWeaponArray)
             {
-                Ref.c.RemoveCrosshair(wep);
+                REF.c.RemoveCrosshair(wep);
                 wep.AimAtTarget = false;
                 wep.TargetedRoom = null;
                 wep.ShouldNotRotate = true;

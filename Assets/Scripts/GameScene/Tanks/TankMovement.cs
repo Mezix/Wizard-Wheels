@@ -42,7 +42,7 @@ public class TankMovement : MonoBehaviour
             baseDeceleration = deceleration = 0.01f;
             baseMaxSpeed = maxSpeed = 5;
         }
-        Ref.UI._engineUIScript.InitSliders();
+        REF.UI._engineUIScript.InitSliders();
     }
     public void Move()
     {
@@ -57,13 +57,13 @@ public class TankMovement : MonoBehaviour
     }
     public void Accelerate()
     {
-        if (GetComponent<PlayerTankMovement>()) Ref.UI._engineUIScript.StartStopEngineSound(true, 0.5f);
+        if (GetComponent<PlayerTankMovement>()) REF.UI._engineUIScript.StartStopEngineSound(true, 0.5f);
         if (currentSpeed + acceleration * Time.timeScale < maxSpeed) currentSpeed += acceleration * Time.timeScale;
         else currentSpeed = maxSpeed;
     }
     public void Decelerate()
     {
-        if(GetComponent<PlayerTankMovement>()) Ref.UI._engineUIScript.StartStopEngineSound(false, 1);
+        if(GetComponent<PlayerTankMovement>()) REF.UI._engineUIScript.StartStopEngineSound(false, 1);
         if (currentSpeed - acceleration * Time.timeScale > 0) currentSpeed -= deceleration * Time.timeScale;
         else currentSpeed = 0;
     }

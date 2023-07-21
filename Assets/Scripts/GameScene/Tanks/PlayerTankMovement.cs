@@ -23,7 +23,7 @@ public class PlayerTankMovement : TankMovement
     }
     void Update()
     {
-        if (!Ref.PCon._dying)
+        if (!REF.PCon._dying)
         {
             if (Input.GetKeyDown(KeyCode.C)) ToggleCruise();
             if (_matchSpeed)
@@ -45,13 +45,13 @@ public class PlayerTankMovement : TankMovement
 
         if (emergencyBrakeOn)
         {
-            deceleration = 3 * Ref.PCon._tStats._tankDecel;
+            deceleration = 3 * REF.PCon._tStats._tankDecel;
             if(currentSpeed <= 1)
             {
                 StopEmergencyBrake();
             }
         }
-        else deceleration = Ref.PCon._tStats._tankDecel;
+        else deceleration = REF.PCon._tStats._tankDecel;
     }
 
     private void FixedUpdate()
@@ -92,13 +92,13 @@ public class PlayerTankMovement : TankMovement
             if (Input.GetKey(KeyCode.W))
             {
                 movementInput = true;
-                Ref.UI._engineUIScript.ActivateEmergencyBrake(false);
+                REF.UI._engineUIScript.ActivateEmergencyBrake(false);
                 Accelerate();
             }
             if (Input.GetKey(KeyCode.S))
             {
                 movementInput = true;
-                Ref.UI._engineUIScript.ActivateEmergencyBrake(false);
+                REF.UI._engineUIScript.ActivateEmergencyBrake(false);
                 Decelerate();
             }
         }
@@ -108,41 +108,41 @@ public class PlayerTankMovement : TankMovement
     
     private void ChangeDesiredSliderSpeedUp()
     {
-        Ref.UI._engineUIScript._desiredSpeedSlider.value += acceleration;
-        Ref.UI._engineUIScript.ActivateEmergencyBrake(false);
+        REF.UI._engineUIScript._desiredSpeedSlider.value += acceleration;
+        REF.UI._engineUIScript.ActivateEmergencyBrake(false);
     }
     private void ChangeDesiredSliderSpeedDown()
     {
-        Ref.UI._engineUIScript._desiredSpeedSlider.value -= deceleration;
-        Ref.UI._engineUIScript.ActivateEmergencyBrake(false);
+        REF.UI._engineUIScript._desiredSpeedSlider.value -= deceleration;
+        REF.UI._engineUIScript.ActivateEmergencyBrake(false);
     }
     private void UpdateCurrentSpeedSlider()
     {
-        Ref.UI._engineUIScript._currentSpeedSlider.value = currentSpeed;
+        REF.UI._engineUIScript._currentSpeedSlider.value = currentSpeed;
     }
     private void MatchDesiredSpeedSliderToEnemy()
     {
-        Ref.UI._engineUIScript._desiredSpeedSlider.value = enemyToMatch.currentSpeed;
+        REF.UI._engineUIScript._desiredSpeedSlider.value = enemyToMatch.currentSpeed;
     }
     public void SlowlyMatchSpeedToSliderValue()
     {
-        if (Ref.UI._engineUIScript._currentSpeedSlider.value > Ref.UI._engineUIScript._desiredSpeedSlider.value)
+        if (REF.UI._engineUIScript._currentSpeedSlider.value > REF.UI._engineUIScript._desiredSpeedSlider.value)
         {
             Decelerate();
             TurnOnCruise(true);
-            if (Ref.UI._engineUIScript._currentSpeedSlider.value < Ref.UI._engineUIScript._desiredSpeedSlider.value)
+            if (REF.UI._engineUIScript._currentSpeedSlider.value < REF.UI._engineUIScript._desiredSpeedSlider.value)
             {
-                currentSpeed = Ref.UI._engineUIScript._desiredSpeedSlider.value;
+                currentSpeed = REF.UI._engineUIScript._desiredSpeedSlider.value;
                 return;
             }
         }
-        if (Ref.UI._engineUIScript._currentSpeedSlider.value < Ref.UI._engineUIScript._desiredSpeedSlider.value)
+        if (REF.UI._engineUIScript._currentSpeedSlider.value < REF.UI._engineUIScript._desiredSpeedSlider.value)
         {
             Accelerate();
             TurnOnCruise(true);
-            if (Ref.UI._engineUIScript._currentSpeedSlider.value > Ref.UI._engineUIScript._desiredSpeedSlider.value)
+            if (REF.UI._engineUIScript._currentSpeedSlider.value > REF.UI._engineUIScript._desiredSpeedSlider.value)
             {
-                currentSpeed = Ref.UI._engineUIScript._desiredSpeedSlider.value;
+                currentSpeed = REF.UI._engineUIScript._desiredSpeedSlider.value;
                 return;
             }
         }
@@ -176,7 +176,7 @@ public class PlayerTankMovement : TankMovement
             emergencyBrakeOn = false;
         if (emergencyBrakeSpeedStart > (maxSpeed * 0.5f))
         {
-            Ref.PCon.TakeDamage(1);
+            REF.PCon.TakeDamage(1);
         }
     }
     public void DeathDeacceleration()
@@ -202,13 +202,13 @@ public class PlayerTankMovement : TankMovement
     public void TurnOnCruise(bool b)
     {
         if(!b) _matchSpeed = false;
-        Ref.UI._engineUIScript.TurnOnCruiseUI(b);
+        REF.UI._engineUIScript.TurnOnCruiseUI(b);
         cruiseModeOn = b;
     }
     public void UpdateEngineUI()
     {
-        Ref.UI._engineUIScript._engineAnimator.speed = currentSpeed/maxSpeed * 5;
+        REF.UI._engineUIScript._engineAnimator.speed = currentSpeed/maxSpeed * 5;
         currentSpeed = Mathf.Max(0, currentSpeed);
-        Ref.SD.SetSpeed(currentSpeed);
+        REF.SD.SetSpeed(currentSpeed);
     }
 }

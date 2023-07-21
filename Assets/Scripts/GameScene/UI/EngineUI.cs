@@ -29,7 +29,7 @@ public class EngineUI : MonoBehaviour
 
     private void Awake()
     {
-        _cruiseButton.onClick.AddListener(() => Ref.PCon.TMov.ToggleCruise());
+        _cruiseButton.onClick.AddListener(() => REF.PCon.TMov.ToggleCruise());
         _emergencyBrakeToggle.onValueChanged.AddListener(delegate { EmergencyBrake(_emergencyBrakeToggle); });
         _unmatchSpeedButton.onClick.AddListener(() => UnmatchSpeedUI());
     }
@@ -44,12 +44,12 @@ public class EngineUI : MonoBehaviour
     public void ActivateEmergencyBrake(bool b)
     {
         _emergencyBrakeToggle.isOn = b;
-        Ref.PCon.TMov.emergencyBrakeOn = b;
+        REF.PCon.TMov.emergencyBrakeOn = b;
         if (b)
         {
-            Ref.PCon.TMov._matchSpeed = false;
+            REF.PCon.TMov._matchSpeed = false;
             _desiredSpeedSlider.value = 0;
-            Ref.PCon.TMov.StartEmergencyBrake();
+            REF.PCon.TMov.StartEmergencyBrake();
         }
     }
 
@@ -68,10 +68,10 @@ public class EngineUI : MonoBehaviour
     }
     public void InitSliders()
     {
-        _currentSpeedSlider.value = Ref.PCon.TMov.currentSpeed;
-        _desiredSpeedSlider.value = Ref.PCon.TMov.currentSpeed;
-        _currentSpeedSlider.maxValue = Ref.PCon.TMov.maxSpeed;
-        _desiredSpeedSlider.maxValue = Ref.PCon.TMov.maxSpeed;
+        _currentSpeedSlider.value = REF.PCon.TMov.currentSpeed;
+        _desiredSpeedSlider.value = REF.PCon.TMov.currentSpeed;
+        _currentSpeedSlider.maxValue = REF.PCon.TMov.maxSpeed;
+        _desiredSpeedSlider.maxValue = REF.PCon.TMov.maxSpeed;
     }
     public void UpdateEngineLevel(int level, int maxLevel)
     {
@@ -97,7 +97,7 @@ public class EngineUI : MonoBehaviour
             else if (i == 4) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Right_Full", typeof(Sprite)) as Sprite;
             else engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Middle_Full", typeof(Sprite)) as Sprite;
         }
-        PlayerTankMovement tmov = Ref.PCon.TMov;
+        PlayerTankMovement tmov = REF.PCon.TMov;
         float multiplier = 1 + (level / (float)maxLevel);
         tmov.maxSpeed = tmov.baseMaxSpeed * multiplier;
         tmov.acceleration = tmov.baseAcceleration * multiplier;
@@ -107,13 +107,13 @@ public class EngineUI : MonoBehaviour
     }
     public void SpeedSliderUpdated()
     {
-        Ref.PCon.TMov.cruiseModeOn = true;
+        REF.PCon.TMov.cruiseModeOn = true;
         if (_emergencyBrakeToggle.isOn) ActivateEmergencyBrake(false);
     }
     public void UnmatchSpeedUI()
     {
         _unmatchSpeedButton.gameObject.SetActive(false);
-        Ref.PCon.TMov.enemyToMatch.GetComponent<EnemyTankController>().enemyUI.MatchSpeed(Ref.PCon.TMov.enemyToMatch, false);
+        REF.PCon.TMov.enemyToMatch.GetComponent<EnemyTankController>().enemyUI.MatchSpeed(REF.PCon.TMov.enemyToMatch, false);
     }
     public void TurnOnCruiseUI(bool on)
     {
@@ -129,14 +129,14 @@ public class EngineUI : MonoBehaviour
         {
             _engineIdleSound.gameObject.SetActive(true);
 
-            if (!Ref.PCon.TMov.cruiseModeOn && !engineSoundOn)
+            if (!REF.PCon.TMov.cruiseModeOn && !engineSoundOn)
             {
                 _engineStartingSound.Play();
             }
         }
         else
         {
-            if(!Ref.PCon.TMov.cruiseModeOn) _engineIdleSound.gameObject.SetActive(false);
+            if(!REF.PCon.TMov.cruiseModeOn) _engineIdleSound.gameObject.SetActive(false);
             if (engineSoundOn)
             {
                 _engineStoppingSound.Play();

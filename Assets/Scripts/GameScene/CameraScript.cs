@@ -19,7 +19,7 @@ public class CameraScript : MonoBehaviour
 
     private void Awake()
     {
-        Ref.Cam = this;
+        REF.Cam = this;
         //pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
         isMovingToPos = false;
     }
@@ -28,8 +28,8 @@ public class CameraScript : MonoBehaviour
         zoomAmount = 0.75f;
         maxZoom = 1f;
         desiredZoom = minZoom = 12;
-        Ref.UI.ZoomSlider.minValue = maxZoom;
-        Ref.UI.ZoomSlider.maxValue = minZoom;
+        REF.UI.ZoomSlider.minValue = maxZoom;
+        REF.UI.ZoomSlider.maxValue = minZoom;
         SetZoom(minZoom);
         Events.instance.PlayerIsDying += StopTracking;
         Events.instance.PlayerTankDestroyed += StopTracking;
@@ -58,23 +58,23 @@ public class CameraScript : MonoBehaviour
 
     public void SetTrackedVehicleToPlayer()
     {
-        if (!Ref.PCon) return;
+        if (!REF.PCon) return;
 
-        Events.instance.DoubleClickAttempted(Ref.PCon.gameObject);
+        Events.instance.DoubleClickAttempted(REF.PCon.gameObject);
 
-        Ref.EM.UntrackAllEnemyTanks();
-        Ref.UI.TrackingTank(true);
-        objToTrack = Ref.PlayerGO.transform;
+        REF.EM.UntrackAllEnemyTanks();
+        REF.UI.TrackingTank(true);
+        objToTrack = REF.PlayerGO.transform;
         transform.SetParent(objToTrack);
         cameraOffset = Vector3.zero;
         isMovingToPos = true;
     }
     public void SetTrackedVehicleToObject(Transform t)
     {
-        if (t.GetComponentInChildren<PlayerTankController>()) Ref.UI.TrackingTank(true);
-        else Ref.UI.TrackingTank(false);
+        if (t.GetComponentInChildren<PlayerTankController>()) REF.UI.TrackingTank(true);
+        else REF.UI.TrackingTank(false);
 
-        Ref.EM.UntrackAllEnemyTanks();
+        REF.EM.UntrackAllEnemyTanks();
         if (t.GetComponentInChildren<EnemyTankController>()) t.GetComponentInChildren<EnemyTankController>().enemyUI.TrackTank(true);
 
         objToTrack = t;
@@ -114,7 +114,7 @@ public class CameraScript : MonoBehaviour
                                    Camera.main.ScreenToWorldPoint(mouseStartDragPos) - 
                                    Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if(!cameraOffset.Equals(Vector3.zero)) Ref.UI.TrackingTank(false);
+        if(!cameraOffset.Equals(Vector3.zero)) REF.UI.TrackingTank(false);
         mouseStartDragPos = Input.mousePosition;
         isMovingToPos = false;
     }
@@ -123,7 +123,7 @@ public class CameraScript : MonoBehaviour
 
     private void HandleZoomInput()
     {
-        if (Input.mouseScrollDelta.y != 0 && !Ref.UI._settingsScript._settingsOn)
+        if (Input.mouseScrollDelta.y != 0 && !REF.UI._settingsScript._settingsOn)
         {
             if (Input.mouseScrollDelta.y > 0)
             {
@@ -150,7 +150,7 @@ public class CameraScript : MonoBehaviour
     public void SetZoom(float zoomLevel)
     {
         Camera.main.orthographicSize = zoomLevel;
-        Ref.UI.ZoomSlider.value = (zoomLevel / minZoom) * minZoom;
+        REF.UI.ZoomSlider.value = (zoomLevel / minZoom) * minZoom;
         //pixelCam.assetsPPU = zoomLevel;
     }
     public void SetDesiredZoom(float zoom)

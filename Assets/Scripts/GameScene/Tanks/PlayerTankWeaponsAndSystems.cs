@@ -16,7 +16,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
     }
     private void Update()
     {
-        if (!Ref.PCon._dying)
+        if (!REF.PCon._dying)
         {
             if (Input.GetKey(KeyCode.LeftShift)) multipleSelected = true;
             else multipleSelected = false;
@@ -43,7 +43,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
         {
             if(AWeaponArray[weaponIndex].WeaponEnabled) AWeaponArray[weaponIndex].WeaponSelected = true;
         }
-        Ref.PCon.DeselectAllWizards();
+        REF.PCon.DeselectAllWizards();
     }
     public void DeselectAllWeapons()
     {
@@ -66,7 +66,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
         for (int i = 0; i < AWeaponArray.Count; i++)
         {
             AWeaponArray[i].SetIndex(i+1);
-            PlayerWeaponUI uw = Ref.UI.CreateWeaponUI(AWeaponArray[i]);
+            PlayerWeaponUI uw = REF.UI.CreateWeaponUI(AWeaponArray[i]);
             AllUIWeapons.Add(uw);
             AWeaponArray[i].PlayerUIWep = uw;
         }
@@ -78,7 +78,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
         {
             if (wp != null) wp.WeaponSelected = false;
             wp.ShouldNotRotate = true;
-            Ref.c.RemoveCrosshair(wp);
+            REF.c.RemoveCrosshair(wp);
         }
     }
 

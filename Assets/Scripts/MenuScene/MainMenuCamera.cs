@@ -19,7 +19,7 @@ public class MainMenuCamera : MonoBehaviour
 
     private void Awake()
     {
-        Ref.mCam = this;
+        REF.mCam = this;
         cam = GetComponent<Camera>();
         //pixelCam = GetComponent<PixelPerfectCamera>();
     }
@@ -29,7 +29,7 @@ public class MainMenuCamera : MonoBehaviour
         closestZoom = 300;
         furthestZoom = 30; //lowest is 1
         pixelCam.assetsPPU = zoomLevel = furthestZoom;
-        objectToTrack = Ref.mMenu.orb.transform;
+        objectToTrack = REF.mMenu.orb.transform;
         SetCamParent(transform);
         cam.transform.localPosition = new Vector3(0, 0, -10);
     }

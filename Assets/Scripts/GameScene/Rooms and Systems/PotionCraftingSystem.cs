@@ -17,7 +17,7 @@ public class PotionCraftingSystem : ASystem
     private void SpawnPotionCraftingUI()
     {
         GameObject g = Instantiate((GameObject) Resources.Load("Potions/PotionCraftingUI"));
-        g.transform.SetParent(Ref.UI._systems.transform, false);
+        g.transform.SetParent(REF.UI._systems.transform, false);
         potionUI = g.GetComponent<PotionCraftingUI>();
     }
     public override void InitSystemStats()

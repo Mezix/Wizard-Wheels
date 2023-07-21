@@ -23,7 +23,7 @@ public class PlayerWeaponUI : MonoBehaviour
     }
     public void SelectWeapon()
     {
-        if (!Input.GetKey(KeyCode.LeftShift)) Ref.PCon.TWep.DeselectAllWeapons();
+        if (!Input.GetKey(KeyCode.LeftShift)) REF.PCon.TWep.DeselectAllWeapons();
         Events.instance.DoubleClickAttempted(_weapon.gameObject);
         if (_weapon != null)
         {

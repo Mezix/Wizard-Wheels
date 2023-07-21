@@ -206,7 +206,7 @@ namespace DottedLine
         {
             var go = new GameObject();
             //go.transform.localScale = Vector3.one * Size;
-            go.transform.parent = Ref.UI._steeringWheelScript._chainParent;
+            go.transform.parent = REF.UI._steeringWheelScript._chainParent;
 
             var sr = go.AddComponent<Image>();
             sr.sprite = Dot;
@@ -218,7 +218,7 @@ namespace DottedLine
             for (int i = 0; i < 500; i++)
             {
                 var dot = CreateUIDot(); //create more of the prefab
-                dot.transform.SetParent(Ref.UI._steeringWheelScript._chainParent); //add all the created bullets to the pool so they aren't loose in the scene
+                dot.transform.SetParent(REF.UI._steeringWheelScript._chainParent); //add all the created bullets to the pool so they aren't loose in the scene
                 AddToUIPool(dot);
             }
         }

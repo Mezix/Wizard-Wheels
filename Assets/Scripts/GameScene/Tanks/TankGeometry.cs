@@ -27,7 +27,7 @@ public class TankGeometry : MonoBehaviour
         CreateSystemIcons();
         CreateWalls();
 
-        if(Ref.UI) Ref.UI.TurnOnXRay(Ref.UI._xrayOn);
+        if(REF.UI) REF.UI.TurnOnXRay(REF.UI._xrayOn);
     }
     private void CreateBGAndRoof()
     {

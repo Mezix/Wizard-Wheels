@@ -69,7 +69,7 @@ public class Room : MonoBehaviour
                         //Assign the valid path to the roomPos
                         wizard.ClearUnitPath();
                         wizard.CurrentWaypoint = 0;
-                        wizard.PathToRoom = Ref.Path.FindPath(wizard.CurrentRoomPos, roomSystem.RoomPosForInteraction, wizard.transform.parent.GetComponentInChildren<TankGeometry>());
+                        wizard.PathToRoom = REF.Path.FindPath(wizard.CurrentRoomPos, roomSystem.RoomPosForInteraction, wizard.transform.parent.GetComponentInChildren<TankGeometry>());
 
                         //start the movement
                         wizard.UnitIsMoving = true;

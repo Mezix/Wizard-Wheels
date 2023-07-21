@@ -28,7 +28,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
 
     private void Awake()
     {
-        Ref.TankPreview = this;
+        REF.TankPreview = this;
     }
     private void Start()
     {
@@ -36,7 +36,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         HideAllTanks();
         tankIndex = 0;
         //ShowTank(tankIndex);
-        Ref.mUI.UpdateSelectedTankText(_playerTankConstellations[tankIndex].name);
+        REF.mUI.UpdateSelectedTankText(_playerTankConstellations[tankIndex].name);
     }
 
     private void SpawnAllTanks()
@@ -70,7 +70,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         }
         HideAllTanks();
         _spawnedTanks[tankIndex].SetActive(true);
-        Ref.mUI.UpdateSelectedTankText(_playerTankConstellations[tankIndex].name);
+        REF.mUI.UpdateSelectedTankText(_playerTankConstellations[tankIndex].name);
     }
     public void PreviousTank()
     {
@@ -81,7 +81,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         }
         HideAllTanks();
         _spawnedTanks[tankIndex].SetActive(true);
-        Ref.mUI.UpdateSelectedTankText(_playerTankConstellations[tankIndex].name);
+        REF.mUI.UpdateSelectedTankText(_playerTankConstellations[tankIndex].name);
     }
 
     //  Spawning

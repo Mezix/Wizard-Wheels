@@ -15,7 +15,7 @@ public class RotationUpgradeField : MonoBehaviour
     }
     public void CreateUpgradeField()
     {
-        _upgradeField = Ref.UI._upgradeScreen.CreateUpgradeField();
+        _upgradeField = REF.UI._upgradeScreen.CreateUpgradeField();
         InitUpgradeField();
 
         _upgradeField.InitUpgradeField("Joint Fluidity", _upgradeField._currentLevel, _upgradeField._maxLevel, _upgradeLevels);
@@ -39,25 +39,25 @@ public class RotationUpgradeField : MonoBehaviour
     public void Upgrade()
     {
         if (_upgradeField._currentLevel >= _upgradeField._maxLevel) return;
-        if (Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_upgradeField._currentLevel + 1]) return;
+        if (REF.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_upgradeField._currentLevel + 1]) return;
         _upgradeField._tempLevel++;
-        Ref.UI._upgradeScreen.RemoveTempScrap(_upgradeLevels[_upgradeField._tempLevel]);
+        REF.UI._upgradeScreen.RemoveTempScrap(_upgradeLevels[_upgradeField._tempLevel]);
         _upgradeField.SetTempLevel(_upgradeField._tempLevel);
     }
     public void Downgrade()
     {
         if (_upgradeField._tempLevel <= _upgradeField._currentLevel) return;
         _upgradeField._tempLevel--;
-        Ref.UI._upgradeScreen.AddTempScrap(_upgradeLevels[_upgradeField._tempLevel + 1]);
+        REF.UI._upgradeScreen.AddTempScrap(_upgradeLevels[_upgradeField._tempLevel + 1]);
         _upgradeField.SetTempLevel(_upgradeField._tempLevel);
     }
     public void SaveChanges()
     {
         _upgradeField._currentLevel = _upgradeField._tempLevel;
-        Ref.PCon.GetComponent<PlayerTankRotation>()._rotationSpeedMultiplier = 1 + _upgradeField._currentLevel / (float)_upgradeField._maxLevel;
-        Ref.PCon.TWep._weaponRotationSpeedMultiplier = 1 +  weaponRotationIncreaseModifier * (_upgradeField._currentLevel / (float)_upgradeField._maxLevel);
-        Ref.PCon.TWep.UpdateWeaponRotationSpeed();
-        Ref.UI._upgradeScreen.UpdateMainScrapCounter();
+        REF.PCon.GetComponent<PlayerTankRotation>()._rotationSpeedMultiplier = 1 + _upgradeField._currentLevel / (float)_upgradeField._maxLevel;
+        REF.PCon.TWep._weaponRotationSpeedMultiplier = 1 +  weaponRotationIncreaseModifier * (_upgradeField._currentLevel / (float)_upgradeField._maxLevel);
+        REF.PCon.TWep.UpdateWeaponRotationSpeed();
+        REF.UI._upgradeScreen.UpdateMainScrapCounter();
     }
     public void RevertChanges()
     {
@@ -76,6 +76,6 @@ public class RotationUpgradeField : MonoBehaviour
                 Upgrade();
             }
         }
-        Ref.UI._upgradeScreen.UpdateMainScrapCounter();
+        REF.UI._upgradeScreen.UpdateMainScrapCounter();
     }
 }

@@ -11,12 +11,12 @@ public class PlayerTankHealth : TankHealth
     public override void InitHealth()
     {
         SetCurrentHealth(_maxHealth);
-        Ref.UI.CreateHealthbar(_maxHealth);
+        REF.UI.CreateHealthbar(_maxHealth);
     }
     public override void TakeDamage(int dmg)
     {
         SetCurrentHealth(_currentHealth - dmg);
         if (_currentHealth <= 0) GetComponent<PlayerTankController>().InitiateDeathBehaviour();
-        Ref.UI.UpdateHealthBar(_currentHealth, _maxHealth);
+        REF.UI.UpdateHealthBar(_currentHealth, _maxHealth);
     }
 }

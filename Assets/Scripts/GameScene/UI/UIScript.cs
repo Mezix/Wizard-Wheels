@@ -76,7 +76,7 @@ public class UIScript : MonoBehaviour
     private void Awake()
     {
         wizardsSaved = false;
-        Ref.UI = this;
+        REF.UI = this;
     }
     private void Start()
     {
@@ -97,14 +97,14 @@ public class UIScript : MonoBehaviour
                 {
                     if (obj.TryGetComponent(out AUnit unit))
                     {
-                        if (unit.PlayerUIWizardIcon) objToTrack = Ref.PCon.transform.root.gameObject;
+                        if (unit.PlayerUIWizardIcon) objToTrack = REF.PCon.transform.root.gameObject;
                     }
                     if(obj.TryGetComponent(out AWeapon weapon))
                     {
-                        if (!weapon.ShouldHitPlayer) objToTrack = Ref.PCon.transform.root.gameObject;
+                        if (!weapon.ShouldHitPlayer) objToTrack = REF.PCon.transform.root.gameObject;
                     }
-                    Ref.Cam.SetTrackedVehicleToObject(objToTrack.transform);
-                    Ref.Cam.SetDesiredZoom(Ref.Cam.maxZoom);
+                    REF.Cam.SetTrackedVehicleToObject(objToTrack.transform);
+                    REF.Cam.SetDesiredZoom(REF.Cam.maxZoom);
                 }
         LastWizardOrWeaponClicked = obj;
         timeBetweenMouseClicks = 0;
@@ -123,16 +123,16 @@ public class UIScript : MonoBehaviour
     private void InitButtonsSlidersToggles()
     {
         //Buttons
-        _pauseButton.onClick.AddListener(() => Ref.TM.TogglePauseWhilstPlaying());
+        _pauseButton.onClick.AddListener(() => REF.TM.TogglePauseWhilstPlaying());
         _xrayButton.onClick.AddListener(() => ToggleVision());
-        _trackPlayerTankButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToPlayer());
-        _returnWizardsButton.onClick.AddListener(() => Ref.PCon.ReturnAllWizardsToSavedPositions());
+        _trackPlayerTankButton.onClick.AddListener(() => REF.Cam.SetTrackedVehicleToPlayer());
+        _returnWizardsButton.onClick.AddListener(() => REF.PCon.ReturnAllWizardsToSavedPositions());
         _saveWizardsButton.onClick.AddListener(() => SaveWizards(true));
 
         //  Toggles
 
         //  Sliders
-        ZoomSlider.onValueChanged.AddListener(delegate { Ref.Cam.SetZoom(ZoomSlider.value);});
+        ZoomSlider.onValueChanged.AddListener(delegate { REF.Cam.SetZoom(ZoomSlider.value);});
     }
     
     public PlayerWeaponUI CreateWeaponUI(AWeapon iwp)
@@ -182,27 +182,27 @@ public class UIScript : MonoBehaviour
 
             //  Player
 
-            if (Ref.PCon)
+            if (REF.PCon)
             {
-                foreach (AWeapon wep in Ref.PCon.TWep.AWeaponArray)
+                foreach (AWeapon wep in REF.PCon.TWep.AWeaponArray)
                 {
                     wep.SetOpacity(true);
                     wep.WeaponUI._weaponIndexText.transform.parent.gameObject.SetActive(true);
                 }
-                foreach(ASystem sys in Ref.PCon.TWep.ASystemArray)
+                foreach(ASystem sys in REF.PCon.TWep.ASystemArray)
                 {
                     sys.SetOpacity(true);
                 }
-                Ref.PCon.TGeo.ShowRoof(false);
+                REF.PCon.TGeo.ShowRoof(false);
             }
 
             //  Enemies
 
-            if (Ref.EM)
+            if (REF.EM)
             {
-                if (Ref.EM._enemyTanks.Count > 0)
+                if (REF.EM._enemyTanks.Count > 0)
                 {
-                    foreach (EnemyTankController g in Ref.EM._enemyTanks)
+                    foreach (EnemyTankController g in REF.EM._enemyTanks)
                     {
                         foreach (AWeapon wep in g.TWep.AWeaponArray)
                         {
@@ -229,27 +229,27 @@ public class UIScript : MonoBehaviour
 
             //  Player
 
-            if (Ref.PCon)
+            if (REF.PCon)
             {
-                foreach (AWeapon wep in Ref.PCon.TWep.AWeaponArray)
+                foreach (AWeapon wep in REF.PCon.TWep.AWeaponArray)
                 {
                     wep.SetOpacity(false);
                     wep.WeaponUI._weaponIndexText.transform.parent.gameObject.SetActive(false);
                 }
-                foreach (ASystem sys in Ref.PCon.TWep.ASystemArray)
+                foreach (ASystem sys in REF.PCon.TWep.ASystemArray)
                 {
                     sys.SetOpacity(false);
                 }
-                Ref.PCon.TGeo.ShowRoof(true);
+                REF.PCon.TGeo.ShowRoof(true);
             }
 
             //  Enemies
 
-            if (Ref.EM)
+            if (REF.EM)
             {
-                if (Ref.EM._enemyTanks.Count > 0)
+                if (REF.EM._enemyTanks.Count > 0)
                 {
-                    foreach (EnemyTankController g in Ref.EM._enemyTanks)
+                    foreach (EnemyTankController g in REF.EM._enemyTanks)
                     {
                         foreach (AWeapon wep in g.TWep.AWeaponArray)
                         {
@@ -359,7 +359,7 @@ public class UIScript : MonoBehaviour
             _returnWizardsImage.sprite = Resources.Load("Art/UI/Return_Wizards_Red", typeof(Sprite)) as Sprite;
             _returnWizardsButton.interactable = false;
         }
-        Ref.PCon.SaveAllWizardPositions();
+        REF.PCon.SaveAllWizardPositions();
     }
 
     //  Emergency Brake

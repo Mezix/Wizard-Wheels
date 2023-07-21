@@ -41,7 +41,7 @@ public class MainMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        Ref.mUI = this;
+        REF.mUI = this;
     }
     private void Start()
     {
@@ -58,7 +58,7 @@ public class MainMenuUI : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape)) ReturnToMainMenu();
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
             {
-                Ref.mMenu.wiz.movementLocked = false;
+                REF.mMenu.wiz.movementLocked = false;
             }
         }
     }
@@ -67,7 +67,7 @@ public class MainMenuUI : MonoBehaviour
         //  Main Menu
 
         mainMenuStartButton.onClick.AddListener(() => ShowOverworldUI());
-        quitGameButton.onClick.AddListener(() => Ref.mMenu.QuitGame());
+        quitGameButton.onClick.AddListener(() => REF.mMenu.QuitGame());
 
         //  Non Main Menu
 
@@ -76,9 +76,9 @@ public class MainMenuUI : MonoBehaviour
 
         //  Select Screen
 
-        nextTankButton.onClick.AddListener(() => Ref.mMenu._mmTankPreview.NextTank());
-        previousTankButton.onClick.AddListener(() => Ref.mMenu._mmTankPreview.PreviousTank());
-        launchGameButton.onClick.AddListener(() => Ref.mMenu.LaunchGame());
+        nextTankButton.onClick.AddListener(() => REF.mMenu._mmTankPreview.NextTank());
+        previousTankButton.onClick.AddListener(() => REF.mMenu._mmTankPreview.PreviousTank());
+        launchGameButton.onClick.AddListener(() => REF.mMenu.LaunchGame());
     }
     public void UpdateSelectedTankText(string tankName)
     {
@@ -87,14 +87,14 @@ public class MainMenuUI : MonoBehaviour
     
     public void ReturnToMainMenu()
     {
-        Ref.mCam.SetZoom(Ref.mCam.furthestZoom);
+        REF.mCam.SetZoom(REF.mCam.furthestZoom);
         ActivateMainMenuUI(true);
         ActivateOverworldUI(false);
         _settingsScript.CloseSettings();
     }
     public void ShowOverworldUI()
     {
-        Ref.mCam.SetZoom(Ref.mCam.closestZoom);
+        REF.mCam.SetZoom(REF.mCam.closestZoom);
         ActivateMainMenuUI(false);
         ActivateOverworldUI(true);
         _settingsScript.CloseSettings();
@@ -103,12 +103,12 @@ public class MainMenuUI : MonoBehaviour
     {
         _mainMenuGO.SetActive(b);
         _nonMainMenuGO.SetActive(b);
-        Ref.mMenu.wiz.movementLocked = b;
+        REF.mMenu.wiz.movementLocked = b;
     }
     private void ActivateOverworldUI(bool b)
     {
         _selectScreenGO.SetActive(b);
         _nonMainMenuGO.SetActive(b);
-        Ref.mMenu.wiz.movementLocked = !b;
+        REF.mMenu.wiz.movementLocked = !b;
     }
 }

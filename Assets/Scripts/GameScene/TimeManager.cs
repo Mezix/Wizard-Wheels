@@ -7,7 +7,7 @@ public class TimeManager : MonoBehaviour
     public static bool paused;
     private void Awake()
     {
-        Ref.TM = this;
+        REF.TM = this;
     }
     void Start()
     {
@@ -19,7 +19,7 @@ public class TimeManager : MonoBehaviour
     }
     public void TogglePauseWhilstPlaying()
     {
-        if (Ref.UI._settingsScript._settingsOn) return;
+        if (REF.UI._settingsScript._settingsOn) return;
         if (!paused)
         {
             FreezeTime();
@@ -43,11 +43,11 @@ public class TimeManager : MonoBehaviour
     public void PauseGame()
     {
         paused = true;
-        Ref.UI._pauseImage.SetActive(paused);
+        REF.UI._pauseImage.SetActive(paused);
     }
     public void UnpauseGame()
     {
         paused = false;
-        Ref.UI._pauseImage.SetActive(paused);
+        REF.UI._pauseImage.SetActive(paused);
     }
 }

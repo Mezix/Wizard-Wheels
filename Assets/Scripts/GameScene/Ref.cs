@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ref : MonoBehaviour
+public class REF : MonoBehaviour
 {
     //  MAIN MENU
 

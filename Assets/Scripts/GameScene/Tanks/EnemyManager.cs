@@ -26,7 +26,7 @@ public class EnemyManager : MonoBehaviour
     }
     private void Awake()
     {
-        Ref.EM = this;
+        REF.EM = this;
         Events.instance.EnemyTankDestroyed += EnemyDestroyed;
     }
     private void Start()
@@ -69,9 +69,9 @@ public class EnemyManager : MonoBehaviour
         enemyTank._tankColor = GetNextColor(enemy);
         _enemyTanks.Add(enemyTank);
 
-        if (Ref.PCon)
+        if (REF.PCon)
         {
-            spawnPos = Ref.PCon.transform.position + new Vector3(10, -5, 0);
+            spawnPos = REF.PCon.transform.position + new Vector3(10, -5, 0);
         }
         else
         {

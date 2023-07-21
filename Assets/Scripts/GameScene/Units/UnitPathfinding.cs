@@ -6,7 +6,7 @@ public class UnitPathfinding : MonoBehaviour
 {
     private void Awake()
     {
-        Ref.Path = this;
+        REF.Path = this;
     }
     public List<RoomPosition> FindPath(RoomPosition startRoomPos, RoomPosition targetRoomPos, TankGeometry tank) //for clarification watch Sebastian Lagues Video on A* Pathfinding (Part 1 & 3)
     {
@@ -145,13 +145,13 @@ public class UnitPathfinding : MonoBehaviour
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
         if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.GetNextFreeRoomPos() == null)
         {
-            Ref.mouse.DeselectAllUnits();
+            REF.mouse.DeselectAllUnits();
             print("no valid room found, deselecting unit and aborting pathfinding");
             return;
         }
         if (!CurrentRoom.tGeo.Equals(roomToGetTo.tGeo))
         {
-            Ref.mouse.DeselectAllUnits();
+            REF.mouse.DeselectAllUnits();
             print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
             return;
         }
@@ -178,7 +178,7 @@ public class UnitPathfinding : MonoBehaviour
         {
             if(!tryingToGetToInteractionPos)
             {
-                Ref.mouse.DeselectAllUnits();
+                REF.mouse.DeselectAllUnits();
                 print("Trying to go to the same position we are already in, Deselecting unit!");
                 return;
             }
@@ -190,7 +190,7 @@ public class UnitPathfinding : MonoBehaviour
         //  Check if the path is valid!
         if (path.Count == 0)
         {
-            Ref.mouse.DeselectAllUnits();
+            REF.mouse.DeselectAllUnits();
             print("Path is empty, aborting!");
             return;
         }
@@ -240,13 +240,13 @@ public class UnitPathfinding : MonoBehaviour
         }
         if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
         {
-            Ref.mouse.DeselectAllUnits();
+            REF.mouse.DeselectAllUnits();
             print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
             return;
         }
         if (roomPosToGetTo.Equals(CurrentRoomPos))
         {
-            Ref.mouse.DeselectAllUnits();
+            REF.mouse.DeselectAllUnits();
             print("Trying to go to the same roomPos we are already in, Deselecting unit!");
             return;
         }
@@ -256,7 +256,7 @@ public class UnitPathfinding : MonoBehaviour
         //  Check if the path is valid!
         if (path.Count == 0)
         {
-            Ref.mouse.DeselectAllUnits();
+            REF.mouse.DeselectAllUnits();
             print("Path not possible, aborting!");
             return;
         }

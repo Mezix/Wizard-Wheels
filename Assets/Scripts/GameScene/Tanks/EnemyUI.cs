@@ -26,15 +26,15 @@ public class EnemyUI : MonoBehaviour
     {
         tankNameText.text = name;
         trackCameraButton.onClick = new Button.ButtonClickedEvent();
-        trackCameraButton.onClick.AddListener(() => Ref.Cam.SetTrackedVehicleToObject(transform.root));
+        trackCameraButton.onClick.AddListener(() => REF.Cam.SetTrackedVehicleToObject(transform.root));
         matchSpeedButton.onClick = new Button.ButtonClickedEvent();
         matchSpeedButton.onClick.AddListener(() => MatchSpeed(e, matching));
         canvas.sortingLayerName = "VehicleUI";
     }
     public void MatchSpeed(EnemyTankMovement e, bool b)
     {
-        Ref.UI._engineUIScript._matchSpeedImage.gameObject.SetActive(b);
-        Ref.PCon.TMov.MatchSpeed(e, b);
+        REF.UI._engineUIScript._matchSpeedImage.gameObject.SetActive(b);
+        REF.PCon.TMov.MatchSpeed(e, b);
         if (b) matchSpeedImg.sprite = Resources.Load("Art/UI/Match_Speed_On", typeof(Sprite)) as Sprite;
         else matchSpeedImg.sprite = Resources.Load("Art/UI/Match_Speed_Off", typeof(Sprite)) as Sprite;
         matching = !b;

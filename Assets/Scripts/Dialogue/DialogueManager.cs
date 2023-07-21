@@ -60,7 +60,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        Ref.Dialog = this;
+        REF.Dialog = this;
         typing = false;
         speakerHeight = _speakerRightImage.rectTransform.sizeDelta.y;
         _leftButton.onClick.AddListener(() => DisplayNextSentence());
@@ -78,11 +78,11 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Ref.Dialog.DisplayNextSentence();
+            REF.Dialog.DisplayNextSentence();
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Ref.Dialog.StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
+            REF.Dialog.StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
         }
         timeSinceLastLine += Time.deltaTime;
         timeSinceLastWeaponFired += Time.deltaTime;

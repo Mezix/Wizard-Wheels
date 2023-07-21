@@ -57,7 +57,7 @@ public class UIUpgradeField : MonoBehaviour
         if (_tempLevel != _maxLevel) _nextScrapUpgrade.text = _upgradeLevels[_tempLevel + 1].ToString();
         else _nextScrapUpgrade.text = "--";
 
-        if (_tempLevel == _maxLevel || Ref.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_currentLevel+1]) _upgradeButton.interactable = false;
+        if (_tempLevel == _maxLevel || REF.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_currentLevel+1]) _upgradeButton.interactable = false;
         else _upgradeButton.interactable = true;
 
         if (_tempLevel <= _currentLevel || _currentLevel == _maxLevel) _downgradeButton.interactable = false;

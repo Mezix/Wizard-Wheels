@@ -22,7 +22,7 @@ public class OverworldWizard : MonoBehaviour
     }
     void Update()
     {
-        if (!Ref.mUI._mainMenuGO.activeInHierarchy)
+        if (!REF.mUI._mainMenuGO.activeInHierarchy)
         {
             CheckPlayerDistanceFromOrb();
         }
@@ -79,19 +79,19 @@ public class OverworldWizard : MonoBehaviour
     }
     private void CheckPlayerDistanceFromOrb()
     {
-        if (Vector3.Distance(transform.position, Ref.mMenu.orb.transform.position) <= 1.25f)
+        if (Vector3.Distance(transform.position, REF.mMenu.orb.transform.position) <= 1.25f)
         {
-            Ref.mCam.SetZoom(Ref.mCam.closestZoom);
-            Ref.mCam.SetCamParent(Ref.mMenu.orb.transform);
-            Ref.mUI._selectScreenGO.SetActive(true);
-            Ref.TankPreview.ShowTank(Ref.TankPreview.tankIndex);
+            REF.mCam.SetZoom(REF.mCam.closestZoom);
+            REF.mCam.SetCamParent(REF.mMenu.orb.transform);
+            REF.mUI._selectScreenGO.SetActive(true);
+            REF.TankPreview.ShowTank(REF.TankPreview.tankIndex);
         }
         else
         {
-            Ref.mCam.SetZoom(Ref.mCam.furthestZoom);
-            Ref.mCam.SetCamParent(transform);
-            Ref.mUI._selectScreenGO.SetActive(false);
-            Ref.TankPreview.HideAllTanks();
+            REF.mCam.SetZoom(REF.mCam.furthestZoom);
+            REF.mCam.SetCamParent(transform);
+            REF.mUI._selectScreenGO.SetActive(false);
+            REF.TankPreview.HideAllTanks();
         }
     }
     private void UpdateOrbSortingLayer()

@@ -15,7 +15,7 @@ public class SpeedDisplay : MonoBehaviour
 
     private void Awake()
     {
-        Ref.SD = this;
+        REF.SD = this;
     }
     public void SetSpeed(float speed)
     {

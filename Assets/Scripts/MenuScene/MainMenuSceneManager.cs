@@ -14,7 +14,7 @@ public class MainMenuSceneManager : MonoBehaviour
 
     private void Awake()
     {
-        Ref.mMenu = this;
+        REF.mMenu = this;
     }
     private void Start()
     {

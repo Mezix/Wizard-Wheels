@@ -20,13 +20,13 @@ public class PlayerTankController : TankController
     private void Start()
     {
         rotUpgrade.CreateUpgradeField();
+        InitEvents();
     }
     public void InitTank()
     {
-        Ref.PCon = this;
-        Ref.PlayerGO = gameObject;
-        Ref.PDead = false;
-        InitEvents();
+        REF.PCon = this;
+        REF.PlayerGO = gameObject;
+        REF.PDead = false;
         TGeo = GetComponentInChildren<TankGeometry>();
         TMov = GetComponentInChildren<PlayerTankMovement>();
         TRot = GetComponentInChildren<PlayerTankRotation>();
@@ -54,7 +54,7 @@ public class PlayerTankController : TankController
     {
         foreach (AUnit u in _spawnedWizards)
         {
-            u.PlayerWizardUI = Ref.UI.CreateWizardUI(u);
+            u.PlayerWizardUI = REF.UI.CreateWizardUI(u);
             _UIWizards.Add(u.PlayerWizardUI);
         }
     }
@@ -75,7 +75,7 @@ public class PlayerTankController : TankController
         {
             if(unit.SavedRoom && unit.SavedRoomPos)
             {
-                Ref.Path.SetPathToRoom(unit, unit.SavedRoomPos);
+                REF.Path.SetPathToRoom(unit, unit.SavedRoomPos);
             }
         }
     }
@@ -175,7 +175,7 @@ public class PlayerTankController : TankController
         {
             if(TMov.enemyToMatch.gameObject.Equals(enemy))
             {
-                Ref.UI._engineUIScript.UnmatchSpeedUI();
+                REF.UI._engineUIScript.UnmatchSpeedUI();
                 TMov.enemyToMatch = null;
                 TMov._matchSpeed = false;
                 TMov.TurnOnCruise(true);
@@ -203,13 +203,13 @@ public class PlayerTankController : TankController
     public override void TakeDamage(int damage)
     {
         THealth.GetComponent<PlayerTankHealth>().TakeDamage(damage);
-        Ref.Cam.StartShake(0.1f, 0.1f);
+        REF.Cam.StartShake(0.1f, 0.1f);
     }
     public void InitiateDeathBehaviour()
     {
         //  Send event to our enemies to remove the target of their weapons
         Events.instance.PlayerDying();
-        Ref.PDead = true;
+        REF.PDead = true;
         DeselectAllWizards();
         TWep.WeaponBehaviourInDeath();
         TMov.cruiseModeOn = false;
