@@ -9,6 +9,7 @@ TagManager:
   - magicmissile
   - wall
   - Level
+  - Shadow
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - 
   - Room
   - Wizard
-  - 
-  - 
+  - LightingSystem
+  - 2DWater
   - 
   - 
   - 
@@ -48,6 +49,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Shadows
+    uniqueID: 3007894477
     locked: 0
   - name: Vehicles
     uniqueID: 2229974385

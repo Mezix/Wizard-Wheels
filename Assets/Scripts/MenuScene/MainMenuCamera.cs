@@ -9,7 +9,7 @@ public class MainMenuCamera : MonoBehaviour
     //  Camera
     [HideInInspector]
     public Camera cam;
-    private Transform camParent;
+    private Transform objectToTrack;
     [SerializeField]
     private PixelPerfectCamera pixelCam;
     private int zoomLevel;
@@ -29,7 +29,7 @@ public class MainMenuCamera : MonoBehaviour
         closestZoom = 300;
         furthestZoom = 30; //lowest is 1
         pixelCam.assetsPPU = zoomLevel = furthestZoom;
-        camParent = Ref.mMenu.orb.transform;
+        objectToTrack = Ref.mMenu.orb.transform;
         SetCamParent(transform);
         cam.transform.localPosition = new Vector3(0, 0, -10);
     }
@@ -40,7 +40,7 @@ public class MainMenuCamera : MonoBehaviour
     }
     public void SetCamParent(Transform t)
     {
-        camParent = t;
+        objectToTrack = t;
     }
     public void SetZoom(int zoom)
     {
@@ -52,10 +52,19 @@ public class MainMenuCamera : MonoBehaviour
     }
     private void MoveCamToObjectSlowly()
     {
-        cam.transform.parent = camParent;
-        Vector3 diff = Vector2.Lerp(cam.transform.localPosition, Vector2.zero, 0.1f);
-        if (diff.magnitude < 0.01f) diff = Vector2.zero;
-        diff.z = -10;
-        cam.transform.localPosition = diff;
+        //  Perfectly Track when we get close enough
+        if (Vector3.Distance(cam.transform.position, objectToTrack.transform.position) < 0.05f)
+        {
+            Vector3 newPosition = objectToTrack.transform.position;
+            newPosition.z = -10;
+            cam.transform.position = newPosition;
+        }
+        //  Otherwise slowly get closer
+        else
+        {
+            Vector3 newPosition = Vector2.Lerp(cam.transform.position, objectToTrack.transform.position, 0.1f);
+            newPosition.z = -10;
+            cam.transform.position = newPosition;
+        }
     }
 }

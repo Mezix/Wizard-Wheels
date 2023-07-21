@@ -71,6 +71,7 @@ public class UIScript : MonoBehaviour
     public SteeringWheel _steeringWheelScript;
     public EngineUI _engineUIScript;
     public UpgradeScreen _upgradeScreen;
+    public InventoryUI _inventoryUI;
 
     private void Awake()
     {

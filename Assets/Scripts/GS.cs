@@ -4,9 +4,14 @@ using UnityEngine;
 
 public static class GS // Stands for "Get Strings"
 {
+    //  Prefabs
     public static string Prefabs(string filename = "")
     {
         return "Prefabs/" + filename;
+    }
+    public static string UIPrefabs(string filename = "")
+    {
+        return Prefabs() + "UI/" + filename;
     }
 
     //  Graphics
