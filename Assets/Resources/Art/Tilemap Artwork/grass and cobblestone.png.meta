@@ -93,7 +93,7 @@ TextureImporter:
       213: -9192434884136689547
     second: grass and cobblestone_29
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -110,9 +110,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -122,8 +125,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -144,10 +147,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -159,6 +167,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -171,6 +180,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -816,9 +839,39 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      grass and cobblestone_0: 6076067909397716457
+      grass and cobblestone_1: 5482819085141195411
+      grass and cobblestone_10: -3411557384472144719
+      grass and cobblestone_11: -5406406159863178423
+      grass and cobblestone_12: 4039115645942165083
+      grass and cobblestone_13: 671115300783183277
+      grass and cobblestone_14: 3364003669913375845
+      grass and cobblestone_15: 8692819985467189398
+      grass and cobblestone_16: -1453561691584199421
+      grass and cobblestone_17: 534239221832399476
+      grass and cobblestone_18: 1790410548596344606
+      grass and cobblestone_19: -4453581908999582356
+      grass and cobblestone_2: -8234801441340198225
+      grass and cobblestone_20: -1814463193497348231
+      grass and cobblestone_21: 6052044741297257263
+      grass and cobblestone_22: 5215287215260502702
+      grass and cobblestone_23: -3738226537467234325
+      grass and cobblestone_24: 9072091682033075100
+      grass and cobblestone_25: 6738456669856939012
+      grass and cobblestone_26: 8867138221438606231
+      grass and cobblestone_27: -5742251723627727464
+      grass and cobblestone_28: 4761104107361261694
+      grass and cobblestone_29: -9192434884136689547
+      grass and cobblestone_3: 4230229119564223368
+      grass and cobblestone_4: 655615832928229992
+      grass and cobblestone_5: -8548669651396813460
+      grass and cobblestone_6: 4733022563980584161
+      grass and cobblestone_7: 8994634013011793457
+      grass and cobblestone_8: -7424003274093895883
+      grass and cobblestone_9: 8081992988701677544
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

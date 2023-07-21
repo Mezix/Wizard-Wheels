@@ -63,7 +63,7 @@ TextureImporter:
       213: -4993677340643752632
     second: crossbow_body-Sheet_19
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -80,9 +80,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -92,8 +95,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -114,10 +117,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -129,6 +137,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -141,6 +150,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -576,9 +599,29 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      crossbow_body-Sheet_0: 5443896839787973664
+      crossbow_body-Sheet_1: -5349999950947769712
+      crossbow_body-Sheet_10: 6611486313840574561
+      crossbow_body-Sheet_11: -6038839658550266756
+      crossbow_body-Sheet_12: 4290432512753698264
+      crossbow_body-Sheet_13: -6870813759508685896
+      crossbow_body-Sheet_14: -4180235897813195716
+      crossbow_body-Sheet_15: -4523163822810796128
+      crossbow_body-Sheet_16: 6450086124801782255
+      crossbow_body-Sheet_17: 3392044803609919801
+      crossbow_body-Sheet_18: -3985946168393865732
+      crossbow_body-Sheet_19: -4993677340643752632
+      crossbow_body-Sheet_2: 4474234906396420459
+      crossbow_body-Sheet_3: 5009546655611288060
+      crossbow_body-Sheet_4: -428508615862711355
+      crossbow_body-Sheet_5: 3830062186917812792
+      crossbow_body-Sheet_6: -2222989399333513940
+      crossbow_body-Sheet_7: 3953826412246610500
+      crossbow_body-Sheet_8: -7941952894912964378
+      crossbow_body-Sheet_9: 4619291998027423935
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

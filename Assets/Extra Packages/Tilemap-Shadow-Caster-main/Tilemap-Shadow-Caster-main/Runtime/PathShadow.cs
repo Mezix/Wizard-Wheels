@@ -5,15 +5,15 @@ using UnityEngine;
 
 namespace TilemapShadowCaster.Runtime
 {
-    public class PathShadow : UnityEngine.Experimental.Rendering.Universal.ShadowCaster2D
+    public class PathShadow : UnityEngine.Rendering.Universal.ShadowCaster2D
     {
-        static FieldInfo shapeFieldInfo = typeof(UnityEngine.Experimental.Rendering.Universal.ShadowCaster2D).GetField("m_ShapePath",
+        static FieldInfo shapeFieldInfo = typeof(UnityEngine.Rendering.Universal.ShadowCaster2D).GetField("m_ShapePath",
             BindingFlags.NonPublic | BindingFlags.Instance);
 
-        static FieldInfo shapeHashFieldInfo = typeof(UnityEngine.Experimental.Rendering.Universal.ShadowCaster2D).GetField("m_ShapePathHash",
+        static FieldInfo shapeHashFieldInfo = typeof(UnityEngine.Rendering.Universal.ShadowCaster2D).GetField("m_ShapePathHash",
             BindingFlags.NonPublic | BindingFlags.Instance);
 
-        static FieldInfo sortingLayersFieldInfo = typeof(UnityEngine.Experimental.Rendering.Universal.ShadowCaster2D).GetField("m_ApplyToSortingLayers",
+        static FieldInfo sortingLayersFieldInfo = typeof(UnityEngine.Rendering.Universal.ShadowCaster2D).GetField("m_ApplyToSortingLayers",
             BindingFlags.NonPublic | BindingFlags.Instance);
 
         internal void SetShape(List<Vector2> points,  int[] sortingLayers)

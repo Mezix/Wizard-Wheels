@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 public class SunScript : MonoBehaviour
 {
-    public Light2D _sunLightSource;
+    public UnityEngine.Rendering.Universal.Light2D _sunLightSource;
     public Gradient _nightCycleGradient;
     private float sunRotationSpeed;
     public float timeOfDay;
