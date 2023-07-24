@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static PlayerData;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -13,11 +14,13 @@ public class InventoryUI : MonoBehaviour
     public VerticalLayoutGroup _verticalLayoutGroup;
 
     public List<InventorySlot> _spawnedInventorySlots = new List<InventorySlot>();
-    //public Dictionary<InventoryItem, int> InventoryList;
+    public List<InventoryItemData> SceneInventoryList = new List<InventoryItemData>();
+
+    int saveSlot = 0;
 
     private void Awake()
     {
-        REF.InventoryUI = this;
+        REF.InvUI = this;
     }
     private void Start()
     {
@@ -32,6 +35,10 @@ public class InventoryUI : MonoBehaviour
         {
             Show(!_inventoryObjects.activeSelf);
         }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            SavePlayerData.SavePlayer(saveSlot, SceneInventoryList);
+        }
     }
 
     public void Show(bool show)
@@ -40,31 +47,54 @@ public class InventoryUI : MonoBehaviour
     }
     private void SpawnInventory()
     {
-        UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
-
-        int rowsToSpawn = Mathf.CeilToInt(inventoryItemTypeList.Length / 4f);
-        float rowHeight = 32 * 5; //5 = scale of objects
-        _content.sizeDelta = new Vector2(0, rowsToSpawn * rowHeight + 5 * _verticalLayoutGroup.spacing * (rowsToSpawn - 1));
+        PlayerData data = SavePlayerData.LoadPlayer(saveSlot);
+        SceneInventoryList = data.InventoryList;
 
         GameObject currentHorizontalLayoutGroup = (GameObject)Instantiate(Resources.Load(GS.UIPrefabs("InventoryHorizontalGroup")), _verticalLayoutGroup.transform, false);
-        int slotCounter = 0;
 
-        foreach (InventoryItem item in inventoryItemTypeList)
+        int rowIndex = 0;
+        int columnIndex = 0;
+        int index = -1;
+        foreach (InventoryItemData item in SceneInventoryList)
         {
+            index++;
+            if (item.Amount == 0) continue;
+            if(item.Name == "Scrap")
+            {
+                //dont add scrap to the inventory
+                REF.UpgrScreen._remainingScrap = item.Amount;
+                REF.UpgrScreen.UpdateMainScrapCounter();
+                REF.UpgrScreen.UpdateUpgradeScrapCounter();
+                REF.UpgrScreen.scrapInventoryItemSlotIndex = index;
+                continue;
+            }
+
             GameObject invSlotObj = Instantiate(Resources.Load(GS.UIPrefabs("InventorySlot")) as GameObject, currentHorizontalLayoutGroup.transform, false);
             InventorySlot inventorySlot = invSlotObj.GetComponent<InventorySlot>();
 
             inventorySlot._inventorySlotName.text = item.Name;
-            inventorySlot._inventorySlotAmount.text = "2";
-            inventorySlot._inventoryItemImage.sprite = item.Image;
+            inventorySlot._inventorySlotAmount.text = item.Amount.ToString();
+            inventorySlot._inventoryItemImage.sprite = Resources.Load(item.SpritePath, typeof(Sprite)) as Sprite;
+
             _spawnedInventorySlots.Add(inventorySlot);
 
-            slotCounter++;
-            if (slotCounter >= 4) // spawn a row every 4 slots
+            columnIndex++;
+            if (columnIndex >= 4) // spawn a row every 4 slots
             {
                 currentHorizontalLayoutGroup = (GameObject)Instantiate(Resources.Load(GS.UIPrefabs("InventoryHorizontalGroup")), _verticalLayoutGroup.transform, false);
-                slotCounter = 0;
+                columnIndex = 0;
+                rowIndex++;
             }
         }
+
+        float rowHeight = 32 * 5; //5 = scale of objects
+        _content.sizeDelta = new Vector2(0, rowIndex * rowHeight + 5 * _verticalLayoutGroup.spacing * (rowIndex - 1));
+    }
+
+    public void AddAmount(int index, int amount)
+    {
+        InventoryItemData data = SceneInventoryList[index];
+        data.Amount += amount;
+        SceneInventoryList[index] = data;
     }
 }

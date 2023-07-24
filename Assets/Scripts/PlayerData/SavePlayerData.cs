@@ -19,6 +19,8 @@ public static class SavePlayerData
 
         formatter.Serialize(stream, data);
         stream.Close();
+
+        Debug.Log("SAVE COMPLETE!");
     }
 
     public static PlayerData LoadPlayer (int saveSlot)
@@ -33,6 +35,7 @@ public static class SavePlayerData
             PlayerData data = formatter.Deserialize(stream) as PlayerData;
             stream.Close();
 
+            Debug.Log("LOAD COMPLETE!");
             return data;
         }
         else

@@ -28,10 +28,13 @@ public class UpgradeScreen : MonoBehaviour
     [HideInInspector]
     public int _totalScrap;
 
-    public GameObject _upgradeScreenObj; 
+    public GameObject _upgradeScreenObj;
+    public int scrapInventoryItemSlotIndex;
 
     private void Awake()
     {
+        REF.UpgrScreen = this;
+
         _saveButton.onClick.AddListener(() => SaveUpgrades());
         _revertButton.onClick.AddListener(() => RevertUpgrades());
         _popUpSaveButton.onClick.AddListener(() => SaveUpgrades());
@@ -42,7 +45,6 @@ public class UpgradeScreen : MonoBehaviour
 
     private void Start()
     {
-        AddNewScrap(350, false);
         _popUpOpened = false;
         InitPoints();
         UpdateUpgradeScrapCounter();
@@ -74,7 +76,7 @@ public class UpgradeScreen : MonoBehaviour
         }
         _totalScrap += _remainingScrap;
     }
-    private void UpdateUpgradeScrapCounter()
+    public void UpdateUpgradeScrapCounter()
     {
         string pointsString = "";
         string remaining = _remainingScrap.ToString();
@@ -90,6 +92,7 @@ public class UpgradeScreen : MonoBehaviour
         _remainingScrap += points;
         UpdateMainScrapCounter();
         UpdateUpgradeScrapCounter();
+        REF.InvUI.AddAmount(scrapInventoryItemSlotIndex, points);
         if (animPlay) StartCoroutine(AddScrapAnim(points));
     }
     private IEnumerator AddScrapAnim(int points)
