@@ -11,4 +11,5 @@ public class TankStats : ScriptableObject
     public float _tankAccel;
     public float _tankDecel;
     public float _rotationSpeed;
+    public int _scrapDropAmount;
 }

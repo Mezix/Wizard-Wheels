@@ -22,30 +22,30 @@ public class Events : MonoBehaviour
 
     public void EnemyDestroyed(GameObject enemyTank)
     {
-        if (EnemyTankDestroyed != null) EnemyTankDestroyed(enemyTank);
+        EnemyTankDestroyed?.Invoke(enemyTank);
     }
     public void PlayerDestroyed()
     {
-        if (PlayerTankDestroyed != null) PlayerTankDestroyed();
+        PlayerTankDestroyed?.Invoke();
     }
     public void PlayerDying()
     {
-        if (PlayerIsDying != null)PlayerIsDying();
+        PlayerIsDying?.Invoke();
     }
     public void DoubleClickAttempted(GameObject obj)
     {
-        if (CheckDoubleClick != null) CheckDoubleClick(obj);
+        CheckDoubleClick?.Invoke(obj);
     }
     public void SaveUpgrades()
     {
-        if (UpgradesSaved != null) UpgradesSaved();
+        UpgradesSaved?.Invoke();
     }
     public void UpdateUpgradeScreen()
     {
-        if (UpgradeScreenUpdated != null) UpgradeScreenUpdated();
+        UpgradeScreenUpdated?.Invoke();
     }
     public void RevertUpgrades()
     {
-        if (UpgradesReverted != null) UpgradesReverted();
+        UpgradesReverted?.Invoke();
     }
 }

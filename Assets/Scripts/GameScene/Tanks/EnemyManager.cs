@@ -97,6 +97,8 @@ public class EnemyManager : MonoBehaviour
     private void EnemyDestroyed(GameObject enemy)
     {
         EnemyTankController enemyTank = enemy.GetComponent<EnemyTankController>();
+        Debug.Log(enemyTank);
+        ReturnColor(enemyTank);
         if (_enemyTanks.Contains(enemyTank))
         {
             if (_enemyIndicators.Contains(enemyTank._indicator))
@@ -104,7 +106,6 @@ public class EnemyManager : MonoBehaviour
                 Destroy(enemyTank._indicator);
             }
             _enemyTanks.Remove(enemyTank);
-            ReturnColor(enemy);
         }
     }
     public void UntrackAllEnemyTanks()
@@ -124,7 +125,7 @@ public class EnemyManager : MonoBehaviour
         }
         return Color.red;
     }
-    private void ReturnColor(GameObject enemy)
+    private void ReturnColor(EnemyTankController enemy)
     {
         foreach (EnemyColor c in EnemyColors)
         {
@@ -132,7 +133,7 @@ public class EnemyManager : MonoBehaviour
             {
                 c.taken = false;
                 c.enemyTakingColor = null;
-                //print("returning");
+                return;
             }
         }
     }

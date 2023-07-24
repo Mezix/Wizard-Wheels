@@ -56,10 +56,10 @@ public class EnemyTankController : TankController
     private void Update()
     {
         if (!_dying) EnemyBehaviour();
-        else
+        /*else
         {
             if (!_dead) SlowlyDie();
-        }
+        }*/
     }
     private void InitEvents()
     {
@@ -110,9 +110,8 @@ public class EnemyTankController : TankController
     }
     private void SlowlyDie()
     {
-        print("dying");
         TMov.Decelerate();
-        if(TMov.currentSpeed < 0.01f)
+        if(TMov.currentSpeed < 0.05f)
         {
             _dead = true;
         }
@@ -122,6 +121,11 @@ public class EnemyTankController : TankController
         List<GameObject> explosions = new List<GameObject>();
         while (!_dead)
         {
+            TMov.Decelerate();
+            if (TMov.currentSpeed < 0.05f)
+            {
+                _dead = true;
+            }
             GameObject explosion = Instantiate((GameObject)Resources.Load(GS.Effects("SingleExplosion")));
             explosions.Add(explosion);
             explosion.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.0f, 1.0f), 0);
@@ -129,12 +133,12 @@ public class EnemyTankController : TankController
         }
         yield return new WaitForSeconds(0.435f);
 
-        GameObject g = Instantiate((GameObject) Resources.Load(GS.Prefabs("ScrapPile")));
-        g.transform.position = transform.position;
-        ScrapPile scrap = g.GetComponent<ScrapPile>();
-        scrap.InitScrap(UnityEngine.Random.Range(30,41));
+        ScrapPile scrap = Instantiate(Resources.Load(GS.Prefabs("ScrapPile"), typeof(ScrapPile)) as ScrapPile);
+        scrap.transform.position = transform.position;
+        scrap.InitScrap(UnityEngine.Random.Range(_tStats._scrapDropAmount, _tStats._scrapDropAmount + 10));
 
-        Events.instance.EnemyDestroyed(gameObject);
+        //Events.instance.EnemyDestroyed(gameObject);
+        Debug.Log(_tStats._tankName + " has been destroyed.");
         Destroy(gameObject);
     }
 }

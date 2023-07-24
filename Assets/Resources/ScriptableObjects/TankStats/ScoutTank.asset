@@ -18,3 +18,4 @@ MonoBehaviour:
   _tankAccel: 0.01
   _tankDecel: 0.03
   _rotationSpeed: 60
+  _scrapDropAmount: 30

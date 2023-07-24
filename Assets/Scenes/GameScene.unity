@@ -1544,8 +1544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e10be3290c3e14459c0ba4031d7fe2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 6385456487747659236, guid: 231eddb096881ba4094cbf85ff6d2092,
-    type: 3}
   _enemyTanks: []
   EnemyColors:
   - taken: 0
@@ -1778,11 +1776,6 @@ PrefabInstance:
     - target: {fileID: 784337687647865885, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_Size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 784337687647865885, guid: 703e50d0fa588ed49934e5b64ed2a00b,
-        type: 3}
-      propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 860147302714489351, guid: 703e50d0fa588ed49934e5b64ed2a00b,
@@ -2128,7 +2121,7 @@ PrefabInstance:
     - target: {fileID: 2580664973980767481, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 2706895069312023198, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
@@ -2233,7 +2226,7 @@ PrefabInstance:
     - target: {fileID: 3857651452480230578, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 766.61
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 3895322385338602528, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
@@ -2679,11 +2672,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7455234686771886864, guid: 703e50d0fa588ed49934e5b64ed2a00b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -6.0606947
       objectReference: {fileID: 0}
     - target: {fileID: 7726113902705243567, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}

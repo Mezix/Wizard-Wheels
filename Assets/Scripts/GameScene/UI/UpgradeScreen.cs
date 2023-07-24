@@ -97,7 +97,7 @@ public class UpgradeScreen : MonoBehaviour
     }
     private IEnumerator AddScrapAnim(int points)
     {
-        GameObject g = Instantiate((GameObject) Resources.Load("ScrapText"));
+        GameObject g = Instantiate((GameObject) Resources.Load(GS.UIPrefabs("ScrapText")));
         g.transform.parent = _mainUIScrapCounter.transform.parent;
 
         RectTransform rect = g.GetComponent<RectTransform>();
