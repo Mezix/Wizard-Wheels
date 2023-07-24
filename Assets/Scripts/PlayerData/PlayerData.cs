@@ -5,9 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public int scrapAmount = 0;
-    public PlayerData(int scrap = -1)
+    public Dictionary<InventoryItem, int> InventoryToItemAmountDictionary;
+
+    public PlayerData(Dictionary<InventoryItem, int> inventoryItems)
     {
-        if (scrap >= 0) scrapAmount = scrap; //only overwrite scrap if we are positive
+        foreach (InventoryItem item in inventoryItems.Keys)
+        {
+            InventoryItem newItem = new InventoryItem();
+            newItem.Name = item.Name;
+            newItem.Image = item.Image;
+            InventoryToItemAmountDictionary.Add(newItem, inventoryItems[item]);
+        }
     }
 }

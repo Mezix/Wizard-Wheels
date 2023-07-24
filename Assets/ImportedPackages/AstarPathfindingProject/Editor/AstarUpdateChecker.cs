@@ -136,10 +136,10 @@ namespace Pathfinding {
 			lastUpdateCheck = System.DateTime.UtcNow.AddDays(-5);
 
 			// Remove the callback if it already exists
-			EditorApplication.update -= UpdateCheckLoop;
+			//EditorApplication.update -= UpdateCheckLoop;
 
 			// Add a callback so that we can parse the message when it has been downloaded
-			EditorApplication.update += UpdateCheckLoop;
+			//EditorApplication.update += UpdateCheckLoop;
 		}
 
 		/// <summary>

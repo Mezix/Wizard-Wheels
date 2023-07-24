@@ -15,8 +15,8 @@ public class SunScript : MonoBehaviour
 
     void Start()
     {
-        sunRotationSpeed = 1 * Time.fixedDeltaTime; // 1 degree per second -> 6 mins for day night cycle
-        //sunRotationSpeed = 12 * Time.fixedDeltaTime; // 12 degrees per second -> 0.5 mins for day night cycle
+        //sunRotationSpeed = 1 * Time.fixedDeltaTime; // 1 degree per second -> 6 mins for day night cycle
+        sunRotationSpeed = 12 * Time.fixedDeltaTime; // 12 degrees per second -> 0.5 mins for day night cycle
         maxShadowIntensity = 0.7f;
         dayStart = 0f;
         nightStart = 160f;

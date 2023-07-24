@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
 
 public static class SavePlayerData
 {
     public readonly static string path = Application.persistentDataPath;
 
-    public static void SavePlayer (int saveSlot, int scrapAmount = -1)
+    public static void SavePlayer ( int saveSlot, Dictionary<InventoryItem, int> inventoryItems)
     {
         string saveSlotPath = path + "/player" + saveSlot + ".save";
 
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(saveSlotPath, FileMode.Create);
 
-        PlayerData data = new PlayerData(scrapAmount);
+        PlayerData data = new PlayerData(inventoryItems);
 
         formatter.Serialize(stream, data);
         stream.Close();
