@@ -40,4 +40,10 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Loader.Load(Loader.Scene.MenuScene);
     }
+
+    public void CombatHasBeenWon()
+    {
+        SavePlayerData.SavePlayer(REF.InvUI.saveSlot, REF.InvUI.SceneInventoryList);
+        GoToMainMenu();
+    }
 }

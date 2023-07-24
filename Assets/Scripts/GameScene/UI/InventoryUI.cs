@@ -16,7 +16,7 @@ public class InventoryUI : MonoBehaviour
     public List<InventorySlot> _spawnedInventorySlots = new List<InventorySlot>();
     public List<InventoryItemData> SceneInventoryList = new List<InventoryItemData>();
 
-    int saveSlot = 0;
+    public int saveSlot = 0;
 
     private void Awake()
     {

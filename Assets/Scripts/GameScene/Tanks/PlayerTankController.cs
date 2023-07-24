@@ -158,7 +158,7 @@ public class PlayerTankController : TankController
 
     private void InitEvents()
     {
-        Events.instance.EnemyTankDestroyed += RemoveEnemy;
+        Events.instance.EnemyTankDying += RemoveEnemy;
     }
     private void RemoveEnemy(GameObject enemy)
     {

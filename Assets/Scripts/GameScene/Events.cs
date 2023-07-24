@@ -11,6 +11,7 @@ public class Events : MonoBehaviour
         instance = this;
     }
     public event Action<GameObject> EnemyTankDestroyed;
+    public event Action<GameObject> EnemyTankDying;
     public event Action PlayerTankDestroyed;
     public event Action PlayerIsDying;
     public event Action<GameObject> CheckDoubleClick;
@@ -23,6 +24,10 @@ public class Events : MonoBehaviour
     public void EnemyDestroyed(GameObject enemyTank)
     {
         EnemyTankDestroyed?.Invoke(enemyTank);
+    }
+    public void EnemyIsDying(GameObject enemyTank)
+    {
+        EnemyTankDying?.Invoke(enemyTank);
     }
     public void PlayerDestroyed()
     {

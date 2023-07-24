@@ -97,7 +97,6 @@ public class EnemyManager : MonoBehaviour
     private void EnemyDestroyed(GameObject enemy)
     {
         EnemyTankController enemyTank = enemy.GetComponent<EnemyTankController>();
-        Debug.Log(enemyTank);
         ReturnColor(enemyTank);
         if (_enemyTanks.Contains(enemyTank))
         {
@@ -107,7 +106,15 @@ public class EnemyManager : MonoBehaviour
             }
             _enemyTanks.Remove(enemyTank);
         }
+        CheckAllTanksDestroyed();
     }
+    private void CheckAllTanksDestroyed()
+    {
+        if (_enemyIndex < enemiesToSpawn.Count) return;
+        if (_enemyTanks.Count > 0) return;
+        LevelManager.instance.CombatHasBeenWon();
+    }
+
     public void UntrackAllEnemyTanks()
     {
         foreach (EnemyTankController g in _enemyTanks) g.enemyUI.TrackTank(false);

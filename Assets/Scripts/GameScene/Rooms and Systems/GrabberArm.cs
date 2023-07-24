@@ -25,7 +25,7 @@ public class GrabberArm : ASystem
     }
     void Update()
     {
-        HighlightScrap();
+        TryHighlightScrap();
         if (Input.GetKeyDown(KeyCode.E))
         {
             TryLaunchToScrap();
@@ -48,7 +48,7 @@ public class GrabberArm : ASystem
         }
     }
 
-    private void HighlightScrap()
+    private void TryHighlightScrap()
     {
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if (!hit.collider) return;

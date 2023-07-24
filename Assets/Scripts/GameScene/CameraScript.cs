@@ -33,7 +33,7 @@ public class CameraScript : MonoBehaviour
         SetZoom(minZoom);
         Events.instance.PlayerIsDying += StopTracking;
         Events.instance.PlayerTankDestroyed += StopTracking;
-        Events.instance.EnemyTankDestroyed += CheckForEnemy;
+        Events.instance.EnemyTankDying += CheckForEnemy;
         SetTrackedVehicleToPlayer();
     }
     

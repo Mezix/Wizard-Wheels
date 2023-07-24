@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,12 @@ public static class GS // Stands for "Get Strings"
     {
         return Prefabs() + "Effects/" + filename;
     }
+
+    public static string Potions(string filename = "")
+    {
+        return Prefabs() + "Potions/" + filename;
+    }
+
     public static string Enemy(string filename = "")
     {
         return Prefabs() + "Enemy/" + filename;

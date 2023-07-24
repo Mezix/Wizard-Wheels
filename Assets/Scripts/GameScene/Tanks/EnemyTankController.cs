@@ -105,7 +105,7 @@ public class EnemyTankController : TankController
         TMov.deceleration *= 3;
 
         //  Send event to our player to remove the target of its weapons
-        Events.instance.EnemyDestroyed(gameObject);
+        Events.instance.EnemyIsDying(gameObject);
         StartCoroutine(DeathAnimation());
     }
     private void SlowlyDie()
@@ -136,9 +136,8 @@ public class EnemyTankController : TankController
         ScrapPile scrap = Instantiate(Resources.Load(GS.Prefabs("ScrapPile"), typeof(ScrapPile)) as ScrapPile);
         scrap.transform.position = transform.position;
         scrap.InitScrap(UnityEngine.Random.Range(_tStats._scrapDropAmount, _tStats._scrapDropAmount + 10));
-
-        //Events.instance.EnemyDestroyed(gameObject);
         Debug.Log(_tStats._tankName + " has been destroyed.");
+        Events.instance.EnemyDestroyed(gameObject);
         Destroy(gameObject);
     }
 }

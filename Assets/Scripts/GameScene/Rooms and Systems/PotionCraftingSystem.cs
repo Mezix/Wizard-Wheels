@@ -6,7 +6,7 @@ using UnityEngine;
 public class PotionCraftingSystem : ASystem
 {
     private PotionCraftingUI potionUI;
-    private void Awake()
+    public override void Awake()
     {
         base.Awake();
     }
@@ -16,7 +16,7 @@ public class PotionCraftingSystem : ASystem
     }
     private void SpawnPotionCraftingUI()
     {
-        GameObject g = Instantiate((GameObject) Resources.Load("Potions/PotionCraftingUI"));
+        GameObject g = Instantiate((GameObject) Resources.Load(GS.Potions("PotionCraftingUI")));
         g.transform.SetParent(REF.UI._systems.transform, false);
         potionUI = g.GetComponent<PotionCraftingUI>();
     }
