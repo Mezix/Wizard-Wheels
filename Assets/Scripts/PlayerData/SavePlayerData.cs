@@ -2,12 +2,13 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
+using static PlayerData;
 
 public static class SavePlayerData
 {
     public readonly static string path = Application.persistentDataPath;
 
-    public static void SavePlayer ( int saveSlot, Dictionary<InventoryItem, int> inventoryItems)
+    public static void SavePlayer ( int saveSlot, List<InventoryItemData> inventoryItems)
     {
         string saveSlotPath = path + "/player" + saveSlot + ".save";
 

@@ -1,67 +1,103 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using static PlayerData;
 
 public class DataManipulationManager : MonoBehaviour
 {
     public Dropdown _saveSlotDropDown;
-    public InputField _scrapInputField;
     public Button _saveButton;
     public Button _loadButton;
     public VerticalLayoutGroup _InventoryLayoutGroup;
+    public RectTransform _content;
 
-    public Dictionary<InventoryItem, int> InventoryDictionary;
-    public List<InventorySlot> _spawnedInventorySlots = new List<InventorySlot>();
+    public List<InventoryItemData> SceneInventoryList = new List<InventoryItemData>();
+    public List<DataManipulationInputSlot> _spawnedInventorySlots;
 
     private void Start()
     {
-        //LoadData(0);
+        InitInventory();
+
+        //ResetSaveSlot(0);
+        //ResetSaveSlot(1);
+        //ResetSaveSlot(2);
+
+        LoadData(0);
 
         _saveSlotDropDown.onValueChanged.AddListener(delegate { LoadData(_saveSlotDropDown.value);});
         _saveButton.onClick.AddListener(() => SaveData());
         _loadButton.onClick.AddListener(() => LoadData(_saveSlotDropDown.value));
     }
 
+    private void InitInventory()
+    {
+        _spawnedInventorySlots = new List<DataManipulationInputSlot>();
+        UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
+
+        _content.sizeDelta = new Vector2(_content.sizeDelta.x, (32 * 3) * inventoryItemTypeList.Length + (_InventoryLayoutGroup.spacing * 3) * inventoryItemTypeList.Length-1);
+        foreach (InventoryItem item in inventoryItemTypeList)
+        {
+            GameObject invSlotObj = Instantiate(Resources.Load(GS.UIPrefabs("InventoryManipulationItemSlot")) as GameObject, _InventoryLayoutGroup.transform, false);
+            DataManipulationInputSlot inventorySlot = invSlotObj.GetComponent<DataManipulationInputSlot>();
+
+            inventorySlot._inventorySlotName.text = item.Name;
+            inventorySlot._inventorySlotAmount.text = " Uninitialized";
+            inventorySlot._manager = this;
+            _spawnedInventorySlots.Add(inventorySlot);
+        }
+    }
+
     private void SaveData()
     {
         Debug.Log("Saving in save slot " + _saveSlotDropDown.value);
-        
-        SavePlayerData.SavePlayer(_saveSlotDropDown.value, InventoryDictionary);
+        SavePlayerData.SavePlayer(_saveSlotDropDown.value, SceneInventoryList);
     }
 
-    private void LoadData(int i)
+    private void LoadData(int saveSlot)
     {
-        Debug.Log("Loading save slot " + i);
-        PlayerData data = SavePlayerData.LoadPlayer(i);
+        Debug.Log("Loading save slot " + saveSlot);
+        PlayerData data = SavePlayerData.LoadPlayer(saveSlot);
+        if (data == null) { Debug.Log("No data found! Returning!"); return; };
 
-        //_scrapInputField.text = data.InventoryList[Resources.Load(GS.InventoryItems("Scrap"), typeof(InventoryItem)) as InventoryItem].ToString();
-
-        if (data.InventoryToItemAmountDictionary != null)
+        SceneInventoryList = new List<InventoryItemData>();
+        int counter = 0;
+        foreach (InventoryItemData item in data.InventoryList)
         {
-            foreach (InventoryItem item in data.InventoryToItemAmountDictionary.Keys)
-            {
-                GameObject invSlotObj = Instantiate(Resources.Load(GS.UIPrefabs("InventorySlot")) as GameObject, _InventoryLayoutGroup.transform, false);
-                InventorySlot inventorySlot = invSlotObj.GetComponent<InventorySlot>();
+            _spawnedInventorySlots[counter]._inventorySlotName.text = item.Name;
+            _spawnedInventorySlots[counter]._inventoryItemImage.sprite = Resources.Load(item.SpritePath, typeof(Sprite)) as Sprite;
+            _spawnedInventorySlots[counter]._inventorySlotAmount.SetTextWithoutNotify(item.Amount.ToString());
+            _spawnedInventorySlots[counter].index = counter;
 
-                inventorySlot._inventorySlotName.text = item.Name;
-                inventorySlot._inventoryItemImage.sprite = item.Image;
-                inventorySlot._inventorySlotAmount.text = data.InventoryToItemAmountDictionary[item].ToString();
-                _spawnedInventorySlots.Add(inventorySlot);
-
-                InventoryDictionary.Add(item, data.InventoryToItemAmountDictionary[item]);
-            }
+            SceneInventoryList.Add(item);
+            counter++;
         }
-        else
+    }
+
+
+    private void ResetSaveSlot(int saveSlot)
+    {
+        Debug.Log("Resetting save slot " + _saveSlotDropDown.value);
+
+        UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
+
+        int stringStartRemove = "Assets/Resources/".Length; // Removes "Assets/Resources/"
+        int fileExtensionRemove = ".png".Length;            // Removes ".png"
+
+        SceneInventoryList.Clear();
+        foreach (InventoryItem item in inventoryItemTypeList)
         {
-            Debug.Log("Save slot " + i + " has no Inventory. Initializing default Inventory!");
-            UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
+            InventoryItemData tmpItem = new InventoryItemData();
+            tmpItem.Name = item.Name;
 
-            foreach (InventoryItem item in inventoryItemTypeList)
-            {
-                InventoryDictionary.Add(item, 0);
-            }
-            SavePlayerData.SavePlayer(i, InventoryDictionary);
+            string Path = AssetDatabase.GetAssetPath(item.Image);
+            tmpItem.SpritePath = Path.Substring(stringStartRemove, Path.Length - stringStartRemove - fileExtensionRemove); //remove Assets/Resources/ part so we can load with Resources.Load()
+            tmpItem.Amount = 0;
+            SceneInventoryList.Add(tmpItem);
         }
+        SavePlayerData.SavePlayer(saveSlot, SceneInventoryList);
+        SavePlayerData.SavePlayer(_saveSlotDropDown.value, SceneInventoryList);
     }
 }

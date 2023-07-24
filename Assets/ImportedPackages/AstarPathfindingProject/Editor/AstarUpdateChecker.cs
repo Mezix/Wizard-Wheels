@@ -218,7 +218,7 @@ namespace Pathfinding {
 						   "&graphCount=" + (script != null ? script.data.graphs.Count(g => g != null) : 0) +
 						   "&unityversion="+Application.unityVersion +
 						   "&branch="+AstarPath.Branch;
-
+            /*
 #if UNITY_2018_1_OR_NEWER
 			updateCheckDownload = UnityWebRequest.Get(query);
 			updateCheckDownload.SendWebRequest();
@@ -226,10 +226,10 @@ namespace Pathfinding {
 			updateCheckDownload = new WWW(query);
 #endif
 			lastUpdateCheck = System.DateTime.UtcNow;
-		}
-
-		/// <summary>Handles the data from the update page</summary>
-		static void UpdateCheckCompleted (string result) {
+        */
+        }
+        /// <summary>Handles the data from the update page</summary>
+        static void UpdateCheckCompleted (string result) {
 			EditorPrefs.SetString("AstarServerMessage", result);
 			ParseServerMessage(result);
 			ShowUpdateWindowIfRelevant();

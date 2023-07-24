@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 2055152863939482056}
   - component: {fileID: 2793446403734891693}
   m_Layer: 5
-  m_Name: Name (1)
+  m_Name: Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,8 +422,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventoryItemImage: {fileID: 839512961120951600}
-  _inventorySlotName: {fileID: 0}
-  _inventorySlotAmount: {fileID: 0}
+  _inventorySlotName: {fileID: 7287897019641722661}
+  _inventorySlotAmount: {fileID: 2793446403734891693}
   _highlightedSound: {fileID: 4760481165953691145}
 --- !u!114 &4651222682622733504
 MonoBehaviour:

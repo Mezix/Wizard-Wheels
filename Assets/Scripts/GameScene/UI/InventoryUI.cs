@@ -42,9 +42,6 @@ public class InventoryUI : MonoBehaviour
     {
         UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
 
-        //SavePlayerData.SavePlayer();
-        
-        //int rowsToSpawn = Mathf.CeilToInt(_inventorySlotsToSpawn / 4f);
         int rowsToSpawn = Mathf.CeilToInt(inventoryItemTypeList.Length / 4f);
         float rowHeight = 32 * 5; //5 = scale of objects
         _content.sizeDelta = new Vector2(0, rowsToSpawn * rowHeight + 5 * _verticalLayoutGroup.spacing * (rowsToSpawn - 1));

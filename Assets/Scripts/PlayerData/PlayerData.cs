@@ -5,16 +5,26 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public Dictionary<InventoryItem, int> InventoryToItemAmountDictionary;
+    public List<InventoryItemData> InventoryList;
 
-    public PlayerData(Dictionary<InventoryItem, int> inventoryItems)
+    [System.Serializable]
+    public struct InventoryItemData
     {
-        foreach (InventoryItem item in inventoryItems.Keys)
+        public string Name;
+        public string SpritePath;
+        public int Amount;
+    }
+
+    public PlayerData(List<InventoryItemData> invItemList)
+    {
+        InventoryList = new List<InventoryItemData>();
+        foreach (InventoryItemData item in invItemList)
         {
-            InventoryItem newItem = new InventoryItem();
+            InventoryItemData newItem = new InventoryItemData();
             newItem.Name = item.Name;
-            newItem.Image = item.Image;
-            InventoryToItemAmountDictionary.Add(newItem, inventoryItems[item]);
+            newItem.SpritePath = item.SpritePath;
+            newItem.Amount = item.Amount;
+            InventoryList.Add(newItem);
         }
     }
 }
