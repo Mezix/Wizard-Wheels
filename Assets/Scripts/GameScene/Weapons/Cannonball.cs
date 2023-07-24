@@ -40,7 +40,7 @@ public class Cannonball : AProjectile
         despawnAnimationPlaying = true;
         _shadow.SetActive(false);
         _projectileSprite.gameObject.SetActive(false);
-        GameObject explosion = Instantiate((GameObject)Resources.Load("SingleExplosion"));
+        GameObject explosion = Instantiate((GameObject)Resources.Load(GS.Effects("SingleExplosion")));
         explosion.transform.position = transform.position;
         yield return new WaitForFixedUpdate();
         DespawnBullet();

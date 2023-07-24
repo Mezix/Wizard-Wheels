@@ -2,27 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static EnemyEvent;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject _enemyPrefab;
     public List<EnemyTankController> _enemyTanks = new List<EnemyTankController>();
     public List<EnemyColor> EnemyColors;
 
     public List<EnemyIndicator> _enemyIndicators = new List<EnemyIndicator>();
     public Transform _enemyIndicatorParent;
 
+    public EnemyEvent _enemyEvent;
+    private List<EnemySpawn> enemiesToSpawn;
+    public float timeUntilNextEnemySpawned;
+    public int _enemyIndex;
+
     [Serializable]
     public class EnemyColor
     {
         public bool taken;
         public Color color;
-        public GameObject enemyTakingColor;
-    }
-    private int maxEnemies;
-    private void Update()
-    {
-        SpawnBehaviour();
+        public EnemyTankController enemyTakingColor;
     }
     private void Awake()
     {
@@ -31,7 +31,68 @@ public class EnemyManager : MonoBehaviour
     }
     private void Start()
     {
-        maxEnemies = 1;
+        enemiesToSpawn = _enemyEvent.EnemyWaves;
+        timeUntilNextEnemySpawned = 0;
+        _enemyIndex = 0;
+    }
+    private void Update()
+    {
+        SpawnBehaviour();
+    }
+    public void SpawnBehaviour()
+    {
+        if (_enemyIndex >= enemiesToSpawn.Count) return;
+
+        timeUntilNextEnemySpawned += Time.deltaTime;
+        if(timeUntilNextEnemySpawned >= enemiesToSpawn[_enemyIndex]._delay)
+        {
+            timeUntilNextEnemySpawned = 0;
+            SpawnEnemy(enemiesToSpawn[_enemyIndex]);
+            _enemyIndex++;
+        }
+
+    }
+    private void SpawnEnemy(EnemySpawn enemyToSpawn)
+    {
+        //Get Bounds of the unit we want to spawn next
+
+        //get the positions of all tanks in the game, as well as the players, and save them to be iterated over
+
+        //get the bounds of these tanks
+
+        //define the area enemies can be spawned in; outside the max zoom out level of the player
+
+
+        TankRoomConstellation _constellation = enemyToSpawn._tankRoomConstellation;
+        TankStats stats = enemyToSpawn._tankStats;
+
+        Vector3 spawnPos;
+        EnemyTankController enemyTank = Instantiate(Resources.Load(GS.Enemy("EnemyTank"), typeof (EnemyTankController)) as EnemyTankController);
+
+        enemyTank.TGeo._tankRoomConstellation = _constellation;
+        enemyTank._tStats = stats;
+        enemyTank._tankColor = GetNextColor(enemyTank);
+
+        enemyTank.SpawnTank();
+        _enemyTanks.Add(enemyTank);
+
+        if (REF.PCon)
+        {
+            spawnPos = REF.PCon.transform.position + new Vector3(10, -5, 0);
+        }
+        else
+        {
+            spawnPos = new Vector3(0, 0, 0);
+        }
+
+        //Check if we are spawning something on an object
+        spawnPos = CheckSpawnPos(spawnPos);
+        enemyTank.transform.position = spawnPos;
+
+        EnemyIndicator eIndicator = Instantiate(Resources.Load(GS.Enemy("EnemyIndicator"), typeof (EnemyIndicator)) as EnemyIndicator);
+        eIndicator.InitIndicator(_enemyIndicatorParent, enemyTank);
+        enemyTank._indicator = eIndicator;
+        _enemyIndicators.Add(eIndicator);
     }
     private void EnemyDestroyed(GameObject enemy)
     {
@@ -46,53 +107,11 @@ public class EnemyManager : MonoBehaviour
             ReturnColor(enemy);
         }
     }
-    public void SpawnBehaviour()
-    {
-        SpawnEnemy();
-    }
-    private void SpawnEnemy()
-    {
-        //Check the number of enemies spawned at once
-        if (_enemyTanks.Count > maxEnemies-1) return;
-
-        //Get Bounds of the unit we want to spawn next
-
-        //get the positions of all tanks in the game, as well as the players, and save them to be iterated over
-
-        //get the bounds of these tanks
-
-        //define the area enemies can be spawned in; outside the max zoom out level of the player
-
-        Vector3 spawnPos;
-        GameObject enemy = Instantiate(_enemyPrefab);
-        EnemyTankController enemyTank = enemy.GetComponent<EnemyTankController>();
-        enemyTank._tankColor = GetNextColor(enemy);
-        _enemyTanks.Add(enemyTank);
-
-        if (REF.PCon)
-        {
-            spawnPos = REF.PCon.transform.position + new Vector3(10, -5, 0);
-        }
-        else
-        {
-            spawnPos = new Vector3(0, 0, 0);
-        }
-
-        //Check if we are spawning something on an object
-        spawnPos = CheckSpawnPos(spawnPos);
-        enemy.transform.position = spawnPos;
-
-        GameObject g = Instantiate((GameObject) Resources.Load("EnemyIndicator"));
-        EnemyIndicator eIndicator = g.GetComponent<EnemyIndicator>();
-        eIndicator.InitIndicator(_enemyIndicatorParent, enemyTank);
-        enemyTank._indicator = eIndicator;
-        _enemyIndicators.Add(eIndicator);
-    }
     public void UntrackAllEnemyTanks()
     {
         foreach (EnemyTankController g in _enemyTanks) g.enemyUI.TrackTank(false);
     }
-    private Color GetNextColor(GameObject enemy)
+    private Color GetNextColor(EnemyTankController enemy)
     {
         foreach(EnemyColor c in EnemyColors)
         {

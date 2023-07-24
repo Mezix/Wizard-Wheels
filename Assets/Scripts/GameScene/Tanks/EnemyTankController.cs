@@ -27,6 +27,11 @@ public class EnemyTankController : TankController
 
     void Start()
     {
+        //SpawnTanks();
+    }
+
+    public void SpawnTank()
+    {
         InitEvents();
         TGeo.CreateTankGeometry();
         TWep.SetUpWeapons(false, _tankColor);
@@ -42,7 +47,7 @@ public class EnemyTankController : TankController
 
     private void SpawnUI()
     {
-        GameObject ui = (GameObject) Instantiate(Resources.Load("EnemyUI"));
+        GameObject ui = (GameObject) Instantiate(Resources.Load(GS.Enemy("EnemyUI")));
         enemyUI = ui.GetComponent<EnemyUI>();
         enemyUI.transform.SetParent(transform);
         enemyUI.transform.localPosition = new Vector2(0, (0.5f * 0.5f * TGeo._tankRoomConstellation._savedYSize) + 1f);
@@ -117,14 +122,14 @@ public class EnemyTankController : TankController
         List<GameObject> explosions = new List<GameObject>();
         while (!_dead)
         {
-            GameObject explosion = Instantiate((GameObject)Resources.Load("SingleExplosion"));
+            GameObject explosion = Instantiate((GameObject)Resources.Load(GS.Effects("SingleExplosion")));
             explosions.Add(explosion);
             explosion.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.0f, 1.0f), 0);
             yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(0.435f);
 
-        GameObject g = Instantiate((GameObject) Resources.Load("ScrapPile"));
+        GameObject g = Instantiate((GameObject) Resources.Load(GS.Prefabs("ScrapPile")));
         g.transform.position = transform.position;
         ScrapPile scrap = g.GetComponent<ScrapPile>();
         scrap.InitScrap(UnityEngine.Random.Range(30,41));

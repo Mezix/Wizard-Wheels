@@ -1571,6 +1571,9 @@ MonoBehaviour:
     enemyTakingColor: {fileID: 0}
   _enemyIndicators: []
   _enemyIndicatorParent: {fileID: 1096546290}
+  _enemyEvent: {fileID: 11400000, guid: bb40b79590908f440a6ff1f03af7bc0c, type: 2}
+  timeUntilNextEnemySpawned: 0
+  _enemyIndex: 0
 --- !u!114 &1848190459 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6450070389012361718, guid: 703e50d0fa588ed49934e5b64ed2a00b,

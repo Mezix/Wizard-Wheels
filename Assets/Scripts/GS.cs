@@ -13,6 +13,14 @@ public static class GS // Stands for "Get Strings"
     {
         return Prefabs() + "UI/" + filename;
     }
+    public static string Effects(string filename = "")
+    {
+        return Prefabs() + "Effects/" + filename;
+    }
+    public static string Enemy(string filename = "")
+    {
+        return Prefabs() + "Enemy/" + filename;
+    }
 
     //  Scriptable Objects
     public static string ScriptableObjects(string filename = "")

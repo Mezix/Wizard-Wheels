@@ -92,14 +92,14 @@ public abstract class AWeapon : ASystem
     }
     public void InitLineRenderer()
     {
-        GameObject go = Instantiate((GameObject) Resources.Load("LineRendererPrefab"));
+        GameObject go = Instantiate((GameObject) Resources.Load(GS.Prefabs("LineRendererPrefab")));
         go.transform.parent = transform;
         lr = go.GetComponent<LineRenderer>();
         lr.gameObject.SetActive(false);
     }
     private void InitWeaponSelectedUI()
     {
-        GameObject wSLR = Instantiate((GameObject)Resources.Load("WeaponSelectedUI"));
+        GameObject wSLR = Instantiate((GameObject)Resources.Load(GS.Prefabs("WeaponSelectedUI")));
         _weaponSelectedUI = wSLR.GetComponent<WeaponSelectedUI>();
         _weaponSelectedUI.InitWeaponSelectedUI(this);
         wSLR.transform.SetParent(transform);
@@ -324,7 +324,7 @@ public abstract class AWeapon : ASystem
 
     internal void WeaponFireParticles(GameObject explosion = null)
     {
-        if (explosion == null) explosion = (GameObject) Resources.Load("SingleExplosion");
+        if (explosion == null) explosion = (GameObject) Resources.Load(GS.Effects("SingleExplosion"));
         GameObject exp = Instantiate(explosion);
         foreach(Transform t in _projectileSpots) exp.transform.SetParent(t);
         exp.transform.localPosition = Vector3.zero;
