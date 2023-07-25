@@ -30,12 +30,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6385456487747659236}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -7.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5027062046961988352
 MonoBehaviour:
@@ -49,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2ca821a31eb8740a8c220e033efc41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tStats: {fileID: 11400000, guid: 38f853e94e77a3946a479443944be7e9, type: 2}
+  _tStats: {fileID: 0}
   _tankName: Druskelle
   _wizardsToSpawn:
   - {fileID: 4608201922242700205, guid: 8b05b2f1bec399942ad7a9785f8f1691, type: 3}
@@ -139,8 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56098410987c5f48bfa1f90cc65c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tankRoomConstellation: {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530,
-    type: 2}
+  _tankRoomConstellation: {fileID: 0}
   systemIcons: []
   FloorColor: {r: 1, g: 0.80230397, b: 0.7122642, a: 1}
   RoofColor: {r: 1, g: 0, b: 0, a: 1}
@@ -161,6 +161,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

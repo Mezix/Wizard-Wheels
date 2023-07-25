@@ -14,8 +14,8 @@ public class EnemyManager : MonoBehaviour
 
     public EnemyEvent _enemyEvent;
     private List<EnemySpawn> enemiesToSpawn;
-    public float timeUntilNextEnemySpawned;
-    public int _enemyIndex;
+    private float timeUntilNextEnemySpawned;
+    private int _enemyIndex;
 
     [Serializable]
     public class EnemyColor
@@ -76,19 +76,31 @@ public class EnemyManager : MonoBehaviour
         enemyTank.SpawnTank();
         _enemyTanks.Add(enemyTank);
 
+        float spawnAngle = UnityEngine.Random.Range(0, 360f);
+        Debug.Log(spawnAngle);
+        float distanceFromPlayer = 30;
         if (REF.PCon)
         {
-            spawnPos = REF.PCon.transform.position + new Vector3(10, -5, 0);
+            spawnPos = REF.PCon.transform.position + new Vector3(distanceFromPlayer * Mathf.Cos(spawnAngle * Mathf.Deg2Rad), 
+                                                                 distanceFromPlayer * Mathf.Sin(spawnAngle * Mathf.Deg2Rad), 0);
+
+            //Check if we are spawning something on an object and change it if needed
+            spawnPos = CheckSpawnPos(spawnPos);
+
+            // Set rotation of wheels to movetowards player
+            float angleBetweenTankAndPlayer = spawnAngle + 90;
+            enemyTank.TRot.GetComponent<EnemyTankRotation>().SetInitialRotation(angleBetweenTankAndPlayer);
+
+            // Set Starting Speed to max
+            enemyTank.TMov.currentSpeed = enemyTank._tStats._tankMaxSpeed;
         }
         else
         {
-            spawnPos = new Vector3(0, 0, 0);
+            spawnPos = Vector3.zero;
         }
-
-        //Check if we are spawning something on an object
-        spawnPos = CheckSpawnPos(spawnPos);
         enemyTank.transform.position = spawnPos;
 
+        //  Instantiate the enemy indicator
         EnemyIndicator eIndicator = Instantiate(Resources.Load(GS.Enemy("EnemyIndicator"), typeof (EnemyIndicator)) as EnemyIndicator);
         eIndicator.InitIndicator(_enemyIndicatorParent, enemyTank);
         enemyTank._indicator = eIndicator;
@@ -114,7 +126,6 @@ public class EnemyManager : MonoBehaviour
         if (_enemyTanks.Count > 0) return;
         LevelManager.instance.CombatHasBeenWon();
     }
-
     public void UntrackAllEnemyTanks()
     {
         foreach (EnemyTankController g in _enemyTanks) g.enemyUI.TrackTank(false);

@@ -115,8 +115,8 @@ Material:
     - _falloffByEdges: 1
     - _fastAntyaliasing: 0
     - _sceneLighten: 0
-    - _shadowBaseAlpha: 0.585
-    - _shadowFalloff: 9.81
+    - _shadowBaseAlpha: 0.847
+    - _shadowFalloff: 9.72
     - _shadowLeftNarrowing: 0.033
     - _shadowNarrowing: 0.6
     - _shadowReflectiveness: 0

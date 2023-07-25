@@ -18,6 +18,11 @@ public class EnemyTankRotation : TankRotation
     {
         RotateAllObjectsByRotation(-rotationspeed * Time.deltaTime);
     }
+    public void SetInitialRotation(float angle)
+    {
+        AngleToRotateTo = angle;
+        RotateAllObjectsToRotation(AngleToRotateTo);
+    }
 
     //  Rotate Tank
     private void RotateTankToAngle()
@@ -33,7 +38,6 @@ public class EnemyTankRotation : TankRotation
             if (Mathf.Abs(difference) < (rotationspeed * Time.deltaTime))
             {
                 RotateAllObjectsToRotation(AngleToRotateTo);
-                HM.RotateTransformToAngle(REF.UI._steeringWheelScript._steeringWheelObject.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {
@@ -45,7 +49,6 @@ public class EnemyTankRotation : TankRotation
             if (Mathf.Abs(difference) < (rotationspeed * Time.deltaTime))
             {
                 RotateAllObjectsToRotation(AngleToRotateTo);
-                HM.RotateTransformToAngle(REF.UI._steeringWheelScript._steeringWheelObject.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {
