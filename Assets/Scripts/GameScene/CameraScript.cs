@@ -37,9 +37,9 @@ public class CameraScript : MonoBehaviour
         SetTrackedVehicleToPlayer();
     }
     
-    private void CheckForEnemy(GameObject enemy)
+    private void CheckForEnemy(EnemyTankController enemy)
     {
-        if (enemy.transform.Equals(objToTrack)) SetTrackedVehicleToPlayer();
+        if (enemy.transform.Equals(objToTrack.gameObject)) SetTrackedVehicleToPlayer();
     }
 
     void Update()

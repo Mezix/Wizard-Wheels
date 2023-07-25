@@ -10,8 +10,8 @@ public class Events : MonoBehaviour
     {
         instance = this;
     }
-    public event Action<GameObject> EnemyTankDestroyed;
-    public event Action<GameObject> EnemyTankDying;
+    public event Action<EnemyTankController> EnemyTankDestroyed;
+    public event Action<EnemyTankController> EnemyTankDying;
     public event Action PlayerTankDestroyed;
     public event Action PlayerIsDying;
     public event Action<GameObject> CheckDoubleClick;
@@ -21,11 +21,11 @@ public class Events : MonoBehaviour
     public event Action UpgradesReverted;
     public event Action UpgradeScreenUpdated;
 
-    public void EnemyDestroyed(GameObject enemyTank)
+    public void EnemyDestroyed(EnemyTankController enemyTank)
     {
         EnemyTankDestroyed?.Invoke(enemyTank);
     }
-    public void EnemyIsDying(GameObject enemyTank)
+    public void EnemyIsDying(EnemyTankController enemyTank)
     {
         EnemyTankDying?.Invoke(enemyTank);
     }

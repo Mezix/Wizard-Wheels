@@ -105,7 +105,7 @@ public class EnemyTankController : TankController
         TMov.deceleration *= 3;
 
         //  Send event to our player to remove the target of its weapons
-        Events.instance.EnemyIsDying(gameObject);
+        Events.instance.EnemyIsDying(this);
         StartCoroutine(DeathAnimation());
     }
     private void SlowlyDie()
@@ -137,7 +137,6 @@ public class EnemyTankController : TankController
         scrap.transform.position = transform.position;
         scrap.InitScrap(UnityEngine.Random.Range(_tStats._scrapDropAmount, _tStats._scrapDropAmount + 10));
         Debug.Log(_tStats._tankName + " has been destroyed.");
-        Events.instance.EnemyDestroyed(gameObject);
-        Destroy(gameObject);
+        Events.instance.EnemyDestroyed(this);
     }
 }

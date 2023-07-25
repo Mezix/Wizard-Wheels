@@ -9,6 +9,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     public int Damage { get; set; }
     public float ProjectileSpeed { get; set; }
     public bool HitPlayer { get; set; }
+    public TrailRenderer trail;
 
     protected Rigidbody2D rb;
     [SerializeField]
@@ -75,6 +76,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         if (weapon.tMov) ProjectileSpeed += weapon.tankSpeedProjectileModifier * weapon.tMov.currentSpeed;
         transform.position = t.transform.position;
         transform.rotation = t.transform.rotation;
+        if (trail) trail.Clear();
     }
     public virtual void DamageTank(TankController e)
     {

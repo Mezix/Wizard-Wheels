@@ -160,12 +160,12 @@ public class PlayerTankController : TankController
     {
         Events.instance.EnemyTankDying += RemoveEnemy;
     }
-    private void RemoveEnemy(GameObject enemy)
+    private void RemoveEnemy(EnemyTankController enemy)
     {
         foreach (AWeapon wep in TWep.AWeaponArray)
         {
             if (!enemy || !wep.TargetedRoom) return;
-            if (wep.TargetedRoom.transform.root.gameObject.Equals(enemy))
+            if (wep.TargetedRoom.transform.root.gameObject.Equals(enemy.gameObject))
             {
                 wep.ResetAim();
             }

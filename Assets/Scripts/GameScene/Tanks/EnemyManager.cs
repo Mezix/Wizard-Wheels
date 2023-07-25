@@ -28,7 +28,9 @@ public class EnemyManager : MonoBehaviour
     {
         REF.EM = this;
         Events.instance.EnemyTankDestroyed += EnemyDestroyed;
+        Events.instance.EnemyTankDying += EnemyIsDying;
     }
+
     private void Start()
     {
         enemiesToSpawn = _enemyEvent.EnemyWaves;
@@ -105,18 +107,22 @@ public class EnemyManager : MonoBehaviour
         enemyTank._indicator = eIndicator;
         _enemyIndicators.Add(eIndicator);
     }
-    private void EnemyDestroyed(GameObject enemy)
+
+    private void EnemyIsDying(EnemyTankController enemy)
     {
-        EnemyTankController enemyTank = enemy.GetComponent<EnemyTankController>();
-        ReturnColor(enemyTank);
-        if (_enemyTanks.Contains(enemyTank))
+        ReturnColor(enemy);
+    }
+    private void EnemyDestroyed(EnemyTankController enemy)
+    {
+        if (_enemyTanks.Contains(enemy))
         {
-            if (_enemyIndicators.Contains(enemyTank._indicator))
+            if (_enemyIndicators.Contains(enemy._indicator))
             {
-                Destroy(enemyTank._indicator);
+                Destroy(enemy._indicator);
             }
-            _enemyTanks.Remove(enemyTank);
+            _enemyTanks.Remove(enemy);
         }
+        Destroy(enemy.gameObject);
         CheckAllTanksDestroyed();
     }
     private void CheckAllTanksDestroyed()
