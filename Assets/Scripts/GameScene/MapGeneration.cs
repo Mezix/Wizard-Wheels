@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using NavMeshPlus;
 
 public class MapGeneration : MonoBehaviour
 {
     public List<TilemapChunk> _tilemapChunks = new List<TilemapChunk>();
+    public NavMeshPlus.Components.NavMeshSurface navMeshSurface;
+
     [HideInInspector]
     public Grid grid;
-    [HideInInspector]
     public Vector3 playerPosRelativeToGrid;
     private Vector2Int centeringVector;
 
@@ -66,6 +68,11 @@ public class MapGeneration : MonoBehaviour
                 CreateNewTilemapChunk(centeringVector + new Vector2Int(chunkSize * x, chunkSize * y));
             }
         }
+
+        //navMeshSurface.BuildNavMesh();
+        //navMeshSurface.BuildNavMeshAsync();
+        navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+        //Debug.Log("Mesh Generated");
         CreateMinimap();
     }
 
@@ -187,23 +194,4 @@ public class MapGeneration : MonoBehaviour
         }
         return new Color32((byte)(r / total), (byte)(g / total), (byte)(b / total), 255);
     }
-
-    //  Old
-    /*
-    private void CreateTilemap(int radiusX, int radiusY, Vector2 vec)
-    {
-        int startPosX = Mathf.FloorToInt(vec.x);
-        int startPosY = Mathf.FloorToInt(vec.y);
-
-        for (int x = -radiusX; x < radiusX; x++)
-        {
-            for (int y = -radiusY; y < radiusY; y++)
-            {
-                if (grassTileMap.GetTile(new Vector3Int(x + startPosX, y + startPosY, 0)) == null)
-                {
-                    grassTileMap.SetTile(new Vector3Int(x + startPosX, y + startPosY, 0), spawnableTiles[UnityEngine.Random.Range(0, spawnableTiles.Count - 1)]);
-                }
-            }
-        }
-    }*/
 }
