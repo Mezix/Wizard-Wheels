@@ -6,12 +6,14 @@ using UnityEngine.Tilemaps;
 
 public class MapGeneration : MonoBehaviour
 {
-    [HideInInspector]
-    public Tilemap tilemap;
+    public Tilemap grassTileMap;
+    public Tilemap stoneTilemap;
     [HideInInspector]
     public Grid grid;
     [HideInInspector]
     public Vector3 playerPosRelativeToGrid;
+
+    public TileBase _ruleTile;
 
     private List<Tile> spawnableTiles = new List<Tile>();
 
@@ -35,8 +37,7 @@ public class MapGeneration : MonoBehaviour
     private Texture2D fogOfWarTex;
     private void Awake()
     {
-        tilemap = GetComponentInChildren<Tilemap>();
-        grid = tilemap.GetComponent<Grid>();
+        grid = GetComponentInChildren<Grid>();
         REF.MapGen = this;
 
         InitTiles();
@@ -57,7 +58,7 @@ public class MapGeneration : MonoBehaviour
     }
     private void InitTiles()
     {
-        object[] tiles = Resources.LoadAll(GS.Tiles("BG Tiles"));
+        object[] tiles = Resources.LoadAll(GS.Tiles("BG Tiles"), typeof (Tile));
         foreach (object t in tiles)
         {
             Tile tile = (Tile)t;
@@ -99,20 +100,24 @@ public class MapGeneration : MonoBehaviour
 
     private void SpawnTilemap(Vector2Int offset)
     {
+        object[] grassTiles = Resources.LoadAll(GS.BGTiles("Grass Tiles"));
+        TileBase stoneRuleTile = Resources.Load(GS.BGTiles("Stone Tiles/StoneRuleTile"), typeof(TileBase)) as TileBase;
+
         for (int x = 0; x < chunkWidth; x++)
         {
             for (int y = 0; y < chunkWidth; y++)
             {
-                Tile t = Resources.Load("Tiles/BGTiles/StoneTile", typeof(Tile)) as Tile;
-                if (map[x, y] == 0)
-                {
-                    object[] grassTiles = Resources.LoadAll(GS.BGTiles("Grass Tiles"));
-                    int index = UnityEngine.Random.Range(0, grassTiles.Length);
-                    t = (Tile)grassTiles[index];
-                }
-                else if (map[x, y] == 1) t = Resources.Load(GS.BGTiles("Stone Tiles/Stone Tile"), typeof(Tile)) as Tile;
+                int index = UnityEngine.Random.Range(0, grassTiles.Length);
+                Tile grassTileToSet = (Tile) grassTiles[index];
 
-                tilemap.SetTile(new Vector3Int(x + offset.x, y + offset.y, 0), t);
+                grassTileMap.SetTile(new Vector3Int(x + offset.x, y + offset.y, 0), grassTileToSet);
+
+                if (map[x, y] == 1)
+                {
+                    stoneTilemap.SetTile(new Vector3Int(x + offset.x, y + offset.y, 0), stoneRuleTile);
+                    grassTileMap.SetTile(new Vector3Int(x + offset.x, y + offset.y, 0), grassTileToSet);
+                }
+
             }
         }
     }
@@ -254,7 +259,7 @@ public class MapGeneration : MonoBehaviour
     }
 
     //  Old
-
+    /*
     private void CreateTilemap(int radiusX, int radiusY, Vector2 vec)
     {
         int startPosX = Mathf.FloorToInt(vec.x);
@@ -264,11 +269,11 @@ public class MapGeneration : MonoBehaviour
         {
             for (int y = -radiusY; y < radiusY; y++)
             {
-                if (tilemap.GetTile(new Vector3Int(x + startPosX, y + startPosY, 0)) == null)
+                if (grassTileMap.GetTile(new Vector3Int(x + startPosX, y + startPosY, 0)) == null)
                 {
-                    tilemap.SetTile(new Vector3Int(x + startPosX, y + startPosY, 0), spawnableTiles[UnityEngine.Random.Range(0, spawnableTiles.Count - 1)]);
+                    grassTileMap.SetTile(new Vector3Int(x + startPosX, y + startPosY, 0), spawnableTiles[UnityEngine.Random.Range(0, spawnableTiles.Count - 1)]);
                 }
             }
         }
-    }
+    }*/
 }
