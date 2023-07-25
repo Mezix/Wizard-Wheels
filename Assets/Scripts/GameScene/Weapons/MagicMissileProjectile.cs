@@ -5,7 +5,6 @@ using UnityEngine;
 public class MagicMissileProjectile : AProjectile
 {
     private GameObject target;
-    public TrailRenderer trail;
     private void FixedUpdate()
     {
         if (!despawnAnimationPlaying) MoveProjectile();

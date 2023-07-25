@@ -6,47 +6,48 @@ using UnityEngine.Tilemaps;
 
 public class MapGeneration : MonoBehaviour
 {
-    public Tilemap grassTileMap;
-    public Tilemap stoneTilemap;
+    public List<TilemapChunk> _tilemapChunks = new List<TilemapChunk>();
     [HideInInspector]
     public Grid grid;
     [HideInInspector]
     public Vector3 playerPosRelativeToGrid;
+    private Vector2Int centeringVector;
 
-    public TileBase _ruleTile;
-
-    private List<Tile> spawnableTiles = new List<Tile>();
+    // Tiles
+    private object[] grassTiles;
+    private TileBase stoneRuleTile;
 
     //  Minimap Colors
-    public Color StoneColor;
-    public Color GrassColor;
+    public Color minimapStoneColor;
+    public Color minimapGrassColor;
 
     //  Generation
 
-    public int[,] map;
+    public float perlinScale = 0.1f;
+    public float stoneThreshold = 0.1f;
+    public float ornamentalThreshold = 0.1f;
+    float xPerlinOffset;
+    float yPerlinOffset;
 
-    public int chunkWidth;
-    public int chunkHeight;
-    [Range(0, 100)]
-    public int RandomFillPercent;
-
-    public string seed;
-    public bool useRandomSeed;
+    public int chunkSize; //100 should be fine for screen width to not see the edges
 
     private Texture2D minimapTex;
     private Texture2D fogOfWarTex;
     private void Awake()
     {
-        grid = GetComponentInChildren<Grid>();
         REF.MapGen = this;
-
-        InitTiles();
+        grid = GetComponentInChildren<Grid>();
+        minimapTex = new Texture2D(chunkSize, chunkSize);
+        fogOfWarTex = new Texture2D(chunkSize, chunkSize);
+        grassTiles = Resources.LoadAll(GS.BGTiles("Grass Tiles"));
+        stoneRuleTile = Resources.Load(GS.BGTiles("Stone Tiles/StoneRuleTile"), typeof(TileBase)) as TileBase;
+        xPerlinOffset = UnityEngine.Random.Range(-10000f, 10000f);
+        yPerlinOffset = UnityEngine.Random.Range(-10000f, 10000f);
+        centeringVector = -1 * new Vector2Int(chunkSize / 2, chunkSize / 2);
     }
     private void Start()
     {
-        minimapTex = new Texture2D(chunkWidth, chunkHeight);
-        fogOfWarTex = new Texture2D(chunkWidth, chunkHeight);
-        GenerateMap();
+        GenerateInitialMap();
     }
     private void Update()
     {
@@ -54,133 +55,62 @@ public class MapGeneration : MonoBehaviour
         {
             playerPosRelativeToGrid = grid.WorldToCell(REF.PlayerGO.transform.position);
         }
-        TrackPlayerInMinimap();
+        //TrackPlayerInMinimap();
     }
-    private void InitTiles()
+    private void GenerateInitialMap()
     {
-        object[] tiles = Resources.LoadAll(GS.Tiles("BG Tiles"), typeof (Tile));
-        foreach (object t in tiles)
+        for(int x = -1; x < 2; x++)
         {
-            Tile tile = (Tile)t;
-            spawnableTiles.Add(tile);
+            for (int y = -1; y < 2; y++)
+            {
+                CreateNewTilemapChunk(centeringVector + new Vector2Int(chunkSize * x, chunkSize * y));
+            }
         }
-    }
-    private void GenerateMap()
-    {
-        map = new int[chunkWidth, chunkHeight];
-        RandomFillMap();
-
-        int iterations = 5;
-
-        for (int i = 0; i < iterations; i++)
-        {
-            SmoothMap();
-        }
-        Vector2Int centeringVector = -1 * new Vector2Int(chunkWidth / 2, chunkHeight / 2);
-        SpawnTilemap(centeringVector);
         CreateMinimap();
     }
-    private void RandomFillMap()
-    {
-        if (useRandomSeed) seed = Time.time.ToString();
 
-        System.Random pseudoRandomnumber = new System.Random(seed.GetHashCode());
-        for (int x = 0; x < chunkWidth; x++)
+    private void CreateNewTilemapChunk(Vector2Int pixelOffset)
+    {
+        TilemapChunk tilemapChunk = Instantiate(Resources.Load(GS.Prefabs("TilemapChunk"), typeof (TilemapChunk)) as TilemapChunk);
+        tilemapChunk.transform.SetParent(transform, false);
+        _tilemapChunks.Add(tilemapChunk);
+
+        tilemapChunk.noiseMap = new float[chunkSize, chunkSize];
+
+        for (int x = 0; x < chunkSize; x++)
         {
-            for (int y = 0; y < chunkWidth; y++)
+            for (int y = 0; y < chunkSize; y++)
             {
-                if (x == 0 || x == chunkWidth - 1 || y == 0 || y == chunkHeight - 1) map[x, y] = 1;
-                else
+                tilemapChunk.noiseMap[x, y] = Mathf.PerlinNoise(perlinScale * (x + xPerlinOffset + pixelOffset.x), perlinScale * (y + yPerlinOffset + pixelOffset.y));
+                if (tilemapChunk.noiseMap[x, y] < stoneThreshold) tilemapChunk.stoneTilemap.SetTile(new Vector3Int(x + pixelOffset.x, y + pixelOffset.y, 0), stoneRuleTile);
+                if (tilemapChunk.noiseMap[x, y] < ornamentalThreshold)
                 {
-                    map[x, y] = (pseudoRandomnumber.Next(0, 100) < RandomFillPercent) ? 1 : 0;
+                    int index = UnityEngine.Random.Range(0, grassTiles.Length);
+                    Tile grassTileToSet = (Tile) grassTiles[index];
+                    float darkenedColor = 1 + (tilemapChunk.noiseMap[x, y] - ornamentalThreshold);
+                    grassTileToSet.color = new Color(darkenedColor, darkenedColor, darkenedColor, 1);
+                    tilemapChunk.grassTileMap.SetTile(new Vector3Int(x + pixelOffset.x, y + pixelOffset.y, 0), grassTileToSet);
+                    grassTileToSet.color = Color.white;
                 }
             }
         }
-    }
-
-    private void SpawnTilemap(Vector2Int offset)
-    {
-        object[] grassTiles = Resources.LoadAll(GS.BGTiles("Grass Tiles"));
-        TileBase stoneRuleTile = Resources.Load(GS.BGTiles("Stone Tiles/StoneRuleTile"), typeof(TileBase)) as TileBase;
-
-        for (int x = 0; x < chunkWidth; x++)
-        {
-            for (int y = 0; y < chunkWidth; y++)
-            {
-                int index = UnityEngine.Random.Range(0, grassTiles.Length);
-                Tile grassTileToSet = (Tile) grassTiles[index];
-
-                grassTileMap.SetTile(new Vector3Int(x + offset.x, y + offset.y, 0), grassTileToSet);
-
-                if (map[x, y] == 1)
-                {
-                    stoneTilemap.SetTile(new Vector3Int(x + offset.x, y + offset.y, 0), stoneRuleTile);
-                    grassTileMap.SetTile(new Vector3Int(x + offset.x, y + offset.y, 0), grassTileToSet);
-                }
-
-            }
-        }
-    }
-
-    private void SmoothMap()
-    {
-        int threshold = 4;
-        for (int x = 0; x < chunkWidth; x++)
-        {
-            for (int y = 0; y < chunkWidth; y++)
-            {
-                int neighbourWallTiles = GetSurroundingWallsCount(x, y);
-
-                if (neighbourWallTiles > threshold)
-                {
-                    map[x, y] = 1;
-                }
-                else if (neighbourWallTiles < threshold)
-                {
-                    map[x, y] = 0;
-                }
-            }
-        }
-    }
-
-    private int GetSurroundingWallsCount(int gridX, int gridY)
-    {
-        int wallCount = 0;
-        for (int neighbourX = gridX - 1; neighbourX <= gridX + 1; neighbourX++)
-        {
-            for (int neighbourY = gridY - 1; neighbourY <= gridY + 1; neighbourY++)
-            {
-                if (neighbourX >= 0 && neighbourX < chunkWidth && neighbourY >= 0 && neighbourY < chunkHeight)
-                {
-                    if (neighbourX != gridX || neighbourY != gridY)
-                    {
-                        wallCount += map[neighbourX, neighbourY];
-                    }
-                }
-                else
-                {
-                    wallCount++;
-                }
-            }
-        }
-        return wallCount;
     }
 
     //  Minimap
 
     private void CreateMinimap()
     {
-        for (int x = 0; x < chunkWidth; x++)
+        for (int x = 0; x < chunkSize; x++)
         {
-            for (int y = 0; y < chunkHeight; y++)
+            for (int y = 0; y < chunkSize; y++)
             {
                 //Tile tile = tilemap.GetTile(new Vector3Int(x, y, 0)) as Tile;
                 //Sprite sprite = tile.sprite;
                 //Color color = AverageColorFromTexture(sprite);
                 //minimapTex.SetPixel(x, y, color);
 
-                if (map[x, y] == 1) minimapTex.SetPixel(x, y, StoneColor);
-                else minimapTex.SetPixel(x, y, GrassColor);
+                if (_tilemapChunks[0].noiseMap[x, y] < stoneThreshold) minimapTex.SetPixel(x, y, minimapStoneColor);
+                else minimapTex.SetPixel(x, y, minimapGrassColor);
                 fogOfWarTex.SetPixel(x, y, Color.grey);
             }
         }
@@ -194,10 +124,10 @@ public class MapGeneration : MonoBehaviour
                                              new Rect(0.0f, 0.0f, minimapTex.width, minimapTex.height),
                                              new Vector2(0.5f, 0.5f),
                                              100.0f);
-        REF.UI._minimapScript._bigMapRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
+        REF.UI._minimapScript._bigMapRect.sizeDelta = new Vector2(chunkSize, chunkSize);
         REF.UI._minimapScript._bigMapImage.sprite = minimapSprite;
 
-        REF.UI._minimapScript._fogOfWarRect.sizeDelta = new Vector2(chunkWidth, chunkHeight);
+        REF.UI._minimapScript._fogOfWarRect.sizeDelta = new Vector2(chunkSize, chunkSize);
         REF.UI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
                                              new Rect(0.0f, 0.0f, fogOfWarTex.width, fogOfWarTex.height),
                                              new Vector2(0.5f, 0.5f),
