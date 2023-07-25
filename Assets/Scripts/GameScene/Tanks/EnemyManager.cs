@@ -77,7 +77,6 @@ public class EnemyManager : MonoBehaviour
         _enemyTanks.Add(enemyTank);
 
         float spawnAngle = UnityEngine.Random.Range(0, 360f);
-        Debug.Log(spawnAngle);
         float distanceFromPlayer = 30;
         if (REF.PCon)
         {
