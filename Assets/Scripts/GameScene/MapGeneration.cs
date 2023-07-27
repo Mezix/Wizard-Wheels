@@ -14,6 +14,7 @@ public class MapGeneration : MonoBehaviour
     [HideInInspector]
     public Grid grid;
     public Vector3 playerPosRelativeToGrid;
+    public Vector3 camPos;
     private Vector2Int centeringVector;
 
     // Tiles
@@ -57,37 +58,47 @@ public class MapGeneration : MonoBehaviour
     {
         if (REF.PlayerGO)
         {
-            //UpdatePlayerPos();
+            UpdatePlayerPos();
         }
         TrackPlayerInMinimap();
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            AddNewChunkAtPos(camPos);
+        }
+    }
+
+    private void AddNewChunkAtPos(Vector3 camPos)
+    {
+        int xSign = Math.Sign(camPos.x);
+        int ySign = Math.Sign(camPos.y);
+
+        //  normalize
+        camPos = new Vector2(Mathf.Abs(camPos.x), Mathf.Abs(camPos.y)) / chunkSize;
+
+        // turn to int and reinsert the signs
+        Vector2Int vectorToSpawnChunkAt = new Vector2Int(chunkSize / 2, chunkSize / 2) 
+                                        + chunkSize * new Vector2Int(xSign * Mathf.CeilToInt(camPos.x), ySign * Mathf.CeilToInt(camPos.y));
+
+        StartCoroutine(CreateNewTilemapChunk(vectorToSpawnChunkAt));
     }
 
     private void UpdatePlayerPos()
     {
         playerPosRelativeToGrid = grid.WorldToCell(REF.PlayerGO.transform.position);
-        foreach (TilemapChunk chunk in _tilemapChunks)
-        {
-            if (Vector2.Distance(playerPosRelativeToGrid, HM.GetWorldVector2DPosition(chunk.transform)) < chunkSize)
-            {
-                chunk.Show(true);
-            }
-            else
-            {
-                chunk.Show(false);
-            }
-        }
+        camPos = grid.WorldToCell(REF.Cam.transform.position);
     }
 
     private void GenerateInitialMap()
     {
-        for (int x = -1; x < 2; x++)
+        int initialradius = 1;
+        for (int x = -initialradius; x < initialradius + 1; x++)
         {
-            for (int y = -1; y < 2; y++)
+            for (int y = -initialradius; y < initialradius + 1; y++)
             {
                 StartCoroutine(CreateNewTilemapChunk(centeringVector + new Vector2Int(chunkSize * x, chunkSize * y)));
             }
         }
-        //Debug.Log("Mesh Generated");
         CreateMinimap();
     }
 
