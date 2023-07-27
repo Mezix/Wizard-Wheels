@@ -49,6 +49,7 @@ public class MapGeneration : MonoBehaviour
     }
     private void Start()
     {
+        navMeshSurface.BuildNavMesh();
         GenerateInitialMap();
     }
     private void Update()
@@ -65,18 +66,14 @@ public class MapGeneration : MonoBehaviour
         {
             for (int y = -1; y < 2; y++)
             {
-                CreateNewTilemapChunk(centeringVector + new Vector2Int(chunkSize * x, chunkSize * y));
+                StartCoroutine(CreateNewTilemapChunk(centeringVector + new Vector2Int(chunkSize * x, chunkSize * y)));
             }
         }
-
-        //navMeshSurface.BuildNavMesh();
-        //navMeshSurface.BuildNavMeshAsync();
-        navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
         //Debug.Log("Mesh Generated");
         CreateMinimap();
     }
 
-    private void CreateNewTilemapChunk(Vector2Int pixelOffset)
+    private IEnumerator CreateNewTilemapChunk(Vector2Int pixelOffset)
     {
         TilemapChunk tilemapChunk = Instantiate(Resources.Load(GS.Prefabs("TilemapChunk"), typeof (TilemapChunk)) as TilemapChunk);
         tilemapChunk.transform.SetParent(transform, false);
@@ -97,10 +94,13 @@ public class MapGeneration : MonoBehaviour
                     float darkenedColor = 1 + (tilemapChunk.noiseMap[x, y] - ornamentalThreshold);
                     grassTileToSet.color = new Color(darkenedColor, darkenedColor, darkenedColor, 1);
                     tilemapChunk.grassTileMap.SetTile(new Vector3Int(x + pixelOffset.x, y + pixelOffset.y, 0), grassTileToSet);
-                    grassTileToSet.color = Color.white;
                 }
             }
         }
+        yield return new WaitForEndOfFrame();
+        navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
+        Debug.Log("done");
+        
     }
 
     //  Minimap
