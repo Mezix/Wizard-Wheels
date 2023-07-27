@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -53,5 +54,14 @@ public static class HM
         {
             ListToCopyInto.Add(element);
         }
+    }
+
+    public static Vector2 GetLocalVector2DPosition(Transform t)
+    {
+        return new Vector2(t.localPosition. x, t.localPosition.y);
+    }
+    public static Vector2 GetWorldVector2DPosition(Transform t)
+    {
+        return new Vector2(t.position.x, t.position.y);
     }
 }

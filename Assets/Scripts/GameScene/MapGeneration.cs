@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using NavMeshPlus;
+using System.Threading.Tasks;
 
 public class MapGeneration : MonoBehaviour
 {
@@ -56,13 +57,30 @@ public class MapGeneration : MonoBehaviour
     {
         if (REF.PlayerGO)
         {
-            playerPosRelativeToGrid = grid.WorldToCell(REF.PlayerGO.transform.position);
+            //UpdatePlayerPos();
         }
-        //TrackPlayerInMinimap();
+        TrackPlayerInMinimap();
     }
+
+    private void UpdatePlayerPos()
+    {
+        playerPosRelativeToGrid = grid.WorldToCell(REF.PlayerGO.transform.position);
+        foreach (TilemapChunk chunk in _tilemapChunks)
+        {
+            if (Vector2.Distance(playerPosRelativeToGrid, HM.GetWorldVector2DPosition(chunk.transform)) < chunkSize)
+            {
+                chunk.Show(true);
+            }
+            else
+            {
+                chunk.Show(false);
+            }
+        }
+    }
+
     private void GenerateInitialMap()
     {
-        for(int x = -1; x < 2; x++)
+        for (int x = -1; x < 2; x++)
         {
             for (int y = -1; y < 2; y++)
             {
@@ -73,34 +91,46 @@ public class MapGeneration : MonoBehaviour
         CreateMinimap();
     }
 
-    private IEnumerator CreateNewTilemapChunk(Vector2Int pixelOffset)
+    private IEnumerator CreateNewTilemapChunk(Vector2Int tilemapOffset)
     {
-        TilemapChunk tilemapChunk = Instantiate(Resources.Load(GS.Prefabs("TilemapChunk"), typeof (TilemapChunk)) as TilemapChunk);
+        TilemapChunk tilemapChunk = Instantiate(Resources.Load(GS.Prefabs("TilemapChunk"), typeof(TilemapChunk)) as TilemapChunk);
         tilemapChunk.transform.SetParent(transform, false);
+        tilemapChunk.transform.position = new Vector3(tilemapOffset.x / 2, tilemapOffset.y / 2, 0);
         _tilemapChunks.Add(tilemapChunk);
-
         tilemapChunk.noiseMap = new float[chunkSize, chunkSize];
+
+        //  Setup Occlusion
+        OcclusionCulling2D.ObjectSettings tilemapOcclusionSettings = new OcclusionCulling2D.ObjectSettings
+        {
+            theGameObject = tilemapChunk.gameObject,
+            offset = new Vector2(chunkSize/8, chunkSize/8),
+            size = new Vector2(chunkSize/4, chunkSize/4),
+            DrawColor = new Color(UnityEngine.Random.Range(0,1f), UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f))
+        };
+        tilemapOcclusionSettings.InitObjectSettingProperties();
+        REF.Cam._occlusionCulling2D.objectSettings.Add(tilemapOcclusionSettings);
 
         for (int x = 0; x < chunkSize; x++)
         {
             for (int y = 0; y < chunkSize; y++)
             {
-                tilemapChunk.noiseMap[x, y] = Mathf.PerlinNoise(perlinScale * (x + xPerlinOffset + pixelOffset.x), perlinScale * (y + yPerlinOffset + pixelOffset.y));
-                if (tilemapChunk.noiseMap[x, y] < stoneThreshold) tilemapChunk.stoneTilemap.SetTile(new Vector3Int(x + pixelOffset.x, y + pixelOffset.y, 0), stoneRuleTile);
+                tilemapChunk.noiseMap[x, y] = Mathf.PerlinNoise(perlinScale * (x + xPerlinOffset + tilemapOffset.x), perlinScale * (y + yPerlinOffset + tilemapOffset.y));
+
+                if (tilemapChunk.noiseMap[x, y] < stoneThreshold) tilemapChunk.stoneTilemap.SetTile(new Vector3Int(x, y, 0), stoneRuleTile);
                 if (tilemapChunk.noiseMap[x, y] < ornamentalThreshold)
                 {
                     int index = UnityEngine.Random.Range(0, grassTiles.Length);
-                    Tile grassTileToSet = (Tile) grassTiles[index];
+                    Tile grassTileToSet = (Tile)grassTiles[index];
                     float darkenedColor = 1 + (tilemapChunk.noiseMap[x, y] - ornamentalThreshold);
                     grassTileToSet.color = new Color(darkenedColor, darkenedColor, darkenedColor, 1);
-                    tilemapChunk.grassTileMap.SetTile(new Vector3Int(x + pixelOffset.x, y + pixelOffset.y, 0), grassTileToSet);
+                    tilemapChunk.grassTileMap.SetTile(new Vector3Int(x, y, 0), grassTileToSet);
                 }
             }
         }
         yield return new WaitForEndOfFrame();
         navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
         Debug.Log("done");
-        
+
     }
 
     //  Minimap

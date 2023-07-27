@@ -7,6 +7,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class CameraScript : MonoBehaviour
 {
     public Transform objToTrack;
+    public OcclusionCulling2D _occlusionCulling2D;
     private Vector2 cameraOffset;
     private Vector3 mouseStartDragPos;
     private bool isMovingToPos;
@@ -20,6 +21,7 @@ public class CameraScript : MonoBehaviour
     private void Awake()
     {
         REF.Cam = this;
+        _occlusionCulling2D = GetComponentInChildren<OcclusionCulling2D>();
         //pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
         isMovingToPos = false;
     }
@@ -34,7 +36,7 @@ public class CameraScript : MonoBehaviour
         Events.instance.PlayerIsDying += StopTracking;
         Events.instance.PlayerTankDestroyed += StopTracking;
         Events.instance.EnemyTankDying += CheckForEnemy;
-        SetTrackedVehicleToPlayer();
+        //SetTrackedVehicleToPlayer();
     }
     
     private void CheckForEnemy(EnemyTankController enemy)
@@ -45,6 +47,7 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         HandleZoomInput();
+        /*
         //ZoomToDesiredZoom();
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -52,6 +55,7 @@ public class CameraScript : MonoBehaviour
             if(Input.GetKey(KeyCode.Mouse2)) ChangeCameraOffset(); //dragging motion
         }
         if (objToTrack) MoveCameraToLocalPos();
+    */
     }
 
     //  Cam Movement
@@ -150,6 +154,8 @@ public class CameraScript : MonoBehaviour
     public void SetZoom(float zoomLevel)
     {
         Camera.main.orthographicSize = zoomLevel;
+        _occlusionCulling2D.UpdateCameraWidth();
+
         REF.UI.ZoomSlider.value = (zoomLevel / minZoom) * minZoom;
         //pixelCam.assetsPPU = zoomLevel;
     }
