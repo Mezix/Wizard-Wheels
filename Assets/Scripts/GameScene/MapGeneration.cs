@@ -95,17 +95,19 @@ public class MapGeneration : MonoBehaviour
     {
         TilemapChunk tilemapChunk = Instantiate(Resources.Load(GS.Prefabs("TilemapChunk"), typeof(TilemapChunk)) as TilemapChunk);
         tilemapChunk.transform.SetParent(transform, false);
-        tilemapChunk.transform.position = new Vector3(tilemapOffset.x / 2, tilemapOffset.y / 2, 0);
+        tilemapChunk.transform.localPosition = new Vector3(tilemapOffset.x / 2, tilemapOffset.y / 2, 0);
+        tilemapChunk._offsetTransform.localPosition = -1 * new Vector2(chunkSize / (2f / grid.cellSize.x), chunkSize / (2f / grid.cellSize.y));
         _tilemapChunks.Add(tilemapChunk);
         tilemapChunk.noiseMap = new float[chunkSize, chunkSize];
 
         //  Setup Occlusion
         OcclusionCulling2D.ObjectSettings tilemapOcclusionSettings = new OcclusionCulling2D.ObjectSettings
         {
-            theGameObject = tilemapChunk.gameObject,
-            offset = new Vector2(chunkSize/8, chunkSize/8),
-            size = new Vector2(chunkSize/4, chunkSize/4),
-            DrawColor = new Color(UnityEngine.Random.Range(0,1f), UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f))
+            _gameObjectToHide = tilemapChunk.gameObject,
+            _tileMapChunk = tilemapChunk,
+            size = new Vector2(chunkSize / (2f / grid.cellSize.x), chunkSize / (2f / grid.cellSize.y)),
+            DrawColor = new Color(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f)),
+            showBorders = false
         };
         tilemapOcclusionSettings.InitObjectSettingProperties();
         REF.Cam._occlusionCulling2D.objectSettings.Add(tilemapOcclusionSettings);
@@ -129,8 +131,6 @@ public class MapGeneration : MonoBehaviour
         }
         yield return new WaitForEndOfFrame();
         navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
-        Debug.Log("done");
-
     }
 
     //  Minimap

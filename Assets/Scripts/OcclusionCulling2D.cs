@@ -7,7 +7,8 @@ public class OcclusionCulling2D : MonoBehaviour
     public class ObjectSettings
     {
         [HideInInspector] public string title;
-        public GameObject theGameObject;
+        public GameObject _gameObjectToHide;
+        public TilemapChunk _tileMapChunk;
 
         public Vector2 size = Vector2.one;
         public Vector2 offset = Vector2.zero;
@@ -29,8 +30,8 @@ public class OcclusionCulling2D : MonoBehaviour
 
         public void InitObjectSettingProperties()
         {
-            sized = size * (multiplySizeByTransformScale ? new Vector2(Mathf.Abs(theGameObject.transform.localScale.x), Mathf.Abs(theGameObject.transform.localScale.y)) : Vector2.one);
-            center = (Vector2) theGameObject.transform.position + offset;
+            sized = size * (multiplySizeByTransformScale ? new Vector2(Mathf.Abs(_gameObjectToHide.transform.localScale.x), Mathf.Abs(_gameObjectToHide.transform.localScale.y)) : Vector2.one);
+            center = (Vector2) _gameObjectToHide.transform.position + offset;
 
             TopRight = new Vector2(center.x + sized.x, center.y + sized.y);
             TopLeft = new Vector2(center.x - sized.x, center.y + sized.y);
@@ -52,7 +53,10 @@ public class OcclusionCulling2D : MonoBehaviour
     public float updateRateInSeconds = 0.1f;
 
     private float timer;
-
+    float cameraRight;
+    float cameraLeft;
+    float cameraTop;
+    float cameraBottom;
     void Awake()
     {
         camComponent = GetComponent<Camera>();
@@ -83,9 +87,9 @@ public class OcclusionCulling2D : MonoBehaviour
     {
         foreach (ObjectSettings o in objectSettings)
         {
-            if (o.theGameObject)
+            if (o._gameObjectToHide)
             {
-                o.title = o.theGameObject.name;
+                o.title = o._gameObjectToHide.name;
 
                 if (o.showBorders)
                 {
@@ -109,18 +113,20 @@ public class OcclusionCulling2D : MonoBehaviour
         if (timer > updateRateInSeconds) timer = 0;
         else return;
 
-        float cameraRight = camComponent.transform.position.x + cameraHalfWidth;
-        float cameraLeft = camComponent.transform.position.x - cameraHalfWidth;
-        float cameraTop = camComponent.transform.position.y + camComponent.orthographicSize;
-        float cameraBottom = camComponent.transform.position.y - camComponent.orthographicSize;
+        cameraRight = camComponent.transform.position.x + cameraHalfWidth;
+        cameraLeft = camComponent.transform.position.x - cameraHalfWidth;
+        cameraTop = camComponent.transform.position.y + camComponent.orthographicSize;
+        cameraBottom = camComponent.transform.position.y - camComponent.orthographicSize;
 
         foreach (ObjectSettings o in objectSettings)
         {
-            if (o.theGameObject)
+            if (o._gameObjectToHide)
             {
                 bool IsObjectVisibleInCastingCamera = o.right > cameraLeft & o.left < cameraRight & // check horizontal
                                                       o.top > cameraBottom & o.bottom < cameraTop; // check vertical
-                o.theGameObject.SetActive(IsObjectVisibleInCastingCamera);
+
+                if (o._tileMapChunk) o._tileMapChunk.Show(IsObjectVisibleInCastingCamera);
+                else o._gameObjectToHide.SetActive(IsObjectVisibleInCastingCamera);
             }
         }
     }

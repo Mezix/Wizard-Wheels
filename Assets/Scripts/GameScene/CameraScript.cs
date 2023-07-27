@@ -36,7 +36,7 @@ public class CameraScript : MonoBehaviour
         Events.instance.PlayerIsDying += StopTracking;
         Events.instance.PlayerTankDestroyed += StopTracking;
         Events.instance.EnemyTankDying += CheckForEnemy;
-        //SetTrackedVehicleToPlayer();
+        SetTrackedVehicleToPlayer();
     }
     
     private void CheckForEnemy(EnemyTankController enemy)
@@ -47,7 +47,7 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         HandleZoomInput();
-        /*
+        
         //ZoomToDesiredZoom();
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -55,7 +55,7 @@ public class CameraScript : MonoBehaviour
             if(Input.GetKey(KeyCode.Mouse2)) ChangeCameraOffset(); //dragging motion
         }
         if (objToTrack) MoveCameraToLocalPos();
-    */
+    
     }
 
     //  Cam Movement
