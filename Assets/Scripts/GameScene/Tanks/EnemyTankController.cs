@@ -30,11 +30,6 @@ public class EnemyTankController : TankController
         _navMeshAgent.updateUpAxis = false;
     }
 
-    void Start()
-    {
-        //SpawnTanks();
-    }
-
     public void SpawnTank()
     {
         InitEvents();
@@ -50,7 +45,6 @@ public class EnemyTankController : TankController
         SpawnUI();
         InitTankStats();
     }
-
 
     private void SpawnUI()
     {
@@ -101,12 +95,10 @@ public class EnemyTankController : TankController
     }
     public void EnemyBehaviour()
     {
-        //Maintain a certain distance away from us
-        //TMov.Accelerate();
         if(!REF.PDead)
         {
             _navMeshAgent.SetDestination(REF.PlayerGO.transform.position);
-            TRot.GetComponent<EnemyTankRotation>().SetRotationToAngle(90 + HM.GetAngle2DBetween(transform.position, _navMeshAgent.steeringTarget));
+            TRot.GetComponent<EnemyTankRotation>().SetRotationToAngle(90 + HM.GetAngle2DBetween(Vector3.zero, _navMeshAgent.velocity));
             TWep.AcquireTargetsForAllWeapons();
         }
     }

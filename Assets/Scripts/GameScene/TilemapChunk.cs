@@ -9,9 +9,11 @@ public class TilemapChunk : MonoBehaviour
     public Tilemap grassTileMap;
     public Tilemap stoneTilemap;
     public float[,] noiseMap;
+    public bool _shown = true;
 
     public void Show(bool show)
     {
+        _shown = show;
         grassTileMap.GetComponent<TilemapRenderer>().enabled = show;
         stoneTilemap.GetComponent<TilemapRenderer>().enabled = show;
     }

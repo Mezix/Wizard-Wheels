@@ -56,15 +56,6 @@ public class EnemyManager : MonoBehaviour
     }
     private void SpawnEnemy(EnemySpawn enemyToSpawn)
     {
-        //Get Bounds of the unit we want to spawn next
-
-        //get the positions of all tanks in the game, as well as the players, and save them to be iterated over
-
-        //get the bounds of these tanks
-
-        //define the area enemies can be spawned in; outside the max zoom out level of the player
-
-
         TankRoomConstellation _constellation = enemyToSpawn._tankRoomConstellation;
         TankStats stats = enemyToSpawn._tankStats;
 

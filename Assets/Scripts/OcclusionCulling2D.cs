@@ -10,38 +10,38 @@ public class OcclusionCulling2D : MonoBehaviour
         public GameObject _gameObjectToHide;
         public TilemapChunk _tileMapChunk;
 
-        public Vector2 size = Vector2.one;
-        public Vector2 offset = Vector2.zero;
-        public bool multiplySizeByTransformScale = true;
+        public Vector2 _size = Vector2.one;
+        public Vector2 _offset = Vector2.zero;
+        public bool _multiplySizeByTransformScale = true;
 
-        public Vector2 sized { get; set; }
-        public Vector2 center { get; set; }
+        public Vector2 Sized { get; set; }
+        public Vector2 Center { get; set; }
         public Vector2 TopRight { get; set; }
         public Vector2 TopLeft { get; set; }
         public Vector2 BottomLeft { get; set; }
         public Vector2 BottomRight { get; set; }
-        public float right { get; set; }
-        public float left { get; set; }
-        public float top { get; set; }
-        public float bottom { get; set; }
+        public float Right { get; set; }
+        public float Left { get; set; }
+        public float Top { get; set; }
+        public float Bottom { get; set; }
 
         public Color DrawColor = Color.white;
         public bool showBorders = true;
 
         public void InitObjectSettingProperties()
         {
-            sized = size * (multiplySizeByTransformScale ? new Vector2(Mathf.Abs(_gameObjectToHide.transform.localScale.x), Mathf.Abs(_gameObjectToHide.transform.localScale.y)) : Vector2.one);
-            center = (Vector2) _gameObjectToHide.transform.position + offset;
+            Sized = _size * (_multiplySizeByTransformScale ? new Vector2(Mathf.Abs(_gameObjectToHide.transform.localScale.x), Mathf.Abs(_gameObjectToHide.transform.localScale.y)) : Vector2.one);
+            Center = (Vector2) _gameObjectToHide.transform.position + _offset;
 
-            TopRight = new Vector2(center.x + sized.x, center.y + sized.y);
-            TopLeft = new Vector2(center.x - sized.x, center.y + sized.y);
-            BottomLeft = new Vector2(center.x - sized.x, center.y - sized.y);
-            BottomRight = new Vector2(center.x + sized.x, center.y - sized.y);
+            TopRight = new Vector2(Center.x + Sized.x, Center.y + Sized.y);
+            TopLeft = new Vector2(Center.x - Sized.x, Center.y + Sized.y);
+            BottomLeft = new Vector2(Center.x - Sized.x, Center.y - Sized.y);
+            BottomRight = new Vector2(Center.x + Sized.x, Center.y - Sized.y);
 
-            right = center.x + sized.x;
-            left = center.x - sized.x;
-            top = center.y + sized.y;
-            bottom = center.y - sized.y;
+            Right = Center.x + Sized.x;
+            Left = Center.x - Sized.x;
+            Top = Center.y + Sized.y;
+            Bottom = Center.y - Sized.y;
         }
     }
 
@@ -93,10 +93,10 @@ public class OcclusionCulling2D : MonoBehaviour
 
                 if (o.showBorders)
                 {
-                    o.TopRight = new Vector2(o.center.x + o.sized.x, o.center.y + o.sized.y);
-                    o.TopLeft = new Vector2(o.center.x - o.sized.x, o.center.y + o.sized.y);
-                    o.BottomLeft = new Vector2(o.center.x - o.sized.x, o.center.y - o.sized.y);
-                    o.BottomRight = new Vector2(o.center.x + o.sized.x, o.center.y - o.sized.y);
+                    o.TopRight = new Vector2(o.Center.x + o.Sized.x, o.Center.y + o.Sized.y);
+                    o.TopLeft = new Vector2(o.Center.x - o.Sized.x, o.Center.y + o.Sized.y);
+                    o.BottomLeft = new Vector2(o.Center.x - o.Sized.x, o.Center.y - o.Sized.y);
+                    o.BottomRight = new Vector2(o.Center.x + o.Sized.x, o.Center.y - o.Sized.y);
                     Gizmos.color = o.DrawColor;
                     Gizmos.DrawLine(o.TopRight, o.TopLeft);
                     Gizmos.DrawLine(o.TopLeft, o.BottomLeft);
@@ -122,10 +122,14 @@ public class OcclusionCulling2D : MonoBehaviour
         {
             if (o._gameObjectToHide)
             {
-                bool IsObjectVisibleInCastingCamera = o.right > cameraLeft & o.left < cameraRight & // check horizontal
-                                                      o.top > cameraBottom & o.bottom < cameraTop; // check vertical
+                bool IsObjectVisibleInCastingCamera = o.Right > cameraLeft & o.Left < cameraRight & // check horizontal
+                                                      o.Top > cameraBottom & o.Bottom < cameraTop; // check vertical
 
-                if (o._tileMapChunk) o._tileMapChunk.Show(IsObjectVisibleInCastingCamera);
+                if (o._tileMapChunk)
+                {
+                    if(o._tileMapChunk._shown && !IsObjectVisibleInCastingCamera) o._tileMapChunk.Show(false);
+                    else if (!o._tileMapChunk._shown && IsObjectVisibleInCastingCamera) o._tileMapChunk.Show(true);
+                }
                 else o._gameObjectToHide.SetActive(IsObjectVisibleInCastingCamera);
             }
         }

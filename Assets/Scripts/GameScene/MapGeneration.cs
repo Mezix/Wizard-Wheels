@@ -52,7 +52,7 @@ public class MapGeneration : MonoBehaviour
     private void Start()
     {
         navMeshSurface.BuildNavMesh();
-        GenerateInitialMap();
+        //GenerateInitialMap();
     }
     private void Update()
     {
@@ -116,7 +116,7 @@ public class MapGeneration : MonoBehaviour
         {
             _gameObjectToHide = tilemapChunk.gameObject,
             _tileMapChunk = tilemapChunk,
-            size = new Vector2(chunkSize / (2f / grid.cellSize.x), chunkSize / (2f / grid.cellSize.y)),
+            _size = new Vector2(chunkSize / (2f / grid.cellSize.x), chunkSize / (2f / grid.cellSize.y)),
             DrawColor = new Color(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f)),
             showBorders = false
         };
@@ -196,9 +196,11 @@ public class MapGeneration : MonoBehaviour
     }
     private void TrackPlayerInMinimap()
     {
-        float scale = 2;
-        REF.UI._minimapScript._bigMapRect.anchoredPosition = -1 * REF.PCon.transform.position * scale;
-        UpdateFogOfWar(-1 * REF.UI._minimapScript._bigMapRect.anchoredPosition);
+        if(REF.PCon)
+        {
+            REF.UI._minimapScript._bigMapRect.anchoredPosition = -1 * REF.PCon.transform.position / grid.cellSize.x;
+            UpdateFogOfWar(-1 * REF.UI._minimapScript._bigMapRect.anchoredPosition);
+        }
     }
     private void UpdateFogOfWar(Vector2 playerPos)
     {

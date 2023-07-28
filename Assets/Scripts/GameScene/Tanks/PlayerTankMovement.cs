@@ -63,6 +63,8 @@ public class PlayerTankMovement : TankMovement
         TurnOnCruise(true);
         InitTires();
     }
+
+    //  MOVEMENT
     private void HandleMovementInput()
     {
         movementInput = false;
@@ -104,8 +106,6 @@ public class PlayerTankMovement : TankMovement
         }
     }
 
-    //  MOVEMENT
-    
     private void ChangeDesiredSliderSpeedUp()
     {
         REF.UI._engineUIScript._desiredSpeedSlider.value += acceleration;
@@ -160,6 +160,33 @@ public class PlayerTankMovement : TankMovement
         {
             _matchSpeed = false;
             print("error couldnt find enemy to match");
+        }
+    }
+
+    //  Collisions
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "ProjectileObstacle")
+        {
+            if(REF.PCon.TMov._tRB.velocity.magnitude / maxSpeed > 0.25f)
+            {
+                currentSpeed = 0.5f * maxSpeed;
+                REF.PCon.TakeDamage(1);
+            }
+            Debug.Log("Hit walls");
+        }
+        if (collision.gameObject.TryGetComponent(out EnemyTankController enemy))
+        {
+            if ((REF.PCon.TMov._tRB.velocity - new Vector2(enemy._navMeshAgent.velocity.x, enemy._navMeshAgent.velocity.y)).magnitude > 2f)
+            {
+                currentSpeed = 0.5f * maxSpeed;
+                REF.PCon.TakeDamage(1);
+
+                enemy.TMov.currentSpeed = 0.5f * enemy.TMov.maxSpeed;
+                enemy.TakeDamage(1);
+            }
+            Debug.Log("hit enemy tank");
         }
     }
 

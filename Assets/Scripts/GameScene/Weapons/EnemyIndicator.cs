@@ -44,7 +44,7 @@ public class EnemyIndicator : MonoBehaviour
 
     private void UpdateText()
     {
-        _tankDistance.text = Mathf.RoundToInt(Vector3.Distance(REF.PCon.transform.position, _enemy.transform.position)).ToString() + " M";
+        if(REF.PCon) _tankDistance.text = Mathf.RoundToInt(Vector3.Distance(REF.PCon.transform.position, _enemy.transform.position)).ToString() + " M";
     }
 
     public void InitIndicator(Transform parent, EnemyTankController e)

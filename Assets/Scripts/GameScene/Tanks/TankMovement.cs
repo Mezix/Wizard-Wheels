@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TankMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    public Rigidbody2D _tRB;
     public float currentSpeed;
     [HideInInspector]
     public Vector3 moveVector;
@@ -19,7 +19,7 @@ public class TankMovement : MonoBehaviour
     public List<Tire> Tires = new List<Tire>();
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _tRB = GetComponent<Rigidbody2D>();
         currentSpeed = 0;
     }
     public void InitSpeedStats()
@@ -52,8 +52,8 @@ public class TankMovement : MonoBehaviour
 
         float speedMultiplier = currentSpeed * Time.deltaTime;
 
-        rb.velocity = moveVector * speedMultiplier;
-        rb.MovePosition(transform.position + moveVector * speedMultiplier);
+        _tRB.velocity = moveVector * currentSpeed; //purely for display!
+        _tRB.MovePosition(transform.position + moveVector * speedMultiplier);
     }
     public void Accelerate()
     {
