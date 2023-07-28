@@ -9,8 +9,9 @@ public class EnemyTankMovement : TankMovement
     {
         SetTireAnimationSpeed();
     }
+    /*
     private void FixedUpdate()
     {
         Move();
-    }
+    }*/
 }

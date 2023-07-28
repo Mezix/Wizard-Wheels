@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class EnemyTankController : TankController
     public EnemyUI enemyUI;
     public EnemyIndicator _indicator;
 
+    public NavMeshAgent _navMeshAgent;
     private void Awake()
     {
         InitEnemyScripts();
@@ -23,6 +25,9 @@ public class EnemyTankController : TankController
         TRot = GetComponentInChildren<TankRotation>();
         TWep = GetComponentInChildren<EnemyTankWeaponsAndSystems>();
         TGeo = GetComponentInChildren<TankGeometry>();
+        _navMeshAgent = GetComponentInChildren<NavMeshAgent>();
+        _navMeshAgent.updateRotation = false;
+        _navMeshAgent.updateUpAxis = false;
     }
 
     void Start()
@@ -39,11 +44,13 @@ public class EnemyTankController : TankController
         TWep.CreateWeaponsUI();
         TMov.InitSpeedStats();
         TMov.InitTires();
+        InitNavMeshStats();
         TRot.InitRotationSpeed();
         SpawnWizards();
         SpawnUI();
         InitTankStats();
     }
+
 
     private void SpawnUI()
     {
@@ -56,10 +63,6 @@ public class EnemyTankController : TankController
     private void Update()
     {
         if (!_dying) EnemyBehaviour();
-        /*else
-        {
-            if (!_dead) SlowlyDie();
-        }*/
     }
     private void InitEvents()
     {
@@ -81,6 +84,17 @@ public class EnemyTankController : TankController
         THealth.InitHealth();
         enemyUI.InitUI(_tankName, TMov);
     }
+    private void InitNavMeshStats()
+    {
+        _navMeshAgent.speed = _tStats._tankMaxSpeed;
+        _navMeshAgent.angularSpeed = _tStats._rotationSpeed;
+        _navMeshAgent.acceleration = _tStats._tankAccel / Time.deltaTime;
+        _navMeshAgent.radius = TGeo._tankRoomConstellation._savedXSize/2f;
+        _navMeshAgent.height = TGeo._tankRoomConstellation._savedYSize/2f;
+        _navMeshAgent.baseOffset = TGeo._tankRoomConstellation._savedYSize/2f;
+
+        _navMeshAgent.stoppingDistance = _navMeshAgent.radius + REF.PCon.TGeo._tankRoomConstellation._savedXSize;
+    }
     public override void TakeDamage(int damage)
     {
         THealth.TakeDamage(damage);
@@ -88,8 +102,13 @@ public class EnemyTankController : TankController
     public void EnemyBehaviour()
     {
         //Maintain a certain distance away from us
-        TMov.Accelerate();
-        if(!REF.PDead) TWep.AcquireTargetsForAllWeapons();
+        //TMov.Accelerate();
+        if(!REF.PDead)
+        {
+            _navMeshAgent.SetDestination(REF.PlayerGO.transform.position);
+            TRot.GetComponent<EnemyTankRotation>().SetRotationToAngle(90 + HM.GetAngle2DBetween(transform.position, _navMeshAgent.steeringTarget));
+            TWep.AcquireTargetsForAllWeapons();
+        }
     }
     private void StopAimingAtPlayer()
     {
@@ -107,14 +126,6 @@ public class EnemyTankController : TankController
         //  Send event to our player to remove the target of its weapons
         Events.instance.EnemyIsDying(this);
         StartCoroutine(DeathAnimation());
-    }
-    private void SlowlyDie()
-    {
-        TMov.Decelerate();
-        if(TMov.currentSpeed < 0.05f)
-        {
-            _dead = true;
-        }
     }
     private IEnumerator DeathAnimation()
     {

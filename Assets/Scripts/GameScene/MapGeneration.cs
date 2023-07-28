@@ -78,7 +78,7 @@ public class MapGeneration : MonoBehaviour
 
         // turn to int and reinsert the signs
         Vector2Int vectorToSpawnChunkAt = new Vector2Int(chunkSize / 2, chunkSize / 2) 
-                                        + chunkSize * new Vector2Int(xSign * Mathf.CeilToInt(camPos.x), ySign * Mathf.CeilToInt(camPos.y));
+                                        + chunkSize * new Vector2Int(xSign * Mathf.FloorToInt(camPos.x), ySign * Mathf.FloorToInt(camPos.y));
 
         StartCoroutine(CreateNewTilemapChunk(vectorToSpawnChunkAt));
     }
@@ -140,6 +140,19 @@ public class MapGeneration : MonoBehaviour
                 }
             }
         }
+
+        if(tilemapOffset.x == 0 + centeringVector.x && tilemapOffset.y == 0 + centeringVector.y) // create an empty spawning area
+        {
+            Debug.Log("Creating an empty spawning area!");
+            for (int x = chunkSize/4; x < (chunkSize * 0.75f) ; x++)
+            {
+                for (int y = chunkSize / 4; y < (chunkSize * 0.75f); y++)
+                {
+                    tilemapChunk.stoneTilemap.SetTile(new Vector3Int(x, y, 0), null);
+                }
+            }
+        }
+
         yield return new WaitForEndOfFrame();
         navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
     }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Cannonball : AProjectile
 {
@@ -13,6 +14,11 @@ public class Cannonball : AProjectile
     {
         if (!hasDoneDamage)
         {
+            if(col.tag == "ProjectileObstacle")
+            {
+                StartCoroutine(DespawnAnimation());
+                return;
+            }
             TankController tank = col.transform.root.GetComponentInChildren<TankController>();
             if(tank)
             {

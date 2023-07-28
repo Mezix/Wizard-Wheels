@@ -7,12 +7,13 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class CameraScript : MonoBehaviour
 {
     public Transform objToTrack;
-    public OcclusionCulling2D _occlusionCulling2D;
+    [HideInInspector]
     private Vector2 cameraOffset;
     private Vector3 mouseStartDragPos;
     private bool isMovingToPos;
 
     //private PixelPerfectCamera pixelCam;
+    public OcclusionCulling2D _occlusionCulling2D;
     public float zoomAmount;
     public float desiredZoom;
     public float minZoom;

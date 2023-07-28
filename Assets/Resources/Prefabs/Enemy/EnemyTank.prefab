@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8239155493298000636}
   - component: {fileID: 1291034475881204564}
   - component: {fileID: 3787077506681756485}
+  - component: {fileID: 928231417500422641}
   m_Layer: 0
   m_Name: EnemyTank
   m_TagString: Enemy
@@ -61,6 +62,7 @@ MonoBehaviour:
   _tankColor: {r: 0, g: 0, b: 0, a: 0}
   enemyUI: {fileID: 0}
   _indicator: {fileID: 0}
+  _navMeshAgent: {fileID: 0}
 --- !u!114 &3123129469221447086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +154,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6385456487747659236}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -171,3 +173,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!195 &928231417500422641
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385456487747659236}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 0
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4

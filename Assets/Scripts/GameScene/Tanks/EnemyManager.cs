@@ -90,7 +90,7 @@ public class EnemyManager : MonoBehaviour
 
             // Set rotation of wheels to movetowards player
             float angleBetweenTankAndPlayer = spawnAngle + 90;
-            enemyTank.TRot.GetComponent<EnemyTankRotation>().SetInitialRotation(angleBetweenTankAndPlayer);
+            enemyTank.TRot.GetComponent<EnemyTankRotation>().SetRotationToAngle(angleBetweenTankAndPlayer);
 
             // Set Starting Speed to max
             enemyTank.TMov.currentSpeed = enemyTank._tStats._tankMaxSpeed;

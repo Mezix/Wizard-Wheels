@@ -6,26 +6,15 @@ using UnityEngine.UI;
 
 public class EnemyTankRotation : TankRotation
 {
-    void Start()
-    {
-       // InitRotatableObjects();
-    }
-    public void RotateTankLeft()
-    {
-        RotateAllObjectsByRotation(rotationspeed* Time.deltaTime);
-    }
-    public void RotateTankRight()
-    {
-        RotateAllObjectsByRotation(-rotationspeed * Time.deltaTime);
-    }
-    public void SetInitialRotation(float angle)
+    public void SetRotationToAngle(float angle)
     {
         AngleToRotateTo = angle;
         RotateAllObjectsToRotation(AngleToRotateTo);
     }
 
     //  Rotate Tank
-    private void RotateTankToAngle()
+    /*
+    public  void RotateTankToAngle()
     {
         float currentRot = rotatableObjects[0].transform.rotation.eulerAngles.z;
         if (currentRot > 180) currentRot -= 360;
@@ -56,5 +45,5 @@ public class EnemyTankRotation : TankRotation
             }
         }
     }
-
+    */
 }

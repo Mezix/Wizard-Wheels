@@ -398,10 +398,11 @@ MonoBehaviour:
   navMeshSurface: {fileID: 259822441}
   grid: {fileID: 0}
   playerPosRelativeToGrid: {x: 0, y: 0, z: 0}
+  camPos: {x: 0, y: 0, z: 0}
   minimapStoneColor: {r: 0.21698111, g: 0.16505073, b: 0.15454787, a: 1}
   minimapGrassColor: {r: 0.5218569, g: 0.7830189, b: 0.34349412, a: 1}
   perlinScale: 0.1
-  stoneThreshold: 0.1
+  stoneThreshold: 0.2
   ornamentalThreshold: 0.5
   chunkSize: 100
 --- !u!156049354 &393006674
@@ -2715,7 +2716,12 @@ PrefabInstance:
     - target: {fileID: 7455234686771886864, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -6.060684
+      value: -6.0610166
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455234686771886864, guid: 703e50d0fa588ed49934e5b64ed2a00b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.16110925
       objectReference: {fileID: 0}
     - target: {fileID: 7726113902705243567, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
