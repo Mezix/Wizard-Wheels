@@ -44,7 +44,9 @@ public abstract class AWeapon : ASystem
     public Color UIColor;
     public LineRenderer lr;
 
-    //  Audio
+    //  Feedback
+    public Animator _weaponAnimator;
+    public Animator _weaponFireAnimator;
     public AudioSource _weaponAudioSource = null;
 
     //  TankMovement
@@ -56,10 +58,11 @@ public abstract class AWeapon : ASystem
 
     //  Selected
     public WeaponSelectedUI _weaponSelectedUI;
-    public virtual void Awake()
+
+    public override void Awake()
     {
-        ShouldHitPlayer = false;
         SystemObj = gameObject;
+        ShouldHitPlayer = false;
         tankSpeedProjectileModifier = 0;
     }
     public override void InitSystemStats()
@@ -279,7 +282,7 @@ public abstract class AWeapon : ASystem
         if (TimeElapsedBetweenLastAttack >= TimeBetweenAttacks)
         {
             PlayWeaponFireSoundEffect();
-            WeaponFireParticles(WeaponFireExplosion);
+            WeaponFireParticles();
             SpawnProjectile();
             if (!ShouldHitPlayer)
             {
@@ -322,12 +325,16 @@ public abstract class AWeapon : ASystem
     }
     //  Misc
 
-    internal void WeaponFireParticles(GameObject explosion = null)
+    internal void WeaponFireParticles()
     {
-        if (explosion == null) explosion = (GameObject) Resources.Load(GS.Effects("SingleExplosion"));
-        GameObject exp = Instantiate(explosion);
-        foreach(Transform t in _projectileSpots) exp.transform.SetParent(t);
-        exp.transform.localPosition = Vector3.zero;
+        if(_weaponAnimator) _weaponAnimator.SetTrigger("Fire");
+        if (_weaponFireAnimator) _weaponFireAnimator.SetTrigger("Fire");
+        else
+        {
+            GameObject exp = Instantiate((GameObject)Resources.Load(GS.Effects("SingleExplosion")));
+            foreach (Transform t in _projectileSpots) exp.transform.SetParent(t);
+            exp.transform.localPosition = Vector3.zero;
+        }
     }
     internal void PlayWeaponFireSoundEffect()
     {

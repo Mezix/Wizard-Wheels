@@ -1695,6 +1695,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TilemapChunk
       objectReference: {fileID: 0}
+    - target: {fileID: 5037633645543631527, guid: a2f3adecad02d764e8824459ed3ea3a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5197629893738745723, guid: a2f3adecad02d764e8824459ed3ea3a3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6984,7 +6989,7 @@ PrefabInstance:
     - target: {fileID: 7455234686771886864, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -6.0610166
+      value: -6.0599656
       objectReference: {fileID: 0}
     - target: {fileID: 7455234686771886864, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}

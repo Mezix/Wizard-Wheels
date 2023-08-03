@@ -110,12 +110,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e59c71e72405e489ff5fc256071008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trail: {fileID: 2307210426319309969}
   _projectileSprite: {fileID: 9126476221999826754}
   _shadow: {fileID: 2573193843095243027}
   _shadowRotation: {fileID: 1108643200956634821}
   maxShadowHeight: 0
   wep: {fileID: 0}
-  trail: {fileID: 2307210426319309969}
 --- !u!1 &2208118864922815613
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +231,7 @@ SpriteRenderer:
   m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &8564833157115638425
@@ -281,7 +281,7 @@ Transform:
   m_GameObject: {fileID: 5891663942201632956}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.127, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -426,14 +426,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9126476221999826755}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 314895335340826236}
   m_Father: {fileID: 6976379564008667867}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &9126476221999826754
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -475,12 +475,12 @@ SpriteRenderer:
   m_SortingLayerID: -2065071363
   m_SortingLayer: 6
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b7644c32cf445d44880b1e9d33ffbb8e, type: 3}
+  m_Sprite: {fileID: 568627792, guid: 0e650bfe82833d8448bf7655c2a49b9c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.2, y: 0.2}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -494,7 +494,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9126476221999826755}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b86be8ad7d7bbd14ba9f6930d5c1a492, type: 2}
   m_CullingMode: 0

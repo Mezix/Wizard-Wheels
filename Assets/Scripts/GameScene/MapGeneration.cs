@@ -52,7 +52,7 @@ public class MapGeneration : MonoBehaviour
     private void Start()
     {
         navMeshSurface.BuildNavMesh();
-        //GenerateInitialMap();
+        GenerateInitialMap();
     }
     private void Update()
     {

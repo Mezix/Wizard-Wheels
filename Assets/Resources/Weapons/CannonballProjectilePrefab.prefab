@@ -48,12 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3833d1accfcc4af448e8f883b8501b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trail: {fileID: 708214108814570304}
   _projectileSprite: {fileID: 9126476221999826754}
   _shadow: {fileID: 2573193843095243027}
   _shadowRotation: {fileID: 1108643200956634821}
   maxShadowHeight: 0.2
   wep: {fileID: 0}
-  trail: {fileID: 708214108814570304}
 --- !u!50 &7325145752274536561
 Rigidbody2D:
   serializedVersion: 4
@@ -303,8 +303,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2065071363
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Time: 0.1
   m_PreviewTimeScale: 1

@@ -172,7 +172,7 @@ public class PlayerTankMovement : TankMovement
             if(REF.PCon.TMov._tRB.velocity.magnitude / maxSpeed > 0.25f)
             {
                 currentSpeed = 0.5f * maxSpeed;
-                REF.PCon.TakeDamage(1);
+                //REF.PCon.TakeDamage(1);
             }
             Debug.Log("Hit walls");
         }

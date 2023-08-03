@@ -93,7 +93,7 @@ public class TeslaTower : AWeapon
     public override void Attack()
     {
         PlayWeaponFireSoundEffect();
-        WeaponFireParticles(WeaponFireExplosion);
+        WeaponFireParticles();
         TimeElapsedBetweenLastAttack = 0;
         foreach (Room r in _teslaBeam.roomsToHit)
         {

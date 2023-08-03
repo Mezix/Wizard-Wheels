@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerTeslaTower
   m_EditorClassIdentifier: 
   _weaponName: Basic Cannon
-  _UISprite: {fileID: 21300000, guid: b4cee70d471e17c4a8e807a85ed63b9a, type: 3}
+  _UISprite: {fileID: 21300000, guid: 2eac3e5e4ceb06348940217418932e52, type: 3}
   _damage: 1
   _projectileSpeed: 10
   _attacksPerSecond: 0.25
