@@ -160,7 +160,6 @@ public class UIScript : MonoBehaviour
         u.button.onClick.AddListener(() => u.SelectWizard());
         u.wizard = unit;
         go.transform.SetParent(_wizardsList.transform, false);
-        go.transform.localScale = new Vector3(-1, 1, 1);
         return u;
     }
 

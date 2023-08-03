@@ -1,22 +1,7 @@
 fileFormatVersion: 2
-guid: cd88e7f9523e1c5408d908e086b7e1ff
+guid: 7fa0f50e2eb30024b91ab608218285a9
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 8795463453783533843
-    second: Wizard_UI-Selected-Sheet_0
-  - first:
-      213: -8969800723414214927
-    second: Wizard_UI-Selected-Sheet_1
-  - first:
-      213: -6919562156172622901
-    second: Wizard_UI-Selected-Sheet_2
-  - first:
-      213: 9166348066798177547
-    second: Wizard_UI-Selected-Sheet_3
-  - first:
-      213: -4765113909864583084
-    second: Wizard_UI-Selected-Sheet_4
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -63,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 48
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -80,7 +65,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -100,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wizard_UI-Selected-Sheet_0
+      name: Woodland_Wanderer_Idle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 11
-        height: 17
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 319a2bd2963cf0a70800000000000000
-      internalID: 8795463453783533843
+      spriteID: 4cbe70f9bf007a542bde0f5450d4a1a8
+      internalID: -391649096
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wizard_UI-Selected-Sheet_1
+      name: Woodland_Wanderer_Idle_1
       rect:
         serializedVersion: 2
-        x: 11
+        x: 64
         y: 0
-        width: 11
-        height: 17
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f69ade14cdd48380800000000000000
-      internalID: -8969800723414214927
+      spriteID: 771d07c0dc600104d98ce757445864b1
+      internalID: -960394957
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wizard_UI-Selected-Sheet_2
+      name: Woodland_Wanderer_Idle_2
       rect:
         serializedVersion: 2
-        x: 22
+        x: 128
         y: 0
-        width: 11
-        height: 17
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc3481061e6c8ff90800000000000000
-      internalID: -6919562156172622901
+      spriteID: fb6bb0597b49cb247b73f26713f951f3
+      internalID: -1165119850
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wizard_UI-Selected-Sheet_3
+      name: Woodland_Wanderer_Idle_3
       rect:
         serializedVersion: 2
-        x: 33
+        x: 192
         y: 0
-        width: 11
-        height: 17
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b0d08195009653f70800000000000000
-      internalID: 9166348066798177547
+      spriteID: 9661daf477fc37e40b8e6e86bf984760
+      internalID: 1811824121
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wizard_UI-Selected-Sheet_4
+      name: Woodland_Wanderer_Idle_4
       rect:
         serializedVersion: 2
-        x: 44
+        x: 256
         y: 0
-        width: 11
-        height: 17
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,8 +208,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 450bf38452aeeddb0800000000000000
-      internalID: -4765113909864583084
+      spriteID: 5863a1858d6b163489734aa9bffcda23
+      internalID: 514576706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Woodland_Wanderer_Idle_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da86f064beca3224599496771a562840
+      internalID: -1702673214
       vertices: []
       indices: 
       edges: []
@@ -240,11 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wizard_UI-Selected-Sheet_0: 8795463453783533843
-      Wizard_UI-Selected-Sheet_1: -8969800723414214927
-      Wizard_UI-Selected-Sheet_2: -6919562156172622901
-      Wizard_UI-Selected-Sheet_3: 9166348066798177547
-      Wizard_UI-Selected-Sheet_4: -4765113909864583084
+      Woodland_Wanderer_Idle_0: -391649096
+      Woodland_Wanderer_Idle_1: -960394957
+      Woodland_Wanderer_Idle_2: -1165119850
+      Woodland_Wanderer_Idle_3: 1811824121
+      Woodland_Wanderer_Idle_4: 514576706
+      Woodland_Wanderer_Idle_5: -1702673214
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
