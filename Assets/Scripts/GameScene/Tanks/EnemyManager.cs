@@ -156,6 +156,4 @@ public class EnemyManager : MonoBehaviour
         //returns the same vector if it works, otherwise modifies the vector and returnsa viable position
         return checkPos;
     }
-
-
 }

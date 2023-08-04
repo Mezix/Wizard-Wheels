@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UIScript : MonoBehaviour
 {
     //  Canvas
+    [HideInInspector]
     public Canvas _canvas;
 
     // Health
@@ -121,7 +122,6 @@ public class UIScript : MonoBehaviour
         {
             ToggleVision();
         }
-        
     }
     
     private void InitButtonsSlidersToggles()
@@ -310,16 +310,10 @@ public class UIScript : MonoBehaviour
     }
     public void SpawnGameOverScreen()
     {
-        GameObject gameOverScreen = Instantiate(Resources.Load(GS.Prefabs("GameOverScreen"), typeof (GameObject)) as GameObject);
-        gameOverScreen.transform.position = Vector3.zero;
-        gameOverScreen.transform.SetParent(transform, false);
-        List<Button> buttons = gameOverScreen.GetComponentsInChildren<Button>().ToList();
-        foreach (Button b in buttons)
-        {
-            b.onClick = new Button.ButtonClickedEvent();
-            b.onClick.AddListener(() => LevelManager.instance.GoToMainMenu());
-        }
+        Instantiate(Resources.Load(GS.Prefabs("CombatDefeatScreen"), typeof (GameObject)) as GameObject, transform, false);
+        REF.TM.TriggerGradualSlowdown(0.2f);
     }
+
     public IEnumerator FlashWeaponOutOfRangeWarning()
     {
         List<Image> images = WeaponOutOfRangeParent.GetComponentsInChildren<Image>().ToList();

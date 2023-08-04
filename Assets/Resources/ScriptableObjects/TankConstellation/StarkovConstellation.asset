@@ -351,7 +351,8 @@ MonoBehaviour:
         RoofTilePrefab: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c,
           type: 2}
         RoofColor: {r: 1, g: 1, b: 1, a: 1}
-        SystemPrefab: {fileID: 0}
+        SystemPrefab: {fileID: 6756651002276288008, guid: beb5ee0181bb80c4cb4e0eea375b3675,
+          type: 3}
         TirePrefab: {fileID: 0}
         _topWallExists: 0
         _rightWallExists: 0
@@ -839,7 +840,8 @@ MonoBehaviour:
         RoofTilePrefab: {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c,
           type: 2}
         RoofColor: {r: 1, g: 1, b: 1, a: 1}
-        SystemPrefab: {fileID: 0}
+        SystemPrefab: {fileID: 6756651002276288008, guid: beb5ee0181bb80c4cb4e0eea375b3675,
+          type: 3}
         TirePrefab: {fileID: 0}
         _topWallExists: 0
         _rightWallExists: 0

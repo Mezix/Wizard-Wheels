@@ -1,13 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
     public static bool paused;
+    private bool canPause;
     private void Awake()
     {
         REF.TM = this;
+        canPause = true;
     }
     void Start()
     {
@@ -15,7 +18,7 @@ public class TimeManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) TogglePauseWhilstPlaying();
+        if (Input.GetKeyDown(KeyCode.Space) && canPause) TogglePauseWhilstPlaying();
     }
     public void TogglePauseWhilstPlaying()
     {
@@ -49,5 +52,23 @@ public class TimeManager : MonoBehaviour
     {
         paused = false;
         REF.UI._pauseImage.SetActive(paused);
+    }
+
+    public void TriggerGradualSlowdown(float timeScaleToSlowDownTo)
+    {
+        canPause = false;
+        Debug.Log("Time slowing down!");
+        StartCoroutine(SlowDownTo(timeScaleToSlowDownTo));
+    }
+
+    private IEnumerator SlowDownTo(float timeScaleToSlowDownTo)
+    {
+        Time.timeScale = 1;
+        while (Time.timeScale > timeScaleToSlowDownTo)
+        {
+            Time.timeScale -= 0.05f;
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+        Time.timeScale = timeScaleToSlowDownTo;
     }
 }

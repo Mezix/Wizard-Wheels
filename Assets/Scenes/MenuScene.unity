@@ -19191,7 +19191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerTankConstellations:
-  - {fileID: 11400000, guid: 7de68b0fb4adb914c8d906f816d51628, type: 2}
+  - {fileID: 11400000, guid: 6ca672f9cc6a618439899de1e353bf01, type: 2}
   - {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5, type: 2}
   - {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530, type: 2}
   tankIndex: 0
@@ -21933,6 +21933,8 @@ MonoBehaviour:
   MasterVolumeSlider: {fileID: 1671742284}
   MusicVolumeSlider: {fileID: 12560230}
   SFXVolumeSlider: {fileID: 182422878}
+  _highlightedSound: {fileID: 0}
+  _clickedSound: {fileID: 0}
 --- !u!1 &1292281879
 GameObject:
   m_ObjectHideFlags: 0
@@ -25490,6 +25492,11 @@ PrefabInstance:
       propertyPath: _orb
       value: 
       objectReference: {fileID: 1691385669}
+    - target: {fileID: 4410841966990000522, guid: 531d0b50a40815141b1c0b1268f34f32,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

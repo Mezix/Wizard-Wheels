@@ -16,7 +16,7 @@ public class GrabberArm : ASystem
     private Vector3 scrapPos;
     private ScrapPile scrap;
     private bool scrapCollection;
-    private void Awake()
+    public override void Awake()
     {
         base.Awake();
         _armLaunched = false;
@@ -134,7 +134,7 @@ public class GrabberArm : ASystem
 
     private void CreateChain()
     {
-        Sprite chain = Resources.Load("Art/Weapons/chain_link", typeof(Sprite)) as Sprite;
+        Sprite chain = Resources.Load(GS.WeaponGraphics("chain_link"), typeof(Sprite)) as Sprite;
         Vector3 clawStartingPos = _clawScript._clawAnimator.transform.position;
         clawStartingPos += (_chainStartingPos.position - clawStartingPos).normalized * 0.1f;
         DottedLine.DottedLine.Instance.DrawDottedLine(_chainStartingPos.position, clawStartingPos, Color.white, chain);

@@ -103,7 +103,7 @@ public class CreateTankUI : MonoBehaviour
         {
             Dropdown.OptionData newOptData = new Dropdown.OptionData();
             newOptData.text = system.name;
-            //newOptData.image = t.sprite;
+            newOptData.image = system.GetComponent<ASystem>().SystemSprite;
             systemsList.Add(newOptData);
         }
         floorIndex = 0;

@@ -6648,7 +6648,7 @@ PrefabInstance:
     - target: {fileID: 3857651452480230578, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 217.00003
+      value: 651
       objectReference: {fileID: 0}
     - target: {fileID: 3895322385338602528, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
@@ -6903,6 +6903,11 @@ PrefabInstance:
     - target: {fileID: 5707907488594772777, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707907488594772777, guid: 703e50d0fa588ed49934e5b64ed2a00b,
+        type: 3}
+      propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5848385913015706062, guid: 703e50d0fa588ed49934e5b64ed2a00b,
@@ -7458,6 +7463,12 @@ PrefabInstance:
       propertyPath: m_PointLightOuterRadius
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 4270615867507201710, guid: 01505dcbd6348724faf1cc9fb0959605,
+        type: 3}
+      propertyPath: _tankRoomConstellation
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ca672f9cc6a618439899de1e353bf01,
+        type: 2}
     - target: {fileID: 4602450426782924353, guid: 01505dcbd6348724faf1cc9fb0959605,
         type: 3}
       propertyPath: m_Name

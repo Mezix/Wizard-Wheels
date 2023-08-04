@@ -183,7 +183,7 @@ public abstract class AUnit : MonoBehaviour
         if (!rPos) return;
         if (movingToPosIndicator) Destroy(movingToPosIndicator);
 
-        movingToPosIndicator = Instantiate((GameObject)Resources.Load("UnitMovingToIndicator"));
+        movingToPosIndicator = Instantiate(Resources.Load(GS.Prefabs("UnitMovingToIndicator"), typeof (GameObject)) as GameObject);
         movingToPosIndicator.transform.parent = rPos.transform;
         movingToPosIndicator.transform.localPosition = Vector3.zero;
     }

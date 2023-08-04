@@ -13,6 +13,7 @@ public class ScrapPile : MonoBehaviour
     private void Awake()
     {
         _collecting = false;
+        _scrapCollider.enabled = true;
     }
     private void FixedUpdate()
     {

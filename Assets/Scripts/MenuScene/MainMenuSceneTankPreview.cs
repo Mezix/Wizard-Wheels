@@ -96,7 +96,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         CreateSystems();
         MakeCollidersTriggers();
         DisableTankUI();
-        SetTranslucentColor();
+        SetSpriteValues();
     }
     private void CreateFloorAndRoof()
     {
@@ -252,28 +252,28 @@ public class MainMenuSceneTankPreview : MonoBehaviour
                 if (x >= _trc._savedMatrix.XArray.Length || y >= _trc._savedMatrix.XArray[0].YStuff.Length) continue;
                 if (_trc._savedMatrix.XArray[x].YStuff[y]._topWallExists)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallUp"));
+                    GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallUp"), typeof (GameObject)) as GameObject);
                     wall.transform.SetParent(_roomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                     wall.transform.localScale = Vector3.one;
                 }
                 if (_trc._savedMatrix.XArray[x].YStuff[y]._rightWallExists)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallRight"));
+                    GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallRight"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(_roomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                     wall.transform.localScale = Vector3.one;
                 }
                 if (_trc._savedMatrix.XArray[x].YStuff[y]._bottomWallExists)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallDown"));
+                    GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallDown"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(_roomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                     wall.transform.localScale = Vector3.one;
                 }
                 if (_trc._savedMatrix.XArray[x].YStuff[y]._leftWallExists)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallLeft"));
+                    GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallLeft"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(_roomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                     wall.transform.localScale = Vector3.one;
@@ -360,12 +360,14 @@ public class MainMenuSceneTankPreview : MonoBehaviour
             c.gameObject.SetActive(false);
         }
     }
-    private void SetTranslucentColor()
+    private void SetSpriteValues()
     {
         List<SpriteRenderer> srs = TankGeometryParent.GetComponentsInChildren<SpriteRenderer>().ToList();
         foreach (SpriteRenderer rend in srs)
         {
             rend.color = _translucentColor;
+            rend.sortingLayerName = "Wizards";
+            rend.sortingOrder += 20;
         }
         FloorTilemap.color = _translucentColor;
         RoofTilemap.color = _translucentColor;

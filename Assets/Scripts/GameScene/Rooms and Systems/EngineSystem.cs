@@ -30,6 +30,7 @@ public class EngineSystem : ASystem
     }
     private void CreateUpgradeField()
     {
+        if (!REF.UI) return;
         _upgradeField = REF.UI._upgradeScreen.CreateUpgradeField();
         InitUpgradeField();
 
