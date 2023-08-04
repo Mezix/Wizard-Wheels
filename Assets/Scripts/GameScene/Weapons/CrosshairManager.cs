@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CrosshairManager : MonoBehaviour
 {
-    private GameObject crosshairPrefab;
+    private Crosshair crosshairPrefab;
     private Dictionary<Room, Crosshair> RoomsCrosshairsDictionary;
 
     private void Awake()
     {
         REF.c = this;
-        crosshairPrefab = (GameObject)Resources.Load("Crosshair");
+        crosshairPrefab = Resources.Load(GS.WeaponPrefabs("Crosshair"), typeof (Crosshair))as Crosshair;
     }
     private void Start()
     {
@@ -26,10 +26,9 @@ public class CrosshairManager : MonoBehaviour
         else //otherwise spawn a crosshair there
         {
             //Spawn Crosshair
-            GameObject spawnedCrosshair = Instantiate((GameObject)Resources.Load("Crosshair"));
-            Crosshair c = spawnedCrosshair.GetComponentInChildren<Crosshair>();
-            spawnedCrosshair.transform.parent = room.transform;
-            spawnedCrosshair.transform.localPosition = Vector3.zero + new Vector3(0, 0, 10);
+            Crosshair c = Instantiate(crosshairPrefab);
+            c.transform.SetParent(room.transform, false);
+            c.transform.localPosition = Vector3.zero + new Vector3(0, 0, 10);
 
             RoomsCrosshairsDictionary.Add(room, c);
             c.SetCrosshairSizeAndPosition(room.sizeX, room.sizeY);

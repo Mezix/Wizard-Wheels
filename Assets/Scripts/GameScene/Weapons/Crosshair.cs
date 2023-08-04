@@ -60,7 +60,7 @@ public class Crosshair : MonoBehaviour
         foreach(AWeapon weapon in AttackingWeapons)
         {
             //spawn a new Gameobject 
-            GameObject wepIndexObject = Instantiate((GameObject)Resources.Load("WeaponIndex"));
+            GameObject wepIndexObject = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponIndex"), typeof (GameObject)) as GameObject);
             WeaponIndices.Add(wepIndexObject);
             wepIndexObject.transform.SetParent(weaponTextCanvas.transform, false);
             wepIndexObject.GetComponent<Text>().text = weapon.WeaponUI.WeaponIndex.ToString();

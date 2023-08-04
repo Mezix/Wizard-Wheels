@@ -220,25 +220,25 @@ public class TankGeometry : MonoBehaviour
             {
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y]._topWallExists)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallUp"));
+                    GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallUp"), typeof (GameObject)) as GameObject);
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                 }
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y]._rightWallExists)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallRight"));
+                    GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallRight"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                 }
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y]._bottomWallExists)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallDown"));
+                    GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallDown"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                 }
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y]._leftWallExists)
                 {
-                    GameObject wall = (GameObject)Instantiate(Resources.Load("Rooms/Walls/WallLeft"));
+                    GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallLeft"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                 }

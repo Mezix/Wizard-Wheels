@@ -140,7 +140,7 @@ public class UpgradeScreen : MonoBehaviour
     }
     public UIUpgradeField CreateUpgradeField()
     {
-        GameObject field = Instantiate((GameObject)Resources.Load("UpgradeField"));
+        GameObject field = Instantiate(Resources.Load(GS.UIPrefabs("UpgradeField"), typeof (GameObject)) as GameObject);
         field.transform.SetParent(_layoutGroup);
         field.transform.localScale = Vector3.one;
         UIUpgradeField upgrade = field.GetComponent<UIUpgradeField>();

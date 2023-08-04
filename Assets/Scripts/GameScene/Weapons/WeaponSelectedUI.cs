@@ -15,7 +15,7 @@ public class WeaponSelectedUI : MonoBehaviour
     public void InitWeaponSelectedUI(AWeapon wep)
     {
         weapon = wep;
-        GameObject go = Instantiate((GameObject)Resources.Load("WeaponRangeCircle"));
+        GameObject go = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponRangeCircle"), typeof (GameObject)) as GameObject);
         go.transform.localScale = Vector3.one * wep.MaxLockOnRange;
         go.transform.SetParent(transform);
         go.transform.localPosition = Vector3.zero;

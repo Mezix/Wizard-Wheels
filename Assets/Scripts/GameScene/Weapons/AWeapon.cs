@@ -95,17 +95,15 @@ public abstract class AWeapon : ASystem
     }
     public void InitLineRenderer()
     {
-        GameObject go = Instantiate((GameObject) Resources.Load(GS.Prefabs("LineRendererPrefab")));
-        go.transform.parent = transform;
-        lr = go.GetComponent<LineRenderer>();
+        lr = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponLineRenderer"), typeof(LineRenderer)) as LineRenderer);
+        lr.transform.SetParent(transform, false);
         lr.gameObject.SetActive(false);
     }
     private void InitWeaponSelectedUI()
     {
-        GameObject wSLR = Instantiate((GameObject)Resources.Load(GS.Prefabs("WeaponSelectedUI")));
-        _weaponSelectedUI = wSLR.GetComponent<WeaponSelectedUI>();
+        _weaponSelectedUI = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponSelectedUI"), typeof(WeaponSelectedUI)) as WeaponSelectedUI);
         _weaponSelectedUI.InitWeaponSelectedUI(this);
-        wSLR.transform.SetParent(transform);
+        _weaponSelectedUI.transform.SetParent(transform);
     }
     public override void StartInteraction()
     {

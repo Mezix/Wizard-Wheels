@@ -59,7 +59,7 @@ public class EngineUI : MonoBehaviour
         engineLevelSegments = new List<Image>();
         for (int i = 0; i < 5; i++)
         {
-            GameObject engineSegment = Instantiate((GameObject)Resources.Load("EngineLevelSegment"));
+            GameObject engineSegment = Instantiate(Resources.Load(GS.UIPrefabs("EngineLevelSegment"), typeof (GameObject)) as GameObject);
             engineSegment.transform.SetParent(_engineLevelLayoutGroup.transform);
             engineSegment.transform.localScale = Vector3.one;
             Image engineSegmentImg = engineSegment.GetComponent<Image>();
@@ -83,9 +83,9 @@ public class EngineUI : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             Image engineSegmentImg = engineLevelSegments[i];
-            if (i == 0) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Left_Empty", typeof(Sprite)) as Sprite;
-            else if (i == 4) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Right_Empty", typeof(Sprite)) as Sprite;
-            else engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Middle_Empty", typeof(Sprite)) as Sprite;
+            if (i == 0) engineSegmentImg.sprite = Resources.Load(GS.UIGraphics("Engine Level/Engine_Level_Left_Empty"), typeof(Sprite)) as Sprite;
+            else if (i == 4) engineSegmentImg.sprite = Resources.Load(GS.UIGraphics("Engine Level/Engine_Level_Right_Empty"), typeof(Sprite)) as Sprite;
+            else engineSegmentImg.sprite = Resources.Load(GS.UIGraphics("Engine Level/Engine_Level_Middle_Empty"), typeof(Sprite)) as Sprite;
         }
 
         //   Update the full ones
@@ -93,9 +93,9 @@ public class EngineUI : MonoBehaviour
         for (int i = 0; i < level; i++)
         {
             Image engineSegmentImg = engineLevelSegments[i];
-            if (i == 0) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Left_Full", typeof(Sprite)) as Sprite;
-            else if (i == 4) engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Right_Full", typeof(Sprite)) as Sprite;
-            else engineSegmentImg.sprite = Resources.Load("Art/UI/Engine Level/Engine_Level_Middle_Full", typeof(Sprite)) as Sprite;
+            if (i == 0) engineSegmentImg.sprite = Resources.Load(GS.UIGraphics("Engine Level/Engine_Level_Left_Full"), typeof(Sprite)) as Sprite;
+            else if (i == 4) engineSegmentImg.sprite = Resources.Load(GS.UIGraphics("Engine Level/Engine_Level_Right_Full"), typeof(Sprite)) as Sprite;
+            else engineSegmentImg.sprite = Resources.Load(GS.UIGraphics("Engine Level/Engine_Level_Middle_Full"), typeof(Sprite)) as Sprite;
         }
         PlayerTankMovement tmov = REF.PCon.TMov;
         float multiplier = 1 + (level / (float)maxLevel);
@@ -117,8 +117,8 @@ public class EngineUI : MonoBehaviour
     }
     public void TurnOnCruiseUI(bool on)
     {
-        if (on)_cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_on", typeof(Sprite)) as Sprite;
-        else _cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load("Art/UI/speed_control_cruise_off", typeof(Sprite)) as Sprite;
+        if (on)_cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load(GS.UIGraphics("speed_control_cruise_on"), typeof(Sprite)) as Sprite;
+        else _cruiseButton.targetGraphic.GetComponent<Image>().sprite = Resources.Load(GS.UIGraphics("speed_control_cruise_off"), typeof(Sprite)) as Sprite;
         StartStopEngineSound(on);
     }
     public void StartStopEngineSound(bool engineStarting, float level = 1)

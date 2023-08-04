@@ -37,7 +37,7 @@ public class UIUpgradeField : MonoBehaviour
         foreach(int i in levels)
         {
             _upgradeLevels.Add(i);
-            GameObject go = Instantiate((GameObject) Resources.Load("UpgradeFieldBarSplitter"));
+            GameObject go = Instantiate(Resources.Load(GS.UIPrefabs("UpgradeFieldBarSplitter"), typeof (GameObject)) as GameObject);
             go.transform.SetParent(_layout.transform);
             go.transform.localScale = Vector3.one;
         }

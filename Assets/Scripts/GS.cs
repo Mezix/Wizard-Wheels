@@ -33,7 +33,7 @@ public static class GS // Stands for "Get Strings"
     }
     public static string WallPrefabs(string filename = "")
     {
-        return RoomPrefabs() + "Rooms/" + filename;
+        return RoomPrefabs() + "Walls/" + filename;
     }
 
     public static string Potions(string filename = "")
