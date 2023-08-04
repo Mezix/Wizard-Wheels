@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RouteNode : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Image _visitedNode;
     void Start()
     {
-        
+        _visitedNode.gameObject.SetActive(false);
     }
-
-    // Update is called once per frame
-    void Update()
+    public void FadeInNode()
     {
-        
+        StartCoroutine(VisitNode());
+    }
+    private IEnumerator VisitNode()
+    {
+        float index = 0;
+        _visitedNode.gameObject.SetActive(true);
+        while (index < 1)
+        {
+            index += Time.deltaTime * 2;
+            _visitedNode.color = new Color(1, 1, 1, Mathf.Min(1, index));
+            yield return new WaitForFixedUpdate();
+        }
     }
 }

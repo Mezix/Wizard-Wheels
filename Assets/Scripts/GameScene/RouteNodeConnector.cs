@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RouteNodeConnector : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Image _visitedConnector;
+    void Awake()
     {
-        
+        _visitedConnector.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator FillConnector()
     {
-        
+        yield return null;
     }
 }
