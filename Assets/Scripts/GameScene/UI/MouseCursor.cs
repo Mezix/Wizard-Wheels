@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MouseCursor : MonoBehaviour
 {
-    public GameObject mouseGameObject;
+    public Image mouseSpriteRenderer;
     private bool select;
     [SerializeField]
     private RectTransform boxVisual;
@@ -17,14 +18,12 @@ public class MouseCursor : MonoBehaviour
     private Rect selectionBox;
 
     public RectTransform _cursorTransform;
-    private Animator cursorAnimator;
     [SerializeField]
     private List<GameObject> movementIndicators;
 
     private void Awake()
     {
         REF.mouse = this;
-        cursorAnimator = _cursorTransform.GetComponent<Animator>();
         movementIndicators = new List<GameObject>();
     }
     void Start()
@@ -33,7 +32,6 @@ public class MouseCursor : MonoBehaviour
 
         boxVisual.gameObject.SetActive(false);
         selectionBox = new Rect();
-        cursorAnimator.SetBool("clicked", false);
         InitMovementIndicators();
     }
     void Update()
@@ -69,9 +67,9 @@ public class MouseCursor : MonoBehaviour
         int amount = 10;
         for(int i = 0; i < amount; i++)
         {
-            movementIndicators.Add(Instantiate((GameObject)Resources.Load("MouseCursorMovingToIndicator")));
+            movementIndicators.Add(Instantiate(Resources.Load(GS.Prefabs("MouseCursorMovingToIndicator"), typeof (GameObject)) as GameObject));
             movementIndicators[i].SetActive(false);
-            movementIndicators[i].transform.parent = transform;
+            movementIndicators[i].transform.SetParent(transform);
         }
     }
 
@@ -115,7 +113,7 @@ public class MouseCursor : MonoBehaviour
         //Check for selecting ui first!
         if (Input.GetMouseButtonDown(0))
         {
-            startPosition = Input.mousePosition;
+            startPosition = Input.mousePosition / REF.UI._canvas.scaleFactor;
             if (IsPointerOverUIElement())
             {
                 boxVisual.gameObject.SetActive(false);
@@ -129,7 +127,7 @@ public class MouseCursor : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            endPosition = Input.mousePosition;
+            endPosition = Input.mousePosition / REF.UI._canvas.scaleFactor;
             DrawVisual();
             CreateRectSelection();
         }
@@ -203,11 +201,11 @@ public class MouseCursor : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            cursorAnimator.SetBool("clicked", true);
+            mouseSpriteRenderer.sprite = Resources.Load(GS.Cursors("Wand_Cursor_Clicked"), typeof (Sprite)) as Sprite;
         }
         else
         {
-            cursorAnimator.SetBool("clicked", false);
+            mouseSpriteRenderer.sprite = Resources.Load(GS.Cursors("Wand_Cursor_Default"), typeof(Sprite)) as Sprite;
         }
     }
     private void TrackMouse()

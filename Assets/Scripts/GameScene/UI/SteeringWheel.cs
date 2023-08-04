@@ -90,7 +90,7 @@ public class SteeringWheel : MonoBehaviour
         _steeringWheelPrompt.SetActive(false);
 
         if (Input.GetKey(KeyCode.Mouse0)) _steeringWheelRect.transform.SetParent(transform, true);
-        else _steeringWheelRect.transform.SetParent(REF.mouse.mouseGameObject.transform, false);
+        else _steeringWheelRect.transform.SetParent(REF.mouse.mouseSpriteRenderer.transform, false);
         if (Input.GetKeyUp(KeyCode.Mouse0)) holdTime = 0;
     }
     private void ResetSteeringWheel()

@@ -22,12 +22,12 @@ public class EnemyTankHealth : TankHealth
         }
         for (int i = 0; i < maxHealth; i++)
         {
-            GameObject tmp = Instantiate((GameObject)Resources.Load("HPSegment"));
+            GameObject tmp = Instantiate(Resources.Load(GS.UIPrefabs("HPSegment"), typeof (GameObject)) as GameObject);
             Image img = tmp.GetComponent<Image>();
 
-            if (i == 0) img.sprite = Resources.Load("Art/UI/HP Bar/HP Segment Left", typeof(Sprite)) as Sprite;
-            else if (i == maxHealth - 1) img.sprite = Resources.Load("Art/UI/HP Bar/HP Segment Right", typeof(Sprite)) as Sprite;
-            else img.sprite = Resources.Load("Art/UI/HP Bar/HP Segment Middle", typeof(Sprite)) as Sprite;
+            if (i == 0) img.sprite = Resources.Load(GS.UIGraphics("HP Bar/HP Segment Left"), typeof(Sprite)) as Sprite;
+            else if (i == maxHealth - 1) img.sprite = Resources.Load(GS.UIGraphics("HP Bar/HP Segment Right"), typeof(Sprite)) as Sprite;
+            else img.sprite = Resources.Load(GS.UIGraphics("HP Bar/HP Segment Middle"), typeof(Sprite)) as Sprite;
 
             _allHPSegments.Add(img);
             tmp.transform.SetParent(_healthBarParent.transform, false);
@@ -47,15 +47,15 @@ public class EnemyTankHealth : TankHealth
         {
             if (i >= current)
             {
-                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Broken Left", typeof(Sprite)) as Sprite;
-                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Broken Right", typeof(Sprite)) as Sprite;
-                else _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Broken Middle", typeof(Sprite)) as Sprite;
+                if (i == 0) _allHPSegments[i].sprite = Resources.Load(GS.UIGraphics("HP Bar/HP Segment Broken Left"), typeof(Sprite)) as Sprite;
+                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load(GS.UIGraphics("HP Bar/HP Segment Broken Right"), typeof(Sprite)) as Sprite;
+                else _allHPSegments[i].sprite = Resources.Load(GS.UIGraphics("HP Bar/HP Segment Broken Middle"), typeof(Sprite)) as Sprite;
             }
             else
             {
-                if (i == 0) _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Left", typeof(Sprite)) as Sprite;
-                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Right", typeof(Sprite)) as Sprite;
-                else _allHPSegments[i].sprite = Resources.Load("Art/UI/HP Bar/HP Segment Middle", typeof(Sprite)) as Sprite;
+                if (i == 0) _allHPSegments[i].sprite = Resources.Load(GS.UIGraphics("HP Bar/HP Segment Left"), typeof(Sprite)) as Sprite;
+                else if (i == maxHealth - 1) _allHPSegments[i].sprite = Resources.Load(GS.UIGraphics("HP Bar/HP Segment Right"), typeof(Sprite)) as Sprite;
+                else _allHPSegments[i].sprite = Resources.Load(GS.UIGraphics("HP Bar/HP Segment Middle"), typeof(Sprite)) as Sprite;
             }
         }
     }

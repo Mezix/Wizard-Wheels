@@ -13,8 +13,8 @@ public class BasicCannon : AWeapon
     }
     private void Start()
     {
-        ProjectilePrefab = (GameObject) Resources.Load("Weapons/CannonballProjectilePrefab");
-        WeaponFireExplosion = (GameObject) Resources.Load("SingleExplosion");
+        ProjectilePrefab = Resources.Load(GS.WeaponPrefabs("CannonballProjectilePrefab"), typeof (GameObject)) as GameObject;
+        WeaponFireExplosion = Resources.Load(GS.WeaponPrefabs("SingleExplosion"), typeof(GameObject)) as GameObject;
         AimRotationAngle = 90;
 
         if(!ShouldHitPlayer) WeaponEnabled = false;

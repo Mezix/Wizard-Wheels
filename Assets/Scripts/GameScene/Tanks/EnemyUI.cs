@@ -35,13 +35,13 @@ public class EnemyUI : MonoBehaviour
     {
         REF.UI._engineUIScript._matchSpeedImage.gameObject.SetActive(b);
         REF.PCon.TMov.MatchSpeed(e, b);
-        if (b) matchSpeedImg.sprite = Resources.Load("Art/UI/Match_Speed_On", typeof(Sprite)) as Sprite;
-        else matchSpeedImg.sprite = Resources.Load("Art/UI/Match_Speed_Off", typeof(Sprite)) as Sprite;
+        if (b) matchSpeedImg.sprite = Resources.Load(GS.UIGraphics("Match_Speed_On"), typeof(Sprite)) as Sprite;
+        else matchSpeedImg.sprite = Resources.Load(GS.UIGraphics("Match_Speed_Off"), typeof(Sprite)) as Sprite;
         matching = !b;
     }
     public void TrackTank(bool b)
     {
-        if (b) trackEnemyTankImage.sprite = Resources.Load("Art/UI/TrackTankTrue", typeof(Sprite)) as Sprite;
-        else trackEnemyTankImage.sprite = Resources.Load("Art/UI/TrackTankFalse", typeof(Sprite)) as Sprite;
+        if (b) trackEnemyTankImage.sprite = Resources.Load(GS.UIGraphics("TrackTankTrue"), typeof(Sprite)) as Sprite;
+        else trackEnemyTankImage.sprite = Resources.Load(GS.UIGraphics("TrackTankFalse"), typeof(Sprite)) as Sprite;
     }
 }

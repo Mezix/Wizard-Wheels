@@ -93,22 +93,22 @@ public class CreateTankTools : MonoBehaviour
             {
                 Vector3 wallPos = tempFloorTilemap.CellToWorld(tempCellPos);
                 HoverWall(wallPos);
-                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof(Tile)) as Tile);
+                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.TilemapArtwork("EraserTile"), typeof(Tile)) as Tile);
             }
             else if (tileType == 3)
             {
                 Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
                 HoverTire(tirepos);
-                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof(Tile)) as Tile);
+                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.TilemapArtwork("Eraser Tile"), typeof(Tile)) as Tile);
             }
             else if (tileType == 4)
             {
                 Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
                 HoverSystem(tirepos);
-                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof(Tile)) as Tile);
+                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.TilemapArtwork("EraserTile"), typeof(Tile)) as Tile);
             }
         }
-        else currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load("Art/Tilemap Assets/EraserTile", typeof (Tile)) as Tile);
+        else currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.TilemapArtwork("EraserTile"), typeof (Tile)) as Tile);
 
         if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {

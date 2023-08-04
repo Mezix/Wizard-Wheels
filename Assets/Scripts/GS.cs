@@ -5,7 +5,8 @@ using UnityEngine;
 
 public static class GS // Stands for "Get Strings"
 {
-    //  Prefabs
+    //  PREFABS
+
     public static string Prefabs(string filename = "")
     {
         return "Prefabs/" + filename;
@@ -14,9 +15,25 @@ public static class GS // Stands for "Get Strings"
     {
         return Prefabs() + "UI/" + filename;
     }
+    public static string WeaponPrefabs(string filename = "")
+    {
+        return Prefabs() + "Weapons/" + filename;
+    }
+    public static string WizardPrefabs(string filename = "")
+    {
+        return Prefabs() + "Wizards/" + filename;
+    }
     public static string Effects(string filename = "")
     {
         return Prefabs() + "Effects/" + filename;
+    }
+    public static string RoomPrefabs(string filename = "")
+    {
+        return Prefabs() + "Rooms/" + filename;
+    }
+    public static string WallPrefabs(string filename = "")
+    {
+        return RoomPrefabs() + "Rooms/" + filename;
     }
 
     public static string Potions(string filename = "")
@@ -29,28 +46,39 @@ public static class GS // Stands for "Get Strings"
         return Prefabs() + "Enemy/" + filename;
     }
 
-    //  Scriptable Objects
-    public static string ScriptableObjects(string filename = "")
-    {
-        return "ScriptableObjects/" + filename;
-    }
-    public static string InventoryItems(string filename = "")
-    {
-        return ScriptableObjects() + "InventoryItems/" + filename;
-    }
+    //  GRAPHICS
 
-    //  Graphics
-
-    public static string Props(string filename = "")
+    public static string Cursors(string filename = "")
     {
-        return Graphics() + "Props/" + filename;
+        return UIGraphics() + "Cursors/" + filename;
+    }
+    public static string UIGraphics(string filename = "")
+    {
+        return Graphics() + "UI/" + filename;
+    }
+    public static string InventoryGraphics(string filename = "")
+    {
+        return UIGraphics() + "Inventory/" + filename;
+    }
+    public static string WeaponGraphics(string filename = "")
+    {
+        return Graphics() + "Weapons/" + filename;
+    }
+    public static string WizardGraphics(string filename = "")
+    {
+        return Graphics() + "Weapons/" + filename;
+    }
+    public static string TilemapArtwork(string filename = "")
+    {
+        return Graphics() + "Tilemap Artwork/" + filename;
     }
     public static string Graphics(string filename = "")
     {
         return "Graphics/" + filename;
     }
 
-    //  Dialogue
+    //  DIALOGUE
+
     public static string Dialogue(string filename = "")
     {
         return "Dialogue/" + filename;
@@ -70,4 +98,17 @@ public static class GS // Stands for "Get Strings"
     {
         return Tiles() + "BG Tiles/" + filename;
     }
+
+
+    //  SCRIPTABLE OBJECTS
+
+    public static string ScriptableObjects(string filename = "")
+    {
+        return "ScriptableObjects/" + filename;
+    }
+    public static string InventoryItems(string filename = "")
+    {
+        return ScriptableObjects() + "InventoryItems/" + filename;
+    }
+
 }
