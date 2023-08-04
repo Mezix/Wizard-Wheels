@@ -24,7 +24,7 @@ public class EnemyTankWeaponsAndSystems : TankWeaponsAndSystems
         {
             foreach (AWeapon wep in AWeaponArray)
             {
-                if (wep.AimAtTarget) continue; //no need to continue to search for targets if we already have one
+                if (wep.IsAimingAtTarget) continue; //no need to continue to search for targets if we already have one
 
                 //find the closest room to aim at
                 GameObject targetRoom = FindTarget(); //TODO: try to find the nearest room with a high priority!
@@ -32,13 +32,13 @@ public class EnemyTankWeaponsAndSystems : TankWeaponsAndSystems
 
                 if (wep.TargetRoomWithinLockOnRange())
                 {
-                    wep.AimAtTarget = true;
+                    wep.IsAimingAtTarget = true;
                     REF.c.AddCrosshair(wep.TargetedRoom.GetComponent<Room>(), wep);
                 }
                 else
                 {
                     wep.TargetedRoom = null;
-                    wep.AimAtTarget = false;
+                    wep.IsAimingAtTarget = false;
                 }
             }
         }
@@ -56,7 +56,7 @@ public class EnemyTankWeaponsAndSystems : TankWeaponsAndSystems
             foreach (AWeapon wep in AWeaponArray)
             {
                 REF.c.RemoveCrosshair(wep);
-                wep.AimAtTarget = false;
+                wep.IsAimingAtTarget = false;
                 wep.TargetedRoom = null;
                 wep.ShouldNotRotate = true;
             }

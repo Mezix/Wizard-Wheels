@@ -27,7 +27,7 @@ public class MagicMissile : AWeapon
     {
         if (WeaponEnabled)
         {
-            if (AimAtTarget) PointTurretAtTarget();
+            if (IsAimingAtTarget) PointTurretAtTarget();
             else if (!ShouldNotRotate) RotateTurretToAngle();
         }
         else

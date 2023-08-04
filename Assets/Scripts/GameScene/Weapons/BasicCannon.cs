@@ -30,7 +30,7 @@ public class BasicCannon : AWeapon
     {
         if(WeaponEnabled)
         {
-            if (AimAtTarget) PointTurretAtTarget();
+            if (IsAimingAtTarget) PointTurretAtTarget();
             else if (!ShouldNotRotate) RotateTurretToAngle();
         }
         else

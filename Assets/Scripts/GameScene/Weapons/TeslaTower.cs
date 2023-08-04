@@ -8,7 +8,7 @@ using UnityEngine.Audio;
 public class TeslaTower : AWeapon
 {
     private bool firingDirectionLocked;
-    public int TimeUntilFire;
+    public float windupLengthInSeconds;
     public TeslaBeam _teslaBeam;
     public override void Awake()
     {
@@ -16,10 +16,8 @@ public class TeslaTower : AWeapon
     }
     private void Start()
     {
-        ProjectilePrefab = (GameObject) Resources.Load("Weapons/CannonballProjectilePrefab");
-        WeaponFireExplosion = (GameObject) Resources.Load("SingleExplosion");
         AimRotationAngle = 90;
-        _teslaBeam.gameObject.SetActive(false);
+        _teslaBeam.SetTeslaBeamSize(_weaponStats._lockOnRange);
 
         if (!ShouldHitPlayer) WeaponEnabled = false;
     }
@@ -34,7 +32,7 @@ public class TeslaTower : AWeapon
     {
         if(WeaponEnabled)
         {
-            if (AimAtTarget) PointTurretAtTarget();
+            if (IsAimingAtTarget) PointTurretAtTarget();
             else if (!ShouldNotRotate) RotateTurretToAngle();
         }
         else
@@ -73,27 +71,23 @@ public class TeslaTower : AWeapon
     }
     public IEnumerator StartAttack()
     {
-        _teslaBeam.gameObject.SetActive(true);
         //  Init the tesla indicator
-        int i = 0;
-        while(i < TimeUntilFire)
-        {
-            //  TODO:
-            //  Add flashing to indicate when we will actually fire!
-            //  Overwrite bar in weapon Ui in blue that ticks down!
-            i++;
-            yield return new WaitForFixedUpdate();
-        }
+        _weaponFireAnimator.speed = 1/(windupLengthInSeconds * 1.4f);
+        WeaponFireParticles(); // start firing anim
+
+        //TODO: charge up in blue in the UI
+
+        //  Fire after the windup is done
+        yield return new WaitForSeconds(windupLengthInSeconds);
         Attack();
-        _teslaBeam.ClearRoomsToHit();
-        _teslaBeam.gameObject.SetActive(false);
+
+        //  Wait out the animation
+        yield return new WaitForSeconds(windupLengthInSeconds * 0.4f);
         firingDirectionLocked = false;
-        yield return null;
     }
     public override void Attack()
     {
         PlayWeaponFireSoundEffect();
-        WeaponFireParticles();
         TimeElapsedBetweenLastAttack = 0;
         foreach (Room r in _teslaBeam.roomsToHit)
         {

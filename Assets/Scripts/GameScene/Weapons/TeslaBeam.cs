@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TeslaBeam : MonoBehaviour
 {
     public List<Room> roomsToHit = new List<Room>();
-    private void Start()
+    private SpriteRenderer _teslaSpriteRenderer;
+    private BoxCollider2D _teslaBeamCollider;
+    private void Awake()
     {
-        ClearRoomsToHit();
+        _teslaSpriteRenderer = GetComponent<SpriteRenderer>();
+        _teslaBeamCollider = GetComponent<BoxCollider2D>();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,6 +27,14 @@ public class TeslaBeam : MonoBehaviour
             }
         }
     }
+
+    public void SetTeslaBeamSize(float range)
+    {
+        _teslaSpriteRenderer.size = new Vector2(0.5f, range);
+        _teslaSpriteRenderer.transform.localPosition = new Vector3(0, range / 2 - 0.085f, 0);
+        _teslaBeamCollider.size = new Vector2(0.15f, range);
+    }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other)
@@ -33,9 +45,5 @@ public class TeslaBeam : MonoBehaviour
                 if (roomsToHit.Contains(r)) roomsToHit.Remove(r);
             }
         }
-    }
-    public void ClearRoomsToHit()
-    {
-        roomsToHit = new List<Room>();
     }
 }

@@ -24,7 +24,7 @@ public abstract class AWeapon : ASystem
 
     public bool WeaponSelected { get; set; }
     public bool WeaponEnabled { get; set; }
-    public bool AimAtTarget { get; set; }
+    public bool IsAimingAtTarget { get; set; }
     public float AimRotationAngle { get; set; }
     public bool ShouldNotRotate { get; set; }
     public Transform RotatablePart;
@@ -171,7 +171,7 @@ public abstract class AWeapon : ASystem
                     if (TargetRoomWithinLockOnRange())
                     {
                         REF.c.AddCrosshair(TargetedRoom.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
-                        AimAtTarget = true;
+                        IsAimingAtTarget = true;
                     }
                     else
                     {
@@ -184,7 +184,7 @@ public abstract class AWeapon : ASystem
         }
         else
         {
-            AimAtTarget = false;
+            IsAimingAtTarget = false;
             AimRotationAngle = HM.GetAngle2DBetween(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         }
         WeaponSelected = false;
@@ -195,7 +195,7 @@ public abstract class AWeapon : ASystem
         TryGetComponent(out AWeapon iwep);
         if (iwep == null) return;
         REF.c.RemoveCrosshair(iwep);
-        AimAtTarget = false;
+        IsAimingAtTarget = false;
         TargetedRoom = null;
         //_weaponSelectedLR._targetingCircle.SetActive(false);
     }
@@ -205,7 +205,7 @@ public abstract class AWeapon : ASystem
         if (iwep == null) return;
         REF.c.RemoveCrosshair(iwep);
         AimRotationAngle = 90;
-        AimAtTarget = false;
+        IsAimingAtTarget = false;
         TargetedRoom = null;
         //_weaponSelectedLR._targetingCircle.SetActive(false);
     }
@@ -345,7 +345,7 @@ public abstract class AWeapon : ASystem
     {
         if (!lr) return;
         lr.gameObject.SetActive(false);
-        if (TargetedRoom && AimAtTarget && ShouldHitPlayer)
+        if (TargetedRoom && IsAimingAtTarget && ShouldHitPlayer)
         {
             if (TargetRoomWithinLockOnRange())
             {
