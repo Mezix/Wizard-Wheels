@@ -18,8 +18,12 @@ public class AudioManager : MonoBehaviour
     public Slider MusicVolumeSlider;
     public Slider SFXVolumeSlider;
 
+    public AudioSource _highlightedSound;
+    public AudioSource _clickedSound;
+
     private void Start()
     {
+        REF.AM = this;
         defaultVol = 0.75f;
         InitVolume();
 
