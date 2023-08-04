@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 8548109126283607417}
   - component: {fileID: 8173053270214702907}
   - component: {fileID: 8548109126283607422}
+  - component: {fileID: 7247966412386055491}
   m_Layer: 5
   m_Name: PotionCraftingUI
   m_TagString: Untagged
@@ -291,6 +292,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7247966412386055491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8548109126283607420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241ea7bc188bbcd43a9a1c59585143a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8548109126584443950
 GameObject:
   m_ObjectHideFlags: 0

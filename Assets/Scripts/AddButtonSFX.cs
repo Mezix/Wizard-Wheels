@@ -8,9 +8,12 @@ using UnityEngine.UI;
 public class AddButtonSFX : MonoBehaviour
 {
     private Button _buttonToAddSFXTo;
+    private static float pitchVariance;
 
     private void Awake()
     {
+        pitchVariance = 0.1f;
+
         _buttonToAddSFXTo = GetComponent<Button>();
         if (!_buttonToAddSFXTo) return;
 
@@ -28,10 +31,14 @@ public class AddButtonSFX : MonoBehaviour
 
     private void PlayClickSoundEffect()
     {
+        if (!REF.AM) return;
+        REF.AM._clickedSound.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
         REF.AM._clickedSound.Play();
     }
     private void PlayHoverSoundEffect()
     {
+        if (!REF.AM) return;
+        REF.AM._highlightedSound.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
         REF.AM._highlightedSound.Play();
     }
 }
