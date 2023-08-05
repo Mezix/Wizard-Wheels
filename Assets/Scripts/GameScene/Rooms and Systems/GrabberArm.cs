@@ -115,10 +115,13 @@ public class GrabberArm : ASystem
             _clawScript.transform.localPosition = Vector3.zero;
             _clawScript._clawAnimator.transform.localPosition = new Vector3(0.166f, 0, 0);
             _clawScript._clawAnimator.SetBool("CloseClaw", false);
-            scrap.RemoveScrap();
-            scrap = null;
-            scrapPos = Vector3.zero;
-            scrapCollection = false;
+            if (scrap)
+            {
+                scrap.RemoveScrap();
+                scrap = null;
+                scrapPos = Vector3.zero;
+                scrapCollection = false;
+            }
         }
         else
         {

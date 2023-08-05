@@ -22,7 +22,8 @@ public class EnemyManager : MonoBehaviour
     {
         public bool taken;
         public Color color;
-        public EnemyTankController enemyTakingColor;
+        //public EnemyTankController enemyTakingColor;
+        public int enemyTakingColorID;
     }
     private void Awake()
     {
@@ -64,7 +65,7 @@ public class EnemyManager : MonoBehaviour
 
         enemyTank.TGeo._tankRoomConstellation = _constellation;
         enemyTank._tStats = stats;
-        enemyTank._tankColor = GetNextColor(enemyTank);
+        enemyTank._tankColor = GetNextColor(enemyTank.GetInstanceID());
 
         enemyTank.SpawnTank();
         _enemyTanks.Add(enemyTank);
@@ -101,7 +102,7 @@ public class EnemyManager : MonoBehaviour
 
     private void EnemyIsDying(EnemyTankController enemy)
     {
-        ReturnColor(enemy);
+        ReturnColor(enemy.GetInstanceID());
     }
     private void EnemyDestroyed(EnemyTankController enemy)
     {
@@ -126,27 +127,29 @@ public class EnemyManager : MonoBehaviour
     {
         foreach (EnemyTankController g in _enemyTanks) g.enemyUI.TrackTank(false);
     }
-    private Color GetNextColor(EnemyTankController enemy)
+    //private Color GetNextColor(EnemyTankController enemy)
+    private Color GetNextColor(int enemyID)
     {
         foreach(EnemyColor c in EnemyColors)
         {
             if (!c.taken)
             {
                 c.taken = true;
-                c.enemyTakingColor = enemy;
+                c.enemyTakingColorID = enemyID;
                 return c.color;
             }
         }
         return Color.red;
     }
-    private void ReturnColor(EnemyTankController enemy)
+    //private void ReturnColor(EnemyTankController enemy)
+    private void ReturnColor(int enemyID)
     {
         foreach (EnemyColor c in EnemyColors)
         {
-            if (c.enemyTakingColor.Equals(enemy))
+            if (c.enemyTakingColorID == enemyID)
             {
                 c.taken = false;
-                c.enemyTakingColor = null;
+                c.enemyTakingColorID = -666;
                 return;
             }
         }

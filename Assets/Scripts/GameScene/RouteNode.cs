@@ -6,9 +6,14 @@ using UnityEngine.UI;
 public class RouteNode : MonoBehaviour
 {
     public Image _visitedNode;
-    void Start()
+    void Awake()
     {
         _visitedNode.gameObject.SetActive(false);
+    }
+    public void ShowNode()
+    {
+        _visitedNode.gameObject.SetActive(true);
+        _visitedNode.color = new Color(1, 1, 1, 1);
     }
     public void FadeInNode()
     {

@@ -57,7 +57,6 @@ public class TimeManager : MonoBehaviour
     public void TriggerGradualSlowdown(float timeScaleToSlowDownTo)
     {
         canPause = false;
-        Debug.Log("Time slowing down!");
         StartCoroutine(SlowDownTo(timeScaleToSlowDownTo));
     }
 

@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour
     {
         SavePlayerData.SavePlayer(REF.InvUI.saveSlot, REF.InvUI.SceneInventoryList);
 
-        Instantiate(Resources.Load(GS.Prefabs("CombatVictoryScreen"), typeof(GameObject)) as GameObject, REF.UI.transform, false);
+        Instantiate(Resources.Load(GS.UIPrefabs("CombatVictoryScreen"), typeof(GameObject)) as GameObject, REF.UI.transform, false);
         REF.TM.TriggerGradualSlowdown(0.2f);
     }
 }

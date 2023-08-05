@@ -139,7 +139,7 @@ public class EnemyTankController : TankController
         ScrapPile scrap = Instantiate(Resources.Load(GS.Prefabs("ScrapPile"), typeof(ScrapPile)) as ScrapPile);
         scrap.transform.position = transform.position;
         scrap.InitScrap(UnityEngine.Random.Range(_tStats._scrapDropAmount, _tStats._scrapDropAmount + 10));
-        Debug.Log(_tStats._tankName + " has been destroyed.");
+        //Debug.Log(_tStats._tankName + " has been destroyed.");
         Events.instance.EnemyDestroyed(this);
     }
 }

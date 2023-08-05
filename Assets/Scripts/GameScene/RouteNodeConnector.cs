@@ -10,9 +10,9 @@ public class RouteNodeConnector : MonoBehaviour
     {
         _visitedConnector.gameObject.SetActive(false);
     }
-
-    public IEnumerator FillConnector()
+    public void ShowConnectors()
     {
-        yield return null;
+        _visitedConnector.gameObject.SetActive(true);
+        _visitedConnector.fillAmount = 1;
     }
 }

@@ -106,7 +106,8 @@ public class TankMovement : MonoBehaviour
     {
         foreach (Tire t in Tires)
         {
-            t.AnimatorSpeed(currentSpeed / maxSpeed);
+           // t.AnimatorSpeed(currentSpeed / maxSpeed);
+            t.AnimatorSpeed(currentSpeed);
         }
     }
 }

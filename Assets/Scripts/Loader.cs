@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 
 public static class Loader {
-    public enum Scene { GameScene, MenuScene }
+    public enum Scene { GameScene, MenuScene, EventScene }
 
     public static void Load(Scene scene)
     {
@@ -15,6 +15,7 @@ public static class Loader {
         if(scene.ToString() == "MenuScene")
         {
         }
+        Time.timeScale = 1;
         SceneManager.LoadScene(scene.ToString());
     }
 }

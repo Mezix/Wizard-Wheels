@@ -310,7 +310,7 @@ public class UIScript : MonoBehaviour
     }
     public void SpawnGameOverScreen()
     {
-        Instantiate(Resources.Load(GS.Prefabs("CombatDefeatScreen"), typeof (GameObject)) as GameObject, transform, false);
+        Instantiate(Resources.Load(GS.UIPrefabs("CombatDefeatScreen"), typeof (GameObject)) as GameObject, transform, false);
         REF.TM.TriggerGradualSlowdown(0.2f);
     }
 

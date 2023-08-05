@@ -141,6 +141,7 @@ public class MapGeneration : MonoBehaviour
             }
         }
 
+        /*
         if(tilemapOffset.x == 0 + centeringVector.x && tilemapOffset.y == 0 + centeringVector.y) // create an empty spawning area
         {
             Debug.Log("Creating an empty spawning area!");
@@ -151,7 +152,7 @@ public class MapGeneration : MonoBehaviour
                     tilemapChunk.stoneTilemap.SetTile(new Vector3Int(x, y, 0), null);
                 }
             }
-        }
+        }*/
 
         yield return new WaitForEndOfFrame();
         navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);

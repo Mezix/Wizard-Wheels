@@ -1,22 +1,7 @@
 fileFormatVersion: 2
-guid: 15f85f4379cedea499fad565ccbc62d7
+guid: 09aa89658430ca74dac6d7284a944cfd
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -5161808111181978580
-    second: Tire-Sheet_0
-  - first:
-      213: -3339763585558836347
-    second: Tire-Sheet_1
-  - first:
-      213: 2490732019954478195
-    second: Tire-Sheet_2
-  - first:
-      213: -6982397391553974163
-    second: Tire-Sheet_3
-  - first:
-      213: -4880387205934771956
-    second: Tire-Sheet_4
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -63,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 256
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -80,7 +65,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -100,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,106 +110,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tire-Sheet_0
+      name: Tire_Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 40
-        height: 40
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c24a44e0fd29d58b0800000000000000
-      internalID: -5161808111181978580
+      spriteID: e594810c745b3d148a5b98f5d54a8eb0
+      internalID: -1788082756
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tire-Sheet_1
+      name: Tire_Sheet_1
       rect:
         serializedVersion: 2
-        x: 40
+        x: 256
         y: 0
-        width: 40
-        height: 40
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58b0bf8b6b6c6a1d0800000000000000
-      internalID: -3339763585558836347
+      spriteID: 3d415b6b288de06429c37363b4b8218c
+      internalID: -2113878516
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tire-Sheet_2
+      name: Tire_Sheet_2
       rect:
         serializedVersion: 2
-        x: 80
+        x: 512
         y: 0
-        width: 40
-        height: 40
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37ce310639bd09220800000000000000
-      internalID: 2490732019954478195
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tire-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d60bfc3119a891f90800000000000000
-      internalID: -6982397391553974163
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tire-Sheet_4
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c0195ef81b1654cb0800000000000000
-      internalID: -4880387205934771956
+      spriteID: 768be4cc1e4078946ad0a216028aaeb1
+      internalID: -1644307580
       vertices: []
       indices: 
       edges: []
@@ -240,11 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Tire-Sheet_0: -5161808111181978580
-      Tire-Sheet_1: -3339763585558836347
-      Tire-Sheet_2: 2490732019954478195
-      Tire-Sheet_3: -6982397391553974163
-      Tire-Sheet_4: -4880387205934771956
+      Tire_Sheet_0: -1788082756
+      Tire_Sheet_1: -2113878516
+      Tire_Sheet_2: -1644307580
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

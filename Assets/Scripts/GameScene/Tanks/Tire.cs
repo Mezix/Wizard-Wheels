@@ -18,7 +18,6 @@ public class Tire : MonoBehaviour
     }
     public void AnimatorSpeed(float speed)
     {
-        speed = Mathf.Max(0, speed);
-        tireAnimator.speed = speed;
+        tireAnimator.speed = Mathf.Max(0, speed);
     }
 }

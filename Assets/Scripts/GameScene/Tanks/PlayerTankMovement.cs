@@ -174,7 +174,7 @@ public class PlayerTankMovement : TankMovement
                 currentSpeed = 0.5f * maxSpeed;
                 //REF.PCon.TakeDamage(1);
             }
-            Debug.Log("Hit walls");
+            //Debug.Log("Hit walls");
         }
         if (collision.gameObject.TryGetComponent(out EnemyTankController enemy))
         {
@@ -184,9 +184,9 @@ public class PlayerTankMovement : TankMovement
                 REF.PCon.TakeDamage(1);
 
                 enemy.TMov.currentSpeed = 0.5f * enemy.TMov.maxSpeed;
-                enemy.TakeDamage(1);
+                //enemy.TakeDamage(1);
             }
-            Debug.Log("hit enemy tank");
+            //Debug.Log("hit enemy tank");
         }
     }
 

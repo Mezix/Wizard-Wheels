@@ -207,6 +207,7 @@ public class PlayerTankController : TankController
     }
     public void InitiateDeathBehaviour()
     {
+        if (REF.PDead) return;
         //  Send event to our enemies to remove the target of their weapons
         Events.instance.PlayerDying();
         REF.PDead = true;

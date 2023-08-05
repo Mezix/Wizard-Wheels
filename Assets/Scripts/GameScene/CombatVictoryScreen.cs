@@ -8,6 +8,7 @@ public class CombatVictoryScreen : MonoBehaviour
     public Button _continueButton;
     private void Awake()
     {
-        _continueButton.onClick.AddListener(() => LevelManager.instance.GoToMainMenu());
+        //_continueButton.onClick.AddListener(() => LevelManager.instance.GoToMainMenu());
+        _continueButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
     }
 }
