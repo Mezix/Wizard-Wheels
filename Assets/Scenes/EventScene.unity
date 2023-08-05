@@ -682,6 +682,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 485251308}
     m_Modifications:
+    - target: {fileID: 4188876907413623561, guid: 9bf29feb83bc5db47a5518b59e26ad7c,
+        type: 3}
+      propertyPath: eventTypeToLoad
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5859212135332727848, guid: 9bf29feb83bc5db47a5518b59e26ad7c,
         type: 3}
       propertyPath: m_Name
@@ -720,12 +725,12 @@ PrefabInstance:
     - target: {fileID: 7619039357930396318, guid: 9bf29feb83bc5db47a5518b59e26ad7c,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 7619039357930396318, guid: 9bf29feb83bc5db47a5518b59e26ad7c,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 7619039357930396318, guid: 9bf29feb83bc5db47a5518b59e26ad7c,
         type: 3}
@@ -833,12 +838,12 @@ PrefabInstance:
     - target: {fileID: 1051975981280599852, guid: 02491ba12f8fc7f40a108b04455c8123,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 1051975981280599852, guid: 02491ba12f8fc7f40a108b04455c8123,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 1051975981280599852, guid: 02491ba12f8fc7f40a108b04455c8123,
         type: 3}

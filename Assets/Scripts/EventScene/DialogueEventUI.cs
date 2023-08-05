@@ -23,8 +23,13 @@ public class DialogueEventUI : MonoBehaviour
     private bool vehicleMoving;
     private float timeSinceLastBump;
 
+    public Button _nextEventButton;
+    public PlayerData.EventType eventTypeToLoad;
+
     private void Start()
     {
+        _nextEventButton.onClick.AddListener(() => LoadNextEvent(eventTypeToLoad));
+
         cloudsParallaxImage = Instantiate(_cloudsImage, _sceneTransform, false);
         groundParallaxImage = Instantiate(_groundImage, _sceneTransform, false);
 
@@ -42,6 +47,18 @@ public class DialogueEventUI : MonoBehaviour
 
         StartCoroutine(StartVehicleBumps());
         StartCoroutine(ParallaxEffect());
+    }
+
+    private void LoadNextEvent(PlayerData.EventType eventToLoad)
+    {
+        if(eventToLoad.Equals(PlayerData.EventType.Combat)) Loader.Load(Loader.Scene.CombatScene);
+        else if(eventToLoad.Equals(PlayerData.EventType.Construction)) Loader.Load(Loader.Scene.ConstructionScene);
+
+        //  EventScene
+        else if (eventToLoad.Equals(PlayerData.EventType.Dialogue)) Loader.Load(Loader.Scene.EventScene);
+        else if(eventToLoad.Equals(PlayerData.EventType.FreeLoot)) Loader.Load(Loader.Scene.EventScene);
+        else if(eventToLoad.Equals(PlayerData.EventType.NewWizard)) Loader.Load(Loader.Scene.EventScene);
+        else if(eventToLoad.Equals(PlayerData.EventType.Shop)) Loader.Load(Loader.Scene.EventScene);
     }
 
     private IEnumerator ParallaxEffect()

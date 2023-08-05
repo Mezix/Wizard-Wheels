@@ -72,6 +72,6 @@ public class RouteTransitionUI : MonoBehaviour
     }
     private void LoadEvent()
     {
-        Loader.Load(Loader.Scene.GameScene);
+        Loader.Load(Loader.Scene.CombatScene);
     }
 }
