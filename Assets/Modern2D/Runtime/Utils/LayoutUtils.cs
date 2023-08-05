@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEditor;
+#if UNITY_EDITOR
 using UnityEditor.AnimatedValues;
+#endif
 using UnityEngine;
 
 #if UNITY_EDITOR

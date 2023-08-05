@@ -4,9 +4,8 @@ using Unity.Mathematics;
 
 #if UNITY_EDITOR
 using UnityEditor;
-#endif
-
 using UnityEditor.AnimatedValues;
+#endif
 using UnityEngine;
 
 

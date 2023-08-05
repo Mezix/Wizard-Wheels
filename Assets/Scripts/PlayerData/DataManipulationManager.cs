@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,9 +22,9 @@ public class DataManipulationManager : MonoBehaviour
     {
         InitInventory();
 
-        //ResetSaveSlot(0);
-        //ResetSaveSlot(1);
-        //ResetSaveSlot(2);
+        ResetSaveSlot(0);
+        ResetSaveSlot(1);
+        ResetSaveSlot(2);
 
         LoadData(0);
 
@@ -68,6 +69,7 @@ public class DataManipulationManager : MonoBehaviour
         {
             _spawnedInventorySlots[counter]._inventorySlotName.text = item.Name;
             _spawnedInventorySlots[counter]._inventoryItemImage.sprite = Resources.Load(item.SpritePath, typeof(Sprite)) as Sprite;
+            Debug.Log(item.SpritePath);
             _spawnedInventorySlots[counter]._inventorySlotAmount.SetTextWithoutNotify(item.Amount.ToString());
             _spawnedInventorySlots[counter].index = counter;
 
@@ -91,9 +93,7 @@ public class DataManipulationManager : MonoBehaviour
         {
             InventoryItemData tmpItem = new InventoryItemData();
             tmpItem.Name = item.Name;
-
-            string Path = AssetDatabase.GetAssetPath(item.Image);
-            tmpItem.SpritePath = Path.Substring(stringStartRemove, Path.Length - stringStartRemove - fileExtensionRemove); //remove Assets/Resources/ part so we can load with Resources.Load()
+            tmpItem.SpritePath = GS.InventoryGraphics(item.Image.name);
             tmpItem.Amount = 0;
             SceneInventoryList.Add(tmpItem);
         }

@@ -4,9 +4,10 @@ using System;
 
 namespace Modern2D
 {
-
     [RequireComponent(typeof(SpriteRenderer))]
+#if UNITY_EDITOR
     [CanEditMultipleObjects]
+#endif
     [ExecuteAlways]
     public class SpriteGradients : MonoBehaviour
     {

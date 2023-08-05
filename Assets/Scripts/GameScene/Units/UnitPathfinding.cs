@@ -235,19 +235,19 @@ public class UnitPathfinding : MonoBehaviour
 
         if (!unit || !roomPosToGetTo || !CurrentRoom || !CurrentRoomPos || !roomToGetTo)
         {
-            print("Some Room is invalid");
+            //print("Some Room is invalid");
             return;
         }
         if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
         {
             REF.mouse.DeselectAllUnits();
-            print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
+            //print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
             return;
         }
         if (roomPosToGetTo.Equals(CurrentRoomPos))
         {
             REF.mouse.DeselectAllUnits();
-            print("Trying to go to the same roomPos we are already in, Deselecting unit!");
+            //print("Trying to go to the same roomPos we are already in, Deselecting unit!");
             return;
         }
 

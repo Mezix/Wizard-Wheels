@@ -6,6 +6,12 @@ using UnityEngine;
 public class PlayerData
 {
     public List<InventoryItemData> InventoryList;
+    public enum EventType
+    {
+        Combat,
+        Shop,
+        Dialogue
+    }
 
     [System.Serializable]
     public struct InventoryItemData
@@ -13,6 +19,12 @@ public class PlayerData
         public string Name;
         public string SpritePath;
         public int Amount;
+    }
+
+    [System.Serializable]
+    public struct Event
+    {
+        public string eventType;
     }
 
     public PlayerData(List<InventoryItemData> invItemList)
