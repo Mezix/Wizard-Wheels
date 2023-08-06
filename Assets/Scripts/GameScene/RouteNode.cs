@@ -10,9 +10,9 @@ public class RouteNode : MonoBehaviour
     {
         _visitedNode.gameObject.SetActive(false);
     }
-    public void ShowNode()
+    public void ShowNode(bool show)
     {
-        _visitedNode.gameObject.SetActive(true);
+        _visitedNode.gameObject.SetActive(show);
         _visitedNode.color = new Color(1, 1, 1, 1);
     }
     public void FadeInNode()

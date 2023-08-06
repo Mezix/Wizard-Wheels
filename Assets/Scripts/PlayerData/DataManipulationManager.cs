@@ -18,6 +18,8 @@ public class DataManipulationManager : MonoBehaviour
     public List<InventoryItemData> SceneInventoryList = new List<InventoryItemData>();
     public List<DataManipulationInputSlot> _spawnedInventorySlots;
 
+    private PlayerData data;
+
     private void Start()
     {
         InitInventory();
@@ -54,7 +56,7 @@ public class DataManipulationManager : MonoBehaviour
     private void SaveData()
     {
         Debug.Log("Saving in save slot " + _saveSlotDropDown.value);
-        SavePlayerData.SavePlayer(_saveSlotDropDown.value, SceneInventoryList);
+        SavePlayerData.SavePlayer(_saveSlotDropDown.value, SceneInventoryList, data.CurrentEventPath);
     }
 
     private void LoadData(int saveSlot)
@@ -69,7 +71,6 @@ public class DataManipulationManager : MonoBehaviour
         {
             _spawnedInventorySlots[counter]._inventorySlotName.text = item.Name;
             _spawnedInventorySlots[counter]._inventoryItemImage.sprite = Resources.Load(item.SpritePath, typeof(Sprite)) as Sprite;
-            Debug.Log(item.SpritePath);
             _spawnedInventorySlots[counter]._inventorySlotAmount.SetTextWithoutNotify(item.Amount.ToString());
             _spawnedInventorySlots[counter].index = counter;
 
@@ -85,9 +86,6 @@ public class DataManipulationManager : MonoBehaviour
 
         UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
 
-        int stringStartRemove = "Assets/Resources/".Length; // Removes "Assets/Resources/"
-        int fileExtensionRemove = ".png".Length;            // Removes ".png"
-
         SceneInventoryList.Clear();
         foreach (InventoryItem item in inventoryItemTypeList)
         {
@@ -97,7 +95,7 @@ public class DataManipulationManager : MonoBehaviour
             tmpItem.Amount = 0;
             SceneInventoryList.Add(tmpItem);
         }
-        SavePlayerData.SavePlayer(saveSlot, SceneInventoryList);
-        SavePlayerData.SavePlayer(_saveSlotDropDown.value, SceneInventoryList);
+        SavePlayerData.SavePlayer(saveSlot, SceneInventoryList, data.CurrentEventPath);
+        SavePlayerData.SavePlayer(_saveSlotDropDown.value, SceneInventoryList, data.CurrentEventPath);
     }
 }

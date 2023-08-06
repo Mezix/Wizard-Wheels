@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class DialogueEventUI : MonoBehaviour
 {
+    public GameObject _allObjects;
     public Transform _sceneTransform;
     public int sceneDirection; // 1 ==> Right, -1 == Left
 
@@ -24,9 +25,11 @@ public class DialogueEventUI : MonoBehaviour
     private float timeSinceLastBump;
 
     public Button _nextEventButton;
-    public PlayerData.EventType eventTypeToLoad;
-
-    private void Start()
+    public void Show(bool show)
+    {
+        _allObjects.SetActive(show);
+    }
+    public void Init(PlayerData.EventType eventTypeToLoad)
     {
         _nextEventButton.onClick.AddListener(() => LoadNextEvent(eventTypeToLoad));
 
@@ -48,7 +51,6 @@ public class DialogueEventUI : MonoBehaviour
         StartCoroutine(StartVehicleBumps());
         StartCoroutine(ParallaxEffect());
     }
-
     private void LoadNextEvent(PlayerData.EventType eventToLoad)
     {
         if(eventToLoad.Equals(PlayerData.EventType.Combat)) Loader.Load(Loader.Scene.CombatScene);

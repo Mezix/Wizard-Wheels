@@ -16,8 +16,6 @@ public class InventoryUI : MonoBehaviour
     public List<InventorySlot> _spawnedInventorySlots = new List<InventorySlot>();
     public List<InventoryItemData> SceneInventoryList = new List<InventoryItemData>();
 
-    public int saveSlot = 0;
-
     private void Awake()
     {
         REF.InvUI = this;
@@ -26,7 +24,6 @@ public class InventoryUI : MonoBehaviour
     {
         _closeInventoryButton.onClick.AddListener(() => Show(false));
         Show(false);
-        SpawnInventory();
     }
 
     private void Update()
@@ -37,7 +34,7 @@ public class InventoryUI : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            SavePlayerData.SavePlayer(saveSlot, SceneInventoryList);
+            SavePlayerData.SavePlayer(LevelManager.instance.saveSlot, SceneInventoryList, LevelManager.instance.playerData.CurrentEventPath);
         }
     }
 
@@ -45,9 +42,9 @@ public class InventoryUI : MonoBehaviour
     {
         _inventoryObjects.SetActive(show);
     }
-    private void SpawnInventory()
+    public void SpawnInventory(PlayerData data)
     {
-        PlayerData data = SavePlayerData.LoadPlayer(saveSlot);
+        //PlayerData data = SavePlayerData.LoadPlayer(LevelManager.instance.saveSlot);
         SceneInventoryList = data.InventoryList;
 
         GameObject currentHorizontalLayoutGroup = (GameObject)Instantiate(Resources.Load(GS.UIPrefabs("InventoryHorizontalGroup")), _verticalLayoutGroup.transform, false);
