@@ -15,6 +15,10 @@ public static class GS // Stands for "Get Strings"
     {
         return Prefabs() + "UI/" + filename;
     }
+    public static string DataScenePrefabs(string filename = "")
+    {
+        return Prefabs() + "Data Manipulation Scene/" + filename;
+    }
     public static string WeaponPrefabs(string filename = "")
     {
         return Prefabs() + "Weapons/" + filename;

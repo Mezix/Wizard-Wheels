@@ -22,6 +22,7 @@ public class RouteTransitionUI : MonoBehaviour
 
     //  Misc
     private PlayerData playerData;
+    private int _currentEventPathIndex;
 
     private void Awake()
     {
@@ -31,13 +32,8 @@ public class RouteTransitionUI : MonoBehaviour
     private void Start()
     {
         playerData = SavePlayerData.LoadPlayer(0);
-        playerData.CurrentEventPath = new List<PlayerData.EventNode>()
-        {
-           new PlayerData.EventNode(PlayerData.EventType.Combat, true),
-           new PlayerData.EventNode(PlayerData.EventType.Construction, true),
-           new PlayerData.EventNode(PlayerData.EventType.Shop, false),
-           new PlayerData.EventNode(PlayerData.EventType.NewWizard, false),
-        };
+
+       // playerData.CurrentEventPath = PlayerData.GenerateRandomRoute(5);
         SpawnRouteNodes(playerData);
     }
     private void SpawnRouteNodes(PlayerData data)
@@ -52,11 +48,6 @@ public class RouteTransitionUI : MonoBehaviour
             RouteNode tmpNode = Instantiate(_routeNodePrefab, _routeLayoutGroup.transform, false);
             _routeNodes.Add(tmpNode);
 
-            if(i == 0)
-            {
-                _routePointer = Instantiate(Resources.Load(GS.UIPrefabs("RoutePointer"), typeof(GameObject)) as GameObject, transform, false);
-                _routePointer.transform.position = tmpNode.transform.position + Vector3.up;
-            }
         }
 
         int nodeIndex;
@@ -65,6 +56,12 @@ public class RouteTransitionUI : MonoBehaviour
             _routeNodes[nodeIndex].ShowNode(true);
             if(nodeIndex > 0) _routeConnectors[nodeIndex-1].ShowConnectors();
 
+            if (nodeIndex == 0)
+            {
+                _routePointer = Instantiate(Resources.Load(GS.UIPrefabs("RoutePointer"), typeof(GameObject)) as GameObject, transform, false);
+                _routePointer.transform.position = _routeNodes[0].transform.position + Vector3.up;
+            }
+
             if (data.CurrentEventPath[nodeIndex]._visited)
             {
                 nodeIndex++;
@@ -72,12 +69,12 @@ public class RouteTransitionUI : MonoBehaviour
             }
             else
             {
-                if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.EventType.Dialogue)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.EventType.FreeLoot)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.EventType.NewWizard)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.EventType.Shop)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.EventType.Construction)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.ConstructionScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.EventType.Combat)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.CombatScene));
+                if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.Dialogue)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
+                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.FreeLoot)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
+                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.NewWizard)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
+                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.Shop)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
+                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.Construction)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.ConstructionScene));
+                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.Combat)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.CombatScene));
                 break;
             }
         }
@@ -86,13 +83,12 @@ public class RouteTransitionUI : MonoBehaviour
     private IEnumerator MoveBetweenNodes(int nodeToEndAt)
     {
         if (nodeToEndAt < 0) yield break;
-        if      (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.EventType.Combat)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Combat_Node"), typeof (Sprite)) as Sprite;
-        else if (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.EventType.Shop)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Shop_Node"), typeof(Sprite)) as Sprite;
-        else if (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.EventType.NewWizard)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/New_Wizard"), typeof(Sprite)) as Sprite;
-        else if (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.EventType.Construction)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Construction_Node"), typeof(Sprite)) as Sprite;
-        //else if (playerData.CurrentEventPath[startNode]._event.Equals(PlayerData.EventType.FreeLoot)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/FreeLoot_Node"), typeof(Sprite)) as Sprite;
-        //else if (playerData.CurrentEventPath[startNode]._event.Equals(PlayerData.EventType.Dialogue)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Dialogue_Node"), typeof(Sprite)) as Sprite;
-
+        if      (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Combat)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Combat_Node"), typeof (Sprite)) as Sprite;
+        else if (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Shop)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Shop_Node"), typeof(Sprite)) as Sprite;
+        else if (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.NewWizard)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/New_Wizard"), typeof(Sprite)) as Sprite;
+        else if (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Construction)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Construction_Node"), typeof(Sprite)) as Sprite;
+        else if (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.FreeLoot)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/FreeLoot_Node"), typeof(Sprite)) as Sprite;
+        else if (playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Dialogue)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Dialogue_Node"), typeof(Sprite)) as Sprite;
         if (nodeToEndAt < 1) yield break;
 
         _routeNodes[nodeToEndAt].ShowNode(false);

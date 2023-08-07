@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,6 +10,26 @@ public class PlayerData
     public List<InventoryItemData> InventoryList;
     public List<EventNode> CurrentEventPath;
 
+    public static List<EventNode> GenerateRandomRoute(int length)
+    {
+        int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
+
+        List<EventNode> route = new List<EventNode>();
+        for(int i = 0; i < length; i++)
+        {
+            int randomEnum = UnityEngine.Random.Range(0, enumLength);
+            if(i == length-1)
+            {
+                route.Add(new EventNode(NodeEventType.Shop, false));
+                continue;
+            }
+            else
+            {
+                route.Add(new EventNode(randomEnum, false));
+            }
+        }
+        return route;
+    }
     public PlayerData(List<InventoryItemData> invItemList, List<EventNode> events)
     {
         InventoryList = new List<InventoryItemData>();
@@ -19,8 +41,8 @@ public class PlayerData
             newItem.Amount = item.Amount;
             InventoryList.Add(newItem);
         }
-
-        foreach(EventNode node in events)
+        CurrentEventPath = new List<EventNode>();
+        foreach (EventNode node in events)
         {
             EventNode newNode = new EventNode();
             newNode._event = node._event;
@@ -34,24 +56,29 @@ public class PlayerData
     [System.Serializable]
     public struct EventNode
     {
-        public EventType _event;
+        public NodeEventType _event;
         public bool _visited;
 
-        public EventNode(EventType type, bool visited)
+        public EventNode(NodeEventType type, bool visited)
         {
             _event = type;
             _visited = visited;
         }
+        public EventNode(int index, bool visited)
+        {
+            _event = Enum.GetValues(typeof(NodeEventType)).Cast<NodeEventType>().ToList()[index];
+            _visited = visited;
+        }
     }
     [System.Serializable]
-    public enum EventType
+    public enum NodeEventType
     {
         Combat,
-        Shop,
         Dialogue,
         NewWizard,
         FreeLoot,
-        Construction
+        Construction,
+        Shop
     }
 
     [System.Serializable]

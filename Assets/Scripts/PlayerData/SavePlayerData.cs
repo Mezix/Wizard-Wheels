@@ -8,7 +8,6 @@ public static class SavePlayerData
 {
     public readonly static string path = Application.persistentDataPath;
 
-    //public static void SavePlayer ( int saveSlot, List<InventoryItemData> inventoryItems)
     public static void SavePlayer ( int saveSlot, List<InventoryItemData> inventoryItems, List<EventNode> eventNodes)
     {
         string saveSlotPath = path + "/player" + saveSlot + ".save";

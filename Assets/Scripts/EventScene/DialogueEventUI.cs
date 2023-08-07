@@ -29,7 +29,7 @@ public class DialogueEventUI : MonoBehaviour
     {
         _allObjects.SetActive(show);
     }
-    public void Init(PlayerData.EventType eventTypeToLoad)
+    public void Init(PlayerData.NodeEventType eventTypeToLoad)
     {
         _nextEventButton.onClick.AddListener(() => LoadNextEvent(eventTypeToLoad));
 
@@ -51,16 +51,16 @@ public class DialogueEventUI : MonoBehaviour
         StartCoroutine(StartVehicleBumps());
         StartCoroutine(ParallaxEffect());
     }
-    private void LoadNextEvent(PlayerData.EventType eventToLoad)
+    private void LoadNextEvent(PlayerData.NodeEventType eventToLoad)
     {
-        if(eventToLoad.Equals(PlayerData.EventType.Combat)) Loader.Load(Loader.Scene.CombatScene);
-        else if(eventToLoad.Equals(PlayerData.EventType.Construction)) Loader.Load(Loader.Scene.ConstructionScene);
+        if(eventToLoad.Equals(PlayerData.NodeEventType.Combat)) Loader.Load(Loader.Scene.CombatScene);
+        else if(eventToLoad.Equals(PlayerData.NodeEventType.Construction)) Loader.Load(Loader.Scene.ConstructionScene);
 
         //  EventScene
-        else if (eventToLoad.Equals(PlayerData.EventType.Dialogue)) Loader.Load(Loader.Scene.EventScene);
-        else if(eventToLoad.Equals(PlayerData.EventType.FreeLoot)) Loader.Load(Loader.Scene.EventScene);
-        else if(eventToLoad.Equals(PlayerData.EventType.NewWizard)) Loader.Load(Loader.Scene.EventScene);
-        else if(eventToLoad.Equals(PlayerData.EventType.Shop)) Loader.Load(Loader.Scene.EventScene);
+        else if (eventToLoad.Equals(PlayerData.NodeEventType.Dialogue)) Loader.Load(Loader.Scene.EventScene);
+        else if(eventToLoad.Equals(PlayerData.NodeEventType.FreeLoot)) Loader.Load(Loader.Scene.EventScene);
+        else if(eventToLoad.Equals(PlayerData.NodeEventType.NewWizard)) Loader.Load(Loader.Scene.EventScene);
+        else if(eventToLoad.Equals(PlayerData.NodeEventType.Shop)) Loader.Load(Loader.Scene.EventScene);
     }
 
     private IEnumerator ParallaxEffect()

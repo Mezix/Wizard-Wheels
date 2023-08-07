@@ -24,13 +24,13 @@ public class EventSceneManager : MonoBehaviour
         {
             if (playerData.CurrentEventPath[i]._visited) continue;
 
-            if (playerData.CurrentEventPath[i]._event.Equals(PlayerData.EventType.Dialogue))
+            if (playerData.CurrentEventPath[i]._event.Equals(PlayerData.NodeEventType.Dialogue))
             {
                 _dialogueEventUI.Show(true);
                 if(i < playerData.CurrentEventPath.Count - 1) _dialogueEventUI.Init(playerData.CurrentEventPath[i+1]._event);
                 break;
             }
-            else if (playerData.CurrentEventPath[i]._event.Equals(PlayerData.EventType.Shop))
+            else if (playerData.CurrentEventPath[i]._event.Equals(PlayerData.NodeEventType.Shop))
             {
                 _shopEventUI.Show(true);
                 if (i < playerData.CurrentEventPath.Count - 1) _shopEventUI.Init(playerData);
