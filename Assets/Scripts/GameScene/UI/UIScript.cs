@@ -71,7 +71,7 @@ public class UIScript : MonoBehaviour
     [Space(10)]
     [Header("UI Scripts")]
     public Minimap _minimapScript;
-    public Settings _settingsScript;
+    public MainMenuSettings _settingsScript;
     public SteeringWheel _steeringWheelScript;
     public EngineUI _engineUIScript;
     public UpgradeScreen _upgradeScreen;

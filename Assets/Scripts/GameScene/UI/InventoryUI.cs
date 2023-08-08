@@ -14,7 +14,7 @@ public class InventoryUI : MonoBehaviour
     public VerticalLayoutGroup _verticalLayoutGroup;
 
     public List<InventorySlot> _spawnedInventorySlots = new List<InventorySlot>();
-    public List<InventoryItemData> SceneInventoryList = new List<InventoryItemData>();
+    //public List<InventoryItemData> SceneInventoryList = new List<InventoryItemData>();
 
     private void Awake()
     {
@@ -32,10 +32,6 @@ public class InventoryUI : MonoBehaviour
         {
             Show(!_inventoryObjects.activeSelf);
         }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            SavePlayerData.SavePlayer(LevelManager.instance.saveSlot, SceneInventoryList, LevelManager.instance.playerData.CurrentEventPath);
-        }
     }
 
     public void Show(bool show)
@@ -45,14 +41,14 @@ public class InventoryUI : MonoBehaviour
     public void SpawnInventory(PlayerData data)
     {
         //PlayerData data = SavePlayerData.LoadPlayer(LevelManager.instance.saveSlot);
-        SceneInventoryList = data.InventoryList;
+        DataStorage.Singleton.playerData.InventoryList = data.InventoryList;
 
         GameObject currentHorizontalLayoutGroup = (GameObject)Instantiate(Resources.Load(GS.UIPrefabs("InventoryHorizontalGroup")), _verticalLayoutGroup.transform, false);
 
         int rowIndex = 0;
         int columnIndex = 0;
         int index = -1;
-        foreach (InventoryItemData item in SceneInventoryList)
+        foreach (InventoryItemData item in DataStorage.Singleton.playerData.InventoryList)
         {
             index++;
             if (item.Amount == 0) continue;
@@ -90,8 +86,8 @@ public class InventoryUI : MonoBehaviour
 
     public void AddAmount(int index, int amount)
     {
-        InventoryItemData data = SceneInventoryList[index];
+        InventoryItemData data = DataStorage.Singleton.playerData.InventoryList[index];
         data.Amount += amount;
-        SceneInventoryList[index] = data;
+        DataStorage.Singleton.playerData.InventoryList[index] = data;
     }
 }

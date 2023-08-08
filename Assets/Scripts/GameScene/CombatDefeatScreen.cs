@@ -8,6 +8,6 @@ public class CombatDefeatScreen : MonoBehaviour
     public Button _returnToMainMenuButton;
     private void Awake()
     {
-        _returnToMainMenuButton.onClick.AddListener(() => LevelManager.instance.GoToMainMenu());
+        _returnToMainMenuButton.onClick.AddListener(() => CombatSceneManager.instance.GoToMainMenu());
     }
 }

@@ -37,7 +37,7 @@ public class MainMenuUI : MonoBehaviour
 
     //  SettingsScreen
 
-    public Settings _settingsScript;
+    public MainMenuSettings _settingsScript;
 
     private void Awake()
     {

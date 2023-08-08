@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class LevelManager : MonoBehaviour
+public class CombatSceneManager : MonoBehaviour
 {
-    public static LevelManager instance;
+    public static CombatSceneManager instance;
     public static TankRoomConstellation playerTankConstellationFromSelectScreen;
-    public PlayerData playerData;
-    public int saveSlot = 0;
 
     private void Awake()
     {
@@ -18,8 +16,7 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
-        playerData = SavePlayerData.LoadPlayer(saveSlot);
-        REF.InvUI.SpawnInventory(playerData);
+        REF.InvUI.SpawnInventory(DataStorage.Singleton.playerData);
 
         if (playerTankConstellationFromSelectScreen)
         {
@@ -48,7 +45,7 @@ public class LevelManager : MonoBehaviour
 
     public void CombatHasBeenWon()
     {
-        SavePlayerData.SavePlayer(saveSlot, REF.InvUI.SceneInventoryList, playerData.CurrentEventPath);
+        SavePlayerData.SavePlayer(DataStorage.Singleton.saveSlot, DataStorage.Singleton.playerData.InventoryList, DataStorage.Singleton.playerData.CurrentEventPath);
 
         Instantiate(Resources.Load(GS.UIPrefabs("CombatVictoryScreen"), typeof(GameObject)) as GameObject, REF.UI.transform, false);
         REF.TM.TriggerGradualSlowdown(0.2f);

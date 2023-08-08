@@ -121,7 +121,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (_enemyIndex < enemiesToSpawn.Count) return;
         if (_enemyTanks.Count > 0) return;
-        LevelManager.instance.CombatHasBeenWon();
+        CombatSceneManager.instance.CombatHasBeenWon();
     }
     public void UntrackAllEnemyTanks()
     {
