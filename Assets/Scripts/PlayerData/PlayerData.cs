@@ -9,28 +9,9 @@ public class PlayerData
 {
     public List<InventoryItemData> InventoryList;
     public List<EventNode> CurrentEventPath;
+    public float TimeInSecondsPlayed;
 
-    public static List<EventNode> GenerateRandomRoute(int length)
-    {
-        int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
-
-        List<EventNode> route = new List<EventNode>();
-        for(int i = 0; i < length; i++)
-        {
-            int randomEnum = UnityEngine.Random.Range(0, enumLength);
-            if(i == length-1)
-            {
-                route.Add(new EventNode(NodeEventType.Shop, false));
-                continue;
-            }
-            else
-            {
-                route.Add(new EventNode(randomEnum, false));
-            }
-        }
-        return route;
-    }
-    public PlayerData(List<InventoryItemData> invItemList, List<EventNode> events)
+    public PlayerData(List<InventoryItemData> invItemList, List<EventNode> events, float TimeInSecondsPlayed)
     {
         InventoryList = new List<InventoryItemData>();
         foreach (InventoryItemData item in invItemList)
@@ -51,6 +32,29 @@ public class PlayerData
         }
     }
 
+
+    //  Helper Methods
+    public static List<EventNode> GenerateRandomRoute(int length)
+    {
+        int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
+
+        List<EventNode> route = new List<EventNode>();
+        for (int i = 0; i < length; i++)
+        {
+            int randomEnum = UnityEngine.Random.Range(0, enumLength);
+            if (i == length - 1)
+            {
+                route.Add(new EventNode(NodeEventType.Shop, false));
+                continue;
+            }
+            else
+            {
+                route.Add(new EventNode(randomEnum, false));
+            }
+        }
+        return route;
+    }
+    
     //  Structs
 
     [System.Serializable]

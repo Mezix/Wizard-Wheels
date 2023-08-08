@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuSettings : MonoBehaviour
+public class SettingsScript : MonoBehaviour
 {
     //  Settings
 

@@ -1,20 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
-    //  Menu
+    //  Main Menu
 
     public GameObject _mainMenuGO;
-
     [SerializeField]
     private Button mainMenuStartButton;
     [SerializeField]
     private Button nonMainMenuSettingsButton;
     [SerializeField]
     private Button quitGameButton;
+
+    public GameObject _wizardTextObj;
+    public GameObject _wheelsTextObj;
 
     //  Non Main Menu UI
 
@@ -37,7 +40,7 @@ public class MainMenuUI : MonoBehaviour
 
     //  SettingsScreen
 
-    public MainMenuSettings _settingsScript;
+    public SettingsScript _settingsScript;
 
     private void Awake()
     {
@@ -80,6 +83,25 @@ public class MainMenuUI : MonoBehaviour
         previousTankButton.onClick.AddListener(() => REF.mMenu._mmTankPreview.PreviousTank());
         launchGameButton.onClick.AddListener(() => REF.mMenu.LaunchGame());
     }
+
+    //  Main Menu
+    private void ActivateMainMenuUI(bool b)
+    {
+        _mainMenuGO.SetActive(b);
+        _nonMainMenuGO.SetActive(b);
+        StartCoroutine(WizardLogoAnimation());
+        REF.mMenu.wiz.movementLocked = b;
+    }
+
+    private IEnumerator WizardLogoAnimation()
+    {
+        for (int i = 0; i < 120; i++)
+        {
+            _wizardTextObj.transform.localPosition = new Vector3(-i, 0, 0);
+            _wheelsTextObj.transform.localPosition = new Vector3(i, 0, 0);
+            yield return new WaitForFixedUpdate();
+        }
+    }
     public void UpdateSelectedTankText(string tankName)
     {
         _selectedTankText.text = tankName;
@@ -99,12 +121,7 @@ public class MainMenuUI : MonoBehaviour
         ActivateOverworldUI(true);
         _settingsScript.CloseSettings();
     }
-    private void ActivateMainMenuUI(bool b)
-    {
-        _mainMenuGO.SetActive(b);
-        _nonMainMenuGO.SetActive(b);
-        REF.mMenu.wiz.movementLocked = b;
-    }
+
     private void ActivateOverworldUI(bool b)
     {
         _selectScreenGO.SetActive(b);

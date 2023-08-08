@@ -45,7 +45,10 @@ public class CombatSceneManager : MonoBehaviour
 
     public void CombatHasBeenWon()
     {
-        SavePlayerData.SavePlayer(DataStorage.Singleton.saveSlot, DataStorage.Singleton.playerData.InventoryList, DataStorage.Singleton.playerData.CurrentEventPath);
+        SavePlayerData.SavePlayer(DataStorage.Singleton.saveSlot, 
+                                  DataStorage.Singleton.playerData.InventoryList, 
+                                  DataStorage.Singleton.playerData.CurrentEventPath, 
+                                  DataStorage.Singleton.playerData.TimeInSecondsPlayed);
 
         Instantiate(Resources.Load(GS.UIPrefabs("CombatVictoryScreen"), typeof(GameObject)) as GameObject, REF.UI.transform, false);
         REF.TM.TriggerGradualSlowdown(0.2f);

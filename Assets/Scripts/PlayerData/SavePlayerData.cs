@@ -8,14 +8,14 @@ public static class SavePlayerData
 {
     public readonly static string path = Application.persistentDataPath;
 
-    public static void SavePlayer ( int saveSlot, List<InventoryItemData> inventoryItems, List<EventNode> eventNodes)
+    public static void SavePlayer ( int saveSlot, List<InventoryItemData> inventoryItems, List<EventNode> eventNodes, float timeInSecondsPlayed)
     {
         string saveSlotPath = path + "/player" + saveSlot + ".save";
 
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(saveSlotPath, FileMode.Create);
 
-        PlayerData data = new PlayerData(inventoryItems, eventNodes);
+        PlayerData data = new PlayerData(inventoryItems, eventNodes, timeInSecondsPlayed);
 
         formatter.Serialize(stream, data);
         stream.Close();
