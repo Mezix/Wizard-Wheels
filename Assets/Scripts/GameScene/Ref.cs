@@ -46,5 +46,4 @@ public class REF : MonoBehaviour
     public static MainMenuSceneTankPreview TankPreview;
     public static UpgradeScreen UpgrScreen;
     public static InventoryUI InvUI;
-    public static AudioManager AM;
 }

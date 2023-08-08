@@ -29,6 +29,12 @@ public class MainMenuSettings : MonoBehaviour
     public Button _nextResolutionButton;
     public Button _previousResolutionButton;
 
+    //  VolumeSliders
+
+    public Slider MasterVolumeSlider;
+    public Slider MusicVolumeSlider;
+    public Slider SFXVolumeSlider;
+
     private void Awake()
     {
         _openSettingsButton.onClick.AddListener(() => ToggleSettings());
@@ -44,6 +50,7 @@ public class MainMenuSettings : MonoBehaviour
         _settingsOn = false;
         CloseSettings();
         InitResolutions();
+        IntVolSliders();
     }
 
     //  SETTINGS
@@ -144,12 +151,52 @@ public class MainMenuSettings : MonoBehaviour
     }
     public void ApplySettings()
     {
+        Debug.Log("Settings have been applied!");
         Screen.fullScreen = _fullscreen;
         _currentlySelectedResolution = _tempSelectedResolution;
         Screen.SetResolution(resolutions[_currentlySelectedResolution].width, resolutions[_currentlySelectedResolution].height, _fullscreen);
+        AudioManager.Singleton.SaveVolumeSettingsToPlayerPrefs();
     }
     public void RevertSettings()
     {
 
+    }
+
+    private void IntVolSliders()
+    {
+        MasterVolumeSlider.onValueChanged.AddListener(delegate { SetMasterVolume(MasterVolumeSlider.value); });
+        MusicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(MusicVolumeSlider.value); });
+        SFXVolumeSlider.onValueChanged.AddListener(delegate { SetSFXVolume(SFXVolumeSlider.value); });
+
+        MasterVolumeSlider.value = AudioManager.Singleton.masterVolume;
+        MusicVolumeSlider.value = AudioManager.Singleton.musicVolume;
+        SFXVolumeSlider.value = AudioManager.Singleton.SFXVolume;
+    }
+    public void SetMasterVolume(float Volume)
+    {
+        if (MasterVolumeSlider.value == 1) AudioManager.Singleton.audioMixer.SetFloat("MasterVolume", 0);
+        else if (MasterVolumeSlider.value == 0) AudioManager.Singleton.audioMixer.SetFloat("MasterVolume", -80);
+        else AudioManager.Singleton.audioMixer.SetFloat("MasterVolume", Mathf.Log10(Volume) * 20);
+
+        AudioManager.Singleton.masterVolume = Volume;
+        MasterVolumeSlider.value = Volume;
+    }
+    public void SetMusicVolume(float Volume)
+    {
+        if (MusicVolumeSlider.value == 1) AudioManager.Singleton.audioMixer.SetFloat("MusicVolume", 0);
+        else if (MusicVolumeSlider.value == 0) AudioManager.Singleton.audioMixer.SetFloat("MusicVolume", -80);
+        else AudioManager.Singleton.audioMixer.SetFloat("MusicVolume", Mathf.Log10(Volume) * 20);
+
+        AudioManager.Singleton.musicVolume = Volume;
+        MusicVolumeSlider.value = Volume;
+    }
+    public void SetSFXVolume(float Volume)
+    {
+        if (SFXVolumeSlider.value == 1) AudioManager.Singleton.audioMixer.SetFloat("SFXVolume", 0);
+        else if (SFXVolumeSlider.value == 0) AudioManager.Singleton.audioMixer.SetFloat("SFXVolume", -80);
+        else AudioManager.Singleton.audioMixer.SetFloat("SFXVolume", Mathf.Log10(Volume) * 20);
+
+        AudioManager.Singleton.SFXVolume = Volume;
+        SFXVolumeSlider.value = Volume;
     }
 }

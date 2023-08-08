@@ -7,91 +7,55 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Singleton;
     public AudioMixer audioMixer;
 
-    public static float masterVolume;
-    public static float musicVolume;
-    public static float SFXVolume;
-    public float defaultVol;
-
-    public Slider MasterVolumeSlider;
-    public Slider MusicVolumeSlider;
-    public Slider SFXVolumeSlider;
+    //  Audio Sources
 
     public AudioSource _highlightedSound;
     public AudioSource _clickedSound;
 
-    private void Start()
-    {
-        REF.AM = this;
-        defaultVol = 0.75f;
-        InitVolume();
+    //  Player Prefs
 
-        InitSliders();
-    }
+    public const string MasterVolumePrefString  = "MasterVol";
+    public const string MusicVolumePrefString  = "MusicVol";
+    public const string SFXVolumePrefString  = "SFXVol";
 
-    private void InitSliders()
+    public float masterVolume;
+    public float musicVolume;
+    public float SFXVolume;
+    private void Awake()
     {
-        MasterVolumeSlider.onValueChanged.AddListener(delegate { SetMasterVolume(MasterVolumeSlider.value); });
-        MusicVolumeSlider.onValueChanged.AddListener(delegate { SetMusicVolume(MusicVolumeSlider.value); });
-        SFXVolumeSlider.onValueChanged.AddListener(delegate { SetSFXVolume(SFXVolumeSlider.value); });
-    }
-
-    public void InitVolume()
-    {
-        SetMasterVolume(defaultVol);
-        SetMusicVolume(defaultVol);
-        SetSFXVolume(defaultVol);
-    }
-    public void SetMasterVolume(float Volume)
-    {
-        if (MasterVolumeSlider.value == 1)
+        if (Singleton != null && Singleton != this)
         {
-            audioMixer.SetFloat("MasterVolume", 0);
-        }
-        else if(MasterVolumeSlider.value == 0)
-        {
-            audioMixer.SetFloat("MasterVolume", -80);
+            Destroy(gameObject);
         }
         else
         {
-            audioMixer.SetFloat("MasterVolume", Mathf.Log10(Volume) * 20);
+            Singleton = this;
+            DontDestroyOnLoad(gameObject);
+            LoadPlayerPrefs();
         }
-        masterVolume = Volume;
-        MasterVolumeSlider.value = Volume;
     }
-    public void SetMusicVolume(float Volume)
+
+    private void LoadPlayerPrefs()
     {
-        if (MusicVolumeSlider.value == 1)
-        {
-            audioMixer.SetFloat("MusicVolume", 0);
-        }
-        else if (MusicVolumeSlider.value == 0)
-        {
-            audioMixer.SetFloat("MusicVolume", -80);
-        }
-        else
-        {
-            audioMixer.SetFloat("MusicVolume", Mathf.Log10(Volume) * 20);
-        }
-        musicVolume = Volume;
-        MusicVolumeSlider.value = Volume;
+        if (!PlayerPrefs.HasKey(MasterVolumePrefString)) PlayerPrefs.SetFloat(MasterVolumePrefString, masterVolume);
+        if (!PlayerPrefs.HasKey(MusicVolumePrefString)) PlayerPrefs.SetFloat(MusicVolumePrefString, musicVolume);
+        if (!PlayerPrefs.HasKey(SFXVolumePrefString)) PlayerPrefs.SetFloat(SFXVolumePrefString, SFXVolume);
+
+        masterVolume = PlayerPrefs.GetFloat(MasterVolumePrefString);
+        musicVolume = PlayerPrefs.GetFloat(MusicVolumePrefString);
+        SFXVolume = PlayerPrefs.GetFloat(SFXVolumePrefString);
+
+        SaveVolumeSettingsToPlayerPrefs();
     }
-    public void SetSFXVolume(float Volume)
+
+    public void SaveVolumeSettingsToPlayerPrefs()
     {
-        if (SFXVolumeSlider.value == 1)
-        {
-            audioMixer.SetFloat("SFXVolume", 0);
-        }
-        else if (SFXVolumeSlider.value == 0)
-        {
-            audioMixer.SetFloat("SFXVolume", -80);
-        }
-        else
-        {
-            audioMixer.SetFloat("SFXVolume", Mathf.Log10(Volume) * 20);
-        }
-        SFXVolume = Volume;
-        SFXVolumeSlider.value = Volume;
+        PlayerPrefs.SetFloat(MasterVolumePrefString, masterVolume);
+        PlayerPrefs.SetFloat(MusicVolumePrefString, musicVolume);
+        PlayerPrefs.SetFloat(SFXVolumePrefString, SFXVolume);
+        PlayerPrefs.Save();
     }
 }

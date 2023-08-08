@@ -42,14 +42,12 @@ public class AddUIElementsSFX : MonoBehaviour
 
     private void PlayClickSoundEffect()
     {
-        if (!REF.AM) return;
-        REF.AM._clickedSound.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
-        REF.AM._clickedSound.Play();
+        AudioManager.Singleton._clickedSound.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
+        AudioManager.Singleton._clickedSound.Play();
     }
     private void PlayHoverSoundEffect()
     {
-        if (!REF.AM) return;
-        REF.AM._highlightedSound.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
-        REF.AM._highlightedSound.Play();
+        AudioManager.Singleton._highlightedSound.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
+        AudioManager.Singleton._highlightedSound.Play();
     }
 }

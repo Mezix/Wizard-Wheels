@@ -363,4 +363,8 @@ public class UIScript : MonoBehaviour
         if (b) _trackPlayerImage.sprite = Resources.Load(GS.UIGraphics("TrackTankTrue"), typeof (Sprite)) as Sprite;
         else _trackPlayerImage.sprite = Resources.Load(GS.UIGraphics("TrackTankFalse"), typeof(Sprite)) as Sprite;
     }
+
+    // Settings
+
+
 }
