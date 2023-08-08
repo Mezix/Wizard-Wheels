@@ -22,7 +22,7 @@ public class OverworldWizard : MonoBehaviour
     }
     void Update()
     {
-        if (!REF.mUI._mainMenuGO.activeInHierarchy)
+        if (!REF.mUI._launchUIObjects.activeInHierarchy)
         {
             CheckPlayerDistanceFromOrb();
         }
@@ -83,14 +83,14 @@ public class OverworldWizard : MonoBehaviour
         {
             REF.mCam.SetZoom(REF.mCam.closestZoom);
             REF.mCam.SetCamParent(REF.mMenu.orb.transform);
-            REF.mUI._selectScreenGO.SetActive(true);
+            REF.mUI._selectVehicleUIObjects.SetActive(true);
             REF.TankPreview.ShowTank(REF.TankPreview.tankIndex);
         }
         else
         {
             REF.mCam.SetZoom(REF.mCam.furthestZoom);
             REF.mCam.SetCamParent(transform);
-            REF.mUI._selectScreenGO.SetActive(false);
+            REF.mUI._selectVehicleUIObjects.SetActive(false);
             REF.TankPreview.HideAllTanks();
         }
     }

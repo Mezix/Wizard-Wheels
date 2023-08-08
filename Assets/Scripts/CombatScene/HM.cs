@@ -18,6 +18,7 @@ public static class HM
         q.eulerAngles = vec;
         t.localRotation = q;
     }
+
     public static float GetAngle2DBetween(Vector3 from, Vector3 to)
     {
         return Mathf.Rad2Deg * Mathf.Atan2(from.y - to.y, from.x - to.x);
@@ -63,5 +64,22 @@ public static class HM
     public static Vector2 GetWorldVector2DPosition(Transform t)
     {
         return new Vector2(t.position.x, t.position.y);
+    }
+
+    public static float ParseStringToFloat(string text)
+    {
+        if(float.TryParse(text, out float number)) return number;
+        return -1; // default return
+    }
+    public static int ParseStringToInt(string text)
+    {
+        if(int.TryParse(text, out int number)) return number;
+        return -1;
+    }
+
+    public static string SecondsToTimeDisplay(float timeInSeconds)
+    {
+        var ts = TimeSpan.FromSeconds(timeInSeconds);
+        return string.Format("{0:00}:{1:00}", ts.TotalHours, ts.TotalMinutes);
     }
 }

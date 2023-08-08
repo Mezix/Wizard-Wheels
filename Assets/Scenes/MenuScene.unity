@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 4022387304398774404, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_Name
-      value: MainMenuSaveSlot (2)
+      value: MainMenuSaveSlot 3
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -170,7 +170,7 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 239.2
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -19484,7 +19484,7 @@ GameObject:
   - component: {fileID: 752362765}
   - component: {fileID: 752362764}
   m_Layer: 5
-  m_Name: UI
+  m_Name: MainMenuUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19568,6 +19568,7 @@ RectTransform:
   - {fileID: 795204656}
   - {fileID: 1321238872}
   - {fileID: 1800890635}
+  - {fileID: 1267169484}
   - {fileID: 501388405}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19588,15 +19589,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f5bd9980ed7b48b70e47e2fc1313a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainMenuGO: {fileID: 1800890634}
+  _launchUIObjects: {fileID: 1800890634}
   mainMenuStartButton: {fileID: 655061599}
   nonMainMenuSettingsButton: {fileID: 1442559221}
   quitGameButton: {fileID: 1790835995}
   _wizardTextObj: {fileID: 1517085798}
   _wheelsTextObj: {fileID: 40824868}
-  _nonMainMenuGO: {fileID: 795204655}
+  _saveSlotObjects: {fileID: 1267169483}
+  _saveSlots:
+  - {fileID: 1337737022}
+  - {fileID: 1416951163}
+  - {fileID: 881946227}
+  _overworldUIObjects: {fileID: 795204655}
   returnToMainMenuButton: {fileID: 1560315595}
-  _selectScreenGO: {fileID: 1321238871}
+  _selectVehicleUIObjects: {fileID: 1321238871}
   launchGameButton: {fileID: 791439030}
   previousTankButton: {fileID: 2067611582}
   nextTankButton: {fileID: 89185469}
@@ -19782,7 +19788,7 @@ GameObject:
   m_Component:
   - component: {fileID: 795204656}
   m_Layer: 5
-  m_Name: NonMainMenuUI
+  m_Name: OverworldUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20337,6 +20343,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875521589}
   m_CullTransparentMesh: 0
+--- !u!114 &881946227 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8787608723771677047, guid: c6061ae41b221cd41bd166815ba6c758,
+    type: 3}
+  m_PrefabInstance: {fileID: 22511205}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebedf829f7b80de4e9acc9267e71b1c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &888444296
 GameObject:
   m_ObjectHideFlags: 0
@@ -21921,7 +21939,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1267169484}
   m_Layer: 5
-  m_Name: SaveSlotSelecter
+  m_Name: SaveSlotUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21934,14 +21952,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1267169483}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 496591869}
   - {fileID: 1957775059}
-  m_Father: {fileID: 1800890635}
+  m_Father: {fileID: 752362767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -22691,7 +22709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1321238872}
   m_Layer: 5
-  m_Name: SelectScreenUI
+  m_Name: SelectVehicleUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22956,6 +22974,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 142290451956976154}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1337737022 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8787608723771677047, guid: c6061ae41b221cd41bd166815ba6c758,
+    type: 3}
+  m_PrefabInstance: {fileID: 142290451956976154}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebedf829f7b80de4e9acc9267e71b1c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1349592807
 GameObject:
   m_ObjectHideFlags: 0
@@ -23110,7 +23140,7 @@ PrefabInstance:
     - target: {fileID: 4022387304398774404, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_Name
-      value: MainMenuSaveSlot (1)
+      value: MainMenuSaveSlot 2
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -23145,7 +23175,7 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 239.2
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -23343,6 +23373,18 @@ MonoBehaviour:
     _value: 0
   customPivot: 0
   customPivotTransform: {fileID: 0}
+--- !u!114 &1416951163 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8787608723771677047, guid: c6061ae41b221cd41bd166815ba6c758,
+    type: 3}
+  m_PrefabInstance: {fileID: 1377953784}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebedf829f7b80de4e9acc9267e71b1c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1430513452
 GameObject:
   m_ObjectHideFlags: 0
@@ -25099,7 +25141,6 @@ RectTransform:
   - {fileID: 655061598}
   - {fileID: 1712626752}
   - {fileID: 1790835994}
-  - {fileID: 1267169484}
   m_Father: {fileID: 752362767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -26248,7 +26289,7 @@ PrefabInstance:
     - target: {fileID: 4022387304398774404, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_Name
-      value: MainMenuSaveSlot
+      value: MainMenuSaveSlot 1
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -26283,7 +26324,7 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 239.2
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}

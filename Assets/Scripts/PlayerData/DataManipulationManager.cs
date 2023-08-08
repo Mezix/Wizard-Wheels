@@ -35,6 +35,9 @@ public class DataManipulationManager : MonoBehaviour
     public Button _addNodeButton;
     public Button _subtractNodeButton;
 
+    //  MISC
+    public Text _TimePlayedText;
+
     private void Awake()
     {
         instance = this;
@@ -107,7 +110,8 @@ public class DataManipulationManager : MonoBehaviour
     private void SaveData()
     {
         Debug.Log("Saving in save slot " + _saveSlotDropDown.value);
-        SavePlayerData.SavePlayer(_saveSlotDropDown.value, SceneInventoryList, SceneEventNodes);
+        //SavePlayerData.SavePlayer(_saveSlotDropDown.value, SceneInventoryList, SceneEventNodes, HM.ParseStringToFloat(_TimePlayedText.text));
+        SavePlayerData.SavePlayer(_saveSlotDropDown.value, DataStorage.Singleton.playerData);
     }
     private void LoadData(int saveSlot)
     {
@@ -144,6 +148,8 @@ public class DataManipulationManager : MonoBehaviour
     }
     private void ResetSaveSlot(int saveSlot)
     {
+        PlayerData tmpData = SavePlayerData.GenerateFreshSaveFile(saveSlot);
+        /*
         Debug.Log("Resetting save slot " + _saveSlotDropDown.value);
 
         UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
@@ -157,7 +163,7 @@ public class DataManipulationManager : MonoBehaviour
             tmpItem.Amount = 0;
             SceneInventoryList.Add(tmpItem);
         }
-        SavePlayerData.SavePlayer(saveSlot, SceneInventoryList, SceneEventNodes);
+        //SavePlayerData.SavePlayer(saveSlot, SceneInventoryList, SceneEventNodes, HM.ParseStringToFloat(_TimePlayedText.text));
+        SavePlayerData.SavePlayer(saveSlot, DataStorage.Singleton.playerData);*/
     }
-
 }

@@ -6,9 +6,8 @@ using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
-    //  Main Menu
-
-    public GameObject _mainMenuGO;
+    [Header("Launch UI")]
+    public GameObject _launchUIObjects;
     [SerializeField]
     private Button mainMenuStartButton;
     [SerializeField]
@@ -19,16 +18,21 @@ public class MainMenuUI : MonoBehaviour
     public GameObject _wizardTextObj;
     public GameObject _wheelsTextObj;
 
-    //  Non Main Menu UI
+    [Space(10)]
+    [Header("Save Slot UI")]
+    public GameObject _saveSlotObjects;
+    public List<MainMenuSaveSlot> _saveSlots;
 
-    public GameObject _nonMainMenuGO;
+    [Space(10)]
+    [Header("Overworld UI")]
 
+    public GameObject _overworldUIObjects;
     [SerializeField]
     private Button returnToMainMenuButton;
 
-    //  Select Screen UI
-
-    public GameObject _selectScreenGO;
+    [Space(10)]
+    [Header("Select Vehicle UI")]
+    public GameObject _selectVehicleUIObjects;
 
     [SerializeField]
     private Button launchGameButton;
@@ -38,25 +42,28 @@ public class MainMenuUI : MonoBehaviour
     private Button nextTankButton;
     public Text _selectedTankText;
 
-    //  SettingsScreen
-
+    [Space(10)]
+    [Header("Other UI Scripts")]
     public SettingsScript _settingsScript;
 
     private void Awake()
     {
         REF.mUI = this;
+        InitButtons();
+        InitSaveSlots();
     }
+
     private void Start()
     {
-        ActivateMainMenuUI(true);
-        ActivateOverworldUI(false);
-        InitButtons();
+        ShowLaunchMenuUI(true);
+        ShowSaveSlotUI(false);
+        ShowOverworldUI(false);
         _settingsScript.CloseSettings();
     }
-    
+
     private void Update()
     {
-        if (!_mainMenuGO.activeInHierarchy)
+        if (!_launchUIObjects.activeInHierarchy)
         {
             if (Input.GetKeyDown(KeyCode.Escape)) ReturnToMainMenu();
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
@@ -69,7 +76,7 @@ public class MainMenuUI : MonoBehaviour
     {
         //  Main Menu
 
-        mainMenuStartButton.onClick.AddListener(() => ShowOverworldUI());
+        mainMenuStartButton.onClick.AddListener(() => ShowSaveSlotUI(true));
         quitGameButton.onClick.AddListener(() => REF.mMenu.QuitGame());
 
         //  Non Main Menu
@@ -83,19 +90,79 @@ public class MainMenuUI : MonoBehaviour
         previousTankButton.onClick.AddListener(() => REF.mMenu._mmTankPreview.PreviousTank());
         launchGameButton.onClick.AddListener(() => REF.mMenu.LaunchGame());
     }
-
-    //  Main Menu
-    private void ActivateMainMenuUI(bool b)
+    private void InitSaveSlots()
     {
-        _mainMenuGO.SetActive(b);
-        _nonMainMenuGO.SetActive(b);
-        StartCoroutine(WizardLogoAnimation());
-        REF.mMenu.wiz.movementLocked = b;
+        int saveSlotIndex = 0;
+        foreach (MainMenuSaveSlot slot in _saveSlots)
+        {
+            PlayerData tmpData = SavePlayerData.LoadPlayer(saveSlotIndex);
+            slot._playerData = tmpData;
+            slot.UpdateValues(saveSlotIndex, tmpData);
+            if (tmpData != null)
+            {
+                slot._selectButton.onClick.AddListener(() => SelectSlot(saveSlotIndex));
+            }
+            else
+            {
+                slot._selectButton.onClick.AddListener(() => GenerateNewSaveFileForSlot(slot));
+            }
+            slot._deleteButton.onClick.AddListener(() => DeleteSaveFileForSlot(slot));
+            saveSlotIndex++;
+        }
     }
 
+    private void DeleteSaveFileForSlot(MainMenuSaveSlot slot)
+    {
+        slot._playerData = null;
+        slot.UpdateValues(slot._slotIndex, slot._playerData);
+        SavePlayerData.DeleteSaveFile(slot._slotIndex);
+        slot._selectButton.onClick.RemoveAllListeners();
+        slot._selectButton.onClick.AddListener(() => GenerateNewSaveFileForSlot(slot));
+    }
+
+    private void GenerateNewSaveFileForSlot(MainMenuSaveSlot slot)
+    {
+        slot._playerData = SavePlayerData.GenerateFreshSaveFile(slot._slotIndex);
+        slot._selectButton.onClick.RemoveAllListeners();
+        slot.UpdateValues(slot._slotIndex, slot._playerData);
+        slot._selectButton.onClick.AddListener(() => SelectSlot(slot._slotIndex));
+    }
+
+    private void SelectSlot(int index)
+    {
+        DataStorage.Singleton.saveSlot = index;
+        ShowOverworldUI();
+    }
+
+    //  Main Menu
+    private void ShowLaunchMenuUI(bool activate)
+    {
+        _launchUIObjects.SetActive(activate);
+        _overworldUIObjects.SetActive(activate);
+        if (activate)
+        {
+            StartCoroutine(WizardLogoAnimation());
+        }
+        REF.mMenu.wiz.movementLocked = activate;
+    }
+
+    private void ShowSaveSlotUI(bool activate)
+    {
+        _saveSlotObjects.SetActive(activate);
+        _settingsScript.CloseSettings();
+
+        if(activate)
+        {
+            foreach (MainMenuSaveSlot slot in _saveSlots)
+            {
+                slot.UpdateValues(slot._slotIndex, slot._playerData);
+            }
+        }
+    }
     private IEnumerator WizardLogoAnimation()
     {
-        for (int i = 0; i < 120; i++)
+        float xPosEnd = 120;
+        for (int i = 0; i < xPosEnd; i += 2)
         {
             _wizardTextObj.transform.localPosition = new Vector3(-i, 0, 0);
             _wheelsTextObj.transform.localPosition = new Vector3(i, 0, 0);
@@ -106,26 +173,28 @@ public class MainMenuUI : MonoBehaviour
     {
         _selectedTankText.text = tankName;
     }
-    
+
     public void ReturnToMainMenu()
     {
         REF.mCam.SetZoom(REF.mCam.furthestZoom);
-        ActivateMainMenuUI(true);
-        ActivateOverworldUI(false);
+        ShowLaunchMenuUI(true);
+        ShowSaveSlotUI(false);
+        ShowOverworldUI(false);
         _settingsScript.CloseSettings();
     }
     public void ShowOverworldUI()
     {
         REF.mCam.SetZoom(REF.mCam.closestZoom);
-        ActivateMainMenuUI(false);
-        ActivateOverworldUI(true);
+        ShowLaunchMenuUI(false);
+        ShowSaveSlotUI(false);
+        ShowOverworldUI(true);
         _settingsScript.CloseSettings();
     }
 
-    private void ActivateOverworldUI(bool b)
+    private void ShowOverworldUI(bool b)
     {
-        _selectScreenGO.SetActive(b);
-        _nonMainMenuGO.SetActive(b);
+        _selectVehicleUIObjects.SetActive(b);
+        _overworldUIObjects.SetActive(b);
         REF.mMenu.wiz.movementLocked = !b;
     }
 }

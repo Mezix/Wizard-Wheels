@@ -8,14 +8,16 @@ public static class SavePlayerData
 {
     public readonly static string path = Application.persistentDataPath;
 
-    public static void SavePlayer ( int saveSlot, List<InventoryItemData> inventoryItems, List<EventNode> eventNodes, float timeInSecondsPlayed)
+
+    //public static void SavePlayer ( int saveSlot, List<InventoryItemData> inventoryItems, List<EventNode> eventNodes, float timeInSecondsPlayed)
+    public static void SavePlayer ( int saveSlot, PlayerData data)
     {
         string saveSlotPath = path + "/player" + saveSlot + ".save";
 
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(saveSlotPath, FileMode.Create);
 
-        PlayerData data = new PlayerData(inventoryItems, eventNodes, timeInSecondsPlayed);
+        //PlayerData data = new PlayerData(inventoryItems, eventNodes, timeInSecondsPlayed);
 
         formatter.Serialize(stream, data);
         stream.Close();
@@ -40,8 +42,45 @@ public static class SavePlayerData
         }
         else
         {
-            Debug.LogError("Save file not found in " + path + "/player" + saveSlot + ".save");
+            Debug.LogWarning("Save file not found in " + path + "/player" + saveSlot + ".save");
             return null;
         }
+    }
+
+    public static void DeleteSaveFile(int saveSlot)
+    {
+        string saveSlotPath = path + "/player" + saveSlot + ".save";
+
+        if (File.Exists(saveSlotPath))
+        {
+            File.Delete(saveSlotPath);
+        }
+        else
+        {
+            Debug.LogWarning("Trying to delete save file at '" + path + "/player" + saveSlot + ".save'  failed! Does not exist!");
+        }
+    }
+
+    public static PlayerData GenerateFreshSaveFile(int saveSlot)
+    {
+        List<InventoryItemData> freshInventory = new List<InventoryItemData>();
+        List<EventNode> freshRoute = new List<EventNode>();
+        float timePlayed = 0;
+
+
+        UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
+
+        foreach (InventoryItem item in inventoryItemTypeList)
+        {
+            InventoryItemData tmpItem = new InventoryItemData();
+            tmpItem.Name = item.Name;
+            tmpItem.SpritePath = GS.InventoryGraphics(item.Image.name);
+            tmpItem.Amount = 0;
+            freshInventory.Add(tmpItem);
+        }
+
+        PlayerData freshPlayerData = new PlayerData(freshInventory, freshRoute, timePlayed);
+        SavePlayer(saveSlot, freshPlayerData);
+        return freshPlayerData;
     }
 }

@@ -26,7 +26,7 @@ public class DataManipulationInputSlot : MonoBehaviour
         InventoryItemData newData = _manager.SceneInventoryList[index];
         newData.Name = _manager.SceneInventoryList[index].Name;
         newData.SpritePath = _manager.SceneInventoryList[index].SpritePath;
-        newData.Amount = int.Parse(_inventorySlotAmount.text);
+        newData.Amount = HM.ParseStringToInt(_inventorySlotAmount.text);
 
         _manager.SceneInventoryList[index] = newData;
     }

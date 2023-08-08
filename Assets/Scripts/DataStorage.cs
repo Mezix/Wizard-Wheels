@@ -21,4 +21,8 @@ public class DataStorage : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+    private void Update()
+    {
+        if(playerData != null) playerData.TimeInSecondsPlayed += Time.deltaTime;
+    }
 }
