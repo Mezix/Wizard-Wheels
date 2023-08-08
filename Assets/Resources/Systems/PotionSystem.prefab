@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _systemRoofSprites: []
-  SystemSprite: {fileID: 21300000, guid: 62846636f2c4ae049a562d3017c47a5f, type: 3}
+  SystemSprite: {fileID: 0}
   SystemObj: {fileID: 0}
   SystemName: 
   RoomPosForInteraction: {fileID: 0}

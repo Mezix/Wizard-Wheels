@@ -68,10 +68,16 @@ public class RouteTransitionUI : MonoBehaviour
     }
     private IEnumerator MoveBetweenNodes(int nodeToEndAt)
     {
+        if(nodeToEndAt >= DataStorage.Singleton.playerData.CurrentEventPath.Count)
+        {
+            Loader.Load(Loader.Scene.VictoryScene);
+            yield break;
+        }
+
         if (nodeToEndAt < 0) yield break;
         if      (DataStorage.Singleton.playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Combat)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Combat_Node"), typeof (Sprite)) as Sprite;
         else if (DataStorage.Singleton.playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Shop)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Shop_Node"), typeof(Sprite)) as Sprite;
-        else if (DataStorage.Singleton.playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.NewWizard)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/New_Wizard"), typeof(Sprite)) as Sprite;
+        else if (DataStorage.Singleton.playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.NewWizard)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/FreeWizard_Node"), typeof(Sprite)) as Sprite;
         else if (DataStorage.Singleton.playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Construction)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Construction_Node"), typeof(Sprite)) as Sprite;
         else if (DataStorage.Singleton.playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.FreeLoot)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/FreeLoot_Node"), typeof(Sprite)) as Sprite;
         else if (DataStorage.Singleton.playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Dialogue)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Dialogue_Node"), typeof(Sprite)) as Sprite;

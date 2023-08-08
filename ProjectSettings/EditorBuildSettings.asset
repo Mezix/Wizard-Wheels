@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RouteTransitionScene.unity
     guid: 95397a22dc0cd7f45b3c616a5c4fa049
+  - enabled: 1
+    path: Assets/Scenes/VictoryScene.unity
+    guid: a7873b4a2450956408c14f7da10eedc6
   m_configObjects: {}

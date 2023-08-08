@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 
 public static class Loader {
-    public enum Scene { CombatScene, MenuScene, EventScene, ConstructionScene, RouteTransitionScene }
+    public enum Scene { CombatScene, MenuScene, EventScene, ConstructionScene, RouteTransitionScene, VictoryScene }
     public static void Load(Scene scene)
     {
         if (scene.ToString() == "GameScene")
