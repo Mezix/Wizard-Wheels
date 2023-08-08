@@ -24,6 +24,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     public GameObject RoofParent { get; private set; }
     public Tilemap RoofTilemap { get; private set; }
 
+    // Extra Display stuff
+
+    public GameObject _vehicleBGOrb;
     public Color _translucentColor;
 
     private void Awake()
@@ -50,10 +53,12 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     public void ShowTank(int index)
     {
         HideAllTanks();
+        _vehicleBGOrb.gameObject.SetActive(true);
         _spawnedTanks[index].SetActive(true);
     }
     public void HideAllTanks()
     {
+        _vehicleBGOrb.gameObject.SetActive(false);
         foreach (GameObject g in _spawnedTanks)
         {
             g.SetActive(false);
@@ -365,12 +370,13 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         List<SpriteRenderer> srs = TankGeometryParent.GetComponentsInChildren<SpriteRenderer>().ToList();
         foreach (SpriteRenderer rend in srs)
         {
-            rend.color = _translucentColor;
+            //rend.color = _translucentColor;
+            rend.color = Color.white;
             rend.sortingLayerName = "Wizards";
             rend.sortingOrder += 20;
         }
-        FloorTilemap.color = _translucentColor;
-        RoofTilemap.color = _translucentColor;
+        //FloorTilemap.color = _translucentColor;
+        //RoofTilemap.color = _translucentColor;
     }
     private Vector2Int GetRoomSize(int x, int y)
     {

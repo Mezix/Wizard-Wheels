@@ -96,6 +96,6 @@ public class OverworldWizard : MonoBehaviour
     }
     private void UpdateOrbSortingLayer()
     {
-        _orb.sortingOrder = Mathf.Clamp(Mathf.FloorToInt(transform.position.y * 10),-1, 1);
+        //_orb.sortingOrder = Mathf.Clamp(Mathf.FloorToInt(transform.position.y * 10),-1, 1);
     }
 }
