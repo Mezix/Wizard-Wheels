@@ -153,7 +153,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NEXT EVENT
+  m_Text: FINISH EVENT
 --- !u!1 &2645375253043164609
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 1118633976060820516}
   - component: {fileID: 7504561020131810796}
   m_Layer: 0
-  m_Name: NextEventButton
+  m_Name: FinishEventButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -694,7 +694,7 @@ MonoBehaviour:
   _cloudsImage: {fileID: 1411937163155108878}
   _groundImage: {fileID: 4901743717126054983}
   _interiorImage: {fileID: 135743713797394469}
-  _nextEventButton: {fileID: 1118633976060820516}
+  _finishEventButton: {fileID: 1118633976060820516}
 --- !u!1 &6473886160032080605
 GameObject:
   m_ObjectHideFlags: 0

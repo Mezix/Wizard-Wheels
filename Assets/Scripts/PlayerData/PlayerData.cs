@@ -9,9 +9,10 @@ public class PlayerData
 {
     public List<InventoryItemData> InventoryList;
     public List<EventNode> CurrentEventPath;
+    public int CurrentEventPathIndex;
     public float TimeInSecondsPlayed;
 
-    public PlayerData(List<InventoryItemData> invItemList, List<EventNode> events, float TimeInSecondsPlayed)
+    public PlayerData(List<InventoryItemData> invItemList, List<EventNode> events, float timePlayed, int pathIndex)
     {
         InventoryList = new List<InventoryItemData>();
         foreach (InventoryItemData item in invItemList)
@@ -30,6 +31,9 @@ public class PlayerData
             newNode._visited = node._visited;
             CurrentEventPath.Add(newNode);
         }
+
+        TimeInSecondsPlayed = timePlayed;
+        CurrentEventPathIndex = pathIndex;
     }
 
 

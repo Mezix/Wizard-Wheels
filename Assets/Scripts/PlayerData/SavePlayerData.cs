@@ -64,7 +64,7 @@ public static class SavePlayerData
     public static PlayerData GenerateFreshSaveFile(int saveSlot)
     {
         List<InventoryItemData> freshInventory = new List<InventoryItemData>();
-        List<EventNode> freshRoute = new List<EventNode>();
+        List<EventNode> freshRoute = GenerateRandomRoute(5);
         float timePlayed = 0;
 
 
@@ -79,7 +79,7 @@ public static class SavePlayerData
             freshInventory.Add(tmpItem);
         }
 
-        PlayerData freshPlayerData = new PlayerData(freshInventory, freshRoute, timePlayed);
+        PlayerData freshPlayerData = new PlayerData(freshInventory, freshRoute, timePlayed, 0);
         SavePlayer(saveSlot, freshPlayerData);
         return freshPlayerData;
     }

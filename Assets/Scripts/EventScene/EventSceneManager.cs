@@ -7,35 +7,34 @@ public class EventSceneManager : MonoBehaviour
 {
     public ShopEventUI _shopEventUI;
     public DialogueEventUI _dialogueEventUI;
-    public PlayerData playerData;
 
     private void Start()
     {
         _dialogueEventUI.Show(false);
         _shopEventUI.Show(false);
 
-        playerData = SavePlayerData.LoadPlayer(0);
         SetScene();
     }
 
     private void SetScene()
     {
-        for(int i = 0; i < playerData.CurrentEventPath.Count; i++)
-        {
-            if (playerData.CurrentEventPath[i]._visited) continue;
+        PlayerData.NodeEventType eventType = DataStorage.Singleton.playerData.CurrentEventPath[DataStorage.Singleton.playerData.CurrentEventPathIndex]._event;
 
-            if (playerData.CurrentEventPath[i]._event.Equals(PlayerData.NodeEventType.Dialogue))
-            {
-                _dialogueEventUI.Show(true);
-                if(i < playerData.CurrentEventPath.Count - 1) _dialogueEventUI.Init(playerData.CurrentEventPath[i+1]._event);
-                break;
-            }
-            else if (playerData.CurrentEventPath[i]._event.Equals(PlayerData.NodeEventType.Shop))
-            {
-                _shopEventUI.Show(true);
-                if (i < playerData.CurrentEventPath.Count - 1) _shopEventUI.Init(playerData);
-                break;
-            }
+        if (eventType.Equals(PlayerData.NodeEventType.Dialogue))
+        {
+            _dialogueEventUI.Show(true);
+            _dialogueEventUI.Init();
+        }
+        else if (eventType.Equals(PlayerData.NodeEventType.Shop))
+        {
+            _shopEventUI.Show(true);
+            _shopEventUI.Init();
+        }
+        else
+        {
+            //TEMP
+            _dialogueEventUI.Show(true);
+            _dialogueEventUI.Init();
         }
     }
 }

@@ -35,7 +35,7 @@ public class MainMenuSceneManager : MonoBehaviour
         Instantiate(Resources.Load(GS.Prefabs("LoadingScreen")));
         yield return new WaitForSeconds(0.5f);
         CombatSceneManager.playerTankConstellationFromSelectScreen = _mmTankPreview._playerTankConstellations[_mmTankPreview.tankIndex];
-        Loader.Load(Loader.Scene.CombatScene);
+        Loader.Load(Loader.Scene.RouteTransitionScene);
     }
     public void QuitGame()
     {

@@ -9,7 +9,6 @@ public class RouteTransitionUI : MonoBehaviour
     public GameObject _allObjects;
 
     public HorizontalLayoutGroup _routeLayoutGroup;
-    private int nodesToSpawn;
     public Button _loadEventButton;
     public Image _nextEventImage;
 
@@ -20,10 +19,6 @@ public class RouteTransitionUI : MonoBehaviour
     private List<RouteNode> _routeNodes = new List<RouteNode>();
     private List<RouteNodeConnector> _routeConnectors = new List<RouteNodeConnector>();
 
-    //  Misc
-    //private PlayerData playerData;
-    //private int _currentEventPathIndex;
-
     private void Awake()
     {
         _routeNodePrefab = Resources.Load(GS.UIPrefabs("RouteNode"), typeof (RouteNode)) as RouteNode;
@@ -31,9 +26,6 @@ public class RouteTransitionUI : MonoBehaviour
     }
     private void Start()
     {
-        //playerData = SavePlayerData.LoadPlayer(0);
-
-       // playerData.CurrentEventPath = PlayerData.GenerateRandomRoute(5);
         SpawnRouteNodes(DataStorage.Singleton.playerData);
     }
     private void SpawnRouteNodes(PlayerData data)
@@ -49,7 +41,6 @@ public class RouteTransitionUI : MonoBehaviour
             _routeNodes.Add(tmpNode);
 
         }
-
         int nodeIndex;
         for (nodeIndex = 0; nodeIndex < data.CurrentEventPath.Count;)
         {
@@ -69,12 +60,7 @@ public class RouteTransitionUI : MonoBehaviour
             }
             else
             {
-                if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.Dialogue)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.FreeLoot)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.NewWizard)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.Shop)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.EventScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.Construction)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.ConstructionScene));
-                else if (data.CurrentEventPath[nodeIndex]._event.Equals(PlayerData.NodeEventType.Combat)) _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.Scene.CombatScene));
+                _loadEventButton.onClick.AddListener(() => Loader.Load(Loader.EventNodeToScene(data.CurrentEventPath[data.CurrentEventPathIndex]._event)));
                 break;
             }
         }

@@ -9,20 +9,19 @@ using static TankRoomConstellation;
 public class MainMenuSceneTankPreview : MonoBehaviour
 {
     public List<TankRoomConstellation> _playerTankConstellations;
+    public List<GameObject> _spawnedTanks = new List<GameObject>();
     public int tankIndex;
 
-    public List<GameObject> _spawnedTanks = new List<GameObject>();
-
-    //  Tank Spawning
+    //  Tank Spawning; all of these are temporary values that get overwritten with each tank
 
     [HideInInspector] public TankRoomConstellation _trc;
     public RoomPosition[,] _roomPosMatrix;
-    public GameObject TankGeometryParent { get; private set; }
-    public GameObject RoomsParent { get; private set; }
-    public List<Room> AllRooms { get; private set; }
-    public Tilemap FloorTilemap { get; private set; }
-    public GameObject RoofParent { get; private set; }
-    public Tilemap RoofTilemap { get; private set; }
+    public GameObject Tmp { get; private set; }
+    public GameObject TmpRoomsParent { get; private set; }
+    public List<Room> TmpAllRooms { get; private set; }
+    public Tilemap TmpFloorTilemap { get; private set; }
+    public GameObject TmpRoofParent { get; private set; }
+    public Tilemap TmpRoofTilemap { get; private set; }
 
     // Extra Display stuff
 
@@ -38,7 +37,6 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         SpawnAllTanks();
         HideAllTanks();
         tankIndex = 0;
-        //ShowTank(tankIndex);
         REF.mUI.UpdateSelectedTankText(_playerTankConstellations[tankIndex].name);
     }
 
@@ -135,8 +133,8 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         floorGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
 
         //  Create Tilemap
-        FloorTilemap = floor.AddComponent<Tilemap>();
-        FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
+        TmpFloorTilemap = floor.AddComponent<Tilemap>();
+        TmpFloorTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
         TilemapRenderer floorRend = floor.AddComponent<TilemapRenderer>();
@@ -144,13 +142,13 @@ public class MainMenuSceneTankPreview : MonoBehaviour
 
         //  Roof
 
-        RoofParent = new GameObject("RoofParent");
-        RoofParent.transform.parent = transform;
-        RoofParent.transform.localPosition = Vector3.zero;
-        RoofParent.transform.localScale = Vector3.one;
+        TmpRoofParent = new GameObject("RoofParent");
+        TmpRoofParent.transform.parent = transform;
+        TmpRoofParent.transform.localPosition = Vector3.zero;
+        TmpRoofParent.transform.localScale = Vector3.one;
 
         GameObject roofTilemap = new GameObject("RoofTilemap");
-        roofTilemap.transform.parent = RoofParent.transform;
+        roofTilemap.transform.parent = TmpRoofParent.transform;
         roofTilemap.transform.localPosition = Vector3.zero;
         roofTilemap.transform.localScale = Vector3.one;
 
@@ -159,8 +157,8 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         roofGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
 
         //  Create Tilemap
-        RoofTilemap = roofTilemap.AddComponent<Tilemap>();
-        RoofTilemap.tileAnchor = new Vector3(0, 1, 0);
+        TmpRoofTilemap = roofTilemap.AddComponent<Tilemap>();
+        TmpRoofTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
         TilemapRenderer roofRend = roofTilemap.AddComponent<TilemapRenderer>();
@@ -173,7 +171,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
             for (int y = startY; y < startY + sizeY; y++)
             {
                 Tile t = _trc._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefab;
-                FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                //t.color = _trc._tmpMatrix.XArray[x].YStuff[y].FloorColor;
+                //t.color = Color.white;
+                TmpFloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
     }
@@ -184,24 +184,23 @@ public class MainMenuSceneTankPreview : MonoBehaviour
             for (int y = startY; y < startY + sizeY; y++)
             {
                 Tile t = _trc._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefab;
-                //t.color = RoofColor;
-
-                //  TODO: roof isnt loading if the ystuff array is empty there
-                RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
+                //t.color = _trc._tmpMatrix.XArray[x].YStuff[y].RoofColor;
+                //t.color = Color.white;
+                TmpRoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
     }
     private void LoadRooms()
     {
         _roomPosMatrix = new RoomPosition[_trc._savedXSize, _trc._savedYSize];
-        AllRooms = new List<Room>();
-        if (FloorTilemap) FloorTilemap.ClearAllTiles();
-        if (RoofTilemap) RoofTilemap.ClearAllTiles();
+        TmpAllRooms = new List<Room>();
+        if (TmpFloorTilemap) TmpFloorTilemap.ClearAllTiles();
+        if (TmpRoofTilemap) TmpRoofTilemap.ClearAllTiles();
 
-        RoomsParent = new GameObject("All Tank Rooms");
-        RoomsParent.transform.parent = transform;
-        RoomsParent.transform.localPosition = Vector3.zero;
-        RoomsParent.transform.localScale = Vector3.one;
+        TmpRoomsParent = new GameObject("All Tank Rooms");
+        TmpRoomsParent.transform.parent = transform;
+        TmpRoomsParent.transform.localPosition = Vector3.zero;
+        TmpRoomsParent.transform.localScale = Vector3.one;
 
         for (int y = 0; y < _trc._savedYSize; y++)
         {
@@ -220,10 +219,10 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         GameObject rGO = Instantiate(_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefab);
         Room r = rGO.GetComponent<Room>();
         r.tr = _trc;
-        rGO.transform.parent = RoomsParent.transform;
+        rGO.transform.parent = TmpRoomsParent.transform;
         rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
         rGO.transform.localScale = Vector3.one;
-        AllRooms.Add(r);
+        TmpAllRooms.Add(r);
 
         // Set the Room Positions
         int roomPosNr = 0;
@@ -240,6 +239,8 @@ public class MainMenuSceneTankPreview : MonoBehaviour
                 roomPosNr++;
             }
         }
+
+        foreach(RoomPosition rPos in r.allRoomPositions) rPos.GetComponent<SpriteRenderer>().enabled = false; // Disable for preview!
 
         //sets the corner of the room that doesnt get caught with the matrix
         _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY - 1];
@@ -312,20 +313,20 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     private void PositionTankObjects()
     {
         //create overarching object for all our spawned objects
-        TankGeometryParent = new GameObject("Tank Geometry Parent");
-        _spawnedTanks.Add(TankGeometryParent);
-        TankGeometryParent.transform.parent = gameObject.transform;
-        TankGeometryParent.transform.localPosition = Vector3.zero;
-        TankGeometryParent.transform.localScale = Vector3.one;
+        Tmp = new GameObject("Tank Geometry Parent");
+        _spawnedTanks.Add(Tmp);
+        Tmp.transform.parent = gameObject.transform;
+        Tmp.transform.localPosition = Vector3.zero;
+        Tmp.transform.localScale = Vector3.one;
 
         // parent all spawnedObjects to this parent
-        RoomsParent.transform.parent = RoofParent.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
+        TmpRoomsParent.transform.parent = TmpRoofParent.transform.parent = TmpFloorTilemap.transform.parent = Tmp.transform;
 
         //  Rooms have their transform origin point at the center of their rooms, so add a rooms x length, and subtract a rooms y length
-        TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
+        Tmp.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
 
         //  Now move to the halfway point
-        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _trc._savedXSize, 0.25f * _trc._savedYSize, 0);
+        Tmp.transform.localPosition += new Vector3(-0.25f * _trc._savedXSize, 0.25f * _trc._savedYSize, 0);
     }
     public void CreateSystems()
     {
@@ -350,7 +351,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     }
     private void MakeCollidersTriggers()
     {
-        List<Collider2D> colliders = TankGeometryParent.GetComponentsInChildren<Collider2D>().ToList();
+        List<Collider2D> colliders = Tmp.GetComponentsInChildren<Collider2D>().ToList();
         foreach (Collider2D c in colliders)
         {
             c.isTrigger = true;
@@ -359,7 +360,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
 
     private void DisableTankUI()
     {
-        List<Canvas> canvases = TankGeometryParent.GetComponentsInChildren<Canvas>().ToList();
+        List<Canvas> canvases = Tmp.GetComponentsInChildren<Canvas>().ToList();
         foreach (Canvas c in canvases)
         {
             c.gameObject.SetActive(false);
@@ -367,7 +368,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     }
     private void SetSpriteValues()
     {
-        List<SpriteRenderer> srs = TankGeometryParent.GetComponentsInChildren<SpriteRenderer>().ToList();
+        List<SpriteRenderer> srs = Tmp.GetComponentsInChildren<SpriteRenderer>().ToList();
         foreach (SpriteRenderer rend in srs)
         {
             //rend.color = _translucentColor;

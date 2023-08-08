@@ -21,6 +21,20 @@ public class DataStorage : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+
+    public void FinishEvent()
+    {
+        if (playerData.CurrentEventPathIndex >= playerData.CurrentEventPath.Count)
+        {
+            Debug.LogWarning("Last event reached! No More events to load");
+            return;
+        }
+        playerData.CurrentEventPath[playerData.CurrentEventPathIndex] = new PlayerData.EventNode(playerData.CurrentEventPath[playerData.CurrentEventPathIndex]._event, true);
+        playerData.CurrentEventPathIndex++;
+
+        SavePlayerData.SavePlayer(saveSlot, playerData);
+        Loader.Load(Loader.Scene.RouteTransitionScene);
+    }
     private void Update()
     {
         if(playerData != null) playerData.TimeInSecondsPlayed += Time.deltaTime;

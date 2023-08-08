@@ -26,4 +26,16 @@ public static class Loader {
         Time.timeScale = 1;
         SceneManager.LoadScene(scene.ToString());
     }
+
+    public static Scene EventNodeToScene(PlayerData.NodeEventType nodeToTransform)
+    {
+        if (nodeToTransform.Equals(PlayerData.NodeEventType.Combat)) return Scene.CombatScene;
+        else if (nodeToTransform.Equals(PlayerData.NodeEventType.Construction)) return Scene.ConstructionScene;
+        else if (nodeToTransform.Equals(PlayerData.NodeEventType.Shop)) return Scene.EventScene;
+        else if (nodeToTransform.Equals(PlayerData.NodeEventType.Dialogue)) return Scene.EventScene;
+        else if (nodeToTransform.Equals(PlayerData.NodeEventType.FreeLoot)) return Scene.EventScene;
+        else if (nodeToTransform.Equals(PlayerData.NodeEventType.NewWizard)) return Scene.EventScene;
+
+        else return Scene.CombatScene;
+    }
 }
