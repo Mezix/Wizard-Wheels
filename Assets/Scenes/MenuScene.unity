@@ -4657,6 +4657,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c34e856122b894d8f9555fec01cf2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &607312444
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 793.92926
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 545.0585
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.246998
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240198919838643403, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3722008443522057335, guid: 635046c409818e941b63ec674ad7ebe2,
+        type: 3}
+      propertyPath: m_Name
+      value: ConsoleToGUI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 635046c409818e941b63ec674ad7ebe2, type: 3}
 --- !u!1 &643003198
 GameObject:
   m_ObjectHideFlags: 0
@@ -19588,8 +19656,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6ca672f9cc6a618439899de1e353bf01, type: 2}
   - {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5, type: 2}
   - {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530, type: 2}
-  tankIndex: 0
   _spawnedTanks: []
+  tankIndex: 0
   _trc: {fileID: 0}
   _vehicleBGOrb: {fileID: 1886440711}
   _translucentColor: {r: 0, g: 0.90666676, b: 1, a: 0.44705883}
@@ -27658,3 +27726,4 @@ SceneRoots:
   - {fileID: 4410841968074005341}
   - {fileID: 1586388110}
   - {fileID: 162194804}
+  - {fileID: 607312444}

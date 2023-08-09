@@ -4,6 +4,7 @@ namespace DebugStuff
 {
     public class ConsoleToGUI : MonoBehaviour
     {
+        public static ConsoleToGUI Singleton { get; private set; }
         public bool _consoleShown;
 
         //#if !UNITY_EDITOR
@@ -18,6 +19,15 @@ namespace DebugStuff
         private void Awake()
         {
             _consoleShown = false;
+            if (Singleton != null && Singleton != this)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Singleton = this;
+                DontDestroyOnLoad(gameObject);
+            }
         }
 
         private void Update()
