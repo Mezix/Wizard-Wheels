@@ -2,14 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EventSceneManager : MonoBehaviour
 {
+    public Button _returnToMenuButton;
     public ShopEventUI _shopEventUI;
     public DialogueEventUI _dialogueEventUI;
     public FreeLootEventUI _freeLootEventUI;
     public FreeWizardEventUI _freeWizardEventUI;
 
+    public SettingsScript _settings;
+    private void Awake()
+    {
+        _returnToMenuButton.onClick.AddListener(() => Loader.Load(Loader.Scene.MenuScene));
+    }
     private void Start()
     {
         _dialogueEventUI.Show(false);
@@ -17,6 +24,7 @@ public class EventSceneManager : MonoBehaviour
         _freeLootEventUI.Show(false);
         _freeWizardEventUI.Show(false);
         SetScene();
+        _settings.CloseSettings();
     }
 
     private void SetScene()

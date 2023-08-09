@@ -68,12 +68,6 @@ public class RouteTransitionUI : MonoBehaviour
     }
     private IEnumerator MoveBetweenNodes(int nodeToEndAt)
     {
-        if(nodeToEndAt >= DataStorage.Singleton.playerData.CurrentEventPath.Count)
-        {
-            Loader.Load(Loader.Scene.VictoryScene);
-            yield break;
-        }
-
         if (nodeToEndAt < 0) yield break;
         if      (DataStorage.Singleton.playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Combat)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Combat_Node"), typeof (Sprite)) as Sprite;
         else if (DataStorage.Singleton.playerData.CurrentEventPath[nodeToEndAt]._event.Equals(PlayerData.NodeEventType.Shop)) _nextEventImage.sprite = Resources.Load(GS.UIGraphics("Event Nodes/Shop_Node"), typeof(Sprite)) as Sprite;

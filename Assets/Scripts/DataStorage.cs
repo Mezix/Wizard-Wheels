@@ -24,15 +24,11 @@ public class DataStorage : MonoBehaviour
 
     public void FinishEvent()
     {
-        if (playerData.CurrentEventPathIndex >= playerData.CurrentEventPath.Count)
-        {
-            Debug.LogWarning("Last event reached! No More events to load");
-            return;
-        }
         playerData.CurrentEventPath[playerData.CurrentEventPathIndex] = new PlayerData.EventNode(playerData.CurrentEventPath[playerData.CurrentEventPathIndex]._event, true);
         playerData.CurrentEventPathIndex++;
-
         SavePlayerData.SavePlayer(saveSlot, playerData);
+
+        if (playerData.CurrentEventPathIndex >= playerData.CurrentEventPath.Count) Loader.Load(Loader.Scene.VictoryScene); 
         Loader.Load(Loader.Scene.RouteTransitionScene);
     }
     private void Update()

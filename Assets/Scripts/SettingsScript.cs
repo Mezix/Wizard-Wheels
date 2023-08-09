@@ -47,8 +47,8 @@ public class SettingsScript : MonoBehaviour
     }
     private void Start()
     {
-        _settingsOn = false;
-        CloseSettings();
+        //_settingsOn = false;
+        //CloseSettings();
         InitResolutions();
         IntVolSliders();
     }
@@ -62,13 +62,19 @@ public class SettingsScript : MonoBehaviour
     }
     public void OpenSettings()
     {
-        REF.TM.FreezeTime();
+        if (REF.TM)
+        {
+            REF.TM.FreezeTime();
+        }
         _settingsObj.SetActive(true);
         _settingsOn = true;
     }
     public void CloseSettings()
     {
-        if (!TimeManager.paused) REF.TM.UnfreezeTime();
+        if (REF.TM)
+        {
+            if (!TimeManager.paused) REF.TM.UnfreezeTime();
+        }
         _settingsObj.SetActive(false);
         _settingsOn = false;
     }

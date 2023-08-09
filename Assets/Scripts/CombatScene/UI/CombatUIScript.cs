@@ -85,6 +85,7 @@ public class CombatUIScript : MonoBehaviour
     }
     private void Start()
     {
+        _settingsScript.CloseSettings();
         SaveWizards(wizardsSaved);
         timeBetweenMouseClicks = 0;
         InitButtonsSlidersToggles();
