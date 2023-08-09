@@ -29,7 +29,7 @@ public class CombatSceneManager : MonoBehaviour
 
     private void GameOver()
     {
-        REF.UI.SpawnGameOverScreen();
+        REF.CombatUI.SpawnGameOverScreen();
     }
     public void GoToMainMenu()
     {
@@ -46,7 +46,7 @@ public class CombatSceneManager : MonoBehaviour
     public void CombatHasBeenWon()
     {
         SavePlayerData.SavePlayer(DataStorage.Singleton.saveSlot, DataStorage.Singleton.playerData);
-        Instantiate(Resources.Load(GS.UIPrefabs("CombatVictoryScreen"), typeof(GameObject)) as GameObject, REF.UI.transform, false);
+        Instantiate(Resources.Load(GS.UIPrefabs("CombatVictoryScreen"), typeof(GameObject)) as GameObject, REF.CombatUI.transform, false);
         REF.TM.TriggerGradualSlowdown(0.2f);
     }
 }

@@ -54,7 +54,7 @@ public class PlayerTankController : TankController
     {
         foreach (AUnit u in _spawnedWizards)
         {
-            u.PlayerWizardUI = REF.UI.CreateWizardUI(u);
+            u.PlayerWizardUI = REF.CombatUI.CreateWizardUI(u);
             _UIWizards.Add(u.PlayerWizardUI);
         }
     }
@@ -175,7 +175,7 @@ public class PlayerTankController : TankController
         {
             if(TMov.enemyToMatch.gameObject.Equals(enemy))
             {
-                REF.UI._engineUIScript.UnmatchSpeedUI();
+                REF.CombatUI._engineUIScript.UnmatchSpeedUI();
                 TMov.enemyToMatch = null;
                 TMov._matchSpeed = false;
                 TMov.TurnOnCruise(true);

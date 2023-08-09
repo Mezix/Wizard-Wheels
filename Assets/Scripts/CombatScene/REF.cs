@@ -30,7 +30,7 @@ public class REF : MonoBehaviour
     public static bool PDead;
 
     public static CameraScript Cam;
-    public static UIScript UI;
+    public static CombatUIScript CombatUI;
     public static DialogueManager Dialog;
     public static SpeedDisplay SD;
     public static TimeManager TM;

@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIScript : MonoBehaviour
+public class CombatUIScript : MonoBehaviour
 {
     //  Canvas
     [HideInInspector]
@@ -81,7 +81,7 @@ public class UIScript : MonoBehaviour
     {
         wizardsSaved = false;
         _canvas = GetComponent<Canvas>();
-        REF.UI = this;
+        REF.CombatUI = this;
     }
     private void Start()
     {

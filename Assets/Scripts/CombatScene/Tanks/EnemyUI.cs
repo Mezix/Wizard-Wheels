@@ -33,7 +33,7 @@ public class EnemyUI : MonoBehaviour
     }
     public void MatchSpeed(EnemyTankMovement e, bool b)
     {
-        REF.UI._engineUIScript._matchSpeedImage.gameObject.SetActive(b);
+        REF.CombatUI._engineUIScript._matchSpeedImage.gameObject.SetActive(b);
         REF.PCon.TMov.MatchSpeed(e, b);
         if (b) matchSpeedImg.sprite = Resources.Load(GS.UIGraphics("Match_Speed_On"), typeof(Sprite)) as Sprite;
         else matchSpeedImg.sprite = Resources.Load(GS.UIGraphics("Match_Speed_Off"), typeof(Sprite)) as Sprite;

@@ -24,6 +24,7 @@ public static class Loader {
         {
         }
         Time.timeScale = 1;
+        Cursor.visible = true;
         SceneManager.LoadScene(scene.ToString());
     }
 
@@ -34,7 +35,7 @@ public static class Loader {
         else if (nodeToTransform.Equals(PlayerData.NodeEventType.Shop)) return Scene.EventScene;
         else if (nodeToTransform.Equals(PlayerData.NodeEventType.Dialogue)) return Scene.EventScene;
         else if (nodeToTransform.Equals(PlayerData.NodeEventType.FreeLoot)) return Scene.EventScene;
-        else if (nodeToTransform.Equals(PlayerData.NodeEventType.NewWizard)) return Scene.EventScene;
+        else if (nodeToTransform.Equals(PlayerData.NodeEventType.FreeWizard)) return Scene.EventScene;
 
         else return Scene.CombatScene;
     }

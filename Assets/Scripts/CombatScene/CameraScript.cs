@@ -31,8 +31,8 @@ public class CameraScript : MonoBehaviour
         zoomAmount = 0.75f;
         maxZoom = 1f;
         desiredZoom = minZoom = 12;
-        REF.UI.ZoomSlider.minValue = maxZoom;
-        REF.UI.ZoomSlider.maxValue = minZoom;
+        REF.CombatUI.ZoomSlider.minValue = maxZoom;
+        REF.CombatUI.ZoomSlider.maxValue = minZoom;
         SetZoom(minZoom);
         Events.instance.PlayerIsDying += StopTracking;
         Events.instance.PlayerTankDestroyed += StopTracking;
@@ -72,7 +72,7 @@ public class CameraScript : MonoBehaviour
         Events.instance.DoubleClickAttempted(REF.PCon.gameObject);
 
         REF.EM.UntrackAllEnemyTanks();
-        REF.UI.TrackingTank(true);
+        REF.CombatUI.TrackingTank(true);
         objToTrack = REF.PlayerGO.transform;
         transform.SetParent(objToTrack);
         cameraOffset = Vector3.zero;
@@ -80,8 +80,8 @@ public class CameraScript : MonoBehaviour
     }
     public void SetTrackedVehicleToObject(Transform t)
     {
-        if (t.GetComponentInChildren<PlayerTankController>()) REF.UI.TrackingTank(true);
-        else REF.UI.TrackingTank(false);
+        if (t.GetComponentInChildren<PlayerTankController>()) REF.CombatUI.TrackingTank(true);
+        else REF.CombatUI.TrackingTank(false);
 
         REF.EM.UntrackAllEnemyTanks();
         if (t.GetComponentInChildren<EnemyTankController>()) t.GetComponentInChildren<EnemyTankController>().enemyUI.TrackTank(true);
@@ -123,7 +123,7 @@ public class CameraScript : MonoBehaviour
                                    Camera.main.ScreenToWorldPoint(mouseStartDragPos) - 
                                    Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if(!cameraOffset.Equals(Vector3.zero)) REF.UI.TrackingTank(false);
+        if(!cameraOffset.Equals(Vector3.zero)) REF.CombatUI.TrackingTank(false);
         mouseStartDragPos = Input.mousePosition;
         isMovingToPos = false;
     }
@@ -132,7 +132,7 @@ public class CameraScript : MonoBehaviour
 
     private void HandleZoomInput()
     {
-        if (Input.mouseScrollDelta.y != 0 && !REF.UI._settingsScript._settingsOn)
+        if (Input.mouseScrollDelta.y != 0 && !REF.CombatUI._settingsScript._settingsOn)
         {
             if (Input.mouseScrollDelta.y > 0)
             {
@@ -161,7 +161,7 @@ public class CameraScript : MonoBehaviour
         Camera.main.orthographicSize = zoomLevel;
         _occlusionCulling2D.UpdateCameraWidth();
 
-        REF.UI.ZoomSlider.value = (zoomLevel / minZoom) * minZoom;
+        REF.CombatUI.ZoomSlider.value = (zoomLevel / minZoom) * minZoom;
         //pixelCam.assetsPPU = zoomLevel;
     }
     public void SetDesiredZoom(float zoom)

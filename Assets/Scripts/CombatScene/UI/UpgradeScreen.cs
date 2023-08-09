@@ -48,6 +48,7 @@ public class UpgradeScreen : MonoBehaviour
         _popUpOpened = false;
         InitPoints();
         UpdateUpgradeScrapCounter();
+        UpdateMainScrapCounter();
 
         ShowSaveButton(false);
         ShowRevertButton(false);
@@ -144,7 +145,7 @@ public class UpgradeScreen : MonoBehaviour
         field.transform.SetParent(_layoutGroup);
         field.transform.localScale = Vector3.one;
         UIUpgradeField upgrade = field.GetComponent<UIUpgradeField>();
-        REF.UI._upgradeScreen._upgradeFields.Add(upgrade);
+        REF.CombatUI._upgradeScreen._upgradeFields.Add(upgrade);
 
         return upgrade;
     }

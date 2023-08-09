@@ -173,8 +173,8 @@ public abstract class AWeapon : ASystem
                     }
                     else
                     {
-                        StopCoroutine(REF.UI.FlashWeaponOutOfRangeWarning());
-                        StartCoroutine(REF.UI.FlashWeaponOutOfRangeWarning());
+                        StopCoroutine(REF.CombatUI.FlashWeaponOutOfRangeWarning());
+                        StartCoroutine(REF.CombatUI.FlashWeaponOutOfRangeWarning());
                     }
                 }
                 

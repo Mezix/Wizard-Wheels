@@ -66,7 +66,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
         for (int i = 0; i < AWeaponArray.Count; i++)
         {
             AWeaponArray[i].SetIndex(i+1);
-            PlayerWeaponUI uw = REF.UI.CreateWeaponUI(AWeaponArray[i]);
+            PlayerWeaponUI uw = REF.CombatUI.CreateWeaponUI(AWeaponArray[i]);
             AllUIWeapons.Add(uw);
             AWeaponArray[i].PlayerUIWep = uw;
         }

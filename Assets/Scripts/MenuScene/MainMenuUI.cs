@@ -101,7 +101,7 @@ public class MainMenuUI : MonoBehaviour
             slot.UpdateValues(saveSlotIndex, tmpData);
             if (tmpData != null)
             {
-                slot._selectButton.onClick.AddListener(() => SelectSlot(saveSlotIndex));
+                slot._selectButton.onClick.AddListener(() => SelectSlot(slot._slotIndex));
             }
             else
             {
@@ -132,6 +132,7 @@ public class MainMenuUI : MonoBehaviour
     private void SelectSlot(int index)
     {
         DataStorage.Singleton.saveSlot = index;
+        DataStorage.Singleton.playerData = _saveSlots[index]._playerData;
         ShowMenu(MainMenuStatus.Overworld);
     }
 

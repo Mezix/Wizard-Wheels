@@ -1822,7 +1822,7 @@ GameObject:
   - component: {fileID: 8217345321902172070}
   - component: {fileID: 1007735720238220858}
   m_Layer: 0
-  m_Name: ShopSceneUI
+  m_Name: ShopEventUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

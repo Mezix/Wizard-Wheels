@@ -22,7 +22,7 @@ public class TimeManager : MonoBehaviour
     }
     public void TogglePauseWhilstPlaying()
     {
-        if (REF.UI._settingsScript._settingsOn) return;
+        if (REF.CombatUI._settingsScript._settingsOn) return;
         if (!paused)
         {
             FreezeTime();
@@ -46,12 +46,12 @@ public class TimeManager : MonoBehaviour
     public void PauseGame()
     {
         paused = true;
-        REF.UI._pauseImage.SetActive(paused);
+        REF.CombatUI._pauseImage.SetActive(paused);
     }
     public void UnpauseGame()
     {
         paused = false;
-        REF.UI._pauseImage.SetActive(paused);
+        REF.CombatUI._pauseImage.SetActive(paused);
     }
 
     public void TriggerGradualSlowdown(float timeScaleToSlowDownTo)

@@ -52,7 +52,7 @@ public class InventoryUI : MonoBehaviour
         {
             index++;
             if (item.Amount == 0) continue;
-            if(item.Name == "Scrap")
+            if (item.Name == "Scrap")
             {
                 //dont add scrap to the inventory
                 REF.UpgrScreen._remainingScrap = item.Amount;

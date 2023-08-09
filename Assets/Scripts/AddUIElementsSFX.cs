@@ -14,28 +14,26 @@ public class AddUIElementsSFX : MonoBehaviour
     private void Awake()
     {
         pitchVariance = 0.1f;
+        _buttonToAddSFXTo = GetComponent<Button>();
+        _toggleToAddSFXTo = GetComponent<Toggle>();
 
         //pointer enter sfx
         EventTrigger.Entry pointerEnterEvent = new EventTrigger.Entry();
         pointerEnterEvent.eventID = EventTriggerType.PointerEnter;
         pointerEnterEvent.callback.AddListener((eventData) => { PlayHoverSoundEffect(); });
 
-        _buttonToAddSFXTo = GetComponent<Button>();
         if (_buttonToAddSFXTo)
         {
             //on click sfx
             _buttonToAddSFXTo.onClick.AddListener(() => PlayClickSoundEffect());
-
-
-            _buttonToAddSFXTo.gameObject.AddComponent<EventTrigger>();
+            if(!_buttonToAddSFXTo.GetComponent<EventTrigger>()) _buttonToAddSFXTo.gameObject.AddComponent<EventTrigger>();
             _buttonToAddSFXTo.GetComponent<EventTrigger>().triggers.Add(pointerEnterEvent);
         }
-        _toggleToAddSFXTo = GetComponent<Toggle>();
         if(_toggleToAddSFXTo)
         {
             _toggleToAddSFXTo.onValueChanged.AddListener( delegate { PlayClickSoundEffect(); });
 
-            _toggleToAddSFXTo.gameObject.AddComponent<EventTrigger>();
+            if (!_toggleToAddSFXTo.GetComponent<EventTrigger>()) _toggleToAddSFXTo.gameObject.AddComponent<EventTrigger>();
             _toggleToAddSFXTo.GetComponent<EventTrigger>().triggers.Add(pointerEnterEvent);
         }
     }

@@ -186,11 +186,11 @@ public class MapGeneration : MonoBehaviour
                                              new Rect(0.0f, 0.0f, minimapTex.width, minimapTex.height),
                                              new Vector2(0.5f, 0.5f),
                                              100.0f);
-        REF.UI._minimapScript._bigMapRect.sizeDelta = new Vector2(chunkSize, chunkSize);
-        REF.UI._minimapScript._bigMapImage.sprite = minimapSprite;
+        REF.CombatUI._minimapScript._bigMapRect.sizeDelta = new Vector2(chunkSize, chunkSize);
+        REF.CombatUI._minimapScript._bigMapImage.sprite = minimapSprite;
 
-        REF.UI._minimapScript._fogOfWarRect.sizeDelta = new Vector2(chunkSize, chunkSize);
-        REF.UI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
+        REF.CombatUI._minimapScript._fogOfWarRect.sizeDelta = new Vector2(chunkSize, chunkSize);
+        REF.CombatUI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
                                              new Rect(0.0f, 0.0f, fogOfWarTex.width, fogOfWarTex.height),
                                              new Vector2(0.5f, 0.5f),
                                              100.0f);
@@ -199,8 +199,8 @@ public class MapGeneration : MonoBehaviour
     {
         if(REF.PCon)
         {
-            REF.UI._minimapScript._bigMapRect.anchoredPosition = -1 * REF.PCon.transform.position / grid.cellSize.x;
-            UpdateFogOfWar(-1 * REF.UI._minimapScript._bigMapRect.anchoredPosition);
+            REF.CombatUI._minimapScript._bigMapRect.anchoredPosition = -1 * REF.PCon.transform.position / grid.cellSize.x;
+            UpdateFogOfWar(-1 * REF.CombatUI._minimapScript._bigMapRect.anchoredPosition);
         }
     }
     private void UpdateFogOfWar(Vector2 playerPos)
@@ -213,7 +213,7 @@ public class MapGeneration : MonoBehaviour
         int radius = Math.Max(visionRadiusWidth, visionRadiusHeight);
 
         DrawCircle(fogOfWarTex, pos.x, pos.y, radius, Color.clear);
-        REF.UI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
+        REF.CombatUI._minimapScript._fogOfWarImage.sprite = Sprite.Create(fogOfWarTex,
                                              new Rect(0.0f, 0.0f, fogOfWarTex.width, fogOfWarTex.height),
                                              new Vector2(0.5f, 0.5f),
                                              100.0f);

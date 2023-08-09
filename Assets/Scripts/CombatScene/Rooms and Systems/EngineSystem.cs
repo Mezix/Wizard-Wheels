@@ -30,15 +30,15 @@ public class EngineSystem : ASystem
     }
     private void CreateUpgradeField()
     {
-        if (!REF.UI) return;
-        _upgradeField = REF.UI._upgradeScreen.CreateUpgradeField();
+        if (!REF.CombatUI) return;
+        _upgradeField = REF.CombatUI._upgradeScreen.CreateUpgradeField();
         InitUpgradeField();
 
         _upgradeField.InitUpgradeField("Engine", _upgradeField._currentLevel, _upgradeField._maxLevel, _upgradeLevels);
         _upgradeField._upgradeButton.onClick.AddListener(() => Upgrade());
         _upgradeField._downgradeButton.onClick.AddListener(() => Downgrade());
 
-        REF.UI._engineUIScript.UpdateEngineLevel(_upgradeField._currentLevel, _upgradeField._maxLevel);
+        REF.CombatUI._engineUIScript.UpdateEngineLevel(_upgradeField._currentLevel, _upgradeField._maxLevel);
 
         Events.instance.UpgradesSaved += SaveChanges;
         Events.instance.UpgradesReverted += RevertChanges;
@@ -46,23 +46,23 @@ public class EngineSystem : ASystem
     public void Upgrade()
     {
         if (_upgradeField._tempLevel >= _upgradeField._maxLevel) return;
-        if (REF.UI._upgradeScreen._remainingScrap <= _upgradeLevels[_upgradeField._tempLevel +1]) return;
+        if (REF.CombatUI._upgradeScreen._remainingScrap <= _upgradeLevels[_upgradeField._tempLevel +1]) return;
         _upgradeField._tempLevel++;
-        REF.UI._upgradeScreen.RemoveTempScrap(_upgradeLevels[_upgradeField._tempLevel]);
+        REF.CombatUI._upgradeScreen.RemoveTempScrap(_upgradeLevels[_upgradeField._tempLevel]);
         _upgradeField.SetTempLevel(_upgradeField._tempLevel);
     }
     public void Downgrade()
     {
         if (_upgradeField._tempLevel <= _upgradeField._currentLevel) return;
         _upgradeField._tempLevel--;
-        REF.UI._upgradeScreen.AddTempScrap(_upgradeLevels[_upgradeField._tempLevel +1]);
+        REF.CombatUI._upgradeScreen.AddTempScrap(_upgradeLevels[_upgradeField._tempLevel +1]);
         _upgradeField.SetTempLevel(_upgradeField._tempLevel);
     }
     public void SaveChanges()
     {
         _upgradeField._currentLevel = _upgradeField._tempLevel;
-        if (REF.UI) REF.UI._engineUIScript.UpdateEngineLevel(_upgradeField._currentLevel, _upgradeField._maxLevel);
-        REF.UI._upgradeScreen.UpdateMainScrapCounter();
+        if (REF.CombatUI) REF.CombatUI._engineUIScript.UpdateEngineLevel(_upgradeField._currentLevel, _upgradeField._maxLevel);
+        REF.CombatUI._upgradeScreen.UpdateMainScrapCounter();
     }
     public void RevertChanges()
     {
@@ -81,7 +81,7 @@ public class EngineSystem : ASystem
                 Upgrade();
             }
         }
-        REF.UI._upgradeScreen.UpdateMainScrapCounter();
+        REF.CombatUI._upgradeScreen.UpdateMainScrapCounter();
     }
 
     //  System Stuff

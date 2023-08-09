@@ -17,7 +17,7 @@ public class MainMenuSaveSlot : MonoBehaviour
         _slotIndex = saveSlot;
         if (data != null)
         {
-            _saveSlotNameText.text = "Save File " + saveSlot;
+            _saveSlotNameText.text = "Save File " + (saveSlot+1);
             _timePlayedText.gameObject.SetActive(true);
             _timePlayedText.text = HM.SecondsToTimeDisplay(data.TimeInSecondsPlayed);
             _deleteButton.gameObject.SetActive(true);

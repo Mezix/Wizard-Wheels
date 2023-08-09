@@ -113,7 +113,7 @@ public class MouseCursor : MonoBehaviour
         //Check for selecting ui first!
         if (Input.GetMouseButtonDown(0))
         {
-            startPosition = Input.mousePosition / REF.UI._canvas.scaleFactor;
+            startPosition = Input.mousePosition / REF.CombatUI._canvas.scaleFactor;
             if (IsPointerOverUIElement())
             {
                 boxVisual.gameObject.SetActive(false);
@@ -127,7 +127,7 @@ public class MouseCursor : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            endPosition = Input.mousePosition / REF.UI._canvas.scaleFactor;
+            endPosition = Input.mousePosition / REF.CombatUI._canvas.scaleFactor;
             DrawVisual();
             CreateRectSelection();
         }

@@ -83,7 +83,7 @@ public class PlayerData
     {
         Combat,
         Dialogue,
-        NewWizard,
+        FreeWizard,
         FreeLoot,
         Construction,
         Shop

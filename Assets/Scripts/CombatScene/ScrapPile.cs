@@ -28,7 +28,7 @@ public class ScrapPile : MonoBehaviour
     {
         if (_collected) return;
         _collected = true;
-        REF.UI._upgradeScreen.AddNewScrap(scrapValue, true);
+        REF.CombatUI._upgradeScreen.AddNewScrap(scrapValue, true);
         transform.parent = scrapParent;
         transform.localPosition = Vector3.zero;
         _scrapCollider.enabled = false;

@@ -7,12 +7,15 @@ public class EventSceneManager : MonoBehaviour
 {
     public ShopEventUI _shopEventUI;
     public DialogueEventUI _dialogueEventUI;
+    public FreeLootEventUI _freeLootEventUI;
+    public FreeWizardEventUI _freeWizardEventUI;
 
     private void Start()
     {
         _dialogueEventUI.Show(false);
         _shopEventUI.Show(false);
-
+        _freeLootEventUI.Show(false);
+        _freeWizardEventUI.Show(false);
         SetScene();
     }
 
@@ -30,9 +33,18 @@ public class EventSceneManager : MonoBehaviour
             _shopEventUI.Show(true);
             _shopEventUI.Init();
         }
+        else if (eventType.Equals(PlayerData.NodeEventType.FreeLoot))
+        {
+            _freeLootEventUI.Show(true);
+            _freeLootEventUI.Init();
+        }
+        else if (eventType.Equals(PlayerData.NodeEventType.FreeWizard))
+        {
+            _freeWizardEventUI.Show(true);
+            _freeWizardEventUI.Init();
+        }
         else
         {
-            //TEMP
             _dialogueEventUI.Show(true);
             _dialogueEventUI.Init();
         }
