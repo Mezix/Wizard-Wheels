@@ -1206,7 +1206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 766.61}
   m_SizeDelta: {x: 0, y: 1211.11}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &560670877693789059
@@ -9271,8 +9271,8 @@ RectTransform:
   m_GameObject: {fileID: 3179323374958174328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1707912912619972301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9310,7 +9310,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 4b5127d6ddac6004bbf987a5cf7ee81c, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -13433,7 +13433,7 @@ RectTransform:
   m_GameObject: {fileID: 4982852948726314716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6025563210928884034}
@@ -13441,7 +13441,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 32, y: -8}
+  m_SizeDelta: {x: 14, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1942121581613803933
 CanvasRenderer:
@@ -13471,7 +13471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 25ee3e611398bb64abb4858fa0dba403, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 054c24228528d7a488f066527c202374, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13510,10 +13510,11 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 4f087e099d8d922468ae7ff409996714,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 4f087e099d8d922468ae7ff409996714, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 4f087e099d8d922468ae7ff409996714, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 054c24228528d7a488f066527c202374, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -13732,7 +13733,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3770364901435736580}
   m_HandleRect: {fileID: 1628656977236298463}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 0.3670187
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -15970,6 +15971,7 @@ MonoBehaviour:
   steeringWheelSelectedByMouse: 0
   _rotateBackButton: {fileID: 7896494779842934317}
   _rotateBackButtonAnimator: {fileID: 6834969912062039399}
+  holdTime: 0
   _chainParent: {fileID: 7461252338436337331}
 --- !u!1 &5734338600229479543
 GameObject:
@@ -17715,7 +17717,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -17725,10 +17727,11 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 4f087e099d8d922468ae7ff409996714,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 4f087e099d8d922468ae7ff409996714, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 4f087e099d8d922468ae7ff409996714, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 054c24228528d7a488f066527c202374, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -17743,7 +17746,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -23705,7 +23708,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 296, y: 37.8}
+  m_SizeDelta: {x: 285, y: 26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9183198593818306723
 GameObject:

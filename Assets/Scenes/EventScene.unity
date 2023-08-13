@@ -1587,6 +1587,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FreeLootEventUI
       objectReference: {fileID: 0}
+    - target: {fileID: 8118727225545597996, guid: 9f1537218a9c18f4b88a3bc9018dd21b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1722,6 +1727,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FreeWizardEventUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 528371301529214235, guid: 901d330e4bf29b349b812ec53937a14e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
