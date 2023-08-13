@@ -14,7 +14,7 @@ public class GrabberArm : ASystem
     private float grabberSpeed;
 
     private Vector3 scrapPos;
-    private ScrapPile scrap;
+    private LootCrate scrap;
     private bool scrapCollection;
     public override void Awake()
     {
@@ -52,7 +52,7 @@ public class GrabberArm : ASystem
     {
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if (!hit.collider) return;
-        if (hit.collider.TryGetComponent(out ScrapPile s))
+        if (hit.collider.TryGetComponent(out LootCrate s))
         {
             s.Highlight();
         }
@@ -63,7 +63,7 @@ public class GrabberArm : ASystem
 
         RaycastHit2D hit = HM.RaycastToMouseCursor();
         if (!hit.collider) return;
-        if (hit.collider.TryGetComponent(out ScrapPile s))
+        if (hit.collider.TryGetComponent(out LootCrate s))
         {
             FireCrossbow();
             scrapPos = s.transform.position;

@@ -7,7 +7,7 @@ public class TankScrapCollector : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent(out ScrapPile scrap))
+        if(collision.TryGetComponent(out LootCrate scrap))
         {
             scrap.PickUpScrap(transform);
             scrap.RemoveScrap();

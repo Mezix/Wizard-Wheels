@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScrapPile : MonoBehaviour
+public class LootCrate : MonoBehaviour
 {
     public int scrapValue = 0;
     public GameObject _targetingCircle;

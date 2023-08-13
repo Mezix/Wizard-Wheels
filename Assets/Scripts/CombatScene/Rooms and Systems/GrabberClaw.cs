@@ -7,7 +7,7 @@ public class GrabberClaw : MonoBehaviour
     public Animator _clawAnimator;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<ScrapPile>())
+        if (other.GetComponent<LootCrate>())
         {
             _clawAnimator.SetBool("CloseClaw", true);
         }
