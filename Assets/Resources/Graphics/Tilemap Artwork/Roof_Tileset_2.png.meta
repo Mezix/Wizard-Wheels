@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fa942c5833209934b8981f8073e5decd
+guid: 94793b977aac64b4095852cc8518d1f8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -21,7 +21,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 48
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,127 +110,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tech_Wizard_Idle_Sheet_0
+      name: Roof_Tileset_2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a06b00d99caf6c4ab3c3e8082a9335d
-      internalID: -2096766138
+      spriteID: 4bde8bdb9ebac2f45b82413e378570a0
+      internalID: -324863265
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tech_Wizard_Idle_Sheet_1
+      name: Roof_Tileset_2_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 512
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79a97f5800bbdaf44892e41ad8c8e4af
-      internalID: 535194146
+      spriteID: 222b4f874abf3464cbcd5b2a7589b4fd
+      internalID: -1808258907
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tech_Wizard_Idle_Sheet_2
+      name: Roof_Tileset_2_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 384
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 487a60f333b10fb40a7e64a1319fcea4
-      internalID: -1166987732
+      spriteID: 9cecc08be55a4204298d3712cbb182f8
+      internalID: -1898299419
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tech_Wizard_Idle_Sheet_3
+      name: Roof_Tileset_2_3
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 512
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74779a2afb5acb24c91e6469bcb7168a
-      internalID: -2129199389
+      spriteID: 8d1d4c85b712f6a48a8e354cfcce5f82
+      internalID: 1522700812
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tech_Wizard_Idle_Sheet_4
+      name: Roof_Tileset_2_4
       rect:
         serializedVersion: 2
-        x: 256
+        x: 384
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f17dea40b0ae5148b6f967dc0c51877
-      internalID: 2143856250
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tech_Wizard_Idle_Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 405d101715e423a4980188935b144aef
-      internalID: 1305164477
+      spriteID: 095a78fc7352f38499d28aa2ea29b7da
+      internalID: -1556533484
       vertices: []
       indices: 
       edges: []
@@ -246,12 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Tech_Wizard_Idle_Sheet_0: -2096766138
-      Tech_Wizard_Idle_Sheet_1: 535194146
-      Tech_Wizard_Idle_Sheet_2: -1166987732
-      Tech_Wizard_Idle_Sheet_3: -2129199389
-      Tech_Wizard_Idle_Sheet_4: 2143856250
-      Tech_Wizard_Idle_Sheet_5: 1305164477
+      Roof_Tileset_2_0: -324863265
+      Roof_Tileset_2_1: -1808258907
+      Roof_Tileset_2_2: -1898299419
+      Roof_Tileset_2_3: 1522700812
+      Roof_Tileset_2_4: -1556533484
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
