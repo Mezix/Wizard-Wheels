@@ -68,6 +68,7 @@ public class DataStorage : MonoBehaviour
 
     public void AddWizard(WizardData wiz)
     {
+        if (playerData.WizardList == null) playerData.WizardList = new List<WizardData>();
         playerData.WizardList.Add(wiz);
     }
     public void FinishEvent()

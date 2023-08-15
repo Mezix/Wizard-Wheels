@@ -20,7 +20,7 @@ public class FreeWizardEventUI : MonoBehaviour
         _choosePromptText.gameObject.SetActive(true);
 
         _wizSlotPrefab = Resources.Load(GS.UIPrefabs("FreeWizardEventWizardSlot"), typeof(FreeWizardEventWizardSlot)) as FreeWizardEventWizardSlot;
-        List<AUnit> allTypesOfWizardToSpawn = Resources.LoadAll(GS.Wizards(), typeof(InventoryItem)).Cast<AUnit>().ToList();
+        List<AUnit> allTypesOfWizardToSpawn = Resources.LoadAll(GS.Wizards(), typeof(AUnit)).Cast<AUnit>().ToList();
 
         for (int i = 0; i < 3; i++)
         {
@@ -35,7 +35,7 @@ public class FreeWizardEventUI : MonoBehaviour
 
             WizardData newWizardData = new WizardData
             {
-                WizType = wizToSpawn.UnitClass,
+                WizType = wizToSpawn._unitStats._unitClass,
                 RoomPositionX = -1,
                 RoomPositionY = -1
             };

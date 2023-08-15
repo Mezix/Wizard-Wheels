@@ -13,9 +13,15 @@ public class PlayerData
     public int CurrentEventPathIndex;
     public float TimeInSecondsPlayed;
 
-    public PlayerData(List<InventoryItemData> invItemList, List<EventNode> events, float timePlayed, int pathIndex)
+    public PlayerData(List<InventoryItemData> invItemList, List<WizardData> wizList, List<EventNode> events, float timePlayed, int pathIndex)
     {
-        InventoryList = new List<InventoryItemData>();
+        InventoryList = invItemList;
+        WizardList = wizList;
+        CurrentEventPath = events;
+        TimeInSecondsPlayed = timePlayed;
+        CurrentEventPathIndex = pathIndex;
+
+        /*InventoryList = new List<InventoryItemData>();
         foreach (InventoryItemData item in invItemList)
         {
             InventoryItemData newItem = new InventoryItemData();
@@ -31,12 +37,8 @@ public class PlayerData
             newNode._event = node._event;
             newNode._visited = node._visited;
             CurrentEventPath.Add(newNode);
-        }
-
-        TimeInSecondsPlayed = timePlayed;
-        CurrentEventPathIndex = pathIndex;
+        }*/
     }
-
 
     //  Helper Methods
     public static List<EventNode> GenerateRandomRoute(int length)

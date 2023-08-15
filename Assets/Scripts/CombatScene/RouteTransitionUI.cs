@@ -10,6 +10,7 @@ public class RouteTransitionUI : MonoBehaviour
 
     public HorizontalLayoutGroup _routeLayoutGroup;
     public Button _loadEventButton;
+    public Button _returnToMenuButton;
     public Image _nextEventImage;
 
     private RouteNode _routeNodePrefab;
@@ -23,6 +24,7 @@ public class RouteTransitionUI : MonoBehaviour
     {
         _routeNodePrefab = Resources.Load(GS.UIPrefabs("RouteNode"), typeof (RouteNode)) as RouteNode;
         _routeConnectorPrefab = Resources.Load(GS.UIPrefabs("RouteNodeConnector"), typeof (RouteNodeConnector)) as RouteNodeConnector;
+        _returnToMenuButton.onClick.AddListener(() => Loader.Load(Loader.Scene.MenuScene));
     }
     private void Start()
     {

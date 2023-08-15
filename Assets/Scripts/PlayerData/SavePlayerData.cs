@@ -60,6 +60,15 @@ public static class SavePlayerData
     public static PlayerData GenerateFreshSaveFile(int saveSlot)
     {
         List<InventoryItemData> freshInventory = new List<InventoryItemData>();
+        List<WizardData> wizardData = new List<WizardData>
+        {
+            new WizardData
+            {
+                WizType = WizardType.TechWizard,
+                RoomPositionX = 0,
+                RoomPositionY = 0
+            }
+        };
         List<EventNode> freshRoute = GenerateRandomRoute(5);
         float timePlayed = 0;
 
@@ -75,7 +84,7 @@ public static class SavePlayerData
             freshInventory.Add(tmpItem);
         }
 
-        PlayerData freshPlayerData = new PlayerData(freshInventory, freshRoute, timePlayed, 0);
+        PlayerData freshPlayerData = new PlayerData(freshInventory, wizardData, freshRoute, timePlayed, 0);
         SavePlayer(saveSlot, freshPlayerData);
         return freshPlayerData;
     }
