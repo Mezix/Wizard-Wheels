@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerData
 {
     public List<InventoryItemData> InventoryList;
+    public List<WizardData> WizardList;
     public List<EventNode> CurrentEventPath;
     public int CurrentEventPathIndex;
     public float TimeInSecondsPlayed;
@@ -59,9 +60,20 @@ public class PlayerData
         return route;
     }
     
+    public int CheckIfInventoryContains(InventoryItemData itemToCheckIfExists)
+    {
+        int index = 0;
+        foreach(InventoryItemData itemToCheck in InventoryList)
+        {  
+            if (itemToCheck.Name == itemToCheckIfExists.Name) return index;
+            index++;
+        }
+        return -1;
+    }
+
     //  Structs
 
-    [System.Serializable]
+    [Serializable]
     public struct EventNode
     {
         public NodeEventType _event;
@@ -78,7 +90,7 @@ public class PlayerData
             _visited = visited;
         }
     }
-    [System.Serializable]
+    [Serializable]
     public enum NodeEventType
     {
         Combat,
@@ -89,11 +101,29 @@ public class PlayerData
         Shop
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct InventoryItemData
     {
         public string Name;
         public string SpritePath;
         public int Amount;
+    }
+
+    [Serializable]
+    public enum WizardType
+    {
+        TechWizard,
+        FirstAidFiddler,
+        PotionPeddler,
+        PortalPriest,
+        WoodlandWanderer,
+        ImmolatingImp
+    }
+    [Serializable]
+    public struct WizardData
+    {
+        public WizardType WizType;
+        public int RoomPositionX;
+        public int RoomPositionY;
     }
 }

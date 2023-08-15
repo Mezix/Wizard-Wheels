@@ -136,7 +136,7 @@ public class EnemyTankController : TankController
         }
         yield return new WaitForSeconds(0.435f);
 
-        LootCrate scrap = Instantiate(Resources.Load(GS.Prefabs("ScrapPile"), typeof(LootCrate)) as LootCrate);
+        LootCrate scrap = Instantiate(Resources.Load(GS.Prefabs("LootCrate"), typeof(LootCrate)) as LootCrate);
         scrap.transform.position = transform.position;
         scrap.InitScrap(UnityEngine.Random.Range(_tStats._scrapDropAmount, _tStats._scrapDropAmount + 10));
         //Debug.Log(_tStats._tankName + " has been destroyed.");

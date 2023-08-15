@@ -53,6 +53,7 @@ public class EventSceneManager : MonoBehaviour
         }
         else
         {
+            Debug.LogWarning("Don't know how you managed, but this event type does not exist lol");
             _dialogueEventUI.Show(true);
             _dialogueEventUI.Init();
         }

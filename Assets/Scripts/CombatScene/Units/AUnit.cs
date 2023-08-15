@@ -8,7 +8,7 @@ public abstract class AUnit : MonoBehaviour
 {
     public UnitStats _unitStats;
     public string UnitName { get; set; }
-    public string UnitClass { get; set; }
+    public PlayerData.WizardType UnitClass { get; set; }
     public float UnitHealth { get; set; }
     public float UnitSpeed { get; set; }
     public SpriteRenderer Rend { get; set; }
@@ -66,7 +66,7 @@ public abstract class AUnit : MonoBehaviour
             Debug.Log("No UnitStats found, setting default values");
 
             UnitName = "Bob";
-            UnitClass = "Tech Wizard";
+            UnitClass = PlayerData.WizardType.TechWizard;
             UnitHealth = 100f;
             UnitSpeed = 5f;
         }

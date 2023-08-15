@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WoodlandWanderer
   m_EditorClassIdentifier: 
   _unitName: Rolbunctor
-  _unitClass: Woodland Wanderer
+  _unitClass: 4
   _unitHealth: 200
   _unitSpeed: 0.5

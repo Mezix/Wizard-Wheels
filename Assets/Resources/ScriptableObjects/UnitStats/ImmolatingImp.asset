@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ImmolatingImp
   m_EditorClassIdentifier: 
   _unitName: Jimbo
-  _unitClass: Immolating Imp
+  _unitClass: 5
   _unitHealth: 75
   _unitSpeed: 1.5

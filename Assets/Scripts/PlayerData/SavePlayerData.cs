@@ -8,14 +8,14 @@ public static class SavePlayerData
 {
     public readonly static string path = Application.persistentDataPath;
 
-    public static void SavePlayer ( int saveSlot, PlayerData data)
+    public static void SavePlayer (int saveSlot, PlayerData data)
     {
         string saveSlotPath = path + "/player" + saveSlot + ".save";
 
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(saveSlotPath, FileMode.Create);
-
         formatter.Serialize(stream, data);
+
         stream.Close();
 
         Debug.Log("SAVE COMPLETE!");

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FirstAidFiddler
   m_EditorClassIdentifier: 
   _unitName: Stradivarius
-  _unitClass: First-Aid Fiddler
+  _unitClass: 1
   _unitHealth: 50
   _unitSpeed: 1.5

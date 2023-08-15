@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PortalPriest
   m_EditorClassIdentifier: 
   _unitName: Francis
-  _unitClass: Portal Priest
+  _unitClass: 3
   _unitHealth: 150
   _unitSpeed: 0.75

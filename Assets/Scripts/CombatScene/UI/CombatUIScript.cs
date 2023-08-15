@@ -58,6 +58,7 @@ public class CombatUIScript : MonoBehaviour
     public Button _xrayButton;
     public GameObject _pauseImage;
     public GameObject WeaponOutOfRangeParent;
+    public Button _finishEventButton;
 
     //  Double Clicks
 
@@ -133,6 +134,7 @@ public class CombatUIScript : MonoBehaviour
         _trackPlayerTankButton.onClick.AddListener(() => REF.Cam.SetTrackedVehicleToPlayer());
         _returnWizardsButton.onClick.AddListener(() => REF.PCon.ReturnAllWizardsToSavedPositions());
         _saveWizardsButton.onClick.AddListener(() => SaveWizards(true));
+        _finishEventButton.onClick.AddListener(() => DataStorage.Singleton.FinishEvent());
 
         //  Toggles
 
@@ -154,7 +156,7 @@ public class CombatUIScript : MonoBehaviour
     }
     public PlayerWizardUI CreateWizardUI(AUnit unit)
     {
-        PlayerWizardUI wizUI = Instantiate(Resources.Load(GS.WizardPrefabs("PlayerWizardUI"), typeof(PlayerWizardUI)) as PlayerWizardUI);
+        PlayerWizardUI wizUI = Instantiate(Resources.Load(GS.UIPrefabs("PlayerWizardUI"), typeof(PlayerWizardUI)) as PlayerWizardUI);
         wizUI._wizardImage.sprite = unit.PlayerUIWizardIcon;
         wizUI._UIWizardName.text = unit.UnitName;
         wizUI._index = unit.Index;

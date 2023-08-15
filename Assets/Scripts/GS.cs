@@ -23,7 +23,7 @@ public static class GS // Stands for "Get Strings"
     {
         return Prefabs() + "Weapons/" + filename;
     }
-    public static string WizardPrefabs(string filename = "")
+    public static string Wizards(string filename = "")
     {
         return Prefabs() + "Wizards/" + filename;
     }

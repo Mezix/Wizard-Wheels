@@ -44,3 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8fcccae172eee4fb2515ce4ab5415b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData:
+    InventoryList: []
+    CurrentEventPath: []
+    CurrentEventPathIndex: 0
+    TimeInSecondsPlayed: 0
+  saveSlot: 0

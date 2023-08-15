@@ -131,12 +131,14 @@ public class TankGeometry : MonoBehaviour
     }
     private void CreateRoofAtTile(int startX, int startY, int sizeX, int sizeY)
     {
+        //RoofTilemap.color = RoofColor;
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                Tile t = (Tile)Resources.Load("Tiles/Roof/DefaultRoofTile");
-                t.color = RoofColor;
+                //TileBase t = Resources.Load(GS.Tiles("Roof/RoofRuleTile"), typeof (TileBase)) as TileBase;
+                Tile t = (Tile) Resources.Load("Tiles/Roof/DefaultRoofTile");
+                //t.color = RoofColor;
                 RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
