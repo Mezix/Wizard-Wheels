@@ -172,6 +172,20 @@ public class PlayerData
         public bool _rightWallExists;
         public bool _bottomWallExists;
         public bool _leftWallExists;
-    }
 
+        public static RoomInfo EmptyRoomInfo()
+        {
+            return new RoomInfo {
+                RoomPrefabPath = "",
+                FloorTilePrefabPath = "",
+                RoofTilePrefabPath = "",
+                SystemPrefabPath = "",
+                MovementPrefabPath = "",
+                _topWallExists = false,
+                _rightWallExists = false,
+                _bottomWallExists = false,
+                _leftWallExists = false,
+            };
+        }
+    }
 }

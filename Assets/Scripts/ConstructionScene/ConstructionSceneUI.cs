@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
-public class CreateTankUI : MonoBehaviour
+public class ConstructionSceneUI : MonoBehaviour
 {
     public Button _saveTankButton;
     public Button _loadTankButton;
+    public Button _finishEventButton;
     public Button _colorButton;
     public Image _colorImage;
     [HideInInspector]
@@ -64,9 +65,10 @@ public class CreateTankUI : MonoBehaviour
     }
     public void InitButtons()
     {
-        _saveTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.SaveTank());
-        _loadTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.LoadTank());
+        _saveTankButton.onClick.AddListener(() => ConstructionSceneManager.instance.SaveTank());
+        _loadTankButton.onClick.AddListener(() => ConstructionSceneManager.instance.LoadTank());
         _colorButton.onClick.AddListener(() => RandomColor());
+        if(_finishEventButton) _finishEventButton.onClick.AddListener(() => DataStorage.Singleton.FinishEvent());
     }
     private void InitPartsDropdown()
     {
@@ -225,11 +227,11 @@ public class CreateTankUI : MonoBehaviour
     {
         if (index == 0)
         {
-            CreateTankSceneManager.instance._tGeo.FloorTilemap.gameObject.SetActive(b);
+            ConstructionSceneManager.instance._tGeo.FloorTilemap.gameObject.SetActive(b);
         }
         if (index == 1)
         {
-            CreateTankSceneManager.instance._tGeo.RoofTilemap.gameObject.SetActive(b);
+            ConstructionSceneManager.instance._tGeo.RoofTilemap.gameObject.SetActive(b);
         }
         if (index == 2)
         {
@@ -309,20 +311,20 @@ public class CreateTankUI : MonoBehaviour
     public void ChangeColor(Color c)
     {
         _colorImage.color = c;
-        if(CreateTankSceneManager.instance._tGeo.RoofTilemap)
+        if(ConstructionSceneManager.instance._tGeo.RoofTilemap)
         {
-            CreateTankSceneManager.instance._tGeo.RoofTilemap.color = c;
-            CreateTankSceneManager.instance._tGeo._vehicleData.RoofColorR = c.r;
-            CreateTankSceneManager.instance._tGeo._vehicleData.RoofColorG = c.g;
-            CreateTankSceneManager.instance._tGeo._vehicleData.RoofColorB = c.b;
+            ConstructionSceneManager.instance._tGeo.RoofTilemap.color = c;
+            ConstructionSceneManager.instance._tGeo._vehicleData.RoofColorR = c.r;
+            ConstructionSceneManager.instance._tGeo._vehicleData.RoofColorG = c.g;
+            ConstructionSceneManager.instance._tGeo._vehicleData.RoofColorB = c.b;
         }
-        if(CreateTankSceneManager.instance._tGeo.FloorTilemap)
+        if(ConstructionSceneManager.instance._tGeo.FloorTilemap)
         {
-            CreateTankSceneManager.instance._tGeo.FloorTilemap.color = c;
+            ConstructionSceneManager.instance._tGeo.FloorTilemap.color = c;
 
-            CreateTankSceneManager.instance._tGeo._vehicleData.FloorColorR = c.r;
-            CreateTankSceneManager.instance._tGeo._vehicleData.FloorColorG = c.g;
-            CreateTankSceneManager.instance._tGeo._vehicleData.FloorColorB = c.b;
+            ConstructionSceneManager.instance._tGeo._vehicleData.FloorColorR = c.r;
+            ConstructionSceneManager.instance._tGeo._vehicleData.FloorColorG = c.g;
+            ConstructionSceneManager.instance._tGeo._vehicleData.FloorColorB = c.b;
         }
     }
 }

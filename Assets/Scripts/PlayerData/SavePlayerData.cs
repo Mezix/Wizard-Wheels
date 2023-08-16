@@ -84,8 +84,8 @@ public static class SavePlayerData
             freshInventory.Add(tmpItem);
         }
         TankRoomConstellation StarterVehicleConstellation = Resources.Load(GS.VehicleConstellations("StarterVehicle"), typeof(TankRoomConstellation)) as TankRoomConstellation;
-        DataStorage.Singleton.playerData.vehicleData = DataStorage.Singleton.CopyVehicleDataFromTankRoomConstellationToVehicleData(StarterVehicleConstellation);
-        PlayerData freshPlayerData = new PlayerData(freshInventory, wizardData, freshRoute, timePlayed, 0, DataStorage.Singleton.playerData.vehicleData);
+        VehicleData freshVehicleData = DataStorage.Singleton.CopyVehicleDataFromTankRoomConstellationToVehicleData(StarterVehicleConstellation);
+        PlayerData freshPlayerData = new PlayerData(freshInventory, wizardData, freshRoute, timePlayed, 0, freshVehicleData);
         SavePlayer(saveSlot, freshPlayerData);
         return freshPlayerData;
     }

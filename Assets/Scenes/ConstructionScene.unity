@@ -65379,10 +65379,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 604466273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0efbfe8b98b84d42aec13747acf506f, type: 3}
+  m_Script: {fileID: 11500000, guid: 62b799c818cf3c349a87d98f941fbf72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trc: {fileID: 0}
+  _vehicleData:
+    VehicleMatrix:
+      XArray: []
+    _savedXSize: 0
+    _savedYSize: 0
+    _tmpXSize: 0
+    _tmpYSize: 0
+    FloorColorR: 1
+    FloorColorG: 1
+    FloorColorB: 1
+    RoofColorR: 1
+    RoofColorG: 1
+    RoofColorB: 1
   systemIcons: []
 --- !u!1 &616626815
 GameObject:
@@ -66572,7 +66584,7 @@ GameObject:
   - component: {fileID: 873256500}
   - component: {fileID: 873256503}
   - component: {fileID: 873256502}
-  - component: {fileID: 873256501}
+  - component: {fileID: 873256504}
   m_Layer: 0
   m_Name: CursorSprite
   m_TagString: Untagged
@@ -66599,24 +66611,6 @@ RectTransform:
   m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &873256501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 873256499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0936e24002eb2ef42ad1e4e0df67a82c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mouse: {fileID: 873256502}
-  _mouseState: 
-  zoomAmount: 0
-  desiredZoom: 0
-  minZoom: 0
-  maxZoom: 0
 --- !u!114 &873256502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66655,6 +66649,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873256499}
   m_CullTransparentMesh: 0
+--- !u!114 &873256504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873256499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f63d7eb50532b4093279dceae03504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mouse: {fileID: 873256502}
+  _mouseState: 
+  zoomAmount: 0
+  desiredZoom: 0
+  minZoom: 0
+  maxZoom: 0
 --- !u!1 &878371489
 GameObject:
   m_ObjectHideFlags: 0
@@ -67245,7 +67257,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1489770276}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: SelectTool
         m_Mode: 0
@@ -68027,7 +68039,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1423311042}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: SelectList
         m_Mode: 0
@@ -68523,7 +68535,7 @@ GameObject:
   - component: {fileID: 1423311040}
   - component: {fileID: 1423311039}
   - component: {fileID: 1423311038}
-  - component: {fileID: 1423311042}
+  - component: {fileID: 1423311043}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -68625,7 +68637,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1423311042
+--- !u!114 &1423311043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68634,7 +68646,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1423311037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e6b2b190ec11d447a7523d68ff73820, type: 3}
+  m_Script: {fileID: 11500000, guid: 459a04f8f19465c48ba69f9f76aab60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _saveTankButton: {fileID: 1126995699}
@@ -68652,30 +68664,15 @@ MonoBehaviour:
   _partTypeIndex: 0
   _floorTiles:
   - {fileID: 11400000, guid: 6c7f5f612e3ab404284a3372e1364b02, type: 2}
-  - {fileID: 11400000, guid: 7f9692d0e79c0d74bbaa14ce6ef6c3de, type: 2}
   floorIndex: 0
   _roofTiles:
-  - {fileID: 11400000, guid: 6877cc573fdce8847a26910c4d811e16, type: 2}
-  - {fileID: 11400000, guid: 9a466d8b0593a7b499026a159d6f52f6, type: 2}
-  - {fileID: 11400000, guid: 018f31f00dc6a2d4e9eac519b48b4ccb, type: 2}
-  - {fileID: 11400000, guid: 049af635d7a5f214892c0aa5a3dcb158, type: 2}
-  - {fileID: 11400000, guid: 661d321149a133e49b0b59b0acb9eb87, type: 2}
-  - {fileID: 11400000, guid: ae645f65a86f28443b055917591ce342, type: 2}
-  - {fileID: 11400000, guid: 83eda5b74fd318049b469b97749db634, type: 2}
-  - {fileID: 11400000, guid: e9f87029136814347ae007575e3257ba, type: 2}
-  - {fileID: 11400000, guid: 327f4cf76f02a6d48b7290d53f3e81b9, type: 2}
-  - {fileID: 11400000, guid: f33d9abfac0c428408da90c1d15ea276, type: 2}
-  - {fileID: 11400000, guid: 0912598e88247f643a531cd91a6233fc, type: 2}
-  - {fileID: 11400000, guid: 202af49b5b0ee4f4ba5e08208dc5218c, type: 2}
-  - {fileID: 11400000, guid: f45cc49886edbd443bc4a1b16c132c0b, type: 2}
-  - {fileID: 11400000, guid: 9bdca745f4090fb4a9a51e45149428ce, type: 2}
-  - {fileID: 11400000, guid: 48e122a288f5f4244b264a6db99f04ad, type: 2}
+  - {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
   roofIndex: 0
   _wallsGOList:
   - {fileID: 6970086284754415879, guid: 56547e9ffbd597b458d36429f5f9854e, type: 3}
-  - {fileID: 6970086284754415879, guid: 3bd31771363a72d4b8bdbb27bd5ea016, type: 3}
-  - {fileID: 6970086284754415879, guid: f83117ed70b0cdb4e950163575dacc4a, type: 3}
   - {fileID: 6970086284754415879, guid: 4b12a038431314545bcb27deef51769f, type: 3}
+  - {fileID: 6970086284754415879, guid: f83117ed70b0cdb4e950163575dacc4a, type: 3}
+  - {fileID: 6970086284754415879, guid: 3bd31771363a72d4b8bdbb27bd5ea016, type: 3}
   wallIndex: 0
   _tiresGOList:
   - {fileID: 7613949203658757165, guid: 7ac089229eaa84c40aae6f43ba1d1d2a, type: 3}
@@ -68683,8 +68680,8 @@ MonoBehaviour:
   tiresIndex: 0
   _systemGOList:
   - {fileID: 1723648633549023116, guid: 26bcb7eb185396848aed8d45c73b04fe, type: 3}
-  - {fileID: 1723648633549023116, guid: 32430ef957ea24a4eae0cc1b70d80ded, type: 3}
   - {fileID: 1723648633549023116, guid: 7381f104abcd52f49bbd748f507b603b, type: 3}
+  - {fileID: 1723648633549023116, guid: 32430ef957ea24a4eae0cc1b70d80ded, type: 3}
   - {fileID: 1723648633549023116, guid: 128728a8c46ecaa458dea18c73db4c4a, type: 3}
   - {fileID: 1723648633549023116, guid: f8f43c915f3802a4393bca830b2776b4, type: 3}
   - {fileID: 1723648633549023116, guid: 12008d215a20abb4f91f328bcef55d7d, type: 3}
@@ -68852,7 +68849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1489770275}
-  - component: {fileID: 1489770276}
+  - component: {fileID: 1489770277}
   m_Layer: 0
   m_Name: TankCreatorTools
   m_TagString: Untagged
@@ -68877,7 +68874,7 @@ Transform:
   - {fileID: 1747585595}
   m_Father: {fileID: 2123590648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1489770276
+--- !u!114 &1489770277
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68886,7 +68883,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1489770274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af2e13155862f554bb7e0f91e142eda6, type: 3}
+  m_Script: {fileID: 11500000, guid: a2f53d763961b034796577ca427fe854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _tempFloorGrid: {fileID: 2101032246}
@@ -71025,7 +71022,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1423311042}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: SelectPart
         m_Mode: 0
@@ -72557,14 +72554,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2123590647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb69e56405c8d80488e5aef42630e5be, type: 3}
+  m_Script: {fileID: 11500000, guid: f618c541c8f436b419386967ffb0a14d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tools: {fileID: 1489770276}
+  _tools: {fileID: 1489770277}
   _tGeo: {fileID: 604466275}
-  _tUI: {fileID: 1423311042}
-  mouse: {fileID: 873256501}
-  tankToEdit: {fileID: 11400000, guid: 43c1e85dbc0e41c4fb6b01add235040e, type: 2}
+  _tUI: {fileID: 1423311043}
+  mouse: {fileID: 873256504}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
