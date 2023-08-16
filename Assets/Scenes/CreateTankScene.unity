@@ -68722,21 +68722,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7f9692d0e79c0d74bbaa14ce6ef6c3de, type: 2}
   floorIndex: 0
   _roofTiles:
-  - {fileID: 11400000, guid: 6877cc573fdce8847a26910c4d811e16, type: 2}
-  - {fileID: 11400000, guid: 9a466d8b0593a7b499026a159d6f52f6, type: 2}
-  - {fileID: 11400000, guid: 018f31f00dc6a2d4e9eac519b48b4ccb, type: 2}
-  - {fileID: 11400000, guid: 049af635d7a5f214892c0aa5a3dcb158, type: 2}
-  - {fileID: 11400000, guid: 661d321149a133e49b0b59b0acb9eb87, type: 2}
-  - {fileID: 11400000, guid: ae645f65a86f28443b055917591ce342, type: 2}
-  - {fileID: 11400000, guid: 83eda5b74fd318049b469b97749db634, type: 2}
-  - {fileID: 11400000, guid: e9f87029136814347ae007575e3257ba, type: 2}
-  - {fileID: 11400000, guid: 327f4cf76f02a6d48b7290d53f3e81b9, type: 2}
-  - {fileID: 11400000, guid: f33d9abfac0c428408da90c1d15ea276, type: 2}
-  - {fileID: 11400000, guid: 0912598e88247f643a531cd91a6233fc, type: 2}
-  - {fileID: 11400000, guid: 202af49b5b0ee4f4ba5e08208dc5218c, type: 2}
-  - {fileID: 11400000, guid: f45cc49886edbd443bc4a1b16c132c0b, type: 2}
-  - {fileID: 11400000, guid: 9bdca745f4090fb4a9a51e45149428ce, type: 2}
-  - {fileID: 11400000, guid: 48e122a288f5f4244b264a6db99f04ad, type: 2}
+  - {fileID: 11400000, guid: 211846b8447a4e940b626f3275a0190c, type: 2}
   roofIndex: 0
   _wallsGOList:
   - {fileID: 6970086284754415879, guid: 56547e9ffbd597b458d36429f5f9854e, type: 3}
@@ -72350,7 +72336,7 @@ MonoBehaviour:
   _tGeo: {fileID: 604466275}
   _tUI: {fileID: 1423311042}
   mouse: {fileID: 873256501}
-  tankToEdit: {fileID: 11400000, guid: 43c1e85dbc0e41c4fb6b01add235040e, type: 2}
+  tankToEdit: {fileID: 11400000, guid: 4a6e797f106c9f04aaf7bbac6497f42a, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

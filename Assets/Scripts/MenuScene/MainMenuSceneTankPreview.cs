@@ -109,12 +109,17 @@ public class MainMenuSceneTankPreview : MonoBehaviour
             for (int y = 0; y < _trc._savedYSize; y++)
             {
                 if (x >= _trc._savedMatrix.XArray.Length || y >= _trc._savedMatrix.XArray[0].YStuff.Length) continue;
-                if (_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefab)
+
+                if (_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
-                    int sizeX = _trc._savedMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeX;
-                    int sizeY = _trc._savedMatrix.XArray[x].YStuff[y].RoomPrefab.GetComponent<Room>().sizeY;
-                    LoadFloorAtPos(x, y, sizeX, sizeY);
-                    LoadRoofAtPos(x, y, sizeX, sizeY);
+                    Room room = Resources.Load(_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room)) as Room;
+                    if(room)
+                    {
+                        int sizeX = room.sizeX;
+                        int sizeY = room.sizeY;
+                        LoadFloorAtPos(x, y, sizeX, sizeY);
+                        LoadRoofAtPos(x, y, sizeX, sizeY);
+                    }
                 }
             }
         }
@@ -170,7 +175,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                Tile t = _trc._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefab;
+                Tile t = Instantiate(Resources.Load(_trc._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath, typeof(Tile))) as Tile;
                 //t.color = _trc._tmpMatrix.XArray[x].YStuff[y].FloorColor;
                 //t.color = Color.white;
                 TmpFloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
@@ -183,7 +188,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                Tile t = _trc._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefab;
+                Tile t = Instantiate(Resources.Load(_trc._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath, typeof(Tile))) as Tile;
                 //t.color = _trc._tmpMatrix.XArray[x].YStuff[y].RoofColor;
                 //t.color = Color.white;
                 TmpRoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
@@ -207,7 +212,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
             for (int x = 0; x < _trc._savedXSize; x++)
             {
                 if (x >= _trc._savedMatrix.XArray.Length || y >= _trc._savedMatrix.XArray[0].YStuff.Length) continue;
-                if (_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefab)
+                if (_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
                     LoadRoomAtPos(x, y);
                 }
@@ -216,21 +221,20 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     }
     public void LoadRoomAtPos(int x, int y)
     {
-        GameObject rGO = Instantiate(_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefab);
-        Room r = rGO.GetComponent<Room>();
-        r.tr = _trc;
-        rGO.transform.parent = TmpRoomsParent.transform;
-        rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-        rGO.transform.localScale = Vector3.one;
-        TmpAllRooms.Add(r);
+        Room room = Instantiate(Resources.Load(_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room))) as Room;
+        room.tr = _trc;
+        room.gameObject.transform.parent = TmpRoomsParent.transform;
+        room.gameObject.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+        room.gameObject.transform.localScale = Vector3.one;
+        TmpAllRooms.Add(room);
 
         // Set the Room Positions
         int roomPosNr = 0;
-        for (int roomY = 0; roomY < r.sizeY; roomY++)
+        for (int roomY = 0; roomY < room.sizeY; roomY++)
         {
-            for (int roomX = 0; roomX < r.sizeX; roomX++)
+            for (int roomX = 0; roomX < room.sizeX; roomX++)
             {
-                _roomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomPosNr];
+                _roomPosMatrix[x + roomX, y + roomY] = room.allRoomPositions[roomPosNr];
                 _roomPosMatrix[x + roomX, y + roomY]._xPos = x + _roomPosMatrix[x + roomX, y + roomY]._xRel;
                 _roomPosMatrix[x + roomX, y + roomY]._yPos = y + _roomPosMatrix[x + roomX, y + roomY]._yRel;
 
@@ -240,14 +244,14 @@ public class MainMenuSceneTankPreview : MonoBehaviour
             }
         }
 
-        foreach(RoomPosition rPos in r.allRoomPositions) rPos.GetComponent<SpriteRenderer>().enabled = false; // Disable for preview!
+        foreach(RoomPosition rPos in room.allRoomPositions) rPos.GetComponent<SpriteRenderer>().enabled = false; // Disable for preview!
 
         //sets the corner of the room that doesnt get caught with the matrix
-        _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY - 1];
-        _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
-        _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
+        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1] = room.allRoomPositions[room.sizeX * room.sizeY - 1];
+        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1]._xPos = x + room.sizeX - 1;
+        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1]._yPos = y + room.sizeY - 1;
 
-        _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
+        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1].name = "X" + (x + room.sizeX - 1).ToString() + " , Y" + (y + room.sizeY - 1).ToString();
     }
     public void CreateWalls()
     {
@@ -293,19 +297,13 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         {
             for (int y = 0; y < _trc._savedYSize; y++)
             {
-                if (_trc._savedMatrix.XArray[x].YStuff[y].TirePrefab)
+                if (_trc._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath != "")
                 {
-                    GameObject tire = _trc._savedMatrix.XArray[x].YStuff[y].TirePrefab;
-
-                    if (_trc._savedMatrix.XArray[x].YStuff[y].TirePrefab.GetComponentInChildren<Tire>() != null)
-                    {
-                        //print(x.ToString() + ", " + y.ToString());
-                        if (!_roomPosMatrix[x, y]) continue;
-                        GameObject tireObj = Instantiate(tire);
-                        tireObj.transform.parent = _roomPosMatrix[x, y].transform;
-                        tireObj.transform.localPosition = Vector3.zero;
-                        tireObj.transform.localScale = Vector3.one;
-                    }
+                    if (!_roomPosMatrix[x, y]) continue;
+                    Tire tirePrefab = Resources.Load(_trc._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(Tire)) as Tire;
+                    tirePrefab.transform.parent = _roomPosMatrix[x, y].transform;
+                    tirePrefab.transform.localPosition = Vector3.zero;
+                    tirePrefab.transform.localScale = Vector3.one;
                 }
             }
         }
@@ -334,10 +332,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         {
             for (int y = 0; y < _trc._savedYSize; y++)
             {
-                if (_trc._savedMatrix.XArray[x].YStuff[y].SystemPrefab)
+                if (_trc._savedMatrix.XArray[x].YStuff[y].SystemPrefabPath != "")
                 {
-                    GameObject system = _trc._savedMatrix.XArray[x].YStuff[y].SystemPrefab;
-
+                    GameObject system = Resources.Load(_trc._savedMatrix.XArray[x].YStuff[y].SystemPrefabPath, typeof(GameObject)) as GameObject;
                     if (_roomPosMatrix[x, y]._spawnedSystem != null) return;
                     //if (!_roomPosMatrix[x, y]) continue;
                     GameObject systemObj = Instantiate(system);

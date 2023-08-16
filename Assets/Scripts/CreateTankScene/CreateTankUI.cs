@@ -68,7 +68,7 @@ public class CreateTankUI : MonoBehaviour
         _saveTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.SaveTank());
         _loadTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.LoadTank());
         _colorButton.onClick.AddListener(() => RandomColor());
-        _finishEventButton.onClick.AddListener(() => DataStorage.Singleton.FinishEvent());
+        if(_finishEventButton) _finishEventButton.onClick.AddListener(() => DataStorage.Singleton.FinishEvent());
     }
     private void InitPartsDropdown()
     {

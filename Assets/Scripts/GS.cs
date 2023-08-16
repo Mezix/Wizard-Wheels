@@ -23,6 +23,14 @@ public static class GS // Stands for "Get Strings"
     {
         return Prefabs() + "Weapons/" + filename;
     }
+    public static string SystemPrefabs(string filename = "")
+    {
+        return Prefabs() + "Systems/" + filename;
+    }
+    public static string Movement(string filename = "")
+    {
+        return Prefabs() + "Movement/" + filename;
+    }
     public static string Wizards(string filename = "")
     {
         return Prefabs() + "Wizards/" + filename;
@@ -102,6 +110,14 @@ public static class GS // Stands for "Get Strings"
     {
         return "Tiles/" + filename;
     }
+    public static string FloorTiles(string filename = "")
+    {
+        return Tiles() + "Floor/" + filename;
+    }
+    public static string RoofTiles(string filename = "")
+    {
+        return Tiles() + "Roof/" + filename;
+    }
     public static string BGTiles(string filename = "")
     {
         return Tiles() + "BG Tiles/" + filename;
@@ -117,6 +133,10 @@ public static class GS // Stands for "Get Strings"
     public static string InventoryItems(string filename = "")
     {
         return ScriptableObjects() + "InventoryItems/" + filename;
+    }
+    public static string VehicleConstellations(string filename = "")
+    {
+        return ScriptableObjects() + "VehicleConstellations/" + filename;
     }
 
 }

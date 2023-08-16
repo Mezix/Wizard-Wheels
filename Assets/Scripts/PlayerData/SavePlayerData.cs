@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 using static PlayerData;
+using System.Linq;
 
 public static class SavePlayerData
 {
@@ -72,9 +73,7 @@ public static class SavePlayerData
         };
         List<EventNode> freshRoute = GenerateRandomRoute(5);
         float timePlayed = 0;
-
-
-        UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
+        List<InventoryItem> inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem)).Cast<InventoryItem>().ToList();
 
         foreach (InventoryItem item in inventoryItemTypeList)
         {
@@ -84,8 +83,9 @@ public static class SavePlayerData
             tmpItem.Amount = 0;
             freshInventory.Add(tmpItem);
         }
+        TankRoomConstellation StarterVehicleConstellation = Resources.Load(GS.VehicleConstellations("StarterVehicle"), typeof(TankRoomConstellation)) as TankRoomConstellation;
 
-        PlayerData freshPlayerData = new PlayerData(freshInventory, wizardData, freshRoute, timePlayed, 0);
+        PlayerData freshPlayerData = new PlayerData(freshInventory, wizardData, freshRoute, timePlayed, 0, StarterVehicleConstellation);
         SavePlayer(saveSlot, freshPlayerData);
         return freshPlayerData;
     }

@@ -1,0 +1,190 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
+  m_Name: StarterVehicle
+  m_EditorClassIdentifier: 
+  _savedXSize: 3
+  _savedYSize: 3
+  _tmpXSize: 3
+  _tmpYSize: 3
+  _savedMatrix:
+    XArray:
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
+        _topWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 1
+        _leftWallExists: 1
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 1
+        _leftWallExists: 0
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        _topWallExists: 1
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 1
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 1
+        _leftWallExists: 0
+  _tmpMatrix:
+    XArray:
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
+        _topWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 1
+        _leftWallExists: 1
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 1
+        _leftWallExists: 0
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        _topWallExists: 1
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        _topWallExists: 1
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
+        RoofTilePrefabPath: 
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 1
+        _leftWallExists: 0

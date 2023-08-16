@@ -7,6 +7,7 @@ using UnityEngine;
 using System;
 using UnityEngine.Tilemaps;
 
+[Serializable]
 [CreateAssetMenu(menuName = "ScriptableObjects/TankRoomConstellations")]
 public class TankRoomConstellation : ScriptableObject
 {
@@ -27,11 +28,10 @@ public class TankRoomConstellation : ScriptableObject
         }
         ClearTmpMatrix();
         SavedToTmpMatrix();
-        //CopyMatrixFromTo(_savedMatrix, _tmpMatrix);
         _tmpXSize = _savedXSize;
         _tmpYSize = _savedYSize;
     }
-    public void SaveTank(string newName)
+    public void SaveVehicle(string newName)
     {
         //change name
         if (newName != "")
@@ -52,8 +52,6 @@ public class TankRoomConstellation : ScriptableObject
         #endif
         Debug.Log("SAVED");
     }
-    
-
     public void ClearTmpMatrix()
     {
         _tmpMatrix = new XValues(0, 0);
@@ -95,13 +93,20 @@ public class TankRoomConstellation : ScriptableObject
     public class RoomInfo
     {
         //  Fields for loading and saving
+        /*
         public GameObject RoomPrefab = null;
         public Tile FloorTilePrefab = null;
-        [HideInInspector] public Color FloorColor = Color.white;
+        public Color FloorColor = Color.white;
         public Tile RoofTilePrefab = null;
-        [HideInInspector] public Color RoofColor = Color.white;
+        public Color RoofColor = Color.white;
         public GameObject SystemPrefab = null;
         public GameObject TirePrefab = null;
+        */
+        public string RoomPrefabPath = null;
+        public string FloorTilePrefabPath = null;
+        public string RoofTilePrefabPath = null;
+        public string SystemPrefabPath = null;
+        public string MovementPrefabPath = null;
 
         public bool _topWallExists = false;
         public bool _rightWallExists = false;
@@ -119,19 +124,19 @@ public class TankRoomConstellation : ScriptableObject
             for (int y = 0; y < _savedMatrix.XArray[x].YStuff.Length; y++)
             {
                 _tmpMatrix.XArray[x].YStuff[y] = new RoomInfo();
-                _tmpMatrix.XArray[x].YStuff[y].RoomPrefab = _savedMatrix.XArray[x].YStuff[y].RoomPrefab;
-                _tmpMatrix.XArray[x].YStuff[y].RoofTilePrefab = _savedMatrix.XArray[x].YStuff[y].RoofTilePrefab;
-                _tmpMatrix.XArray[x].YStuff[y].FloorTilePrefab = _savedMatrix.XArray[x].YStuff[y].FloorTilePrefab;
-                _tmpMatrix.XArray[x].YStuff[y].SystemPrefab = _savedMatrix.XArray[x].YStuff[y].SystemPrefab;
-                _tmpMatrix.XArray[x].YStuff[y].TirePrefab = _savedMatrix.XArray[x].YStuff[y].TirePrefab;
-                _tmpMatrix.XArray[x].YStuff[y].SystemPrefab = _savedMatrix.XArray[x].YStuff[y].SystemPrefab;
+                _tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath = _savedMatrix.XArray[x].YStuff[y].RoomPrefabPath;
+                _tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath = _savedMatrix.XArray[x].YStuff[y].RoofTilePrefabPath;
+                _tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = _savedMatrix.XArray[x].YStuff[y].FloorTilePrefabPath;
+                _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath = _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+                _tmpMatrix.XArray[x].YStuff[y].MovementPrefabPath = _savedMatrix.XArray[x].YStuff[y].MovementPrefabPath;
+                _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath = _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
 
                 _tmpMatrix.XArray[x].YStuff[y]._topWallExists = _savedMatrix.XArray[x].YStuff[y]._topWallExists;
                 _tmpMatrix.XArray[x].YStuff[y]._bottomWallExists = _savedMatrix.XArray[x].YStuff[y]._bottomWallExists;
                 _tmpMatrix.XArray[x].YStuff[y]._leftWallExists = _savedMatrix.XArray[x].YStuff[y]._leftWallExists;
                 _tmpMatrix.XArray[x].YStuff[y]._rightWallExists = _savedMatrix.XArray[x].YStuff[y]._rightWallExists;
-                _tmpMatrix.XArray[x].YStuff[y].FloorColor = _savedMatrix.XArray[x].YStuff[y].FloorColor;
-                _tmpMatrix.XArray[x].YStuff[y].RoofColor = _savedMatrix.XArray[x].YStuff[y].RoofColor;
+                //_tmpMatrix.XArray[x].YStuff[y].FloorColor = _savedMatrix.XArray[x].YStuff[y].FloorColor;
+                //_tmpMatrix.XArray[x].YStuff[y].RoofColor = _savedMatrix.XArray[x].YStuff[y].RoofColor;
             }
         }
     }
@@ -145,19 +150,19 @@ public class TankRoomConstellation : ScriptableObject
             for (int y = 0; y < _tmpMatrix.XArray[x].YStuff.Length; y++)
             {
                 _savedMatrix.XArray[x].YStuff[y] = new RoomInfo();
-                _savedMatrix.XArray[x].YStuff[y].RoomPrefab = _tmpMatrix.XArray[x].YStuff[y].RoomPrefab;
-                _savedMatrix.XArray[x].YStuff[y].RoofTilePrefab = _tmpMatrix.XArray[x].YStuff[y].RoofTilePrefab;
-                _savedMatrix.XArray[x].YStuff[y].FloorTilePrefab = _tmpMatrix.XArray[x].YStuff[y].FloorTilePrefab;
-                _savedMatrix.XArray[x].YStuff[y].SystemPrefab = _tmpMatrix.XArray[x].YStuff[y].SystemPrefab;
-                _savedMatrix.XArray[x].YStuff[y].TirePrefab = _tmpMatrix.XArray[x].YStuff[y].TirePrefab;
-                _savedMatrix.XArray[x].YStuff[y].SystemPrefab = _tmpMatrix.XArray[x].YStuff[y].SystemPrefab;
+                _savedMatrix.XArray[x].YStuff[y].RoomPrefabPath = _tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].RoofTilePrefabPath = _tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = _tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath = _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].MovementPrefabPath = _tmpMatrix.XArray[x].YStuff[y].MovementPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath = _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath;
 
                 _savedMatrix.XArray[x].YStuff[y]._topWallExists = _tmpMatrix.XArray[x].YStuff[y]._topWallExists;
                 _savedMatrix.XArray[x].YStuff[y]._bottomWallExists = _tmpMatrix.XArray[x].YStuff[y]._bottomWallExists;
                 _savedMatrix.XArray[x].YStuff[y]._leftWallExists = _tmpMatrix.XArray[x].YStuff[y]._leftWallExists;
                 _savedMatrix.XArray[x].YStuff[y]._rightWallExists = _tmpMatrix.XArray[x].YStuff[y]._rightWallExists;
-                _savedMatrix.XArray[x].YStuff[y].FloorColor = _tmpMatrix.XArray[x].YStuff[y].FloorColor;
-                _savedMatrix.XArray[x].YStuff[y].RoofColor = _tmpMatrix.XArray[x].YStuff[y].RoofColor;
+                //_savedMatrix.XArray[x].YStuff[y].FloorColor = _tmpMatrix.XArray[x].YStuff[y].FloorColor;
+                //_savedMatrix.XArray[x].YStuff[y].RoofColor = _tmpMatrix.XArray[x].YStuff[y].RoofColor;
             }
         }
     }
@@ -170,12 +175,12 @@ public class TankRoomConstellation : ScriptableObject
             for (int y = 0; y < CopyFrom.XArray[x].YStuff.Length; y++)
             {
                 CopyTo.XArray[x].YStuff[y] = new RoomInfo();
-                CopyTo.XArray[x].YStuff[y].RoomPrefab = CopyFrom.XArray[x].YStuff[y].RoomPrefab;
-                CopyTo.XArray[x].YStuff[y].RoofTilePrefab = CopyFrom.XArray[x].YStuff[y].RoofTilePrefab;
-                CopyTo.XArray[x].YStuff[y].FloorTilePrefab = CopyFrom.XArray[x].YStuff[y].FloorTilePrefab;
-                CopyTo.XArray[x].YStuff[y].SystemPrefab = CopyFrom.XArray[x].YStuff[y].SystemPrefab;
-                CopyTo.XArray[x].YStuff[y].TirePrefab = CopyFrom.XArray[x].YStuff[y].TirePrefab;
-                CopyTo.XArray[x].YStuff[y].SystemPrefab = CopyFrom.XArray[x].YStuff[y].SystemPrefab;
+                CopyTo.XArray[x].YStuff[y].RoomPrefabPath = CopyFrom.XArray[x].YStuff[y].RoomPrefabPath;
+                CopyTo.XArray[x].YStuff[y].RoofTilePrefabPath = CopyFrom.XArray[x].YStuff[y].RoofTilePrefabPath;
+                CopyTo.XArray[x].YStuff[y].FloorTilePrefabPath = CopyFrom.XArray[x].YStuff[y].FloorTilePrefabPath;
+                CopyTo.XArray[x].YStuff[y].SystemPrefabPath = CopyFrom.XArray[x].YStuff[y].SystemPrefabPath;
+                CopyTo.XArray[x].YStuff[y].MovementPrefabPath = CopyFrom.XArray[x].YStuff[y].MovementPrefabPath;
+                CopyTo.XArray[x].YStuff[y].SystemPrefabPath = CopyFrom.XArray[x].YStuff[y].SystemPrefabPath;
 
                 CopyTo.XArray[x].YStuff[y]._topWallExists = CopyFrom.XArray[x].YStuff[y]._topWallExists;
                 CopyTo.XArray[x].YStuff[y]._bottomWallExists = CopyFrom.XArray[x].YStuff[y]._bottomWallExists;

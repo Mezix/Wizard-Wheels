@@ -48,7 +48,7 @@ public class CreateTankSceneManager : MonoBehaviour
             AssetDatabase.CreateAsset(tankToEdit, "Assets/Scripts/GameScene/SOs/TankConstellation/" + newName);
             #endif
         }
-        tankToEdit.SaveTank(newName);
+        tankToEdit.SaveVehicle(newName);
     }
     public void LoadTank()
     {
