@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static EnemyEvent;
+using static PlayerData;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class EnemyManager : MonoBehaviour
     {
         public bool taken;
         public Color color;
-        //public EnemyTankController enemyTakingColor;
         public int enemyTakingColorID;
     }
     private void Awake()
@@ -62,8 +62,7 @@ public class EnemyManager : MonoBehaviour
 
         Vector3 spawnPos;
         EnemyTankController enemyTank = Instantiate(Resources.Load(GS.Enemy("EnemyTank"), typeof (EnemyTankController)) as EnemyTankController);
-
-        enemyTank.TGeo._tankRoomConstellation = _constellation;
+        enemyTank.TGeo._vehicleData = DataStorage.Singleton.CopyVehicleDataFromTankRoomConstellationToVehicleData(_constellation);
         enemyTank._tStats = stats;
         enemyTank._tankColor = GetNextColor(enemyTank.GetInstanceID());
 

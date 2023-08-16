@@ -7,21 +7,23 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    //public TankRoomConstellation VehicleConstellation;
     public List<InventoryItemData> InventoryList;
     public List<WizardData> WizardList;
     public List<EventNode> CurrentEventPath;
     public int CurrentEventPathIndex;
     public float TimeInSecondsPlayed;
+    public VehicleData vehicleData;
 
-    public PlayerData(List<InventoryItemData> invItemList, List<WizardData> wizList, List<EventNode> events, float timePlayed, int pathIndex)
+    //  Vehicle Data
+
+    public PlayerData(List<InventoryItemData> invItemList, List<WizardData> wizList, List<EventNode> events, float timePlayed, int pathIndex, VehicleData vehicleConstellation)
     {
         InventoryList = invItemList;
         WizardList = wizList;
         CurrentEventPath = events;
         TimeInSecondsPlayed = timePlayed;
         CurrentEventPathIndex = pathIndex;
-        //VehicleConstellation = vehicleConstellation;
+        vehicleData = vehicleConstellation;
     }
 
     //  Helper Methods
@@ -113,4 +115,63 @@ public class PlayerData
         public int RoomPositionY;
         public int Happiness;
     }
+
+    // Vehicle
+
+
+    [Serializable]
+    public class VehicleData
+    {
+        public PlayerVehicleMatrix VehicleMatrix;
+
+        public int _savedXSize = 0; //just the amount of Tiles in a given direction
+        public int _savedYSize = 0;
+
+        public int _tmpXSize = 0;
+        public int _tmpYSize = 0;
+
+        public float FloorColorR = 1;
+        public float FloorColorG = 1;
+        public float FloorColorB = 1;
+        public float RoofColorR = 1;
+        public float RoofColorG = 1;
+        public float RoofColorB = 1;
+    }
+    [Serializable]
+    public class PlayerVehicleMatrix
+    {
+        public YValues[] XArray = null;
+        public PlayerVehicleMatrix(int xLength, int yLength)
+        {
+            XArray = new YValues[xLength];
+            for (int i = 0; i < xLength; i++)
+            {
+                XArray[i] = new YValues(yLength);
+            }
+        }
+    }
+    [Serializable]
+    public class YValues
+    {
+        public RoomInfo[] YStuff = null;
+        public YValues(int yLength)
+        {
+            YStuff = new RoomInfo[yLength];
+        }
+    }
+    [Serializable]
+    public struct RoomInfo
+    {
+        public string RoomPrefabPath;
+        public string FloorTilePrefabPath;
+        public string RoofTilePrefabPath;
+        public string SystemPrefabPath;
+        public string MovementPrefabPath;
+
+        public bool _topWallExists;
+        public bool _rightWallExists;
+        public bool _bottomWallExists;
+        public bool _leftWallExists;
+    }
+
 }

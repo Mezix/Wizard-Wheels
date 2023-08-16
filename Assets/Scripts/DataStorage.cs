@@ -92,4 +92,40 @@ public class DataStorage : MonoBehaviour
             Happiness = playerData.WizardList[wizIndex].Happiness + happinessAdjustmentAmount
         };
     }
+
+    public VehicleData CopyVehicleDataFromTankRoomConstellationToVehicleData(TankRoomConstellation matrixToCopy)
+    {
+        VehicleData data = new VehicleData();
+        data._savedXSize = matrixToCopy._savedXSize;
+        data._savedYSize = matrixToCopy._savedYSize;
+
+        data.RoofColorR = matrixToCopy.RoofColorR;
+        data.RoofColorG = matrixToCopy.RoofColorG;
+        data.RoofColorB = matrixToCopy.RoofColorB;
+
+        data.FloorColorR = matrixToCopy.FloorColorR;
+        data.FloorColorG = matrixToCopy.FloorColorG;
+        data.FloorColorB = matrixToCopy.FloorColorB;
+
+        data.VehicleMatrix = new PlayerVehicleMatrix(matrixToCopy._savedXSize, matrixToCopy._savedYSize);
+
+        for (int x = 0; x < data._savedXSize; x++)
+        {
+            for (int y = 0; y < data._savedYSize; y++)
+            {
+                data.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath;
+                data.VehicleMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].FloorTilePrefabPath;
+                data.VehicleMatrix.XArray[x].YStuff[y].RoofTilePrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoofTilePrefabPath;
+                data.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+                data.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath;
+
+                data.VehicleMatrix.XArray[x].YStuff[y]._topWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._topWallExists;
+                data.VehicleMatrix.XArray[x].YStuff[y]._rightWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._rightWallExists;
+                data.VehicleMatrix.XArray[x].YStuff[y]._bottomWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._bottomWallExists;
+                data.VehicleMatrix.XArray[x].YStuff[y]._leftWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._leftWallExists;
+            }
+        }
+
+        return data;
+    }
 }

@@ -109,7 +109,7 @@ public class UnitPathfinding : MonoBehaviour
             if (x != 0)
             {
                 int checkX = roomPosToCheck._xPos + x;
-                if (checkX >= 0 && checkX < tank._tankRoomConstellation._savedXSize)
+                if (checkX >= 0 && checkX < tank._vehicleData._savedXSize)
                 {
                     if (tank.RoomPosMatrix[checkX, roomPosToCheck._yPos])
                     {
@@ -125,7 +125,7 @@ public class UnitPathfinding : MonoBehaviour
             if (y != 0)
             {
                 int checkY = roomPosToCheck._yPos + y;
-                if (checkY >= 0 && checkY < tank._tankRoomConstellation._savedYSize)
+                if (checkY >= 0 && checkY < tank._vehicleData._savedYSize)
                 {
                     if (tank.RoomPosMatrix[roomPosToCheck._xPos, checkY] != null)
                     {
@@ -238,7 +238,7 @@ public class UnitPathfinding : MonoBehaviour
             //print("Some Room is invalid");
             return;
         }
-        if (!CurrentRoom.tr.Equals(roomToGetTo.tr))
+        if (!CurrentRoom.ID.Equals(roomToGetTo.ID))
         {
             REF.mouse.DeselectAllUnits();
             //print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");

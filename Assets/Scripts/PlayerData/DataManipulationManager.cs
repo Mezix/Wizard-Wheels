@@ -10,7 +10,6 @@ using static PlayerData;
 public class DataManipulationManager : MonoBehaviour
 {
     public static DataManipulationManager instance;
-    private PlayerData playerData;
 
     //  SAVING
     public Dropdown _saveSlotDropDown;

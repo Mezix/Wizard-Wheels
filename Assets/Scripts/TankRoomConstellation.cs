@@ -17,8 +17,6 @@ public class TankRoomConstellation : ScriptableObject
     public int _tmpXSize = 0;
     public int _tmpYSize = 0;
 
-    //public Color FloorColor = Color.white;
-    //public Color RoofColor = Color.white;
     public float FloorColorR = 1;
     public float FloorColorG = 1;
     public float FloorColorB = 1;
@@ -101,17 +99,6 @@ public class TankRoomConstellation : ScriptableObject
     [Serializable]
     public class RoomInfo
     {
-        //  Fields for loading and saving
-        /*
-        public GameObject RoomPrefab = null;
-        public Tile FloorTilePrefab = null;
-        public Color FloorColor = Color.white;
-        public Color RoofColor = Color.white;
-        public Tile RoofTilePrefab = null;
-        public Color RoofColor = Color.white;
-        public GameObject SystemPrefab = null;
-        public GameObject TirePrefab = null;
-        */
         public string RoomPrefabPath = null;
         public string FloorTilePrefabPath = null;
         public string RoofTilePrefabPath = null;

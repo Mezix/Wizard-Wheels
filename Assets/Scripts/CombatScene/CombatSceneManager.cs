@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static PlayerData;
 
 public class CombatSceneManager : MonoBehaviour
 {
     public static CombatSceneManager instance;
-    public static TankRoomConstellation playerTankConstellationFromSelectScreen;
 
     private void Awake()
     {
@@ -17,14 +17,17 @@ public class CombatSceneManager : MonoBehaviour
     private void Start()
     {
         REF.InvUI.SpawnInventory(DataStorage.Singleton.playerData);
-
-        if (playerTankConstellationFromSelectScreen)
-        {
-            REF.PCon.TGeo._tankRoomConstellation = playerTankConstellationFromSelectScreen;
-        }
+        REF.PCon.TGeo._vehicleData = DataStorage.Singleton.playerData.vehicleData;
         REF.PCon.SpawnTank();
+
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+        }
+    }
     //  Random Gen
 
     private void GameOver()

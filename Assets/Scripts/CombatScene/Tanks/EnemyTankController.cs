@@ -51,7 +51,7 @@ public class EnemyTankController : TankController
         GameObject ui = (GameObject) Instantiate(Resources.Load(GS.Enemy("EnemyUI")));
         enemyUI = ui.GetComponent<EnemyUI>();
         enemyUI.transform.SetParent(transform);
-        enemyUI.transform.localPosition = new Vector2(0, (0.5f * 0.5f * TGeo._tankRoomConstellation._savedYSize) + 1f);
+        enemyUI.transform.localPosition = new Vector2(0, (0.5f * 0.5f * TGeo._vehicleData._savedYSize) + 1f);
         THealth.GetComponent<EnemyTankHealth>()._healthBarParent = enemyUI.hpBar;
     }
     private void Update()
@@ -83,11 +83,11 @@ public class EnemyTankController : TankController
         _navMeshAgent.speed = _tStats._tankMaxSpeed;
         _navMeshAgent.angularSpeed = _tStats._rotationSpeed;
         _navMeshAgent.acceleration = _tStats._tankAccel / Time.deltaTime;
-        _navMeshAgent.radius = TGeo._tankRoomConstellation._savedXSize/2f;
-        _navMeshAgent.height = TGeo._tankRoomConstellation._savedYSize/2f;
-        _navMeshAgent.baseOffset = TGeo._tankRoomConstellation._savedYSize/2f;
+        _navMeshAgent.radius = TGeo._vehicleData._savedXSize/2f;
+        _navMeshAgent.height = TGeo._vehicleData._savedYSize/2f;
+        _navMeshAgent.baseOffset = TGeo._vehicleData._savedYSize/2f;
 
-        _navMeshAgent.stoppingDistance = _navMeshAgent.radius + REF.PCon.TGeo._tankRoomConstellation._savedXSize;
+        _navMeshAgent.stoppingDistance = _navMeshAgent.radius + REF.PCon.TGeo._vehicleData._savedXSize;
     }
     public override void TakeDamage(int damage)
     {

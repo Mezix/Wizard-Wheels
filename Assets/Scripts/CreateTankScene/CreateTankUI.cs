@@ -314,17 +314,17 @@ public class CreateTankUI : MonoBehaviour
         if(CreateTankSceneManager.instance._tGeo.RoofTilemap)
         {
             CreateTankSceneManager.instance._tGeo.RoofTilemap.color = c;
-            CreateTankSceneManager.instance._tGeo._trc.RoofColorR = c.r;
-            CreateTankSceneManager.instance._tGeo._trc.RoofColorG = c.g;
-            CreateTankSceneManager.instance._tGeo._trc.RoofColorB = c.b;
+            CreateTankSceneManager.instance._tGeo._vehicleData.RoofColorR = c.r;
+            CreateTankSceneManager.instance._tGeo._vehicleData.RoofColorG = c.g;
+            CreateTankSceneManager.instance._tGeo._vehicleData.RoofColorB = c.b;
         }
         if(CreateTankSceneManager.instance._tGeo.FloorTilemap)
         {
             CreateTankSceneManager.instance._tGeo.FloorTilemap.color = c;
 
-            CreateTankSceneManager.instance._tGeo._trc.FloorColorR = c.r;
-            CreateTankSceneManager.instance._tGeo._trc.FloorColorG = c.g;
-            CreateTankSceneManager.instance._tGeo._trc.FloorColorB = c.b;
+            CreateTankSceneManager.instance._tGeo._vehicleData.FloorColorR = c.r;
+            CreateTankSceneManager.instance._tGeo._vehicleData.FloorColorG = c.g;
+            CreateTankSceneManager.instance._tGeo._vehicleData.FloorColorB = c.b;
         }
     }
 }

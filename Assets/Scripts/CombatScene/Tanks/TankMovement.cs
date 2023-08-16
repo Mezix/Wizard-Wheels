@@ -78,14 +78,14 @@ public class TankMovement : MonoBehaviour
         rotatableObjects.transform.parent = transform;
         rotatableObjects.transform.localPosition = Vector3.zero;
 
-        for (int x = 0; x < tank._tankRoomConstellation._savedXSize; x++)
+        for (int x = 0; x < tank._vehicleData._savedXSize; x++)
         {
-            for (int y = 0; y < tank._tankRoomConstellation._savedYSize; y++)
+            for (int y = 0; y < tank._vehicleData._savedYSize; y++)
             {
                 if (tank.RoomPosMatrix[x, y] == null) continue;
-                if (tank._tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath != "")
+                if (tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath != "")
                 {
-                    GameObject tireObj = Instantiate(Resources.Load(tank._tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
+                    GameObject tireObj = Instantiate(Resources.Load(tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
                     tireObj.transform.parent = tank.RoomPosMatrix[x, y].transform;
                     tireObj.transform.localPosition = Vector3.zero;
                     tireObj.transform.parent = rotatableObjects.transform;
