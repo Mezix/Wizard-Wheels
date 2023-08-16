@@ -20,24 +20,6 @@ public class PlayerData
         CurrentEventPath = events;
         TimeInSecondsPlayed = timePlayed;
         CurrentEventPathIndex = pathIndex;
-
-        /*InventoryList = new List<InventoryItemData>();
-        foreach (InventoryItemData item in invItemList)
-        {
-            InventoryItemData newItem = new InventoryItemData();
-            newItem.Name = item.Name;
-            newItem.SpritePath = item.SpritePath;
-            newItem.Amount = item.Amount;
-            InventoryList.Add(newItem);
-        }
-        CurrentEventPath = new List<EventNode>();
-        foreach (EventNode node in events)
-        {
-            EventNode newNode = new EventNode();
-            newNode._event = node._event;
-            newNode._visited = node._visited;
-            CurrentEventPath.Add(newNode);
-        }*/
     }
 
     //  Helper Methods
@@ -127,5 +109,6 @@ public class PlayerData
         public WizardType WizType;
         public int RoomPositionX;
         public int RoomPositionY;
+        public int Happiness;
     }
 }

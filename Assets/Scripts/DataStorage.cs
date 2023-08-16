@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,5 +80,16 @@ public class DataStorage : MonoBehaviour
 
         if (playerData.CurrentEventPathIndex >= playerData.CurrentEventPath.Count) Loader.Load(Loader.Scene.VictoryScene);
         else Loader.Load(Loader.Scene.RouteTransitionScene);
+    }
+
+    public void AdjustWizardHappiness(int wizIndex, int happinessAdjustmentAmount)
+    {
+        playerData.WizardList[wizIndex] = new WizardData
+        {
+            WizType = playerData.WizardList[wizIndex].WizType,
+            RoomPositionX = playerData.WizardList[wizIndex].RoomPositionX,
+            RoomPositionY = playerData.WizardList[wizIndex].RoomPositionY,
+            Happiness = playerData.WizardList[wizIndex].Happiness + happinessAdjustmentAmount
+        };
     }
 }

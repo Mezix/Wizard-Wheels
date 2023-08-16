@@ -91,6 +91,10 @@ public static class GS // Stands for "Get Strings"
     {
         return Dialogue() + "Conversations/" + filename;
     }
+    public static string DialogueCharacters(string filename = "")
+    {
+        return Dialogue() + "Characters/" + filename;
+    }
 
     // Tiles
 

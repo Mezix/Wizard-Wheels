@@ -66,7 +66,8 @@ public static class SavePlayerData
             {
                 WizType = WizardType.TechWizard,
                 RoomPositionX = 0,
-                RoomPositionY = 0
+                RoomPositionY = 0,
+                Happiness = 0
             }
         };
         List<EventNode> freshRoute = GenerateRandomRoute(5);

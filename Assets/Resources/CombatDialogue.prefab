@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 4060211371729098248}
   - component: {fileID: 4060211371729098247}
   m_Layer: 5
-  m_Name: Dialogue UI
+  m_Name: CombatDialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

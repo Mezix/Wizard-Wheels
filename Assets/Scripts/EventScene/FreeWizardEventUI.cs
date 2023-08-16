@@ -37,7 +37,9 @@ public class FreeWizardEventUI : MonoBehaviour
             {
                 WizType = wizToSpawn._unitStats._unitClass,
                 RoomPositionX = -1,
-                RoomPositionY = -1
+                RoomPositionY = -1,
+                Happiness = 0
+               
             };
             slot._wizData = newWizardData;
 

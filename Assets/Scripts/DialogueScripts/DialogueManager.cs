@@ -78,11 +78,11 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            REF.Dialog.DisplayNextSentence();
+            DisplayNextSentence();
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            REF.Dialog.StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
+            StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
         }
         timeSinceLastLine += Time.deltaTime;
         timeSinceLastWeaponFired += Time.deltaTime;
