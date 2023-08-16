@@ -32,6 +32,9 @@ public class TankGeometry : MonoBehaviour
     private void CreateBGAndRoof()
     {
         CreateFloorAndRoofTilemap();
+        RoofTilemap.color = new Color(_tankRoomConstellation.RoofColorR, _tankRoomConstellation.RoofColorG, _tankRoomConstellation.RoofColorB, 1);
+        FloorTilemap.color = new Color(_tankRoomConstellation.FloorColorR, _tankRoomConstellation.FloorColorG, _tankRoomConstellation.FloorColorB, 1);
+
         for (int x = 0; x < _tankRoomConstellation._savedXSize; x++)
         {
             for (int y = 0; y < _tankRoomConstellation._savedYSize; y++)
@@ -132,14 +135,12 @@ public class TankGeometry : MonoBehaviour
     }
     private void CreateRoofAtPos(int startX, int startY, int sizeX, int sizeY)
     {
-        //RoofTilemap.color = RoofColor;
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
                 //TileBase t = Resources.Load(GS.Tiles("Roof/RoofRuleTile"), typeof (TileBase)) as TileBase;
                 Tile t = (Tile) Resources.Load("Tiles/Roof/DefaultRoofTile");
-                //t.color = RoofColor;
                 RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
@@ -159,7 +160,7 @@ public class TankGeometry : MonoBehaviour
             {
                 if (_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
-                    Room room = Resources.Load(_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room)) as Room;
+                    Room room = Instantiate(Resources.Load(_tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room))) as Room;
                     room.tGeo = this;
                     room.tr = _tankRoomConstellation;
                     room.gameObject.transform.parent = RoomsParent.transform;

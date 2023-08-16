@@ -82,20 +82,16 @@ public class TankMovement : MonoBehaviour
         {
             for (int y = 0; y < tank._tankRoomConstellation._savedYSize; y++)
             {
+                if (tank.RoomPosMatrix[x, y] == null) continue;
                 if (tank._tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath != "")
                 {
-                    Tire tire = Resources.Load(tank._tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(Tire)) as Tire;
-                    if (tire)
-                    {
-                        //print(x.ToString() + ", " + y.ToString());
-                        if (!tank.RoomPosMatrix[x, y]) continue;
-                        if (tire) tire = Instantiate(tire);
-                        tire.transform.parent = tank.RoomPosMatrix[x, y].transform;
-                        tire.transform.localPosition = Vector3.zero;
-                        tire.transform.parent = rotatableObjects.transform;
-                        Tires.Add(tire);
-                        tr.rotatableObjects.Add(tire.gameObject);
-                    }
+                    GameObject tireObj = Instantiate(Resources.Load(tank._tankRoomConstellation._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
+                    tireObj.transform.parent = tank.RoomPosMatrix[x, y].transform;
+                    tireObj.transform.localPosition = Vector3.zero;
+                    tireObj.transform.parent = rotatableObjects.transform;
+                    Tire tire = tireObj.GetComponentInChildren<Tire>();
+                    tr.rotatableObjects.Add(tire.gameObject);
+                    Tires.Add(tire);
                 }
             }
         }

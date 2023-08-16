@@ -7,21 +7,21 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public TankRoomConstellation VehicleConstellation;
+    //public TankRoomConstellation VehicleConstellation;
     public List<InventoryItemData> InventoryList;
     public List<WizardData> WizardList;
     public List<EventNode> CurrentEventPath;
     public int CurrentEventPathIndex;
     public float TimeInSecondsPlayed;
 
-    public PlayerData(List<InventoryItemData> invItemList, List<WizardData> wizList, List<EventNode> events, float timePlayed, int pathIndex, TankRoomConstellation vehicleConstellation)
+    public PlayerData(List<InventoryItemData> invItemList, List<WizardData> wizList, List<EventNode> events, float timePlayed, int pathIndex)
     {
         InventoryList = invItemList;
         WizardList = wizList;
         CurrentEventPath = events;
         TimeInSecondsPlayed = timePlayed;
         CurrentEventPathIndex = pathIndex;
-        VehicleConstellation = vehicleConstellation;
+        //VehicleConstellation = vehicleConstellation;
     }
 
     //  Helper Methods

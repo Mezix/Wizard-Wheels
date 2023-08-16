@@ -17,6 +17,15 @@ public class TankRoomConstellation : ScriptableObject
     public int _tmpXSize = 0;
     public int _tmpYSize = 0;
 
+    //public Color FloorColor = Color.white;
+    //public Color RoofColor = Color.white;
+    public float FloorColorR = 1;
+    public float FloorColorG = 1;
+    public float FloorColorB = 1;
+    public float RoofColorR  = 1;
+    public float RoofColorG  = 1;
+    public float RoofColorB  = 1;
+
     public XValues _savedMatrix = null;
     public XValues _tmpMatrix = null;
     public void InitTankForCreation()
@@ -97,6 +106,7 @@ public class TankRoomConstellation : ScriptableObject
         public GameObject RoomPrefab = null;
         public Tile FloorTilePrefab = null;
         public Color FloorColor = Color.white;
+        public Color RoofColor = Color.white;
         public Tile RoofTilePrefab = null;
         public Color RoofColor = Color.white;
         public GameObject SystemPrefab = null;

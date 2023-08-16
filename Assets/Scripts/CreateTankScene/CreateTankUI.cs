@@ -311,5 +311,20 @@ public class CreateTankUI : MonoBehaviour
     public void ChangeColor(Color c)
     {
         _colorImage.color = c;
+        if(CreateTankSceneManager.instance._tGeo.RoofTilemap)
+        {
+            CreateTankSceneManager.instance._tGeo.RoofTilemap.color = c;
+            CreateTankSceneManager.instance._tGeo._trc.RoofColorR = c.r;
+            CreateTankSceneManager.instance._tGeo._trc.RoofColorG = c.g;
+            CreateTankSceneManager.instance._tGeo._trc.RoofColorB = c.b;
+        }
+        if(CreateTankSceneManager.instance._tGeo.FloorTilemap)
+        {
+            CreateTankSceneManager.instance._tGeo.FloorTilemap.color = c;
+
+            CreateTankSceneManager.instance._tGeo._trc.FloorColorR = c.r;
+            CreateTankSceneManager.instance._tGeo._trc.FloorColorG = c.g;
+            CreateTankSceneManager.instance._tGeo._trc.FloorColorB = c.b;
+        }
     }
 }

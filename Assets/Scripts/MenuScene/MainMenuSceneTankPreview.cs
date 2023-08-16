@@ -104,6 +104,10 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     private void CreateFloorAndRoof()
     {
         CreateFloorAndRoofTilemap();
+
+        TmpRoofTilemap.color = new Color(_trc.RoofColorR, _trc.RoofColorG, _trc.RoofColorB, 1);
+        TmpFloorTilemap.color = new Color(_trc.FloorColorR, _trc.FloorColorG, _trc.FloorColorB, 1);
+
         for (int x = 0; x < _trc._savedXSize; x++)
         {
             for (int y = 0; y < _trc._savedYSize; y++)
@@ -113,13 +117,10 @@ public class MainMenuSceneTankPreview : MonoBehaviour
                 if (_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
                     Room room = Resources.Load(_trc._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room)) as Room;
-                    if(room)
-                    {
-                        int sizeX = room.sizeX;
-                        int sizeY = room.sizeY;
-                        LoadFloorAtPos(x, y, sizeX, sizeY);
-                        LoadRoofAtPos(x, y, sizeX, sizeY);
-                    }
+                    int sizeX = room.sizeX;
+                    int sizeY = room.sizeY;
+                    LoadFloorAtPos(x, y, sizeX, sizeY);
+                    LoadRoofAtPos(x, y, sizeX, sizeY);
                 }
             }
         }
@@ -175,9 +176,8 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
+                if (_trc._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath == "") continue;
                 Tile t = Instantiate(Resources.Load(_trc._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath, typeof(Tile))) as Tile;
-                //t.color = _trc._tmpMatrix.XArray[x].YStuff[y].FloorColor;
-                //t.color = Color.white;
                 TmpFloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
@@ -188,9 +188,8 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
+                if (_trc._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath == "") continue;
                 Tile t = Instantiate(Resources.Load(_trc._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath, typeof(Tile))) as Tile;
-                //t.color = _trc._tmpMatrix.XArray[x].YStuff[y].RoofColor;
-                //t.color = Color.white;
                 TmpRoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
@@ -299,8 +298,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
             {
                 if (_trc._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath != "")
                 {
-                    if (!_roomPosMatrix[x, y]) continue;
-                    Tire tirePrefab = Resources.Load(_trc._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(Tire)) as Tire;
+                    if (_roomPosMatrix[x, y] == null) continue;
+
+                    GameObject tirePrefab = Instantiate(Resources.Load(_trc._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
                     tirePrefab.transform.parent = _roomPosMatrix[x, y].transform;
                     tirePrefab.transform.localPosition = Vector3.zero;
                     tirePrefab.transform.localScale = Vector3.one;
