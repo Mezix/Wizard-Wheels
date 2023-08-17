@@ -99,11 +99,12 @@ public class TankRoomConstellation : ScriptableObject
     [Serializable]
     public class RoomInfo
     {
-        public string RoomPrefabPath = null;
-        public string FloorTilePrefabPath = null;
-        public string RoofTilePrefabPath = null;
-        public string SystemPrefabPath = null;
-        public string MovementPrefabPath = null;
+        public string RoomPrefabPath;
+        public string FloorTilePrefabPath;
+        public string RoofTilePrefabPath;
+        public string SystemPrefabPath;
+        public string MovementPrefabPath;
+        public ASystem.DirectionToSpawnIn SystemDirection;
 
         public bool _topWallExists = false;
         public bool _rightWallExists = false;
@@ -126,14 +127,12 @@ public class TankRoomConstellation : ScriptableObject
                 _tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = _savedMatrix.XArray[x].YStuff[y].FloorTilePrefabPath;
                 _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath = _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
                 _tmpMatrix.XArray[x].YStuff[y].MovementPrefabPath = _savedMatrix.XArray[x].YStuff[y].MovementPrefabPath;
-                _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath = _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+                _tmpMatrix.XArray[x].YStuff[y].SystemDirection = _savedMatrix.XArray[x].YStuff[y].SystemDirection;
 
                 _tmpMatrix.XArray[x].YStuff[y]._topWallExists = _savedMatrix.XArray[x].YStuff[y]._topWallExists;
                 _tmpMatrix.XArray[x].YStuff[y]._bottomWallExists = _savedMatrix.XArray[x].YStuff[y]._bottomWallExists;
                 _tmpMatrix.XArray[x].YStuff[y]._leftWallExists = _savedMatrix.XArray[x].YStuff[y]._leftWallExists;
                 _tmpMatrix.XArray[x].YStuff[y]._rightWallExists = _savedMatrix.XArray[x].YStuff[y]._rightWallExists;
-                //_tmpMatrix.XArray[x].YStuff[y].FloorColor = _savedMatrix.XArray[x].YStuff[y].FloorColor;
-                //_tmpMatrix.XArray[x].YStuff[y].RoofColor = _savedMatrix.XArray[x].YStuff[y].RoofColor;
             }
         }
     }
@@ -152,14 +151,12 @@ public class TankRoomConstellation : ScriptableObject
                 _savedMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = _tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath;
                 _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath = _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath;
                 _savedMatrix.XArray[x].YStuff[y].MovementPrefabPath = _tmpMatrix.XArray[x].YStuff[y].MovementPrefabPath;
-                _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath = _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].SystemDirection = _tmpMatrix.XArray[x].YStuff[y].SystemDirection;
 
                 _savedMatrix.XArray[x].YStuff[y]._topWallExists = _tmpMatrix.XArray[x].YStuff[y]._topWallExists;
                 _savedMatrix.XArray[x].YStuff[y]._bottomWallExists = _tmpMatrix.XArray[x].YStuff[y]._bottomWallExists;
                 _savedMatrix.XArray[x].YStuff[y]._leftWallExists = _tmpMatrix.XArray[x].YStuff[y]._leftWallExists;
                 _savedMatrix.XArray[x].YStuff[y]._rightWallExists = _tmpMatrix.XArray[x].YStuff[y]._rightWallExists;
-                //_savedMatrix.XArray[x].YStuff[y].FloorColor = _tmpMatrix.XArray[x].YStuff[y].FloorColor;
-                //_savedMatrix.XArray[x].YStuff[y].RoofColor = _tmpMatrix.XArray[x].YStuff[y].RoofColor;
             }
         }
     }

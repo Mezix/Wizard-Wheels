@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,17 @@ public abstract class ASystem : MonoBehaviour
     [HideInInspector]
     public RoomPosition RoomPosForInteraction;
 
+    //  Aiming
+    [Serializable]
+    public enum DirectionToSpawnIn
+    {
+        Right,
+        Down,
+        Left,
+        Up
+    }
+    public DirectionToSpawnIn _direction = DirectionToSpawnIn.Up;
+
     protected bool IsBeingInteractedWith;
     public abstract void InitSystemStats();
     public abstract void StartInteraction();
@@ -23,6 +35,15 @@ public abstract class ASystem : MonoBehaviour
     public virtual void Awake()
     {
         SystemObj = gameObject;
+        //SpawnInCorrectDirection();
+    }
+    public void SpawnInCorrectDirection()
+    {
+        if (_direction.Equals(DirectionToSpawnIn.Up)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 90));
+        else if (_direction.Equals(DirectionToSpawnIn.Right)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 0));
+        else if (_direction.Equals(DirectionToSpawnIn.Down)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, -90));
+        else if (_direction.Equals(DirectionToSpawnIn.Left)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, -180));
+        else HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 0));
     }
     public void SetOpacity(bool transparent)
     {

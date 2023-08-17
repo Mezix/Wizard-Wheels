@@ -167,6 +167,7 @@ public class PlayerData
         public string RoofTilePrefabPath;
         public string SystemPrefabPath;
         public string MovementPrefabPath;
+        public ASystem.DirectionToSpawnIn SystemDirection;
 
         public bool _topWallExists;
         public bool _rightWallExists;
@@ -181,6 +182,7 @@ public class PlayerData
                 RoofTilePrefabPath = "",
                 SystemPrefabPath = "",
                 MovementPrefabPath = "",
+                SystemDirection = ASystem.DirectionToSpawnIn.Right,
                 _topWallExists = false,
                 _rightWallExists = false,
                 _bottomWallExists = false,

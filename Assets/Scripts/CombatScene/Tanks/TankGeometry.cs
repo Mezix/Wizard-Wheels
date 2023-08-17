@@ -7,9 +7,7 @@ using static PlayerData;
 
 public class TankGeometry : MonoBehaviour
 {
-    //public TankRoomConstellation _tankRoomConstellation;
     public VehicleData _vehicleData;
-
     public RoomPosition[,] RoomPosMatrix;
     public GameObject TankGeometryParent { get; private set; }
     public GameObject RoomsParent { get; private set; }
@@ -260,16 +258,17 @@ public class TankGeometry : MonoBehaviour
         {
             for (int y = 0; y < _vehicleData._savedYSize; y++)
             {
+                if (!RoomPosMatrix[x, y]) continue;
                 if (_vehicleData.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath != "")
                 {
                     ASystem system = Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath, typeof(ASystem)) as ASystem;
                     //Our object should either be a Weapon or a System, so check for both cases
                     if (system) system = Instantiate(system);
                     else continue;
-
+                    system._direction = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].SystemDirection;
+                    system.SpawnInCorrectDirection();
                     if (system.TryGetComponent(out AWeapon wep))
                     {
-                        //if (!RoomPosMatrix[x, y]) continue;
                         wep.transform.parent = RoomPosMatrix[x, y].ParentRoom.transform;
                         wep.transform.localPosition = Vector3.zero;
                         PositionSystemInRoom(wep, wep.transform.parent.GetComponent<Room>());

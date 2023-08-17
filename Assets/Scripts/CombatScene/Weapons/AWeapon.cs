@@ -20,17 +20,6 @@ public abstract class AWeapon : ASystem
     public float RecoilDuration { get; set; }
     public GameObject WeaponFireExplosion { get; set; }
 
-    //  Aiming
-    [Serializable]
-    public enum Direction
-    {
-        Full,
-        Up,
-        Right,
-        Down,
-        Left
-    }
-    public Direction _direction = Direction.Full;
     public bool WeaponSelected { get; set; }
     public bool WeaponEnabled { get; set; }
     public bool IsAimingAtTarget { get; set; }
@@ -73,7 +62,6 @@ public abstract class AWeapon : ASystem
         SystemObj = gameObject;
         ShouldHitPlayer = false;
         tankSpeedProjectileModifier = 0;
-        SpawnInCorrectDirection();
     }
     public override void InitSystemStats()
     {
@@ -114,14 +102,6 @@ public abstract class AWeapon : ASystem
         _weaponSelectedUI = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponSelectedUI"), typeof(WeaponSelectedUI)) as WeaponSelectedUI);
         _weaponSelectedUI.InitWeaponSelectedUI(this);
         _weaponSelectedUI.transform.SetParent(transform);
-    }
-    private void SpawnInCorrectDirection()
-    {
-        if(_direction.Equals(Direction.Up)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 90));
-        else if (_direction.Equals(Direction.Right)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 0));
-        else if (_direction.Equals(Direction.Down)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, -90));
-        else if (_direction.Equals(Direction.Left)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, -180));
-        else HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 0));
     }
     public override void StartInteraction()
     {

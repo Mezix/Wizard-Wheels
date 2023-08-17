@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 public class CreateTankUI : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CreateTankUI : MonoBehaviour
     public InputField _inputField;
     public Dropdown _partsDropDown;
     public Dropdown _layersDropDown;
+    public Dropdown _directionDropDown;
     public Text _tankWidth;
     public Text _tankHeight;
 
@@ -45,10 +47,13 @@ public class CreateTankUI : MonoBehaviour
     private List<Dropdown.OptionData> tiresList = new List<Dropdown.OptionData>();
     public int tiresIndex;
 
-    //  Tires
+    //  Systems
     public List<GameObject> _systemGOList;
     private List<Dropdown.OptionData> systemsList = new List<Dropdown.OptionData>();
     public int systemsIndex;
+
+    //  Directions
+    private List<Dropdown.OptionData> directionList = new List<Dropdown.OptionData>();
 
     private void Start()
     {
@@ -106,6 +111,15 @@ public class CreateTankUI : MonoBehaviour
             newOptData.image = system.GetComponent<ASystem>().SystemSprite;
             systemsList.Add(newOptData);
         }
+        foreach (ASystem.DirectionToSpawnIn dir in Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList())
+        {
+            Dropdown.OptionData newOptData = new Dropdown.OptionData();
+            newOptData.text = dir.ToString();
+            directionList.Add(newOptData);
+        }
+        _directionDropDown.ClearOptions();
+        _directionDropDown.AddOptions(directionList);
+
         floorIndex = 0;
         roofIndex = 0;
         wallIndex = 0;

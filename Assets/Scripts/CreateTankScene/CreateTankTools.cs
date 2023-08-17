@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using System.Linq;
+
 public class CreateTankTools : MonoBehaviour
 {
     public Grid _tempFloorGrid;
@@ -184,6 +186,9 @@ public class CreateTankTools : MonoBehaviour
     private void HoverSystem(Vector3 systemPos)
     {
         systemPreview = Instantiate(ui._systemGOList[ui.systemsIndex]);
+        ASystem system = systemPreview.GetComponent<ASystem>();
+        system._direction = Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[CreateTankSceneManager.instance._tUI._directionDropDown.value];
+        system.SpawnInCorrectDirection();
         systemPreview.transform.position = systemPos + new Vector3(0, 0.5f, 0);
     }
     private void HandleKeyboardInput()
