@@ -23,7 +23,6 @@ public static class HM
     {
         return Mathf.Rad2Deg * Mathf.Atan2(from.y - to.y, from.x - to.x);
     }
-
     public static float WrapAngle(float angle)
     {
         angle %= 360;

@@ -713,6 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objToTrack: {fileID: 0}
+  hasArrivedAtTrackedObject: 0
   _occlusionCulling2D: {fileID: 0}
   zoomAmount: 0
   desiredZoom: 0
@@ -1487,7 +1488,13 @@ MonoBehaviour:
     enemyTakingColorID: 0
   _enemyIndicators: []
   _enemyIndicatorParent: {fileID: 1096546290}
-  _enemyEvent: {fileID: 11400000, guid: bb40b79590908f440a6ff1f03af7bc0c, type: 2}
+  eventToSpawn: 1
+  _allPossibleEnemyEvents:
+  - {fileID: 11400000, guid: bb40b79590908f440a6ff1f03af7bc0c, type: 2}
+  - {fileID: 11400000, guid: c5688de6807a92d41aeb33c46bd2ba87, type: 2}
+  - {fileID: 11400000, guid: d23765c4076806245992851a5c7520ba, type: 2}
+  - {fileID: 11400000, guid: dd583db3bea1ae544b540f563920f0ed, type: 2}
+  - {fileID: 11400000, guid: fd8b71f922fa8114dbd6043564f71fe0, type: 2}
 --- !u!114 &1848190459 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6450070389012361718, guid: 703e50d0fa588ed49934e5b64ed2a00b,
@@ -6368,7 +6375,7 @@ PrefabInstance:
     - target: {fileID: 2555899788186983094, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_Name
-      value: Game Scene UI
+      value: Combat Scene UI
       objectReference: {fileID: 0}
     - target: {fileID: 2580664973980767481, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
@@ -6468,7 +6475,7 @@ PrefabInstance:
     - target: {fileID: 3857651452480230578, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 766.61
       objectReference: {fileID: 0}
     - target: {fileID: 3895322385338602528, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
@@ -6482,17 +6489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3979483682975597323, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979483682975597323, guid: 703e50d0fa588ed49934e5b64ed2a00b,
-        type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979483682975597323, guid: 703e50d0fa588ed49934e5b64ed2a00b,
-        type: 3}
-      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4074772203919266173, guid: 703e50d0fa588ed49934e5b64ed2a00b,

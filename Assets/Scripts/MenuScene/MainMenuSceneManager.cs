@@ -34,7 +34,7 @@ public class MainMenuSceneManager : MonoBehaviour
     {
         Instantiate(Resources.Load(GS.Prefabs("LoadingScreen")));
         yield return new WaitForSeconds(0.5f);
-        Loader.Load(Loader.Scene.RouteTransitionScene);
+        Loader.Load(Loader.SceneType.RouteTransitionScene);
     }
     public void QuitGame()
     {

@@ -324,14 +324,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05efab02f3beb74c855f4b7d337106e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _systemRoofSprites: []
+  _systemRoofSprites:
+  - {fileID: 3277609481205325202}
   SystemSprite: {fileID: 21300000, guid: be49fd1bec57dec48ae8b401dedc2c3a, type: 3}
   SystemObj: {fileID: 0}
   SystemName: 
   RoomPosForInteraction: {fileID: 0}
   _direction: 4
   _weaponStats: {fileID: 11400000, guid: e93e95b2057057644b555c5d5c334c47, type: 2}
-  _maxAllowedAngleToTurn: 0
+  ManualLocalAimingAngle: 0
   RotatablePart: {fileID: 4486056113902708837}
   TargetedRoom: {fileID: 0}
   _projectileSpots:

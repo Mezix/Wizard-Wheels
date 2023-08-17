@@ -69,7 +69,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 3
         _topWallExists: 1
@@ -89,7 +89,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: Prefabs/Systems/EngineSystem
+        SystemPrefabPath: Prefabs/Systems/HeavyCannon
         MovementPrefabPath: 
         SystemDirection: 0
         _topWallExists: 0
@@ -99,9 +99,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
         MovementPrefabPath: 
-        SystemDirection: 1
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 0
         _bottomWallExists: 1
@@ -194,7 +194,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 3
         _topWallExists: 1
@@ -214,7 +214,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: Prefabs/Systems/EngineSystem
+        SystemPrefabPath: Prefabs/Systems/HeavyCannon
         MovementPrefabPath: 
         SystemDirection: 0
         _topWallExists: 0
@@ -224,9 +224,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
         MovementPrefabPath: 
-        SystemDirection: 1
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 0
         _bottomWallExists: 1

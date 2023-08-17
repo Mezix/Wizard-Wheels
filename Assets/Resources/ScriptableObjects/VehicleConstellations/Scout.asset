@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
-  m_Name: ScoutTank
+  m_Name: Scout
   m_EditorClassIdentifier: 
   _savedXSize: 2
   _savedYSize: 3
@@ -28,8 +28,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: 
-        SystemPrefabPath: Prefabs/Systems/DualCannon
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
+        SystemDirection: 3
         _topWallExists: 1
         _rightWallExists: 0
         _bottomWallExists: 0
@@ -39,6 +40,7 @@ MonoBehaviour:
         RoofTilePrefabPath: 
         SystemPrefabPath: 
         MovementPrefabPath: 
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 1
         _bottomWallExists: 0
@@ -46,8 +48,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireBack
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 1
         _bottomWallExists: 1
@@ -58,6 +61,7 @@ MonoBehaviour:
         RoofTilePrefabPath: 
         SystemPrefabPath: 
         MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        SystemDirection: 3
         _topWallExists: 1
         _rightWallExists: 1
         _bottomWallExists: 1
@@ -67,6 +71,7 @@ MonoBehaviour:
         RoofTilePrefabPath: 
         SystemPrefabPath: 
         MovementPrefabPath: 
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 0
         _bottomWallExists: 0
@@ -76,6 +81,7 @@ MonoBehaviour:
         RoofTilePrefabPath: 
         SystemPrefabPath: 
         MovementPrefabPath: 
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 0
         _bottomWallExists: 0
@@ -86,8 +92,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: 
-        SystemPrefabPath: Prefabs/Systems/DualCannon
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
+        SystemDirection: 3
         _topWallExists: 1
         _rightWallExists: 0
         _bottomWallExists: 0
@@ -97,6 +104,7 @@ MonoBehaviour:
         RoofTilePrefabPath: 
         SystemPrefabPath: 
         MovementPrefabPath: 
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 1
         _bottomWallExists: 0
@@ -104,8 +112,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireBack
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 1
         _bottomWallExists: 1
@@ -116,6 +125,7 @@ MonoBehaviour:
         RoofTilePrefabPath: 
         SystemPrefabPath: 
         MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        SystemDirection: 3
         _topWallExists: 1
         _rightWallExists: 1
         _bottomWallExists: 1
@@ -125,6 +135,7 @@ MonoBehaviour:
         RoofTilePrefabPath: 
         SystemPrefabPath: 
         MovementPrefabPath: 
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 0
         _bottomWallExists: 0
@@ -134,6 +145,7 @@ MonoBehaviour:
         RoofTilePrefabPath: 
         SystemPrefabPath: 
         MovementPrefabPath: 
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 0
         _bottomWallExists: 0

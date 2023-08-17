@@ -23,7 +23,7 @@ public class EverloopControllerEditor : Editor {
 
 		EditorGUI.BeginChangeCheck();
 
-		float volume = EditorGUILayout.Slider("Master volume", t.volume, 0f, 1f);
+		//float volume = EditorGUILayout.Slider("Master volume", t.volume, 0f, 1f);
 
 		bool fadeInOnStart = EditorGUILayout.ToggleLeft("Fade in on start", t.fadeInOnStart);
 
@@ -113,7 +113,7 @@ public class EverloopControllerEditor : Editor {
 
 		if (EditorGUI.EndChangeCheck()) {
 			Undo.RecordObject(target, "EverloopController");
-			t.volume = volume;
+			//t.volume = volume;
 			t.fadeInOnStart = fadeInOnStart;
 			t.masterFadeDuration = masterFadeDuration;
 			t.numActiveTracks = numActiveTracks;

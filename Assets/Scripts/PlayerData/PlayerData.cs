@@ -27,6 +27,16 @@ public class PlayerData
     }
 
     //  Helper Methods
+    public static List<EventNode> GenerateTestRoute()
+    {
+        int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
+        List<EventNode> route = new List<EventNode>();
+        for (int i = 0; i < enumLength; i++)
+        {
+            route.Add(new EventNode(i, false));
+        }
+        return route;
+    }
     public static List<EventNode> GenerateRandomRoute(int length)
     {
         int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;

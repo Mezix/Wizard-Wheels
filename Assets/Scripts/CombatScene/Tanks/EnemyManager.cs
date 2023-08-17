@@ -13,7 +13,8 @@ public class EnemyManager : MonoBehaviour
     public List<EnemyIndicator> _enemyIndicators = new List<EnemyIndicator>();
     public Transform _enemyIndicatorParent;
 
-    public EnemyEvent _enemyEvent;
+    public int eventToSpawn;
+    public List<EnemyEvent> _allPossibleEnemyEvents = new List<EnemyEvent>();
     private List<EnemySpawn> enemiesToSpawn;
     private float timeUntilNextEnemySpawned;
     private int _enemyIndex;
@@ -34,7 +35,8 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        enemiesToSpawn = _enemyEvent.EnemyWaves;
+        //eventToSpawn = UnityEngine.Random.Range(0, _allPossibleEnemyEvents.Count);
+        enemiesToSpawn = _allPossibleEnemyEvents[eventToSpawn].EnemyWaves;
         timeUntilNextEnemySpawned = 0;
         _enemyIndex = 0;
     }

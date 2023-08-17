@@ -8,22 +8,7 @@ public class EverloopController : MonoBehaviour {
     /// Volume of all tracks in one setting.
     /// </summary>
     /// <returns>Master volume of Everloop.</returns>
-	public float volume {
-		get {
-			return _volume;
-		}
-		set {
-			_volume = value;
-			
-			// Set volume of all layers.
-			if (_tracks != null) {
-				for (int i = 0; i < _tracks.Count; ++i) {
-					_tracks[i].volume = _trackVolumes[i] * _volume;
-				}
-			}
-		}
-	}
-	private float _volume = 0.8f;
+    /// 
 
 	public bool fadeInOnStart = false;
 	public float masterFadeDuration = 1f;
@@ -44,14 +29,9 @@ public class EverloopController : MonoBehaviour {
 	[HideInInspector]
 	public bool showDetailedInfo;
 
-	public List<AudioSource> tracks {
-		get {
-			return _tracks;
-		}
-	}
+    public List<AudioSource> _tracks;
 
-	private List<AudioSource> _tracks;
-	private List<float> _trackVolumes;
+	public List<float> _trackVolumes;
 
 	private Coroutine _autopilotCoroutine;
 	private bool _isAutopilotActive = false;
@@ -205,7 +185,10 @@ public class EverloopController : MonoBehaviour {
     /// <param name="duration">Duration of fade out in seconds.</param>
     /// <param name="ignoreTimeScale">Duration of fade out ignores Time.timeScale.</param>
 	public virtual void FadeOutAll(float duration = 1f, bool ignoreTimeScale = true) {
-		StartCoroutine(FadeMaster(false, duration, ignoreTimeScale));
+        foreach(AudioSource src in _tracks)
+        {
+            StartCoroutine(FadeLayer(src, false, duration, ignoreTimeScale));
+        }
 	}
 	
 	/// <summary>
@@ -265,32 +248,36 @@ public class EverloopController : MonoBehaviour {
 			index++;
 		}
 	}
+    private void Awake()
+    {
+        _tracks = new List<AudioSource>(GetComponentsInChildren<AudioSource>());
+        numActiveTracks = Mathf.Min(numActiveTracks, _tracks.Count);
 
-	void Start() {
-		_tracks = new List<AudioSource>(GetComponentsInChildren<AudioSource>());
-		numActiveTracks = Mathf.Min(numActiveTracks, _tracks.Count);
-		
-		// Remember layer volumes.
-		_trackVolumes = new List<float>(_tracks.Count);
-		for (int i = 0; i < _tracks.Count; ++i) {
-			_trackVolumes.Add(_tracks[i].volume);
+        // Remember layer volumes.
+        _trackVolumes = new List<float>(_tracks.Count);
+        for (int i = 0; i < _tracks.Count; ++i)
+        {
+            _trackVolumes.Add(_tracks[i].volume);
 
-			// Ensure all tracks are looped.
-			_tracks[i].loop = true;
-		}
-		
-		volume = _volume;
-		
-		if (fadeInOnStart) {
-			if (enableAutopilot) {
-				StartAutopilot();
-			} else {
-				PlayAll(masterFadeDuration);
-			}
-		}
-	}
+            // Ensure all tracks are looped.
+            _tracks[i].loop = true;
+        }
 
-	private IEnumerator AutopilotCoroutine() {
+        //volume = _volume;
+        if (fadeInOnStart)
+        {
+            if (enableAutopilot)
+            {
+                StartAutopilot();
+            }
+            else
+            {
+                PlayAll(masterFadeDuration);
+            }
+        }
+    }
+
+    private IEnumerator AutopilotCoroutine() {
 		float timeUntilAction = avgFadeTimeout + Random.Range(-fadeTimeoutVariance, fadeTimeoutVariance);
 
 		while (_isAutopilotActive && changeTracksAutomatically) {
@@ -329,11 +316,11 @@ public class EverloopController : MonoBehaviour {
 
 		}
 	}
-
+    /*
 	private IEnumerator FadeMaster(bool fadeIn, float duration = 1f, bool ignoreTimestep = true) {
 		float delta = (fadeIn? 1.0f : -1.0f) / duration;
 		
-		float targetVolume = _volume;
+		float targetVolume = AudioManager.Singleton.musicVolume;
 		if (fadeIn) {
 			volume = 0;
 		}
@@ -360,7 +347,7 @@ public class EverloopController : MonoBehaviour {
 			StopAutopilot();
 		}
 	}
-	
+	*/
 	private IEnumerator FadeLayer(AudioSource layer, bool fadeIn, float duration, bool ignoreTimeScale) {
 		float delta = (fadeIn? 1f : -1f) / duration;
 
@@ -369,11 +356,16 @@ public class EverloopController : MonoBehaviour {
 			Debug.LogError(string.Format("Layer {0} not found.", layer.name));
 			yield break;
 		}
-		float targetVolume = _trackVolumes[index] * _volume;
-		if (fadeIn) {
+        float targetVolume = _trackVolumes[index];
+        //if (!fadeIn) Debug.Log(targetVolume);
+        if (fadeIn) {
 			layer.volume = 0;
 			layer.Play();
 		}
+        else
+        {
+            layer.volume = targetVolume;
+        }
 		
 		var wait = new WaitForEndOfFrame();
 		float lastTime = ignoreTimeScale? Time.realtimeSinceStartup : Time.timeSinceLevelLoad;
@@ -383,9 +375,9 @@ public class EverloopController : MonoBehaviour {
 		while ((fadeIn && layer.volume < targetVolume) || (!fadeIn && layer.volume > 0f)) {
 			currentTime = ignoreTimeScale? Time.realtimeSinceStartup : Time.timeSinceLevelLoad;
 			deltaTime = currentTime - lastTime;
-			
-			layer.volume = Mathf.Clamp01(layer.volume + delta * deltaTime);
-			
+
+            //if (!fadeIn) Debug.Log(layer.volume);
+            layer.volume = Mathf.Clamp01(layer.volume + delta * deltaTime);
 			lastTime = currentTime;
 			
 			yield return wait;

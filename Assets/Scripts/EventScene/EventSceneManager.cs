@@ -15,7 +15,7 @@ public class EventSceneManager : MonoBehaviour
     public SettingsScript _settings;
     private void Awake()
     {
-        _returnToMenuButton.onClick.AddListener(() => Loader.Load(Loader.Scene.MenuScene));
+        _returnToMenuButton.onClick.AddListener(() => Loader.Load(Loader.SceneType.MenuScene));
     }
     private void Start()
     {

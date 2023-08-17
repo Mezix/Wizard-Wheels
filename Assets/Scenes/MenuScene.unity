@@ -24008,6 +24008,10 @@ MonoBehaviour:
   masterVolume: 0
   musicVolume: 0
   SFXVolume: 0
+  _everloop: {fileID: 0}
+  _combatSources: []
+  _nonCombatSources: []
+  _menuSources: []
 --- !u!1 &1292281879
 GameObject:
   m_ObjectHideFlags: 0
@@ -40191,7 +40195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1789171225
 Transform:
   m_ObjectHideFlags: 0

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f674d45ae9713ba41a769dacb7086dbb, type: 3}
-  m_Name: Druskelle
+  m_Name: BruiserStats
   m_EditorClassIdentifier: 
-  _tankName: Druskelle
-  _tankHealth: 20
-  _tankMaxSpeed: 3
+  _tankName: Bruiser Tank
+  _tankHealth: 18
+  _tankMaxSpeed: 4
   _tankAccel: 0.005
-  _tankDecel: 0.01
-  _rotationSpeed: 50
-  _scrapDropAmount: 50
+  _tankDecel: 0.02
+  _rotationSpeed: 30
+  _scrapDropAmount: 60

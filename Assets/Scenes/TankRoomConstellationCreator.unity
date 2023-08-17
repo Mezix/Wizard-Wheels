@@ -69301,6 +69301,9 @@ MonoBehaviour:
   _tiresGOList:
   - {fileID: 7613949203658757165, guid: 7ac089229eaa84c40aae6f43ba1d1d2a, type: 3}
   - {fileID: 7613949203658757165, guid: 3eaaca886ea2fe34894663466291e5af, type: 3}
+  - {fileID: 7613949203658757165, guid: dde5356ac91727d4cb170b7ff4183012, type: 3}
+  - {fileID: 7613949203658757165, guid: 84e2779fb629f154c8dc86e37bbc3017, type: 3}
+  - {fileID: 7613949203658757165, guid: 8c73bc7d20e7b0b47b4ba23289559c50, type: 3}
   tiresIndex: 0
   _systemGOList:
   - {fileID: 1723648633549023116, guid: 26bcb7eb185396848aed8d45c73b04fe, type: 3}
@@ -73574,7 +73577,7 @@ MonoBehaviour:
   _tGeo: {fileID: 604466275}
   _tUI: {fileID: 1423311042}
   mouse: {fileID: 873256501}
-  tankToEdit: {fileID: 11400000, guid: 4a6e797f106c9f04aaf7bbac6497f42a, type: 2}
+  tankToEdit: {fileID: 11400000, guid: f917170ab173dcf4fbd955b13316adec, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

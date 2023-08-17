@@ -78,8 +78,8 @@ public class DataStorage : MonoBehaviour
         playerData.CurrentEventPathIndex++;
         SavePlayerData.SavePlayer(saveSlot, playerData);
 
-        if (playerData.CurrentEventPathIndex >= playerData.CurrentEventPath.Count) Loader.Load(Loader.Scene.VictoryScene);
-        else Loader.Load(Loader.Scene.RouteTransitionScene);
+        if (playerData.CurrentEventPathIndex >= playerData.CurrentEventPath.Count) Loader.Load(Loader.SceneType.VictoryScene);
+        else Loader.Load(Loader.SceneType.RouteTransitionScene);
     }
 
     public void AdjustWizardHappiness(int wizIndex, int happinessAdjustmentAmount)

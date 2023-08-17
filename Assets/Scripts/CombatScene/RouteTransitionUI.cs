@@ -24,7 +24,7 @@ public class RouteTransitionUI : MonoBehaviour
     {
         _routeNodePrefab = Resources.Load(GS.UIPrefabs("RouteNode"), typeof (RouteNode)) as RouteNode;
         _routeConnectorPrefab = Resources.Load(GS.UIPrefabs("RouteNodeConnector"), typeof (RouteNodeConnector)) as RouteNodeConnector;
-        _returnToMenuButton.onClick.AddListener(() => Loader.Load(Loader.Scene.MenuScene));
+        _returnToMenuButton.onClick.AddListener(() => Loader.Load(Loader.SceneType.MenuScene));
     }
     private void Start()
     {

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf59d0cd2d503549883d49978026317, type: 3}
   m_Name: PlayerTeslaTower
   m_EditorClassIdentifier: 
-  _weaponName: Basic Cannon
+  _weaponName: Tesla Tower
   _UISprite: {fileID: 21300000, guid: 2eac3e5e4ceb06348940217418932e52, type: 3}
   _damage: 1
-  _projectileSpeed: 10
+  _projectileSpeed: 0
   _attacksPerSecond: 0.25
-  _rotationSpeed: 4
+  _rotationSpeed: 2
   _maxSwivel: 360
   _lockOnRange: 15
   _recoil: 0.2

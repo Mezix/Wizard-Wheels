@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f674d45ae9713ba41a769dacb7086dbb, type: 3}
-  m_Name: King Tank
+  m_Name: DreadnoughtStats
   m_EditorClassIdentifier: 
-  _tankName: Mooshka
+  _tankName: The Dreadnought
   _tankHealth: 40
-  _tankMaxSpeed: 1
-  _tankAccel: 0.005
-  _tankDecel: 0
-  _rotationSpeed: 10
+  _tankMaxSpeed: 3
+  _tankAccel: 0.0025
+  _tankDecel: 0.01
+  _rotationSpeed: 20
+  _scrapDropAmount: 300

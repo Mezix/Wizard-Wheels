@@ -6,6 +6,13 @@ public class Tire : MonoBehaviour
 {
     public Animator tireAnimator;
     public SpriteRenderer tireSprite;
+    public VehicleControls _vehicleControls;
+    public enum VehicleControls
+    {
+        CarControls,
+        TankControls,
+        Legs
+    }
 
     private void Awake()
     {

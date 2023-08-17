@@ -43,7 +43,7 @@ public class CombatSceneManager : MonoBehaviour
         Instantiate(Resources.Load(GS.Prefabs( "LoadingScreen"), typeof (GameObject)) as GameObject);
         Time.timeScale = 1;
         yield return new WaitForSeconds(2f);
-        Loader.Load(Loader.Scene.MenuScene);
+        Loader.Load(Loader.SceneType.MenuScene);
     }
 
     public void CombatHasBeenWon()
