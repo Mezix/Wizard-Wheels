@@ -20392,7 +20392,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7806833b976f1194193d957e1f22b530, type: 2}
   _spawnedTanks: []
   tankIndex: 0
-  _trc: {fileID: 0}
+  _tmpVehicleData:
+    VehicleMatrix:
+      XArray: []
+    _savedXSize: 0
+    _savedYSize: 0
+    _tmpXSize: 0
+    _tmpYSize: 0
+    FloorColorR: 1
+    FloorColorG: 1
+    FloorColorB: 1
+    RoofColorR: 1
+    RoofColorG: 1
+    RoofColorB: 1
   _vehicleBGOrb: {fileID: 1886440711}
   _translucentColor: {r: 0, g: 0.90666676, b: 1, a: 0.44705883}
 --- !u!1 &750110313
@@ -31895,7 +31907,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 8
-      m_TileSpriteIndex: 9
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -40098,8 +40110,8 @@ Tilemap:
     m_Data: {fileID: -82452548, guid: ebce59e4f5a397c4bbf82aa101e34653, type: 3}
   - m_RefCount: 12
     m_Data: {fileID: 568748834, guid: e5a4f736af8411740bd03f1fbe794707, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 22044575, guid: e5a4f736af8411740bd03f1fbe794707, type: 3}
   - m_RefCount: 25
     m_Data: {fileID: -1516352632, guid: e5a4f736af8411740bd03f1fbe794707, type: 3}
   - m_RefCount: 2
@@ -40112,8 +40124,6 @@ Tilemap:
     m_Data: {fileID: 1616449662, guid: ebce59e4f5a397c4bbf82aa101e34653, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -86248642, guid: ebce59e4f5a397c4bbf82aa101e34653, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 22044575, guid: e5a4f736af8411740bd03f1fbe794707, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1361
     m_Data:
@@ -42164,7 +42174,7 @@ PrefabInstance:
     - target: {fileID: 199823446577963849, guid: 531d0b50a40815141b1c0b1268f34f32,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.41
       objectReference: {fileID: 0}
     - target: {fileID: 199823446577963849, guid: 531d0b50a40815141b1c0b1268f34f32,
         type: 3}
@@ -42211,6 +42221,11 @@ PrefabInstance:
       propertyPath: _orb
       value: 
       objectReference: {fileID: 1691385669}
+    - target: {fileID: 4410841966990000522, guid: 531d0b50a40815141b1c0b1268f34f32,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 7618846680958665082, guid: 531d0b50a40815141b1c0b1268f34f32,
         type: 3}
       propertyPath: _shadowData

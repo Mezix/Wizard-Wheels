@@ -202,7 +202,7 @@ public class PlayerTankController : TankController
     }
     public override void TakeDamage(int damage)
     {
-        THealth.GetComponent<PlayerTankHealth>().TakeDamage(damage);
+       // THealth.GetComponent<PlayerTankHealth>().TakeDamage(damage);
         REF.Cam.StartShake(0.1f, 0.1f);
     }
     public void InitiateDeathBehaviour()

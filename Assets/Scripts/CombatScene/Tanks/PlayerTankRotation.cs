@@ -86,7 +86,8 @@ public class PlayerTankRotation : TankRotation
 
     private void SetRotationOfSteeringWheel()
     {
-        HM.RotateTransformToAngle(REF.CombatUI._steeringWheelScript._steeringWheelObject.transform, rotatableObjects[0].transform.rotation.eulerAngles);
+        //HM.RotateTransformToAngle(REF.CombatUI._steeringWheelScript._steeringWheelObject.transform, rotatableObjects[0].transform.rotation.eulerAngles);
+        HM.RotateTransformToAngle(REF.CombatUI._steeringWheelScript._steeringWheelObject.transform, transform.rotation.eulerAngles);
     }
 
     //  Rotate Tank Manually using the arrow keys

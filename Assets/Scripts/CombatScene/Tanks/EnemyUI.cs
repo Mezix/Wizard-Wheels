@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,10 @@ public class EnemyUI : MonoBehaviour
     [SerializeField]
     private Image matchSpeedImg;
     private bool matching;
-    private Canvas canvas;
+    public Canvas canvas;
     public GameObject hpBar;
     public Text tankNameText;
+    public Transform _allObjects;
     void Awake()
     {
         matching = true;
@@ -43,5 +45,10 @@ public class EnemyUI : MonoBehaviour
     {
         if (b) trackEnemyTankImage.sprite = Resources.Load(GS.UIGraphics("TrackTankTrue"), typeof(Sprite)) as Sprite;
         else trackEnemyTankImage.sprite = Resources.Load(GS.UIGraphics("TrackTankFalse"), typeof(Sprite)) as Sprite;
+    }
+
+    public void KeepLevel(EnemyTankMovement e)
+    {
+        HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, -e.transform.rotation.eulerAngles.z));
     }
 }

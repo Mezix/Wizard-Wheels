@@ -48,7 +48,8 @@ public class TankMovement : MonoBehaviour
     {
         if (GetComponentInChildren<TankRotation>().rotatableObjects.Count == 0) return;
 
-        moveVector = GetComponentInChildren<TankRotation>().rotatableObjects[0].transform.up;
+        //moveVector = GetComponentInChildren<TankRotation>().rotatableObjects[0].transform.up;
+        moveVector = transform.up;
 
         float speedMultiplier = currentSpeed * Time.deltaTime;
 

@@ -50,13 +50,14 @@ public class EnemyTankController : TankController
     {
         GameObject ui = (GameObject) Instantiate(Resources.Load(GS.Enemy("EnemyUI")));
         enemyUI = ui.GetComponent<EnemyUI>();
-        enemyUI.transform.SetParent(transform);
-        enemyUI.transform.localPosition = new Vector2(0, (0.5f * 0.5f * TGeo._vehicleData._savedYSize) + 1f);
+        enemyUI.transform.SetParent(transform, false);
+        enemyUI._allObjects.transform.localPosition = new Vector2(0, (0.5f * TGeo._vehicleData._savedYSize * 100));
         THealth.GetComponent<EnemyTankHealth>()._healthBarParent = enemyUI.hpBar;
     }
     private void Update()
     {
         if (!_dying) EnemyBehaviour();
+        enemyUI.KeepLevel(TMov);
     }
     private void InitEvents()
     {
