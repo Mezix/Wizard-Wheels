@@ -10,7 +10,8 @@ public class CameraScript : MonoBehaviour
     [HideInInspector]
     private Vector2 cameraOffset;
     private Vector3 mouseStartDragPos;
-    private bool isMovingToPos;
+    [SerializeField]
+    private bool hasArrivedAtTrackedObject;
 
     //private PixelPerfectCamera pixelCam;
     public OcclusionCulling2D _occlusionCulling2D;
@@ -24,7 +25,7 @@ public class CameraScript : MonoBehaviour
         REF.Cam = this;
         _occlusionCulling2D = GetComponentInChildren<OcclusionCulling2D>();
         //pixelCam = Camera.main.GetComponent<PixelPerfectCamera>();
-        isMovingToPos = false;
+        hasArrivedAtTrackedObject = false;
     }
     private void Start()
     {
@@ -74,9 +75,8 @@ public class CameraScript : MonoBehaviour
         REF.EM.UntrackAllEnemyTanks();
         REF.CombatUI.TrackingTank(true);
         objToTrack = REF.PlayerGO.transform;
-        transform.SetParent(objToTrack);
+        hasArrivedAtTrackedObject = false;
         cameraOffset = Vector3.zero;
-        isMovingToPos = true;
     }
     public void SetTrackedVehicleToObject(Transform t)
     {
@@ -87,34 +87,32 @@ public class CameraScript : MonoBehaviour
         if (t.GetComponentInChildren<EnemyTankController>()) t.GetComponentInChildren<EnemyTankController>().enemyUI.TrackTank(true);
 
         objToTrack = t;
-        transform.SetParent(objToTrack);
-        HM.RotateTransformToAngle(transform, Vector3.zero);
         cameraOffset = Vector3.zero;
-        isMovingToPos = true;
+        hasArrivedAtTrackedObject = false;
     }
     private void MoveCameraToLocalPos()
     {
-        HM.RotateTransformToAngle(transform, Vector3.zero);
-        if (isMovingToPos)
+        if (!hasArrivedAtTrackedObject)
         {
-            Vector3 newPos = Vector2.Lerp(transform.localPosition, Vector3.zero, 0.1f);
-            newPos.z = -10;
-            if (Vector3.Distance(Vector3.zero, newPos) < 1f)
+            Vector3 newPos = Vector3.Lerp(transform.position, objToTrack.position, 0.1f);
+            if (Vector2.Distance(transform.position, objToTrack.position) <= 0.5f)
             {
-                newPos = Vector3.zero;
-                isMovingToPos = false;
+                newPos = objToTrack.position;
+                hasArrivedAtTrackedObject = true;
             }
-            transform.localPosition = newPos;
+            newPos.z = -10;
+            transform.position = newPos;
         }
         else
         {
-            transform.localPosition = new Vector3(cameraOffset.x, cameraOffset.y, -10);
+            Vector3 camOffsetVec3 = new Vector3(cameraOffset.x, cameraOffset.y, -10);
+            transform.position = objToTrack.position + camOffsetVec3;
         }
     }
     private void StopTracking()
     {
         objToTrack = null;
-        isMovingToPos = false;
+        hasArrivedAtTrackedObject = true;
         transform.parent = null;
     }
     private void ChangeCameraOffset()
@@ -125,7 +123,7 @@ public class CameraScript : MonoBehaviour
 
         if(!cameraOffset.Equals(Vector3.zero)) REF.CombatUI.TrackingTank(false);
         mouseStartDragPos = Input.mousePosition;
-        isMovingToPos = false;
+        hasArrivedAtTrackedObject = true;
     }
 
     //  Zoom

@@ -31,7 +31,7 @@ public abstract class AUnit : MonoBehaviour
     //  Pathfinding
 
     [HideInInspector]
-    public Vector3 RoomLocalPos;
+    public Vector3 RoomLocalPosInRelationToWizards;
     [HideInInspector]
     public Room CurrentRoom;
     [HideInInspector]
@@ -126,7 +126,7 @@ public abstract class AUnit : MonoBehaviour
         if (Vector3.Distance(transform.position, PathToRoom[PathToRoom.Count - 1].transform.position) <= (UnitSpeed * Time.deltaTime))
         {
             //Debug.Log("destination reached");
-            transform.localPosition = RoomLocalPos;
+            transform.localPosition = RoomLocalPosInRelationToWizards;
             UnitIsMoving = false;
             WizardAnimator.SetFloat("Speed", 0);
 
@@ -145,14 +145,17 @@ public abstract class AUnit : MonoBehaviour
     {
         WizardAnimator.SetBool("Interacting", false);
         //calculate the local vector of our room relative to the tank
-        RoomLocalPos = nextRoomPos.transform.position - transform.parent.position;
-        //set the z to 0 so our sprite doesnt move on the z axis
-        RoomLocalPos.z = 0;
+        //RoomLocalPos = nextRoomPos.transform.position - transform.parent.position;
 
-        float distance = Vector2.Distance(transform.localPosition, RoomLocalPos);
+        //get the localspace coordinates of the room we are trying to get to in relation to the top level tank, under which our wizards are in the hierarchy
+        RoomLocalPosInRelationToWizards = nextRoomPos.ParentRoom.tGeo.transform.InverseTransformPoint(nextRoomPos.transform.position);
+        //set the z to 0 so our sprite doesnt move on the z axis
+        RoomLocalPosInRelationToWizards.z = 0;
+
+        float distance = Vector2.Distance(transform.localPosition, RoomLocalPosInRelationToWizards);
 
         //calculate local vector between wizard and the next position
-        Vector3 moveVector = Vector3.Normalize(RoomLocalPos - transform.localPosition);
+        Vector3 moveVector = Vector3.Normalize(RoomLocalPosInRelationToWizards - transform.localPosition);
 
         // set Animator Values
         WizardAnimator.SetFloat("Speed", moveVector.sqrMagnitude);
@@ -167,7 +170,7 @@ public abstract class AUnit : MonoBehaviour
             CurrentWaypoint++;
             CurrentRoomPos = nextRoomPos;
             CurrentRoom = nextRoomPos.ParentRoom;
-            transform.localPosition = RoomLocalPos;
+            transform.localPosition = RoomLocalPosInRelationToWizards;
         }
     }
     public void RemovePosIndicator()
@@ -183,9 +186,10 @@ public abstract class AUnit : MonoBehaviour
         if (!rPos) return;
         if (movingToPosIndicator) Destroy(movingToPosIndicator);
 
-        movingToPosIndicator = Instantiate(Resources.Load(GS.Prefabs("UnitMovingToIndicator"), typeof (GameObject)) as GameObject);
-        movingToPosIndicator.transform.parent = rPos.transform;
-        movingToPosIndicator.transform.localPosition = Vector3.zero;
+        movingToPosIndicator = Instantiate(Resources.Load(GS.Prefabs("UnitMovingToIndicator"), typeof (GameObject)) as GameObject, rPos.transform, false);
+        movingToPosIndicator.transform.localRotation = Quaternion.identity;
+        //movingToPosIndicator.transform.SetParent(rPos.transform, false);
+        //movingToPosIndicator.transform.localPosition = Vector3.zero;
     }
     public void ClearUnitPath()
     {
