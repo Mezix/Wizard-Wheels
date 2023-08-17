@@ -28,7 +28,7 @@ public class WeaponSelectedUI : MonoBehaviour
         if (weapon.WeaponSelected && weapon.WeaponEnabled &&!weapon.ShouldHitPlayer)
         {
             _targetingCircle.SetActive(true);
-            Vector3 weaponPos = weapon.transform.position;
+            Vector3 weaponPos = weapon.RotatablePart.position;
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float distance = Vector3.Distance(weaponPos, mousePos);
 

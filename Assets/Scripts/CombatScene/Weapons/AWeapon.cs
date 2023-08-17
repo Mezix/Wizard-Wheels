@@ -256,31 +256,21 @@ public abstract class AWeapon : ASystem
         }
 
         //  find the desired angle to face the target
-        float zRotToTarget = HM.GetAngle2DBetween(TargetedRoom.transform.position + TargetMoveVector, transform.position);
-        //  get closer to the angle with our max rotationspeed
-        float zRotActual;
-        float diff = zRotToTarget - RotatablePart.rotation.eulerAngles.z;
-        if (diff < -180) diff += 360;
-
+        float zRotToTarget = HM.GetAngle2DBetween(transform.InverseTransformPoint(TargetedRoom.transform.position + TargetMoveVector), transform.localPosition);
+        float zRotActual = HM.WrapAngle(RotatablePart.localRotation.eulerAngles.z);
+        float diff = zRotToTarget - zRotActual;
         if (Mathf.Abs(diff) > RotationSpeed)
         {
-            zRotActual = RotatablePart.rotation.eulerAngles.z + Mathf.Sign(diff) * RotationSpeed;
+            zRotActual += Mathf.Sign(diff) * RotationSpeed;
+            if (zRotActual > _maxAllowedAngleToTurn) zRotActual = _maxAllowedAngleToTurn;
+            else if (zRotActual < -_maxAllowedAngleToTurn) zRotActual = -_maxAllowedAngleToTurn;
         }
         else
         {
             zRotActual = zRotToTarget;
             Attack();
         }
-
-        //  rotate to this newly calculate angle
-        if (_maxAllowedAngleToTurn < 180)
-        {
-            //Debug.Log(zRotActual);
-            if (zRotActual > _maxAllowedAngleToTurn) zRotActual = _maxAllowedAngleToTurn;
-            else if (zRotActual < -_maxAllowedAngleToTurn) zRotActual = -_maxAllowedAngleToTurn;
-            //Debug.Log(zRotActual);
-        }
-        HM.RotateTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
+        HM.RotateLocalTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
     }
 
     //  USE WEAPON

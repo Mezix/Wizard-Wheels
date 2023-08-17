@@ -23,7 +23,26 @@ public static class HM
     {
         return Mathf.Rad2Deg * Mathf.Atan2(from.y - to.y, from.x - to.x);
     }
-    
+
+    public static float WrapAngle(float angle)
+    {
+        angle %= 360;
+        if (angle > 180)
+            return angle - 360;
+
+        return angle;
+    }
+
+    public static float UnwrapAngle(float angle)
+    {
+        if (angle >= 0)
+            return angle;
+
+        angle = -angle % 360;
+
+        return 360 - angle;
+    }
+
     public static RaycastHit2D RaycastAtPosition(Vector3 pos, int layerMask = 0)
     {
         //make sure we arent on the same plane as our object we are trying to hit
