@@ -9,7 +9,8 @@ public class Crosshair : MonoBehaviour
     public Canvas weaponTextCanvas;
     public Text weaponIndex;
     public Text tankName;
-    public GameObject crosshair;
+    public GameObject _crosshairObject;
+    public GameObject _crosshairSprite;
     public List<AWeapon> AttackingWeapons;
     public List<GameObject> WeaponIndices;
 
@@ -51,7 +52,7 @@ public class Crosshair : MonoBehaviour
     {
         DeleteAllIndices();
 
-        float radius = 50 * crosshair.transform.localScale.x; //radius of the circle function used to calculate the crosshair index's position
+        float radius = 50 * _crosshairObject.transform.localScale.x; //radius of the circle function used to calculate the crosshair index's position
         int i = 0; //a counter to shift the position of our crosshair indices
         float shiftAngle = 30;
 
@@ -83,7 +84,7 @@ public class Crosshair : MonoBehaviour
     public void SetCrosshairSizeAndPosition(int sizex, int sizey)
     {
         int minSize = Mathf.Min(sizex, sizey);
-        crosshair.transform.localScale = new Vector2(minSize, minSize);
+        _crosshairObject.transform.localScale = new Vector2(minSize, minSize);
         transform.localPosition = Vector2.zero;
 
         transform.localPosition = new Vector2(0.25f * (sizex-1), -0.25f * (sizey-1));

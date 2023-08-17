@@ -339,7 +339,7 @@ public class TankGeometry : MonoBehaviour
             }
         }
     }
-    public Room FindRandomRoomWithSpace()
+    public Vector2Int FindRoomPositionWithSpace()
     {
         List<Room> allRoomsTMP = AllRooms;
         // searches through all possible rooms until it finds one it can occupy
@@ -351,13 +351,13 @@ public class TankGeometry : MonoBehaviour
                 if (tmpRoom.freeRoomPositions[j] != null)
                 {
                     //print("found a random free room");
-                    return tmpRoom;
+                    return new Vector2Int(tmpRoom.freeRoomPositions[j]._xPos, tmpRoom.freeRoomPositions[j]._yPos);
                 }
             }
         }
         //if it has has found no free rooms, return
         print("no free rooms found");
-        return null;
+        return new Vector2Int(-1, -1);
     }
     public void VisualizeMatrix()
     {

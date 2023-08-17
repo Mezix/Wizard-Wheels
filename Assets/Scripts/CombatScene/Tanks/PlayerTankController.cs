@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using static PlayerData;
 
 public class PlayerTankController : TankController
 {
@@ -45,6 +46,7 @@ public class PlayerTankController : TankController
         TRot.GetComponent<PlayerTankRotation>().InitTankRotation();
         TWep.CreateWeaponsUI();
         InitTankStats();
+        _wizardData = DataStorage.Singleton.playerData.WizardList;
         SpawnWizards();
         SpawnWizardsUI();
         //TGeo.VisualizeMatrix();
@@ -81,6 +83,7 @@ public class PlayerTankController : TankController
     }
     public void SaveAllWizardPositions()
     {
+        int wizIndex = 0;
         foreach (AUnit unit in _spawnedWizards)
         {
             if(unit.DesiredRoom && unit.DesiredRoom)
@@ -93,7 +96,12 @@ public class PlayerTankController : TankController
                 unit.SavedRoom = unit.CurrentRoom;
                 unit.SavedRoomPos = unit.CurrentRoomPos;
             }
+            //  Save the wizard data
+            DataStorage.Singleton.playerData.WizardList[wizIndex].RoomPositionX = unit.SavedRoomPos._xPos;
+            DataStorage.Singleton.playerData.WizardList[wizIndex].RoomPositionY = unit.SavedRoomPos._yPos;
+            wizIndex++;
         }
+        DataStorage.Singleton.playerData.WizardList = _wizardData;
     }
     private void HandleWizardSelection()
     {

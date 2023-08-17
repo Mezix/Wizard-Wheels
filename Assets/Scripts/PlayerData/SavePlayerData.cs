@@ -66,8 +66,8 @@ public static class SavePlayerData
             new WizardData
             {
                 WizType = WizardType.TechWizard,
-                RoomPositionX = 0,
-                RoomPositionY = 0,
+                RoomPositionX = -1,
+                RoomPositionY = -1,
                 Happiness = 0
             }
         };

@@ -87,7 +87,7 @@ public class CombatUIScript : MonoBehaviour
     private void Start()
     {
         _settingsScript.CloseSettings();
-        SaveWizards(wizardsSaved);
+        //SaveWizards(wizardsSaved);
         timeBetweenMouseClicks = 0;
         InitButtonsSlidersToggles();
         _xrayOn = true;

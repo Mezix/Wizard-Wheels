@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlayerData;
 
 public abstract class TankController : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public abstract class TankController : MonoBehaviour
     public string _tankName;
 
     //  Wizards
-    public List<GameObject> _wizardsToSpawn = new List<GameObject>();
+    //public List<GameObject> _wizardsToSpawn = new List<GameObject>();
+    public List<WizardData> _wizardData = new List<WizardData>();
     public List<AUnit> _spawnedWizards = new List<AUnit>();
 
     public bool _dying;
@@ -23,21 +25,31 @@ public abstract class TankController : MonoBehaviour
 
     public void SpawnWizards()
     {
-        int wizardIndex = 1;
-        foreach (GameObject wiz in _wizardsToSpawn)
+        int wizardIndex = 0;
+        foreach (WizardData wiz in _wizardData)
         {
-            GameObject wizGO = Instantiate(wiz);
-            AUnit u = wizGO.GetComponentInChildren<AUnit>();
-            Room room = TGeo.FindRandomRoomWithSpace();
-            wizGO.transform.parent = transform;
-            wizGO.transform.position = room.transform.position;
-            u.CurrentRoom = room;
-            u.CurrentRoom.OccupyRoomPos(room.GetNextFreeRoomPos(), u);
-            u.CurrentRoomPos = u.CurrentRoom.allRoomPositions[0];
-            u.Index = wizardIndex;
-            _spawnedWizards.Add(wizGO.GetComponentInChildren<AUnit>());
+            AUnit unit = Instantiate(Resources.Load(GS.Wizards(wiz.WizType.ToString()), typeof (AUnit)) as AUnit);
+            Vector2Int roomPosVector = new Vector2Int(0,0);
+            if (wiz.RoomPositionX == -1 || wiz.RoomPositionY == -1)
+            {
+                roomPosVector = TGeo.FindRoomPositionWithSpace();
+                DataStorage.Singleton.playerData.WizardList[wizardIndex].RoomPositionX = roomPosVector.x;
+                DataStorage.Singleton.playerData.WizardList[wizardIndex].RoomPositionY = roomPosVector.y;
+            }
+            else
+            {
+                roomPosVector = new Vector2Int(wiz.RoomPositionX, wiz.RoomPositionY);
+            }
+            RoomPosition roomPosToGoTo = TGeo.RoomPosMatrix[roomPosVector.x, roomPosVector.y];
+            unit.transform.parent = transform;
+            unit.transform.position = roomPosToGoTo.transform.position;
+            unit.CurrentRoom = roomPosToGoTo.ParentRoom;
+            unit.CurrentRoom.OccupyRoomPos(roomPosToGoTo, unit);
+            unit.CurrentRoomPos = roomPosToGoTo;
+            unit.Index = wizardIndex;
+            _spawnedWizards.Add(unit);
 
-            u.InitUnit();
+            unit.InitUnit();
             wizardIndex++;
         }
     }

@@ -108,7 +108,7 @@ public class PlayerData
         ImmolatingImp
     }
     [Serializable]
-    public struct WizardData
+    public class WizardData
     {
         public WizardType WizType;
         public int RoomPositionX;
