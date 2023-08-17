@@ -264,6 +264,7 @@ public class EverloopController : MonoBehaviour {
         }
 
         //volume = _volume;
+        /*
         if (fadeInOnStart)
         {
             if (enableAutopilot)
@@ -274,7 +275,7 @@ public class EverloopController : MonoBehaviour {
             {
                 PlayAll(masterFadeDuration);
             }
-        }
+        }*/
     }
 
     private IEnumerator AutopilotCoroutine() {
@@ -362,12 +363,8 @@ public class EverloopController : MonoBehaviour {
 			layer.volume = 0;
 			layer.Play();
 		}
-        else
-        {
-            layer.volume = targetVolume;
-        }
 		
-		var wait = new WaitForEndOfFrame();
+		var wait = new WaitForFixedUpdate();
 		float lastTime = ignoreTimeScale? Time.realtimeSinceStartup : Time.timeSinceLevelLoad;
 		float currentTime;
 		float deltaTime;
@@ -376,8 +373,8 @@ public class EverloopController : MonoBehaviour {
 			currentTime = ignoreTimeScale? Time.realtimeSinceStartup : Time.timeSinceLevelLoad;
 			deltaTime = currentTime - lastTime;
 
-            //if (!fadeIn) Debug.Log(layer.volume);
-            layer.volume = Mathf.Clamp01(layer.volume + delta * deltaTime);
+            //layer.volume = Mathf.Clamp01(layer.volume + delta * deltaTime); //this breaks when loading scene!!! gives negative time
+            layer.volume = Mathf.Clamp01(layer.volume + delta * Time.deltaTime);
 			lastTime = currentTime;
 			
 			yield return wait;
@@ -389,5 +386,4 @@ public class EverloopController : MonoBehaviour {
 
 		layer.volume = targetVolume;
 	}
-
 }

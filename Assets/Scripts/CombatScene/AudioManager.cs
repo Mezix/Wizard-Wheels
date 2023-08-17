@@ -81,7 +81,7 @@ public class AudioManager : MonoBehaviour
     }
     void PlayMusic(BGMusicMode mode)
     {
-        float fadeIn = 50f; //amount in Fixedupdate frames
+        float fadeIn = 20f; //amount in Fixedupdate frames
         float fadeOut = 20f; //amount in Fixedupdate frames
         bool ignoreTimeScale = false;
         if (mode.Equals(BGMusicMode.Combat))
