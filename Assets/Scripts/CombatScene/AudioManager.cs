@@ -84,6 +84,7 @@ public class AudioManager : MonoBehaviour
         float fadeIn = 20f; //amount in Fixedupdate frames
         float fadeOut = 20f; //amount in Fixedupdate frames
         bool ignoreTimeScale = false;
+        _everloop.StopAllCoroutines();
         if (mode.Equals(BGMusicMode.Combat))
         {
             foreach (AudioSource src in _combatSources) if (!src.isPlaying) _everloop.FadeInLayer(src, fadeIn, ignoreTimeScale);

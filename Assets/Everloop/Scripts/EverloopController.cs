@@ -374,7 +374,7 @@ public class EverloopController : MonoBehaviour {
 			deltaTime = currentTime - lastTime;
 
             //layer.volume = Mathf.Clamp01(layer.volume + delta * deltaTime); //this breaks when loading scene!!! gives negative time
-            layer.volume = Mathf.Clamp01(layer.volume + delta * Time.deltaTime);
+            layer.volume = Mathf.Clamp01(layer.volume + delta * Time.fixedDeltaTime);
 			lastTime = currentTime;
 			
 			yield return wait;
