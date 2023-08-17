@@ -118,6 +118,7 @@ public class DataStorage : MonoBehaviour
                 data.VehicleMatrix.XArray[x].YStuff[y].RoofTilePrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoofTilePrefabPath;
                 data.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
                 data.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath;
+                data.VehicleMatrix.XArray[x].YStuff[y].SystemDirection = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemDirection;
 
                 data.VehicleMatrix.XArray[x].YStuff[y]._topWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._topWallExists;
                 data.VehicleMatrix.XArray[x].YStuff[y]._rightWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._rightWallExists;

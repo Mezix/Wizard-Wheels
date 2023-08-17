@@ -331,6 +331,7 @@ MonoBehaviour:
   RoomPosForInteraction: {fileID: 0}
   _direction: 4
   _weaponStats: {fileID: 11400000, guid: e93e95b2057057644b555c5d5c334c47, type: 2}
+  _maxAllowedAngleToTurn: 0
   RotatablePart: {fileID: 4486056113902708837}
   TargetedRoom: {fileID: 0}
   _projectileSpots:
@@ -498,7 +499,7 @@ Transform:
   m_GameObject: {fileID: 2016247871622153158}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.248, y: 0.004, z: 0}
+  m_LocalPosition: {x: 0.248, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -530,7 +531,7 @@ Transform:
   m_GameObject: {fileID: 4852491321411585132}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.3315, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -614,7 +615,7 @@ Transform:
   m_GameObject: {fileID: 6400358241398785091}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.3315, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -18,6 +18,7 @@ MonoBehaviour:
   _projectileSpeed: 15
   _attacksPerSecond: 0.1
   _rotationSpeed: 1
+  _maxSwivel: 360
   _lockOnRange: 20
   _recoil: 0
   _recoilDuration: 0

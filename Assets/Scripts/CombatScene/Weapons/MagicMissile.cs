@@ -12,7 +12,7 @@ public class MagicMissile : AWeapon
     {
         ProjectilePrefab = Resources.Load(GS.WeaponPrefabs("MagicMissileProjectilePrefab"), typeof(GameObject)) as GameObject;
         WeaponFireExplosion = Resources.Load(GS.WeaponPrefabs("SingleExplosion"), typeof(GameObject)) as GameObject;
-        AimRotationAngle = 90;
+        ManualLocalAimingAngle = 90;
 
         if (!ShouldHitPlayer) WeaponEnabled = false;
     }

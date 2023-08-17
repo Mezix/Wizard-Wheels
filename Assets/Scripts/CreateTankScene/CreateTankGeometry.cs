@@ -36,11 +36,11 @@ public class CreateTankGeometry : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift)) modifier = -1;
         if (Input.GetKeyDown(KeyCode.A))
         {
-           ModifyTankSize(1 * modifier, 0, 0, 0);
+            ModifyTankSize(1 * modifier, 0, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-           ModifyTankSize(0, 1 * modifier, 0, 0);
+            ModifyTankSize(0, 1 * modifier, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -48,7 +48,7 @@ public class CreateTankGeometry : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-           ModifyTankSize(0, 0, 0, 1 * modifier);
+            ModifyTankSize(0, 0, 0, 1 * modifier);
         }
     }
     private void CreateFloorAndRoof()
@@ -64,7 +64,7 @@ public class CreateTankGeometry : MonoBehaviour
                 if (x >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray.Length || y >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[0].YStuff.Length) continue;
                 if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
-                    Room r = Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof (Room)) as Room;
+                    Room r = Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room)) as Room;
                     int sizeX = r.sizeX;
                     int sizeY = r.sizeY;
                     LoadFloorAtPos(x, y, sizeX, sizeY);
@@ -143,8 +143,8 @@ public class CreateTankGeometry : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                Tile t = Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath, typeof (Tile)) as Tile;
-               // t.color = _trc._tmpMatrix.XArray[x].YStuff[y].FloorColor;
+                Tile t = Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath, typeof(Tile)) as Tile;
+                // t.color = _trc._tmpMatrix.XArray[x].YStuff[y].FloorColor;
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
                 t.color = Color.white;
             }
@@ -166,14 +166,14 @@ public class CreateTankGeometry : MonoBehaviour
                 */
                 //print("left: " + expandL + ", right: " + expandR +  ", up :" + expandU + ", down: " + expandD);
             }
-            else if(!_roomPosMatrix[startX, startY])
+            else if (!_roomPosMatrix[startX, startY])
             {
                 GameObject roomToLoad = Resources.Load(GS.RoomPrefabs("1x1Room"), typeof(GameObject)) as GameObject;
                 if (sizeX == 1)
                 {
                     if (sizeY == 2)
                     {
-                        roomToLoad = Resources.Load(GS.RoomPrefabs("1x2Room"), typeof (GameObject)) as GameObject;
+                        roomToLoad = Resources.Load(GS.RoomPrefabs("1x2Room"), typeof(GameObject)) as GameObject;
                         //check if we overlap with a room and we have to delete
                     }
                 }
@@ -216,7 +216,7 @@ public class CreateTankGeometry : MonoBehaviour
         RoofTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
         if (_roomPosMatrix[roomPositionX, roomPositionY])
         {
-            if(_roomPosMatrix[roomPositionX, roomPositionY].ParentRoom)
+            if (_roomPosMatrix[roomPositionX, roomPositionY].ParentRoom)
             {
                 //_vehicleData.VehicleMatrix.XArray[roomPositionX].YStuff[roomPositionY].RoomPrefabPath = null;
                 CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[roomPositionX].YStuff[roomPositionY].RoomPrefabPath = null;
@@ -250,9 +250,9 @@ public class CreateTankGeometry : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                if(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath != "")
+                if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath != "")
                 {
-                    Tile t = Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath, typeof (Tile)) as Tile;
+                    Tile t = Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath, typeof(Tile)) as Tile;
                     RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
                     t.color = Color.white;
                 }
@@ -294,14 +294,14 @@ public class CreateTankGeometry : MonoBehaviour
                 if (x >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray.Length || y >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[0].YStuff.Length) continue;
                 if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
-                    LoadRoomAtPos(x,y);
+                    LoadRoomAtPos(x, y);
                 }
             }
         }
     }
     public void LoadRoomAtPos(int x, int y)
     {
-        Room room = Instantiate(Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof (Room))) as Room;
+        Room room = Instantiate(Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room))) as Room;
         //room.ID = _vehicleData.GetHashCode();
         room.transform.parent = RoomsParent.transform;
         room.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
@@ -517,9 +517,10 @@ public class CreateTankGeometry : MonoBehaviour
                 if (_roomPosMatrix[x, y] == null) continue;
                 if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath != "")
                 {
-                    GameObject sysObjects = Instantiate(Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath, typeof (GameObject))) as GameObject;
+                    GameObject sysObjects = Instantiate(Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath, typeof(GameObject))) as GameObject;
                     ASystem system = sysObjects.GetComponent<ASystem>();
                     system._direction = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].SystemDirection;
+                    system.SpawnInCorrectDirection();
                     if (system.TryGetComponent(out AWeapon wep))
                     {
                         Destroy(wep.WeaponUI.gameObject);
@@ -534,10 +535,11 @@ public class CreateTankGeometry : MonoBehaviour
     }
 
     public void CreateSystemAtPos(int posX, int posY, GameObject sysPrefab)
-    { 
+    {
         //delete
         if (sysPrefab == null)
         {
+            if (!_roomPosMatrix[posX, posY]) return;
             if (_roomPosMatrix[posX, posY]._spawnedSystem)
             {
                 Destroy(_roomPosMatrix[posX, posY]._spawnedSystem);
@@ -550,9 +552,9 @@ public class CreateTankGeometry : MonoBehaviour
 
         CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[posX].YStuff[posY].SystemPrefabPath = GS.SystemPrefabs(sysPrefab.name);
 
-        CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[posX].YStuff[posY].SystemDirection = 
+        CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[posX].YStuff[posY].SystemDirection =
             Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[CreateTankSceneManager.instance._tUI._directionDropDown.value];
-        
+
         GameObject sysObj = Instantiate(sysPrefab);
         ASystem system = sysObj.GetComponent<ASystem>();
         if (sysObj.TryGetComponent(out AWeapon wep)) Destroy(wep.WeaponUI.gameObject);
@@ -564,9 +566,9 @@ public class CreateTankGeometry : MonoBehaviour
         _roomPosMatrix[posX, posY]._spawnedSystem = sysObj.gameObject;
     }
 
-    
+
     //  misc for now
-    
+
     private void PositionSystemInRoom(ASystem system, Room parentRoom)
     {
         system.SystemObj.transform.localPosition = Vector2.zero;
@@ -632,7 +634,7 @@ public class CreateTankGeometry : MonoBehaviour
     {
         return new Vector2Int(tmPos.x, -(tmPos.y + 1));
     }
-    
+
     public void ModifyTankSize(int left, int right, int up, int down)
     {
         int xOldTankSize = CreateTankSceneManager.instance.tankToEdit._tmpXSize;
@@ -645,10 +647,10 @@ public class CreateTankGeometry : MonoBehaviour
         if (yExpandedTankSize < 0 || xExpandedTankSize < 0) return;
         if (left < 0 || right < 0 || up < 0 || down < 0)
         {
-            if (left < 0)   for (int y = 0; y < yOldTankSize; y++) for (int x = 0; x < Mathf.Abs(left); x++)                    DeleteRoomAtPos(x, y);
-            if (right < 0)  for (int y = 0; y < yOldTankSize; y++) for (int x = xOldTankSize-1; x >= xOldTankSize + right; x--) DeleteRoomAtPos(x, y);
-            if (up < 0)     for (int x = 0; x < xOldTankSize; x++) for (int y = 0; y < Mathf.Abs(up); y++)                      DeleteRoomAtPos(x, y);
-            if (down < 0)   for (int x = 0; x < xOldTankSize; x++) for (int y = yOldTankSize-1; y >= yOldTankSize + down; y--)  DeleteRoomAtPos(x, y);
+            if (left < 0) for (int y = 0; y < yOldTankSize; y++) for (int x = 0; x < Mathf.Abs(left); x++) DeleteRoomAtPos(x, y);
+            if (right < 0) for (int y = 0; y < yOldTankSize; y++) for (int x = xOldTankSize - 1; x >= xOldTankSize + right; x--) DeleteRoomAtPos(x, y);
+            if (up < 0) for (int x = 0; x < xOldTankSize; x++) for (int y = 0; y < Mathf.Abs(up); y++) DeleteRoomAtPos(x, y);
+            if (down < 0) for (int x = 0; x < xOldTankSize; x++) for (int y = yOldTankSize - 1; y >= yOldTankSize + down; y--) DeleteRoomAtPos(x, y);
         }
 
         //  Create Temp Matrix of new size and add each room into the correct position
@@ -704,7 +706,7 @@ public class CreateTankGeometry : MonoBehaviour
 
         ResizeGrid();
     }
-    
+
     private void ShiftTilemap(Tilemap actualTilemap, int sizeX, int sizeY, int left, int right, int up, int down)
     {
         GameObject tmpObj = new GameObject("tmp");
@@ -735,7 +737,7 @@ public class CreateTankGeometry : MonoBehaviour
 
         for (int y = 0; y < sizeY + up; y++)
         {
-            for (int x = 0; x < sizeX + left ; x++)
+            for (int x = 0; x < sizeX + left; x++)
             {
                 actualTilemap.SetTile(new Vector3Int(x, -y, 0), tilemapStorage.GetTile(new Vector3Int(x - left, -(y - up), 0)));
             }

@@ -16,6 +16,7 @@ public abstract class AWeapon : ASystem
     public int Damage { get; set; }
     public float RotationSpeed { get; set; }
     public float MaxLockOnRange { get; set; }
+    public float _maxAllowedAngleToTurn { get; set; }
     public float Recoil { get; set; }
     public float RecoilDuration { get; set; }
     public GameObject WeaponFireExplosion { get; set; }
@@ -23,7 +24,7 @@ public abstract class AWeapon : ASystem
     public bool WeaponSelected { get; set; }
     public bool WeaponEnabled { get; set; }
     public bool IsAimingAtTarget { get; set; }
-    public float AimRotationAngle { get; set; }
+    public float ManualLocalAimingAngle;
     public bool ShouldNotRotate { get; set; }
     public Transform RotatablePart;
     [HideInInspector]
@@ -72,6 +73,7 @@ public abstract class AWeapon : ASystem
             Damage = _weaponStats._damage;
             RotationSpeed = _weaponStats._rotationSpeed;
             MaxLockOnRange = _weaponStats._lockOnRange;
+            _maxAllowedAngleToTurn = _weaponStats._maxSwivel / 2f;
             Recoil = _weaponStats._recoil;
             RecoilDuration = _weaponStats._recoilDuration;
         }
@@ -82,6 +84,7 @@ public abstract class AWeapon : ASystem
             AttacksPerSecond = 1;
             RotationSpeed = 5f;
             MaxLockOnRange = 100f;
+            _maxAllowedAngleToTurn = 180;
             Recoil = 0.05f;
             RecoilDuration = 0.05f;
         }
@@ -181,7 +184,10 @@ public abstract class AWeapon : ASystem
         else
         {
             IsAimingAtTarget = false;
-            AimRotationAngle = HM.GetAngle2DBetween(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
+            ManualLocalAimingAngle = HM.GetAngle2DBetween(transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)), transform.localPosition);
+
+            if (ManualLocalAimingAngle > _maxAllowedAngleToTurn) ManualLocalAimingAngle = _maxAllowedAngleToTurn;
+            else if (ManualLocalAimingAngle < -_maxAllowedAngleToTurn) ManualLocalAimingAngle = -_maxAllowedAngleToTurn;
         }
         WeaponSelected = false;
         //_weaponSelectedLR._targetingCircle.SetActive(false);
@@ -200,7 +206,7 @@ public abstract class AWeapon : ASystem
         TryGetComponent(out AWeapon iwep);
         if (iwep == null) return;
         REF.c.RemoveCrosshair(iwep);
-        AimRotationAngle = 90;
+        ManualLocalAimingAngle = 0;
         IsAimingAtTarget = false;
         TargetedRoom = null;
         //_weaponSelectedLR._targetingCircle.SetActive(false);
@@ -212,19 +218,18 @@ public abstract class AWeapon : ASystem
     {
         TargetedRoom = null;
         float zRotActual = 0;
-        float diff = AimRotationAngle - RotatablePart.rotation.eulerAngles.z;
+        float diff = ManualLocalAimingAngle - RotatablePart.localRotation.eulerAngles.z;
         if (diff < -180) diff += 360;
 
         if (Mathf.Abs(diff) > RotationSpeed)
         {
-            zRotActual = RotatablePart.rotation.eulerAngles.z + Mathf.Sign(diff) * RotationSpeed;
+            zRotActual = RotatablePart.localRotation.eulerAngles.z + Mathf.Sign(diff) * RotationSpeed;
         }
         else
         {
-            zRotActual = AimRotationAngle;
+            zRotActual = ManualLocalAimingAngle;
         }
-        //  rotate to this newly calculate angle
-        HM.RotateTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
+        HM.RotateLocalTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
 
     }
     public virtual void PointTurretAtTarget()
@@ -268,6 +273,13 @@ public abstract class AWeapon : ASystem
         }
 
         //  rotate to this newly calculate angle
+        if (_maxAllowedAngleToTurn < 180)
+        {
+            //Debug.Log(zRotActual);
+            if (zRotActual > _maxAllowedAngleToTurn) zRotActual = _maxAllowedAngleToTurn;
+            else if (zRotActual < -_maxAllowedAngleToTurn) zRotActual = -_maxAllowedAngleToTurn;
+            //Debug.Log(zRotActual);
+        }
         HM.RotateTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
     }
 
@@ -348,7 +360,7 @@ public abstract class AWeapon : ASystem
                 //DottedLine.DottedLine.Instance.DrawDottedLine(transform.position, TargetedRoom.transform.position, UIColor);
 
                 lr.gameObject.SetActive(true);
-                lr.SetPosition(0, transform.position);
+                lr.SetPosition(0, RotatablePart.position);
                 lr.SetPosition(1, TargetedRoom.transform.position);
                 lr.material.color = UIColor;
             }
@@ -372,8 +384,8 @@ public abstract class AWeapon : ASystem
         float tankRotation = tMov.GetComponent<TankRotation>().rotatableObjects[0].transform.rotation.eulerAngles.z + 90;
         tankSpeedProjectileModifier = 0;
         if (tankRotation > 180) tankRotation -= 360;
-        if (AimRotationAngle > 180) AimRotationAngle -= 360;
-        float angle = tankRotation - AimRotationAngle;
+        if (ManualLocalAimingAngle > 180) ManualLocalAimingAngle -= 360;
+        float angle = tankRotation - ManualLocalAimingAngle;
         angle = Mathf.Abs(angle);
         angle = Mathf.Min(90, angle);
         tankSpeedProjectileModifier = angle/90;

@@ -69248,8 +69248,8 @@ RectTransform:
   - {fileID: 1669435609}
   - {fileID: 397811348}
   - {fileID: 1899064751}
-  - {fileID: 1704118903}
   - {fileID: 1242727563}
+  - {fileID: 1704118903}
   - {fileID: 1094074767}
   - {fileID: 388915496}
   - {fileID: 364670163}
@@ -70983,7 +70983,7 @@ GameObject:
   - component: {fileID: 1704118905}
   - component: {fileID: 1704118904}
   m_Layer: 5
-  m_Name: Direction
+  m_Name: DirectionDropDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71070,19 +71070,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1423311042}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SelectPart
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!222 &1704118905
 CanvasRenderer:

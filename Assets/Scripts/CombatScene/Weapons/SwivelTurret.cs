@@ -15,7 +15,7 @@ public class SwivelTurret : AWeapon
     {
         ProjectilePrefab = Resources.Load(GS.WeaponPrefabs("CannonballProjectilePrefab"), typeof (GameObject)) as GameObject;
         WeaponFireExplosion = Resources.Load(GS.WeaponPrefabs("SingleExplosion"), typeof(GameObject)) as GameObject;
-        AimRotationAngle = 90;
+        ManualLocalAimingAngle = 0;
 
         if(!ShouldHitPlayer) WeaponEnabled = false;
     }

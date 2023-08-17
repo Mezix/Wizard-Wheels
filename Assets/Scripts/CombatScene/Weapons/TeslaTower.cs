@@ -16,7 +16,7 @@ public class TeslaTower : AWeapon
     }
     private void Start()
     {
-        AimRotationAngle = 90;
+        ManualLocalAimingAngle = 90;
         _teslaBeam.SetTeslaBeamSize(_weaponStats._lockOnRange);
 
         if (!ShouldHitPlayer) WeaponEnabled = false;

@@ -11,6 +11,8 @@ public class WeaponStats : ScriptableObject
     public float _projectileSpeed;
     public float _attacksPerSecond;
     public float _rotationSpeed;
+    [Range(0,360)]
+    public float _maxSwivel;
     public float _lockOnRange;
     public float _recoil;
     public float _recoilDuration;
