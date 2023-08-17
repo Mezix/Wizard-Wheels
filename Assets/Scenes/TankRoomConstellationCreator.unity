@@ -65382,7 +65382,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0efbfe8b98b84d42aec13747acf506f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trc: {fileID: 0}
+  _vehicleData:
+    VehicleMatrix:
+      XArray: []
+    _savedXSize: 0
+    _savedYSize: 0
+    _tmpXSize: 0
+    _tmpYSize: 0
+    FloorColorR: 1
+    FloorColorG: 1
+    FloorColorB: 1
+    RoofColorR: 1
+    RoofColorG: 1
+    RoofColorB: 1
   systemIcons: []
 --- !u!1 &616626815
 GameObject:
@@ -68706,7 +68718,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _saveTankButton: {fileID: 1126995699}
   _loadTankButton: {fileID: 664744641}
-  _finishEventButton: {fileID: 0}
   _colorButton: {fileID: 397811349}
   _colorImage: {fileID: 510608229}
   _tileColor: {r: 0, g: 0, b: 0, a: 0}
@@ -68744,6 +68755,7 @@ MonoBehaviour:
   - {fileID: 6756651002276288008, guid: beb5ee0181bb80c4cb4e0eea375b3675, type: 3}
   - {fileID: 8917419255669800742, guid: bca6aa83df32f6d4d95ebc226be46774, type: 3}
   - {fileID: 8917419255669800742, guid: 3cdea1608cd169247b6e978bb5e3c469, type: 3}
+  - {fileID: 1723648633549023116, guid: 7eadfb96f63b6754eab69cb83388f840, type: 3}
   systemsIndex: 0
 --- !u!1 &1424939433
 GameObject:
@@ -72336,7 +72348,7 @@ MonoBehaviour:
   _tGeo: {fileID: 604466275}
   _tUI: {fileID: 1423311042}
   mouse: {fileID: 873256501}
-  tankToEdit: {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5, type: 2}
+  tankToEdit: {fileID: 11400000, guid: 4a6e797f106c9f04aaf7bbac6497f42a, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

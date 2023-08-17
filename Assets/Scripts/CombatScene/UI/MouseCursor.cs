@@ -56,7 +56,7 @@ public class MouseCursor : MonoBehaviour
         }
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Wizard"));
         if (!hit.collider) return;
-        if(hit.collider.transform.parent.TryGetComponent(out AUnit unit))
+        if(hit.collider.transform.TryGetComponent(out AUnit unit))
         {
             if(unit.CurrentRoom.tGeo.GetComponent<PlayerTankController>()) unit.Highlight();
         }

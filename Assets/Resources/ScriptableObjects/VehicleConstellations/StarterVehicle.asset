@@ -16,13 +16,19 @@ MonoBehaviour:
   _savedYSize: 3
   _tmpXSize: 3
   _tmpYSize: 3
+  FloorColorR: 1
+  FloorColorG: 1
+  FloorColorB: 1
+  RoofColorR: 1
+  RoofColorG: 1
+  RoofColorB: 1
   _savedMatrix:
     XArray:
     - YStuff:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: 
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
         _topWallExists: 1
         _rightWallExists: 0
@@ -40,7 +46,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: 
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
         _topWallExists: 0
         _rightWallExists: 0
@@ -50,7 +56,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: Prefabs/Systems/DualCannon
+        SystemPrefabPath: 
         MovementPrefabPath: 
         _topWallExists: 1
         _rightWallExists: 0
@@ -108,7 +114,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: 
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
         _topWallExists: 1
         _rightWallExists: 0
@@ -126,7 +132,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: 
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
         _topWallExists: 0
         _rightWallExists: 0
@@ -136,7 +142,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
         RoofTilePrefabPath: Tiles/Roof/DefaultRoofTile
-        SystemPrefabPath: Prefabs/Systems/DualCannon
+        SystemPrefabPath: 
         MovementPrefabPath: 
         _topWallExists: 1
         _rightWallExists: 0

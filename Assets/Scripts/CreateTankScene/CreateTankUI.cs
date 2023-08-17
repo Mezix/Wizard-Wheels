@@ -312,17 +312,17 @@ public class CreateTankUI : MonoBehaviour
         if(CreateTankSceneManager.instance._tGeo.RoofTilemap)
         {
             CreateTankSceneManager.instance._tGeo.RoofTilemap.color = c;
-            CreateTankSceneManager.instance._tGeo._vehicleData.RoofColorR = c.r;
-            CreateTankSceneManager.instance._tGeo._vehicleData.RoofColorG = c.g;
-            CreateTankSceneManager.instance._tGeo._vehicleData.RoofColorB = c.b;
+            CreateTankSceneManager.instance.tankToEdit.RoofColorR = c.r;
+            CreateTankSceneManager.instance.tankToEdit.RoofColorG = c.g;
+            CreateTankSceneManager.instance.tankToEdit.RoofColorB = c.b;
         }
         if(CreateTankSceneManager.instance._tGeo.FloorTilemap)
         {
             CreateTankSceneManager.instance._tGeo.FloorTilemap.color = c;
 
-            CreateTankSceneManager.instance._tGeo._vehicleData.FloorColorR = c.r;
-            CreateTankSceneManager.instance._tGeo._vehicleData.FloorColorG = c.g;
-            CreateTankSceneManager.instance._tGeo._vehicleData.FloorColorB = c.b;
+            CreateTankSceneManager.instance.tankToEdit.FloorColorR = c.r;
+            CreateTankSceneManager.instance.tankToEdit.FloorColorG = c.g;
+            CreateTankSceneManager.instance.tankToEdit.FloorColorB = c.b;
         }
     }
 }

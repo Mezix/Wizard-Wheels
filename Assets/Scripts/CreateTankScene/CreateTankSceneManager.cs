@@ -33,7 +33,7 @@ public class CreateTankSceneManager : MonoBehaviour
             tankToEdit = new TankRoomConstellation();
             _tUI._inputField.textComponent.text = "Untitled";
         }
-        _tGeo._vehicleData = DataStorage.Singleton.CopyVehicleDataFromTankRoomConstellationToVehicleData(tankToEdit);
+        //_tGeo._vehicleData = DataStorage.Singleton.CopyVehicleDataFromTankRoomConstellationToVehicleData(tankToEdit);
         LoadTank();
     }
     public void SaveTank()

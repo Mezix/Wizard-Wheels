@@ -101,6 +101,7 @@ public class TankGeometry : MonoBehaviour
         //  Create Renderer
         TilemapRenderer roofRend = roofTilemap.AddComponent<TilemapRenderer>();
         roofRend.sortingLayerName = "VehicleRoof";
+        roofRend.sortingOrder = 10;
     }
     private void CreateWallsTilemap()
     {
