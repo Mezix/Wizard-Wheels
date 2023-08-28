@@ -525,6 +525,7 @@ MonoBehaviour:
   _allObjects: {fileID: 6721627665450601282}
   _finishEventButton: {fileID: 9022815300337728687}
   _lootLayoutGroup: {fileID: 4539007896874525088}
+  _lootItems: []
 --- !u!1 &9221597487003485832
 GameObject:
   m_ObjectHideFlags: 0

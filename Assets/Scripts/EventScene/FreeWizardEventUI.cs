@@ -16,7 +16,7 @@ public class FreeWizardEventUI : MonoBehaviour
     private void Awake()
     {
         _finishEventButton.onClick.AddListener(() => FinishEvent());
-        _finishEventButton.gameObject.SetActive(false);
+        //_finishEventButton.gameObject.SetActive(false);
         _choosePromptText.gameObject.SetActive(true);
 
         _wizSlotPrefab = Resources.Load(GS.UIPrefabs("FreeWizardEventWizardSlot"), typeof(FreeWizardEventWizardSlot)) as FreeWizardEventWizardSlot;

@@ -53,13 +53,6 @@ MonoBehaviour:
   _finishEventButton: {fileID: 8963715618231246595}
   _choosePromptText: {fileID: 7163278895835379221}
   _wizardSelecter: {fileID: 7295409031146141234}
-  _allTypesOfWizardToSpawn:
-  - {fileID: 4608201922242700205, guid: a3d6bbe3b515c6143b3ecd4ca27a42b0, type: 3}
-  - {fileID: 4608201922242700205, guid: ff820002e706de34fbe6d8e8b3b434f9, type: 3}
-  - {fileID: 4608201922242700205, guid: 707e3f56abab10843acfe0ec74e086a6, type: 3}
-  - {fileID: 4608201922242700205, guid: d6590031bbb1a90459c0ebb06c3959f0, type: 3}
-  - {fileID: 4608201922242700205, guid: 68fa4f683b465334ab24205a80b89594, type: 3}
-  - {fileID: 4608201922242700205, guid: a04566bd806cacf4f9cde8781d10d256, type: 3}
 --- !u!1 &3565334054176951468
 GameObject:
   m_ObjectHideFlags: 0
