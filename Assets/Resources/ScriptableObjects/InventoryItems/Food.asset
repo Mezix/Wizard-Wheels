@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Food
   Image: {fileID: 21300000, guid: 297c212eaaabc7446acca806bf98f485, type: 3}
+  Price: 5

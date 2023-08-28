@@ -7,6 +7,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
+    public const int ScrapIndex = 14;
+
     public List<InventoryItemData> InventoryList;
     public List<WizardData> WizardList;
     public List<EventNode> CurrentEventPath;
@@ -37,6 +39,16 @@ public class PlayerData
         }
         return route;
     }
+
+    public int GetScrap()
+    {
+        return InventoryList[ScrapIndex].Amount;
+    }
+    public void SetScrap(int money)
+    {
+        InventoryList[ScrapIndex].Amount = money; 
+    }
+
     public static List<EventNode> GenerateRandomRoute(int length)
     {
         int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
@@ -100,7 +112,7 @@ public class PlayerData
     }
 
     [Serializable]
-    public struct InventoryItemData
+    public class InventoryItemData
     {
         public string Name;
         public string SpritePath;

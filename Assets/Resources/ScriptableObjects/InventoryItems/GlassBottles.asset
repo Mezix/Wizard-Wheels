@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Glass Bottles
   Image: {fileID: 21300000, guid: fbce1c3d0eeba064c9316b1e4bf733da, type: 3}
+  Price: 25

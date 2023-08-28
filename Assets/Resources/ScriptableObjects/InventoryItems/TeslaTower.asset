@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Tesla Tower
   Image: {fileID: 21300000, guid: 2eac3e5e4ceb06348940217418932e52, type: 3}
+  Price: 400

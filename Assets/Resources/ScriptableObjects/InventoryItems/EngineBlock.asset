@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Engine Block
   Image: {fileID: 21300000, guid: af3d4fddedc69814390a185029cfb0c4, type: 3}
+  Price: 75

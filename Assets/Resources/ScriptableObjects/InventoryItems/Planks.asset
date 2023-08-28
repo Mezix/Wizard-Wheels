@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Planks
   Image: {fileID: 21300000, guid: 233caa89fe447ab4c885274bdbe4352a, type: 3}
+  Price: 50

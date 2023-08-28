@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Magical Tank
   Image: {fileID: 21300000, guid: abe17cfa5644f5946a4e8c2737c4b53a, type: 3}
+  Price: 100

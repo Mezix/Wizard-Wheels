@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Fuel Tank
   Image: {fileID: 21300000, guid: b229d8d1b1108844baa48d92d37d322b, type: 3}
+  Price: 50

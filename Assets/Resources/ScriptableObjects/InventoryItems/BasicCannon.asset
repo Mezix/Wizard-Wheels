@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Basic Cannon
   Image: {fileID: 21300000, guid: be49fd1bec57dec48ae8b401dedc2c3a, type: 3}
+  Price: 100
