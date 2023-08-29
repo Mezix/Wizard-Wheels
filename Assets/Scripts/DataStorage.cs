@@ -114,8 +114,8 @@ public class DataStorage : MonoBehaviour
             for (int y = 0; y < data._savedYSize; y++)
             {
                 data.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath;
-                data.VehicleMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].FloorTilePrefabPath;
-                data.VehicleMatrix.XArray[x].YStuff[y].RoofTilePrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoofTilePrefabPath;
+                data.VehicleMatrix.XArray[x].YStuff[y].FloorType = matrixToCopy._savedMatrix.XArray[x].YStuff[y].FloorType;
+                data.VehicleMatrix.XArray[x].YStuff[y].RoofType = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoofType;
                 data.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
                 data.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath;
                 data.VehicleMatrix.XArray[x].YStuff[y].SystemDirection = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemDirection;

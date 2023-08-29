@@ -91,7 +91,7 @@ public class TeslaTower : AWeapon
         TimeElapsedBetweenLastAttack = 0;
         foreach (Room r in _teslaBeam.roomsToHit)
         {
-            r.tGeo.GetComponent<TankController>().TakeDamage(Damage);
+            r._tGeo.GetComponent<TankController>().TakeDamage(Damage);
         }
         if (!ShouldHitPlayer)
         {

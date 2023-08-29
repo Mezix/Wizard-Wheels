@@ -81,8 +81,6 @@ public class RouteTransitionUI : MonoBehaviour
 
         _routeNodes[nodeToEndAt].ShowNode(false);
         _routeConnectors[nodeToEndAt - 1]._visitedConnector.gameObject.SetActive(true);
-        //_routePointer.transform.position = _routeNodes[nodeToEndAt - 1].transform.position + Vector3.up;
-
 
         float position = 0f;
         while (position < 1f)

@@ -16,10 +16,22 @@ public abstract class AUnit : MonoBehaviour
     protected Shader defaultShader;
     public Animator WizardAnimator { get; set; }
     public bool UnitSelected { get; set; }
-    public bool UnitIsMoving { get; set; }
+    //public bool UnitIsMoving { get; set; }
     public GameObject UnitObj { get; set; }
     public PlayerWizardUI PlayerWizardUI { get; set; }
     public int Index { get; set; }
+
+    //  UnitState
+
+    public enum UnitState
+    {
+        Idle,
+        Moving,
+        Interacting,
+        Repairing
+    }
+    public UnitState _unitState = UnitState.Idle;
+
 
     //  Wizard UI
 
@@ -70,32 +82,24 @@ public abstract class AUnit : MonoBehaviour
             UnitHealth = 100f;
             UnitSpeed = 5f;
         }
-
         UIName.text = UnitName;
-        UnitIsMoving = false;
         UnitSelected = false;
-
-        if (CurrentRoom.roomSystem != null)
-        {
-            StartInteraction();
-        }
     }
-    public void StartInteraction()
+    public void InteractWithRoom()
     {
-        if (CurrentRoom.roomSystem != null)
-        {
-            if (CurrentRoom.roomSystem.RoomPosForInteraction.Equals(CurrentRoomPos))
-            {
-                CurrentRoom.roomSystem.StartInteraction();
-                WizardAnimator.SetBool("Interacting", true);
-            }
-        }
+        CurrentRoom._roomSystem.StartInteraction();
+        WizardAnimator.SetBool("Interacting", true);
+    }
+
+    public void Idle()
+    {
+        WizardAnimator.SetBool("Interacting", false);
     }
 
     public void Highlight()
     {
         _showUI = true;
-        Rend.material.shader = (Shader) Resources.Load("Shaders/SpriteOutline");
+        Rend.material.shader = (Shader)Resources.Load("Shaders/SpriteOutline");
         Rend.material.SetFloat("Vector1_53CFC1A5", 0.05f);
         Rend.material.SetColor("Color_B1427637", Color.red);
     }
@@ -108,16 +112,16 @@ public abstract class AUnit : MonoBehaviour
     public void StopInteraction()
     {
         WizardAnimator.SetBool("Interacting", false);
-        CurrentRoom.roomSystem.StopInteraction();
+        CurrentRoom._roomSystem.StopInteraction();
     }
-    
+
     //  Move Unit
     protected void MoveAlongPath()
     {
         WizardAnimator.SetBool("Interacting", false);
         if (PathToRoom.Count == 0) //stop the method if we dont have a path
         {
-            UnitIsMoving = false;
+            _unitState = UnitState.Idle;
             return;
         }
         RoomPosition roomPosToMoveTo = PathToRoom[CurrentWaypoint];
@@ -127,14 +131,13 @@ public abstract class AUnit : MonoBehaviour
         {
             //Debug.Log("destination reached");
             transform.localPosition = RoomLocalPosInRelationToWizards;
-            UnitIsMoving = false;
+            _unitState = UnitState.Idle;
             WizardAnimator.SetFloat("Speed", 0);
 
             ClearUnitPath();
             RemovePosIndicator();
             CurrentRoom = DesiredRoom;
             CurrentRoomPos = DesiredRoomPos;
-            StartInteraction();
         }
         else
         {
@@ -145,10 +148,9 @@ public abstract class AUnit : MonoBehaviour
     {
         WizardAnimator.SetBool("Interacting", false);
         //calculate the local vector of our room relative to the tank
-        //RoomLocalPos = nextRoomPos.transform.position - transform.parent.position;
 
         //get the localspace coordinates of the room we are trying to get to in relation to the top level tank, under which our wizards are in the hierarchy
-        RoomLocalPosInRelationToWizards = nextRoomPos.ParentRoom.tGeo.transform.InverseTransformPoint(nextRoomPos.transform.position);
+        RoomLocalPosInRelationToWizards = nextRoomPos.ParentRoom._tGeo.transform.InverseTransformPoint(nextRoomPos.transform.position);
         //set the z to 0 so our sprite doesnt move on the z axis
         RoomLocalPosInRelationToWizards.z = 0;
 
@@ -186,10 +188,8 @@ public abstract class AUnit : MonoBehaviour
         if (!rPos) return;
         if (movingToPosIndicator) Destroy(movingToPosIndicator);
 
-        movingToPosIndicator = Instantiate(Resources.Load(GS.Prefabs("UnitMovingToIndicator"), typeof (GameObject)) as GameObject, rPos.transform, false);
+        movingToPosIndicator = Instantiate(Resources.Load(GS.Prefabs("UnitMovingToIndicator"), typeof(GameObject)) as GameObject, rPos.transform, false);
         movingToPosIndicator.transform.localRotation = Quaternion.identity;
-        //movingToPosIndicator.transform.SetParent(rPos.transform, false);
-        //movingToPosIndicator.transform.localPosition = Vector3.zero;
     }
     public void ClearUnitPath()
     {

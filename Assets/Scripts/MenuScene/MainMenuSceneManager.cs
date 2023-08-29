@@ -32,7 +32,7 @@ public class MainMenuSceneManager : MonoBehaviour
 
     public IEnumerator ShowLoadingScreen()
     {
-        Instantiate(Resources.Load(GS.Prefabs("LoadingScreen")));
+        //Instantiate(Resources.Load(GS.Prefabs("LoadingScreen")));
         yield return new WaitForSeconds(0.5f);
         Loader.Load(Loader.SceneType.RouteTransitionScene);
     }

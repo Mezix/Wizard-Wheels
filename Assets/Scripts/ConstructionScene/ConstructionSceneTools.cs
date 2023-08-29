@@ -120,11 +120,11 @@ public class ConstructionSceneTools : MonoBehaviour
             {
                 if (tileType == 0)
                 {
-                    ConstructionSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                   // ConstructionSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
                 }
                 else if (tileType == 1)
                 {
-                    ConstructionSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                    //ConstructionSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
                 }
                 else if (tileType == 2)
                 {
@@ -150,11 +150,11 @@ public class ConstructionSceneTools : MonoBehaviour
             {
                 if (tileType == 0)
                 {
-                    ConstructionSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, null);
+                   // ConstructionSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, null);
                 }
                 else if (tileType == 1)
                 {
-                    ConstructionSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, null);
+                    //ConstructionSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, null);
                 }
                 else if (tileType == 2)
                 {

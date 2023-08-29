@@ -2047,11 +2047,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 230273142448428285, guid: d4a6dee3bd5b6a6418c42c852b038569,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2022379097380630464, guid: d4a6dee3bd5b6a6418c42c852b038569,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2101,11 +2096,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5660338718338316158, guid: d4a6dee3bd5b6a6418c42c852b038569,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6183096525389859347, guid: d4a6dee3bd5b6a6418c42c852b038569,
         type: 3}
@@ -23976,7 +23966,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1289146393}
-  - component: {fileID: 1289146394}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -24000,28 +23989,6 @@ Transform:
   - {fileID: 1789171225}
   m_Father: {fileID: 1726901146}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1289146394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1289146392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36695ac0146f0d54b8d4f17a945131c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 251beffa7c532ae4286d774f07281329, type: 2}
-  _highlightedSound: {fileID: 0}
-  _clickedSound: {fileID: 0}
-  masterVolume: 0
-  musicVolume: 0
-  SFXVolume: 0
-  _everloop: {fileID: 0}
-  _combatSources: []
-  _nonCombatSources: []
-  _menuSources: []
 --- !u!1 &1292281879
 GameObject:
   m_ObjectHideFlags: 0
@@ -25477,6 +25444,16 @@ PrefabInstance:
         type: 3}
       propertyPath: playerData.WizardList.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8946975039706782770, guid: 8b1267dc7807081438ca49c97ad5d10f,
+        type: 3}
+      propertyPath: playerData.vehicleData.VehicleMatrix.XArray.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8946975039706782770, guid: 8b1267dc7807081438ca49c97ad5d10f,
+        type: 3}
+      propertyPath: playerData.vehicleData.VehicleMatrix.XArray.Array.data[0].YStuff.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -31,7 +31,7 @@ public class CrosshairManager : MonoBehaviour
             c.transform.localPosition = Vector3.zero + new Vector3(0, 0, 10);
 
             RoomsCrosshairsDictionary.Add(room, c);
-            c.SetCrosshairSizeAndPosition(room.sizeX, room.sizeY);
+            c.SetCrosshairSizeAndPosition(room._sizeX, room._sizeY);
             c.AddAttacker(weapon);
         }
     }

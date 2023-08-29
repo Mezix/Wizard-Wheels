@@ -58,7 +58,7 @@ public class MouseCursor : MonoBehaviour
         if (!hit.collider) return;
         if(hit.collider.transform.TryGetComponent(out AUnit unit))
         {
-            if(unit.CurrentRoom.tGeo.GetComponent<PlayerTankController>()) unit.Highlight();
+            if(unit.CurrentRoom._tGeo.GetComponent<PlayerTankController>()) unit.Highlight();
         }
     }
 
@@ -91,7 +91,7 @@ public class MouseCursor : MonoBehaviour
 
         if (!hit.collider) return;
         Room room = hit.collider.transform.GetComponent<Room>();
-        if (room.tGeo.GetComponent<EnemyTankController>()) return;
+        if (room._tGeo.GetComponent<EnemyTankController>()) return;
         if (room)
         {
             List<RoomPosition> freeRoomPos = room.GetAllFreeRoomPos();

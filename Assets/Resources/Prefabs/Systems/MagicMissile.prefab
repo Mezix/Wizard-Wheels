@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 96216210}
   - component: {fileID: 96216211}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TurretBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7902571295631954439}
   - component: {fileID: 6046905817857439822}
   - component: {fileID: 8968519691448449522}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MagicMissileFireEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 740911756729272562}
   - component: {fileID: -7566130694087416241}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MagicMissile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,9 @@ MonoBehaviour:
   SystemObj: {fileID: 0}
   SystemName: 
   RoomPosForInteraction: {fileID: 0}
+  _direction: 3
   _weaponStats: {fileID: 11400000, guid: e7f712543a3a5124a9915ba74eb62e4e, type: 2}
+  ManualLocalAimingAngle: 0
   RotatablePart: {fileID: 9144540732161924692}
   TargetedRoom: {fileID: 0}
   _projectileSpots:
@@ -270,7 +272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3233156011727659326}
   - component: {fileID: 5770678182755424900}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WeaponAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,7 +400,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 995660803235255240}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ProjectileSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6349118443084909347}
   - component: {fileID: 6613991519206540040}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TurretBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9144540732161924692}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RotatablePart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -650,10 +652,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 3110876500810673093, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841721419138362537, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5206752808315137815, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
       propertyPath: m_Name
       value: WeaponUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5206752808315137815, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6051509470800911280, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6870981904305626001, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639182279128778352, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793095115236349213, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8809683370392292583, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

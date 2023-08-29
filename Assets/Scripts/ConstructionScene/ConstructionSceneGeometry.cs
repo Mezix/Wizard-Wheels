@@ -23,7 +23,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
     public void SpawnTankForCreator()
     {
         LoadRooms();
-        CreateFloorAndRoof();
+        //CreateFloorAndRoof();
         PositionTankObjects();
         CreateWalls();
         CreateTires();
@@ -53,6 +53,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
            ModifyTankSize(0, 0, 0, 1 * modifier);
         }*/
     }
+    /*
     private void CreateFloorAndRoof()
     {
         CreateFloorAndRoofTilemap();
@@ -68,14 +69,14 @@ public class ConstructionSceneGeometry : MonoBehaviour
                 {
                     Room r = Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof (Room)) as Room;
                     //if (r == null) continue;
-                    int sizeX = r.sizeX;
-                    int sizeY = r.sizeY;
+                    int sizeX = r._sizeX;
+                    int sizeY = r._sizeY;
                     LoadFloorAtPos(x, y, sizeX, sizeY);
                     LoadRoofAtPos(x, y, sizeX, sizeY);
                 }
             }
         }
-    }
+    }*/
     private void CreateFloorAndRoofTilemap()
     {
         //  Floor
@@ -139,13 +140,14 @@ public class ConstructionSceneGeometry : MonoBehaviour
         //  Create Collider
         TilemapCollider2D c = walls.AddComponent<TilemapCollider2D>();
     }
+    /*
     public void LoadFloorAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                Tile t = Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorTilePrefabPath, typeof (Tile)) as Tile;
+                Tile t = Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorType, typeof (Tile)) as Tile;
                 FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
                 t.color = Color.white;
             }
@@ -158,13 +160,13 @@ public class ConstructionSceneGeometry : MonoBehaviour
             //  Check if we overstepped the edges of our matrix and need to expand first!
             if (startX < 0 || startY < 0 || startX > _vehicleData._tmpXSize - 1 || startY > _vehicleData._tmpYSize - 1)
             {
-                /*
-                int expandL = Math.Abs(Math.Min(0, startX));
-                int expandR = Math.Max(_tRC._tmpXSize - 1, startX) - _tRC._tmpXSize + 1;
-                int expandU = Math.Abs(Math.Min(0, startY));
-                int expandD = Math.Max(_tRC._tmpYSize - 1, startY) - _tRC._tmpYSize + 1;
+                
+                //int expandL = Math.Abs(Math.Min(0, startX));
+                //int expandR = Math.Max(_tRC._tmpXSize - 1, startX) - _tRC._tmpXSize + 1;
+                //int expandU = Math.Abs(Math.Min(0, startY));
+                //int expandD = Math.Max(_tRC._tmpYSize - 1, startY) - _tRC._tmpYSize + 1;
                 ModifyTankSize(expandL, expandR, expandU, expandD);
-                */
+                
                 //print("left: " + expandL + ", right: " + expandR +  ", up :" + expandU + ", down: " + expandD);
             }
             else if(!_roomPosMatrix[startX, startY])
@@ -200,7 +202,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
                 for (int y = startY; y < startY + sizeY; y++)
                 {
                     FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-                    _vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = GS.FloorTiles(t.name);
+                    _vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorType = GS.FloorTiles(t.name);
                 }
             }
         }
@@ -210,6 +212,8 @@ public class ConstructionSceneGeometry : MonoBehaviour
             DeleteRoomAtPos(startX, startY);
         }
     }
+
+    */
     public void DeleteRoomAtPos(int roomPositionX, int roomPositionY)
     {
         FloorTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
@@ -242,16 +246,16 @@ public class ConstructionSceneGeometry : MonoBehaviour
     }
 
     //  Roof
-
+    /*
     public void LoadRoofAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                if(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofTilePrefabPath != "")
+                if(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType != "")
                 {
-                    Tile t = Resources.Load( _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofTilePrefabPath, typeof (Tile)) as Tile;
+                    Tile t = Resources.Load( _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType, typeof (Tile)) as Tile;
                     RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
                     t.color = Color.white;
                 }
@@ -265,10 +269,11 @@ public class ConstructionSceneGeometry : MonoBehaviour
             for (int y = startY; y < startY + sizeY; y++)
             {
                 RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-                _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofTilePrefabPath = GS.RoofTiles(t.name);
+                _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType = GS.RoofTiles(t.name);
             }
         }
     }
+    */
 
     //  Rooms
 
@@ -311,9 +316,9 @@ public class ConstructionSceneGeometry : MonoBehaviour
 
         // Set the Room Positions
         int roomPosNr = 0;
-        for (int roomY = 0; roomY < room.sizeY; roomY++)
+        for (int roomY = 0; roomY < room._sizeY; roomY++)
         {
-            for (int roomX = 0; roomX < room.sizeX; roomX++)
+            for (int roomX = 0; roomX < room._sizeX; roomX++)
             {
                 _roomPosMatrix[x + roomX, y + roomY] = room.allRoomPositions[roomPosNr];
                 _roomPosMatrix[x + roomX, y + roomY]._xPos = x + _roomPosMatrix[x + roomX, y + roomY]._xRel;
@@ -326,11 +331,11 @@ public class ConstructionSceneGeometry : MonoBehaviour
         }
 
         //sets the corner of the room that doesnt get caught with the matrix
-        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1] = room.allRoomPositions[room.sizeX * room.sizeY - 1];
-        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1]._xPos = x + room.sizeX - 1;
-        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1]._yPos = y + room.sizeY - 1;
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1] = room.allRoomPositions[room._sizeX * room._sizeY - 1];
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._xPos = x + room._sizeX - 1;
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._yPos = y + room._sizeY - 1;
 
-        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1].name = "X" + (x + room.sizeX - 1).ToString() + " , Y" + (y + room.sizeY - 1).ToString();
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1].name = "X" + (x + room._sizeX - 1).ToString() + " , Y" + (y + room._sizeY - 1).ToString();
     }
     public void CreateNewEmptyRoomAtPos(int x, int y, GameObject roomToCreate)
     {
@@ -345,9 +350,9 @@ public class ConstructionSceneGeometry : MonoBehaviour
 
         // Set the Room Positions
         int roomPosNr = 0;
-        for (int roomY = 0; roomY < r.sizeY; roomY++)
+        for (int roomY = 0; roomY < r._sizeY; roomY++)
         {
-            for (int roomX = 0; roomX < r.sizeX; roomX++)
+            for (int roomX = 0; roomX < r._sizeX; roomX++)
             {
                 _roomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomPosNr];
                 _roomPosMatrix[x + roomX, y + roomY]._xPos = x + _roomPosMatrix[x + roomX, y + roomY]._xRel;
@@ -360,11 +365,11 @@ public class ConstructionSceneGeometry : MonoBehaviour
         }
 
         //sets the corner of the room that doesnt get caught with the matrix
-        _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1] = r.allRoomPositions[r.sizeX * r.sizeY - 1];
-        _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._xPos = x + r.sizeX - 1;
-        _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1]._yPos = y + r.sizeY - 1;
+        _roomPosMatrix[x + r._sizeX - 1, y + r._sizeY - 1] = r.allRoomPositions[r._sizeX * r._sizeY - 1];
+        _roomPosMatrix[x + r._sizeX - 1, y + r._sizeY - 1]._xPos = x + r._sizeX - 1;
+        _roomPosMatrix[x + r._sizeX - 1, y + r._sizeY - 1]._yPos = y + r._sizeY - 1;
 
-        _roomPosMatrix[x + r.sizeX - 1, y + r.sizeY - 1].name = "X" + (x + r.sizeX - 1).ToString() + " , Y" + (y + r.sizeY - 1).ToString();
+        _roomPosMatrix[x + r._sizeX - 1, y + r._sizeY - 1].name = "X" + (x + r._sizeX - 1).ToString() + " , Y" + (y + r._sizeY - 1).ToString();
     }
 
     //  Walls
@@ -603,7 +608,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
                         twep.AWeaponArray.Add(wep);
 
                         //Set the reference to the rooms
-                        _roomPosMatrix[x, y].ParentRoom.roomSystem = wep;
+                        _roomPosMatrix[x, y].ParentRoom._roomSystem = wep;
                     }
 
                     //  Systems
@@ -618,7 +623,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
                         system.RoomPosForInteraction = _roomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
 
                         //Set the reference to the rooms
-                        _roomPosMatrix[x, y].ParentRoom.roomSystem = system;
+                        _roomPosMatrix[x, y].ParentRoom._roomSystem = system;
                     }
                 }
             }
@@ -627,8 +632,8 @@ public class ConstructionSceneGeometry : MonoBehaviour
     private void PositionSystemInRoom(ASystem system, Room parentRoom)
     {
         system.SystemObj.transform.localPosition = Vector2.zero;
-        if (parentRoom.sizeX > 1) system.SystemObj.transform.localPosition += new Vector3(0.25f, 0);
-        if (parentRoom.sizeY > 1) system.SystemObj.transform.localPosition += new Vector3(0, -0.25f);
+        if (parentRoom._sizeX > 1) system.SystemObj.transform.localPosition += new Vector3(0.25f, 0);
+        if (parentRoom._sizeY > 1) system.SystemObj.transform.localPosition += new Vector3(0, -0.25f);
     }
     private void PositionTankObjects()
     {
@@ -826,6 +831,6 @@ public class ConstructionSceneGeometry : MonoBehaviour
     }
     private Vector2Int GetRoomSize(int x, int y)
     {
-        return new Vector2Int(_roomPosMatrix[x, y].ParentRoom.sizeX, _roomPosMatrix[x, y].ParentRoom.sizeY);
+        return new Vector2Int(_roomPosMatrix[x, y].ParentRoom._sizeX, _roomPosMatrix[x, y].ParentRoom._sizeY);
     }
 }

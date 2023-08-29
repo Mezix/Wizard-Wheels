@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5015510422872186480}
   - component: {fileID: 7325145752274536561}
   - component: {fileID: -3048575337833728911}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CannonballProjectilePrefab
   m_TagString: cannonball
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1108643200956634821}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cannonball Shadow Counter Rotation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 920873936332241979}
   - component: {fileID: 6689552630506530996}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Shadow Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3897112185642918654}
   - component: {fileID: 708214108814570304}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TrailRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9126476221999826765}
   - component: {fileID: 9126476221999826754}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cannonball Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

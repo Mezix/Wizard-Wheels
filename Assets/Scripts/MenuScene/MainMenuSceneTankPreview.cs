@@ -118,10 +118,10 @@ public class MainMenuSceneTankPreview : MonoBehaviour
                 if (_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
                     Room room = Resources.Load(_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room)) as Room;
-                    int sizeX = room.sizeX;
-                    int sizeY = room.sizeY;
-                    LoadFloorAtPos(x, y, sizeX, sizeY);
-                    LoadRoofAtPos(x, y, sizeX, sizeY);
+                    int sizeX = room._sizeX;
+                    int sizeY = room._sizeY;
+                    //LoadFloorAtPos(x, y, sizeX, sizeY);
+                   // LoadRoofAtPos(x, y, sizeX, sizeY);
                 }
             }
         }
@@ -170,15 +170,15 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         //  Create Renderer
         TilemapRenderer roofRend = roofTilemap.AddComponent<TilemapRenderer>();
         roofRend.sortingLayerName = "VehicleRoof";
-    }
+    }/*
     public void LoadFloorAtPos(int startX, int startY, int sizeX, int sizeY)
     {
         for (int x = startX; x < startX + sizeX; x++)
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                if (_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorTilePrefabPath == "") continue;
-                Tile t = Instantiate(Resources.Load(_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorTilePrefabPath, typeof(Tile))) as Tile;
+                if (_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorType == "") continue;
+                Tile t = Instantiate(Resources.Load(_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorType, typeof(Tile))) as Tile;
                 TmpFloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
@@ -189,12 +189,12 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         {
             for (int y = startY; y < startY + sizeY; y++)
             {
-                if (_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofTilePrefabPath == "") continue;
-                Tile t = Instantiate(Resources.Load(_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofTilePrefabPath, typeof(Tile))) as Tile;
+                if (_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType == "") continue;
+                Tile t = Instantiate(Resources.Load(_tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType, typeof(Tile))) as Tile;
                 TmpRoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
             }
         }
-    }
+    }*/
     private void LoadRooms()
     {
         _roomPosMatrix = new RoomPosition[_tmpVehicleData._savedXSize, _tmpVehicleData._savedYSize];
@@ -230,9 +230,9 @@ public class MainMenuSceneTankPreview : MonoBehaviour
 
         // Set the Room Positions
         int roomPosNr = 0;
-        for (int roomY = 0; roomY < room.sizeY; roomY++)
+        for (int roomY = 0; roomY < room._sizeY; roomY++)
         {
-            for (int roomX = 0; roomX < room.sizeX; roomX++)
+            for (int roomX = 0; roomX < room._sizeX; roomX++)
             {
                 _roomPosMatrix[x + roomX, y + roomY] = room.allRoomPositions[roomPosNr];
                 _roomPosMatrix[x + roomX, y + roomY]._xPos = x + _roomPosMatrix[x + roomX, y + roomY]._xRel;
@@ -247,11 +247,11 @@ public class MainMenuSceneTankPreview : MonoBehaviour
         foreach(RoomPosition rPos in room.allRoomPositions) rPos.GetComponent<SpriteRenderer>().enabled = false; // Disable for preview!
 
         //sets the corner of the room that doesnt get caught with the matrix
-        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1] = room.allRoomPositions[room.sizeX * room.sizeY - 1];
-        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1]._xPos = x + room.sizeX - 1;
-        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1]._yPos = y + room.sizeY - 1;
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1] = room.allRoomPositions[room._sizeX * room._sizeY - 1];
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._xPos = x + room._sizeX - 1;
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._yPos = y + room._sizeY - 1;
 
-        _roomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1].name = "X" + (x + room.sizeX - 1).ToString() + " , Y" + (y + room.sizeY - 1).ToString();
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1].name = "X" + (x + room._sizeX - 1).ToString() + " , Y" + (y + room._sizeY - 1).ToString();
     }
     public void CreateWalls()
     {
@@ -379,6 +379,6 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     }
     private Vector2Int GetRoomSize(int x, int y)
     {
-        return new Vector2Int(_roomPosMatrix[x, y].ParentRoom.sizeX, _roomPosMatrix[x, y].ParentRoom.sizeY);
+        return new Vector2Int(_roomPosMatrix[x, y].ParentRoom._sizeX, _roomPosMatrix[x, y].ParentRoom._sizeY);
     }
 }

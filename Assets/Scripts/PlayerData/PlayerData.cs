@@ -182,12 +182,26 @@ public class PlayerData
         }
     }
     [Serializable]
+    public enum FloorType
+    {
+        FloorA,
+        FloorB
+    }
+    [Serializable]
+    public enum RoofType
+    {
+        RoofA,
+        RoofB
+    }
+    [Serializable]
     public struct RoomInfo
     {
         public string RoomPrefabPath;
-        public string FloorTilePrefabPath;
-        public string RoofTilePrefabPath;
         public string SystemPrefabPath;
+        public FloorType FloorType;
+        public RoofType RoofType;
+        public int RoomCurrentHP;
+        public int RoomMaxHP;
         public string MovementPrefabPath;
         public ASystem.DirectionToSpawnIn SystemDirection;
 
@@ -200,8 +214,10 @@ public class PlayerData
         {
             return new RoomInfo {
                 RoomPrefabPath = "",
-                FloorTilePrefabPath = "",
-                RoofTilePrefabPath = "",
+                FloorType = FloorType.FloorA,
+                RoofType = RoofType.RoofA,
+                RoomMaxHP = 5,
+                RoomCurrentHP = 5,
                 SystemPrefabPath = "",
                 MovementPrefabPath = "",
                 SystemDirection = ASystem.DirectionToSpawnIn.Right,

@@ -122,11 +122,11 @@ public class CreateTankTools : MonoBehaviour
             {
                 if (tileType == 0)
                 {
-                    CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                   // CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
                 }
                 else if (tileType == 1)
                 {
-                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                   // CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
                 }
                 else if (tileType == 2)
                 {
@@ -152,11 +152,11 @@ public class CreateTankTools : MonoBehaviour
             {
                 if (tileType == 0)
                 {
-                    CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, null);
+                   // CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, null);
                 }
                 else if (tileType == 1)
                 {
-                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, null);
+                    //CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, null);
                 }
                 else if (tileType == 2)
                 {

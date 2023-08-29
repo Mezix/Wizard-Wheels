@@ -20,7 +20,7 @@ public class TeslaBeam : MonoBehaviour
             if(other.GetComponentInChildren<Room>())
             {
                 Room r = other.GetComponentInChildren<Room>();
-                if(!r.tGeo.GetComponent<PlayerTankController>())
+                if(!r._tGeo.GetComponent<PlayerTankController>())
                 {
                     if (!roomsToHit.Contains(r)) roomsToHit.Add(r);
                 }

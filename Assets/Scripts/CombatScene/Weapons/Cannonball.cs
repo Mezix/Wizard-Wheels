@@ -22,6 +22,10 @@ public class Cannonball : AProjectile
             TankController tank = col.transform.root.GetComponentInChildren<TankController>();
             if(tank)
             {
+                if(col.TryGetComponent(out Room r))
+                {
+                    r.DamageRoom(Damage);
+                }
                 if(HitPlayer)
                 {
                     if (tank.GetComponent<PlayerTankController>())

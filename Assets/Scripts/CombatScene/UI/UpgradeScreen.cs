@@ -29,7 +29,6 @@ public class UpgradeScreen : MonoBehaviour
     public int _totalScrap;
 
     public GameObject _upgradeScreenObj;
-    public int scrapInventoryItemSlotIndex;
 
     private void Awake()
     {
@@ -93,7 +92,7 @@ public class UpgradeScreen : MonoBehaviour
         _remainingScrap += points;
         UpdateMainScrapCounter();
         UpdateUpgradeScrapCounter();
-        REF.InvUI.AddAmount(scrapInventoryItemSlotIndex, points);
+        REF.InvUI.AddAmount(PlayerData.ScrapIndex, points);
         if (animPlay) StartCoroutine(AddScrapAnim(points));
     }
     private IEnumerator AddScrapAnim(int points)

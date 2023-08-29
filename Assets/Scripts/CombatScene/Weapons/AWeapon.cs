@@ -159,7 +159,7 @@ public abstract class AWeapon : ASystem
             TankController targetTC = hit.collider.transform.root.GetComponentInChildren<TankController>();
             if (targetTC && hit.collider.transform.TryGetComponent(out Room targetRoom))
             {
-                if (targetRoom.tGeo.GetComponent<TankController>().Equals(transform.root.GetComponentInChildren<TankController>()))
+                if (targetRoom._tGeo.GetComponent<TankController>().Equals(transform.root.GetComponentInChildren<TankController>()))
                 {
                     print("Trying to target own Tank");
                     return;

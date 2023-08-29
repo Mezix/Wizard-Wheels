@@ -37,7 +37,7 @@ public class PlayerTankController : TankController
     public void SpawnTank()
     {
         TGeo.CreateTankGeometry();
-        TGeo.AddScrapCollector();
+        //TGeo.AddScrapCollector();
         TWep.SetUpWeapons(true, _tankColor);
         TWep.SetUpSystems(true);
         TMov.InitSpeedStats();

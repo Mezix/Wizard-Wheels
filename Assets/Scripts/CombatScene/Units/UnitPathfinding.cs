@@ -146,10 +146,10 @@ public class UnitPathfinding : MonoBehaviour
         if (!hit.collider || !hit.collider.transform.TryGetComponent(out Room roomToGetTo) || roomToGetTo.GetNextFreeRoomPos() == null)
         {
             REF.mouse.DeselectAllUnits();
-            print("no valid room found, deselecting unit and aborting pathfinding");
+            print("No valid room found, deselecting unit and aborting pathfinding");
             return;
         }
-        if (!CurrentRoom.tGeo.Equals(roomToGetTo.tGeo))
+        if (!CurrentRoom._tGeo.Equals(roomToGetTo._tGeo))
         {
             REF.mouse.DeselectAllUnits();
             print("Trying to get to a different Tank than the one we are in, Returning and deselecting Unit!");
@@ -159,12 +159,12 @@ public class UnitPathfinding : MonoBehaviour
         //  Check if the room has a system
         RoomPosition roomPosToGetTo;
         bool tryingToGetToInteractionPos = false;
-        if (roomToGetTo.roomSystem != null)
+        if (roomToGetTo._roomSystem != null)
         {
             //check if the rooms designated room for interaction is free
-            if (roomToGetTo.freeRoomPositions[roomToGetTo.roomSystem.RoomPosForInteraction.roomPosIndex])
+            if (roomToGetTo.freeRoomPositions[roomToGetTo._roomSystem.RoomPosForInteraction.roomPosIndex])
             {
-                roomPosToGetTo = roomToGetTo.roomSystem.RoomPosForInteraction;
+                roomPosToGetTo = roomToGetTo._roomSystem.RoomPosForInteraction;
                 tryingToGetToInteractionPos = true;
             }
             else roomPosToGetTo = roomToGetTo.GetNextFreeRoomPos();
@@ -218,10 +218,13 @@ public class UnitPathfinding : MonoBehaviour
 
 
         // stop interacting with the system in our room if we have one
-        if (CurrentRoom.roomSystem != null) unit.StopInteraction();
+        if (CurrentRoom._roomSystem != null) unit.StopInteraction();
+
+        //  check if anyone is still repairing the room
+        CurrentRoom.CheckRoomStillBeingRepaired();
 
         //start the movement
-        unit.UnitIsMoving = true;
+        unit._unitState = AUnit.UnitState.Moving;
         unit.UnitSelected = false;
 
         //Set the indicator of the unit
@@ -284,10 +287,10 @@ public class UnitPathfinding : MonoBehaviour
 
 
         // stop interacting with the system in our room if we have one
-        if (CurrentRoom.roomSystem != null) unit.StopInteraction();
+        if (CurrentRoom._roomSystem != null) unit.StopInteraction();
 
         //start the movement
-        unit.UnitIsMoving = true;
+        unit._unitState = AUnit.UnitState.Moving;
         unit.UnitSelected = false;
     }
     public void PrintPath(List<RoomPosition> path)

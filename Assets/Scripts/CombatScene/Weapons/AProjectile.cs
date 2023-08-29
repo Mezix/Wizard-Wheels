@@ -26,6 +26,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     protected float maxShadowHeight;
 
     public AWeapon wep;
+    public const int IgnoreProjectilesLayer = 12;
 
     private void Awake()
     {

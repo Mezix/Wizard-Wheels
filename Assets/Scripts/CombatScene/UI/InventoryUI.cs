@@ -14,7 +14,6 @@ public class InventoryUI : MonoBehaviour
     public VerticalLayoutGroup _verticalLayoutGroup;
 
     public List<InventorySlot> _spawnedInventorySlots = new List<InventorySlot>();
-    //public List<InventoryItemData> SceneInventoryList = new List<InventoryItemData>();
 
     private void Awake()
     {
@@ -52,13 +51,12 @@ public class InventoryUI : MonoBehaviour
         {
             index++;
             if (item.Amount == 0) continue;
-            if (item.Name == "Scrap")
+            if (index == ScrapIndex)
             {
                 //dont add scrap to the inventory
                 REF.UpgrScreen._remainingScrap = item.Amount;
                 REF.UpgrScreen.UpdateMainScrapCounter();
                 REF.UpgrScreen.UpdateUpgradeScrapCounter();
-                REF.UpgrScreen.scrapInventoryItemSlotIndex = index;
                 continue;
             }
 

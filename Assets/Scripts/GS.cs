@@ -78,11 +78,19 @@ public static class GS // Stands for "Get Strings"
     }
     public static string WizardGraphics(string filename = "")
     {
-        return Graphics() + "Weapons/" + filename;
+        return Graphics() + "Wizards/" + filename;
     }
     public static string TilemapArtwork(string filename = "")
     {
         return Graphics() + "Tilemap Artwork/" + filename;
+    }
+    public static string RoomGraphics(string filename = "")
+    {
+        return SystemGraphics() + "Rooms/" + filename;
+    }
+    public static string SystemGraphics(string filename = "")
+    {
+        return Graphics() + "Systems/" + filename;
     }
     public static string Graphics(string filename = "")
     {

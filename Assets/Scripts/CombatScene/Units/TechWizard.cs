@@ -33,9 +33,28 @@ public class TechWizard : AUnit
     }
     private void UnitBehaviour()
     {
-        if (UnitIsMoving)
+        if (_unitState.Equals(UnitState.Moving))
         {
             MoveAlongPath();
+        }
+        else if (CurrentRoom._currentHP < CurrentRoom._maxHP)
+        {
+            _unitState = UnitState.Repairing;
+            WizardAnimator.SetBool("Interacting", true);
+            bool repairsDone = CurrentRoom.RepairSlowly(0.5f);
+            if(repairsDone) _unitState = UnitState.Idle;
+        }
+        else if (CurrentRoom._roomSystem != null)
+        {
+            if (CurrentRoom._roomSystem.RoomPosForInteraction.Equals(CurrentRoomPos))
+            {
+                _unitState = UnitState.Interacting;
+                InteractWithRoom();
+            }
+        }
+        else if (_unitState.Equals(UnitState.Idle))
+        {
+            Idle();
         }
     }
 }

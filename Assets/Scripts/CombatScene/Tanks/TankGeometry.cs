@@ -12,24 +12,26 @@ public class TankGeometry : MonoBehaviour
     public GameObject TankGeometryParent { get; private set; }
     public GameObject RoomsParent { get; private set; }
     public List<Room> AllRooms { get; private set; }
-    public Tilemap FloorTilemap { get; private set; }
+    //public Tilemap FloorTilemap { get; private set; }
     public GameObject RoofParent { get; private set; }
-    public Tilemap RoofTilemap { get; private set; }
+    //public Tilemap RoofTilemap { get; private set; }
     [SerializeField]
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     public Color FloorColor;
     public Color RoofColor;
+    public int _roomMaxHP;
     public void CreateTankGeometry()
     {
+        _roomMaxHP = 4;
         CreateRooms();
-        CreateBGAndRoof();
+        //CreateBGAndRoof();
         PositionTankObjects();
         InitWeaponsAndSystems();
         CreateSystemIcons();
         CreateWalls();
 
         if (REF.CombatUI) REF.CombatUI.TurnOnXRay(REF.CombatUI._xrayOn);
-    }
+    }/*
     private void CreateBGAndRoof()
     {
         CreateFloorAndRoofTilemap();
@@ -43,19 +45,19 @@ public class TankGeometry : MonoBehaviour
                 if (_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
                     Room room = Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room)) as Room;
-                    int sizeX = room.sizeX;
-                    int sizeY = room.sizeY;
+                    int sizeX = room._sizeX;
+                    int sizeY = room._sizeY;
                     CreateFloorAtPos(x, y, sizeX, sizeY);
                     CreateRoofAtPos(x, y, sizeX, sizeY);
                 }
             }
         }
     }
-
     public void AddScrapCollector()
     {
         FloorTilemap.gameObject.AddComponent<TilemapCollider2D>();
         FloorTilemap.gameObject.GetComponent<TilemapCollider2D>().isTrigger = true;
+        FloorTilemap.gameObject.layer = 13;
         FloorTilemap.gameObject.AddComponent<TankScrapCollector>();
     }
 
@@ -147,6 +149,7 @@ public class TankGeometry : MonoBehaviour
             }
         }
     }
+    */
     private void CreateRooms()
     {
         RoomPosMatrix = new RoomPosition[_vehicleData._savedXSize, _vehicleData._savedYSize];
@@ -163,17 +166,21 @@ public class TankGeometry : MonoBehaviour
                 if (_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
                     Room room = Instantiate(Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room))) as Room;
-                    room.tGeo = this;
+                    room._tGeo = this;
                     room.ID = _vehicleData.GetHashCode();
                     room.gameObject.transform.parent = RoomsParent.transform;
                     room.gameObject.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
                     AllRooms.Add(room);
 
+                    room._floorType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorType;
+                    room._roofType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType;
+                    room.InitHP(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomCurrentHP, _roomMaxHP);
+
                     // Set the Room Positions
                     int roomPosNr = 0;
-                    for (int roomY = 0; roomY < room.sizeY; roomY++)
+                    for (int roomY = 0; roomY < room._sizeY; roomY++)
                     {
-                        for (int roomX = 0; roomX < room.sizeX; roomX++)
+                        for (int roomX = 0; roomX < room._sizeX; roomX++)
                         {
                             RoomPosMatrix[x + roomX, y + roomY] = room.allRoomPositions[roomPosNr];
                             RoomPosMatrix[x + roomX, y + roomY]._xPos = x + RoomPosMatrix[x + roomX, y + roomY]._xRel;
@@ -186,11 +193,11 @@ public class TankGeometry : MonoBehaviour
                     }
 
                     //sets the corner of the room that doesnt get caught with the matrix
-                    RoomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1] = room.allRoomPositions[room.sizeX * room.sizeY - 1];
-                    RoomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1]._xPos = x + room.sizeX - 1;
-                    RoomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1]._yPos = y + room.sizeY - 1;
+                    RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1] = room.allRoomPositions[room._sizeX * room._sizeY - 1];
+                    RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._xPos = x + room._sizeX - 1;
+                    RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._yPos = y + room._sizeY - 1;
 
-                    RoomPosMatrix[x + room.sizeX - 1, y + room.sizeY - 1].name = "X" + (x + room.sizeX - 1).ToString() + " , Y" + (y + room.sizeY - 1).ToString();
+                    RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1].name = "X" + (x + room._sizeX - 1).ToString() + " , Y" + (y + room._sizeY - 1).ToString();
                 }
             }
         }
@@ -211,8 +218,8 @@ public class TankGeometry : MonoBehaviour
                     }
                     else
                     {
-                        RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer.sprite = system.SystemSprite;
-                        systemIcons.Add(RoomPosMatrix[x, y].ParentRoom.roomSystemRenderer);
+                        RoomPosMatrix[x, y].ParentRoom._roomSystemRenderer.sprite = system.SystemSprite;
+                        systemIcons.Add(RoomPosMatrix[x, y].ParentRoom._roomSystemRenderer);
                     }
                 }
             }
@@ -276,7 +283,7 @@ public class TankGeometry : MonoBehaviour
                         twep.AWeaponArray.Add(wep);
 
                         //Set the reference to the rooms
-                        RoomPosMatrix[x, y].ParentRoom.roomSystem = wep;
+                        RoomPosMatrix[x, y].ParentRoom._roomSystem = wep;
                     }
                     else
                     {
@@ -287,7 +294,7 @@ public class TankGeometry : MonoBehaviour
                         system.RoomPosForInteraction = RoomPosMatrix[x, y].ParentRoom.allRoomPositions[0];
 
                         //Set the reference to the rooms
-                        RoomPosMatrix[x, y].ParentRoom.roomSystem = system;
+                        RoomPosMatrix[x, y].ParentRoom._roomSystem = system;
                     }
                 }
             }
@@ -296,8 +303,8 @@ public class TankGeometry : MonoBehaviour
     private void PositionSystemInRoom(ASystem system, Room parentRoom)
     {
         system.SystemObj.transform.localPosition = Vector2.zero;
-        if (parentRoom.sizeX > 1) system.SystemObj.transform.localPosition += new Vector3(0.25f, 0);
-        if (parentRoom.sizeY > 1) system.SystemObj.transform.localPosition += new Vector3(0, -0.25f);
+        if (parentRoom._sizeX > 1) system.SystemObj.transform.localPosition += new Vector3(0.25f, 0);
+        if (parentRoom._sizeY > 1) system.SystemObj.transform.localPosition += new Vector3(0, -0.25f);
     }
     private void PositionTankObjects()
     {
@@ -307,7 +314,8 @@ public class TankGeometry : MonoBehaviour
         TankGeometryParent.transform.localPosition = Vector3.zero;
 
         // parent all spawnedObjects to this parent
-        RoomsParent.transform.parent = RoofParent.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
+        //RoomsParent.transform.parent = RoofParent.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
+        RoomsParent.transform.parent = TankGeometryParent.transform;
 
         //  Rooms have their transform origin point at the center of their rooms, so add a rooms x length, and subtract a rooms y length
         TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);

@@ -34,6 +34,7 @@ public static class Loader {
 
     public static void Load(SceneType scene)
     {
+        Debug.Log("Initiating load of :" + scene.ToString());
         Time.timeScale = 1;
         Cursor.visible = true;
         AudioManager.Singleton.PlayMusic(scene);

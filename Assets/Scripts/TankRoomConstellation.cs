@@ -6,6 +6,7 @@ using UnityEngine;
 #endif
 using System;
 using UnityEngine.Tilemaps;
+using static PlayerData;
 
 [Serializable]
 [CreateAssetMenu(menuName = "ScriptableObjects/TankRoomConstellations")]
@@ -100,8 +101,8 @@ public class TankRoomConstellation : ScriptableObject
     public class RoomInfo
     {
         public string RoomPrefabPath;
-        public string FloorTilePrefabPath;
-        public string RoofTilePrefabPath;
+        public FloorType FloorType;
+        public RoofType RoofType;
         public string SystemPrefabPath;
         public string MovementPrefabPath;
         public ASystem.DirectionToSpawnIn SystemDirection;
@@ -123,8 +124,8 @@ public class TankRoomConstellation : ScriptableObject
             {
                 _tmpMatrix.XArray[x].YStuff[y] = new RoomInfo();
                 _tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath = _savedMatrix.XArray[x].YStuff[y].RoomPrefabPath;
-                _tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath = _savedMatrix.XArray[x].YStuff[y].RoofTilePrefabPath;
-                _tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = _savedMatrix.XArray[x].YStuff[y].FloorTilePrefabPath;
+                _tmpMatrix.XArray[x].YStuff[y].RoofType = _savedMatrix.XArray[x].YStuff[y].RoofType;
+                _tmpMatrix.XArray[x].YStuff[y].FloorType = _savedMatrix.XArray[x].YStuff[y].FloorType;
                 _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath = _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
                 _tmpMatrix.XArray[x].YStuff[y].MovementPrefabPath = _savedMatrix.XArray[x].YStuff[y].MovementPrefabPath;
                 _tmpMatrix.XArray[x].YStuff[y].SystemDirection = _savedMatrix.XArray[x].YStuff[y].SystemDirection;
@@ -147,8 +148,8 @@ public class TankRoomConstellation : ScriptableObject
             {
                 _savedMatrix.XArray[x].YStuff[y] = new RoomInfo();
                 _savedMatrix.XArray[x].YStuff[y].RoomPrefabPath = _tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath;
-                _savedMatrix.XArray[x].YStuff[y].RoofTilePrefabPath = _tmpMatrix.XArray[x].YStuff[y].RoofTilePrefabPath;
-                _savedMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = _tmpMatrix.XArray[x].YStuff[y].FloorTilePrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].RoofType = _tmpMatrix.XArray[x].YStuff[y].RoofType;
+                _savedMatrix.XArray[x].YStuff[y].FloorType = _tmpMatrix.XArray[x].YStuff[y].FloorType;
                 _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath = _tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath;
                 _savedMatrix.XArray[x].YStuff[y].MovementPrefabPath = _tmpMatrix.XArray[x].YStuff[y].MovementPrefabPath;
                 _savedMatrix.XArray[x].YStuff[y].SystemDirection = _tmpMatrix.XArray[x].YStuff[y].SystemDirection;
@@ -170,8 +171,8 @@ public class TankRoomConstellation : ScriptableObject
             {
                 CopyTo.XArray[x].YStuff[y] = new RoomInfo();
                 CopyTo.XArray[x].YStuff[y].RoomPrefabPath = CopyFrom.XArray[x].YStuff[y].RoomPrefabPath;
-                CopyTo.XArray[x].YStuff[y].RoofTilePrefabPath = CopyFrom.XArray[x].YStuff[y].RoofTilePrefabPath;
-                CopyTo.XArray[x].YStuff[y].FloorTilePrefabPath = CopyFrom.XArray[x].YStuff[y].FloorTilePrefabPath;
+                CopyTo.XArray[x].YStuff[y].RoofType = CopyFrom.XArray[x].YStuff[y].RoofType;
+                CopyTo.XArray[x].YStuff[y].FloorType = CopyFrom.XArray[x].YStuff[y].FloorType;
                 CopyTo.XArray[x].YStuff[y].SystemPrefabPath = CopyFrom.XArray[x].YStuff[y].SystemPrefabPath;
                 CopyTo.XArray[x].YStuff[y].MovementPrefabPath = CopyFrom.XArray[x].YStuff[y].MovementPrefabPath;
                 CopyTo.XArray[x].YStuff[y].SystemPrefabPath = CopyFrom.XArray[x].YStuff[y].SystemPrefabPath;
