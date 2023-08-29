@@ -96,10 +96,13 @@ public class CreateTankTools : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
             //paint on the correct tilemap
-            if (brushing && CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y])
+            if (brushing)
             {
                 if (tileType == 0)
                 {
+                    if (!CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y])
+                        CreateTankSceneManager.instance._tGeo.CreateRoomAtPos(cellPos.x, cellPos.y, Resources.Load(GS.RoomPrefabs("1x1Room"), typeof (GameObject)) as GameObject);
+
                     CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(cellPos.x, cellPos.y, CreateTankSceneManager.instance._tUI._floorTypes[CreateTankSceneManager.instance._tUI.floorIndex]);
                 }
                 else if (tileType == 1)
@@ -130,11 +133,11 @@ public class CreateTankTools : MonoBehaviour
             {
                 if (tileType == 0)
                 {
-                   // CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, null);
+                    CreateTankSceneManager.instance._tGeo.CreateRoomAtPos(cellPos.x, cellPos.y, null);
                 }
                 else if (tileType == 1)
                 {
-                    //CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, null);
+                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(cellPos.x, cellPos.y, PlayerData.RoofType.RoofA);
                 }
                 else if (tileType == 2)
                 {

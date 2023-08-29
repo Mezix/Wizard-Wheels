@@ -148,8 +148,6 @@ public class CreateTankGeometry : MonoBehaviour
         room.transform.parent = RoomsParent.transform;
         room.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
 
-        room._floorType = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType;
-        room._roofType = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType;
 
         AllRooms.Add(room);
 
@@ -176,27 +174,37 @@ public class CreateTankGeometry : MonoBehaviour
 
         _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1].name = "X" + (x + room._sizeX - 1).ToString() + " , Y" + (y + room._sizeY - 1).ToString();
 
+        room._floorType = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType;
+        room._roofType = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType;
         ChangeFloorAtPos(x, y, room._floorType);
         ChangeRoofAtPos(x, y, room._roofType);
     }
-    public void CreateNewEmptyRoomAtPos(int x, int y, GameObject roomToCreate)
+    public void CreateRoomAtPos(int x, int y, GameObject roomToCreate)
     {
+        if (roomToCreate == null)
+        {
+            Debug.Log("Destroy");
+            if(_roomPosMatrix[x, y]) Destroy(_roomPosMatrix[x, y].ParentRoom.gameObject);
+            CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y] = new TankRoomConstellation.RoomInfo();
+            Destroy(_roomPosMatrix[x, y]._spawnedTire);
+            _roomPosMatrix[x, y] = null;
+            return;
+        }
         CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath = GS.RoomPrefabs(roomToCreate.name);
 
         GameObject rGO = Instantiate(roomToCreate);
-        Room r = rGO.GetComponent<Room>();
-        //r.ID = _vehicleData.GetHashCode();
+        Room room = rGO.GetComponent<Room>();
         rGO.transform.parent = RoomsParent.transform;
         rGO.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-        AllRooms.Add(r);
+        AllRooms.Add(room);
 
         // Set the Room Positions
         int roomPosNr = 0;
-        for (int roomY = 0; roomY < r._sizeY; roomY++)
+        for (int roomY = 0; roomY < room._sizeY; roomY++)
         {
-            for (int roomX = 0; roomX < r._sizeX; roomX++)
+            for (int roomX = 0; roomX < room._sizeX; roomX++)
             {
-                _roomPosMatrix[x + roomX, y + roomY] = r.allRoomPositions[roomPosNr];
+                _roomPosMatrix[x + roomX, y + roomY] = room.allRoomPositions[roomPosNr];
                 _roomPosMatrix[x + roomX, y + roomY]._xPos = x + _roomPosMatrix[x + roomX, y + roomY]._xRel;
                 _roomPosMatrix[x + roomX, y + roomY]._yPos = y + _roomPosMatrix[x + roomX, y + roomY]._yRel;
 
@@ -207,11 +215,17 @@ public class CreateTankGeometry : MonoBehaviour
         }
 
         //sets the corner of the room that doesnt get caught with the matrix
-        _roomPosMatrix[x + r._sizeX - 1, y + r._sizeY - 1] = r.allRoomPositions[r._sizeX * r._sizeY - 1];
-        _roomPosMatrix[x + r._sizeX - 1, y + r._sizeY - 1]._xPos = x + r._sizeX - 1;
-        _roomPosMatrix[x + r._sizeX - 1, y + r._sizeY - 1]._yPos = y + r._sizeY - 1;
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1] = room.allRoomPositions[room._sizeX * room._sizeY - 1];
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._xPos = x + room._sizeX - 1;
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._yPos = y + room._sizeY - 1;
 
-        _roomPosMatrix[x + r._sizeX - 1, y + r._sizeY - 1].name = "X" + (x + r._sizeX - 1).ToString() + " , Y" + (y + r._sizeY - 1).ToString();
+        _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1].name = "X" + (x + room._sizeX - 1).ToString() + " , Y" + (y + room._sizeY - 1).ToString();
+
+
+        room._floorType = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType;
+        room._roofType = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType;
+        ChangeFloorAtPos(x, y, room._floorType);
+        ChangeRoofAtPos(x, y, room._roofType);
     }
 
     //  Walls
@@ -375,7 +389,6 @@ public class CreateTankGeometry : MonoBehaviour
                     }
                     sysObjects.transform.parent = _roomPosMatrix[x, y].transform;
                     sysObjects.transform.localPosition = Vector3.zero;
-                    _roomPosMatrix[x, y].ParentRoom._roomSystem = system;
                     _roomPosMatrix[x, y]._spawnedSystem = sysObjects.gameObject;
                 }
             }
@@ -500,25 +513,13 @@ public class CreateTankGeometry : MonoBehaviour
                 expandedMatrix.XArray[x].YStuff[y] = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[xCopyPos].YStuff[yCopyPos];
 
                 //  Set indices of individual room positions and move them to the appropriate position
-                print(_roomPosMatrix[xCopyPos, yCopyPos]);
                 if (!_roomPosMatrix[xCopyPos, yCopyPos]) continue;
                 expandedPosMatrix[x, y] = _roomPosMatrix[xCopyPos, yCopyPos];
                 expandedPosMatrix[x, y]._xPos = x;
                 expandedPosMatrix[x, y]._yPos = y;
-                if (expandedPosMatrix[x, y]._xRel == 0 && expandedPosMatrix[x, y]._yRel == 0)
-                    expandedPosMatrix[x, y].ParentRoom.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+                //if (expandedPosMatrix[x, y]._xRel == 0 && expandedPosMatrix[x, y]._yRel == 0) expandedPosMatrix[x, y].ParentRoom.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
             }
         }
-
-        //  Reposition Tilemaps
-
-        //ShiftTilemap(FloorTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
-        //CreateTankSceneManager.instance._tools._alignmentGrid.transform.position = FloorTilemap.transform.position;
-
-        //ShiftTilemap(RoofTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
-        //CreateTankSceneManager.instance._tools._tempRoofGrid.transform.position = FloorTilemap.transform.position;
-
-
         //  Reposition geometry
 
         TankGeometryParent.transform.localPosition += new Vector3(-0.25f * (left + right), 0.25f * (up + down), 0);

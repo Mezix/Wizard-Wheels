@@ -13,7 +13,6 @@ public class Room : MonoBehaviour
     public SpriteRenderer _roomSystemRenderer;
     public SpriteRenderer _floorRenderer;
     public SpriteRenderer _roofRenderer;
-    public Tire _tire;
     public int _sizeX;
     public int _sizeY;
 
@@ -113,11 +112,17 @@ public class Room : MonoBehaviour
     }
     public void ShowSystem(bool show)
     {
-        if (_roomSystem) _roomSystem.gameObject.SetActive(show);
+        foreach (RoomPosition pos in allRoomPositions)
+        {
+            if (pos._spawnedSystem) pos._spawnedSystem.gameObject.SetActive(show);
+        }
     }
     public void ShowTire(bool show)
     {
-        if (_tire) _tire.gameObject.SetActive(show);
+        foreach (RoomPosition pos in allRoomPositions)
+        {
+            if (pos._spawnedTire) pos._spawnedTire.gameObject.SetActive(show);
+        }
     }
 
     private void UpdateVehicleRoomHP()
