@@ -88,7 +88,6 @@ public class Room : MonoBehaviour
         int hpLevel = Mathf.FloorToInt((_currentHP / (float)_maxHP) * 3);
         _floorRenderer.sprite = Resources.Load(GS.RoomGraphics(_floorType.ToString() + hpLevel.ToString()), typeof (Sprite)) as Sprite;
         if (_tGeo.GetComponent<PlayerTankController>()) _roomUI.roomUIObjects.SetActive(_currentHP < _maxHP);
-
         UpdateVehicleRoomHP();
     }
 
@@ -97,6 +96,7 @@ public class Room : MonoBehaviour
         foreach (RoomPosition roomPos in allRoomPositions)
         {
             _tGeo._vehicleData.VehicleMatrix.XArray[roomPos._xPos].YStuff[roomPos._yPos].RoomCurrentHP = _currentHP;
+            _tGeo._vehicleData.VehicleMatrix.XArray[roomPos._xPos].YStuff[roomPos._yPos].RoomMaxHP = _maxHP;
         }
     }
 
