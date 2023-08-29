@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static PlayerData;
 using static TankRoomConstellation;
 
 public class CreateTankGeometry : MonoBehaviour
@@ -12,23 +13,16 @@ public class CreateTankGeometry : MonoBehaviour
     public GameObject TankGeometryParent { get; private set; }
     public GameObject RoomsParent { get; private set; }
     public List<Room> AllRooms { get; private set; }
-    public Tilemap FloorTilemap { get; private set; }
-    public GameObject RoofParent { get; private set; }
-    public Tilemap RoofTilemap { get; private set; }
     [SerializeField]
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     private GameObject _visibleGrid;
     public void SpawnTankForCreator()
     {
         LoadRooms();
-        CreateFloorAndRoof();
         PositionTankObjects();
         LoadWalls();
         LoadTires();
         LoadSystems();
-
-        CreateTankSceneManager.instance._tools._tempFloorGrid.transform.position = FloorTilemap.transform.position;
-        CreateTankSceneManager.instance._tools._tempRoofGrid.transform.position = RoofTilemap.transform.position;
     }
     private void Update()
     {
@@ -51,176 +45,12 @@ public class CreateTankGeometry : MonoBehaviour
             ModifyTankSize(0, 0, 0, 1 * modifier);
         }
     }
-    private void CreateFloorAndRoof()
-    {
-        CreateFloorAndRoofTilemap();
-
-        RoofTilemap.color = new Color(CreateTankSceneManager.instance.tankToEdit.RoofColorR, CreateTankSceneManager.instance.tankToEdit.RoofColorG, CreateTankSceneManager.instance.tankToEdit.RoofColorB, 1);
-        FloorTilemap.color = new Color(CreateTankSceneManager.instance.tankToEdit.FloorColorR, CreateTankSceneManager.instance.tankToEdit.FloorColorG, CreateTankSceneManager.instance.tankToEdit.FloorColorB, 1);
-        for (int x = 0; x < CreateTankSceneManager.instance.tankToEdit._savedXSize; x++)
-        {
-            for (int y = 0; y < CreateTankSceneManager.instance.tankToEdit._savedYSize; y++)
-            {
-                if (x >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray.Length || y >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[0].YStuff.Length) continue;
-                if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
-                {
-                    Room r = Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room)) as Room;
-                    int sizeX = r._sizeX;
-                    int sizeY = r._sizeY;
-                    //LoadFloorAtPos(x, y, sizeX, sizeY);
-                    //LoadRoofAtPos(x, y, sizeX, sizeY);
-                }
-            }
-        }
-    }
-    private void CreateFloorAndRoofTilemap()
-    {
-        //  Floor
-
-        GameObject floor = new GameObject("FloorTilemap");
-        floor.transform.parent = transform;
-        floor.transform.localPosition = Vector3.zero;
-
-        //  Create Grid
-        Grid floorGrid = floor.AddComponent<Grid>();
-        floorGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
-
-        //  Create Tilemap
-        FloorTilemap = floor.AddComponent<Tilemap>();
-        FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
-
-        //  Create Renderer
-        TilemapRenderer floorRend = floor.AddComponent<TilemapRenderer>();
-        floorRend.sortingLayerName = "Vehicles";
-
-        //  Roof
-
-        RoofParent = new GameObject("RoofParent");
-        RoofParent.transform.parent = transform;
-        RoofParent.transform.localPosition = Vector3.zero;
-
-        GameObject roofTilemap = new GameObject("RoofTilemap");
-        roofTilemap.transform.parent = RoofParent.transform;
-        roofTilemap.transform.localPosition = Vector3.zero;
-
-        //  Create Grid
-        Grid roofGrid = roofTilemap.AddComponent<Grid>();
-        roofGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
-
-        //  Create Tilemap
-        RoofTilemap = roofTilemap.AddComponent<Tilemap>();
-        RoofTilemap.tileAnchor = new Vector3(0, 1, 0);
-
-        //  Create Renderer
-        TilemapRenderer roofRend = roofTilemap.AddComponent<TilemapRenderer>();
-        roofRend.sortingLayerName = "VehicleRoof";
-        roofRend.sortingOrder = 10;
-    }
-    private void CreateWallsTilemap()
-    {
-        GameObject walls = new GameObject("WallsTilemap");
-        walls.transform.parent = gameObject.transform;
-        walls.transform.localPosition = Vector3.zero;
-
-        //Create the Grid
-        Grid g = walls.AddComponent<Grid>();
-        g.cellSize = new Vector3(0.5f, 0.5f, 0);
-
-        //  Create Tilemap
-        FloorTilemap = walls.AddComponent<Tilemap>();
-        FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
-
-        //  Create Renderer
-        TilemapRenderer r = walls.AddComponent<TilemapRenderer>();
-        r.sortingLayerName = "Vehicles";
-
-        //  Create Collider
-        TilemapCollider2D c = walls.AddComponent<TilemapCollider2D>();
-    }
-    /*
-    public void LoadFloorAtPos(int startX, int startY, int sizeX, int sizeY)
-    {
-        for (int x = startX; x < startX + sizeX; x++)
-        {
-            for (int y = startY; y < startY + sizeY; y++)
-            {
-                Tile t = Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType, typeof(Tile)) as Tile;
-                // t.color = _trc._tmpMatrix.XArray[x].YStuff[y].FloorColor;
-                FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-                t.color = Color.white;
-            }
-        }
-    }
-    public void ChangeFloorAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
-    {
-        if (t != null)
-        {
-            //  Check if we overstepped the edges of our matrix and need to expand first!
-            if (startX < 0 || startY < 0 || startX > CreateTankSceneManager.instance.tankToEdit._tmpXSize - 1 || startY > CreateTankSceneManager.instance.tankToEdit._tmpYSize - 1)
-            {
-                
-                //int expandL = Math.Abs(Math.Min(0, startX));
-                //int expandR = Math.Max(_tRC._tmpXSize - 1, startX) - _tRC._tmpXSize + 1;
-                //int expandU = Math.Abs(Math.Min(0, startY));
-                //int expandD = Math.Max(_tRC._tmpYSize - 1, startY) - _tRC._tmpYSize + 1;
-                //ModifyTankSize(expandL, expandR, expandU, expandD);
-                
-                //print("left: " + expandL + ", right: " + expandR +  ", up :" + expandU + ", down: " + expandD);
-            }
-            else if (!_roomPosMatrix[startX, startY])
-            {
-                GameObject roomToLoad = Resources.Load(GS.RoomPrefabs("1x1Room"), typeof(GameObject)) as GameObject;
-                if (sizeX == 1)
-                {
-                    if (sizeY == 2)
-                    {
-                        roomToLoad = Resources.Load(GS.RoomPrefabs("1x2Room"), typeof(GameObject)) as GameObject;
-                        //check if we overlap with a room and we have to delete
-                    }
-                }
-                if (sizeX == 2)
-                {
-                    if (sizeY == 1)
-                    {
-                        roomToLoad = Resources.Load(GS.RoomPrefabs("2x1Room"), typeof(GameObject)) as GameObject;
-
-                        //check if we overlap with a room and we have to delete
-                    }
-                    if (sizeY == 2)
-                    {
-                        roomToLoad = Resources.Load(GS.RoomPrefabs("2x2Room"), typeof(GameObject)) as GameObject;
-
-                        //check if we overlap with a room and we have to delete
-                    }
-                }
-                CreateNewEmptyRoomAtPos(startX, startY, roomToLoad);
-            }
-            for (int x = startX; x < startX + sizeX; x++)
-            {
-                for (int y = startY; y < startY + sizeY; y++)
-                {
-                    FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-                    //_vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorTilePrefabPath = GS.FloorTiles(t.name);
-                    CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType = GS.FloorTiles(t.name);
-                }
-            }
-        }
-        //  If we were erasing, check here if we can make our matrix smaller again!
-        else
-        {
-            DeleteRoomAtPos(startX, startY);
-        }
-    }
-    */
     public void DeleteRoomAtPos(int roomPositionX, int roomPositionY)
     {
-        FloorTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
-        RoofTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
         if (_roomPosMatrix[roomPositionX, roomPositionY])
         {
             if (_roomPosMatrix[roomPositionX, roomPositionY].ParentRoom)
             {
-                //_vehicleData.VehicleMatrix.XArray[roomPositionX].YStuff[roomPositionY].RoomPrefabPath = null;
                 CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[roomPositionX].YStuff[roomPositionY].RoomPrefabPath = null;
 
                 Room rParent = _roomPosMatrix[roomPositionX, roomPositionY].ParentRoom;
@@ -231,9 +61,6 @@ public class CreateTankGeometry : MonoBehaviour
                 {
                     for (int y = firstRoomPosY; y < firstRoomPosY + roomsize.y; y++)
                     {
-                        FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), null);
-                        RoofTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
-
                         CreateTireAtPos(x, y, null);
                         CreateSystemAtPos(x, y, null);
                         CreateWallAtPos(x, y, "delete");
@@ -243,45 +70,12 @@ public class CreateTankGeometry : MonoBehaviour
             }
         }
     }
-
-    //  Roof
-    /*
-    public void LoadRoofAtPos(int startX, int startY, int sizeX, int sizeY)
-    {
-        for (int x = startX; x < startX + sizeX; x++)
-        {
-            for (int y = startY; y < startY + sizeY; y++)
-            {
-                if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType != "")
-                {
-                    Tile t = Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType, typeof(Tile)) as Tile;
-                    RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-                    t.color = Color.white;
-                }
-            }
-        }
-    }
-    public void ChangeRoofAtPos(int startX, int startY, int sizeX, int sizeY, Tile t)
-    {
-        for (int x = startX; x < startX + sizeX; x++)
-        {
-            for (int y = startY; y < startY + sizeY; y++)
-            {
-                RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-                //_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofTilePrefabPath = GS.RoofTiles(t.name);
-                CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType = GS.RoofTiles(t.name);
-            }
-        }
-    }
-    */
     //  Rooms
 
     private void LoadRooms()
     {
         _roomPosMatrix = new RoomPosition[CreateTankSceneManager.instance.tankToEdit._savedXSize, CreateTankSceneManager.instance.tankToEdit._savedYSize];
         AllRooms = new List<Room>();
-        if (FloorTilemap) FloorTilemap.ClearAllTiles();
-        if (RoofTilemap) RoofTilemap.ClearAllTiles();
         if (_visibleGrid) Destroy(_visibleGrid);
 
         if (RoomsParent) Destroy(RoomsParent);
@@ -301,12 +95,62 @@ public class CreateTankGeometry : MonoBehaviour
             }
         }
     }
+
+    public void ChangeFloorAtPos(int x, int y, FloorType floorType)
+    {
+        CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType = floorType;
+        _roomPosMatrix[x,y].ParentRoom._floorRenderer.sprite = Resources.Load(GS.RoomGraphics(floorType.ToString()) + "3", typeof(Sprite)) as Sprite;
+    }
+    public void ChangeRoofAtPos(int x, int y, RoofType roofType)
+    {
+        CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType = roofType;
+        _roomPosMatrix[x,y].ParentRoom._roofRenderer.sprite = Resources.Load(GS.RoomGraphics(roofType.ToString()), typeof(Sprite)) as Sprite;
+    }
+
+    public void ShowRoof(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowRoof(b);
+        }
+    }
+    public void ShowFloor(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowFloor(b);
+        }
+    }
+    public void ShowWalls(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowWalls(b);
+        }
+    }
+    public void ShowSystems(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowSystem(b);
+        }
+    }
+    public void ShowTires(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowTire(b);
+        }
+    }
     public void LoadRoomAtPos(int x, int y)
     {
         Room room = Instantiate(Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room))) as Room;
-        //room.ID = _vehicleData.GetHashCode();
         room.transform.parent = RoomsParent.transform;
         room.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+
+        room._floorType = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType;
+        room._roofType = CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType;
+
         AllRooms.Add(room);
 
         // Set the Room Positions
@@ -331,6 +175,9 @@ public class CreateTankGeometry : MonoBehaviour
         _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._yPos = y + room._sizeY - 1;
 
         _roomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1].name = "X" + (x + room._sizeX - 1).ToString() + " , Y" + (y + room._sizeY - 1).ToString();
+
+        ChangeFloorAtPos(x, y, room._floorType);
+        ChangeRoofAtPos(x, y, room._roofType);
     }
     public void CreateNewEmptyRoomAtPos(int x, int y, GameObject roomToCreate)
     {
@@ -453,7 +300,6 @@ public class CreateTankGeometry : MonoBehaviour
         }
         else if (direction == "down")
         {
-
             if (_roomPosMatrix[posX, posY]._spawnedBottomWall != null) return;
             CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[posX].YStuff[posY]._bottomWallExists = true;
             wall = Instantiate(Resources.Load(GS.WallPrefabs("WallDown"), typeof(GameObject)) as GameObject);
@@ -468,7 +314,7 @@ public class CreateTankGeometry : MonoBehaviour
     public void LoadTires()
     {
         GameObject rotatableObjects = new GameObject("RotatableObjects");
-        rotatableObjects.transform.parent = transform;
+        rotatableObjects.transform.parent = RoomsParent.transform;
         rotatableObjects.transform.localPosition = Vector3.zero;
 
         for (int x = 0; x < CreateTankSceneManager.instance.tankToEdit._savedXSize; x++)
@@ -529,6 +375,7 @@ public class CreateTankGeometry : MonoBehaviour
                     }
                     sysObjects.transform.parent = _roomPosMatrix[x, y].transform;
                     sysObjects.transform.localPosition = Vector3.zero;
+                    _roomPosMatrix[x, y].ParentRoom._roomSystem = system;
                     _roomPosMatrix[x, y]._spawnedSystem = sysObjects.gameObject;
                 }
             }
@@ -585,7 +432,7 @@ public class CreateTankGeometry : MonoBehaviour
         TankGeometryParent.transform.localPosition = Vector3.zero;
 
         // parent all spawnedObjects to this parent
-        RoomsParent.transform.parent = RoofParent.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
+        RoomsParent.transform.parent = TankGeometryParent.transform;
 
         //  Rooms have their transform origin point at the center of their rooms, so add a rooms x length, and subtract a rooms y length
         TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
@@ -599,23 +446,6 @@ public class CreateTankGeometry : MonoBehaviour
         sr.sprite = Resources.Load(GS.UIGraphics("White Square Border"), typeof(Sprite)) as Sprite;
 
         ResizeGrid();
-    }
-    public void SetSystemIconLayer(bool top)
-    {
-        if (systemIcons.Count == 0) return;
-        foreach (SpriteRenderer sr in systemIcons)
-        {
-            if (top)
-            {
-                sr.sortingLayerName = "VehicleUI";
-                sr.sortingOrder = 1;
-            }
-            else
-            {
-                sr.sortingLayerName = "Vehicles";
-                sr.sortingOrder = 2;
-            }
-        }
     }
     public void VisualizeMatrix()
     {
@@ -631,10 +461,6 @@ public class CreateTankGeometry : MonoBehaviour
             matrix += "\n";
         }
         print(matrix);
-    }
-    public Vector2Int TilemapToCellPos(Vector3Int tmPos)
-    {
-        return new Vector2Int(tmPos.x, -(tmPos.y + 1));
     }
 
     public void ModifyTankSize(int left, int right, int up, int down)
@@ -686,11 +512,11 @@ public class CreateTankGeometry : MonoBehaviour
 
         //  Reposition Tilemaps
 
-        ShiftTilemap(FloorTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
-        CreateTankSceneManager.instance._tools._tempFloorGrid.transform.position = FloorTilemap.transform.position;
+        //ShiftTilemap(FloorTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
+        //CreateTankSceneManager.instance._tools._alignmentGrid.transform.position = FloorTilemap.transform.position;
 
-        ShiftTilemap(RoofTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
-        CreateTankSceneManager.instance._tools._tempRoofGrid.transform.position = FloorTilemap.transform.position;
+        //ShiftTilemap(RoofTilemap, xExpandedTankSize, yExpandedTankSize, left, right, up, down);
+        //CreateTankSceneManager.instance._tools._tempRoofGrid.transform.position = FloorTilemap.transform.position;
 
 
         //  Reposition geometry

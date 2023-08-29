@@ -227,11 +227,11 @@ public class ConstructionSceneUI : MonoBehaviour
     {
         if (index == 0)
         {
-            ConstructionSceneManager.instance._tGeo.FloorTilemap.gameObject.SetActive(b);
+           // ConstructionSceneManager.instance._tGeo.FloorTilemap.gameObject.SetActive(b);
         }
         if (index == 1)
         {
-            ConstructionSceneManager.instance._tGeo.RoofTilemap.gameObject.SetActive(b);
+            //ConstructionSceneManager.instance._tGeo.RoofTilemap.gameObject.SetActive(b);
         }
         if (index == 2)
         {
@@ -311,6 +311,7 @@ public class ConstructionSceneUI : MonoBehaviour
     public void ChangeColor(Color c)
     {
         _colorImage.color = c;
+        /*
         if(ConstructionSceneManager.instance._tGeo.RoofTilemap)
         {
             ConstructionSceneManager.instance._tGeo.RoofTilemap.color = c;
@@ -325,6 +326,6 @@ public class ConstructionSceneUI : MonoBehaviour
             ConstructionSceneManager.instance._tGeo._vehicleData.FloorColorR = c.r;
             ConstructionSceneManager.instance._tGeo._vehicleData.FloorColorG = c.g;
             ConstructionSceneManager.instance._tGeo._vehicleData.FloorColorB = c.b;
-        }
+        }*/
     }
 }

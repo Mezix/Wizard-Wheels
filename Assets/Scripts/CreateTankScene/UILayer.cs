@@ -19,13 +19,13 @@ public class UILayer : MonoBehaviour
     public void Show()
     {
         _layerShown = true;
-        VisibilityImage.sprite = Resources.Load("Art/UI/XRayOn", typeof(Sprite)) as Sprite;
+        VisibilityImage.sprite = Resources.Load(GS.UIGraphics("XRayOn"), typeof(Sprite)) as Sprite;
         CreateTankSceneManager.instance._tUI.ShowLayer(true, index);
     }
     public void Hide()
     {
         _layerShown = false;
-        VisibilityImage.sprite = Resources.Load("Art/UI/XRayOff", typeof(Sprite)) as Sprite;
+        VisibilityImage.sprite = Resources.Load(GS.UIGraphics("XRayOff"), typeof(Sprite)) as Sprite;
         CreateTankSceneManager.instance._tUI.ShowLayer(false, index);
     }
 }

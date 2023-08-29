@@ -14,9 +14,9 @@ public class ConstructionSceneGeometry : MonoBehaviour
     public GameObject TankGeometryParent { get; private set; }
     public GameObject RoomsParent { get; private set; }
     public List<Room> AllRooms { get; private set; }
-    public Tilemap FloorTilemap { get; private set; }
+   // public Tilemap FloorTilemap { get; private set; }
     public GameObject RoofParent { get; private set; }
-    public Tilemap RoofTilemap { get; private set; }
+    //public Tilemap RoofTilemap { get; private set; }
     [SerializeField]
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     private GameObject _visibleGrid;
@@ -29,8 +29,8 @@ public class ConstructionSceneGeometry : MonoBehaviour
         CreateTires();
         CreateSystems();
 
-        ConstructionSceneManager.instance._tools._tempFloorGrid.transform.position = FloorTilemap.transform.position;
-        ConstructionSceneManager.instance._tools._tempRoofGrid.transform.position = RoofTilemap.transform.position;
+        //ConstructionSceneManager.instance._tools._tempFloorGrid.transform.position = FloorTilemap.transform.position;
+        //ConstructionSceneManager.instance._tools._tempRoofGrid.transform.position = RoofTilemap.transform.position;
     }
     private void Update()
     {/*
@@ -76,7 +76,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
                 }
             }
         }
-    }*/
+    }
     private void CreateFloorAndRoofTilemap()
     {
         //  Floor
@@ -90,8 +90,8 @@ public class ConstructionSceneGeometry : MonoBehaviour
         floorGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
 
         //  Create Tilemap
-        FloorTilemap = floor.AddComponent<Tilemap>();
-        FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
+        //FloorTilemap = floor.AddComponent<Tilemap>();
+        //FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
         TilemapRenderer floorRend = floor.AddComponent<TilemapRenderer>();
@@ -118,7 +118,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
         //  Create Renderer
         TilemapRenderer roofRend = roofTilemap.AddComponent<TilemapRenderer>();
         roofRend.sortingLayerName = "VehicleRoof";
-    }
+    }*/
     private void CreateWallsTilemap()
     {
         GameObject walls = new GameObject("WallsTilemap");
@@ -130,8 +130,8 @@ public class ConstructionSceneGeometry : MonoBehaviour
         g.cellSize = new Vector3(0.5f, 0.5f, 0);
 
         //  Create Tilemap
-        FloorTilemap = walls.AddComponent<Tilemap>();
-        FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
+       // FloorTilemap = walls.AddComponent<Tilemap>();
+        //FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
 
         //  Create Renderer
         TilemapRenderer r = walls.AddComponent<TilemapRenderer>();
@@ -216,8 +216,8 @@ public class ConstructionSceneGeometry : MonoBehaviour
     */
     public void DeleteRoomAtPos(int roomPositionX, int roomPositionY)
     {
-        FloorTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
-        RoofTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
+        //FloorTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
+        //RoofTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
         if (_roomPosMatrix[roomPositionX, roomPositionY])
         {
             if(_roomPosMatrix[roomPositionX, roomPositionY].ParentRoom)
@@ -232,8 +232,8 @@ public class ConstructionSceneGeometry : MonoBehaviour
                 {
                     for (int y = firstRoomPosY; y < firstRoomPosY + roomsize.y; y++)
                     {
-                        FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), null);
-                        RoofTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
+                       // FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), null);
+                       // RoofTilemap.SetTile(new Vector3Int(roomPositionX, -(roomPositionY + 1), 0), null);
 
                         CreateTireAtPos(x, y, null);
                         CreateSystemAtPos(x, y, null);
@@ -281,8 +281,8 @@ public class ConstructionSceneGeometry : MonoBehaviour
     {
         _roomPosMatrix = new RoomPosition[_vehicleData._savedXSize, _vehicleData._savedYSize];
         AllRooms = new List<Room>();
-        if (FloorTilemap) FloorTilemap.ClearAllTiles();
-        if (RoofTilemap) RoofTilemap.ClearAllTiles();
+        //if (FloorTilemap) FloorTilemap.ClearAllTiles();
+       // if (RoofTilemap) RoofTilemap.ClearAllTiles();
         if (_visibleGrid) Destroy(_visibleGrid);
 
         if (RoomsParent) Destroy(RoomsParent);
@@ -643,7 +643,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
         TankGeometryParent.transform.localPosition = Vector3.zero;
 
         // parent all spawnedObjects to this parent
-        RoomsParent.transform.parent = RoofParent.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
+        RoomsParent.transform.parent = RoofParent.transform.parent = TankGeometryParent.transform;
 
         //  Rooms have their transform origin point at the center of their rooms, so add a rooms x length, and subtract a rooms y length
         TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);

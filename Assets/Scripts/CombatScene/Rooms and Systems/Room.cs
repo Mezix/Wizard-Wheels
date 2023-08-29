@@ -12,6 +12,8 @@ public class Room : MonoBehaviour
     public ASystem _roomSystem;
     public SpriteRenderer _roomSystemRenderer;
     public SpriteRenderer _floorRenderer;
+    public SpriteRenderer _roofRenderer;
+    public Tire _tire;
     public int _sizeX;
     public int _sizeY;
 
@@ -89,6 +91,33 @@ public class Room : MonoBehaviour
         _floorRenderer.sprite = Resources.Load(GS.RoomGraphics(_floorType.ToString() + hpLevel.ToString()), typeof (Sprite)) as Sprite;
         if (_tGeo.GetComponent<PlayerTankController>()) _roomUI.roomUIObjects.SetActive(_currentHP < _maxHP);
         UpdateVehicleRoomHP();
+    }
+
+    public void ShowFloor(bool show)
+    {
+        _floorRenderer.gameObject.SetActive(show);
+    }
+    public void ShowRoof(bool show)
+    {
+        _roofRenderer.gameObject.SetActive(show);
+    }
+    public void ShowWalls(bool show)
+    {
+        foreach (RoomPosition pos in allRoomPositions)
+        {
+            if (pos._spawnedBottomWall) pos._spawnedBottomWall.SetActive(show);
+            if (pos._spawnedLeftWall) pos._spawnedLeftWall.SetActive(show);
+            if (pos._spawnedTopWall) pos._spawnedTopWall.SetActive(show);
+            if (pos._spawnedRightWall) pos._spawnedRightWall.SetActive(show);
+        }
+    }
+    public void ShowSystem(bool show)
+    {
+        if (_roomSystem) _roomSystem.gameObject.SetActive(show);
+    }
+    public void ShowTire(bool show)
+    {
+        if (_tire) _tire.gameObject.SetActive(show);
     }
 
     private void UpdateVehicleRoomHP()

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using static PlayerData;
 
 public class CreateTankUI : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class CreateTankUI : MonoBehaviour
     public Button _colorButton;
     public Image _colorImage;
     [HideInInspector]
-    public Color _tileColor;
+    public Color _selectedColor;
     public InputField _inputField;
     public Dropdown _partsDropDown;
     public Dropdown _layersDropDown;
@@ -28,12 +29,12 @@ public class CreateTankUI : MonoBehaviour
     public int _partTypeIndex;
 
     //  Floor
-    public List<Tile> _floorTiles;
+    public List<FloorType> _floorTypes;
     private List<Dropdown.OptionData> floorTilesList = new List<Dropdown.OptionData>();
     public int floorIndex;
 
     //  Roof
-    public List<Tile> _roofTiles;
+    public List<RoofType> _roofTypes;
     private List<Dropdown.OptionData> roofTilesList = new List<Dropdown.OptionData>();
     public int roofIndex;
 
@@ -64,8 +65,8 @@ public class CreateTankUI : MonoBehaviour
         SelectPart(0);
         SelectList(_partTypeIndex);
 
-        _tileColor = new Color(144/255f, 84/255f, 47/255f, 1); //start with brown
-        ChangeColor(_tileColor);
+        _selectedColor = new Color(144/255f, 84/255f, 47/255f, 1); //start with brown
+        ChangeColor(_selectedColor);
     }
     public void InitButtons()
     {
@@ -76,18 +77,18 @@ public class CreateTankUI : MonoBehaviour
     private void InitPartsDropdown()
     {
         _partsDropDown.options.Clear();
-        foreach (Tile t in _floorTiles)
+        foreach (FloorType t in _floorTypes)
         {
             Dropdown.OptionData newOptData = new Dropdown.OptionData();
-            newOptData.text = t.name;
-            newOptData.image = t.sprite;
+            newOptData.text = t.ToString();
+            newOptData.image = Resources.Load(GS.RoomGraphics(t.ToString()) + "3", typeof (Sprite)) as Sprite;
             floorTilesList.Add(newOptData);
         }
-        foreach (Tile t in _roofTiles)
+        foreach (RoofType t in _roofTypes)
         {
             Dropdown.OptionData newOptData = new Dropdown.OptionData();
-            newOptData.text = t.name;
-            newOptData.image = t.sprite;
+            newOptData.text = t.ToString();
+            newOptData.image = Resources.Load(GS.RoomGraphics(t.ToString()), typeof(Sprite)) as Sprite;
             roofTilesList.Add(newOptData);
         }
         foreach (GameObject wall in _wallsGOList)
@@ -239,19 +240,23 @@ public class CreateTankUI : MonoBehaviour
     {
         if (index == 0)
         {
-            CreateTankSceneManager.instance._tGeo.FloorTilemap.gameObject.SetActive(b);
+            CreateTankSceneManager.instance._tGeo.ShowFloor(b);
         }
         if (index == 1)
         {
-            CreateTankSceneManager.instance._tGeo.RoofTilemap.gameObject.SetActive(b);
+            CreateTankSceneManager.instance._tGeo.ShowRoof(b);
         }
         if (index == 2)
         {
-            //  Hide Walls
+            CreateTankSceneManager.instance._tGeo.ShowWalls(b);
         }
         if (index == 3)
         {
-            // Hide Tires
+            CreateTankSceneManager.instance._tGeo.ShowTires(b);
+        }
+        if (index == 4)
+        {
+            CreateTankSceneManager.instance._tGeo.ShowSystems(b);
         }
     }
     public void SelectPart(int partNr)
@@ -277,18 +282,6 @@ public class CreateTankUI : MonoBehaviour
             systemsIndex = partNr;
         }
         _partsDropDown.value = partNr;
-    }
-    public Tile GetTile()
-    {
-        if (_partTypeIndex == 0)
-        {
-            return _floorTiles[floorIndex];
-        }
-        else if (_partTypeIndex == 1)
-        {
-            return _roofTiles[roofIndex];
-        }
-        else return _floorTiles[floorIndex];
     }
     public GameObject GetTirePrefab()
     {
@@ -317,26 +310,11 @@ public class CreateTankUI : MonoBehaviour
         int r = UnityEngine.Random.Range(0, 255);
         int g = UnityEngine.Random.Range(0, 255);
         int b = UnityEngine.Random.Range(0, 255);
-        _tileColor = new Color(r/25f, g/255f, b/255f,1);
-        ChangeColor(_tileColor);
+        _selectedColor = new Color(r/25f, g/255f, b/255f,1);
+        ChangeColor(_selectedColor);
     }
     public void ChangeColor(Color c)
     {
         _colorImage.color = c;
-        if(CreateTankSceneManager.instance._tGeo.RoofTilemap)
-        {
-            CreateTankSceneManager.instance._tGeo.RoofTilemap.color = c;
-            CreateTankSceneManager.instance.tankToEdit.RoofColorR = c.r;
-            CreateTankSceneManager.instance.tankToEdit.RoofColorG = c.g;
-            CreateTankSceneManager.instance.tankToEdit.RoofColorB = c.b;
-        }
-        if(CreateTankSceneManager.instance._tGeo.FloorTilemap)
-        {
-            CreateTankSceneManager.instance._tGeo.FloorTilemap.color = c;
-
-            CreateTankSceneManager.instance.tankToEdit.FloorColorR = c.r;
-            CreateTankSceneManager.instance.tankToEdit.FloorColorG = c.g;
-            CreateTankSceneManager.instance.tankToEdit.FloorColorB = c.b;
-        }
     }
 }

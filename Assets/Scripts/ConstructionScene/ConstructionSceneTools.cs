@@ -6,12 +6,12 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 public class ConstructionSceneTools : MonoBehaviour
 {
-    public Grid _tempFloorGrid;
+    /*public Grid _tempFloorGrid;
     private Tilemap tempFloorTilemap;
 
     public Grid _tempRoofGrid;
     private Tilemap tempRoofTilemap;
-
+    */
     private bool brushing;
     public Dropdown _toolSelecterDropdown;
 
@@ -24,8 +24,8 @@ public class ConstructionSceneTools : MonoBehaviour
 
     public void Awake()
     {
-        tempFloorTilemap = _tempFloorGrid.GetComponent<Tilemap>();
-        tempRoofTilemap = _tempRoofGrid.GetComponent<Tilemap>();
+       // tempFloorTilemap = _tempFloorGrid.GetComponent<Tilemap>();
+       // tempRoofTilemap = _tempRoofGrid.GetComponent<Tilemap>();
     }
     private void Start()
     {
@@ -55,8 +55,8 @@ public class ConstructionSceneTools : MonoBehaviour
 
     private void HandleMouseInput()
     {
-        tempFloorTilemap.ClearAllTiles();
-        tempRoofTilemap.ClearAllTiles();
+       // tempFloorTilemap.ClearAllTiles();
+        //tempRoofTilemap.ClearAllTiles();
         if (wallPreview) Destroy(wallPreview);
         if (tirePreview) Destroy(tirePreview);
         if (systemPreview) Destroy(systemPreview);
@@ -66,17 +66,17 @@ public class ConstructionSceneTools : MonoBehaviour
         int tileType = ConstructionSceneManager.instance._tUI._partTypeIndex;
         if (tileType == 0)
         {
-            currentlySelectedTempTilemap = tempFloorTilemap;
-            currentlySelectedTilemap = ConstructionSceneManager.instance._tGeo.FloorTilemap;
+            //currentlySelectedTempTilemap = tempFloorTilemap;
+           // currentlySelectedTilemap = ConstructionSceneManager.instance._tGeo.FloorTilemap;
         }
         else
         {
-            currentlySelectedTempTilemap = tempRoofTilemap;
-            currentlySelectedTilemap = ConstructionSceneManager.instance._tGeo.RoofTilemap;
+           // currentlySelectedTempTilemap = tempRoofTilemap;
+           // currentlySelectedTilemap = ConstructionSceneManager.instance._tGeo.RoofTilemap;
         }
 
         RaycastHit2D hit = HM.RaycastToMouseCursor();
-        Vector3Int tempCellPos = currentlySelectedTempTilemap.WorldToCell(hit.point);
+       // Vector3Int tempCellPos = currentlySelectedTempTilemap.WorldToCell(hit.point);
 
         //Show the currently selected tile were painting with on the temporary tilemap
 
@@ -86,34 +86,34 @@ public class ConstructionSceneTools : MonoBehaviour
             {
                 Tile t = ui.GetTile();
                 t.color = ui._tileColor;
-                currentlySelectedTempTilemap.SetTile(tempCellPos, t);
+               // currentlySelectedTempTilemap.SetTile(tempCellPos, t);
                 t.color = Color.white;
             }
             else if (tileType == 2)
             {
-                Vector3 wallPos = tempFloorTilemap.CellToWorld(tempCellPos);
-                HoverWall(wallPos);
-                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("EraserTile"), typeof(Tile)) as Tile);
+               // Vector3 wallPos = tempFloorTilemap.CellToWorld(tempCellPos);
+                //HoverWall(wallPos);
+               // currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("EraserTile"), typeof(Tile)) as Tile);
             }
             else if (tileType == 3)
             {
-                Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
-                HoverTire(tirepos);
-                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("Eraser Tile"), typeof(Tile)) as Tile);
+                //Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
+                //HoverTire(tirepos);
+                //currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("Eraser Tile"), typeof(Tile)) as Tile);
             }
             else if (tileType == 4)
             {
-                Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
-                HoverSystem(tirepos);
-                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("EraserTile"), typeof(Tile)) as Tile);
+                //Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
+               // HoverSystem(tirepos);
+               // currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("EraserTile"), typeof(Tile)) as Tile);
             }
         }
-        else currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("EraserTile"), typeof (Tile)) as Tile);
+        //else currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("EraserTile"), typeof (Tile)) as Tile);
 
         if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
-            Vector3Int cellpos = currentlySelectedTilemap.WorldToCell(hit.point);
-            Vector2Int pos = ConstructionSceneManager.instance._tGeo.TilemapToCellPos(cellpos);
+          //  Vector3Int cellpos = currentlySelectedTilemap.WorldToCell(hit.point);
+            //Vector2Int pos = ConstructionSceneManager.instance._tGeo.TilemapToCellPos(cellpos);
 
             //paint on the correct tilemap
             if (brushing)
@@ -133,15 +133,15 @@ public class ConstructionSceneTools : MonoBehaviour
                     if (ui.wallIndex == 1) tileDirection = "left";
                     if (ui.wallIndex == 2) tileDirection = "down";
                     if (ui.wallIndex == 3) tileDirection = "right";
-                    ConstructionSceneManager.instance._tGeo.CreateWallAtPos(pos.x, pos.y, tileDirection);
+                    //ConstructionSceneManager.instance._tGeo.CreateWallAtPos(pos.x, pos.y, tileDirection);
                 }
                 else if (tileType == 3)
                 {
-                    ConstructionSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, ui.GetTirePrefab());
+                    //ConstructionSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, ui.GetTirePrefab());
                 }
                 else if (tileType == 4)
                 {
-                    ConstructionSceneManager.instance._tGeo.CreateSystemAtPos(pos.x, pos.y, ui.GetSystemPrefab());
+                    //ConstructionSceneManager.instance._tGeo.CreateSystemAtPos(pos.x, pos.y, ui.GetSystemPrefab());
                 }
             }
 
@@ -158,15 +158,15 @@ public class ConstructionSceneTools : MonoBehaviour
                 }
                 else if (tileType == 2)
                 {
-                    ConstructionSceneManager.instance._tGeo.CreateWallAtPos(pos.x, pos.y, "delete");
+                    //ConstructionSceneManager.instance._tGeo.CreateWallAtPos(pos.x, pos.y, "delete");
                 }
                 else if (tileType == 3)
                 {
-                    ConstructionSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, null);
+                   // ConstructionSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, null);
                 }
                 else if (tileType == 4)
                 {
-                    ConstructionSceneManager.instance._tGeo.CreateSystemAtPos(pos.x, pos.y, null);
+                   // ConstructionSceneManager.instance._tGeo.CreateSystemAtPos(pos.x, pos.y, null);
                 }
             }
         }

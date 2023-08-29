@@ -8,26 +8,22 @@ using System.Linq;
 
 public class CreateTankTools : MonoBehaviour
 {
-    public Grid _tempFloorGrid;
-    private Tilemap tempFloorTilemap;
-
-    public Grid _tempRoofGrid;
-    private Tilemap tempRoofTilemap;
-
+    public Grid _alignmentGrid;
     private bool brushing;
     public Dropdown _toolSelecterDropdown;
 
     public bool previewTile;
     private GameObject wallPreview;
+    private GameObject floorPreview;
+    private GameObject roofPreview;
     private GameObject tirePreview;
     private GameObject systemPreview;
-
+    private GameObject selectedObjectPositionPreview;
     private CreateTankUI ui;
 
     public void Awake()
     {
-        tempFloorTilemap = _tempFloorGrid.GetComponent<Tilemap>();
-        tempRoofTilemap = _tempRoofGrid.GetComponent<Tilemap>();
+        selectedObjectPositionPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/SelectedObjectPositionPreview", typeof(GameObject)) as GameObject);
     }
     private void Start()
     {
@@ -57,76 +53,58 @@ public class CreateTankTools : MonoBehaviour
 
     private void HandleMouseInput()
     {
-        tempFloorTilemap.ClearAllTiles();
-        tempRoofTilemap.ClearAllTiles();
-        if (wallPreview) Destroy(wallPreview);
-        if (tirePreview) Destroy(tirePreview);
+        if (floorPreview)  Destroy(floorPreview);
+        if (roofPreview)   Destroy(roofPreview);
+        if (wallPreview)   Destroy(wallPreview);
+        if (tirePreview)   Destroy(tirePreview);
         if (systemPreview) Destroy(systemPreview);
 
-        Tilemap currentlySelectedTempTilemap;
-        Tilemap currentlySelectedTilemap;
         int tileType = CreateTankSceneManager.instance._tUI._partTypeIndex;
-        if (tileType == 0)
-        {
-            currentlySelectedTempTilemap = tempFloorTilemap;
-            currentlySelectedTilemap = CreateTankSceneManager.instance._tGeo.FloorTilemap;
-        }
-        else
-        {
-            currentlySelectedTempTilemap = tempRoofTilemap;
-            currentlySelectedTilemap = CreateTankSceneManager.instance._tGeo.RoofTilemap;
-        }
-
-        RaycastHit2D hit = HM.RaycastToMouseCursor();
-        Vector3Int tempCellPos = currentlySelectedTempTilemap.WorldToCell(hit.point);
+        Vector3Int cellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        Vector3 previewPos = new Vector3(cellPos.x/2f-0.25f, cellPos.y/2f+0.5f, cellPos.z/2f);
+        //Debug.Log(cellPos);
+        cellPos.y = -cellPos.y;
 
         //Show the currently selected tile were painting with on the temporary tilemap
 
+        selectedObjectPositionPreview.transform.position = previewPos;// + new Vector3(0, 0.5f, 0);
+
         if (brushing)
         {
-            if(tileType == 0 || tileType == 1)
+            if (tileType == 0)
             {
-                Tile t = ui.GetTile();
-                t.color = ui._tileColor;
-                currentlySelectedTempTilemap.SetTile(tempCellPos, t);
-                t.color = Color.white;
+                HoverFloor(previewPos);
+            }
+            if (tileType == 1)
+            {
+                HoverRoof(previewPos);
             }
             else if (tileType == 2)
             {
-                Vector3 wallPos = tempFloorTilemap.CellToWorld(tempCellPos);
-                HoverWall(wallPos);
-                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("EraserTile"), typeof(Tile)) as Tile);
+                HoverWall(previewPos);
             }
             else if (tileType == 3)
             {
-                Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
-                HoverTire(tirepos);
-                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("Eraser Tile"), typeof(Tile)) as Tile);
+                HoverTire(previewPos);
             }
             else if (tileType == 4)
             {
-                Vector3 tirepos = tempFloorTilemap.CellToWorld(tempCellPos);
-                HoverSystem(tirepos);
-                currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("EraserTile"), typeof(Tile)) as Tile);
+                HoverSystem(previewPos);
             }
         }
-        else currentlySelectedTempTilemap.SetTile(tempCellPos, Resources.Load(GS.Tiles("EraserTile"), typeof (Tile)) as Tile);
 
         if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
-            Vector3Int cellpos = currentlySelectedTilemap.WorldToCell(hit.point);
-            Vector2Int pos = CreateTankSceneManager.instance._tGeo.TilemapToCellPos(cellpos);
-
             //paint on the correct tilemap
-            if (brushing)
+            if (brushing && CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y])
             {
                 if (tileType == 0)
                 {
-                   // CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                    CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(cellPos.x, cellPos.y, CreateTankSceneManager.instance._tUI._floorTypes[CreateTankSceneManager.instance._tUI.floorIndex]);
                 }
                 else if (tileType == 1)
                 {
-                   // CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(pos.x, pos.y, 1, 1, ui.GetTile());
+                    CreateTankSceneManager.instance._tGeo.ChangeRoofAtPos(cellPos.x, cellPos.y, CreateTankSceneManager.instance._tUI._roofTypes[CreateTankSceneManager.instance._tUI.roofIndex]);
                 }
                 else if (tileType == 2)
                 {
@@ -135,15 +113,15 @@ public class CreateTankTools : MonoBehaviour
                     if (ui.wallIndex == 1) tileDirection = "left";
                     if (ui.wallIndex == 2) tileDirection = "down";
                     if (ui.wallIndex == 3) tileDirection = "right";
-                    CreateTankSceneManager.instance._tGeo.CreateWallAtPos(pos.x, pos.y, tileDirection);
+                    CreateTankSceneManager.instance._tGeo.CreateWallAtPos(cellPos.x, cellPos.y, tileDirection);
                 }
                 else if (tileType == 3)
                 {
-                    CreateTankSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, ui.GetTirePrefab());
+                    CreateTankSceneManager.instance._tGeo.CreateTireAtPos(cellPos.x, cellPos.y, ui.GetTirePrefab());
                 }
                 else if (tileType == 4)
                 {
-                    CreateTankSceneManager.instance._tGeo.CreateSystemAtPos(pos.x, pos.y, ui.GetSystemPrefab());
+                    CreateTankSceneManager.instance._tGeo.CreateSystemAtPos(cellPos.x, cellPos.y, ui.GetSystemPrefab());
                 }
             }
 
@@ -160,28 +138,44 @@ public class CreateTankTools : MonoBehaviour
                 }
                 else if (tileType == 2)
                 {
-                    CreateTankSceneManager.instance._tGeo.CreateWallAtPos(pos.x, pos.y, "delete");
+                    CreateTankSceneManager.instance._tGeo.CreateWallAtPos(cellPos.x, cellPos.y, "delete");
                 }
                 else if (tileType == 3)
                 {
-                    CreateTankSceneManager.instance._tGeo.CreateTireAtPos(pos.x, pos.y, null);
+                    CreateTankSceneManager.instance._tGeo.CreateTireAtPos(cellPos.x, cellPos.y, null);
                 }
                 else if (tileType == 4)
                 {
-                    CreateTankSceneManager.instance._tGeo.CreateSystemAtPos(pos.x, pos.y, null);
+                    CreateTankSceneManager.instance._tGeo.CreateSystemAtPos(cellPos.x, cellPos.y, null);
                 }
             }
         }
     }
+    private void HoverFloor(Vector3 wallPos)
+    {
+        floorPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/FloorPreview", typeof (GameObject)) as GameObject);
+        floorPreview.transform.position = wallPos;
+        SpriteRenderer sr = floorPreview.GetComponent<SpriteRenderer>();
+        sr.sprite = Resources.Load(GS.RoomGraphics(CreateTankSceneManager.instance._tUI._floorTypes[CreateTankSceneManager.instance._tUI.floorIndex].ToString())+"3", typeof (Sprite)) as Sprite;
+        sr.color = ui._selectedColor;
+    }
+    private void HoverRoof(Vector3 wallPos)
+    {
+        roofPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/RoofPreview", typeof(GameObject)) as GameObject);
+        roofPreview.transform.position = wallPos;
+        SpriteRenderer sr = roofPreview.GetComponent<SpriteRenderer>();
+        sr.sprite = Resources.Load(GS.RoomGraphics(CreateTankSceneManager.instance._tUI._roofTypes[CreateTankSceneManager.instance._tUI.roofIndex].ToString()), typeof(Sprite)) as Sprite;
+        sr.color = ui._selectedColor;
+    }
     private void HoverWall(Vector3 wallPos)
     {
         wallPreview = Instantiate(ui._wallsGOList[ui.wallIndex]);
-        wallPreview.transform.position = wallPos + new Vector3(0, 0.5f, 0);
+        wallPreview.transform.position = wallPos;
     }
     private void HoverTire(Vector3 tirePos)
     {
         tirePreview = Instantiate(ui._tiresGOList[ui.tiresIndex]);
-        tirePreview.transform.position = tirePos + new Vector3(0, 0.5f, 0);
+        tirePreview.transform.position = tirePos;
     }
     private void HoverSystem(Vector3 systemPos)
     {
@@ -189,7 +183,7 @@ public class CreateTankTools : MonoBehaviour
         ASystem system = systemPreview.GetComponent<ASystem>();
         system._direction = Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[CreateTankSceneManager.instance._tUI._directionDropDown.value];
         system.SpawnInCorrectDirection();
-        systemPreview.transform.position = systemPos + new Vector3(0, 0.5f, 0);
+        systemPreview.transform.position = systemPos;
     }
     private void HandleKeyboardInput()
     {

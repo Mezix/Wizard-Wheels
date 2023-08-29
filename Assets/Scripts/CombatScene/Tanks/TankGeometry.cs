@@ -12,9 +12,6 @@ public class TankGeometry : MonoBehaviour
     public GameObject TankGeometryParent { get; private set; }
     public GameObject RoomsParent { get; private set; }
     public List<Room> AllRooms { get; private set; }
-    //public Tilemap FloorTilemap { get; private set; }
-    public GameObject RoofParent { get; private set; }
-    //public Tilemap RoofTilemap { get; private set; }
     [SerializeField]
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     public Color FloorColor;
@@ -24,132 +21,13 @@ public class TankGeometry : MonoBehaviour
     {
         _roomMaxHP = 4;
         CreateRooms();
-        //CreateBGAndRoof();
         PositionTankObjects();
         InitWeaponsAndSystems();
         CreateSystemIcons();
         CreateWalls();
 
         if (REF.CombatUI) REF.CombatUI.TurnOnXRay(REF.CombatUI._xrayOn);
-    }/*
-    private void CreateBGAndRoof()
-    {
-        CreateFloorAndRoofTilemap();
-        RoofTilemap.color = new Color(_vehicleData.RoofColorR, _vehicleData.RoofColorG, _vehicleData.RoofColorB, 1);
-        FloorTilemap.color = new Color(_vehicleData.FloorColorR, _vehicleData.FloorColorG, _vehicleData.FloorColorB, 1);
-
-        for (int x = 0; x < _vehicleData._savedXSize; x++)
-        {
-            for (int y = 0; y < _vehicleData._savedYSize; y++)
-            {
-                if (_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
-                {
-                    Room room = Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room)) as Room;
-                    int sizeX = room._sizeX;
-                    int sizeY = room._sizeY;
-                    CreateFloorAtPos(x, y, sizeX, sizeY);
-                    CreateRoofAtPos(x, y, sizeX, sizeY);
-                }
-            }
-        }
     }
-    public void AddScrapCollector()
-    {
-        FloorTilemap.gameObject.AddComponent<TilemapCollider2D>();
-        FloorTilemap.gameObject.GetComponent<TilemapCollider2D>().isTrigger = true;
-        FloorTilemap.gameObject.layer = 13;
-        FloorTilemap.gameObject.AddComponent<TankScrapCollector>();
-    }
-
-    private void CreateFloorAndRoofTilemap()
-    {
-        //  Floor
-
-        GameObject floor = new GameObject("FloorTilemap");
-        floor.transform.parent = transform;
-        floor.transform.localPosition = Vector3.zero;
-        //  Create Grid
-        Grid floorGrid = floor.AddComponent<Grid>();
-        floorGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
-
-        //  Create Tilemap
-        FloorTilemap = floor.AddComponent<Tilemap>();
-        FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
-
-        //  Create Renderer
-        TilemapRenderer floorRend = floor.AddComponent<TilemapRenderer>();
-        floorRend.sortingLayerName = "Vehicles";
-
-        //  Roof
-
-        RoofParent = new GameObject("RoofParent");
-        RoofParent.transform.parent = transform;
-        RoofParent.transform.localPosition = Vector3.zero;
-
-        GameObject roofTilemap = new GameObject("RoofTilemap");
-        roofTilemap.transform.parent = RoofParent.transform;
-        roofTilemap.transform.localPosition = Vector3.zero;
-
-        //  Create Grid
-        Grid roofGrid = roofTilemap.AddComponent<Grid>();
-        roofGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
-
-        //  Create Tilemap
-        RoofTilemap = roofTilemap.AddComponent<Tilemap>();
-        RoofTilemap.tileAnchor = new Vector3(0, 1, 0);
-
-        //  Create Renderer
-        TilemapRenderer roofRend = roofTilemap.AddComponent<TilemapRenderer>();
-        roofRend.sortingLayerName = "VehicleRoof";
-        roofRend.sortingOrder = 10;
-    }
-    private void CreateWallsTilemap()
-    {
-        GameObject walls = new GameObject("WallsTilemap");
-        walls.transform.parent = gameObject.transform;
-        walls.transform.localPosition = Vector3.zero;
-
-        //Create the Grid
-        Grid g = walls.AddComponent<Grid>();
-        g.cellSize = new Vector3(0.5f, 0.5f, 0);
-
-        //  Create Tilemap
-        FloorTilemap = walls.AddComponent<Tilemap>();
-        FloorTilemap.tileAnchor = new Vector3(0, 1, 0);
-
-        //  Create Renderer
-        TilemapRenderer r = walls.AddComponent<TilemapRenderer>();
-        r.sortingLayerName = "Vehicles";
-
-        //  Create Collider
-        TilemapCollider2D c = walls.AddComponent<TilemapCollider2D>();
-    }
-    private void CreateFloorAtPos(int startX, int startY, int sizeX, int sizeY)
-    {
-        for (int x = startX; x < startX + sizeX; x++)
-        {
-            for (int y = startY; y < startY + sizeY; y++)
-            {
-                Tile t = (Tile)Resources.Load("Tiles/Floor/DefaultFloorTile");
-                //t.color = FloorColor;
-                FloorTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-
-            }
-        }
-    }
-    private void CreateRoofAtPos(int startX, int startY, int sizeX, int sizeY)
-    {
-        for (int x = startX; x < startX + sizeX; x++)
-        {
-            for (int y = startY; y < startY + sizeY; y++)
-            {
-                //TileBase t = Resources.Load(GS.Tiles("Roof/RoofRuleTile"), typeof (TileBase)) as TileBase;
-                Tile t = (Tile)Resources.Load("Tiles/Roof/DefaultRoofTile");
-                RoofTilemap.SetTile(new Vector3Int(x, -(y + 1), 0), t);
-            }
-        }
-    }
-    */
     private void CreateRooms()
     {
         RoomPosMatrix = new RoomPosition[_vehicleData._savedXSize, _vehicleData._savedYSize];
@@ -327,7 +205,10 @@ public class TankGeometry : MonoBehaviour
     }
     public void ShowRoof(bool b)
     {
-        if (RoofParent) RoofParent.SetActive(b);
+        foreach(Room r in AllRooms)
+        {
+            r.ShowRoof(b);
+        }
         SetSystemIconLayer(b);
     }
     public void SetSystemIconLayer(bool top)
