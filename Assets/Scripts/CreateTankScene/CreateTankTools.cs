@@ -23,7 +23,7 @@ public class CreateTankTools : MonoBehaviour
 
     public void Awake()
     {
-        selectedObjectPositionPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/SelectedObjectPositionPreview", typeof(GameObject)) as GameObject);
+        selectedObjectPositionPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/SelectedObjectPositionPreview", typeof(GameObject)) as GameObject, _alignmentGrid.transform.GetChild(0));
     }
     private void Start()
     {
@@ -61,13 +61,12 @@ public class CreateTankTools : MonoBehaviour
 
         int tileType = CreateTankSceneManager.instance._tUI._partTypeIndex;
         Vector3Int cellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        Vector3 previewPos = new Vector3(cellPos.x/2f-0.25f, cellPos.y/2f+0.5f, cellPos.z/2f);
-        //Debug.Log(cellPos);
-        cellPos.y = -cellPos.y;
+        cellPos = new Vector3Int(cellPos.x, -cellPos.y);
+        Vector3 previewPos = new Vector3(cellPos.x / 2f, -cellPos.y / 2f);
 
         //Show the currently selected tile were painting with on the temporary tilemap
 
-        selectedObjectPositionPreview.transform.position = previewPos;// + new Vector3(0, 0.5f, 0);
+        selectedObjectPositionPreview.transform.localPosition = previewPos;// + new Vector3(0, 0.5f, 0);
 
         if (brushing)
         {
@@ -95,12 +94,21 @@ public class CreateTankTools : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
+            int amountOfRows = CreateTankSceneManager.instance._tGeo._roomPosMatrix.GetLength(0);
+            int amountOfColumns = CreateTankSceneManager.instance._tGeo._roomPosMatrix.GetLength(1);
+
+            if (cellPos.x < 0 || cellPos.x >= amountOfRows || cellPos.y < 0 || cellPos.y >= amountOfColumns)
+            {
+                Debug.Log("Trying to work outside of bounds of matrix");
+                return;
+            }
+
             //paint on the correct tilemap
             if (brushing)
             {
                 if (tileType == 0)
                 {
-                    if (!CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y])
+                    if (CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y] == null)
                         CreateTankSceneManager.instance._tGeo.CreateRoomAtPos(cellPos.x, cellPos.y, Resources.Load(GS.RoomPrefabs("1x1Room"), typeof (GameObject)) as GameObject);
 
                     CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(cellPos.x, cellPos.y, CreateTankSceneManager.instance._tUI._floorTypes[CreateTankSceneManager.instance._tUI.floorIndex]);
@@ -131,6 +139,12 @@ public class CreateTankTools : MonoBehaviour
             //erase from the correct tilemap
             else
             {
+                if(CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y] == null)
+                {
+                    Debug.Log("Room doesn't exist, nothing to delete!");
+                    return;
+                }
+
                 if (tileType == 0)
                 {
                     CreateTankSceneManager.instance._tGeo.CreateRoomAtPos(cellPos.x, cellPos.y, null);
@@ -154,40 +168,46 @@ public class CreateTankTools : MonoBehaviour
             }
         }
     }
+
+    //  Hover
     private void HoverFloor(Vector3 wallPos)
     {
-        floorPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/FloorPreview", typeof (GameObject)) as GameObject);
-        floorPreview.transform.position = wallPos;
+        floorPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/FloorPreview", typeof (GameObject)) as GameObject, _alignmentGrid.transform.GetChild(0));
+        floorPreview.transform.localPosition = wallPos;
+
         SpriteRenderer sr = floorPreview.GetComponent<SpriteRenderer>();
         sr.sprite = Resources.Load(GS.RoomGraphics(CreateTankSceneManager.instance._tUI._floorTypes[CreateTankSceneManager.instance._tUI.floorIndex].ToString())+"3", typeof (Sprite)) as Sprite;
         sr.color = ui._selectedColor;
     }
     private void HoverRoof(Vector3 wallPos)
     {
-        roofPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/RoofPreview", typeof(GameObject)) as GameObject);
-        roofPreview.transform.position = wallPos;
+        roofPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/RoofPreview", typeof(GameObject)) as GameObject, _alignmentGrid.transform.GetChild(0));
+        roofPreview.transform.localPosition = wallPos;
+
         SpriteRenderer sr = roofPreview.GetComponent<SpriteRenderer>();
         sr.sprite = Resources.Load(GS.RoomGraphics(CreateTankSceneManager.instance._tUI._roofTypes[CreateTankSceneManager.instance._tUI.roofIndex].ToString()), typeof(Sprite)) as Sprite;
         sr.color = ui._selectedColor;
     }
     private void HoverWall(Vector3 wallPos)
     {
-        wallPreview = Instantiate(ui._wallsGOList[ui.wallIndex]);
-        wallPreview.transform.position = wallPos;
+        wallPreview = Instantiate(ui._wallsGOList[ui.wallIndex], _alignmentGrid.transform.GetChild(0));
+        wallPreview.transform.localPosition = wallPos;
     }
     private void HoverTire(Vector3 tirePos)
     {
-        tirePreview = Instantiate(ui._tiresGOList[ui.tiresIndex]);
-        tirePreview.transform.position = tirePos;
+        tirePreview = Instantiate(ui._tiresGOList[ui.tiresIndex], _alignmentGrid.transform.GetChild(0));
+        tirePreview.transform.localPosition = tirePos;
     }
     private void HoverSystem(Vector3 systemPos)
     {
-        systemPreview = Instantiate(ui._systemGOList[ui.systemsIndex]);
+        systemPreview = Instantiate(ui._systemGOList[ui.systemsIndex], _alignmentGrid.transform.GetChild(0));
+        systemPreview.transform.localPosition = systemPos;
+
         ASystem system = systemPreview.GetComponent<ASystem>();
         system._direction = Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[CreateTankSceneManager.instance._tUI._directionDropDown.value];
         system.SpawnInCorrectDirection();
-        systemPreview.transform.position = systemPos;
     }
+
     private void HandleKeyboardInput()
     {
         if(Input.GetKeyDown(KeyCode.B))

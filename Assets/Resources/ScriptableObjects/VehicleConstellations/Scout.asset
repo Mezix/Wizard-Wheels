@@ -61,7 +61,7 @@ MonoBehaviour:
         RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
-        SystemDirection: 3
+        SystemDirection: 0
         _topWallExists: 1
         _rightWallExists: 1
         _bottomWallExists: 1
@@ -125,7 +125,7 @@ MonoBehaviour:
         RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
-        SystemDirection: 3
+        SystemDirection: 0
         _topWallExists: 1
         _rightWallExists: 1
         _bottomWallExists: 1

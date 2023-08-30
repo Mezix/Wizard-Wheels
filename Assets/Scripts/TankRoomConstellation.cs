@@ -25,8 +25,11 @@ public class TankRoomConstellation : ScriptableObject
     public float RoofColorG  = 1;
     public float RoofColorB  = 1;
 
+    [HideInInspector]
     public XValues _savedMatrix = null;
+    [HideInInspector]
     public XValues _tmpMatrix = null;
+
     public void InitTankForCreation()
     {
         if (_savedMatrix.XArray.Length > 0)
