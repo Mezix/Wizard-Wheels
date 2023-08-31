@@ -331,6 +331,7 @@ MonoBehaviour:
   SystemName: 
   RoomPosForInteraction: {fileID: 0}
   _direction: 4
+  _canBeRotated: 1
   _weaponStats: {fileID: 11400000, guid: e93e95b2057057644b555c5d5c334c47, type: 2}
   ManualLocalAimingAngle: 0
   RotatablePart: {fileID: 4486056113902708837}

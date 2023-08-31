@@ -103,7 +103,7 @@ public class CreateTankTools : MonoBehaviour
 
             if (cellPos.x < 0 || cellPos.x >= amountOfRows || cellPos.y < 0 || cellPos.y >= amountOfColumns)
             {
-                Debug.Log("Trying to work outside of bounds of matrix");
+                Debug.LogWarning("Trying to work outside of bounds of matrix");
                 return;
             }
 
@@ -145,7 +145,7 @@ public class CreateTankTools : MonoBehaviour
             {
                 if (CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y] == null)
                 {
-                    Debug.Log("Room doesn't exist, nothing to delete!");
+                    Debug.LogWarning("Room doesn't exist, nothing to delete!");
                     return;
                 }
 
@@ -244,7 +244,6 @@ public class CreateTankTools : MonoBehaviour
         _arrow._arrowParents.gameObject.SetActive(true);
         float actualAngle = HM.UnwrapAngle(HM.GetAngle2DBetween(_rotationStartPos, Input.mousePosition) + 180);
         HM.RotateLocalTransformToAngle(_arrow._actualRotationArrow, new Vector3(0, 0, actualAngle));
-        Debug.Log(actualAngle);
 
         float sysDirectionAngle = 0;
         if (actualAngle >= -45 && actualAngle < 45) { ui._directionDropDown.value = 0; sysDirectionAngle = 0; }

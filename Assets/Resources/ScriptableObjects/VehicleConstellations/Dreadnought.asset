@@ -414,7 +414,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: 
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: 
         SystemDirection: 0
         _topWallExists: 1
@@ -843,7 +843,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: 
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: 
         SystemDirection: 0
         _topWallExists: 1

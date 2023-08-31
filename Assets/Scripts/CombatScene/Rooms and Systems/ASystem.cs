@@ -26,6 +26,7 @@ public abstract class ASystem : MonoBehaviour
         Up
     }
     public DirectionToSpawnIn _direction = DirectionToSpawnIn.Up;
+    public bool _canBeRotated;
 
     protected bool IsBeingInteractedWith;
     public abstract void InitSystemStats();
@@ -35,10 +36,10 @@ public abstract class ASystem : MonoBehaviour
     public virtual void Awake()
     {
         SystemObj = gameObject;
-        //SpawnInCorrectDirection();
     }
     public void SpawnInCorrectDirection()
     {
+        if (!_canBeRotated) return;
         if (_direction.Equals(DirectionToSpawnIn.Up)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 90));
         else if (_direction.Equals(DirectionToSpawnIn.Right)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 0));
         else if (_direction.Equals(DirectionToSpawnIn.Down)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, -90));
