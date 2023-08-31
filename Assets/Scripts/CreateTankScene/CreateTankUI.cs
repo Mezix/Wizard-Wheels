@@ -30,26 +30,31 @@ public class CreateTankUI : MonoBehaviour
 
     //  Floor
     public List<FloorType> _floorTypes;
+    public bool _floorShown = true;
     private List<Dropdown.OptionData> floorTilesList = new List<Dropdown.OptionData>();
     public int floorIndex;
 
     //  Roof
     public List<RoofType> _roofTypes;
+    public bool _roofShown = true;
     private List<Dropdown.OptionData> roofTilesList = new List<Dropdown.OptionData>();
     public int roofIndex;
 
     //  Walls
     public List<GameObject> _wallsGOList;
+    public bool _wallsShown = true;
     private List<Dropdown.OptionData> wallTilesList = new List<Dropdown.OptionData>();
     public int wallIndex;
 
     //  Tires
     public List<GameObject> _tiresGOList;
+    public bool _tiresShown = true;
     private List<Dropdown.OptionData> tiresList = new List<Dropdown.OptionData>();
     public int tiresIndex;
 
     //  Systems
     public List<GameObject> _systemGOList;
+    public bool _systemsShown = true;
     private List<Dropdown.OptionData> systemsList = new List<Dropdown.OptionData>();
     public int systemsIndex;
 
@@ -241,22 +246,27 @@ public class CreateTankUI : MonoBehaviour
         if (index == 0)
         {
             CreateTankSceneManager.instance._tGeo.ShowFloor(b);
+            _floorShown = b;
         }
         if (index == 1)
         {
             CreateTankSceneManager.instance._tGeo.ShowRoof(b);
+            _roofShown = b;
         }
         if (index == 2)
         {
             CreateTankSceneManager.instance._tGeo.ShowWalls(b);
+            _wallsShown = b;
         }
         if (index == 3)
         {
             CreateTankSceneManager.instance._tGeo.ShowTires(b);
+            _tiresShown = b;
         }
         if (index == 4)
         {
             CreateTankSceneManager.instance._tGeo.ShowSystems(b);
+            _systemsShown = b;
         }
     }
     public void SelectPart(int partNr)

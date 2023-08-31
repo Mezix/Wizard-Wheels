@@ -21,6 +21,10 @@ public class CreateTankTools : MonoBehaviour
     private GameObject selectedObjectPositionPreview;
     private CreateTankUI ui;
 
+    //  Rotation
+    private Vector2 _rotationStartPos = Vector2.zero;
+    public SystemRotationArrow _arrow;
+
     public void Awake()
     {
         selectedObjectPositionPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/SelectedObjectPositionPreview", typeof(GameObject)) as GameObject, _alignmentGrid.transform.GetChild(0));
@@ -53,10 +57,10 @@ public class CreateTankTools : MonoBehaviour
 
     private void HandleMouseInput()
     {
-        if (floorPreview)  Destroy(floorPreview);
-        if (roofPreview)   Destroy(roofPreview);
-        if (wallPreview)   Destroy(wallPreview);
-        if (tirePreview)   Destroy(tirePreview);
+        if (floorPreview) Destroy(floorPreview);
+        if (roofPreview) Destroy(roofPreview);
+        if (wallPreview) Destroy(wallPreview);
+        if (tirePreview) Destroy(tirePreview);
         if (systemPreview) Destroy(systemPreview);
 
         int tileType = CreateTankSceneManager.instance._tUI._partTypeIndex;
@@ -109,7 +113,7 @@ public class CreateTankTools : MonoBehaviour
                 if (tileType == 0)
                 {
                     if (CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y] == null)
-                        CreateTankSceneManager.instance._tGeo.CreateRoomAtPos(cellPos.x, cellPos.y, Resources.Load(GS.RoomPrefabs("1x1Room"), typeof (GameObject)) as GameObject);
+                        CreateTankSceneManager.instance._tGeo.CreateRoomAtPos(cellPos.x, cellPos.y, Resources.Load(GS.RoomPrefabs("1x1Room"), typeof(GameObject)) as GameObject);
 
                     CreateTankSceneManager.instance._tGeo.ChangeFloorAtPos(cellPos.x, cellPos.y, CreateTankSceneManager.instance._tUI._floorTypes[CreateTankSceneManager.instance._tUI.floorIndex]);
                 }
@@ -139,7 +143,7 @@ public class CreateTankTools : MonoBehaviour
             //erase from the correct tilemap
             else
             {
-                if(CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y] == null)
+                if (CreateTankSceneManager.instance._tGeo._roomPosMatrix[cellPos.x, cellPos.y] == null)
                 {
                     Debug.Log("Room doesn't exist, nothing to delete!");
                     return;
@@ -170,38 +174,38 @@ public class CreateTankTools : MonoBehaviour
     }
 
     //  Hover
-    private void HoverFloor(Vector3 wallPos)
+    private void HoverFloor(Vector3 pos)
     {
-        floorPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/FloorPreview", typeof (GameObject)) as GameObject, _alignmentGrid.transform.GetChild(0));
-        floorPreview.transform.localPosition = wallPos;
+        floorPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/FloorPreview", typeof(GameObject)) as GameObject, _alignmentGrid.transform.GetChild(0));
+        floorPreview.transform.localPosition = pos;
 
         SpriteRenderer sr = floorPreview.GetComponent<SpriteRenderer>();
-        sr.sprite = Resources.Load(GS.RoomGraphics(CreateTankSceneManager.instance._tUI._floorTypes[CreateTankSceneManager.instance._tUI.floorIndex].ToString())+"3", typeof (Sprite)) as Sprite;
+        sr.sprite = Resources.Load(GS.RoomGraphics(CreateTankSceneManager.instance._tUI._floorTypes[CreateTankSceneManager.instance._tUI.floorIndex].ToString()) + "3", typeof(Sprite)) as Sprite;
         sr.color = ui._selectedColor;
     }
-    private void HoverRoof(Vector3 wallPos)
+    private void HoverRoof(Vector3 pos)
     {
         roofPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/RoofPreview", typeof(GameObject)) as GameObject, _alignmentGrid.transform.GetChild(0));
-        roofPreview.transform.localPosition = wallPos;
+        roofPreview.transform.localPosition = pos;
 
         SpriteRenderer sr = roofPreview.GetComponent<SpriteRenderer>();
         sr.sprite = Resources.Load(GS.RoomGraphics(CreateTankSceneManager.instance._tUI._roofTypes[CreateTankSceneManager.instance._tUI.roofIndex].ToString()), typeof(Sprite)) as Sprite;
         sr.color = ui._selectedColor;
     }
-    private void HoverWall(Vector3 wallPos)
+    private void HoverWall(Vector3 pos)
     {
         wallPreview = Instantiate(ui._wallsGOList[ui.wallIndex], _alignmentGrid.transform.GetChild(0));
-        wallPreview.transform.localPosition = wallPos;
+        wallPreview.transform.localPosition = pos;
     }
-    private void HoverTire(Vector3 tirePos)
+    private void HoverTire(Vector3 pos)
     {
         tirePreview = Instantiate(ui._tiresGOList[ui.tiresIndex], _alignmentGrid.transform.GetChild(0));
-        tirePreview.transform.localPosition = tirePos;
+        tirePreview.transform.localPosition = pos;
     }
-    private void HoverSystem(Vector3 systemPos)
+    private void HoverSystem(Vector3 pos)
     {
         systemPreview = Instantiate(ui._systemGOList[ui.systemsIndex], _alignmentGrid.transform.GetChild(0));
-        systemPreview.transform.localPosition = systemPos;
+        systemPreview.transform.localPosition = pos;
 
         ASystem system = systemPreview.GetComponent<ASystem>();
         system._direction = Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[CreateTankSceneManager.instance._tUI._directionDropDown.value];
@@ -210,34 +214,45 @@ public class CreateTankTools : MonoBehaviour
 
     private void HandleKeyboardInput()
     {
-        if(Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             SelectBrush();
         }
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             SelectEraser();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+
+        _arrow._arrowParents.SetActive(false);
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            ui.SelectList(0);
+            _rotationStartPos = Input.mousePosition;
+            _arrow.transform.position = Vector3.forward * 10 + Camera.main.ScreenToWorldPoint(_rotationStartPos);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ui.SelectList(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ui.SelectList(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ui.SelectList(3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            ui.SelectList(4);
-        }
+        if (Input.GetKey(KeyCode.R)) ChangeSystemDirection();
+
+        // Select which parts to spawn
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ui.SelectList(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) ui.SelectList(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) ui.SelectList(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) ui.SelectList(3);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) ui.SelectList(4);
+    }
+
+    private void ChangeSystemDirection()
+    {
+        _arrow._arrowParents.gameObject.SetActive(true);
+        float actualAngle = HM.UnwrapAngle(HM.GetAngle2DBetween(_rotationStartPos, Input.mousePosition) + 180);
+        HM.RotateLocalTransformToAngle(_arrow._actualRotationArrow, new Vector3(0, 0, actualAngle));
+        Debug.Log(actualAngle);
+
+        float sysDirectionAngle = 0;
+        if (actualAngle >= -45 && actualAngle < 45) { ui._directionDropDown.value = 0; sysDirectionAngle = 0; }
+        else if (actualAngle >= 45 && actualAngle < 135) { ui._directionDropDown.value = 3; sysDirectionAngle = 90; }
+        else if (actualAngle >= 135 && actualAngle < 225) { ui._directionDropDown.value = 2; sysDirectionAngle = 180; }
+        else if (actualAngle >= 225 && actualAngle < 315) { ui._directionDropDown.value = 1; sysDirectionAngle = 270; }
+        else { ui._directionDropDown.value = 0; sysDirectionAngle = 0; }
+        HM.RotateLocalTransformToAngle(_arrow._systemRotationArrow, new Vector3(0, 0, sysDirectionAngle));
     }
     public void SelectTool(int value)
     {

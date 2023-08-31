@@ -190,11 +190,14 @@ public class CreateTankGeometry : MonoBehaviour
     {
         CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType = floorType;
         _roomPosMatrix[x, y].ParentRoom._floorRenderer.sprite = Resources.Load(GS.RoomGraphics(floorType.ToString()) + "3", typeof(Sprite)) as Sprite;
+        _roomPosMatrix[x, y].ParentRoom.ShowFloor(CreateTankSceneManager.instance._tUI._floorShown);
     }
     public void ChangeRoofAtPos(int x, int y, RoofType roofType)
     {
         CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType = roofType;
         _roomPosMatrix[x, y].ParentRoom._roofRenderer.sprite = Resources.Load(GS.RoomGraphics(roofType.ToString()), typeof(Sprite)) as Sprite;
+
+        _roomPosMatrix[x, y].ParentRoom.ShowRoof(CreateTankSceneManager.instance._tUI._roofShown);
     }
 
     public void ShowRoof(bool b)
@@ -460,7 +463,7 @@ public class CreateTankGeometry : MonoBehaviour
         SpriteRenderer sr = _tankBounds.AddComponent<SpriteRenderer>();
         sr.sortingLayerName = "VehicleUI";
         sr.drawMode = SpriteDrawMode.Sliced;
-        sr.color = new Color(1f, 0.2f, 0.2f, 0.75f);
+        sr.color = new Color(1f, 0.2f, 0.2f, 0.25f);
         sr.sprite = Resources.Load(GS.UIGraphics("TankBounds"), typeof(Sprite)) as Sprite;
         ResizeTankBounds();
     }

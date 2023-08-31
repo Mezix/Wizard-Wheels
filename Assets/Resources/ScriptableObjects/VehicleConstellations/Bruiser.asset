@@ -25,19 +25,9 @@ MonoBehaviour:
   _savedMatrix:
     XArray:
     - YStuff:
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
-        SystemDirection: 0
-        _topWallExists: 1
-        _rightWallExists: 0
-        _bottomWallExists: 1
-        _leftWallExists: 1
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -46,8 +36,8 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -56,8 +46,18 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -67,18 +67,18 @@ MonoBehaviour:
         _leftWallExists: 0
     - YStuff:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        MovementPrefabPath: Prefabs/Movement/ExtendableDoubleSideTire
+        SystemDirection: 3
         _topWallExists: 1
-        _rightWallExists: 0
+        _rightWallExists: 1
         _bottomWallExists: 0
-        _leftWallExists: 0
+        _leftWallExists: 1
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -87,9 +87,9 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 1
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 2
         _topWallExists: 0
@@ -97,111 +97,101 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 1
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireBack
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 1
-        _bottomWallExists: 1
-        _leftWallExists: 1
-    - YStuff:
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 1
-        _rightWallExists: 0
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: Prefabs/Systems/HeavyCannon
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 0
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 0
-        _bottomWallExists: 1
-        _leftWallExists: 0
-      - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 0
-        _bottomWallExists: 0
-        _leftWallExists: 0
-    - YStuff:
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 1
-        _rightWallExists: 0
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 1
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: Prefabs/Systems/SwivelTurret
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 1
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireBack
-        SystemDirection: 0
+        MovementPrefabPath: Prefabs/Movement/ExtendableDoubleSideTire
+        SystemDirection: 1
         _topWallExists: 0
         _rightWallExists: 1
         _bottomWallExists: 1
         _leftWallExists: 1
     - YStuff:
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+      - RoomPrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
+        MovementPrefabPath: 
         SystemDirection: 0
         _topWallExists: 1
-        _rightWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
         _bottomWallExists: 1
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        MovementPrefabPath: Prefabs/Movement/ExtendableDoubleSideTire
+        SystemDirection: 3
+        _topWallExists: 1
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        MovementPrefabPath: Prefabs/Movement/ExtendableDoubleSideTire
+        SystemDirection: 1
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 1
+        _leftWallExists: 1
+    - YStuff:
+      - RoomPrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -210,8 +200,8 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -220,8 +210,18 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -232,19 +232,9 @@ MonoBehaviour:
   _tmpMatrix:
     XArray:
     - YStuff:
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
-        SystemDirection: 0
-        _topWallExists: 1
-        _rightWallExists: 0
-        _bottomWallExists: 1
-        _leftWallExists: 1
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -253,8 +243,8 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -263,8 +253,18 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -274,18 +274,18 @@ MonoBehaviour:
         _leftWallExists: 0
     - YStuff:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        MovementPrefabPath: Prefabs/Movement/ExtendableDoubleSideTire
+        SystemDirection: 3
         _topWallExists: 1
-        _rightWallExists: 0
+        _rightWallExists: 1
         _bottomWallExists: 0
-        _leftWallExists: 0
+        _leftWallExists: 1
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -294,9 +294,9 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 1
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 2
         _topWallExists: 0
@@ -304,111 +304,101 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 1
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireBack
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 1
-        _bottomWallExists: 1
-        _leftWallExists: 1
-    - YStuff:
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 1
-        _rightWallExists: 0
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: Prefabs/Systems/HeavyCannon
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 0
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 0
-        _bottomWallExists: 1
-        _leftWallExists: 0
-      - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 0
-        _bottomWallExists: 0
-        _leftWallExists: 0
-    - YStuff:
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 1
-        _rightWallExists: 0
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 1
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: Prefabs/Systems/SwivelTurret
-        MovementPrefabPath: 
-        SystemDirection: 0
-        _topWallExists: 0
-        _rightWallExists: 1
-        _bottomWallExists: 0
-        _leftWallExists: 0
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
-        SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireBack
-        SystemDirection: 0
+        MovementPrefabPath: Prefabs/Movement/ExtendableDoubleSideTire
+        SystemDirection: 1
         _topWallExists: 0
         _rightWallExists: 1
         _bottomWallExists: 1
         _leftWallExists: 1
     - YStuff:
-      - RoomPrefabPath: Prefabs/Rooms/1x1Room
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+      - RoomPrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
-        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
+        MovementPrefabPath: 
         SystemDirection: 0
         _topWallExists: 1
-        _rightWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
         _bottomWallExists: 1
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        MovementPrefabPath: Prefabs/Movement/ExtendableDoubleSideTire
+        SystemDirection: 3
+        _topWallExists: 1
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
+        MovementPrefabPath: Prefabs/Movement/ExtendableDoubleSideTire
+        SystemDirection: 1
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 1
+        _leftWallExists: 1
+    - YStuff:
+      - RoomPrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -417,8 +407,8 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
@@ -427,8 +417,18 @@ MonoBehaviour:
         _bottomWallExists: 0
         _leftWallExists: 0
       - RoomPrefabPath: 
-        FloorTilePrefabPath: Tiles/Floor/DefaultFloorTile
-        RoofTilePrefabPath: 
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: 
+        FloorType: 0
+        RoofType: 0
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
