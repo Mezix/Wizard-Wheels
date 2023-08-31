@@ -60,13 +60,13 @@ public class CreateTankTools : MonoBehaviour
         if (systemPreview) Destroy(systemPreview);
 
         int tileType = CreateTankSceneManager.instance._tUI._partTypeIndex;
-        Vector3Int cellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        cellPos = new Vector3Int(cellPos.x, -cellPos.y);
-        Vector3 previewPos = new Vector3(cellPos.x / 2f, -cellPos.y / 2f);
+        Vector3Int alignmentCellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        Vector3Int cellPos = new Vector3Int(alignmentCellPos.x, -1 + -alignmentCellPos.y);
+        Vector3 previewPos = new Vector3(alignmentCellPos.x / 2f, alignmentCellPos.y / 2f) + new Vector3(0, 0.5f, 0);
 
         //Show the currently selected tile were painting with on the temporary tilemap
 
-        selectedObjectPositionPreview.transform.localPosition = previewPos;// + new Vector3(0, 0.5f, 0);
+        selectedObjectPositionPreview.transform.localPosition = previewPos;
 
         if (brushing)
         {

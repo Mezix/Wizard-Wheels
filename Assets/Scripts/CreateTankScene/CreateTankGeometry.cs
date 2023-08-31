@@ -13,9 +13,7 @@ public class CreateTankGeometry : MonoBehaviour
     public GameObject TankGeometryParent { get; private set; }
     public GameObject RoomsParent { get; private set; }
     public List<Room> AllRooms { get; private set; }
-    [SerializeField]
-    private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
-    private GameObject _visibleGrid;
+    private GameObject _tankBounds;
     public void SpawnTankForCreator()
     {
         LoadRooms();
@@ -24,7 +22,7 @@ public class CreateTankGeometry : MonoBehaviour
         LoadTires();
         LoadSystems();
         CreateTankSceneManager.instance._tools._alignmentGrid.transform.position = 
-            _visibleGrid.transform.position + 
+            _tankBounds.transform.position + 
             new Vector3(CreateTankSceneManager.instance.tankToEdit._savedXSize / -4f, CreateTankSceneManager.instance.tankToEdit._savedYSize / 4f);
     }
     private void Update()
@@ -79,7 +77,7 @@ public class CreateTankGeometry : MonoBehaviour
     {
         _roomPosMatrix = new RoomPosition[CreateTankSceneManager.instance.tankToEdit._savedXSize, CreateTankSceneManager.instance.tankToEdit._savedYSize];
         AllRooms = new List<Room>();
-        if (_visibleGrid) Destroy(_visibleGrid);
+        if (_tankBounds) Destroy(_tankBounds);
 
         if (RoomsParent) Destroy(RoomsParent);
         RoomsParent = new GameObject("All Tank Rooms");
@@ -91,58 +89,12 @@ public class CreateTankGeometry : MonoBehaviour
             for (int x = 0; x < CreateTankSceneManager.instance.tankToEdit._savedXSize; x++)
             {
                 if (x >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray.Length || y >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[0].YStuff.Length) continue;
+                if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y] == null) continue;
                 if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
                 {
                     LoadRoomAtPos(x, y);
                 }
             }
-        }
-    }
-
-    public void ChangeFloorAtPos(int x, int y, FloorType floorType)
-    {
-        CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType = floorType;
-        _roomPosMatrix[x, y].ParentRoom._floorRenderer.sprite = Resources.Load(GS.RoomGraphics(floorType.ToString()) + "3", typeof(Sprite)) as Sprite;
-    }
-    public void ChangeRoofAtPos(int x, int y, RoofType roofType)
-    {
-        CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType = roofType;
-        _roomPosMatrix[x, y].ParentRoom._roofRenderer.sprite = Resources.Load(GS.RoomGraphics(roofType.ToString()), typeof(Sprite)) as Sprite;
-    }
-
-    public void ShowRoof(bool b)
-    {
-        foreach (Room r in AllRooms)
-        {
-            r.ShowRoof(b);
-        }
-    }
-    public void ShowFloor(bool b)
-    {
-        foreach (Room r in AllRooms)
-        {
-            r.ShowFloor(b);
-        }
-    }
-    public void ShowWalls(bool b)
-    {
-        foreach (Room r in AllRooms)
-        {
-            r.ShowWalls(b);
-        }
-    }
-    public void ShowSystems(bool b)
-    {
-        foreach (Room r in AllRooms)
-        {
-            r.ShowSystem(b);
-        }
-    }
-    public void ShowTires(bool b)
-    {
-        foreach (Room r in AllRooms)
-        {
-            r.ShowTire(b);
         }
     }
     public void LoadRoomAtPos(int x, int y)
@@ -233,6 +185,53 @@ public class CreateTankGeometry : MonoBehaviour
         ChangeRoofAtPos(x, y, room._roofType);
     }
 
+
+    public void ChangeFloorAtPos(int x, int y, FloorType floorType)
+    {
+        CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].FloorType = floorType;
+        _roomPosMatrix[x, y].ParentRoom._floorRenderer.sprite = Resources.Load(GS.RoomGraphics(floorType.ToString()) + "3", typeof(Sprite)) as Sprite;
+    }
+    public void ChangeRoofAtPos(int x, int y, RoofType roofType)
+    {
+        CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].RoofType = roofType;
+        _roomPosMatrix[x, y].ParentRoom._roofRenderer.sprite = Resources.Load(GS.RoomGraphics(roofType.ToString()), typeof(Sprite)) as Sprite;
+    }
+
+    public void ShowRoof(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowRoof(b);
+        }
+    }
+    public void ShowFloor(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowFloor(b);
+        }
+    }
+    public void ShowWalls(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowWalls(b);
+        }
+    }
+    public void ShowSystems(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowSystem(b);
+        }
+    }
+    public void ShowTires(bool b)
+    {
+        foreach (Room r in AllRooms)
+        {
+            r.ShowTire(b);
+        }
+    }
     //  Walls
 
     public void LoadWalls()
@@ -242,7 +241,7 @@ public class CreateTankGeometry : MonoBehaviour
             for (int x = 0; x < CreateTankSceneManager.instance.tankToEdit._savedXSize; x++)
             {
                 if (x >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray.Length || y >= CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[0].YStuff.Length) continue;
-
+                if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y] == null) continue;
                 if (CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y]._topWallExists)
                 {
                     GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallUp"), typeof(GameObject)) as GameObject);
@@ -332,10 +331,6 @@ public class CreateTankGeometry : MonoBehaviour
 
     public void LoadTires()
     {
-        GameObject rotatableObjects = new GameObject("RotatableObjects");
-        rotatableObjects.transform.parent = RoomsParent.transform;
-        rotatableObjects.transform.localPosition = Vector3.zero;
-
         for (int x = 0; x < CreateTankSceneManager.instance.tankToEdit._savedXSize; x++)
         {
             for (int y = 0; y < CreateTankSceneManager.instance.tankToEdit._savedYSize; y++)
@@ -346,7 +341,6 @@ public class CreateTankGeometry : MonoBehaviour
                     GameObject tire = Instantiate(Resources.Load(CreateTankSceneManager.instance.tankToEdit._tmpMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(GameObject)) as GameObject);
                     tire.transform.parent = _roomPosMatrix[x, y].transform;
                     tire.transform.localPosition = Vector3.zero;
-                    tire.transform.parent = rotatableObjects.transform;
                     _roomPosMatrix[x, y]._spawnedTire = tire.gameObject;
                 }
             }
@@ -461,13 +455,14 @@ public class CreateTankGeometry : MonoBehaviour
         //  Now move to the halfway point
         TankGeometryParent.transform.localPosition += new Vector3(-0.25f * CreateTankSceneManager.instance.tankToEdit._savedXSize, 0.25f * CreateTankSceneManager.instance.tankToEdit._savedYSize, 0);
 
-        _visibleGrid = new GameObject("VisibleGrid");
-        SpriteRenderer sr = _visibleGrid.AddComponent<SpriteRenderer>();
+        _tankBounds = new GameObject("TankBounds");
+        _tankBounds.transform.SetParent(transform, false);
+        SpriteRenderer sr = _tankBounds.AddComponent<SpriteRenderer>();
+        sr.sortingLayerName = "VehicleUI";
         sr.drawMode = SpriteDrawMode.Sliced;
-        sr.color = new Color(1f, 0.2f, 0.2f, 0.5f);
-        sr.sprite = Resources.Load(GS.UIGraphics("White Square Border"), typeof(Sprite)) as Sprite;
-
-        ResizeGrid();
+        sr.color = new Color(1f, 0.2f, 0.2f, 0.75f);
+        sr.sprite = Resources.Load(GS.UIGraphics("TankBounds"), typeof(Sprite)) as Sprite;
+        ResizeTankBounds();
     }
     public void PrintMatrix()
     {
@@ -489,6 +484,12 @@ public class CreateTankGeometry : MonoBehaviour
     {
         int xOldTankSize = CreateTankSceneManager.instance.tankToEdit._tmpXSize;
         int yOldTankSize = CreateTankSceneManager.instance.tankToEdit._tmpYSize;
+
+        if (left < 0 && xOldTankSize <= 1 || right < 0 && xOldTankSize <= 1 || up < 0 && yOldTankSize <= 1 || down < 0 && yOldTankSize <= 1)
+        {
+            Debug.Log("Tank Bounds would be smaller than 1, returning!");
+            return;
+        }
 
         int xExpandedTankSize = xOldTankSize + left + right;
         int yExpandedTankSize = yOldTankSize + up + down;
@@ -528,65 +529,33 @@ public class CreateTankGeometry : MonoBehaviour
                 expandedPosMatrix[x, y]._yPos = y;
             }
         }
-        //  Reposition geometry
-
-        Vector3 shiftVector = new Vector3(-left + right, up - down, 0);
-        CreateTankSceneManager.instance._tools._alignmentGrid.transform.localPosition += 0.25f * shiftVector;
-        _visibleGrid.transform.localPosition += 0.25f * shiftVector;
-
         //  Save Changes into the temp
 
-        CreateTankSceneManager.instance.tankToEdit._tmpMatrix = new XValues(xExpandedTankSize, yExpandedTankSize);
-        CreateTankSceneManager.instance.tankToEdit._tmpMatrix = expandedMatrix;
+        CopyMatrixFromTo(ref expandedMatrix, ref CreateTankSceneManager.instance.tankToEdit._tmpMatrix);
         CreateTankSceneManager.instance.tankToEdit._tmpXSize = xExpandedTankSize;
         CreateTankSceneManager.instance.tankToEdit._tmpYSize = yExpandedTankSize;
         _roomPosMatrix = expandedPosMatrix;
 
-        //Show Grid Size
+        //Show Grid Size & Reposition geometry
 
-        ResizeGrid();
+        ResizeTankBounds();
+        _tankBounds.transform.localPosition += 0.25f * new Vector3(-left + right, up - down, 0);
+
+        Vector3 shiftVector = 0.5f * new Vector3(-left, up);
+        ShiftSpawnedVehicleParts(shiftVector);
+        CreateTankSceneManager.instance._tools._alignmentGrid.transform.localPosition += shiftVector;
     }
-
-    private void ShiftTilemap(Tilemap actualTilemap, int sizeX, int sizeY, int left, int right, int up, int down)
+    private void ShiftSpawnedVehicleParts(Vector3 shiftVector)
     {
-        GameObject tmpObj = new GameObject("tmp");
-        Grid tmpGrid = tmpObj.AddComponent<Grid>();
-        tmpGrid.cellSize = new Vector3(0.5f, 0.5f, 0);
-
-        Tilemap tilemapStorage = tmpObj.AddComponent<Tilemap>();
-        tilemapStorage.tileAnchor = new Vector3(0, 1, 0);
-
-        //  Copy the entire old tilemap
-        for (int y = 0; y < sizeY; y++)
+        RoomsParent.transform.localPosition += shiftVector;
+        foreach(Room r in AllRooms)
         {
-            for (int x = 0; x < sizeX; x++)
-            {
-                TileBase t = actualTilemap.GetTile(new Vector3Int(x, -y, 0));
-                //TODO set tile color!
-                tilemapStorage.SetTile(new Vector3Int(x, -y, 0), t);
-            }
+            r.transform.localPosition -= shiftVector;
         }
-        //  Clear the old tilemap
-        actualTilemap.ClearAllTiles();
-
-        //  Copy the old tiles into the cleared tilemap
-
-        //TODO, going up and down negatively chomps one too many!
-        //  Losing information somehow?? range seems to be fine
-        //  figure out damn coor´dinate system transfomration
-
-        for (int y = 0; y < sizeY + up; y++)
-        {
-            for (int x = 0; x < sizeX + left; x++)
-            {
-                actualTilemap.SetTile(new Vector3Int(x, -y, 0), tilemapStorage.GetTile(new Vector3Int(x - left, -(y - up), 0)));
-            }
-        }
-        Destroy(tmpObj);
     }
-    private void ResizeGrid()
+    private void ResizeTankBounds()
     {
-        _visibleGrid.transform.localScale = new Vector3(CreateTankSceneManager.instance.tankToEdit._tmpXSize, CreateTankSceneManager.instance.tankToEdit._tmpYSize, 0);
+        _tankBounds.GetComponent<SpriteRenderer>().size = new Vector2(CreateTankSceneManager.instance.tankToEdit._tmpXSize/2f, CreateTankSceneManager.instance.tankToEdit._tmpYSize/2f);
         CreateTankSceneManager.instance._tUI.UpdateSize(CreateTankSceneManager.instance.tankToEdit._tmpXSize, CreateTankSceneManager.instance.tankToEdit._tmpYSize);
     }
     private Vector2Int GetRoomSize(int x, int y)
