@@ -68,32 +68,15 @@ public class CreateTankTools : MonoBehaviour
         Vector3Int cellPos = new Vector3Int(alignmentCellPos.x, -1 + -alignmentCellPos.y);
         Vector3 previewPos = new Vector3(alignmentCellPos.x / 2f, alignmentCellPos.y / 2f) + new Vector3(0, 0.5f, 0);
 
-        //Show the currently selected tile were painting with on the temporary tilemap
-
         selectedObjectPositionPreview.transform.localPosition = previewPos;
 
         if (brushing)
         {
-            if (tileType == 0)
-            {
-                HoverFloor(previewPos);
-            }
-            if (tileType == 1)
-            {
-                HoverRoof(previewPos);
-            }
-            else if (tileType == 2)
-            {
-                HoverWall(previewPos);
-            }
-            else if (tileType == 3)
-            {
-                HoverTire(previewPos);
-            }
-            else if (tileType == 4)
-            {
-                HoverSystem(previewPos);
-            }
+            if (tileType == 0) HoverFloor(previewPos);
+            else if (tileType == 1) HoverRoof(previewPos);
+            else if (tileType == 2) HoverWall(previewPos);
+            else if (tileType == 3) HoverTire(previewPos);
+            else if (tileType == 4) HoverSystem(previewPos);
         }
 
         if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
