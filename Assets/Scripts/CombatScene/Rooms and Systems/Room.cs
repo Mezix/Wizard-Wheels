@@ -130,7 +130,6 @@ public class Room : MonoBehaviour
         foreach (RoomPosition roomPos in allRoomPositions)
         {
             _tGeo._vehicleData.VehicleMatrix.XArray[roomPos._xPos].YStuff[roomPos._yPos].RoomCurrentHP = _currentHP;
-            _tGeo._vehicleData.VehicleMatrix.XArray[roomPos._xPos].YStuff[roomPos._yPos].RoomMaxHP = _maxHP;
         }
     }
 

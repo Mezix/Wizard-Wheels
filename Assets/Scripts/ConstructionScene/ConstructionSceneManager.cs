@@ -7,9 +7,9 @@ using static PlayerData;
 using UnityEditor;
 #endif
 
-public class CreateTankSceneManager : MonoBehaviour
+public class ConstructionSceneManager : MonoBehaviour
 {
-    public static CreateTankSceneManager instance;
+    public static ConstructionSceneManager instance;
 
     //  DevMode
 
@@ -44,23 +44,23 @@ public class CreateTankSceneManager : MonoBehaviour
             if (tankToEdit)
             {
                 newTank = false;
-                CreateTankUI.instance._inputField.text = tankToEdit.name;
+                ConstructionSceneUI.instance._inputField.text = tankToEdit.name;
             }
             else
             {
                 newTank = true;
                 tankToEdit = new TankRoomConstellation();
-                CreateTankUI.instance._inputField.textComponent.text = "Untitled";
+                ConstructionSceneUI.instance._inputField.textComponent.text = "Untitled";
             }
         }
         LoadVehicle();
-        CreateTankUI.instance.LaunchInMode(launchMode);
+        ConstructionSceneUI.instance.LaunchInMode(launchMode);
     }
 
     public void SaveTank()
     {
-        string newName = CreateTankUI.instance._inputField.textComponent.text;
-        CreateTankUI.instance._inputField.text = newName;
+        string newName = ConstructionSceneUI.instance._inputField.textComponent.text;
+        ConstructionSceneUI.instance._inputField.text = newName;
         if (newTank)
         {
             if (newName == "") newName = "tmp";
@@ -84,7 +84,7 @@ public class CreateTankSceneManager : MonoBehaviour
             _tmpVehicleData._savedYSize = DataStorage.Singleton.playerData.vehicleData._savedYSize;
         }
 
-        CreateTankGeometry.instance.LoadVehicle();
-        CreateTankUI.instance._inputField.placeholder.GetComponent<Text>().text = tankToEdit.name;
+        ConstructionSceneGeometry.instance.LoadVehicle();
+        ConstructionSceneUI.instance._inputField.placeholder.GetComponent<Text>().text = tankToEdit.name;
     }
 }

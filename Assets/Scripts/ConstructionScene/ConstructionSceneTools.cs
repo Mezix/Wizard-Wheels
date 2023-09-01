@@ -6,9 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Linq;
 
-public class CreateTankTools : MonoBehaviour
+public class ConstructionSceneTools : MonoBehaviour
 {
-    public static CreateTankTools instance;
+    public static ConstructionSceneTools instance;
 
     public Grid _alignmentGrid;
     private bool brushing;
@@ -48,11 +48,11 @@ public class CreateTankTools : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift)) return; //exclusion with camera movement using the shift key
         if (Input.mouseScrollDelta.y > 0)
         {
-            CreateTankUI.instance.NextItemInList();
+            ConstructionSceneUI.instance.NextItemInList();
         }
         if (Input.mouseScrollDelta.y < 0)
         {
-            CreateTankUI.instance.PreviousItemInList();
+            ConstructionSceneUI.instance.PreviousItemInList();
         }
     }
 
@@ -64,7 +64,7 @@ public class CreateTankTools : MonoBehaviour
         if (tirePreview) Destroy(tirePreview);
         if (systemPreview) Destroy(systemPreview);
 
-        int tileType = CreateTankUI.instance._partTypeIndex;
+        int tileType = ConstructionSceneUI.instance._partTypeIndex;
         Vector3Int alignmentCellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         Vector3Int cellPos = new Vector3Int(alignmentCellPos.x, -1 + -alignmentCellPos.y);
         Vector3 previewPos = new Vector3(alignmentCellPos.x / 2f, alignmentCellPos.y / 2f) + new Vector3(0, 0.5f, 0);
@@ -82,8 +82,8 @@ public class CreateTankTools : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
         {
-            int amountOfRows = CreateTankGeometry.instance._roomPosMatrix.GetLength(0);
-            int amountOfColumns = CreateTankGeometry.instance._roomPosMatrix.GetLength(1);
+            int amountOfRows = ConstructionSceneGeometry.instance._roomPosMatrix.GetLength(0);
+            int amountOfColumns = ConstructionSceneGeometry.instance._roomPosMatrix.GetLength(1);
 
             if (cellPos.x < 0 || cellPos.x >= amountOfRows || cellPos.y < 0 || cellPos.y >= amountOfColumns)
             {
@@ -96,20 +96,20 @@ public class CreateTankTools : MonoBehaviour
             {
                 if (tileType == 0)
                 {
-                    if (CreateTankGeometry.instance._roomPosMatrix[cellPos.x, cellPos.y] == null)
-                        CreateTankGeometry.instance.CreateRoomAtPos(cellPos.x, cellPos.y, Resources.Load(GS.RoomPrefabs("1x1Room"), typeof(GameObject)) as GameObject);
+                    if (ConstructionSceneGeometry.instance._roomPosMatrix[cellPos.x, cellPos.y] == null)
+                        ConstructionSceneGeometry.instance.CreateRoomAtPos(cellPos.x, cellPos.y, Resources.Load(GS.RoomPrefabs("1x1Room"), typeof(GameObject)) as GameObject);
 
-                    CreateTankGeometry.instance.ChangeFloorAtPos(cellPos.x, cellPos.y, CreateTankUI.instance._floorTypes[CreateTankUI.instance.floorIndex]);
+                    ConstructionSceneGeometry.instance.ChangeFloorAtPos(cellPos.x, cellPos.y, ConstructionSceneUI.instance._floorTypes[ConstructionSceneUI.instance.floorIndex]);
                 }
                 else if (tileType == 1)
                 {
-                    if (CreateTankGeometry.instance._roomPosMatrix[cellPos.x, cellPos.y] == null)
-                        CreateTankGeometry.instance.CreateRoomAtPos(cellPos.x, cellPos.y, Resources.Load(GS.RoomPrefabs("1x1Room"), typeof(GameObject)) as GameObject);
+                    if (ConstructionSceneGeometry.instance._roomPosMatrix[cellPos.x, cellPos.y] == null)
+                        ConstructionSceneGeometry.instance.CreateRoomAtPos(cellPos.x, cellPos.y, Resources.Load(GS.RoomPrefabs("1x1Room"), typeof(GameObject)) as GameObject);
 
-                    CreateTankGeometry.instance.ChangeRoofAtPos(cellPos.x, cellPos.y, CreateTankUI.instance._roofTypes[CreateTankUI.instance.roofIndex]);
+                    ConstructionSceneGeometry.instance.ChangeRoofAtPos(cellPos.x, cellPos.y, ConstructionSceneUI.instance._roofTypes[ConstructionSceneUI.instance.roofIndex]);
                 }
 
-                if (CreateTankGeometry.instance._roomPosMatrix[cellPos.x, cellPos.y] == null)
+                if (ConstructionSceneGeometry.instance._roomPosMatrix[cellPos.x, cellPos.y] == null)
                 {
                     Debug.LogWarning("Room doesn't exist, cant create any objects here!");
                     return;
@@ -117,26 +117,26 @@ public class CreateTankTools : MonoBehaviour
                 else if (tileType == 2)
                 {
                     string tileDirection = "";
-                    if (CreateTankUI.instance.wallIndex == 0) tileDirection = "up";
-                    if (CreateTankUI.instance.wallIndex == 1) tileDirection = "left";
-                    if (CreateTankUI.instance.wallIndex == 2) tileDirection = "down";
-                    if (CreateTankUI.instance.wallIndex == 3) tileDirection = "right";
-                    CreateTankGeometry.instance.CreateWallAtPos(cellPos.x, cellPos.y, tileDirection);
+                    if (ConstructionSceneUI.instance.wallIndex == 0) tileDirection = "up";
+                    if (ConstructionSceneUI.instance.wallIndex == 1) tileDirection = "left";
+                    if (ConstructionSceneUI.instance.wallIndex == 2) tileDirection = "down";
+                    if (ConstructionSceneUI.instance.wallIndex == 3) tileDirection = "right";
+                    ConstructionSceneGeometry.instance.CreateWallAtPos(cellPos.x, cellPos.y, tileDirection);
                 }
                 else if (tileType == 3)
                 {
-                    CreateTankGeometry.instance.CreateTireAtPos(cellPos.x, cellPos.y, CreateTankUI.instance.GetTirePrefab());
+                    ConstructionSceneGeometry.instance.CreateTireAtPos(cellPos.x, cellPos.y, ConstructionSceneUI.instance.GetTirePrefab());
                 }
                 else if (tileType == 4)
                 {
-                    CreateTankGeometry.instance.CreateSystemAtPos(cellPos.x, cellPos.y, CreateTankUI.instance.GetSystemPrefab());
+                    ConstructionSceneGeometry.instance.CreateSystemAtPos(cellPos.x, cellPos.y, ConstructionSceneUI.instance.GetSystemPrefab());
                 }
             }
 
             //erase from the correct tilemap
             else
             {
-                if (CreateTankGeometry.instance._roomPosMatrix[cellPos.x, cellPos.y] == null)
+                if (ConstructionSceneGeometry.instance._roomPosMatrix[cellPos.x, cellPos.y] == null)
                 {
                     Debug.LogWarning("Room doesn't exist, nothing to delete!");
                     return;
@@ -144,23 +144,23 @@ public class CreateTankTools : MonoBehaviour
 
                 if (tileType == 0)
                 {
-                    CreateTankGeometry.instance.CreateRoomAtPos(cellPos.x, cellPos.y, null);
+                    ConstructionSceneGeometry.instance.CreateRoomAtPos(cellPos.x, cellPos.y, null);
                 }
                 else if (tileType == 1)
                 {
-                    CreateTankGeometry.instance.ChangeRoofAtPos(cellPos.x, cellPos.y, PlayerData.RoofType.RoofA);
+                    ConstructionSceneGeometry.instance.ChangeRoofAtPos(cellPos.x, cellPos.y, PlayerData.RoofType.RoofA);
                 }
                 else if (tileType == 2)
                 {
-                    CreateTankGeometry.instance.CreateWallAtPos(cellPos.x, cellPos.y, "delete");
+                    ConstructionSceneGeometry.instance.CreateWallAtPos(cellPos.x, cellPos.y, "delete");
                 }
                 else if (tileType == 3)
                 {
-                    CreateTankGeometry.instance.CreateTireAtPos(cellPos.x, cellPos.y, null);
+                    ConstructionSceneGeometry.instance.CreateTireAtPos(cellPos.x, cellPos.y, null);
                 }
                 else if (tileType == 4)
                 {
-                    CreateTankGeometry.instance.CreateSystemAtPos(cellPos.x, cellPos.y, null);
+                    ConstructionSceneGeometry.instance.CreateSystemAtPos(cellPos.x, cellPos.y, null);
                 }
             }
         }
@@ -173,8 +173,8 @@ public class CreateTankTools : MonoBehaviour
         floorPreview.transform.localPosition = pos;
 
         SpriteRenderer sr = floorPreview.GetComponent<SpriteRenderer>();
-        sr.sprite = Resources.Load(GS.RoomGraphics(CreateTankUI.instance._floorTypes[CreateTankUI.instance.floorIndex].ToString()) + "3", typeof(Sprite)) as Sprite;
-        sr.color = CreateTankUI.instance._selectedColor;
+        sr.sprite = Resources.Load(GS.RoomGraphics(ConstructionSceneUI.instance._floorTypes[ConstructionSceneUI.instance.floorIndex].ToString()) + "3", typeof(Sprite)) as Sprite;
+        sr.color = ConstructionSceneUI.instance._selectedColor;
     }
     private void HoverRoof(Vector3 pos)
     {
@@ -182,26 +182,26 @@ public class CreateTankTools : MonoBehaviour
         roofPreview.transform.localPosition = pos;
 
         SpriteRenderer sr = roofPreview.GetComponent<SpriteRenderer>();
-        sr.sprite = Resources.Load(GS.RoomGraphics(CreateTankUI.instance._roofTypes[CreateTankUI.instance.roofIndex].ToString()), typeof(Sprite)) as Sprite;
-        sr.color = CreateTankUI.instance._selectedColor;
+        sr.sprite = Resources.Load(GS.RoomGraphics(ConstructionSceneUI.instance._roofTypes[ConstructionSceneUI.instance.roofIndex].ToString()), typeof(Sprite)) as Sprite;
+        sr.color = ConstructionSceneUI.instance._selectedColor;
     }
     private void HoverWall(Vector3 pos)
     {
-        wallPreview = Instantiate(CreateTankUI.instance._wallsGOList[CreateTankUI.instance.wallIndex], _alignmentGrid.transform.GetChild(0));
+        wallPreview = Instantiate(ConstructionSceneUI.instance._wallsGOList[ConstructionSceneUI.instance.wallIndex], _alignmentGrid.transform.GetChild(0));
         wallPreview.transform.localPosition = pos;
     }
     private void HoverTire(Vector3 pos)
     {
-        tirePreview = Instantiate(CreateTankUI.instance._tiresGOList[CreateTankUI.instance.tiresIndex], _alignmentGrid.transform.GetChild(0));
+        tirePreview = Instantiate(ConstructionSceneUI.instance._tiresGOList[ConstructionSceneUI.instance.tiresIndex], _alignmentGrid.transform.GetChild(0));
         tirePreview.transform.localPosition = pos;
     }
     private void HoverSystem(Vector3 pos)
     {
-        systemPreview = Instantiate(CreateTankUI.instance._systemGOList[CreateTankUI.instance.systemsIndex], _alignmentGrid.transform.GetChild(0));
+        systemPreview = Instantiate(ConstructionSceneUI.instance._systemGOList[ConstructionSceneUI.instance.systemsIndex], _alignmentGrid.transform.GetChild(0));
         systemPreview.transform.localPosition = pos;
 
         ASystem system = systemPreview.GetComponent<ASystem>();
-        system._direction = Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[CreateTankUI.instance._directionDropDown.value];
+        system._direction = Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[ConstructionSceneUI.instance._directionDropDown.value];
         system.SpawnInCorrectDirection();
     }
     private void HandleKeyboardInput()
@@ -224,11 +224,11 @@ public class CreateTankTools : MonoBehaviour
         if (Input.GetKey(KeyCode.R)) ChangeSystemDirection();
 
         // Select which parts to spawn
-        if (Input.GetKeyDown(KeyCode.Alpha1)) CreateTankUI.instance.SelectList(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) CreateTankUI.instance.SelectList(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) CreateTankUI.instance.SelectList(2);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) CreateTankUI.instance.SelectList(3);
-        if (Input.GetKeyDown(KeyCode.Alpha5)) CreateTankUI.instance.SelectList(4);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ConstructionSceneUI.instance.SelectList(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) ConstructionSceneUI.instance.SelectList(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) ConstructionSceneUI.instance.SelectList(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) ConstructionSceneUI.instance.SelectList(3);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) ConstructionSceneUI.instance.SelectList(4);
     }
     private void ChangeSystemDirection()
     {
@@ -237,11 +237,11 @@ public class CreateTankTools : MonoBehaviour
         HM.RotateLocalTransformToAngle(_arrow._actualRotationArrow, new Vector3(0, 0, actualAngle));
 
         float sysDirectionAngle = 0;
-        if (actualAngle >= -45 && actualAngle < 45) { CreateTankUI.instance._directionDropDown.value = 0; sysDirectionAngle = 0; }
-        else if (actualAngle >= 45 && actualAngle < 135) { CreateTankUI.instance._directionDropDown.value = 3; sysDirectionAngle = 90; }
-        else if (actualAngle >= 135 && actualAngle < 225) { CreateTankUI.instance._directionDropDown.value = 2; sysDirectionAngle = 180; }
-        else if (actualAngle >= 225 && actualAngle < 315) { CreateTankUI.instance._directionDropDown.value = 1; sysDirectionAngle = 270; }
-        else { CreateTankUI.instance._directionDropDown.value = 0; sysDirectionAngle = 0; }
+        if (actualAngle >= -45 && actualAngle < 45) { ConstructionSceneUI.instance._directionDropDown.value = 0; sysDirectionAngle = 0; }
+        else if (actualAngle >= 45 && actualAngle < 135) { ConstructionSceneUI.instance._directionDropDown.value = 3; sysDirectionAngle = 90; }
+        else if (actualAngle >= 135 && actualAngle < 225) { ConstructionSceneUI.instance._directionDropDown.value = 2; sysDirectionAngle = 180; }
+        else if (actualAngle >= 225 && actualAngle < 315) { ConstructionSceneUI.instance._directionDropDown.value = 1; sysDirectionAngle = 270; }
+        else { ConstructionSceneUI.instance._directionDropDown.value = 0; sysDirectionAngle = 0; }
         HM.RotateLocalTransformToAngle(_arrow._systemRotationArrow, new Vector3(0, 0, sysDirectionAngle));
     }
     public void SelectTool(int value)
@@ -259,12 +259,12 @@ public class CreateTankTools : MonoBehaviour
     {
         brushing = true;
         shouldPreviewTile = false;
-        CreateTankMouseScript.instance._mouseState = "Brush";
+        ConstructionSceneMouse.instance._mouseState = "Brush";
     }
     private void SelectEraser()
     {
         brushing = false;
         shouldPreviewTile = false;
-        CreateTankMouseScript.instance._mouseState = "Eraser";
+        ConstructionSceneMouse.instance._mouseState = "Eraser";
     }
 }

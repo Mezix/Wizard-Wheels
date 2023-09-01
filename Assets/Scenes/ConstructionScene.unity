@@ -73935,7 +73935,7 @@ MonoBehaviour:
     RoofColorR: 1
     RoofColorG: 1
     RoofColorB: 1
-  _editorlaunchMode: 1
+  _editorlaunchMode: 0
 --- !u!1001 &6234446864216540456
 PrefabInstance:
   m_ObjectHideFlags: 0

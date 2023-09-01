@@ -39,7 +39,7 @@ public static class Loader {
         Cursor.visible = true;
         if(scene.Equals(SceneType.ConstructionScene))
         {
-            CreateTankSceneManager.LaunchInGameplayOverride = true;
+            ConstructionSceneManager.LaunchInGameplayOverride = true;
         }
         AudioManager.Singleton.PlayMusic(scene);
         SceneManager.LoadScene(scene.ToString());

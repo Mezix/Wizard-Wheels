@@ -6,11 +6,11 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Linq;
 using static PlayerData;
-using static CreateTankSceneManager;
+using static ConstructionSceneManager;
 
-public class CreateTankUI : MonoBehaviour
+public class ConstructionSceneUI : MonoBehaviour
 {
-    public static CreateTankUI instance;
+    public static ConstructionSceneUI instance;
 
     //   Dev Mode
 
@@ -104,8 +104,8 @@ public class CreateTankUI : MonoBehaviour
 
     public void InitButtons()
     {
-        _saveTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.SaveTank());
-        _loadTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.LoadVehicle());
+        _saveTankButton.onClick.AddListener(() => ConstructionSceneManager.instance.SaveTank());
+        _loadTankButton.onClick.AddListener(() => ConstructionSceneManager.instance.LoadVehicle());
         _colorButton.onClick.AddListener(() => RandomColor());
         _showLayerUIButton.onClick.AddListener(() => ToggleLayerUI());
         _finishEventButton.onClick.AddListener(() => DataStorage.Singleton.FinishEvent());
@@ -273,6 +273,7 @@ public class CreateTankUI : MonoBehaviour
             uil._layerShown = true;
             layers.Add(uil);
             i++;
+            uil.Show();
         }
     }
     private void ToggleLayerUI()
@@ -293,27 +294,27 @@ public class CreateTankUI : MonoBehaviour
     {
         if (index == 0)
         {
-            CreateTankGeometry.instance.ShowFloor(b);
+            ConstructionSceneGeometry.instance.ShowFloor(b);
             _floorShown = b;
         }
         if (index == 1)
         {
-            CreateTankGeometry.instance.ShowRoof(b);
+            ConstructionSceneGeometry.instance.ShowRoof(b);
             _roofShown = b;
         }
         if (index == 2)
         {
-            CreateTankGeometry.instance.ShowWalls(b);
+            ConstructionSceneGeometry.instance.ShowWalls(b);
             _wallsShown = b;
         }
         if (index == 3)
         {
-            CreateTankGeometry.instance.ShowTires(b);
+            ConstructionSceneGeometry.instance.ShowTires(b);
             _tiresShown = b;
         }
         if (index == 4)
         {
-            CreateTankGeometry.instance.ShowSystems(b);
+            ConstructionSceneGeometry.instance.ShowSystems(b);
             _systemsShown = b;
         }
     }

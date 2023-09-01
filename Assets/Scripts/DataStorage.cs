@@ -96,6 +96,7 @@ public class DataStorage : MonoBehaviour
         VehicleData data = new VehicleData();
         data._savedXSize = matrixToCopy._savedXSize;
         data._savedYSize = matrixToCopy._savedYSize;
+        data.VehicleRoomMaxHP = 5;
 
         data.RoofColorR = matrixToCopy.RoofColorR;
         data.RoofColorG = matrixToCopy.RoofColorG;
@@ -111,11 +112,17 @@ public class DataStorage : MonoBehaviour
         {
             for (int y = 0; y < data._savedYSize; y++)
             {
+                data.VehicleMatrix.XArray[x].YStuff[y] = new RoomInfo();
                 data.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath;
+                data.VehicleMatrix.XArray[x].YStuff[y].RoomCurrentHP = 5;
+
                 data.VehicleMatrix.XArray[x].YStuff[y].FloorType = matrixToCopy._savedMatrix.XArray[x].YStuff[y].FloorType;
+
                 data.VehicleMatrix.XArray[x].YStuff[y].RoofType = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoofType;
-                data.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+
                 data.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath;
+
+                data.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
                 data.VehicleMatrix.XArray[x].YStuff[y].SystemDirection = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemDirection;
 
                 data.VehicleMatrix.XArray[x].YStuff[y]._topWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._topWallExists;
@@ -135,10 +142,11 @@ public class DataStorage : MonoBehaviour
         {
             for (int y = 0; y < CopyFrom.XArray[x].YStuff.Length; y++)
             {
-                CopyTo.XArray[x].YStuff[y] = new RoomInfo();
-                if (CopyFrom.XArray[x].YStuff[y].Equals(new RoomInfo())) continue;
+                if (CopyFrom.XArray[x].YStuff[y] == null) continue;
 
+                CopyTo.XArray[x].YStuff[y] = new RoomInfo();
                 CopyTo.XArray[x].YStuff[y].RoomPrefabPath = CopyFrom.XArray[x].YStuff[y].RoomPrefabPath;
+                CopyTo.XArray[x].YStuff[y].RoomCurrentHP = CopyFrom.XArray[x].YStuff[y].RoomCurrentHP;
                 CopyTo.XArray[x].YStuff[y].RoofType = CopyFrom.XArray[x].YStuff[y].RoofType;
                 CopyTo.XArray[x].YStuff[y].FloorType = CopyFrom.XArray[x].YStuff[y].FloorType;
                 CopyTo.XArray[x].YStuff[y].SystemPrefabPath = CopyFrom.XArray[x].YStuff[y].SystemPrefabPath;

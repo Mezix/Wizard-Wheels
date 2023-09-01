@@ -16,10 +16,8 @@ public class TankGeometry : MonoBehaviour
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     public Color FloorColor;
     public Color RoofColor;
-    public int _roomMaxHP;
     public void CreateTankGeometry()
     {
-        _roomMaxHP = 4;
         LoadRooms();
         PositionTankObjects();
         InitWeaponsAndSystems();
@@ -54,7 +52,7 @@ public class TankGeometry : MonoBehaviour
 
                 room._floorType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorType;
                 room._roofType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType;
-                room.InitHP(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomCurrentHP, _roomMaxHP);
+                room.InitHP(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomCurrentHP, _vehicleData.VehicleRoomMaxHP);
 
                 // Set the Room Positions
                 int roomPosNr = 0;

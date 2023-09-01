@@ -148,9 +148,7 @@ public class PlayerData
 
         public int _savedXSize = 0; //just the amount of Tiles in a given direction
         public int _savedYSize = 0;
-
-        //public int _tmpXSize = 0;
-        //public int _tmpYSize = 0;
+        public int VehicleRoomMaxHP;
 
         public float FloorColorR = 1;
         public float FloorColorG = 1;
@@ -194,15 +192,19 @@ public class PlayerData
         RoofB
     }
     [Serializable]
-    public struct RoomInfo
+    public class RoomInfo
     {
         public string RoomPrefabPath;
-        public string SystemPrefabPath;
-        public FloorType FloorType;
-        public RoofType RoofType;
         public int RoomCurrentHP;
-        public int RoomMaxHP;
+
+        public FloorType FloorType;
+
+        public RoofType RoofType;
+
         public string MovementPrefabPath;
+
+        public string SystemPrefabPath;
+
         public ASystem.DirectionToSpawnIn SystemDirection;
 
         public bool _topWallExists;
@@ -216,7 +218,6 @@ public class PlayerData
                 RoomPrefabPath = "",
                 FloorType = FloorType.FloorA,
                 RoofType = RoofType.RoofA,
-                RoomMaxHP = 5,
                 RoomCurrentHP = 5,
                 SystemPrefabPath = "",
                 MovementPrefabPath = "",

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreateTankMouseScript : MonoBehaviour
+public class ConstructionSceneMouse : MonoBehaviour
 {
-    public static CreateTankMouseScript instance;
+    public static ConstructionSceneMouse instance;
     public Image _mouse;
     public string _mouseState;
 
@@ -52,19 +52,19 @@ public class CreateTankMouseScript : MonoBehaviour
         if(MouseCursor.IsPointerOverUIElement())
         {
             _mouse.sprite = Resources.Load(GS.Cursors("CreateTankCursor"), typeof(Sprite)) as Sprite;
-            CreateTankTools.instance.shouldPreviewTile = false;
+            ConstructionSceneTools.instance.shouldPreviewTile = false;
         }
         else
         {
             if(_mouseState == "Brush")
             {
                 _mouse.sprite = Resources.Load(GS.Cursors("Brush"), typeof(Sprite)) as Sprite;
-                CreateTankTools.instance.shouldPreviewTile = true;
+                ConstructionSceneTools.instance.shouldPreviewTile = true;
             }
             if(_mouseState == "Eraser")
             {
                 _mouse.sprite = Resources.Load(GS.Cursors("Eraser"), typeof(Sprite)) as Sprite;
-                CreateTankTools.instance.shouldPreviewTile = false;
+                ConstructionSceneTools.instance.shouldPreviewTile = false;
             }
         }
     }
