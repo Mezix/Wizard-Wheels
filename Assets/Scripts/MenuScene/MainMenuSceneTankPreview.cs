@@ -45,7 +45,7 @@ public class MainMenuSceneTankPreview : MonoBehaviour
     {
         foreach (TankRoomConstellation trc in _playerTankConstellations)
         {
-            _tmpVehicleData = DataStorage.Singleton.CopyVehicleDataFromTankRoomConstellationToVehicleData(trc);
+            _tmpVehicleData = DataStorage.Singleton.CopyTankRoomConstellationToVehicleData(trc);
             SpawnTankForCreator();
         }
     }

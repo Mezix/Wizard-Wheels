@@ -64,7 +64,7 @@ public class EnemyManager : MonoBehaviour
 
         Vector3 spawnPos;
         EnemyTankController enemyTank = Instantiate(Resources.Load(GS.Enemy("EnemyTank"), typeof (EnemyTankController)) as EnemyTankController);
-        enemyTank.TGeo._vehicleData = DataStorage.Singleton.CopyVehicleDataFromTankRoomConstellationToVehicleData(_constellation);
+        enemyTank.TGeo._vehicleData = DataStorage.Singleton.CopyTankRoomConstellationToVehicleData(_constellation);
         enemyTank._tStats = stats;
         enemyTank._tankColor = GetNextColor(enemyTank.GetInstanceID());
 

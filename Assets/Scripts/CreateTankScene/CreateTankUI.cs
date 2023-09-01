@@ -6,9 +6,14 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Linq;
 using static PlayerData;
+using static CreateTankSceneManager;
 
 public class CreateTankUI : MonoBehaviour
 {
+    public static CreateTankUI instance;
+
+    //   Dev Mode
+
     public Button _saveTankButton;
     public Button _loadTankButton;
     public Button _colorButton;
@@ -19,13 +24,25 @@ public class CreateTankUI : MonoBehaviour
     public Dropdown _partsDropDown;
     public Dropdown _layersDropDown;
     public Dropdown _directionDropDown;
+
+    //  Player Mode
+
+    public Button _finishEventButton;
+
+    // Shared
+
     public Text _tankWidth;
     public Text _tankHeight;
 
-    public GameObject _layersParent;
-    private List<UILayer> layers = new List<UILayer>();
+        //Layers 
+        public RectTransform _layerUIParent;
+        public VerticalLayoutGroup _hLayoutGroup;
+        public Button _showLayerUIButton;
+        public Text _layerArrowText;
+        private bool _layerUIShown;
+        private List<UILayer> layers = new List<UILayer>();
 
-    //  ALL TILES
+    //  Objects to create
     public int _partTypeIndex;
 
     //  Floor
@@ -60,25 +77,41 @@ public class CreateTankUI : MonoBehaviour
 
     //  Directions
     private List<Dropdown.OptionData> directionList = new List<Dropdown.OptionData>();
-
-    private void Start()
+    private void Awake()
     {
-        _partTypeIndex = 0;
-        InitButtons();
-        InitPartsDropdown();
-        InitLayers();
-        SelectPart(0);
-        SelectList(_partTypeIndex);
-
-        _selectedColor = new Color(144/255f, 84/255f, 47/255f, 1); //start with brown
-        ChangeColor(_selectedColor);
+        instance = this;
     }
+
+    public void LaunchInMode(CreatorMode launchMode)
+    {
+        InitButtons();
+        if (launchMode.Equals(CreatorMode.DevMode))
+        {
+            _partTypeIndex = 0;
+            InitPartsDropdown();
+            InitLayers();
+            SelectPart(0);
+            SelectList(_partTypeIndex);
+            _selectedColor = new Color(144 / 255f, 84 / 255f, 47 / 255f, 1); //start with brown
+            ChangeColor(_selectedColor);
+            _finishEventButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            _finishEventButton.gameObject.SetActive(true);
+        }
+    }
+
     public void InitButtons()
     {
         _saveTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.SaveTank());
         _loadTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.LoadTank());
         _colorButton.onClick.AddListener(() => RandomColor());
+        _showLayerUIButton.onClick.AddListener(() => ToggleLayerUI());
+        _finishEventButton.onClick.AddListener(() => DataStorage.Singleton.FinishEvent());
     }
+
+
     private void InitPartsDropdown()
     {
         _partsDropDown.options.Clear();
@@ -131,22 +164,6 @@ public class CreateTankUI : MonoBehaviour
         wallIndex = 0;
         tiresIndex = 0;
         systemsIndex = 0;
-    }
-    private void InitLayers()
-    {
-        int i = 0;
-        foreach(Dropdown.OptionData data in _layersDropDown.options)
-        {
-            GameObject go = Instantiate((GameObject) Resources.Load("TankCreator/LayerPrefab"));
-            go.GetComponentInChildren<Text>().text = data.text;
-            go.transform.parent = _layersParent.transform;
-            go.transform.position = Vector3.zero;
-            UILayer uil = go.GetComponent<UILayer>();
-            uil.index = i;
-            uil._layerShown = true;
-            layers.Add(uil);
-            i++;
-        }
     }
     public void NextItemInList()
     {
@@ -241,31 +258,63 @@ public class CreateTankUI : MonoBehaviour
 
         ShowColorSelecter(_partTypeIndex);
     }
+
+    //  Layers
+    private void InitLayers()
+    {
+        int i = 0;
+        foreach (Dropdown.OptionData data in _layersDropDown.options)
+        {
+            GameObject go = Instantiate((GameObject)Resources.Load("TankCreator/LayerPrefab"));
+            go.GetComponentInChildren<Text>().text = data.text;
+            go.transform.parent = _hLayoutGroup.transform;
+            go.transform.position = Vector3.zero;
+            UILayer uil = go.GetComponent<UILayer>();
+            uil.index = i;
+            uil._layerShown = true;
+            layers.Add(uil);
+            i++;
+        }
+    }
+    private void ToggleLayerUI()
+    {
+        _layerUIShown = !_layerUIShown;
+        if(_layerUIShown)
+        {
+            _layerUIParent.anchoredPosition = new Vector3(-230, 0);
+            _layerArrowText.text = ">";
+        }
+        else
+        {
+            _layerUIParent.anchoredPosition = new Vector3(0, 0);
+            _layerArrowText.text = "<";
+        }
+    }
     public void ShowLayer(bool b, int index)
     {
         if (index == 0)
         {
-            CreateTankSceneManager.instance._tGeo.ShowFloor(b);
+            CreateTankGeometry.instance.ShowFloor(b);
             _floorShown = b;
         }
         if (index == 1)
         {
-            CreateTankSceneManager.instance._tGeo.ShowRoof(b);
+            CreateTankGeometry.instance.ShowRoof(b);
             _roofShown = b;
         }
         if (index == 2)
         {
-            CreateTankSceneManager.instance._tGeo.ShowWalls(b);
+            CreateTankGeometry.instance.ShowWalls(b);
             _wallsShown = b;
         }
         if (index == 3)
         {
-            CreateTankSceneManager.instance._tGeo.ShowTires(b);
+            CreateTankGeometry.instance.ShowTires(b);
             _tiresShown = b;
         }
         if (index == 4)
         {
-            CreateTankSceneManager.instance._tGeo.ShowSystems(b);
+            CreateTankGeometry.instance.ShowSystems(b);
             _systemsShown = b;
         }
     }

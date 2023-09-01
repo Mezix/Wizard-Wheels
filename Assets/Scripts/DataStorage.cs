@@ -93,7 +93,7 @@ public class DataStorage : MonoBehaviour
         };
     }
 
-    public VehicleData CopyVehicleDataFromTankRoomConstellationToVehicleData(TankRoomConstellation matrixToCopy)
+    public VehicleData CopyTankRoomConstellationToVehicleData(TankRoomConstellation matrixToCopy)
     {
         VehicleData data = new VehicleData();
         data._savedXSize = matrixToCopy._savedXSize;
@@ -128,5 +128,41 @@ public class DataStorage : MonoBehaviour
         }
 
         return data;
+    }
+
+    public TankRoomConstellation CopyVehicleDataToTankRoomConstellation(VehicleData data)
+    {
+        TankRoomConstellation tankRoom = new TankRoomConstellation();
+        tankRoom._savedXSize = data._savedXSize;
+        tankRoom._savedYSize = data._savedYSize;
+
+        tankRoom.RoofColorR = data.RoofColorR;
+        tankRoom.RoofColorG = data.RoofColorG;
+        tankRoom.RoofColorB = data.RoofColorB;
+
+        tankRoom.FloorColorR = data.FloorColorR;
+        tankRoom.FloorColorG = data.FloorColorG;
+        tankRoom.FloorColorB = data.FloorColorB;
+
+        tankRoom._tmpMatrix = new TankRoomConstellation.XValues(data._savedXSize, data._savedYSize);
+
+        for (int x = 0; x < tankRoom._savedXSize; x++)
+        {
+            for (int y = 0; y < tankRoom._savedYSize; y++)
+            {
+                tankRoom._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath;
+                tankRoom._tmpMatrix.XArray[x].YStuff[y].FloorType = data.VehicleMatrix.XArray[x].YStuff[y].FloorType;
+                tankRoom._tmpMatrix.XArray[x].YStuff[y].RoofType = data.VehicleMatrix.XArray[x].YStuff[y].RoofType;
+                tankRoom._tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+                tankRoom._tmpMatrix.XArray[x].YStuff[y].MovementPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath;
+                tankRoom._tmpMatrix.XArray[x].YStuff[y].SystemDirection = data.VehicleMatrix.XArray[x].YStuff[y].SystemDirection;
+
+                tankRoom._tmpMatrix.XArray[x].YStuff[y]._topWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._topWallExists;
+                tankRoom._tmpMatrix.XArray[x].YStuff[y]._rightWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._rightWallExists;
+                tankRoom._tmpMatrix.XArray[x].YStuff[y]._bottomWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._bottomWallExists;
+                tankRoom._tmpMatrix.XArray[x].YStuff[y]._leftWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._leftWallExists;
+            }
+        }
+        return tankRoom;
     }
 }

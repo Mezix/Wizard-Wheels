@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static PlayerData;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -9,12 +10,21 @@ using UnityEditor;
 public class CreateTankSceneManager : MonoBehaviour
 {
     public static CreateTankSceneManager instance;
-    public CreateTankTools _tools;
-    public CreateTankGeometry _tGeo;
-    public CreateTankUI _tUI;
-    public CreateTankMouseScript mouse;
-    public TankRoomConstellation tankToEdit;
+
+    //  DevMode
+
     private bool newTank;
+    public TankRoomConstellation tankToEdit;
+
+    // PlayerMode
+    public VehicleData _vehicleData;
+
+    public enum CreatorMode
+    {
+        DevMode,
+        PlayerMode
+    }
+    public CreatorMode _launchMode;
 
     private void Awake()
     {
@@ -22,24 +32,36 @@ public class CreateTankSceneManager : MonoBehaviour
     }
     private void Start()
     {
-        if (tankToEdit)
+        LaunchInMode(_launchMode);
+    }
+    public void LaunchInMode(CreatorMode launchMode)
+    {
+        if (launchMode.Equals(CreatorMode.DevMode))
         {
-            newTank = false;
-            _tUI._inputField.text = tankToEdit.name;
+            if (tankToEdit)
+            {
+                newTank = false;
+                CreateTankUI.instance._inputField.text = tankToEdit.name;
+                LoadTank();
+            }
+            else
+            {
+                newTank = true;
+                tankToEdit = new TankRoomConstellation();
+                CreateTankUI.instance._inputField.textComponent.text = "Untitled";
+            }
         }
         else
         {
-            newTank = true;
-            tankToEdit = new TankRoomConstellation();
-            _tUI._inputField.textComponent.text = "Untitled";
+            _vehicleData = DataStorage.Singleton.playerData.vehicleData;
         }
-        //_tGeo._vehicleData = DataStorage.Singleton.CopyVehicleDataFromTankRoomConstellationToVehicleData(tankToEdit);
-        LoadTank();
+        CreateTankUI.instance.LaunchInMode(launchMode);
     }
+
     public void SaveTank()
     {
-        string newName = _tUI._inputField.textComponent.text;
-        _tUI._inputField.text = newName;
+        string newName = CreateTankUI.instance._inputField.textComponent.text;
+        CreateTankUI.instance._inputField.text = newName;
         if (newTank)
         {
             if (newName == "") newName = "tmp";
@@ -52,7 +74,7 @@ public class CreateTankSceneManager : MonoBehaviour
     public void LoadTank()
     {
         tankToEdit.InitTankForCreation();
-        _tGeo.SpawnTankForCreator();
-        _tUI._inputField.placeholder.GetComponent<Text>().text = tankToEdit.name;
+        CreateTankGeometry.instance.SpawnTankForCreator();
+        CreateTankUI.instance._inputField.placeholder.GetComponent<Text>().text = tankToEdit.name;
     }
 }
