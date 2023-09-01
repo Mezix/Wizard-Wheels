@@ -52,7 +52,7 @@ public class MouseCursor : MonoBehaviour
         if (REF.PCon._dying || REF.PCon._dead) return;
         foreach (AUnit u in REF.PCon._spawnedWizards)
         {
-            u.DeHighlight();
+           if(u) u.DeHighlight();
         }
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Wizard"));
         if (!hit.collider) return;

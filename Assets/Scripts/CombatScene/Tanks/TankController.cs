@@ -14,7 +14,6 @@ public abstract class TankController : MonoBehaviour
     public string _tankName;
 
     //  Wizards
-    //public List<GameObject> _wizardsToSpawn = new List<GameObject>();
     public List<WizardData> _wizardData = new List<WizardData>();
     public List<AUnit> _spawnedWizards = new List<AUnit>();
 

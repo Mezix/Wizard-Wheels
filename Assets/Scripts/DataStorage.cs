@@ -65,8 +65,6 @@ public class DataStorage : MonoBehaviour
             }
         }
     }
-
-
     public void AddWizard(WizardData wiz)
     {
         if (playerData.WizardList == null) playerData.WizardList = new List<WizardData>();
@@ -129,40 +127,29 @@ public class DataStorage : MonoBehaviour
 
         return data;
     }
-
-    public TankRoomConstellation CopyVehicleDataToTankRoomConstellation(VehicleData data)
+    public static void CopyVehicleDataFromTo(ref PlayerVehicleMatrix CopyFrom, ref PlayerVehicleMatrix CopyTo)
     {
-        TankRoomConstellation tankRoom = new TankRoomConstellation();
-        tankRoom._savedXSize = data._savedXSize;
-        tankRoom._savedYSize = data._savedYSize;
+        CopyTo = new PlayerVehicleMatrix(CopyFrom.XArray.Length, CopyFrom.XArray[0].YStuff.Length);
 
-        tankRoom.RoofColorR = data.RoofColorR;
-        tankRoom.RoofColorG = data.RoofColorG;
-        tankRoom.RoofColorB = data.RoofColorB;
-
-        tankRoom.FloorColorR = data.FloorColorR;
-        tankRoom.FloorColorG = data.FloorColorG;
-        tankRoom.FloorColorB = data.FloorColorB;
-
-        tankRoom._tmpMatrix = new TankRoomConstellation.XValues(data._savedXSize, data._savedYSize);
-
-        for (int x = 0; x < tankRoom._savedXSize; x++)
+        for (int x = 0; x < CopyFrom.XArray.Length; x++)
         {
-            for (int y = 0; y < tankRoom._savedYSize; y++)
+            for (int y = 0; y < CopyFrom.XArray[x].YStuff.Length; y++)
             {
-                tankRoom._tmpMatrix.XArray[x].YStuff[y].RoomPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath;
-                tankRoom._tmpMatrix.XArray[x].YStuff[y].FloorType = data.VehicleMatrix.XArray[x].YStuff[y].FloorType;
-                tankRoom._tmpMatrix.XArray[x].YStuff[y].RoofType = data.VehicleMatrix.XArray[x].YStuff[y].RoofType;
-                tankRoom._tmpMatrix.XArray[x].YStuff[y].SystemPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath;
-                tankRoom._tmpMatrix.XArray[x].YStuff[y].MovementPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath;
-                tankRoom._tmpMatrix.XArray[x].YStuff[y].SystemDirection = data.VehicleMatrix.XArray[x].YStuff[y].SystemDirection;
+                CopyTo.XArray[x].YStuff[y] = new RoomInfo();
+                if (CopyFrom.XArray[x].YStuff[y].Equals(new RoomInfo())) continue;
 
-                tankRoom._tmpMatrix.XArray[x].YStuff[y]._topWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._topWallExists;
-                tankRoom._tmpMatrix.XArray[x].YStuff[y]._rightWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._rightWallExists;
-                tankRoom._tmpMatrix.XArray[x].YStuff[y]._bottomWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._bottomWallExists;
-                tankRoom._tmpMatrix.XArray[x].YStuff[y]._leftWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._leftWallExists;
+                CopyTo.XArray[x].YStuff[y].RoomPrefabPath = CopyFrom.XArray[x].YStuff[y].RoomPrefabPath;
+                CopyTo.XArray[x].YStuff[y].RoofType = CopyFrom.XArray[x].YStuff[y].RoofType;
+                CopyTo.XArray[x].YStuff[y].FloorType = CopyFrom.XArray[x].YStuff[y].FloorType;
+                CopyTo.XArray[x].YStuff[y].SystemPrefabPath = CopyFrom.XArray[x].YStuff[y].SystemPrefabPath;
+                CopyTo.XArray[x].YStuff[y].SystemDirection = CopyFrom.XArray[x].YStuff[y].SystemDirection;
+                CopyTo.XArray[x].YStuff[y].MovementPrefabPath = CopyFrom.XArray[x].YStuff[y].MovementPrefabPath;
+
+                CopyTo.XArray[x].YStuff[y]._topWallExists = CopyFrom.XArray[x].YStuff[y]._topWallExists;
+                CopyTo.XArray[x].YStuff[y]._bottomWallExists = CopyFrom.XArray[x].YStuff[y]._bottomWallExists;
+                CopyTo.XArray[x].YStuff[y]._leftWallExists = CopyFrom.XArray[x].YStuff[y]._leftWallExists;
+                CopyTo.XArray[x].YStuff[y]._rightWallExists = CopyFrom.XArray[x].YStuff[y]._rightWallExists;
             }
         }
-        return tankRoom;
     }
 }

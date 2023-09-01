@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlayerData;
 
 public class TankMovement : MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class TankMovement : MonoBehaviour
     }
     public void Decelerate()
     {
-        if(GetComponent<PlayerTankMovement>()) REF.CombatUI._engineUIScript.StartStopEngineSound(false, 1);
+        if (GetComponent<PlayerTankMovement>()) REF.CombatUI._engineUIScript.StartStopEngineSound(false, 1);
         if (currentSpeed - acceleration * Time.timeScale > 0) currentSpeed -= deceleration * Time.timeScale;
         else currentSpeed = 0;
     }
@@ -83,17 +84,18 @@ public class TankMovement : MonoBehaviour
         {
             for (int y = 0; y < tank._vehicleData._savedYSize; y++)
             {
-                if (tank.RoomPosMatrix[x, y] == null) continue;
-                if (tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath != "")
-                {
-                    GameObject tireObj = Instantiate(Resources.Load(tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
-                    tireObj.transform.parent = tank.RoomPosMatrix[x, y].transform;
-                    tireObj.transform.localPosition = Vector3.zero;
-                    tireObj.transform.parent = rotatableObjects.transform;
-                    Tire tire = tireObj.GetComponentInChildren<Tire>();
-                    tr.rotatableObjects.Add(tire.gameObject);
-                    Tires.Add(tire);
-                }
+                if (tank.RoomPosMatrix[x, y] == null
+                    || tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].Equals(new RoomInfo())
+                    || tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath == null
+                    || tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath == "") continue;
+
+                GameObject tireObj = Instantiate(Resources.Load(tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
+                tireObj.transform.parent = tank.RoomPosMatrix[x, y].transform;
+                tireObj.transform.localPosition = Vector3.zero;
+                tireObj.transform.parent = rotatableObjects.transform;
+                Tire tire = tireObj.GetComponentInChildren<Tire>();
+                tr.rotatableObjects.Add(tire.gameObject);
+                Tires.Add(tire);
             }
         }
 
@@ -102,7 +104,7 @@ public class TankMovement : MonoBehaviour
     {
         foreach (Tire t in Tires)
         {
-           // t.AnimatorSpeed(currentSpeed / maxSpeed);
+            // t.AnimatorSpeed(currentSpeed / maxSpeed);
             t.AnimatorSpeed(currentSpeed);
         }
     }

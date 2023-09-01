@@ -14,35 +14,37 @@ public class CreateTankSceneManager : MonoBehaviour
     //  DevMode
 
     private bool newTank;
-    public TankRoomConstellation tankToEdit;
+    [SerializeField]
+    private TankRoomConstellation tankToEdit;
 
     // PlayerMode
-    public VehicleData _vehicleData;
+    public VehicleData _tmpVehicleData;
 
     public enum CreatorMode
     {
         DevMode,
         PlayerMode
     }
-    public CreatorMode _launchMode;
-
+    public CreatorMode _editorlaunchMode;
+    public static bool LaunchInGameplayOverride = false;
     private void Awake()
     {
         instance = this;
     }
     private void Start()
     {
-        LaunchInMode(_launchMode);
+        if(LaunchInGameplayOverride) LaunchInMode(CreatorMode.PlayerMode);
+        else LaunchInMode(_editorlaunchMode);
     }
     public void LaunchInMode(CreatorMode launchMode)
     {
+        _editorlaunchMode = launchMode;
         if (launchMode.Equals(CreatorMode.DevMode))
         {
             if (tankToEdit)
             {
                 newTank = false;
                 CreateTankUI.instance._inputField.text = tankToEdit.name;
-                LoadTank();
             }
             else
             {
@@ -51,10 +53,7 @@ public class CreateTankSceneManager : MonoBehaviour
                 CreateTankUI.instance._inputField.textComponent.text = "Untitled";
             }
         }
-        else
-        {
-            _vehicleData = DataStorage.Singleton.playerData.vehicleData;
-        }
+        LoadVehicle();
         CreateTankUI.instance.LaunchInMode(launchMode);
     }
 
@@ -65,16 +64,27 @@ public class CreateTankSceneManager : MonoBehaviour
         if (newTank)
         {
             if (newName == "") newName = "tmp";
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             AssetDatabase.CreateAsset(tankToEdit, "Assets/Scripts/GameScene/SOs/TankConstellation/" + newName);
-            #endif
+#endif
         }
-        tankToEdit.SaveVehicle(newName);
+        if (_editorlaunchMode.Equals(CreatorMode.DevMode)) tankToEdit.SaveVehicle(_tmpVehicleData);
+        else DataStorage.Singleton.playerData.vehicleData = _tmpVehicleData;
     }
-    public void LoadTank()
+    public void LoadVehicle()
     {
-        tankToEdit.InitTankForCreation();
-        CreateTankGeometry.instance.SpawnTankForCreator();
+        if (_editorlaunchMode.Equals(CreatorMode.DevMode))
+        {
+            _tmpVehicleData = DataStorage.Singleton.CopyTankRoomConstellationToVehicleData(tankToEdit);
+        }
+        else
+        {
+            DataStorage.CopyVehicleDataFromTo(ref DataStorage.Singleton.playerData.vehicleData.VehicleMatrix, ref _tmpVehicleData.VehicleMatrix);
+            _tmpVehicleData._savedXSize = DataStorage.Singleton.playerData.vehicleData._savedXSize;
+            _tmpVehicleData._savedYSize = DataStorage.Singleton.playerData.vehicleData._savedYSize;
+        }
+
+        CreateTankGeometry.instance.LoadVehicle();
         CreateTankUI.instance._inputField.placeholder.GetComponent<Text>().text = tankToEdit.name;
     }
 }

@@ -85,15 +85,15 @@ public class CreateTankUI : MonoBehaviour
     public void LaunchInMode(CreatorMode launchMode)
     {
         InitButtons();
+        _partTypeIndex = 0;
+        InitPartsDropdown();
+        InitLayers();
+        SelectPart(0);
+        SelectList(_partTypeIndex);
+        _selectedColor = new Color(144 / 255f, 84 / 255f, 47 / 255f, 1); //start with brown
+        ChangeColor(_selectedColor);
         if (launchMode.Equals(CreatorMode.DevMode))
         {
-            _partTypeIndex = 0;
-            InitPartsDropdown();
-            InitLayers();
-            SelectPart(0);
-            SelectList(_partTypeIndex);
-            _selectedColor = new Color(144 / 255f, 84 / 255f, 47 / 255f, 1); //start with brown
-            ChangeColor(_selectedColor);
             _finishEventButton.gameObject.SetActive(false);
         }
         else
@@ -105,12 +105,11 @@ public class CreateTankUI : MonoBehaviour
     public void InitButtons()
     {
         _saveTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.SaveTank());
-        _loadTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.LoadTank());
+        _loadTankButton.onClick.AddListener(() => CreateTankSceneManager.instance.LoadVehicle());
         _colorButton.onClick.AddListener(() => RandomColor());
         _showLayerUIButton.onClick.AddListener(() => ToggleLayerUI());
         _finishEventButton.onClick.AddListener(() => DataStorage.Singleton.FinishEvent());
     }
-
 
     private void InitPartsDropdown()
     {

@@ -15,9 +15,6 @@ public class TankRoomConstellation : ScriptableObject
     public int _savedXSize = 0; //just the amount of Tiles in a given direction
     public int _savedYSize = 0;
 
-    public int _tmpXSize = 0;
-    public int _tmpYSize = 0;
-
     public float FloorColorR = 1;
     public float FloorColorG = 1;
     public float FloorColorB = 1;
@@ -26,34 +23,10 @@ public class TankRoomConstellation : ScriptableObject
     public float RoofColorB  = 1;
 
     public XValues _savedMatrix = null;
-    public XValues _tmpMatrix = null;
 
-    public void InitTankForCreation()
+    public void SaveVehicle(VehicleData data)
     {
-        if (_savedMatrix.XArray.Length > 0)
-        {
-            _savedXSize = _savedMatrix.XArray.Length;
-            _savedYSize = _savedMatrix.XArray[0].YStuff.Length;
-        }
-        ClearTmpMatrix();
-        SavedToTmpMatrix();
-        _tmpXSize = _savedXSize;
-        _tmpYSize = _savedYSize;
-    }
-    public void SaveVehicle(string newName)
-    {
-        //change name
-        if (newName != "")
-        {
-            #if UNITY_EDITOR
-            string assetPath = AssetDatabase.GetAssetPath(GetInstanceID());
-            AssetDatabase.RenameAsset(assetPath, newName);
-            #endif
-        }
-        TmpToSavedMatrix();
-        //CopyMatrixFromTo(_tmpMatrix, _savedMatrix); //overwrite our old matrix with what is currently being shown
-        _savedXSize = _tmpXSize;
-        _savedYSize = _tmpYSize;
+        CopyVehicleDataToTankRoomConstellation(data);
 
         #if UNITY_EDITOR
             EditorUtility.SetDirty(this);
@@ -61,18 +34,44 @@ public class TankRoomConstellation : ScriptableObject
         #endif
         Debug.Log("SAVED");
     }
-    public void ClearTmpMatrix()
+
+
+    public void CopyVehicleDataToTankRoomConstellation(VehicleData data)
     {
-        _tmpMatrix = new XValues(0, 0);
-        _tmpXSize = 0;
-        _tmpYSize = 0;
+        _savedXSize = data._savedXSize;
+        _savedYSize = data._savedYSize;
+
+        RoofColorR = data.RoofColorR;
+        RoofColorG = data.RoofColorG;
+        RoofColorB = data.RoofColorB;
+
+        FloorColorR = data.FloorColorR;
+        FloorColorG = data.FloorColorG;
+        FloorColorB = data.FloorColorB;
+
+        _savedMatrix = new XValues(data._savedXSize, data._savedYSize);
+
+        for (int x = 0; x < _savedXSize; x++)
+        {
+            for (int y = 0; y < _savedYSize; y++)
+            {
+                _savedMatrix.XArray[x].YStuff[y] = new RoomInfo();
+                _savedMatrix.XArray[x].YStuff[y].RoomPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].FloorType = data.VehicleMatrix.XArray[x].YStuff[y].FloorType;
+                _savedMatrix.XArray[x].YStuff[y].RoofType = data.VehicleMatrix.XArray[x].YStuff[y].RoofType;
+                _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].MovementPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].SystemDirection = data.VehicleMatrix.XArray[x].YStuff[y].SystemDirection;
+
+                _savedMatrix.XArray[x].YStuff[y]._topWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._topWallExists;
+                _savedMatrix.XArray[x].YStuff[y]._rightWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._rightWallExists;
+                _savedMatrix.XArray[x].YStuff[y]._bottomWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._bottomWallExists;
+                _savedMatrix.XArray[x].YStuff[y]._leftWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._leftWallExists;
+            }
+        }
     }
-    public void ClearSavedMatrix()
-    {
-        _savedMatrix = new XValues(0, 0);
-        _savedXSize = 0;
-        _savedYSize = 0;
-    }
+
+
 
     //WRAPPER CLASSES FOR SAVING STUFF
 
@@ -113,7 +112,7 @@ public class TankRoomConstellation : ScriptableObject
         public bool _bottomWallExists = false;
         public bool _leftWallExists = false;
     }
-
+    /*
     private void SavedToTmpMatrix()
     {
         CopyMatrixFromTo(ref _savedMatrix, ref _tmpMatrix);
@@ -147,4 +146,5 @@ public class TankRoomConstellation : ScriptableObject
             }
         }
     }
+    */
 }

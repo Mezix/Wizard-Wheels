@@ -20,7 +20,7 @@ public class TankGeometry : MonoBehaviour
     public void CreateTankGeometry()
     {
         _roomMaxHP = 4;
-        CreateRooms();
+        LoadRooms();
         PositionTankObjects();
         InitWeaponsAndSystems();
         CreateSystemIcons();
@@ -28,7 +28,7 @@ public class TankGeometry : MonoBehaviour
 
         if (REF.CombatUI) REF.CombatUI.TurnOnXRay(REF.CombatUI._xrayOn);
     }
-    private void CreateRooms()
+    private void LoadRooms()
     {
         RoomPosMatrix = new RoomPosition[_vehicleData._savedXSize, _vehicleData._savedYSize];
         AllRooms = new List<Room>();
@@ -41,42 +41,44 @@ public class TankGeometry : MonoBehaviour
         {
             for (int x = 0; x < _vehicleData._savedXSize; x++)
             {
-                if (_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath != "")
+                if (_vehicleData.VehicleMatrix.XArray[x].YStuff[y].Equals(new RoomInfo()) 
+                    || _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath == null
+                    || _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath == "") continue;
+
+                Room room = Instantiate(Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room))) as Room;
+                room._tGeo = this;
+                room.ID = _vehicleData.GetHashCode();
+                room.gameObject.transform.parent = RoomsParent.transform;
+                room.gameObject.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
+                AllRooms.Add(room);
+
+                room._floorType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorType;
+                room._roofType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType;
+                room.InitHP(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomCurrentHP, _roomMaxHP);
+
+                // Set the Room Positions
+                int roomPosNr = 0;
+                for (int roomY = 0; roomY < room._sizeY; roomY++)
                 {
-                    Room room = Instantiate(Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room))) as Room;
-                    room._tGeo = this;
-                    room.ID = _vehicleData.GetHashCode();
-                    room.gameObject.transform.parent = RoomsParent.transform;
-                    room.gameObject.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-                    AllRooms.Add(room);
-
-                    room._floorType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorType;
-                    room._roofType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType;
-                    room.InitHP(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomCurrentHP, _roomMaxHP);
-
-                    // Set the Room Positions
-                    int roomPosNr = 0;
-                    for (int roomY = 0; roomY < room._sizeY; roomY++)
+                    for (int roomX = 0; roomX < room._sizeX; roomX++)
                     {
-                        for (int roomX = 0; roomX < room._sizeX; roomX++)
-                        {
-                            RoomPosMatrix[x + roomX, y + roomY] = room.allRoomPositions[roomPosNr];
-                            RoomPosMatrix[x + roomX, y + roomY]._xPos = x + RoomPosMatrix[x + roomX, y + roomY]._xRel;
-                            RoomPosMatrix[x + roomX, y + roomY]._yPos = y + RoomPosMatrix[x + roomX, y + roomY]._yRel;
+                        RoomPosMatrix[x + roomX, y + roomY] = room.allRoomPositions[roomPosNr];
+                        RoomPosMatrix[x + roomX, y + roomY]._xPos = x + RoomPosMatrix[x + roomX, y + roomY]._xRel;
+                        RoomPosMatrix[x + roomX, y + roomY]._yPos = y + RoomPosMatrix[x + roomX, y + roomY]._yRel;
 
-                            RoomPosMatrix[x + roomX, y + roomY].name = "X" + RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString()
-                                                                  + " , Y" + RoomPosMatrix[x + roomX, y + roomY]._yPos.ToString() + ", ";
-                            roomPosNr++;
-                        }
+                        RoomPosMatrix[x + roomX, y + roomY].name = "X" + RoomPosMatrix[x + roomX, y + roomY]._xPos.ToString()
+                                                              + " , Y" + RoomPosMatrix[x + roomX, y + roomY]._yPos.ToString() + ", ";
+                        roomPosNr++;
                     }
-
-                    //sets the corner of the room that doesnt get caught with the matrix
-                    RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1] = room.allRoomPositions[room._sizeX * room._sizeY - 1];
-                    RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._xPos = x + room._sizeX - 1;
-                    RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._yPos = y + room._sizeY - 1;
-
-                    RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1].name = "X" + (x + room._sizeX - 1).ToString() + " , Y" + (y + room._sizeY - 1).ToString();
                 }
+
+                //sets the corner of the room that doesnt get caught with the matrix
+                RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1] = room.allRoomPositions[room._sizeX * room._sizeY - 1];
+                RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._xPos = x + room._sizeX - 1;
+                RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._yPos = y + room._sizeY - 1;
+
+                RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1].name = "X" + (x + room._sizeX - 1).ToString() + " , Y" + (y + room._sizeY - 1).ToString();
+
             }
         }
     }

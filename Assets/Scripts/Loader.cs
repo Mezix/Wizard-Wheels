@@ -37,6 +37,10 @@ public static class Loader {
         Debug.Log("Initiating load of :" + scene.ToString());
         Time.timeScale = 1;
         Cursor.visible = true;
+        if(scene.Equals(SceneType.ConstructionScene))
+        {
+            CreateTankSceneManager.LaunchInGameplayOverride = true;
+        }
         AudioManager.Singleton.PlayMusic(scene);
         SceneManager.LoadScene(scene.ToString());
     }

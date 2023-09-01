@@ -149,8 +149,8 @@ public class PlayerData
         public int _savedXSize = 0; //just the amount of Tiles in a given direction
         public int _savedYSize = 0;
 
-        public int _tmpXSize = 0;
-        public int _tmpYSize = 0;
+        //public int _tmpXSize = 0;
+        //public int _tmpYSize = 0;
 
         public float FloorColorR = 1;
         public float FloorColorG = 1;
