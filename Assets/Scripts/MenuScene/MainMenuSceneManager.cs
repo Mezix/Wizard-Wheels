@@ -19,21 +19,18 @@ public class MainMenuSceneManager : MonoBehaviour
     private void Start()
     {
         wiz.movementLocked = true;
+        REF.mUI.InitMMUI(DataStorage.Singleton.playerData.RunStarted);
+        REF.MMSceneGeometry.InitMMGeometry(DataStorage.Singleton.playerData.RunStarted);
     }
-    private void Update()
+    public void ContinueRun()
     {
+        DataStorage.Singleton.playerData.RunStarted = true;
+        Loader.Load(Loader.SceneType.RouteTransitionScene);
     }
-    
-
-    public void LaunchGame()
+    public void StartNewRun()
     {
-        StartCoroutine(ShowLoadingScreen());
-    }
-
-    public IEnumerator ShowLoadingScreen()
-    {
-        //Instantiate(Resources.Load(GS.Prefabs("LoadingScreen")));
-        yield return new WaitForSeconds(0.5f);
+        DataStorage.Singleton.playerData.RunStarted = true;
+        SavePlayerData.SavePlayer(DataStorage.Singleton.saveSlot, DataStorage.Singleton.playerData);
         Loader.Load(Loader.SceneType.RouteTransitionScene);
     }
     public void QuitGame()

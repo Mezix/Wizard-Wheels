@@ -43,7 +43,7 @@ public class REF : MonoBehaviour
 
     public static MapGeneration MapGen;
 
-    public static MainMenuSceneTankGeometry TankPreview;
+    public static MainMenuSceneTankGeometry MMSceneGeometry;
     public static UpgradeScreen UpgrScreen;
     public static InventoryUI InvUI;
 }

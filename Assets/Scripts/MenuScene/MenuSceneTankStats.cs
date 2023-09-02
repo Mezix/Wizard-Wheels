@@ -8,8 +8,11 @@ using static PlayerData;
 public class MenuSceneTankStats : MonoBehaviour
 {
     public GameObject _allObjects;
+    public bool newRun;
     [SerializeField]
     private Button launchGameButton;
+    [SerializeField]
+    private Button continueRunButton;
     [SerializeField]
     private Button previousTankButton;
     [SerializeField]
@@ -26,21 +29,27 @@ public class MenuSceneTankStats : MonoBehaviour
     {
         nextTankButton.onClick.AddListener(() => REF.mMenu._mmTankPreview.NextTank());
         previousTankButton.onClick.AddListener(() => REF.mMenu._mmTankPreview.PreviousTank());
-        launchGameButton.onClick.AddListener(() => REF.mMenu.LaunchGame());
+        launchGameButton.onClick.AddListener(() => REF.mMenu.StartNewRun());
+        continueRunButton.onClick.AddListener(() => REF.mMenu.ContinueRun());
     }
 
     public void Show(bool active)
     {
-       _allObjects.SetActive(active);
+        if(newRun)
+        {
+            _allObjects.SetActive(active);
+        }
+        else _allObjects.SetActive(false);
+        continueRunButton.gameObject.SetActive(!newRun);
     }
-    public void UpdateSelectedVehicleText(VehicleStats vehicleInfo)
+    public void UpdateSelectedVehicleText(VehicleInfo vehicleInfo)
     {
-        _vehicleName.text = vehicleInfo._tankName;
-        _vehicleMaxHP.text = vehicleInfo._tankHealth.ToString() + "HP";
-        _vehicleMaxSpeed.text = vehicleInfo._tankMaxSpeed.ToString() + " m/s";
-        _vehicleRotationSpeed.text = vehicleInfo._rotationSpeed.ToString() + "°";
-        _vehicleAccel.text = vehicleInfo._tankAccel.ToString() + " m/s";
-        _vehicleDecel.text = vehicleInfo._tankDecel.ToString() + " m/s";
-        _vehicleFlavorText.text = vehicleInfo._flavorText;
+        _vehicleName.text = vehicleInfo.TankName;
+        _vehicleMaxHP.text = vehicleInfo.TankHealth.ToString() + "HP";
+        _vehicleMaxSpeed.text = vehicleInfo.TankMaxSpeed.ToString() + " m/s";
+        _vehicleRotationSpeed.text = vehicleInfo.RotationSpeed.ToString() + "°";
+        _vehicleAccel.text = vehicleInfo.TankAccel.ToString() + " m/s";
+        _vehicleDecel.text = vehicleInfo.TankDecel.ToString() + " m/s";
+        _vehicleFlavorText.text = vehicleInfo.FlavorText;
     }
 }

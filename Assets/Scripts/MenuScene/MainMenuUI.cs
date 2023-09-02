@@ -28,6 +28,7 @@ public class MainMenuUI : MonoBehaviour
     public GameObject _saveSlotUIObjects;
     public List<MainMenuSaveSlot> _saveSlots;
 
+
     [Space(10)]
     [Header("Overworld UI")]
 
@@ -49,8 +50,9 @@ public class MainMenuUI : MonoBehaviour
         InitSaveSlots();
     }
 
-    private void Start()
+    public void InitMMUI(bool runStarted)
     {
+        menuSceneTankStats.newRun = !runStarted;
         ShowMenu(MainMenuStatus.LaunchUI);
         _settingsScript.CloseSettings();
     }
