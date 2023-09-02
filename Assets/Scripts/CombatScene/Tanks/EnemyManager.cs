@@ -59,13 +59,13 @@ public class EnemyManager : MonoBehaviour
     }
     private void SpawnEnemy(EnemySpawn enemyToSpawn)
     {
-        TankRoomConstellation _constellation = enemyToSpawn._tankRoomConstellation;
-        TankStats stats = enemyToSpawn._tankStats;
+        VehicleConstellation _constellation = enemyToSpawn._tankRoomConstellation;
+        VehicleInfo vehicleInfo = ConvertVehicleStatsToVehicleInfo(enemyToSpawn._tankStats);
 
         Vector3 spawnPos;
         EnemyTankController enemyTank = Instantiate(Resources.Load(GS.Enemy("EnemyTank"), typeof (EnemyTankController)) as EnemyTankController);
-        enemyTank.TGeo._vehicleData = DataStorage.Singleton.CopyTankRoomConstellationToVehicleData(_constellation);
-        enemyTank._tStats = stats;
+        enemyTank.TGeo._vehicleData = ConvertVehicleConstellationToVehicleData(_constellation);
+        enemyTank._vehicleInfo = vehicleInfo;
         enemyTank._tankColor = GetNextColor(enemyTank.GetInstanceID());
 
         enemyTank.SpawnTank();
@@ -86,7 +86,7 @@ public class EnemyManager : MonoBehaviour
             enemyTank.TRot.GetComponent<EnemyTankRotation>().SetRotationToAngle(angleBetweenTankAndPlayer);
 
             // Set Starting Speed to max
-            enemyTank.TMov.currentSpeed = enemyTank._tStats._tankMaxSpeed;
+            enemyTank.TMov.currentSpeed = enemyTank._vehicleInfo.TankMaxSpeed;
         }
         else
         {

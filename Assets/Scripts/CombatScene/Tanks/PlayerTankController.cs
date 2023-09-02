@@ -193,9 +193,9 @@ public class PlayerTankController : TankController
 
     private void InitTankStats()
     {
-        if (_tStats)
+        if (_vehicleInfo != null)
         {
-            THealth._maxHealth = _tStats._tankHealth;
+            THealth._maxHealth = _vehicleInfo.TankHealth;
         }
         else
         {

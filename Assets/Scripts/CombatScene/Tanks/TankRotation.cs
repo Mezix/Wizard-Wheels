@@ -32,9 +32,9 @@ public abstract class TankRotation : MonoBehaviour
     public void InitRotationSpeed()
     {
         if (!TryGetComponent(out TankController tc)) return;
-        if (tc._tStats)
+        if (tc._vehicleInfo != null)
         {
-            rotationspeed = tc._tStats._rotationSpeed;
+            rotationspeed = tc._vehicleInfo.RotationSpeed;
         }
         else
         {

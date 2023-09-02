@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f674d45ae9713ba41a769dacb7086dbb, type: 3}
+  m_Name: StarterVehicle1Stats
+  m_EditorClassIdentifier: 
+  _tankName: The Porcupine
+  _tankHealth: 40
+  _tankMaxSpeed: 4.5
+  _tankAccel: 0.01
+  _tankDecel: 0.03
+  _rotationSpeed: 35
+  _scrapDropAmount: 0
+  _flavorText: 'Heavy weapons, but slow movement. A good pick for those looking to
+    hunker down and decimate their foes. '

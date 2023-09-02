@@ -26,15 +26,15 @@ public class TankMovement : MonoBehaviour
     public void InitSpeedStats()
     {
         if (!TryGetComponent(out TankController tc)) return;
-        if (tc._tStats)
+        if (tc._vehicleInfo != null)
         {
-            baseAcceleration = acceleration = tc._tStats._tankAccel;
+            baseAcceleration = acceleration = tc._vehicleInfo.TankAccel;
             if (acceleration == 0) Debug.LogWarning("No Acceleration Stat!");
 
-            baseDeceleration = deceleration = tc._tStats._tankDecel;
+            baseDeceleration = deceleration = tc._vehicleInfo.TankDecel;
             if (deceleration == 0) Debug.LogWarning("No Deceleration Stat!");
 
-            baseMaxSpeed = maxSpeed = tc._tStats._tankMaxSpeed;
+            baseMaxSpeed = maxSpeed = tc._vehicleInfo.TankMaxSpeed;
             if (maxSpeed == 0) Debug.LogWarning("No max Speed");
         }
         else
@@ -80,16 +80,16 @@ public class TankMovement : MonoBehaviour
         rotatableObjects.transform.parent = transform;
         rotatableObjects.transform.localPosition = Vector3.zero;
 
-        for (int x = 0; x < tank._vehicleData._savedXSize; x++)
+        for (int x = 0; x < tank._vehicleData.SavedXSize; x++)
         {
-            for (int y = 0; y < tank._vehicleData._savedYSize; y++)
+            for (int y = 0; y < tank._vehicleData.SavedYSize; y++)
             {
                 if (tank.RoomPosMatrix[x, y] == null
-                    || tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].Equals(new RoomInfo())
-                    || tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath == null
-                    || tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath == "") continue;
+                    || tank._vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].Equals(new RoomInfo())
+                    || tank._vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath == null
+                    || tank._vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath == "") continue;
 
-                GameObject tireObj = Instantiate(Resources.Load(tank._vehicleData.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
+                GameObject tireObj = Instantiate(Resources.Load(tank._vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
                 tireObj.transform.parent = tank.RoomPosMatrix[x, y].transform;
                 tireObj.transform.localPosition = Vector3.zero;
                 tireObj.transform.parent = rotatableObjects.transform;

@@ -73923,7 +73923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb69e56405c8d80488e5aef42630e5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankToEdit: {fileID: 11400000, guid: fe8208a47786bf443826ac14aa17923e, type: 2}
+  tankToEdit: {fileID: 11400000, guid: 52efd6033a34d9f4cb9c447cee229e90, type: 2}
   _tmpVehicleData:
     VehicleMatrix:
       XArray: []
@@ -73936,7 +73936,7 @@ MonoBehaviour:
     RoofColorR: 1
     RoofColorG: 1
     RoofColorB: 1
-  _editorlaunchMode: 1
+  _editorlaunchMode: 0
 --- !u!1001 &6234446864216540456
 PrefabInstance:
   m_ObjectHideFlags: 0

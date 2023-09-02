@@ -17,7 +17,8 @@ public class CombatSceneManager : MonoBehaviour
     private void Start()
     {
         REF.InvUI.SpawnInventory(DataStorage.Singleton.playerData);
-        DataStorage.CopyVehicleDataFromTo(DataStorage.Singleton.playerData.vehicleData, ref REF.PCon.TGeo._vehicleData);
+        CopyVehicleDataFromTo(DataStorage.Singleton.playerData.Geometry, ref REF.PCon.TGeo._vehicleData);
+        REF.PCon._vehicleInfo = DataStorage.Singleton.playerData.Info;
         REF.PCon.SpawnTank();
     }
 

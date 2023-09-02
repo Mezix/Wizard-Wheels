@@ -8,77 +8,27 @@ using UnityEngine;
 public class PlayerData
 {
     public const int ScrapIndex = 14;
+    public bool RunStarted = false;
 
     public List<InventoryItemData> InventoryList;
     public List<WizardData> WizardList;
     public List<EventNode> CurrentEventPath;
     public int CurrentEventPathIndex;
     public float TimeInSecondsPlayed;
-    public VehicleData vehicleData;
+    public VehicleGeometry Geometry;
+    public VehicleInfo Info;
 
     //  Vehicle Data
 
-    public PlayerData(List<InventoryItemData> invItemList, List<WizardData> wizList, List<EventNode> events, float timePlayed, int pathIndex, VehicleData vehicleConstellation)
+    public PlayerData(List<InventoryItemData> invItemList, List<WizardData> wizList, List<EventNode> events, float timePlayed, int pathIndex, VehicleGeometry vehicleGeometry, VehicleInfo vehicleInfo)
     {
         InventoryList = invItemList;
         WizardList = wizList;
         CurrentEventPath = events;
         TimeInSecondsPlayed = timePlayed;
         CurrentEventPathIndex = pathIndex;
-        vehicleData = vehicleConstellation;
-    }
-
-    //  Helper Methods
-    public static List<EventNode> GenerateTestRoute()
-    {
-        int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
-        List<EventNode> route = new List<EventNode>();
-        for (int i = 0; i < enumLength; i++)
-        {
-            route.Add(new EventNode(i, false));
-        }
-        return route;
-    }
-
-    public int GetScrap()
-    {
-        return InventoryList[ScrapIndex].Amount;
-    }
-    public void SetScrap(int money)
-    {
-        InventoryList[ScrapIndex].Amount = money; 
-    }
-
-    public static List<EventNode> GenerateRandomRoute(int length)
-    {
-        int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
-
-        List<EventNode> route = new List<EventNode>();
-        for (int i = 0; i < length; i++)
-        {
-            int randomEnum = UnityEngine.Random.Range(0, enumLength);
-            if (i == length - 1)
-            {
-                route.Add(new EventNode(NodeEventType.Shop, false));
-                continue;
-            }
-            else
-            {
-                route.Add(new EventNode(randomEnum, false));
-            }
-        }
-        return route;
-    }
-    
-    public int CheckIfInventoryContains(InventoryItemData itemToCheckIfExists)
-    {
-        int index = 0;
-        foreach(InventoryItemData itemToCheck in InventoryList)
-        {  
-            if (itemToCheck.Name == itemToCheckIfExists.Name) return index;
-            index++;
-        }
-        return -1;
+        Geometry = vehicleGeometry;
+        Info = vehicleInfo;
     }
 
     //  Structs
@@ -139,15 +89,26 @@ public class PlayerData
     }
 
     // Vehicle
-
+    
+    [Serializable]
+    public class VehicleInfo
+    {
+        public string TankName;
+        public int TankHealth;
+        public float TankMaxSpeed;
+        public float TankAccel;
+        public float TankDecel;
+        public float RotationSpeed;
+        public string FlavorText;
+    }
 
     [Serializable]
-    public class VehicleData
+    public class VehicleGeometry
     {
-        public PlayerVehicleMatrix VehicleMatrix;
+        public VehicleMatrix VehicleMatrix;
 
-        public int _savedXSize = 0; //just the amount of Tiles in a given direction
-        public int _savedYSize = 0;
+        public int SavedXSize = 0; //just the amount of Tiles in a given direction
+        public int SavedYSize = 0;
         public int VehicleRoomMaxHP;
 
         public float FloorColorR = 1;
@@ -159,38 +120,26 @@ public class PlayerData
         public float RoofColorB = 1;
     }
     [Serializable]
-    public class PlayerVehicleMatrix
+    public class VehicleMatrix
     {
-        public YValues[] XArray = null;
-        public PlayerVehicleMatrix(int xLength, int yLength)
+        public Column[] Columns = null;
+        public VehicleMatrix(int xLength, int yLength)
         {
-            XArray = new YValues[xLength];
+            Columns = new Column[xLength];
             for (int i = 0; i < xLength; i++)
             {
-                XArray[i] = new YValues(yLength);
+                Columns[i] = new Column(yLength);
             }
         }
     }
     [Serializable]
-    public class YValues
+    public class Column
     {
-        public RoomInfo[] YStuff = null;
-        public YValues(int yLength)
+        public RoomInfo[] ColumnContent = null;
+        public Column(int yLength)
         {
-            YStuff = new RoomInfo[yLength];
+            ColumnContent = new RoomInfo[yLength];
         }
-    }
-    [Serializable]
-    public enum FloorType
-    {
-        FloorA,
-        FloorB
-    }
-    [Serializable]
-    public enum RoofType
-    {
-        RoofA,
-        RoofB
     }
     [Serializable]
     public class RoomInfo
@@ -215,7 +164,8 @@ public class PlayerData
 
         public static RoomInfo NewRoomInfo()
         {
-            return new RoomInfo {
+            return new RoomInfo
+            {
                 RoomPrefabPath = "",
                 FloorType = FloorType.FloorA,
                 RoofType = RoofType.RoofA,
@@ -228,6 +178,165 @@ public class PlayerData
                 _bottomWallExists = false,
                 _leftWallExists = false,
             };
+        }
+    }
+    [Serializable]
+    public enum FloorType
+    {
+        FloorA,
+        FloorB
+    }
+    [Serializable]
+    public enum RoofType
+    {
+        RoofA,
+        RoofB
+    }
+
+    //  Helper Methods
+    public static List<EventNode> GenerateRandomRoute(int length)
+    {
+        int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
+
+        List<EventNode> route = new List<EventNode>();
+        for (int i = 0; i < length; i++)
+        {
+            int randomEnum = UnityEngine.Random.Range(0, enumLength);
+            if (i == length - 1)
+            {
+                route.Add(new EventNode(NodeEventType.Shop, false));
+                continue;
+            }
+            else
+            {
+                route.Add(new EventNode(randomEnum, false));
+            }
+        }
+        return route;
+    }
+    public static List<EventNode> GenerateTestRoute()
+    {
+        int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
+        List<EventNode> route = new List<EventNode>();
+        for (int i = 0; i < enumLength; i++)
+        {
+            route.Add(new EventNode(i, false));
+        }
+        return route;
+    }
+    public int CheckIfInventoryContains(InventoryItemData itemToCheckIfExists)
+    {
+        int index = 0;
+        foreach (InventoryItemData itemToCheck in InventoryList)
+        {
+            if (itemToCheck.Name == itemToCheckIfExists.Name) return index;
+            index++;
+        }
+        return -1;
+    }
+    public int GetScrap()
+    {
+        return InventoryList[ScrapIndex].Amount;
+    }
+    public void SetScrap(int money)
+    {
+        InventoryList[ScrapIndex].Amount = money;
+    }
+    public static VehicleGeometry ConvertVehicleConstellationToVehicleData(VehicleConstellation matrixToCopy)
+    {
+        VehicleGeometry data = new VehicleGeometry();
+        data.SavedXSize = matrixToCopy._savedXSize;
+        data.SavedYSize = matrixToCopy._savedYSize;
+        data.VehicleRoomMaxHP = 5;
+
+        data.RoofColorR = matrixToCopy.RoofColorR;
+        data.RoofColorG = matrixToCopy.RoofColorG;
+        data.RoofColorB = matrixToCopy.RoofColorB;
+
+        data.FloorColorR = matrixToCopy.FloorColorR;
+        data.FloorColorG = matrixToCopy.FloorColorG;
+        data.FloorColorB = matrixToCopy.FloorColorB;
+
+        data.VehicleMatrix = new VehicleMatrix(matrixToCopy._savedXSize, matrixToCopy._savedYSize);
+
+        for (int x = 0; x < data.SavedXSize; x++)
+        {
+            for (int y = 0; y < data.SavedYSize; y++)
+            {
+                data.VehicleMatrix.Columns[x].ColumnContent[y] = new RoomInfo();
+                data.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoomPrefabPath;
+                data.VehicleMatrix.Columns[x].ColumnContent[y].RoomCurrentHP = 5;
+
+                data.VehicleMatrix.Columns[x].ColumnContent[y].FloorType = matrixToCopy._savedMatrix.XArray[x].YStuff[y].FloorType;
+
+                data.VehicleMatrix.Columns[x].ColumnContent[y].RoofType = matrixToCopy._savedMatrix.XArray[x].YStuff[y].RoofType;
+
+                data.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].MovementPrefabPath;
+
+                data.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+                data.VehicleMatrix.Columns[x].ColumnContent[y].SystemDirection = matrixToCopy._savedMatrix.XArray[x].YStuff[y].SystemDirection;
+
+                data.VehicleMatrix.Columns[x].ColumnContent[y]._topWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._topWallExists;
+                data.VehicleMatrix.Columns[x].ColumnContent[y]._rightWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._rightWallExists;
+                data.VehicleMatrix.Columns[x].ColumnContent[y]._bottomWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._bottomWallExists;
+                data.VehicleMatrix.Columns[x].ColumnContent[y]._leftWallExists = matrixToCopy._savedMatrix.XArray[x].YStuff[y]._leftWallExists;
+            }
+        }
+
+        return data;
+    }
+    public static VehicleInfo ConvertVehicleStatsToVehicleInfo(VehicleStats stats)
+    {
+        return new VehicleInfo()
+        {
+            TankName = stats._tankName,
+            TankHealth = stats._tankHealth,
+            TankMaxSpeed = stats._tankMaxSpeed,
+            TankAccel = stats._tankAccel,
+            TankDecel = stats._tankDecel,
+            RotationSpeed = stats._rotationSpeed,
+            FlavorText = stats._flavorText
+        };
+    }
+    public static void CopyVehicleDataFromTo(VehicleGeometry CopyFrom, ref VehicleGeometry CopyTo)
+    {
+        CopyTo = new VehicleGeometry
+        {
+            SavedXSize = CopyFrom.SavedXSize,
+            SavedYSize = CopyFrom.SavedYSize,
+            VehicleRoomMaxHP = CopyFrom.VehicleRoomMaxHP,
+
+            RoofColorR = CopyFrom.RoofColorR,
+            RoofColorG = CopyFrom.RoofColorG,
+            RoofColorB = CopyFrom.RoofColorB,
+
+            FloorColorR = CopyFrom.FloorColorR,
+            FloorColorG = CopyFrom.FloorColorG,
+            FloorColorB = CopyFrom.FloorColorB,
+
+            VehicleMatrix = new VehicleMatrix(CopyFrom.VehicleMatrix.Columns.Length, CopyFrom.VehicleMatrix.Columns[0].ColumnContent.Length)
+        };
+
+        for (int x = 0; x < CopyFrom.VehicleMatrix.Columns.Length; x++)
+        {
+            for (int y = 0; y < CopyFrom.VehicleMatrix.Columns[x].ColumnContent.Length; y++)
+            {
+                if (CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y] == null) continue;
+
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y] = new RoomInfo();
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath;
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y].RoomCurrentHP = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y].RoomCurrentHP;
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y].RoofType = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y].RoofType;
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y].FloorType = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y].FloorType;
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath;
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y].SystemDirection = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y].SystemDirection;
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath;
+
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y]._topWallExists = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y]._topWallExists;
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y]._bottomWallExists = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y]._bottomWallExists;
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y]._leftWallExists = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y]._leftWallExists;
+                CopyTo.VehicleMatrix.Columns[x].ColumnContent[y]._rightWallExists = CopyFrom.VehicleMatrix.Columns[x].ColumnContent[y]._rightWallExists;
+            }
         }
     }
 }

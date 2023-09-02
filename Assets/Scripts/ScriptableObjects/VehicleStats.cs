@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/TankStats")]
-public class TankStats : ScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObjects/VehicleStats")]
+public class VehicleStats : ScriptableObject
 {
     public string _tankName = "";
     public int _tankHealth;
@@ -12,4 +12,6 @@ public class TankStats : ScriptableObject
     public float _tankDecel;
     public float _rotationSpeed;
     public int _scrapDropAmount;
+
+    public string _flavorText;
 }

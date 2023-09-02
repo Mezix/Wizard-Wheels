@@ -5,7 +5,7 @@ using static PlayerData;
 
 public abstract class TankController : MonoBehaviour
 {
-    public TankStats _tStats;
+    public VehicleInfo _vehicleInfo;
     public TankRotation TRot { get; set; }
     public TankGeometry TGeo { get; set; }
     public TankHealth THealth { get; set; }

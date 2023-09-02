@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60e26db0a3a5f240b31366db4157448, type: 3}
+  m_Name: StarterVehicle1
+  m_EditorClassIdentifier: 
+  _savedXSize: 3
+  _savedYSize: 5
+  FloorColorR: 1
+  FloorColorG: 1
+  FloorColorB: 1
+  RoofColorR: 1
+  RoofColorG: 1
+  RoofColorB: 1
+  _savedMatrix:
+    XArray:
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
+        SystemDirection: 0
+        _topWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 2
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 3
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 1
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 1
+        _leftWallExists: 1
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 1
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/BasicCannon
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/DualCannon
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/BasicCannon
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: Prefabs/Systems/GrabberArm
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 0
+        _bottomWallExists: 1
+        _leftWallExists: 0
+    - YStuff:
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        SystemDirection: 0
+        _topWallExists: 1
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: 
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 0
+        _leftWallExists: 0
+      - RoomPrefabPath: Prefabs/Rooms/1x1Room
+        FloorType: 0
+        RoofType: 0
+        SystemPrefabPath: 
+        MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
+        SystemDirection: 0
+        _topWallExists: 0
+        _rightWallExists: 1
+        _bottomWallExists: 1
+        _leftWallExists: 0

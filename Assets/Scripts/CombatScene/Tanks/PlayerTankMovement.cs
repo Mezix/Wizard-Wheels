@@ -45,13 +45,13 @@ public class PlayerTankMovement : TankMovement
 
         if (emergencyBrakeOn)
         {
-            deceleration = 3 * REF.PCon._tStats._tankDecel;
+            deceleration = 3 * REF.PCon._vehicleInfo.TankDecel;
             if(currentSpeed <= 1)
             {
                 StopEmergencyBrake();
             }
         }
-        else deceleration = REF.PCon._tStats._tankDecel;
+        else deceleration = REF.PCon._vehicleInfo.TankDecel;
     }
 
     private void FixedUpdate()

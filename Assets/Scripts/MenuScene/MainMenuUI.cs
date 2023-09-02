@@ -36,15 +36,7 @@ public class MainMenuUI : MonoBehaviour
 
     [Space(10)]
     [Header("Select Vehicle UI")]
-    public GameObject _selectVehicleUIObjects;
-
-    [SerializeField]
-    private Button launchGameButton;
-    [SerializeField]
-    private Button previousTankButton;
-    [SerializeField]
-    private Button nextTankButton;
-    public Text _selectedTankText;
+    public MenuSceneTankStats menuSceneTankStats;
 
     [Space(10)]
     [Header("Other UI Scripts")]
@@ -83,13 +75,7 @@ public class MainMenuUI : MonoBehaviour
 
         //  Non Main Menu
 
-        _returnToMainMenuButton.onClick.AddListener(() => ShowMenu(MainMenuStatus.LaunchUI));
-
-        //  Select Screen
-
-        nextTankButton.onClick.AddListener(() => REF.mMenu._mmTankPreview.NextTank());
-        previousTankButton.onClick.AddListener(() => REF.mMenu._mmTankPreview.PreviousTank());
-        launchGameButton.onClick.AddListener(() => REF.mMenu.LaunchGame());
+        _returnToMainMenuButton.onClick.AddListener(() => ShowMenu(MainMenuStatus.LaunchUI)); 
     }
     private void InitSaveSlots()
     {
@@ -145,7 +131,7 @@ public class MainMenuUI : MonoBehaviour
             _launchUIObjects.SetActive(true);
             _overworldUIObjects.SetActive(false);
             _saveSlotUIObjects.SetActive(false);
-            _selectVehicleUIObjects.SetActive(false);
+            menuSceneTankStats.Show(false); 
 
             REF.mMenu.wiz.movementLocked = true;
             REF.mCam.SetZoom(REF.mCam.furthestZoom);
@@ -156,7 +142,7 @@ public class MainMenuUI : MonoBehaviour
             _launchUIObjects.SetActive(false);
             _overworldUIObjects.SetActive(false);
             _saveSlotUIObjects.SetActive(true);
-            _selectVehicleUIObjects.SetActive(false);
+            menuSceneTankStats.Show(false);
 
             REF.mMenu.wiz.movementLocked = true;
             foreach (MainMenuSaveSlot slot in _saveSlots)
@@ -169,7 +155,7 @@ public class MainMenuUI : MonoBehaviour
             _launchUIObjects.SetActive(false);
             _overworldUIObjects.SetActive(true);
             _saveSlotUIObjects.SetActive(false);
-            _selectVehicleUIObjects.SetActive(true);
+            menuSceneTankStats.Show(true);
 
             REF.mCam.SetZoom(REF.mCam.closestZoom);
             REF.mMenu.wiz.movementLocked = false;
@@ -187,9 +173,4 @@ public class MainMenuUI : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
-    public void UpdateSelectedTankText(string tankName)
-    {
-        _selectedTankText.text = tankName;
-    }
-
 }

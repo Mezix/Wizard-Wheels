@@ -109,7 +109,6 @@ public class DataManipulationManager : MonoBehaviour
     private void SaveData()
     {
         Debug.Log("Saving in save slot " + _saveSlotDropDown.value);
-        //SavePlayerData.SavePlayer(_saveSlotDropDown.value, SceneInventoryList, SceneEventNodes, HM.ParseStringToFloat(_TimePlayedText.text));
         SavePlayerData.SavePlayer(_saveSlotDropDown.value, DataStorage.Singleton.playerData);
     }
     private void LoadData(int saveSlot)
@@ -147,22 +146,6 @@ public class DataManipulationManager : MonoBehaviour
     }
     private void ResetSaveSlot(int saveSlot)
     {
-        PlayerData tmpData = SavePlayerData.GenerateFreshSaveFile(saveSlot);
-        /*
-        Debug.Log("Resetting save slot " + _saveSlotDropDown.value);
-
-        UnityEngine.Object[] inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem));
-
-        SceneInventoryList.Clear();
-        foreach (InventoryItem item in inventoryItemTypeList)
-        {
-            InventoryItemData tmpItem = new InventoryItemData();
-            tmpItem.Name = item.Name;
-            tmpItem.SpritePath = GS.InventoryGraphics(item.Image.name);
-            tmpItem.Amount = 0;
-            SceneInventoryList.Add(tmpItem);
-        }
-        //SavePlayerData.SavePlayer(saveSlot, SceneInventoryList, SceneEventNodes, HM.ParseStringToFloat(_TimePlayedText.text));
-        SavePlayerData.SavePlayer(saveSlot, DataStorage.Singleton.playerData);*/
+        SavePlayerData.GenerateFreshSaveFile(saveSlot);
     }
 }

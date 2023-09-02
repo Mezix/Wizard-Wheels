@@ -146,5 +146,9 @@ public static class GS // Stands for "Get Strings"
     {
         return ScriptableObjects() + "VehicleConstellations/" + filename;
     }
+    public static string VehicleStats(string filename = "")
+    {
+        return ScriptableObjects() + "VehicleStats/" + filename;
+    }
 
 }

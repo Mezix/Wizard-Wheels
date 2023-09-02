@@ -83,14 +83,14 @@ public class OverworldWizard : MonoBehaviour
         {
             REF.mCam.SetZoom(REF.mCam.closestZoom);
             REF.mCam.SetCamParent(REF.mMenu.orb.transform);
-            REF.mUI._selectVehicleUIObjects.SetActive(true);
-            REF.TankPreview.ShowTank(REF.TankPreview.tankIndex);
+            REF.mUI.menuSceneTankStats.Show(true);
+            REF.TankPreview.ShowTank(REF.TankPreview.vehicleIndex);
         }
         else
         {
             REF.mCam.SetZoom(REF.mCam.furthestZoom);
             REF.mCam.SetCamParent(transform);
-            REF.mUI._selectVehicleUIObjects.SetActive(false);
+            REF.mUI.menuSceneTankStats.Show(false);
             REF.TankPreview.HideAllTanks();
         }
     }

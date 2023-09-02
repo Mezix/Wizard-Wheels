@@ -10,7 +10,7 @@ public class MainMenuSceneManager : MonoBehaviour
     //  Player
     public OverworldWizard wiz;
     public GameObject orb;
-    public MainMenuSceneTankPreview _mmTankPreview;
+    public MainMenuSceneTankGeometry _mmTankPreview;
 
     private void Awake()
     {

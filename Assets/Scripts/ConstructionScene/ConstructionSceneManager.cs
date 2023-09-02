@@ -15,10 +15,10 @@ public class ConstructionSceneManager : MonoBehaviour
 
     private bool newTank;
     [SerializeField]
-    private TankRoomConstellation tankToEdit;
+    private VehicleConstellation tankToEdit;
 
     // PlayerMode
-    public VehicleData _tmpVehicleData;
+    public VehicleGeometry _tmpVehicleData;
 
     public enum CreatorMode
     {
@@ -50,7 +50,7 @@ public class ConstructionSceneManager : MonoBehaviour
             else
             {
                 newTank = true;
-                tankToEdit = new TankRoomConstellation();
+                tankToEdit = new VehicleConstellation();
                 ConstructionSceneUI.instance._inputField.textComponent.text = "Untitled";
             }
         }
@@ -70,17 +70,17 @@ public class ConstructionSceneManager : MonoBehaviour
 #endif
         }
         if (_editorlaunchMode.Equals(CreatorMode.DevMode)) tankToEdit.SaveVehicle(_tmpVehicleData);
-        else DataStorage.Singleton.playerData.vehicleData = _tmpVehicleData;
+        else DataStorage.Singleton.playerData.Geometry = _tmpVehicleData;
     }
     public void LoadVehicle()
     {
         if (_editorlaunchMode.Equals(CreatorMode.DevMode))
         {
-            _tmpVehicleData = DataStorage.Singleton.CopyTankRoomConstellationToVehicleData(tankToEdit);
+            _tmpVehicleData = ConvertVehicleConstellationToVehicleData(tankToEdit);
         }
         else
         {
-            DataStorage.CopyVehicleDataFromTo(DataStorage.Singleton.playerData.vehicleData, ref _tmpVehicleData);
+            CopyVehicleDataFromTo(DataStorage.Singleton.playerData.Geometry, ref _tmpVehicleData);
         }
         ConstructionSceneGeometry.instance.LoadVehicle();
         ConstructionSceneUI.instance._inputField.placeholder.GetComponent<Text>().text = tankToEdit.name;

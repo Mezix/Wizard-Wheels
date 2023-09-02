@@ -90,9 +90,15 @@ public static class SavePlayerData
             tmpItem.Amount = 0;
             freshInventory.Add(tmpItem);
         }
-        TankRoomConstellation StarterVehicleConstellation = Resources.Load(GS.VehicleConstellations("StarterVehicle"), typeof(TankRoomConstellation)) as TankRoomConstellation;
-        VehicleData freshVehicleData = DataStorage.Singleton.CopyTankRoomConstellationToVehicleData(StarterVehicleConstellation);
-        PlayerData freshPlayerData = new PlayerData(freshInventory, wizardData, freshRoute, timePlayed, 0, freshVehicleData);
+        //  Load default vehicle
+        string vehicleType = "StarterVehicle1";
+        VehicleConstellation StarterVehicleConstellation = Resources.Load(GS.VehicleConstellations(vehicleType), typeof(VehicleConstellation)) as VehicleConstellation;
+        VehicleStats vehicleStats = Resources.Load(GS.VehicleStats(vehicleType+"stats"), typeof(VehicleStats)) as VehicleStats;
+        
+        //  Convert vehicle
+        VehicleGeometry freshVehicleData = ConvertVehicleConstellationToVehicleData(StarterVehicleConstellation);
+        VehicleInfo freshVehicleInfo = ConvertVehicleStatsToVehicleInfo(vehicleStats);
+        PlayerData freshPlayerData = new PlayerData(freshInventory, wizardData, freshRoute, timePlayed, 0, freshVehicleData, freshVehicleInfo);
         SavePlayer(saveSlot, freshPlayerData);
         return freshPlayerData;
     }

@@ -14,6 +14,7 @@ public class EnemyTankController : TankController
     public EnemyIndicator _indicator;
 
     public NavMeshAgent _navMeshAgent;
+    public int scrapDropAmount = 50;
     private void Awake()
     {
         InitEnemyScripts();
@@ -51,7 +52,7 @@ public class EnemyTankController : TankController
         GameObject ui = (GameObject) Instantiate(Resources.Load(GS.Enemy("EnemyUI")));
         enemyUI = ui.GetComponent<EnemyUI>();
         enemyUI.transform.SetParent(transform, false);
-        enemyUI._allObjects.transform.localPosition = new Vector2(0, (0.5f * TGeo._vehicleData._savedYSize * 100));
+        enemyUI._allObjects.transform.localPosition = new Vector2(0, (0.5f * TGeo._vehicleData.SavedYSize * 100));
         THealth.GetComponent<EnemyTankHealth>()._healthBarParent = enemyUI.hpBar;
     }
     private void Update()
@@ -65,10 +66,10 @@ public class EnemyTankController : TankController
     }
     private void InitTankStats()
     {
-        if(_tStats)
+        if(_vehicleInfo != null)
         {
-            THealth._maxHealth = _tStats._tankHealth;
-            _tankName = _tStats._tankName;
+            THealth._maxHealth = _vehicleInfo.TankHealth;
+            _tankName = _vehicleInfo.TankName;
         }
         else
         {
@@ -81,14 +82,14 @@ public class EnemyTankController : TankController
     }
     private void InitNavMeshStats()
     {
-        _navMeshAgent.speed = _tStats._tankMaxSpeed;
-        _navMeshAgent.angularSpeed = _tStats._rotationSpeed;
-        _navMeshAgent.acceleration = _tStats._tankAccel / Time.deltaTime;
-        _navMeshAgent.radius = TGeo._vehicleData._savedXSize/2f;
-        _navMeshAgent.height = TGeo._vehicleData._savedYSize/2f;
-        _navMeshAgent.baseOffset = TGeo._vehicleData._savedYSize/2f;
+        _navMeshAgent.speed = _vehicleInfo.TankMaxSpeed;
+        _navMeshAgent.angularSpeed = _vehicleInfo.RotationSpeed;
+        _navMeshAgent.acceleration = _vehicleInfo.TankAccel / Time.deltaTime;
+        _navMeshAgent.radius = TGeo._vehicleData.SavedXSize/2f;
+        _navMeshAgent.height = TGeo._vehicleData.SavedYSize/2f;
+        _navMeshAgent.baseOffset = TGeo._vehicleData.SavedYSize/2f;
 
-        _navMeshAgent.stoppingDistance = _navMeshAgent.radius + REF.PCon.TGeo._vehicleData._savedXSize;
+        _navMeshAgent.stoppingDistance = _navMeshAgent.radius + REF.PCon.TGeo._vehicleData.SavedXSize;
     }
     public override void TakeDamage(int damage)
     {
@@ -139,7 +140,7 @@ public class EnemyTankController : TankController
 
         LootCrate scrap = Instantiate(Resources.Load(GS.Prefabs("LootCrate"), typeof(LootCrate)) as LootCrate);
         scrap.transform.position = transform.position;
-        scrap.InitScrap(UnityEngine.Random.Range(_tStats._scrapDropAmount, _tStats._scrapDropAmount + 10));
+        scrap.InitScrap(UnityEngine.Random.Range(scrapDropAmount, scrapDropAmount + 10));
         //Debug.Log(_tStats._tankName + " has been destroyed.");
         Events.instance.EnemyDestroyed(this);
     }

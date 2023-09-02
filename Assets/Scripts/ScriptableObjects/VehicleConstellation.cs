@@ -10,7 +10,7 @@ using static PlayerData;
 
 [Serializable]
 [CreateAssetMenu(menuName = "ScriptableObjects/TankRoomConstellations")]
-public class TankRoomConstellation : ScriptableObject
+public class VehicleConstellation : ScriptableObject
 {
     public int _savedXSize = 0; //just the amount of Tiles in a given direction
     public int _savedYSize = 0;
@@ -24,7 +24,7 @@ public class TankRoomConstellation : ScriptableObject
 
     public XValues _savedMatrix = null;
 
-    public void SaveVehicle(VehicleData data)
+    public void SaveVehicle(VehicleGeometry data)
     {
         CopyVehicleDataToTankRoomConstellation(data);
 
@@ -36,10 +36,10 @@ public class TankRoomConstellation : ScriptableObject
     }
 
 
-    public void CopyVehicleDataToTankRoomConstellation(VehicleData data)
+    public void CopyVehicleDataToTankRoomConstellation(VehicleGeometry data)
     {
-        _savedXSize = data._savedXSize;
-        _savedYSize = data._savedYSize;
+        _savedXSize = data.SavedXSize;
+        _savedYSize = data.SavedYSize;
 
         RoofColorR = data.RoofColorR;
         RoofColorG = data.RoofColorG;
@@ -49,24 +49,24 @@ public class TankRoomConstellation : ScriptableObject
         FloorColorG = data.FloorColorG;
         FloorColorB = data.FloorColorB;
 
-        _savedMatrix = new XValues(data._savedXSize, data._savedYSize);
+        _savedMatrix = new XValues(data.SavedXSize, data.SavedYSize);
 
         for (int x = 0; x < _savedXSize; x++)
         {
             for (int y = 0; y < _savedYSize; y++)
             {
                 _savedMatrix.XArray[x].YStuff[y] = new RoomInfo();
-                _savedMatrix.XArray[x].YStuff[y].RoomPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath;
-                _savedMatrix.XArray[x].YStuff[y].FloorType = data.VehicleMatrix.XArray[x].YStuff[y].FloorType;
-                _savedMatrix.XArray[x].YStuff[y].RoofType = data.VehicleMatrix.XArray[x].YStuff[y].RoofType;
-                _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath;
-                _savedMatrix.XArray[x].YStuff[y].MovementPrefabPath = data.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath;
-                _savedMatrix.XArray[x].YStuff[y].SystemDirection = data.VehicleMatrix.XArray[x].YStuff[y].SystemDirection;
+                _savedMatrix.XArray[x].YStuff[y].RoomPrefabPath = data.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].FloorType = data.VehicleMatrix.Columns[x].ColumnContent[y].FloorType;
+                _savedMatrix.XArray[x].YStuff[y].RoofType = data.VehicleMatrix.Columns[x].ColumnContent[y].RoofType;
+                _savedMatrix.XArray[x].YStuff[y].SystemPrefabPath = data.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].MovementPrefabPath = data.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath;
+                _savedMatrix.XArray[x].YStuff[y].SystemDirection = data.VehicleMatrix.Columns[x].ColumnContent[y].SystemDirection;
 
-                _savedMatrix.XArray[x].YStuff[y]._topWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._topWallExists;
-                _savedMatrix.XArray[x].YStuff[y]._rightWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._rightWallExists;
-                _savedMatrix.XArray[x].YStuff[y]._bottomWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._bottomWallExists;
-                _savedMatrix.XArray[x].YStuff[y]._leftWallExists = data.VehicleMatrix.XArray[x].YStuff[y]._leftWallExists;
+                _savedMatrix.XArray[x].YStuff[y]._topWallExists = data.VehicleMatrix.Columns[x].ColumnContent[y]._topWallExists;
+                _savedMatrix.XArray[x].YStuff[y]._rightWallExists = data.VehicleMatrix.Columns[x].ColumnContent[y]._rightWallExists;
+                _savedMatrix.XArray[x].YStuff[y]._bottomWallExists = data.VehicleMatrix.Columns[x].ColumnContent[y]._bottomWallExists;
+                _savedMatrix.XArray[x].YStuff[y]._leftWallExists = data.VehicleMatrix.Columns[x].ColumnContent[y]._leftWallExists;
             }
         }
     }
