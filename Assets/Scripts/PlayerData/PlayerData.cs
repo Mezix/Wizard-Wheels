@@ -153,6 +153,7 @@ public class PlayerData
         public float FloorColorR = 1;
         public float FloorColorG = 1;
         public float FloorColorB = 1;
+
         public float RoofColorR = 1;
         public float RoofColorG = 1;
         public float RoofColorB = 1;
@@ -212,13 +213,13 @@ public class PlayerData
         public bool _bottomWallExists;
         public bool _leftWallExists;
 
-        public static RoomInfo EmptyRoomInfo()
+        public static RoomInfo NewRoomInfo()
         {
             return new RoomInfo {
                 RoomPrefabPath = "",
                 FloorType = FloorType.FloorA,
                 RoofType = RoofType.RoofA,
-                RoomCurrentHP = 5,
+                RoomCurrentHP = -1,
                 SystemPrefabPath = "",
                 MovementPrefabPath = "",
                 SystemDirection = ASystem.DirectionToSpawnIn.Right,

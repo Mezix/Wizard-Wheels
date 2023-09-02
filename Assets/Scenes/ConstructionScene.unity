@@ -65799,7 +65799,7 @@ GameObject:
   - component: {fileID: 604466274}
   - component: {fileID: 604466275}
   m_Layer: 0
-  m_Name: TankCreatorGeometry
+  m_Name: Construction Scene Geometry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69570,7 +69570,7 @@ GameObject:
   - component: {fileID: 1423311038}
   - component: {fileID: 1423311042}
   m_Layer: 5
-  m_Name: UI
+  m_Name: Construction Scene UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69971,7 +69971,7 @@ GameObject:
   - component: {fileID: 1489770275}
   - component: {fileID: 1489770276}
   m_Layer: 0
-  m_Name: TankCreatorTools
+  m_Name: Construction Scene Tools
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73887,7 +73887,7 @@ GameObject:
   - component: {fileID: 2123590648}
   - component: {fileID: 2123590649}
   m_Layer: 0
-  m_Name: CreateTankSceneManager
+  m_Name: Construction Scene Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73929,13 +73929,14 @@ MonoBehaviour:
       XArray: []
     _savedXSize: 0
     _savedYSize: 0
+    VehicleRoomMaxHP: 0
     FloorColorR: 1
     FloorColorG: 1
     FloorColorB: 1
     RoofColorR: 1
     RoofColorG: 1
     RoofColorB: 1
-  _editorlaunchMode: 0
+  _editorlaunchMode: 1
 --- !u!1001 &6234446864216540456
 PrefabInstance:
   m_ObjectHideFlags: 0

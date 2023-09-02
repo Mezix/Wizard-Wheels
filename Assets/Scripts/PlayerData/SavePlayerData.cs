@@ -69,7 +69,14 @@ public static class SavePlayerData
                 RoomPositionX = -1,
                 RoomPositionY = -1,
                 Happiness = 0
-            }
+            },
+            new WizardData
+            {
+                WizType = WizardType.FirstAidFiddler,
+                RoomPositionX = -1,
+                RoomPositionY = -1,
+                Happiness = 0
+            },
         };
         List<EventNode> freshRoute = GenerateTestRoute();
         float timePlayed = 0;

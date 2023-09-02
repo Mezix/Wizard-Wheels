@@ -139,7 +139,7 @@ public class EngineUI : MonoBehaviour
             if(!REF.PCon.TMov.cruiseModeOn) _engineIdleSound.gameObject.SetActive(false);
             if (engineSoundOn)
             {
-                _engineStoppingSound.Play();
+                //_engineStoppingSound.Play();
             }
         }
         engineSoundOn = engineStarting;

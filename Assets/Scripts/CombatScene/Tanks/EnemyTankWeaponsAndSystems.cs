@@ -46,7 +46,7 @@ public class EnemyTankWeaponsAndSystems : TankWeaponsAndSystems
 
     private GameObject FindTarget()
     {
-        Room[] possibleTargets = REF.PCon.TGeo.RoomsParent.GetComponentsInChildren<Room>();
+        Room[] possibleTargets = REF.PCon.TGeo._roomsParent.GetComponentsInChildren<Room>();
         return possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Length-1)].gameObject;
     }
     public override void WeaponBehaviourInDeath()

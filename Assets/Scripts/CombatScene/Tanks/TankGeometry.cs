@@ -9,9 +9,10 @@ public class TankGeometry : MonoBehaviour
 {
     public VehicleData _vehicleData;
     public RoomPosition[,] RoomPosMatrix;
-    public GameObject TankGeometryParent { get; private set; }
-    public GameObject RoomsParent { get; private set; }
-    public List<Room> AllRooms { get; private set; }
+    public GameObject _tankGeometryParent;
+    public GameObject _roomsParent;
+    public List<Room> _allRooms;
+
     [SerializeField]
     private List<SpriteRenderer> systemIcons = new List<SpriteRenderer>();
     public Color FloorColor;
@@ -29,11 +30,11 @@ public class TankGeometry : MonoBehaviour
     private void LoadRooms()
     {
         RoomPosMatrix = new RoomPosition[_vehicleData._savedXSize, _vehicleData._savedYSize];
-        AllRooms = new List<Room>();
+        _allRooms = new List<Room>();
 
-        RoomsParent = new GameObject("All Tank Rooms");
-        RoomsParent.transform.parent = gameObject.transform;
-        RoomsParent.transform.localPosition = Vector3.zero;
+        _roomsParent = new GameObject("All Tank Rooms");
+        _roomsParent.transform.parent = gameObject.transform;
+        _roomsParent.transform.localPosition = Vector3.zero;
 
         for (int y = 0; y < _vehicleData._savedYSize; y++)
         {
@@ -42,13 +43,12 @@ public class TankGeometry : MonoBehaviour
                 if (_vehicleData.VehicleMatrix.XArray[x].YStuff[y].Equals(new RoomInfo()) 
                     || _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath == null
                     || _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath == "") continue;
-
                 Room room = Instantiate(Resources.Load(_vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath, typeof(Room))) as Room;
                 room._tGeo = this;
                 room.ID = _vehicleData.GetHashCode();
-                room.gameObject.transform.parent = RoomsParent.transform;
+                room.gameObject.transform.parent = _roomsParent.transform;
                 room.gameObject.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
-                AllRooms.Add(room);
+                _allRooms.Add(room);
 
                 room._floorType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].FloorType;
                 room._roofType = _vehicleData.VehicleMatrix.XArray[x].YStuff[y].RoofType;
@@ -76,7 +76,6 @@ public class TankGeometry : MonoBehaviour
                 RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1]._yPos = y + room._sizeY - 1;
 
                 RoomPosMatrix[x + room._sizeX - 1, y + room._sizeY - 1].name = "X" + (x + room._sizeX - 1).ToString() + " , Y" + (y + room._sizeY - 1).ToString();
-
             }
         }
     }
@@ -187,25 +186,25 @@ public class TankGeometry : MonoBehaviour
     private void PositionTankObjects()
     {
         //create overarching object for all our spawned objects
-        TankGeometryParent = new GameObject("Tank Geometry Parent");
-        TankGeometryParent.transform.parent = gameObject.transform;
-        TankGeometryParent.transform.localPosition = Vector3.zero;
+        _tankGeometryParent = new GameObject("Tank Geometry Parent");
+        _tankGeometryParent.transform.parent = gameObject.transform;
+        _tankGeometryParent.transform.localPosition = Vector3.zero;
 
         // parent all spawnedObjects to this parent
         //RoomsParent.transform.parent = RoofParent.transform.parent = FloorTilemap.transform.parent = TankGeometryParent.transform;
-        RoomsParent.transform.parent = TankGeometryParent.transform;
+        _roomsParent.transform.parent = _tankGeometryParent.transform;
 
         //  Rooms have their transform origin point at the center of their rooms, so add a rooms x length, and subtract a rooms y length
-        TankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
+        _tankGeometryParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
 
         //  Now move to the halfway point
-        TankGeometryParent.transform.localPosition += new Vector3(-0.25f * _vehicleData._savedXSize, 0.25f * _vehicleData._savedYSize, 0);
+        _tankGeometryParent.transform.localPosition += new Vector3(-0.25f * _vehicleData._savedXSize, 0.25f * _vehicleData._savedYSize, 0);
 
         //print("finished creating Tank Geometry");
     }
     public void ShowRoof(bool b)
     {
-        foreach(Room r in AllRooms)
+        foreach(Room r in _allRooms)
         {
             r.ShowRoof(b);
         }
@@ -230,9 +229,9 @@ public class TankGeometry : MonoBehaviour
     }
     public Vector2Int FindRoomPositionWithSpace()
     {
-        List<Room> allRoomsTMP = AllRooms;
+        List<Room> allRoomsTMP = _allRooms;
         // searches through all possible rooms until it finds one it can occupy
-        for (int i = 0; i < AllRooms.Count; i++)
+        for (int i = 0; i < _allRooms.Count; i++)
         {
             Room tmpRoom = allRoomsTMP[UnityEngine.Random.Range(0, allRoomsTMP.Count - 1)];
             for (int j = 0; j < tmpRoom.freeRoomPositions.Length; j++)

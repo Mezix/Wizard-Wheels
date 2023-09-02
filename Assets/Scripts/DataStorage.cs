@@ -134,29 +134,44 @@ public class DataStorage : MonoBehaviour
 
         return data;
     }
-    public static void CopyVehicleDataFromTo(ref PlayerVehicleMatrix CopyFrom, ref PlayerVehicleMatrix CopyTo)
+    public static void CopyVehicleDataFromTo(VehicleData CopyFrom, ref VehicleData CopyTo)
     {
-        CopyTo = new PlayerVehicleMatrix(CopyFrom.XArray.Length, CopyFrom.XArray[0].YStuff.Length);
-
-        for (int x = 0; x < CopyFrom.XArray.Length; x++)
+        CopyTo = new VehicleData
         {
-            for (int y = 0; y < CopyFrom.XArray[x].YStuff.Length; y++)
+            _savedXSize = CopyFrom._savedXSize,
+            _savedYSize = CopyFrom._savedYSize,
+            VehicleRoomMaxHP = CopyFrom.VehicleRoomMaxHP,
+
+            RoofColorR = CopyFrom.RoofColorR,
+            RoofColorG = CopyFrom.RoofColorG,
+            RoofColorB = CopyFrom.RoofColorB,
+
+            FloorColorR = CopyFrom.FloorColorR,
+            FloorColorG = CopyFrom.FloorColorG,
+            FloorColorB = CopyFrom.FloorColorB,
+
+            VehicleMatrix = new PlayerVehicleMatrix(CopyFrom.VehicleMatrix.XArray.Length, CopyFrom.VehicleMatrix.XArray[0].YStuff.Length)
+        };
+
+        for (int x = 0; x < CopyFrom.VehicleMatrix.XArray.Length; x++)
+        {
+            for (int y = 0; y < CopyFrom.VehicleMatrix.XArray[x].YStuff.Length; y++)
             {
-                if (CopyFrom.XArray[x].YStuff[y] == null) continue;
+                if (CopyFrom.VehicleMatrix.XArray[x].YStuff[y] == null) continue;
 
-                CopyTo.XArray[x].YStuff[y] = new RoomInfo();
-                CopyTo.XArray[x].YStuff[y].RoomPrefabPath = CopyFrom.XArray[x].YStuff[y].RoomPrefabPath;
-                CopyTo.XArray[x].YStuff[y].RoomCurrentHP = CopyFrom.XArray[x].YStuff[y].RoomCurrentHP;
-                CopyTo.XArray[x].YStuff[y].RoofType = CopyFrom.XArray[x].YStuff[y].RoofType;
-                CopyTo.XArray[x].YStuff[y].FloorType = CopyFrom.XArray[x].YStuff[y].FloorType;
-                CopyTo.XArray[x].YStuff[y].SystemPrefabPath = CopyFrom.XArray[x].YStuff[y].SystemPrefabPath;
-                CopyTo.XArray[x].YStuff[y].SystemDirection = CopyFrom.XArray[x].YStuff[y].SystemDirection;
-                CopyTo.XArray[x].YStuff[y].MovementPrefabPath = CopyFrom.XArray[x].YStuff[y].MovementPrefabPath;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y] = new RoomInfo();
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath = CopyFrom.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y].RoomCurrentHP = CopyFrom.VehicleMatrix.XArray[x].YStuff[y].RoomCurrentHP;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y].RoofType = CopyFrom.VehicleMatrix.XArray[x].YStuff[y].RoofType;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y].FloorType = CopyFrom.VehicleMatrix.XArray[x].YStuff[y].FloorType;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath = CopyFrom.VehicleMatrix.XArray[x].YStuff[y].SystemPrefabPath;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y].SystemDirection = CopyFrom.VehicleMatrix.XArray[x].YStuff[y].SystemDirection;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath = CopyFrom.VehicleMatrix.XArray[x].YStuff[y].MovementPrefabPath;
 
-                CopyTo.XArray[x].YStuff[y]._topWallExists = CopyFrom.XArray[x].YStuff[y]._topWallExists;
-                CopyTo.XArray[x].YStuff[y]._bottomWallExists = CopyFrom.XArray[x].YStuff[y]._bottomWallExists;
-                CopyTo.XArray[x].YStuff[y]._leftWallExists = CopyFrom.XArray[x].YStuff[y]._leftWallExists;
-                CopyTo.XArray[x].YStuff[y]._rightWallExists = CopyFrom.XArray[x].YStuff[y]._rightWallExists;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y]._topWallExists = CopyFrom.VehicleMatrix.XArray[x].YStuff[y]._topWallExists;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y]._bottomWallExists = CopyFrom.VehicleMatrix.XArray[x].YStuff[y]._bottomWallExists;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y]._leftWallExists = CopyFrom.VehicleMatrix.XArray[x].YStuff[y]._leftWallExists;
+                CopyTo.VehicleMatrix.XArray[x].YStuff[y]._rightWallExists = CopyFrom.VehicleMatrix.XArray[x].YStuff[y]._rightWallExists;
             }
         }
     }

@@ -27,19 +27,19 @@ public class ConstructionSceneGeometry : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift)) modifier = -1;
         if (Input.GetKeyDown(KeyCode.A))
         {
-            ModifyTankSize(1 * modifier, 0, 0, 0);
+            ModifyVehicleSize(1 * modifier, 0, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            ModifyTankSize(0, 1 * modifier, 0, 0);
+            ModifyVehicleSize(0, 1 * modifier, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            ModifyTankSize(0, 0, 1 * modifier, 0);
+            ModifyVehicleSize(0, 0, 1 * modifier, 0);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            ModifyTankSize(0, 0, 0, 1 * modifier);
+            ModifyVehicleSize(0, 0, 0, 1 * modifier);
         }
     }
     public void LoadVehicle()
@@ -144,14 +144,19 @@ public class ConstructionSceneGeometry : MonoBehaviour
             if (_roomPosMatrix[x, y])
                 Destroy(_roomPosMatrix[x, y].ParentRoom.gameObject);
             Destroy(_roomPosMatrix[x, y]._spawnedTire);
-            ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y] = new PlayerData.RoomInfo();
+            ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y] = PlayerData.RoomInfo.NewRoomInfo();
 
             AllRooms.Remove(_roomPosMatrix[x, y].ParentRoom);
             _roomPosMatrix[x, y] = null;
             return;
         }
-        ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomPrefabPath = GS.RoomPrefabs(roomToCreate.name);
-        ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y].RoomCurrentHP = ConstructionSceneManager.instance._tmpVehicleData.VehicleRoomMaxHP;
+        ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.XArray[x].YStuff[y] = new PlayerData.RoomInfo
+        {
+            RoomPrefabPath = GS.RoomPrefabs(roomToCreate.name),
+            FloorType = FloorType.FloorA,
+            RoofType = RoofType.RoofA,
+            RoomCurrentHP = ConstructionSceneManager.instance._tmpVehicleData.VehicleRoomMaxHP
+        };
 
         GameObject rGO = Instantiate(roomToCreate);
         Room room = rGO.GetComponent<Room>();
@@ -468,7 +473,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
         sr.drawMode = SpriteDrawMode.Sliced;
         sr.color = new Color(1f, 0.2f, 0.2f, 0.25f);
         sr.sprite = Resources.Load(GS.UIGraphics("TankBounds"), typeof(Sprite)) as Sprite;
-        ResizeTankBounds();
+        ResizeTankBounds(new Vector2Int(ConstructionSceneManager.instance._tmpVehicleData._savedXSize, ConstructionSceneManager.instance._tmpVehicleData._savedYSize));
         ConstructionSceneTools.instance._alignmentGrid.transform.position =
             _tankBounds.transform.position +
             new Vector3(ConstructionSceneManager.instance._tmpVehicleData._savedXSize / -4f, ConstructionSceneManager.instance._tmpVehicleData._savedYSize / 4f);
@@ -489,7 +494,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
         print(matrix);
     }
 
-    public void ModifyTankSize(int left, int right, int up, int down)
+    public void ModifyVehicleSize(int left, int right, int up, int down)
     {
         int xOldTankSize = ConstructionSceneManager.instance._tmpVehicleData._savedXSize;
         int yOldTankSize = ConstructionSceneManager.instance._tmpVehicleData._savedYSize;
@@ -540,14 +545,28 @@ public class ConstructionSceneGeometry : MonoBehaviour
         }
         //  Save Changes into the temp
 
-        DataStorage.CopyVehicleDataFromTo(ref expandedMatrix, ref ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix);
-        ConstructionSceneManager.instance._tmpVehicleData._savedXSize = xExpandedTankSize;
-        ConstructionSceneManager.instance._tmpVehicleData._savedYSize = yExpandedTankSize;
+        VehicleData expandedVehicleData = new VehicleData()
+        {
+            VehicleMatrix = expandedMatrix,
+            _savedXSize = xExpandedTankSize,
+            _savedYSize = yExpandedTankSize,
+            VehicleRoomMaxHP = ConstructionSceneManager.instance._tmpVehicleData.VehicleRoomMaxHP,
+
+            FloorColorR = ConstructionSceneManager.instance._tmpVehicleData.FloorColorR,
+            FloorColorG = ConstructionSceneManager.instance._tmpVehicleData.FloorColorG,
+            FloorColorB = ConstructionSceneManager.instance._tmpVehicleData.FloorColorB,
+
+            RoofColorR = ConstructionSceneManager.instance._tmpVehicleData.RoofColorR,
+            RoofColorG = ConstructionSceneManager.instance._tmpVehicleData.RoofColorG,
+            RoofColorB = ConstructionSceneManager.instance._tmpVehicleData.RoofColorB,
+        };
+
+        DataStorage.CopyVehicleDataFromTo(expandedVehicleData, ref ConstructionSceneManager.instance._tmpVehicleData);
         _roomPosMatrix = expandedPosMatrix;
 
         //Show Grid Size & Reposition geometry
 
-        ResizeTankBounds();
+        ResizeTankBounds(new Vector2Int(xExpandedTankSize, yExpandedTankSize));
         _tankBounds.transform.localPosition += 0.25f * new Vector3(-left + right, up - down, 0);
 
         Vector3 shiftVector = 0.5f * new Vector3(-left, up);
@@ -562,10 +581,10 @@ public class ConstructionSceneGeometry : MonoBehaviour
             if (r) r.transform.localPosition -= shiftVector;
         }
     }
-    private void ResizeTankBounds()
+    private void ResizeTankBounds(Vector2Int newSize)
     {
-        _tankBounds.GetComponent<SpriteRenderer>().size = new Vector2(ConstructionSceneManager.instance._tmpVehicleData._savedXSize / 2f, ConstructionSceneManager.instance._tmpVehicleData._savedYSize / 2f);
-        ConstructionSceneUI.instance.UpdateSize(ConstructionSceneManager.instance._tmpVehicleData._savedXSize, ConstructionSceneManager.instance._tmpVehicleData._savedYSize);
+        _tankBounds.GetComponent<SpriteRenderer>().size = new Vector2(newSize.x / 2f, newSize.y / 2f);
+        ConstructionSceneUI.instance.UpdateSize(newSize.x, newSize.y);
     }
     private Vector2Int GetRoomSize(int x, int y)
     {

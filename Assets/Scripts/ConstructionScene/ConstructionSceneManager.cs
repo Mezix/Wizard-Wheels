@@ -30,6 +30,7 @@ public class ConstructionSceneManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        //hideFlags = HideFlags.DontSaveInEditor;
     }
     private void Start()
     {
@@ -79,11 +80,8 @@ public class ConstructionSceneManager : MonoBehaviour
         }
         else
         {
-            DataStorage.CopyVehicleDataFromTo(ref DataStorage.Singleton.playerData.vehicleData.VehicleMatrix, ref _tmpVehicleData.VehicleMatrix);
-            _tmpVehicleData._savedXSize = DataStorage.Singleton.playerData.vehicleData._savedXSize;
-            _tmpVehicleData._savedYSize = DataStorage.Singleton.playerData.vehicleData._savedYSize;
+            DataStorage.CopyVehicleDataFromTo(DataStorage.Singleton.playerData.vehicleData, ref _tmpVehicleData);
         }
-
         ConstructionSceneGeometry.instance.LoadVehicle();
         ConstructionSceneUI.instance._inputField.placeholder.GetComponent<Text>().text = tankToEdit.name;
     }

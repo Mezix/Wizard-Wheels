@@ -16,7 +16,6 @@ public abstract class AUnit : MonoBehaviour
     protected Shader defaultShader;
     public Animator WizardAnimator { get; set; }
     public bool UnitSelected { get; set; }
-    //public bool UnitIsMoving { get; set; }
     public GameObject UnitObj { get; set; }
     public PlayerWizardUI PlayerWizardUI { get; set; }
     public int Index { get; set; }
