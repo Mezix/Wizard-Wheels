@@ -100,6 +100,7 @@ MonoBehaviour:
   _dead: 0
   _tankColor: {r: 0, g: 0, b: 0, a: 1}
   _UIWizards: []
+  _compositeCollider: {fileID: 0}
 --- !u!114 &1516038059364624767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 0
   _currentHealth: 0
+  _shouldBeInvincible: 1
   fullHealthSound: {fileID: 0}
   healSound: {fileID: 0}
 --- !u!114 &7588825126969580237
@@ -305,7 +307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6377603516649744266
 Transform:
   m_ObjectHideFlags: 0

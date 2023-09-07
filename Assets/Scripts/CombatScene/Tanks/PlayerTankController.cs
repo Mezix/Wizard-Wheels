@@ -35,7 +35,6 @@ public class PlayerTankController : TankController
     public void SpawnTank()
     {
         TGeo.CreateTankGeometry();
-        //TGeo.AddScrapCollector();
         TWep.SetUpWeapons(true, _tankColor);
         TWep.SetUpSystems(true);
         TMov.InitSpeedStats();
@@ -43,11 +42,11 @@ public class PlayerTankController : TankController
         TRot.InitRotationSpeed();
         TRot.GetComponent<PlayerTankRotation>().InitTankRotation();
         TWep.CreateWeaponsUI();
+
         InitTankStats();
         _wizardData = DataStorage.Singleton.playerData.WizardList;
         SpawnWizards();
         SpawnWizardsUI();
-        //TGeo.VisualizeMatrix();
     }
 
     private void SpawnWizardsUI()
@@ -211,7 +210,7 @@ public class PlayerTankController : TankController
     }
     public override void TakeDamage(int damage)
     {
-       // THealth.GetComponent<PlayerTankHealth>().TakeDamage(damage);
+        THealth.GetComponent<PlayerTankHealth>().TakeDamage(damage);
         REF.Cam.StartShake(0.1f, 0.1f);
     }
     public void InitiateDeathBehaviour()
