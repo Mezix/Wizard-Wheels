@@ -100,8 +100,8 @@ public class MouseCursor : MonoBehaviour
             int amountToSpawn = Mathf.Min(wizCount, freeRoomPos.Count);
             for(int i = 0; i < amountToSpawn; i++)
             {
-                movementIndicators[i].transform.parent = freeRoomPos[i].transform;
-                movementIndicators[i].transform.localPosition = Vector3.zero;
+                movementIndicators[i].transform.SetParent(freeRoomPos[i].transform, false);
+                movementIndicators[i].transform.localRotation = Quaternion.identity;
                 movementIndicators[i].SetActive(true);
             }
         }

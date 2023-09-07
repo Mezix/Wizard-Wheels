@@ -2,9 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.UI;
-using static PlayerData;
 
 public class PlayerTankController : TankController
 {
@@ -12,6 +9,7 @@ public class PlayerTankController : TankController
     public PlayerTankWeaponsAndSystems TWep { get; private set; }
     public List<PlayerWizardUI> _UIWizards = new List<PlayerWizardUI>();
     private RotationUpgradeField rotUpgrade;
+    public CompositeCollider2D _compositeCollider;
 
     private void Awake()
     {
@@ -251,5 +249,15 @@ public class PlayerTankController : TankController
         Destroy(gameObject);
 
         Events.instance.PlayerDestroyed();
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.TryGetComponent(out LootCrate crate))
+        {
+            crate.PickUpScrap(transform);
+            crate.DestroyScrapObject();
+        }
     }
 }

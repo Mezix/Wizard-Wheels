@@ -7,6 +7,7 @@ public class EngineSystem : ASystem
 {
     private UIUpgradeField _upgradeField;
     private List<int> _upgradeLevels = new List<int>();
+    public List<GameObject> EngineBlocks;
 
     public override void Awake()
     {
@@ -27,6 +28,8 @@ public class EngineSystem : ASystem
 
         _upgradeField._tempLevel = _upgradeField._currentLevel = 0;
         _upgradeField._maxLevel = 5;
+
+        SetLevel(_upgradeField._currentLevel);
     }
     private void CreateUpgradeField()
     {
@@ -51,6 +54,51 @@ public class EngineSystem : ASystem
         REF.CombatUI._upgradeScreen.RemoveTempScrap(_upgradeLevels[_upgradeField._tempLevel]);
         _upgradeField.SetTempLevel(_upgradeField._tempLevel);
     }
+
+    private void SetLevel(int level)
+    {
+        foreach (GameObject block in EngineBlocks)
+        {
+            block.SetActive(false);
+        }
+        switch (level)
+        {
+            case 0:
+                EngineBlocks[0].transform.gameObject.SetActive(true);
+                break;
+            case 1:
+                EngineBlocks[0].transform.gameObject.SetActive(true);
+                EngineBlocks[1].transform.gameObject.SetActive(true);
+                break;
+            case 2:
+                EngineBlocks[0].transform.gameObject.SetActive(true);
+                EngineBlocks[1].transform.gameObject.SetActive(true);
+                EngineBlocks[2].transform.gameObject.SetActive(true);
+                break;
+            case 3:
+                EngineBlocks[0].transform.gameObject.SetActive(true);
+                EngineBlocks[1].transform.gameObject.SetActive(true);
+                EngineBlocks[2].transform.gameObject.SetActive(true);
+                EngineBlocks[3].transform.gameObject.SetActive(true);
+                break;
+            case 4:
+                EngineBlocks[0].transform.gameObject.SetActive(true);
+                EngineBlocks[1].transform.gameObject.SetActive(true);
+                EngineBlocks[2].transform.gameObject.SetActive(true);
+                EngineBlocks[3].transform.gameObject.SetActive(true);
+                EngineBlocks[4].transform.gameObject.SetActive(true);
+                break;
+            default: //6 blocks or more
+                EngineBlocks[0].transform.gameObject.SetActive(true);
+                EngineBlocks[1].transform.gameObject.SetActive(true);
+                EngineBlocks[2].transform.gameObject.SetActive(true);
+                EngineBlocks[3].transform.gameObject.SetActive(true);
+                EngineBlocks[4].transform.gameObject.SetActive(true);
+                EngineBlocks[5].transform.gameObject.SetActive(true);
+                break;
+        }
+    }
+
     public void Downgrade()
     {
         if (_upgradeField._tempLevel <= _upgradeField._currentLevel) return;
@@ -63,6 +111,7 @@ public class EngineSystem : ASystem
         _upgradeField._currentLevel = _upgradeField._tempLevel;
         if (REF.CombatUI) REF.CombatUI._engineUIScript.UpdateEngineLevel(_upgradeField._currentLevel, _upgradeField._maxLevel);
         REF.CombatUI._upgradeScreen.UpdateMainScrapCounter();
+        SetLevel(_upgradeField._currentLevel);
     }
     public void RevertChanges()
     {
@@ -82,20 +131,5 @@ public class EngineSystem : ASystem
             }
         }
         REF.CombatUI._upgradeScreen.UpdateMainScrapCounter();
-    }
-
-    //  System Stuff
-
-    public override void InitSystemStats()
-    {
-
-    }
-    public override void StartInteraction()
-    {
-        IsBeingInteractedWith = true;
-    }
-    public override void StopInteraction()
-    {
-        IsBeingInteractedWith = false;
     }
 }

@@ -29,15 +29,24 @@ public abstract class ASystem : MonoBehaviour
     public bool _canBeRotated;
 
     protected bool IsBeingInteractedWith;
-    public abstract void InitSystemStats();
-    public abstract void StartInteraction();
-    public abstract void StopInteraction();
+    public virtual void InitSystemStats()
+    {
+        Debug.LogWarning("InitSystemStats() Not Implemented by " + name);
+    }
+    public virtual void StartInteraction()
+    {
+        IsBeingInteractedWith = true;
+    }
+    public virtual void StopInteraction()
+    {
+        IsBeingInteractedWith = false;
+    }
 
     public virtual void Awake()
     {
         SystemObj = gameObject;
     }
-    public void SpawnInCorrectDirection()
+    public virtual void SpawnInCorrectDirection()
     {
         if (!_canBeRotated) return;
         if (_direction.Equals(DirectionToSpawnIn.Up)) HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, 90));

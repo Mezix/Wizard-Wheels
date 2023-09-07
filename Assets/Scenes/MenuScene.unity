@@ -231,7 +231,7 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -241,7 +241,7 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -291,12 +291,12 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 150
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -205
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -2267,11 +2267,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 0.9622642, g: 0.6356761, b: 0.54013884, a: 1}
+    m_HighlightedColor: {r: 0.6037736, g: 0.28797868, b: 0.20220721, a: 1}
+    m_PressedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_SelectedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_DisabledColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -6138,11 +6138,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 0.9622642, g: 0.6356761, b: 0.54013884, a: 1}
+    m_HighlightedColor: {r: 0.6037736, g: 0.28797868, b: 0.20220721, a: 1}
+    m_PressedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_SelectedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_DisabledColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -6157,7 +6157,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1880887895}
+  m_TargetGraphic: {fileID: 1120217192}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -21756,11 +21756,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 0.9622642, g: 0.6356761, b: 0.54013884, a: 1}
+    m_HighlightedColor: {r: 0.6037736, g: 0.28797868, b: 0.20220721, a: 1}
+    m_PressedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_SelectedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_DisabledColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -21922,7 +21922,7 @@ GameObject:
   - component: {fileID: 810388102}
   - component: {fileID: 810388101}
   m_Layer: 5
-  m_Name: SettingsText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25456,7 +25456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1267169484
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25865,7 +25865,7 @@ GameObject:
   - component: {fileID: 1286324899}
   - component: {fileID: 1286324898}
   m_Layer: 5
-  m_Name: SettingsText
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26817,7 +26817,7 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -26827,7 +26827,7 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -26877,12 +26877,12 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 150
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -28659,11 +28659,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 0.9622642, g: 0.6356761, b: 0.54013884, a: 1}
+    m_HighlightedColor: {r: 0.6037736, g: 0.28797868, b: 0.20220721, a: 1}
+    m_PressedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_SelectedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_DisabledColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -28678,7 +28678,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1819912645}
+  m_TargetGraphic: {fileID: 810388101}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -43009,11 +43009,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 0.9622642, g: 0.6356761, b: 0.54013884, a: 1}
+    m_HighlightedColor: {r: 0.6037736, g: 0.28797868, b: 0.20220721, a: 1}
+    m_PressedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_SelectedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_DisabledColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -43028,7 +43028,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1686439785}
+  m_TargetGraphic: {fileID: 1286324898}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -43808,11 +43808,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 0.9622642, g: 0.6356761, b: 0.54013884, a: 1}
+    m_HighlightedColor: {r: 0.6037736, g: 0.28797868, b: 0.20220721, a: 1}
+    m_PressedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_SelectedColor: {r: 0.3490566, g: 0.16292842, b: 0.04116233, a: 1}
+    m_DisabledColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -45178,7 +45178,7 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -45188,7 +45188,7 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
@@ -45238,12 +45238,12 @@ PrefabInstance:
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 150
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417814361154756207, guid: c6061ae41b221cd41bd166815ba6c758,
         type: 3}

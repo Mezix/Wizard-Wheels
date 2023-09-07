@@ -117,7 +117,7 @@ public class GrabberArm : ASystem
             _clawScript._clawAnimator.SetBool("CloseClaw", false);
             if (scrap)
             {
-                scrap.RemoveScrap();
+                scrap.DestroyScrapObject();
                 scrap = null;
                 scrapPos = Vector3.zero;
                 scrapCollection = false;
@@ -141,20 +141,5 @@ public class GrabberArm : ASystem
         Vector3 clawStartingPos = _clawScript._clawAnimator.transform.position;
         clawStartingPos += (_chainStartingPos.position - clawStartingPos).normalized * 0.1f;
         DottedLine.DottedLine.Instance.DrawDottedLine(_chainStartingPos.position, clawStartingPos, Color.white, chain);
-    }
-
-    //  System Interface
-
-    public override void InitSystemStats()
-    {
-
-    }
-    public override void StartInteraction()
-    {
-        IsBeingInteractedWith = true;
-    }
-    public override void StopInteraction()
-    {
-        IsBeingInteractedWith = true;
     }
 }

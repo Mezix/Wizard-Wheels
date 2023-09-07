@@ -33,7 +33,7 @@ public class LootCrate : MonoBehaviour
         transform.localPosition = Vector3.zero;
         _scrapCollider.enabled = false;
     }
-    public void RemoveScrap()
+    public void DestroyScrapObject()
     {
         Destroy(gameObject);
     }

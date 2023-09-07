@@ -29,6 +29,7 @@ public class SunScript : MonoBehaviour
 
     private void UpdateSunPosition()
     {
+        transform.position = REF.PCon.transform.position;
         HM.RotateLocalTransformToAngle(transform, new Vector3(0, 0, transform.localRotation.eulerAngles.z - sunRotationSpeed));
 
         timeOfDay += sunRotationSpeed;

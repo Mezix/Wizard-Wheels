@@ -54,6 +54,16 @@ public class TankGeometry : MonoBehaviour
                 room._roofType = _vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoofType;
                 room.InitHP(_vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoomCurrentHP, _vehicleData.VehicleRoomMaxHP);
 
+                if(GetComponent<PlayerTankController>())
+                {
+                    BoxCollider2D bc2d = room.GetComponent<BoxCollider2D>();
+
+                    BoxCollider2D usedByCompositeBoxCollider = room.gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
+                    usedByCompositeBoxCollider.size = bc2d.size;
+                    usedByCompositeBoxCollider.offset = bc2d.offset;
+                    usedByCompositeBoxCollider.usedByComposite = true;
+                }
+
                 // Set the Room Positions
                 int roomPosNr = 0;
                 for (int roomY = 0; roomY < room._sizeY; roomY++)

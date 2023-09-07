@@ -72,6 +72,8 @@ public class DataStorage : MonoBehaviour
     }
     public void FinishEvent()
     {
+        playerData.CurrentEventPathIndex = Mathf.Min(playerData.CurrentEventPath.Count-1, playerData.CurrentEventPathIndex);
+
         playerData.CurrentEventPath[playerData.CurrentEventPathIndex] = new EventNode(playerData.CurrentEventPath[playerData.CurrentEventPathIndex]._event, true);
         playerData.CurrentEventPathIndex++;
         SavePlayerData.SavePlayer(saveSlot, playerData);

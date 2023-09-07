@@ -31,90 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7467437011699496268}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4273588852287804697
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1590083103770336017}
-  - component: {fileID: 2145973352083130812}
-  m_Layer: 0
-  m_Name: Sun Light Source
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1590083103770336017
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4273588852287804697}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
-  m_LocalPosition: {x: -40, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4185617102036094115}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
---- !u!114 &2145973352083130812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4273588852287804697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_LightType: 3
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.594
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.63
-  m_LightVolumeIntensity: 0
-  m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 41cf8cc20000000071b5ea84c1deb4b4653d2025454de7d5fd82e9846f841c84dd5d0f35a34e62acff1415e2
-  m_LightCookieSprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b,
-    type: 3}
-  m_DeprecatedPointLightCookieSprite: {fileID: 21300000, guid: 48ad8ac2444d1cb45a3fab91a6c7511b,
-    type: 3}
-  m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
-  m_OverlapOperation: 0
-  m_NormalMapDistance: 3
-  m_NormalMapQuality: 2
-  m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 1
-  m_ShadowIntensity: 0.402
-  m_ShadowVolumeIntensityEnabled: 0
-  m_ShadowVolumeIntensity: 0
-  m_LocalBounds:
-    m_Center: {x: 0, y: -0.00000011920929, z: 0}
-    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 29
-  m_PointLightOuterAngle: 98
-  m_PointLightInnerRadius: 15.75
-  m_PointLightOuterRadius: 170
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1 &4602450426782924353
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +48,7 @@ GameObject:
   - component: {fileID: 4270615867507201710}
   - component: {fileID: 5776601358516880431}
   - component: {fileID: 8435526669843754745}
+  - component: {fileID: 4660565593712981394}
   m_Layer: 0
   m_Name: Player Tank
   m_TagString: Player
@@ -154,7 +71,6 @@ Transform:
   m_Children:
   - {fileID: 1792265827202664377}
   - {fileID: 6377603516649744266}
-  - {fileID: 4185617102036094115}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1954088467690204731
@@ -169,15 +85,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66ad5cb01896e44f97563bfd0ccc076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tStats: {fileID: 11400000, guid: 532c8ffd236391b4192ac8feef5e64eb, type: 2}
+  _vehicleInfo:
+    TankName: 
+    TankHealth: 0
+    TankMaxSpeed: 0
+    TankAccel: 0
+    TankDecel: 0
+    RotationSpeed: 0
+    FlavorText: 
   _tankName: Starkov
-  _wizardsToSpawn:
-  - {fileID: 4608201922242700205, guid: a3d6bbe3b515c6143b3ecd4ca27a42b0, type: 3}
-  - {fileID: 4608201922242700205, guid: ff820002e706de34fbe6d8e8b3b434f9, type: 3}
-  - {fileID: 4608201922242700205, guid: d6590031bbb1a90459c0ebb06c3959f0, type: 3}
-  - {fileID: 4608201922242700205, guid: a04566bd806cacf4f9cde8781d10d256, type: 3}
-  - {fileID: 4608201922242700205, guid: 707e3f56abab10843acfe0ec74e086a6, type: 3}
-  - {fileID: 4608201922242700205, guid: 68fa4f683b465334ab24205a80b89594, type: 3}
+  _wizardData: []
   _spawnedWizards: []
   _dying: 0
   _dead: 0
@@ -211,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ef46f02874af145bbd92e524a0290b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tRB: {fileID: 0}
   currentSpeed: 0
   moveVector: {x: 0, y: 0, z: 0}
   acceleration: 0.0025
@@ -240,8 +158,6 @@ MonoBehaviour:
   rotatableObjects: []
   rotationspeed: 50
   AngleToRotateTo: 0
-  pointerAngleSet: 0
-  steeringWheelSelectedByMouse: 0
   _rotationSpeedMultiplier: 0
 --- !u!114 &5559394905640330256
 MonoBehaviour:
@@ -272,8 +188,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56098410987c5f48bfa1f90cc65c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tankRoomConstellation: {fileID: 11400000, guid: 7de68b0fb4adb914c8d906f816d51628,
-    type: 2}
+  _vehicleData:
+    VehicleMatrix:
+      Columns: []
+    SavedXSize: 0
+    SavedYSize: 0
+    VehicleRoomMaxHP: 0
+    FloorColorR: 1
+    FloorColorG: 1
+    FloorColorB: 1
+    RoofColorR: 1
+    RoofColorG: 1
+    RoofColorB: 1
+  _tankGeometryParent: {fileID: 0}
+  _roomsParent: {fileID: 0}
+  _allRooms: []
   systemIcons: []
   FloorColor: {r: 1, g: 0.84445155, b: 0.6933962, a: 1}
   RoofColor: {r: 0.6, g: 1, b: 0.91100854, a: 1}
@@ -316,83 +245,49 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!1 &6714905410834603264
-GameObject:
+--- !u!66 &4660565593712981394
+CompositeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4185617102036094115}
-  - component: {fileID: 2873681928755623750}
-  m_Layer: 0
-  m_Name: Sun Script
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4185617102036094115
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714905410834603264}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1590083103770336017}
-  m_Father: {fileID: 7467437011699496268}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2873681928755623750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714905410834603264}
+  m_GameObject: {fileID: 4602450426782924353}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97357b212770f1e40a6fcff6b1313916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sunLightSource: {fileID: 2145973352083130812}
-  _nightCycleGradient:
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
     serializedVersion: 2
-    key0: {r: 0.9245283, g: 0.50207216, b: 0.3532396, a: 1}
-    key1: {r: 1, g: 0.96166426, b: 0.7688679, a: 1}
-    key2: {r: 0.944976, g: 0.9122094, b: 0.78158575, a: 0}
-    key3: {r: 0, g: 0.06287718, b: 1, a: 0}
-    key4: {r: 0.9473864, g: 0.91437584, b: 0.7810286, a: 0}
-    key5: {r: 0.9245283, g: 0.50207216, b: 0.3532396, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 8674
-    ctime2: 21395
-    ctime3: 36815
-    ctime4: 51464
-    ctime5: 65535
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 6
-    m_NumAlphaKeys: 2
-  timeOfDay: 0
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 4602450426782924353}
 --- !u!1 &7617433482929949175
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,7 +305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6377603516649744266
 Transform:
   m_ObjectHideFlags: 0
