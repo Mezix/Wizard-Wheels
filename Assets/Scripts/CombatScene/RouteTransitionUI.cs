@@ -41,8 +41,9 @@ public class RouteTransitionUI : MonoBehaviour
             }
             RouteNode tmpNode = Instantiate(_routeNodePrefab, _routeLayoutGroup.transform, false);
             _routeNodes.Add(tmpNode);
-
         }
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_routeLayoutGroup.GetComponent<RectTransform>());
+
         int nodeIndex;
         for (nodeIndex = 0; nodeIndex < data.CurrentEventPath.Count;)
         {
@@ -87,7 +88,7 @@ public class RouteTransitionUI : MonoBehaviour
         {
             position += Time.deltaTime;
             _routeConnectors[nodeToEndAt - 1]._visitedConnector.fillAmount = Mathf.Min(1, position);
-            _routePointer.transform.position = Vector3.Lerp(_routeNodes[nodeToEndAt - 1].transform.position,_routeNodes[nodeToEndAt].transform.position, position) + Vector3.up;
+            _routePointer.transform.position = Vector3.Lerp(_routeNodes[nodeToEndAt - 1].transform.position, _routeNodes[nodeToEndAt].transform.position, position) + Vector3.up;
             yield return new WaitForFixedUpdate();
         }
         _routeNodes[nodeToEndAt].FadeInNode();

@@ -179,14 +179,17 @@ public class PlayerTankController : TankController
             }
         }
 
-        if(TMov._matchSpeed)
+        if(enemy)
         {
-            if(TMov.enemyToMatch.gameObject.Equals(enemy))
+            if (TMov._matchSpeed)
             {
-                REF.CombatUI._engineUIScript.UnmatchSpeedUI();
-                TMov.enemyToMatch = null;
-                TMov._matchSpeed = false;
-                TMov.TurnOnCruise(true);
+                if (TMov.enemyToMatch.gameObject.Equals(enemy))
+                {
+                    REF.CombatUI._engineUIScript.UnmatchSpeedUI();
+                    TMov.enemyToMatch = null;
+                    TMov._matchSpeed = false;
+                    TMov.TurnOnCruise(true);
+                }
             }
         }
     }

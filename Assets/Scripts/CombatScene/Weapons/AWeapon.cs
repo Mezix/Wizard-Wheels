@@ -47,6 +47,8 @@ public abstract class AWeapon : ASystem
     public Animator _weaponAnimator;
     public Animator _weaponFireAnimator;
     public AudioSource _weaponAudioSource = null;
+    private float pitchVariance = 0.1f;
+    public float _volumePct;
 
     //  TankMovement
 
@@ -60,6 +62,7 @@ public abstract class AWeapon : ASystem
 
     public override void Awake()
     {
+        pitchVariance = 0.1f;
         SystemObj = gameObject;
         ShouldHitPlayer = false;
         tankSpeedProjectileModifier = 0;
@@ -334,8 +337,9 @@ public abstract class AWeapon : ASystem
             exp.transform.localPosition = Vector3.zero;
         }
     }
-    internal void PlayWeaponFireSoundEffect()
+    public void PlayWeaponFireSoundEffect()
     {
+        _weaponAudioSource.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
         if (_weaponAudioSource) _weaponAudioSource.Play();
         else Debug.LogError("missing audio clip for weapon!");
     }

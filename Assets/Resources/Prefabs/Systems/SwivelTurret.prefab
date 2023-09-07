@@ -344,6 +344,7 @@ MonoBehaviour:
   _weaponAnimator: {fileID: 0}
   _weaponFireAnimator: {fileID: 0}
   _weaponAudioSource: {fileID: 5770678182755424900}
+  _volumePct: 0.5
   tMov: {fileID: 0}
   tankSpeedProjectileModifier: 0
   _weaponSelectedUI: {fileID: 0}

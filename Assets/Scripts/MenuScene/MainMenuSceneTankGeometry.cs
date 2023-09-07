@@ -8,18 +8,18 @@ using static PlayerData;
 
 public class MainMenuSceneTankGeometry : MonoBehaviour
 {
-    private List<VehicleGeometry> _starterVehicleGeometries;
-    private List<VehicleInfo> _starterVehicleStatsList;
+    private List<VehicleGeometry> _starterVehicleGeometries = new List<VehicleGeometry>();
+    private List<VehicleInfo> _starterVehicleStatsList = new List<VehicleInfo>();
+    private List<GameObject> _spawnedVehicles = new List<GameObject>();
+    public int vehicleSelectIndex;
 
-    public List<GameObject> _spawnedTanks = new List<GameObject>();
-    public int vehicleIndex;
+    private VehicleGeometry _playerDataVehicleGeometry;
+    private VehicleInfo _playerDataVehicleInfo;
 
     //  Tank Spawning; all of these are temporary values that get overwritten with each tank
 
-    [HideInInspector]
-    public VehicleGeometry _tmpVehicleGeometry;
     public RoomPosition[,] _tmpRoomPosMatrix;
-    public GameObject Tmp { get; private set; }
+    public GameObject TmpVehicleParent { get; private set; }
     public GameObject TmpRoomsParent { get; private set; }
     public List<Room> TmpAllRooms { get; private set; }
     public GameObject TmpRoofParent { get; private set; }
@@ -33,27 +33,32 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
     {
         REF.MMSceneGeometry = this;
     }
-    public void InitMMGeometry(bool runStarted)
+    private void Start()
     {
-        _starterVehicleGeometries = new List<VehicleGeometry>();
-        _starterVehicleStatsList = new List<VehicleInfo>();
-        if (runStarted)
+        InitStarterTanks();
+        SpawnStarterTanks();
+        HideAllVehicles();
+        vehicleSelectIndex = 0;
+    }
+    public void InitPlayerDataVehicle()
+    {
+        int nrOfStarters = _starterVehicleGeometries.Count;
+        if (_spawnedVehicles.Count == nrOfStarters + 1)
         {
-            _starterVehicleGeometries.Add(DataStorage.Singleton.playerData.Geometry);
-            _starterVehicleStatsList.Add(DataStorage.Singleton.playerData.Info);
+            Destroy(_spawnedVehicles[nrOfStarters]);
+            _spawnedVehicles.RemoveAt(nrOfStarters);
         }
-        else
-        {
-            InitStarterTanks();
-        }
-        SpawnAllTanks();
-        HideAllTanks();
-        vehicleIndex = 0;
-        REF.mUI.menuSceneTankStats.UpdateSelectedVehicleText(_starterVehicleStatsList[vehicleIndex]);
+
+        _playerDataVehicleGeometry = DataStorage.Singleton.playerData.Geometry;
+        _playerDataVehicleInfo = DataStorage.Singleton.playerData.Info;
+        SpawnTankForCreator(_playerDataVehicleGeometry);
+
+        if (DataStorage.Singleton.playerData.RunStarted) vehicleSelectIndex = nrOfStarters;
+        else vehicleSelectIndex = 0;
+        SelectVehicle();
     }
     private void InitStarterTanks()
     {
-
         string vehicleType = "StarterVehicle";
         for (int i = 0; i < 3; i++)
         {
@@ -61,28 +66,24 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
             VehicleStats vehicleStats = Resources.Load(GS.VehicleStats(vehicleType + i.ToString() + "stats"), typeof(VehicleStats)) as VehicleStats;
 
             _starterVehicleGeometries.Add(ConvertVehicleConstellationToVehicleData(StarterVehicleConstellation));
-            _starterVehicleStatsList.Add(ConvertVehicleStatsToVehicleInfo( vehicleStats));
+            _starterVehicleStatsList.Add(ConvertVehicleStatsToVehicleInfo(vehicleStats));
         }
     }
-
-    private void SpawnAllTanks()
+    private void SpawnStarterTanks()
     {
         foreach (VehicleGeometry geometry in _starterVehicleGeometries)
         {
-            _tmpVehicleGeometry = geometry;
-            SpawnTankForCreator();
+            SpawnTankForCreator(geometry);
         }
     }
-    public void ShowTank(int index)
+    public void ShowVehicle(int index)
     {
-        HideAllTanks();
-        _vehicleBGOrb.gameObject.SetActive(true);
-        _spawnedTanks[index].SetActive(true);
+        HideAllVehicles();
+        _spawnedVehicles[index].SetActive(true);
     }
-    public void HideAllTanks()
+    public void HideAllVehicles()
     {
-        _vehicleBGOrb.gameObject.SetActive(false);
-        foreach (GameObject g in _spawnedTanks)
+        foreach (GameObject g in _spawnedVehicles)
         {
             g.SetActive(false);
         }
@@ -91,47 +92,58 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
 
     public void NextTank()
     {
-        vehicleIndex++;
-        if (vehicleIndex >= _starterVehicleGeometries.Count)
+        vehicleSelectIndex++;
+        if (vehicleSelectIndex >= _starterVehicleGeometries.Count)
         {
-            vehicleIndex = 0;
+            vehicleSelectIndex = 0;
         }
         SelectVehicle();
     }
     public void PreviousTank()
     {
-        vehicleIndex--;
-        if (vehicleIndex < 0)
+        vehicleSelectIndex--;
+        if (vehicleSelectIndex < 0)
         {
-            vehicleIndex = _starterVehicleGeometries.Count - 1;
+            vehicleSelectIndex = _starterVehicleGeometries.Count - 1;
         }
         SelectVehicle();
     }
-
+    public void ShowOrbBG(bool show)
+    {
+        _vehicleBGOrb.gameObject.SetActive(show);
+    }
     public void SelectVehicle()
     {
-        HideAllTanks();
-        _spawnedTanks[vehicleIndex].SetActive(true);
-        DataStorage.Singleton.playerData.Geometry = _starterVehicleGeometries[vehicleIndex];
-        DataStorage.Singleton.playerData.Info = _starterVehicleStatsList[vehicleIndex];
-        REF.mUI.menuSceneTankStats.UpdateSelectedVehicleText(_starterVehicleStatsList[vehicleIndex]);
+        HideAllVehicles();
+        ShowVehicle(vehicleSelectIndex);
+        _spawnedVehicles[vehicleSelectIndex].SetActive(true);
+        if(vehicleSelectIndex < _starterVehicleGeometries.Count)
+        {
+            DataStorage.Singleton.playerData.Geometry = _starterVehicleGeometries[vehicleSelectIndex];
+            DataStorage.Singleton.playerData.Info = _starterVehicleStatsList[vehicleSelectIndex];
+            REF.mUI.menuSceneTankStats.UpdateNewRunVehicleText(_starterVehicleStatsList[vehicleSelectIndex]);
+        }
+        else
+        {
+            REF.mUI.menuSceneTankStats.UpdateCurrentRunVehicleStats(DataStorage.Singleton.playerData);
+        }
     }
     //  Spawning
 
-    public void SpawnTankForCreator()
+    public void SpawnTankForCreator(VehicleGeometry geometry)
     {
-        LoadRooms();
-        PositionTankObjects();
-        CreateWalls();
-        CreateTires();
-        CreateSystems();
+        LoadRooms(geometry);
+        PositionTankObjects(geometry);
+        CreateWalls(geometry);
+        CreateTires(geometry);
+        CreateSystems(geometry);
         MakeCollidersTriggers();
         DisableTankUI();
         SetSpriteValues();
     }
-    private void LoadRooms()
+    private void LoadRooms(VehicleGeometry geometry)
     {
-        _tmpRoomPosMatrix = new RoomPosition[_tmpVehicleGeometry.SavedXSize, _tmpVehicleGeometry.SavedYSize];
+        _tmpRoomPosMatrix = new RoomPosition[geometry.SavedXSize, geometry.SavedYSize];
         TmpAllRooms = new List<Room>();
 
         TmpRoomsParent = new GameObject("All Tank Rooms");
@@ -139,23 +151,23 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
         TmpRoomsParent.transform.localPosition = Vector3.zero;
         TmpRoomsParent.transform.localScale = Vector3.one;
 
-        for (int y = 0; y < _tmpVehicleGeometry.SavedYSize; y++)
+        for (int y = 0; y < geometry.SavedYSize; y++)
         {
-            for (int x = 0; x < _tmpVehicleGeometry.SavedXSize; x++)
+            for (int x = 0; x < geometry.SavedXSize; x++)
             {
-                if (x >= _tmpVehicleGeometry.VehicleMatrix.Columns.Length
-                    || y >= _tmpVehicleGeometry.VehicleMatrix.Columns[0].ColumnContent.Length
-                    || _tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y] == null
-                    || _tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == null
-                    || _tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == "") continue;
-                LoadRoomAtPos(x, y);
+                if (x >= geometry.VehicleMatrix.Columns.Length
+                    || y >= geometry.VehicleMatrix.Columns[0].ColumnContent.Length
+                    || geometry.VehicleMatrix.Columns[x].ColumnContent[y] == null
+                    || geometry.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == null
+                    || geometry.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == "") continue;
+                LoadRoomAtPos(x, y, geometry);
             }
         }
     }
-    public void LoadRoomAtPos(int x, int y)
+    public void LoadRoomAtPos(int x, int y, VehicleGeometry geometry)
     {
-        Room room = Instantiate(Resources.Load(_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath, typeof(Room))) as Room;
-        room.ID = _tmpVehicleGeometry.GetHashCode();
+        Room room = Instantiate(Resources.Load(geometry.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath, typeof(Room))) as Room;
+        room.ID = geometry.GetHashCode();
         room.gameObject.transform.parent = TmpRoomsParent.transform;
         room.gameObject.transform.localPosition = new Vector2(x * 0.5f, y * -0.5f);
         room.gameObject.transform.localScale = Vector3.one;
@@ -188,41 +200,41 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
 
 
 
-        room._floorType = _tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].FloorType;
-        room._roofType = _tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].RoofType;
-        _tmpRoomPosMatrix[x, y].ParentRoom._floorRenderer.sprite = Resources.Load(GS.RoomGraphics(_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].FloorType.ToString()) + "3", typeof(Sprite)) as Sprite;
+        room._floorType = geometry.VehicleMatrix.Columns[x].ColumnContent[y].FloorType;
+        room._roofType = geometry.VehicleMatrix.Columns[x].ColumnContent[y].RoofType;
+        _tmpRoomPosMatrix[x, y].ParentRoom._floorRenderer.sprite = Resources.Load(GS.RoomGraphics(geometry.VehicleMatrix.Columns[x].ColumnContent[y].FloorType.ToString()) + "3", typeof(Sprite)) as Sprite;
         _tmpRoomPosMatrix[x, y].ParentRoom.ShowFloor(true);
         _tmpRoomPosMatrix[x, y].ParentRoom.ShowRoof(false);
     }
-    public void CreateWalls()
+    public void CreateWalls(VehicleGeometry geometry)
     {
-        for (int y = 0; y < _tmpVehicleGeometry.SavedYSize; y++)
+        for (int y = 0; y < geometry.SavedYSize; y++)
         {
-            for (int x = 0; x < _tmpVehicleGeometry.SavedXSize; x++)
+            for (int x = 0; x < geometry.SavedXSize; x++)
             {
-                if (x >= _tmpVehicleGeometry.VehicleMatrix.Columns.Length || y >= _tmpVehicleGeometry.VehicleMatrix.Columns[0].ColumnContent.Length) continue;
-                if (_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y]._topWallExists)
+                if (x >= geometry.VehicleMatrix.Columns.Length || y >= geometry.VehicleMatrix.Columns[0].ColumnContent.Length) continue;
+                if (geometry.VehicleMatrix.Columns[x].ColumnContent[y]._topWallExists)
                 {
                     GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallUp"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(_tmpRoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                     wall.transform.localScale = Vector3.one;
                 }
-                if (_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y]._rightWallExists)
+                if (geometry.VehicleMatrix.Columns[x].ColumnContent[y]._rightWallExists)
                 {
                     GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallRight"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(_tmpRoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                     wall.transform.localScale = Vector3.one;
                 }
-                if (_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y]._bottomWallExists)
+                if (geometry.VehicleMatrix.Columns[x].ColumnContent[y]._bottomWallExists)
                 {
                     GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallDown"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(_tmpRoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
                     wall.transform.localScale = Vector3.one;
                 }
-                if (_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y]._leftWallExists)
+                if (geometry.VehicleMatrix.Columns[x].ColumnContent[y]._leftWallExists)
                 {
                     GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallLeft"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(_tmpRoomPosMatrix[x, y].transform);
@@ -232,64 +244,68 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
             }
         }
     }
-    public void CreateTires()
+    public void CreateTires(VehicleGeometry geometry)
     {
-        for (int x = 0; x < _tmpVehicleGeometry.SavedXSize; x++)
+        for (int x = 0; x < geometry.SavedXSize; x++)
         {
-            for (int y = 0; y < _tmpVehicleGeometry.SavedYSize; y++)
+            for (int y = 0; y < geometry.SavedYSize; y++)
             {
-                if (_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath != "")
-                {
-                    if (_tmpRoomPosMatrix[x, y] == null) continue;
+                if (x >= geometry.VehicleMatrix.Columns.Length
+                    || y >= geometry.VehicleMatrix.Columns[0].ColumnContent.Length
+                    || geometry.VehicleMatrix.Columns[x].ColumnContent[y] == null
+                    || geometry.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath == null
+                    || geometry.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath == "") continue;
 
-                    GameObject tirePrefab = Instantiate(Resources.Load(_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
-                    tirePrefab.transform.parent = _tmpRoomPosMatrix[x, y].transform;
-                    tirePrefab.transform.localPosition = Vector3.zero;
-                    tirePrefab.transform.localScale = Vector3.one;
-                }
+                GameObject tirePrefab = Instantiate(Resources.Load(geometry.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
+                tirePrefab.transform.parent = _tmpRoomPosMatrix[x, y].transform;
+                tirePrefab.transform.localPosition = Vector3.zero;
+                tirePrefab.transform.localScale = Vector3.one;
             }
         }
     }
-    private void PositionTankObjects()
+    private void PositionTankObjects(VehicleGeometry geometry)
     {
         //create overarching object for all our spawned objects
-        Tmp = new GameObject("Tank Geometry Parent");
-        _spawnedTanks.Add(Tmp);
-        Tmp.transform.parent = gameObject.transform;
-        Tmp.transform.localPosition = Vector3.zero;
-        Tmp.transform.localScale = Vector3.one;
+        TmpVehicleParent = new GameObject("Tank Geometry Parent");
+        _spawnedVehicles.Add(TmpVehicleParent);
+        TmpVehicleParent.transform.parent = gameObject.transform;
+        TmpVehicleParent.transform.localPosition = Vector3.zero;
+        TmpVehicleParent.transform.localScale = Vector3.one;
 
         // parent all spawnedObjects to this parent
-        TmpRoomsParent.transform.parent = Tmp.transform;
+        TmpRoomsParent.transform.parent = TmpVehicleParent.transform;
 
         //  Rooms have their transform origin point at the center of their rooms, so add a rooms x length, and subtract a rooms y length
-        Tmp.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
+        TmpVehicleParent.transform.localPosition += new Vector3(0.25f, -0.25f, 0);
 
         //  Now move to the halfway point
-        Tmp.transform.localPosition += new Vector3(-0.25f * _tmpVehicleGeometry.SavedXSize, 0.25f * _tmpVehicleGeometry.SavedYSize, 0);
+        TmpVehicleParent.transform.localPosition += new Vector3(-0.25f * geometry.SavedXSize, 0.25f * geometry.SavedYSize, 0);
     }
-    public void CreateSystems()
+    public void CreateSystems(VehicleGeometry geometry)
     {
-        for (int x = 0; x < _tmpVehicleGeometry.SavedXSize; x++)
+        for (int x = 0; x < geometry.SavedXSize; x++)
         {
-            for (int y = 0; y < _tmpVehicleGeometry.SavedYSize; y++)
+            for (int y = 0; y < geometry.SavedYSize; y++)
             {
-                if (_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath != "")
-                {
-                    ASystem system = Instantiate(Resources.Load(_tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath, typeof(ASystem)) as ASystem);
-                    system._direction = _tmpVehicleGeometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemDirection;
-                    system.transform.parent = _tmpRoomPosMatrix[x, y].transform;
-                    system.transform.localPosition = Vector3.zero;
-                    system.transform.localScale = Vector3.one;
-                    system.SpawnInCorrectDirection();
-                }
+                if (x >= geometry.VehicleMatrix.Columns.Length
+                    || y >= geometry.VehicleMatrix.Columns[0].ColumnContent.Length
+                    || geometry.VehicleMatrix.Columns[x].ColumnContent[y] == null
+                    || geometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath == null
+                    || geometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath == "") continue;
+
+                ASystem system = Instantiate(Resources.Load(geometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath, typeof(ASystem)) as ASystem);
+                system._direction = geometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemDirection;
+                system.transform.parent = _tmpRoomPosMatrix[x, y].transform;
+                system.transform.localPosition = Vector3.zero;
+                system.transform.localScale = Vector3.one;
+                system.SpawnInCorrectDirection();
             }
         }
 
     }
     private void MakeCollidersTriggers()
     {
-        List<Collider2D> colliders = Tmp.GetComponentsInChildren<Collider2D>().ToList();
+        List<Collider2D> colliders = TmpVehicleParent.GetComponentsInChildren<Collider2D>().ToList();
         foreach (Collider2D c in colliders)
         {
             c.isTrigger = true;
@@ -298,7 +314,7 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
 
     private void DisableTankUI()
     {
-        List<Canvas> canvases = Tmp.GetComponentsInChildren<Canvas>().ToList();
+        List<Canvas> canvases = TmpVehicleParent.GetComponentsInChildren<Canvas>().ToList();
         foreach (Canvas c in canvases)
         {
             c.gameObject.SetActive(false);
@@ -306,7 +322,7 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
     }
     private void SetSpriteValues()
     {
-        List<SpriteRenderer> srs = Tmp.GetComponentsInChildren<SpriteRenderer>().ToList();
+        List<SpriteRenderer> srs = TmpVehicleParent.GetComponentsInChildren<SpriteRenderer>().ToList();
         foreach (SpriteRenderer rend in srs)
         {
             rend.color = Color.white;

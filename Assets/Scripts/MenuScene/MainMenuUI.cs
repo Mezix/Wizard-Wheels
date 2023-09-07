@@ -50,9 +50,8 @@ public class MainMenuUI : MonoBehaviour
         InitSaveSlots();
     }
 
-    public void InitMMUI(bool runStarted)
+    public void ShowMMUI()
     {
-        menuSceneTankStats.newRun = !runStarted;
         ShowMenu(MainMenuStatus.LaunchUI);
         _settingsScript.CloseSettings();
     }
@@ -122,6 +121,7 @@ public class MainMenuUI : MonoBehaviour
         DataStorage.Singleton.saveSlot = index;
         DataStorage.Singleton.playerData = _saveSlots[index]._playerData;
         ShowMenu(MainMenuStatus.Overworld);
+        REF.MMSceneGeometry.InitPlayerDataVehicle();
     }
 
     //  Main Menu

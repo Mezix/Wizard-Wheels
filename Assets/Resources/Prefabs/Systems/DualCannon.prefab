@@ -84,7 +84,10 @@ MonoBehaviour:
   SystemObj: {fileID: 0}
   SystemName: 
   RoomPosForInteraction: {fileID: 0}
+  _direction: 3
+  _canBeRotated: 0
   _weaponStats: {fileID: 11400000, guid: c0a32ef7320b79440b47caf47bd14dd0, type: 2}
+  ManualLocalAimingAngle: 0
   RotatablePart: {fileID: 4486056113902708837}
   TargetedRoom: {fileID: 0}
   _projectileSpots:
@@ -96,6 +99,7 @@ MonoBehaviour:
   _weaponAnimator: {fileID: 0}
   _weaponFireAnimator: {fileID: 5324780036172202529}
   _weaponAudioSource: {fileID: 5770678182755424900}
+  _volumePct: 0.6
   tMov: {fileID: 0}
   tankSpeedProjectileModifier: 0
   _weaponSelectedUI: {fileID: 0}

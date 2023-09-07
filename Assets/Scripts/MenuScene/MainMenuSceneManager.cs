@@ -15,17 +15,21 @@ public class MainMenuSceneManager : MonoBehaviour
     private void Awake()
     {
         REF.mMenu = this;
+        wiz.movementLocked = true;
     }
     private void Start()
     {
-        wiz.movementLocked = true;
-        REF.mUI.InitMMUI(DataStorage.Singleton.playerData.RunStarted);
-        REF.MMSceneGeometry.InitMMGeometry(DataStorage.Singleton.playerData.RunStarted);
+        REF.mUI.ShowMMUI();
     }
+
     public void ContinueRun()
     {
         DataStorage.Singleton.playerData.RunStarted = true;
         Loader.Load(Loader.SceneType.RouteTransitionScene);
+    }
+    public void ResetRun()
+    {
+
     }
     public void StartNewRun()
     {
