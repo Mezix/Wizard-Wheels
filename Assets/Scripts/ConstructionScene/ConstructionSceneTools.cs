@@ -233,7 +233,7 @@ public class ConstructionSceneTools : MonoBehaviour
     private void ChangeSystemDirection()
     {
         _arrow._arrowParents.gameObject.SetActive(true);
-        float actualAngle = HM.UnwrapAngle(HM.GetAngle2DBetween(_rotationStartPos, Input.mousePosition) + 180);
+        float actualAngle = HM.UnwrapAngle(HM.GetEulerAngle2DBetween(_rotationStartPos, Input.mousePosition) + 180);
         HM.RotateLocalTransformToAngle(_arrow._actualRotationArrow, new Vector3(0, 0, actualAngle));
 
         float sysDirectionAngle = 0;

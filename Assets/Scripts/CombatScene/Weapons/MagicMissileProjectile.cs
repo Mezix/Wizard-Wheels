@@ -19,7 +19,7 @@ public class MagicMissileProjectile : AProjectile
     {
         if(target)
         {
-            Vector3 angleTowardsRoom = new Vector3(0, 0, HM.GetAngle2DBetween(transform.position, target.transform.position));
+            Vector3 angleTowardsRoom = new Vector3(0, 0, HM.GetEulerAngle2DBetween(transform.position, target.transform.position));
 
             //  TODO: Rotate towards target slowly instead of facing it immediately
             HM.RotateTransformToAngle(transform, angleTowardsRoom);

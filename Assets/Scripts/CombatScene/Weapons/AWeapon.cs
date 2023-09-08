@@ -188,7 +188,7 @@ public abstract class AWeapon : ASystem
         else
         {
             IsAimingAtTarget = false;
-            ManualLocalAimingAngle = HM.GetAngle2DBetween(transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)), transform.localPosition);
+            ManualLocalAimingAngle = HM.GetEulerAngle2DBetween(transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)), transform.localPosition);
 
             if (ManualLocalAimingAngle > _maxAllowedAngleToTurn) ManualLocalAimingAngle = _maxAllowedAngleToTurn;
             else if (ManualLocalAimingAngle < -_maxAllowedAngleToTurn) ManualLocalAimingAngle = -_maxAllowedAngleToTurn;
@@ -260,7 +260,7 @@ public abstract class AWeapon : ASystem
         }
 
         //  find the desired angle to face the target
-        float zRotToTarget = HM.GetAngle2DBetween(transform.InverseTransformPoint(TargetedRoom.transform.position + TargetMoveVector), transform.localPosition);
+        float zRotToTarget = HM.GetEulerAngle2DBetween(transform.InverseTransformPoint(TargetedRoom.transform.position + TargetMoveVector), transform.localPosition);
         float zRotActual = HM.WrapAngle(RotatablePart.localRotation.eulerAngles.z);
         float diff = zRotToTarget - zRotActual;
         if (Mathf.Abs(diff) > RotationSpeed)

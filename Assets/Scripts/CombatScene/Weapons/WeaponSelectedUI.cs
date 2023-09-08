@@ -14,13 +14,13 @@ public class WeaponSelectedUI : MonoBehaviour
     public void InitWeaponSelectedUI(AWeapon wep)
     {
         weapon = wep;
-        _weaponRangeCircle.transform.localScale = Vector3.one * wep.MaxLockOnRange;
+        _weaponRangeCircle.transform.localScale = 2 * Vector3.one * wep.MaxLockOnRange;
         _weaponRangeCircle.fillAmount = wep._weaponStats._maxSwivel/360f;
         HM.RotateLocalTransformToAngle(_weaponRangeCircle.transform, new Vector3(0, 0, 180 - wep._maxAllowedAngleToTurn/2f));
     }
     public void UpdateWeaponSelectedLR()
     {
-        //_weaponRangeCircle.gameObject.SetActive(false);
+        _weaponRangeCircle.gameObject.SetActive(false);
         if (weapon.WeaponSelected && weapon.WeaponEnabled &&!weapon.ShouldHitPlayer)
         {
             _weaponRangeCircle.gameObject.SetActive(true);
@@ -43,7 +43,10 @@ public class WeaponSelectedUI : MonoBehaviour
                 else
                 {
                     _outOfRangeIndicator.enabled = true;
-                    _outOfRangeIndicator.transform.position = (mousePos - weaponPos).normalized * weapon.MaxLockOnRange;
+                    float tankRotationZ = HM.WrapAngle(weapon.tMov.transform.localRotation.eulerAngles.z);
+                    float weaponRotation = HM.WrapAngle(weapon.transform.localRotation.eulerAngles.z);
+                    _outOfRangeIndicator.transform.localPosition = HM.Get2DCartesianFromPolar(-tankRotationZ + 180 - weaponRotation + HM.GetEulerAngle2DBetween(weapon.RotatablePart.transform.position, mousePos), weapon.MaxLockOnRange);
+                    HM.RotateTransformToAngle(_outOfRangeIndicator.transform, Vector3.zero);
                 }
             }
             _distanceText.text = Mathf.RoundToInt(distance) + " M";

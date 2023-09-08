@@ -19,10 +19,13 @@ public static class HM
         t.localRotation = q;
     }
 
-    public static float GetAngle2DBetween(Vector3 from, Vector3 to)
+    public static float GetEulerAngle2DBetween(Vector3 from, Vector3 to)
     {
         return Mathf.Rad2Deg * Mathf.Atan2(from.y - to.y, from.x - to.x);
     }
+    /// <summary>
+    /// To coordinate system of -180 to 180
+    /// </summary>
     public static float WrapAngle(float angle)
     {
         angle %= 360;
@@ -32,6 +35,9 @@ public static class HM
         return angle;
     }
 
+    /// <summary>
+    /// To coordinate system of -Inf to Inf
+    /// </summary>
     public static float UnwrapAngle(float angle)
     {
         if (angle >= 0)
@@ -40,6 +46,10 @@ public static class HM
         angle = -angle % 360;
 
         return 360 - angle;
+    }
+    public static Vector3 Get2DCartesianFromPolar(float eulerAngle, float radius)
+    {
+        return new Vector3(radius * Mathf.Cos(eulerAngle * Mathf.Deg2Rad), radius * Mathf.Sin(eulerAngle * Mathf.Deg2Rad), 0);
     }
 
     public static RaycastHit2D RaycastAtPosition(Vector3 pos, int layerMask = 0)

@@ -68,7 +68,7 @@ public class EnemyIndicator : MonoBehaviour
     {
         float maxScreenWidth = Screen.width / 2f;
         float maxScreenHeight = Screen.height / 2f;
-        float zRot = HM.GetAngle2DBetween(new Vector3(maxScreenWidth, maxScreenHeight, 0), Camera.main.WorldToScreenPoint(_enemy.transform.position)) + 90;
+        float zRot = HM.GetEulerAngle2DBetween(new Vector3(maxScreenWidth, maxScreenHeight, 0), Camera.main.WorldToScreenPoint(_enemy.transform.position)) + 90;
         Vector3 angle = new Vector3(0, 0, zRot);
         HM.RotateLocalTransformToAngle(_arrowButton.transform, angle);
     }

@@ -84,7 +84,7 @@ namespace DottedLine
             while ((start - end).magnitude > (point - end).magnitude)
             {
                 positions.Add(point);
-                zDirections.Add(HM.GetAngle2DBetween(end, start));
+                zDirections.Add(HM.GetEulerAngle2DBetween(end, start));
                 colors.Add(c);
                 point += (dir * Delta);
             }
@@ -170,7 +170,7 @@ namespace DottedLine
             while ((start - end).magnitude > (point - end).magnitude)
             {
                 uiPositions.Add(point);
-                uiZDirections.Add(HM.GetAngle2DBetween(end, start));
+                uiZDirections.Add(HM.GetEulerAngle2DBetween(end, start));
                 uiColors.Add(c);
                 point += (dir * 45);
             }

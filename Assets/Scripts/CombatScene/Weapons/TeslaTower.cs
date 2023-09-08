@@ -46,7 +46,7 @@ public class TeslaTower : AWeapon
         if (!TargetedRoom || firingDirectionLocked) return;
 
         //  find the desired angle to face the target
-        float zRotToTarget = HM.GetAngle2DBetween(TargetedRoom.transform.position, transform.position);
+        float zRotToTarget = HM.GetEulerAngle2DBetween(TargetedRoom.transform.position, transform.position);
         //  get closer to the angle with our max rotationspeed
         float zRotActual;
         float diff = zRotToTarget - RotatablePart.rotation.eulerAngles.z;

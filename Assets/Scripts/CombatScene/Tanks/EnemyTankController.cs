@@ -100,7 +100,7 @@ public class EnemyTankController : TankController
         if(!REF.PDead)
         {
             _navMeshAgent.SetDestination(REF.PlayerGO.transform.position);
-            TRot.GetComponent<EnemyTankRotation>().SetRotationToAngle(90 + HM.GetAngle2DBetween(Vector3.zero, _navMeshAgent.velocity));
+            TRot.GetComponent<EnemyTankRotation>().SetRotationToAngle(90 + HM.GetEulerAngle2DBetween(Vector3.zero, _navMeshAgent.velocity));
             TWep.AcquireTargetsForAllWeapons();
         }
     }

@@ -75,14 +75,14 @@ public class GrabberArm : ASystem
     }
     private void RotateToMouse()
     {
-        float angle = HM.GetAngle2DBetween(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
+        float angle = HM.GetEulerAngle2DBetween(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         HM.RotateTransformToAngle(_grabberArmCrossbowBody.transform, new Vector3(0, 0, angle));
         HM.RotateTransformToAngle(_clawScript.transform, new Vector3(0, 0, angle));
     }
     private void RotateToScrap()
     {
         if (!scrap) return;
-        float angle = HM.GetAngle2DBetween(scrap.transform.position, transform.position);
+        float angle = HM.GetEulerAngle2DBetween(scrap.transform.position, transform.position);
         HM.RotateTransformToAngle(_grabberArmCrossbowBody.transform, new Vector3(0, 0, angle));
         HM.RotateTransformToAngle(_clawScript.transform, new Vector3(0, 0, angle));
     }
