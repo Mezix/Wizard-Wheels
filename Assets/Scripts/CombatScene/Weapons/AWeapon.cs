@@ -106,8 +106,9 @@ public abstract class AWeapon : ASystem
     private void InitWeaponSelectedUI()
     {
         _weaponSelectedUI = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponSelectedUI"), typeof(WeaponSelectedUI)) as WeaponSelectedUI);
+        _weaponSelectedUI.transform.localPosition = RotatablePart.transform.localPosition;
         _weaponSelectedUI.InitWeaponSelectedUI(this);
-        _weaponSelectedUI.transform.SetParent(transform);
+        _weaponSelectedUI.transform.SetParent(transform, false);
     }
     public override void StartInteraction()
     {
@@ -288,15 +289,14 @@ public abstract class AWeapon : ASystem
             if (!ShouldHitPlayer)
             {
                 WeaponFeedback();
-                REF.Dialog.FireWeapon();
+                //REF.Dialog.FireWeapon();
             }
         }
     }
 
-    internal void WeaponFeedback()
+    public virtual void WeaponFeedback()
     {
-        //  Change to have a feedback stat and duration for the weapons!
-        REF.Cam.StartShake(0.05f * Damage, 0.05f * Damage);
+        REF.Cam.StartShake(RecoilDuration, Recoil);
     }
 
     internal void SpawnProjectile()

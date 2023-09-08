@@ -5,29 +5,25 @@ using UnityEngine.UI;
 
 public class WeaponSelectedUI : MonoBehaviour
 {
-    [HideInInspector]
-    public GameObject _targetingCircle;
     public LineRenderer _selectedLR;
     public SpriteRenderer _outOfRangeIndicator;
     public Text _distanceText;
     private AWeapon weapon;
+    public Image _weaponRangeCircle;
 
     public void InitWeaponSelectedUI(AWeapon wep)
     {
         weapon = wep;
-        GameObject go = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponRangeCircle"), typeof (GameObject)) as GameObject);
-        go.transform.localScale = Vector3.one * wep.MaxLockOnRange;
-        go.transform.SetParent(transform);
-        go.transform.localPosition = Vector3.zero;
-        _targetingCircle = go;
-        _targetingCircle.SetActive(false);
+        _weaponRangeCircle.transform.localScale = Vector3.one * wep.MaxLockOnRange;
+        _weaponRangeCircle.fillAmount = wep._weaponStats._maxSwivel/360f;
+        HM.RotateLocalTransformToAngle(_weaponRangeCircle.transform, new Vector3(0, 0, 180 - wep._maxAllowedAngleToTurn/2f));
     }
     public void UpdateWeaponSelectedLR()
     {
-        _targetingCircle.SetActive(false);
+        //_weaponRangeCircle.gameObject.SetActive(false);
         if (weapon.WeaponSelected && weapon.WeaponEnabled &&!weapon.ShouldHitPlayer)
         {
-            _targetingCircle.SetActive(true);
+            _weaponRangeCircle.gameObject.SetActive(true);
             Vector3 weaponPos = weapon.RotatablePart.position;
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float distance = Vector3.Distance(weaponPos, mousePos);
@@ -47,7 +43,7 @@ public class WeaponSelectedUI : MonoBehaviour
                 else
                 {
                     _outOfRangeIndicator.enabled = true;
-                    _outOfRangeIndicator.transform.localPosition = (mousePos - weaponPos).normalized * weapon.MaxLockOnRange;
+                    _outOfRangeIndicator.transform.position = (mousePos - weaponPos).normalized * weapon.MaxLockOnRange;
                 }
             }
             _distanceText.text = Mathf.RoundToInt(distance) + " M";
