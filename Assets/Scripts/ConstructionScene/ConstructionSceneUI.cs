@@ -74,6 +74,8 @@ public class ConstructionSceneUI : MonoBehaviour
     private List<Dropdown.OptionData> systemsList = new List<Dropdown.OptionData>();
     public int systemsIndex;
 
+    public ConstructionSceneInventory _playerDataComponents;
+
     private void Awake()
     {
         instance = this;
@@ -89,13 +91,17 @@ public class ConstructionSceneUI : MonoBehaviour
         SelectList(_partTypeIndex);
         _selectedColor = new Color(144 / 255f, 84 / 255f, 47 / 255f, 1); //start with brown
         ChangeColor(_selectedColor);
+
         if (launchMode.Equals(CreatorMode.DevMode))
         {
             _finishEventButton.gameObject.SetActive(false);
+            _playerDataComponents.gameObject.SetActive(false);
         }
         else
         {
             _finishEventButton.gameObject.SetActive(true);
+            _playerDataComponents.InitComponents(DataStorage.Singleton.playerData.InventoryList);
+            _playerDataComponents.gameObject.SetActive(true);
         }
     }
 
@@ -129,14 +135,14 @@ public class ConstructionSceneUI : MonoBehaviour
         {
             Dropdown.OptionData newOptData = new Dropdown.OptionData();
             newOptData.text = wall.name;
-            //newOptData.image = t.sprite;
+            newOptData.image = wall.GetComponent<SpriteRenderer>().sprite;
             wallTilesList.Add(newOptData);
         }
         foreach (GameObject tire in _tiresGOList)
         {
             Dropdown.OptionData newOptData = new Dropdown.OptionData();
             newOptData.text = tire.name;
-            //newOptData.image = t.sprite;
+            newOptData.image = tire.GetComponentInChildren<Tire>().tireSprite.sprite;
             tiresList.Add(newOptData);
         }
         foreach (GameObject system in _systemGOList)
