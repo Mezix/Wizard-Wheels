@@ -120,9 +120,13 @@ public class CombatUIScript : MonoBehaviour
     private void Update()
     {
         timeBetweenMouseClicks += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             ToggleVision();
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            REF.Cam.SetTrackedVehicleToPlayer();
         }
     }
     

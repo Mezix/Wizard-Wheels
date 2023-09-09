@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static ConstructionSceneManager;
+using static ASystem;
 using static PlayerData;
-using static VehicleConstellation;
 
 public class ConstructionSceneGeometry : MonoBehaviour
 {
@@ -20,27 +19,6 @@ public class ConstructionSceneGeometry : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-    private void Update()
-    {
-        int modifier = 1;
-        if (Input.GetKey(KeyCode.LeftShift)) modifier = -1;
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            ModifyVehicleSize(1 * modifier, 0, 0, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            ModifyVehicleSize(0, 1 * modifier, 0, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            ModifyVehicleSize(0, 0, 1 * modifier, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            ModifyVehicleSize(0, 0, 0, 1 * modifier);
-        }
     }
     public void LoadVehicle()
     {
@@ -68,7 +46,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
                     {
                         CreateTireAtPos(x, y, null);
                         CreateSystemAtPos(x, y, null);
-                        CreateWallAtPos(x, y, "delete");
+                        CreateWallAtPos(x, y, DirectionToSpawnIn.Right, true);
                     }
                 }
                 Destroy(_roomPosMatrix[roomPositionX, roomPositionY].ParentRoom.gameObject);
@@ -284,9 +262,9 @@ public class ConstructionSceneGeometry : MonoBehaviour
             }
         }
     }
-    public void CreateWallAtPos(int posX, int posY, string direction)
+    public void CreateWallAtPos(int posX, int posY, DirectionToSpawnIn direction, bool destroy = false)
     {
-        if (direction == "delete")
+        if (destroy)
         {
             ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[posX].ColumnContent[posY]._topWallExists = false;
             ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[posX].ColumnContent[posY]._rightWallExists = false;
@@ -306,28 +284,28 @@ public class ConstructionSceneGeometry : MonoBehaviour
         }
 
         GameObject wall = null;
-        if (direction == "up")
+        if (direction.Equals(DirectionToSpawnIn.Up))
         {
             if (_roomPosMatrix[posX, posY]._spawnedTopWall != null) return;
             ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[posX].ColumnContent[posY]._topWallExists = true;
             wall = Instantiate(Resources.Load(GS.WallPrefabs("WallUp"), typeof(GameObject)) as GameObject);
             _roomPosMatrix[posX, posY]._spawnedTopWall = wall;
         }
-        else if (direction == "left")
+        else if (direction.Equals(DirectionToSpawnIn.Left))
         {
             if (_roomPosMatrix[posX, posY]._spawnedLeftWall != null) return;
             ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[posX].ColumnContent[posY]._leftWallExists = true;
             wall = Instantiate(Resources.Load(GS.WallPrefabs("WallLeft"), typeof(GameObject)) as GameObject);
             _roomPosMatrix[posX, posY]._spawnedLeftWall = wall;
         }
-        else if (direction == "right")
+        else if (direction.Equals(DirectionToSpawnIn.Right))
         {
             if (_roomPosMatrix[posX, posY]._spawnedRightWall != null) return;
             ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[posX].ColumnContent[posY]._rightWallExists = true;
             wall = Instantiate(Resources.Load(GS.WallPrefabs("WallRight"), typeof(GameObject)) as GameObject);
             _roomPosMatrix[posX, posY]._spawnedRightWall = wall;
         }
-        else if (direction == "down")
+        else if (direction.Equals(DirectionToSpawnIn.Down))
         {
             if (_roomPosMatrix[posX, posY]._spawnedBottomWall != null) return;
             ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[posX].ColumnContent[posY]._bottomWallExists = true;
@@ -427,8 +405,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
         if (_roomPosMatrix[posX, posY]._spawnedSystem) Destroy(_roomPosMatrix[posX, posY]._spawnedSystem);
 
         ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[posX].ColumnContent[posY].SystemPrefabPath = GS.SystemPrefabs(sysPrefab.name);
-        ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[posX].ColumnContent[posY].SystemDirection =
-            Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[ConstructionSceneUI.instance._directionDropDown.value];
+        ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[posX].ColumnContent[posY].SystemDirection = ConstructionSceneTools.instance.systemSpawnDirection;
 
         GameObject sysObj = Instantiate(sysPrefab);
         ASystem system = sysObj.GetComponent<ASystem>();
@@ -469,7 +446,8 @@ public class ConstructionSceneGeometry : MonoBehaviour
         _tankBounds = new GameObject("TankBounds");
         _tankBounds.transform.SetParent(transform, false);
         SpriteRenderer sr = _tankBounds.AddComponent<SpriteRenderer>();
-        sr.sortingLayerName = "VehicleUI";
+        sr.sortingLayerName = "Vehicles";
+        sr.sortingOrder = -200;
         sr.drawMode = SpriteDrawMode.Sliced;
         sr.color = new Color(1f, 0.2f, 0.2f, 0.25f);
         sr.sprite = Resources.Load(GS.UIGraphics("TankBounds"), typeof(Sprite)) as Sprite;
@@ -583,7 +561,7 @@ public class ConstructionSceneGeometry : MonoBehaviour
     }
     private void ResizeTankBounds(Vector2Int newSize)
     {
-        _tankBounds.GetComponent<SpriteRenderer>().size = new Vector2(newSize.x / 2f, newSize.y / 2f);
+        _tankBounds.GetComponent<SpriteRenderer>().size = new Vector2(newSize.x / 2f + 0.1f, newSize.y / 2f + 0.1f);
         ConstructionSceneUI.instance.UpdateSize(newSize.x, newSize.y);
     }
     private Vector2Int GetRoomSize(int x, int y)

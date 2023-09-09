@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using static ASystem;
 
 public class ConstructionSceneTools : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class ConstructionSceneTools : MonoBehaviour
 
     //  Rotation
     public SystemRotationArrow _arrow;
+    public DirectionToSpawnIn systemSpawnDirection;
+
+    //  Expander
+    public VehicleExpanderWidget _expanderWidget;
+    public int expanderModifier = 1;
 
     public void Awake()
     {
@@ -40,7 +46,17 @@ public class ConstructionSceneTools : MonoBehaviour
     {
         brushing = true;
         shouldPreviewTile = true;
+        InitWidget();
     }
+
+    private void InitWidget()
+    {
+        _expanderWidget._left.onClick.AddListener(() => ConstructionSceneGeometry.instance.ModifyVehicleSize(1 * expanderModifier, 0, 0, 0));
+        _expanderWidget._right.onClick.AddListener(() => ConstructionSceneGeometry.instance.ModifyVehicleSize(0, 1 * expanderModifier, 0, 0));
+        _expanderWidget._top.onClick.AddListener(() => ConstructionSceneGeometry.instance.ModifyVehicleSize(0, 0, 1 * expanderModifier, 0));
+        _expanderWidget._down.onClick.AddListener(() => ConstructionSceneGeometry.instance.ModifyVehicleSize(0, 0, 0, 1 * expanderModifier));
+    }
+
     void Update()
     {
         HandleScrollWheel();
@@ -88,6 +104,16 @@ public class ConstructionSceneTools : MonoBehaviour
         {
             SelectEraser();
         }
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            _expanderWidget.SetWidgetDirection(false);
+            expanderModifier = -1;
+        }
+        else
+        {
+            _expanderWidget.SetWidgetDirection(true);
+            expanderModifier = 1;
+        }
 
         // Select which parts to spawn
         if (Input.GetKeyDown(KeyCode.Alpha1)) ConstructionSceneUI.instance.SelectList(0);
@@ -105,11 +131,6 @@ public class ConstructionSceneTools : MonoBehaviour
         if (systemPreview) Destroy(systemPreview);
 
         int tileType = ConstructionSceneUI.instance._partTypeIndex;
-        //Vector3Int alignmentCellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        //Vector3Int cellPos = new Vector3Int(alignmentCellPos.x, -1 + -alignmentCellPos.y);
-        //Vector3 previewPos = new Vector3(alignmentCellPos.x / 2f, alignmentCellPos.y / 2f) + new Vector3(0, 0.5f, 0);
-
-        //selectedObjectPositionPreview.transform.localPosition = previewPos;
 
         if (brushing)
         {
@@ -156,12 +177,7 @@ public class ConstructionSceneTools : MonoBehaviour
                 }
                 else if (tileType == 2)
                 {
-                    string tileDirection = "";
-                    if (ConstructionSceneUI.instance.wallIndex == 0) tileDirection = "up";
-                    if (ConstructionSceneUI.instance.wallIndex == 1) tileDirection = "left";
-                    if (ConstructionSceneUI.instance.wallIndex == 2) tileDirection = "down";
-                    if (ConstructionSceneUI.instance.wallIndex == 3) tileDirection = "right";
-                    ConstructionSceneGeometry.instance.CreateWallAtPos(cellPos.x, cellPos.y, tileDirection);
+                    ConstructionSceneGeometry.instance.CreateWallAtPos(cellPos.x, cellPos.y, systemSpawnDirection);
                 }
                 else if (tileType == 3)
                 {
@@ -192,7 +208,7 @@ public class ConstructionSceneTools : MonoBehaviour
                 }
                 else if (tileType == 2)
                 {
-                    ConstructionSceneGeometry.instance.CreateWallAtPos(cellPos.x, cellPos.y, "delete");
+                    ConstructionSceneGeometry.instance.CreateWallAtPos(cellPos.x, cellPos.y, DirectionToSpawnIn.Right, true);
                 }
                 else if (tileType == 3)
                 {
@@ -227,7 +243,12 @@ public class ConstructionSceneTools : MonoBehaviour
     }
     private void HoverWall(Vector3 pos)
     {
-        wallPreview = Instantiate(ConstructionSceneUI.instance._wallsGOList[ConstructionSceneUI.instance.wallIndex], _alignmentGrid.transform.GetChild(0));
+        GameObject wallToSpawn = Resources.Load(GS.WallPrefabs("WallUp"), typeof(GameObject)) as GameObject;
+        if (systemSpawnDirection.Equals(DirectionToSpawnIn.Left)) wallToSpawn = Resources.Load(GS.WallPrefabs("WallLeft"), typeof(GameObject)) as GameObject;
+        else if(systemSpawnDirection.Equals(DirectionToSpawnIn.Right)) wallToSpawn = Resources.Load(GS.WallPrefabs("WallRight"), typeof(GameObject)) as GameObject;
+        else if (systemSpawnDirection.Equals(DirectionToSpawnIn.Down)) wallToSpawn = Resources.Load(GS.WallPrefabs("WallDown"), typeof(GameObject)) as GameObject;
+
+        wallPreview = Instantiate(wallToSpawn, _alignmentGrid.transform.GetChild(0));
         wallPreview.transform.localPosition = pos;
     }
     private void HoverTire(Vector3 pos)
@@ -241,7 +262,8 @@ public class ConstructionSceneTools : MonoBehaviour
         systemPreview.transform.localPosition = pos;
 
         ASystem system = systemPreview.GetComponent<ASystem>();
-        system._direction = Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[ConstructionSceneUI.instance._directionDropDown.value];
+        if (system.TryGetComponent(out AWeapon wep)) Destroy(wep.WeaponUI.gameObject);
+        system._direction = systemSpawnDirection;
         system.SpawnInCorrectDirection();
     }
     private void ChangeSystemDirection()
@@ -250,12 +272,12 @@ public class ConstructionSceneTools : MonoBehaviour
         float actualAngle = HM.UnwrapAngle(HM.GetEulerAngle2DBetween(_arrow.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)) + 180);
         HM.RotateLocalTransformToAngle(_arrow._actualRotationArrow, new Vector3(0, 0, actualAngle));
 
-        float sysDirectionAngle = 0;
-        if (actualAngle >= -45 && actualAngle < 45) { ConstructionSceneUI.instance._directionDropDown.value = 0; sysDirectionAngle = 0; }
-        else if (actualAngle >= 45 && actualAngle < 135) { ConstructionSceneUI.instance._directionDropDown.value = 3; sysDirectionAngle = 90; }
-        else if (actualAngle >= 135 && actualAngle < 225) { ConstructionSceneUI.instance._directionDropDown.value = 2; sysDirectionAngle = 180; }
-        else if (actualAngle >= 225 && actualAngle < 315) { ConstructionSceneUI.instance._directionDropDown.value = 1; sysDirectionAngle = 270; }
-        else { ConstructionSceneUI.instance._directionDropDown.value = 0; sysDirectionAngle = 0; }
+        float sysDirectionAngle;
+        if (actualAngle >= -45 && actualAngle < 45) { systemSpawnDirection = DirectionToSpawnIn.Right; sysDirectionAngle = 0; }
+        else if (actualAngle >= 45 && actualAngle < 135) { systemSpawnDirection = DirectionToSpawnIn.Up; sysDirectionAngle = 90; }
+        else if (actualAngle >= 135 && actualAngle < 225) { systemSpawnDirection = DirectionToSpawnIn.Left; sysDirectionAngle = 180; }
+        else if (actualAngle >= 225 && actualAngle < 315) { systemSpawnDirection = DirectionToSpawnIn.Down; sysDirectionAngle = 270; }
+        else { systemSpawnDirection = DirectionToSpawnIn.Right; sysDirectionAngle = 0; }
         HM.RotateLocalTransformToAngle(_arrow._systemRotationArrow, new Vector3(0, 0, sysDirectionAngle));
     }
     public void SelectTool(int value)

@@ -23,7 +23,6 @@ public class ConstructionSceneUI : MonoBehaviour
     public InputField _inputField;
     public Dropdown _partsDropDown;
     public Dropdown _layersDropDown;
-    public Dropdown _directionDropDown;
 
     //  Player Mode
 
@@ -75,8 +74,6 @@ public class ConstructionSceneUI : MonoBehaviour
     private List<Dropdown.OptionData> systemsList = new List<Dropdown.OptionData>();
     public int systemsIndex;
 
-    //  Directions
-    private List<Dropdown.OptionData> directionList = new List<Dropdown.OptionData>();
     private void Awake()
     {
         instance = this;
@@ -149,14 +146,6 @@ public class ConstructionSceneUI : MonoBehaviour
             newOptData.image = system.GetComponent<ASystem>().SystemSprite;
             systemsList.Add(newOptData);
         }
-        foreach (ASystem.DirectionToSpawnIn dir in Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList())
-        {
-            Dropdown.OptionData newOptData = new Dropdown.OptionData();
-            newOptData.text = dir.ToString();
-            directionList.Add(newOptData);
-        }
-        _directionDropDown.ClearOptions();
-        _directionDropDown.AddOptions(directionList);
 
         floorIndex = 0;
         roofIndex = 0;
