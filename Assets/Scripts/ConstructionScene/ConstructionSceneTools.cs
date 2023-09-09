@@ -10,7 +10,6 @@ public class ConstructionSceneTools : MonoBehaviour
 {
     public static ConstructionSceneTools instance;
 
-    public Grid _alignmentGrid;
     private bool brushing;
     public Dropdown _toolSelecterDropdown;
 
@@ -22,8 +21,14 @@ public class ConstructionSceneTools : MonoBehaviour
     private GameObject systemPreview;
     private GameObject selectedObjectPositionPreview;
 
+    //  Cell Pos
+
+    public Grid _alignmentGrid;
+    Vector3Int alignmentCellPos;
+    Vector3Int cellPos;
+    Vector3 previewPos;
+
     //  Rotation
-    private Vector2 _rotationStartPos = Vector2.zero;
     public SystemRotationArrow _arrow;
 
     public void Awake()
@@ -38,9 +43,10 @@ public class ConstructionSceneTools : MonoBehaviour
     }
     void Update()
     {
+        HandleScrollWheel();
+        GetCellPositionAndRotation();
         HandleKeyboardInput();
         HandleMouseInput();
-        HandleScrollWheel();
     }
 
     private void HandleScrollWheel()
@@ -55,7 +61,41 @@ public class ConstructionSceneTools : MonoBehaviour
             ConstructionSceneUI.instance.PreviousItemInList();
         }
     }
+    private void GetCellPositionAndRotation()
+    {
+        _arrow._arrowParents.SetActive(false);
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            alignmentCellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            _arrow.transform.localPosition = Vector3.forward * 10 + new Vector3(alignmentCellPos.x / 2f, alignmentCellPos.y / 2f) + new Vector3(0.25f, 0.25f, 0);
+        }
+        if (Input.GetKey(KeyCode.R)) ChangeSystemDirection();
+        else
+        { 
+            alignmentCellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
+        cellPos = new Vector3Int(alignmentCellPos.x, -1 + -alignmentCellPos.y);
+        previewPos = new Vector3(alignmentCellPos.x / 2f, alignmentCellPos.y / 2f) + new Vector3(0, 0.5f, 0);
+        selectedObjectPositionPreview.transform.localPosition = previewPos;
+    }
+    private void HandleKeyboardInput()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            SelectBrush();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SelectEraser();
+        }
 
+        // Select which parts to spawn
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ConstructionSceneUI.instance.SelectList(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) ConstructionSceneUI.instance.SelectList(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) ConstructionSceneUI.instance.SelectList(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) ConstructionSceneUI.instance.SelectList(3);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) ConstructionSceneUI.instance.SelectList(4);
+    }
     private void HandleMouseInput()
     {
         if (floorPreview) Destroy(floorPreview);
@@ -65,11 +105,11 @@ public class ConstructionSceneTools : MonoBehaviour
         if (systemPreview) Destroy(systemPreview);
 
         int tileType = ConstructionSceneUI.instance._partTypeIndex;
-        Vector3Int alignmentCellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        Vector3Int cellPos = new Vector3Int(alignmentCellPos.x, -1 + -alignmentCellPos.y);
-        Vector3 previewPos = new Vector3(alignmentCellPos.x / 2f, alignmentCellPos.y / 2f) + new Vector3(0, 0.5f, 0);
+        //Vector3Int alignmentCellPos = _alignmentGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        //Vector3Int cellPos = new Vector3Int(alignmentCellPos.x, -1 + -alignmentCellPos.y);
+        //Vector3 previewPos = new Vector3(alignmentCellPos.x / 2f, alignmentCellPos.y / 2f) + new Vector3(0, 0.5f, 0);
 
-        selectedObjectPositionPreview.transform.localPosition = previewPos;
+        //selectedObjectPositionPreview.transform.localPosition = previewPos;
 
         if (brushing)
         {
@@ -204,36 +244,10 @@ public class ConstructionSceneTools : MonoBehaviour
         system._direction = Enum.GetValues(typeof(ASystem.DirectionToSpawnIn)).Cast<ASystem.DirectionToSpawnIn>().ToList()[ConstructionSceneUI.instance._directionDropDown.value];
         system.SpawnInCorrectDirection();
     }
-    private void HandleKeyboardInput()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SelectBrush();
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SelectEraser();
-        }
-
-        _arrow._arrowParents.SetActive(false);
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            _rotationStartPos = Input.mousePosition;
-            _arrow.transform.position = Vector3.forward * 10 + Camera.main.ScreenToWorldPoint(_rotationStartPos);
-        }
-        if (Input.GetKey(KeyCode.R)) ChangeSystemDirection();
-
-        // Select which parts to spawn
-        if (Input.GetKeyDown(KeyCode.Alpha1)) ConstructionSceneUI.instance.SelectList(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) ConstructionSceneUI.instance.SelectList(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) ConstructionSceneUI.instance.SelectList(2);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) ConstructionSceneUI.instance.SelectList(3);
-        if (Input.GetKeyDown(KeyCode.Alpha5)) ConstructionSceneUI.instance.SelectList(4);
-    }
     private void ChangeSystemDirection()
     {
         _arrow._arrowParents.gameObject.SetActive(true);
-        float actualAngle = HM.UnwrapAngle(HM.GetEulerAngle2DBetween(_rotationStartPos, Input.mousePosition) + 180);
+        float actualAngle = HM.UnwrapAngle(HM.GetEulerAngle2DBetween(_arrow.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)) + 180);
         HM.RotateLocalTransformToAngle(_arrow._actualRotationArrow, new Vector3(0, 0, actualAngle));
 
         float sysDirectionAngle = 0;
