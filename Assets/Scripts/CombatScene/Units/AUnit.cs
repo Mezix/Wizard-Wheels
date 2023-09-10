@@ -18,6 +18,8 @@ public abstract class AUnit : MonoBehaviour
     public bool UnitSelected { get; set; }
     public GameObject UnitObj { get; set; }
     public PlayerWizardUI PlayerWizardUI { get; set; }
+    public WizardUI _wizardUI;
+    public bool _showUI;
     public int Index { get; set; }
 
     //  UnitState
@@ -33,11 +35,6 @@ public abstract class AUnit : MonoBehaviour
 
 
     //  Wizard UI
-
-    public GameObject WizardUI;
-    public Text UIName;
-    public Image WizardHealthbar;
-    public bool _showUI;
 
     //  Pathfinding
 
@@ -81,7 +78,7 @@ public abstract class AUnit : MonoBehaviour
             UnitHealth = 100f;
             UnitSpeed = 5f;
         }
-        UIName.text = UnitName;
+        _wizardUI._unitName.text = UnitName;
         UnitSelected = false;
     }
     public void InteractWithRoom()
@@ -194,16 +191,22 @@ public abstract class AUnit : MonoBehaviour
     {
         PathToRoom.Clear();
     }
-    protected void UpdateWizardUI()
+    public virtual void UpdateWizardUI()
     {
-        //TODO: add unit health script
-
-        WizardUI.SetActive(_showUI);
         if (PlayerWizardUI)
         {
             PlayerWizardUI._UIWizardHealthbarFill.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth);
             PlayerWizardUI.UpdateButton(UnitSelected);
         }
-        WizardHealthbar.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth);
+        if (REF.CombatUI._xrayOn)
+        {
+            _wizardUI.gameObject.SetActive(_showUI);
+        }
+        else
+        {
+            _wizardUI.gameObject.SetActive(true);
+        }
+        _wizardUI._hpFillImage.fillAmount = Mathf.Min(1, UnitHealth / UnitHealth);
+        _wizardUI.ShowXRay(REF.CombatUI._xrayOn);
     }
 }

@@ -155,10 +155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitStats: {fileID: 11400000, guid: 584bdd98e3f37a84ea49a59611525939, type: 2}
   PlayerUIWizardIcon: {fileID: 21300000, guid: 4330a538fff05384db4413f5e258fbf0, type: 3}
-  WizardUI: {fileID: 6329754597288255946}
-  UIName: {fileID: 1507491626137394216}
-  WizardHealthbar: {fileID: 1276559216769637333}
+  _wizardUI: {fileID: 3376259417371206008}
   _showUI: 0
+  _unitState: 0
   RoomLocalPosInRelationToWizards: {x: 0, y: 0, z: 0}
   CurrentRoom: {fileID: 0}
   CurrentRoomPos: {fileID: 0}
@@ -331,36 +330,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7056753ddde4c04a980fda2aacebcc6, type: 3}
---- !u!114 &1276559216769637333 stripped
+--- !u!114 &3376259417371206008 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 345904739763084616, guid: d7056753ddde4c04a980fda2aacebcc6,
+  m_CorrespondingSourceObject: {fileID: 4296780744472635365, guid: d7056753ddde4c04a980fda2aacebcc6,
     type: 3}
   m_PrefabInstance: {fileID: 1548069899681515165}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 96bdb54d351ecd14c895dccabc3ad8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1507491626137394216 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 112720809821625013, guid: d7056753ddde4c04a980fda2aacebcc6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1548069899681515165}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &6329754597288255946 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4804240303592499031, guid: d7056753ddde4c04a980fda2aacebcc6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1548069899681515165}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7241678031261071675 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8143707221275787174, guid: d7056753ddde4c04a980fda2aacebcc6,

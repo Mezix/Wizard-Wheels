@@ -155,9 +155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitStats: {fileID: 11400000, guid: 7384851a862317e448911ed5c8fa4461, type: 2}
   PlayerUIWizardIcon: {fileID: 21300000, guid: e2b8ce888d9a27844aefd9b2b183e2f1, type: 3}
-  WizardUI: {fileID: 3052949227477263527}
-  UIName: {fileID: 7593667953222834501}
-  WizardHealthbar: {fileID: 7799865912086552248}
+  _wizardUI: {fileID: 6004263047062660117}
+  _unitState: 0
+  WizardUI: {fileID: 6004263047062660117}
   _showUI: 0
   RoomLocalPosInRelationToWizards: {x: 0, y: 0, z: 0}
   CurrentRoom: {fileID: 0}
@@ -337,33 +337,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7562201555209487344}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3052949227477263527 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4804240303592499031, guid: d7056753ddde4c04a980fda2aacebcc6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7562201555209487344}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7593667953222834501 stripped
+--- !u!114 &6004263047062660117 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 112720809821625013, guid: d7056753ddde4c04a980fda2aacebcc6,
+  m_CorrespondingSourceObject: {fileID: 4296780744472635365, guid: d7056753ddde4c04a980fda2aacebcc6,
     type: 3}
   m_PrefabInstance: {fileID: 7562201555209487344}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7799865912086552248 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 345904739763084616, guid: d7056753ddde4c04a980fda2aacebcc6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7562201555209487344}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 96bdb54d351ecd14c895dccabc3ad8c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -321,13 +321,13 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
         }
     }
     private void SetSpriteValues()
-    {
+    {/*
         List<SpriteRenderer> srs = TmpVehicleParent.GetComponentsInChildren<SpriteRenderer>().ToList();
         foreach (SpriteRenderer rend in srs)
         {
             rend.color = Color.white;
             rend.sortingLayerName = "Wizards";
             rend.sortingOrder += 20;
-        }
+        }*/
     }
 }
