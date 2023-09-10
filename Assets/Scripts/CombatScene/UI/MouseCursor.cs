@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -19,12 +20,12 @@ public class MouseCursor : MonoBehaviour
 
     public RectTransform _cursorTransform;
     [SerializeField]
-    private List<GameObject> movementIndicators;
+    private List<MovePreviewIndicator> movementIndicators;
 
     private void Awake()
     {
         REF.mouse = this;
-        movementIndicators = new List<GameObject>();
+        movementIndicators = new List<MovePreviewIndicator>();
     }
     void Start()
     {
@@ -65,8 +66,8 @@ public class MouseCursor : MonoBehaviour
         int amount = 10;
         for(int i = 0; i < amount; i++)
         {
-            movementIndicators.Add(Instantiate(Resources.Load(GS.Prefabs("MouseCursorMovingToIndicator"), typeof (GameObject)) as GameObject));
-            movementIndicators[i].SetActive(false);
+            movementIndicators.Add(Instantiate(Resources.Load(GS.Prefabs("MouseCursorMovingToIndicator"), typeof (MovePreviewIndicator)) as MovePreviewIndicator));
+            movementIndicators[i]._allObjects.SetActive(false);
             movementIndicators[i].transform.SetParent(transform);
         }
     }
@@ -78,11 +79,11 @@ public class MouseCursor : MonoBehaviour
         {
             if (unit.UnitSelected) wizCount++;
         }
-        foreach(GameObject g in movementIndicators)
+        foreach(MovePreviewIndicator movePreview in movementIndicators)
         {
-            g.transform.parent = transform;
-            g.transform.localPosition = Vector3.zero;
-            g.SetActive(false);
+            movePreview.transform.parent = transform;
+            movePreview.transform.localPosition = Vector3.zero;
+            movePreview._allObjects.SetActive(false);
         }
         if (wizCount == 0) return;
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
@@ -93,14 +94,13 @@ public class MouseCursor : MonoBehaviour
         if (room)
         {
             List<RoomPosition> freeRoomPos = room.GetAllFreeRoomPos();
-            if (freeRoomPos.Count == 0) return;
-
-            int amountToSpawn = Mathf.Min(wizCount, freeRoomPos.Count);
-            for(int i = 0; i < amountToSpawn; i++)
+            List<RoomPosition> allRoomPos = room.allRoomPositions.ToList();
+            for(int i = 0; i < allRoomPos.Count; i++)
             {
-                movementIndicators[i].transform.SetParent(freeRoomPos[i].transform, false);
+                movementIndicators[i].transform.SetParent(allRoomPos[i].transform, false);
                 movementIndicators[i].transform.localRotation = Quaternion.identity;
-                movementIndicators[i].SetActive(true);
+                movementIndicators[i]._allObjects.SetActive(true);
+                movementIndicators[i].CanMoveToRoom(i <= freeRoomPos.Count-1);
             }
         }
     }

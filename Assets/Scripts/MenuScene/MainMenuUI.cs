@@ -167,7 +167,7 @@ public class MainMenuUI : MonoBehaviour
 
     private IEnumerator WizardLogoAnimation()
     {
-        float xPosEnd = 120;
+        float xPosEnd = 180;
         for (int i = 0; i < xPosEnd; i += 2)
         {
             _wizardTextObj.transform.localPosition = new Vector3(-i, 0, 0);
