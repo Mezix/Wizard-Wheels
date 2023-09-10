@@ -6,16 +6,28 @@ using static PlayerData;
 
 public class ConstructionSceneInventory : MonoBehaviour
 {
-    public List<ConstructionSceneComponent> components;
+    public Dictionary<ConstructionSceneComponent, int> componentsInvIndexDict = new Dictionary<ConstructionSceneComponent, int>();
     public VerticalLayoutGroup _vLayoutGroup;
-    private ConstructionSceneComponent _prefab;
+    private ConstructionSceneComponent constructionSceneComponentPrefab;
     private void Awake()
     {
-        _prefab = Resources.Load(GS.DataScenePrefabs("ConstructionSceneComponent"), typeof (ConstructionSceneComponent)) as ConstructionSceneComponent;
+        constructionSceneComponentPrefab = Resources.Load(GS.DataScenePrefabs("ConstructionSceneComponent"), typeof (ConstructionSceneComponent)) as ConstructionSceneComponent;
     }
-
-    public void InitComponents(List<InventoryItemData> inventoryItems)
+    public void InitInventory(List<InventoryItemData> inventoryItems)
     {
+        int index = 0;
+        foreach(InventoryItemData data in inventoryItems)
+        {
+            if(index == MetalBarIndex || index == GemIndex || index == PlankIndex)
+            {
+                ConstructionSceneComponent tmp = Instantiate(constructionSceneComponentPrefab, _vLayoutGroup.transform);
+                tmp._icon.sprite = Resources.Load(data.SpritePath, typeof (Sprite)) as Sprite;
+                tmp._objectName = data.Name + ": ";
+                tmp.SetAmount(data.Amount);
 
+                componentsInvIndexDict.Add(tmp, index);
+            }
+            index++;
+        }
     }
 }

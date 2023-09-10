@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2685546959604559530}
   - component: {fileID: 6610061292591453522}
   m_Layer: 5
-  m_Name: ComponentName
+  m_Name: ComponentAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,6 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696f0bfb96ec99145be065f6aa09c772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: 4270213891907292542}
+  _amountText: {fileID: 6610061292591453522}
+  _amount: 0
+  _objectName: 
 --- !u!222 &149389429024008046
 CanvasRenderer:
   m_ObjectHideFlags: 0

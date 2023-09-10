@@ -74,7 +74,7 @@ public class ConstructionSceneUI : MonoBehaviour
     private List<Dropdown.OptionData> systemsList = new List<Dropdown.OptionData>();
     public int systemsIndex;
 
-    public ConstructionSceneInventory _playerDataComponents;
+    public ConstructionSceneInventory _constructionSceneInventory;
 
     private void Awake()
     {
@@ -95,13 +95,13 @@ public class ConstructionSceneUI : MonoBehaviour
         if (launchMode.Equals(CreatorMode.DevMode))
         {
             _finishEventButton.gameObject.SetActive(false);
-            _playerDataComponents.gameObject.SetActive(false);
+            _constructionSceneInventory.gameObject.SetActive(false);
         }
         else
         {
             _finishEventButton.gameObject.SetActive(true);
-            _playerDataComponents.InitComponents(DataStorage.Singleton.playerData.InventoryList);
-            _playerDataComponents.gameObject.SetActive(true);
+            _constructionSceneInventory.InitInventory(DataStorage.Singleton.playerData.InventoryList);
+            _constructionSceneInventory.gameObject.SetActive(true);
         }
     }
 

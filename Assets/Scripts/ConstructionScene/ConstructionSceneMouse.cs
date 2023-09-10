@@ -7,7 +7,12 @@ public class ConstructionSceneMouse : MonoBehaviour
 {
     public static ConstructionSceneMouse instance;
     public Image _mouse;
-    public string _mouseState;
+    public enum MouseState
+    {
+        Brushing,
+        Eraser
+    }
+    public MouseState _mouseState;
 
     private Vector2 cameraOffset;
     private Vector3 mouseStartDragPos;
@@ -56,12 +61,12 @@ public class ConstructionSceneMouse : MonoBehaviour
         }
         else
         {
-            if(_mouseState == "Brush")
+            if(_mouseState == MouseState.Brushing)
             {
                 _mouse.sprite = Resources.Load(GS.Cursors("Brush"), typeof(Sprite)) as Sprite;
                 ConstructionSceneTools.instance.shouldPreviewTile = true;
             }
-            if(_mouseState == "Eraser")
+            else if(_mouseState == MouseState.Eraser)
             {
                 _mouse.sprite = Resources.Load(GS.Cursors("Eraser"), typeof(Sprite)) as Sprite;
                 ConstructionSceneTools.instance.shouldPreviewTile = false;
@@ -93,7 +98,7 @@ public class ConstructionSceneMouse : MonoBehaviour
     }
     private void HandleZoomInput()
     {
-        if (!Input.GetKey(KeyCode.LeftShift)) return;
+        if (Input.GetKey(KeyCode.LeftShift)) return;
         if (Input.mouseScrollDelta.y != 0)
         {
             if (Input.mouseScrollDelta.y > 0)

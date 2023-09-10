@@ -7,6 +7,9 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
+    public const int GemIndex = 5;
+    public const int MetalBarIndex = 12;
+    public const int PlankIndex = 13;
     public const int ScrapIndex = 14;
     public bool RunStarted = false;
 

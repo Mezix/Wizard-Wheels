@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Linq;
 using static ASystem;
+using static ConstructionSceneMouse;
 
 public class ConstructionSceneTools : MonoBehaviour
 {
@@ -67,14 +68,16 @@ public class ConstructionSceneTools : MonoBehaviour
 
     private void HandleScrollWheel()
     {
-        if (Input.GetKey(KeyCode.LeftShift)) return; //exclusion with camera movement using the shift key
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            ConstructionSceneUI.instance.NextItemInList();
-        }
-        if (Input.mouseScrollDelta.y < 0)
-        {
-            ConstructionSceneUI.instance.PreviousItemInList();
+            if (Input.mouseScrollDelta.y > 0)
+            {
+                ConstructionSceneUI.instance.NextItemInList();
+            }
+            if (Input.mouseScrollDelta.y < 0)
+            {
+                ConstructionSceneUI.instance.PreviousItemInList();
+            }
         }
     }
     private void GetCellPositionAndRotation()
@@ -92,6 +95,9 @@ public class ConstructionSceneTools : MonoBehaviour
         }
         cellPos = new Vector3Int(alignmentCellPos.x, -1 + -alignmentCellPos.y);
         previewPos = new Vector3(alignmentCellPos.x / 2f, alignmentCellPos.y / 2f) + new Vector3(0, 0.5f, 0);
+
+        if (MouseCursor.IsPointerOverUIElement()) selectedObjectPositionPreview.SetActive(false);
+        else selectedObjectPositionPreview.SetActive(true);
         selectedObjectPositionPreview.transform.localPosition = previewPos;
     }
     private void HandleKeyboardInput()
@@ -131,6 +137,7 @@ public class ConstructionSceneTools : MonoBehaviour
         if (systemPreview) Destroy(systemPreview);
 
         int tileType = ConstructionSceneUI.instance._partTypeIndex;
+        if (MouseCursor.IsPointerOverUIElement()) return;
 
         if (brushing)
         {
@@ -140,8 +147,7 @@ public class ConstructionSceneTools : MonoBehaviour
             else if (tileType == 3) HoverTire(previewPos);
             else if (tileType == 4) HoverSystem(previewPos);
         }
-
-        if (Input.GetKey(KeyCode.Mouse0) && !MouseCursor.IsPointerOverUIElement())
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             int amountOfRows = ConstructionSceneGeometry.instance._roomPosMatrix.GetLength(0);
             int amountOfColumns = ConstructionSceneGeometry.instance._roomPosMatrix.GetLength(1);
@@ -295,12 +301,12 @@ public class ConstructionSceneTools : MonoBehaviour
     {
         brushing = true;
         shouldPreviewTile = false;
-        ConstructionSceneMouse.instance._mouseState = "Brush";
+        ConstructionSceneMouse.instance._mouseState = MouseState.Brushing;
     }
     private void SelectEraser()
     {
         brushing = false;
         shouldPreviewTile = false;
-        ConstructionSceneMouse.instance._mouseState = "Eraser";
+        ConstructionSceneMouse.instance._mouseState = MouseState.Eraser;
     }
 }
