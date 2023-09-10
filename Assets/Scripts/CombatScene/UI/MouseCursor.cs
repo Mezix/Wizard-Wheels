@@ -28,8 +28,6 @@ public class MouseCursor : MonoBehaviour
     }
     void Start()
     {
-        //Cursor.visible = false; //disable the unity default mouse cursor
-
         boxVisual.gameObject.SetActive(false);
         selectionBox = new Rect();
         InitMovementIndicators();

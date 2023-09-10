@@ -16,6 +16,7 @@ public class ConstructionSceneUI : MonoBehaviour
 
     public Button _saveTankButton;
     public Button _loadTankButton;
+    public Button _resetTankButton;
     public Button _colorButton;
     public Image _colorImage;
     [HideInInspector]
@@ -95,11 +96,19 @@ public class ConstructionSceneUI : MonoBehaviour
         if (launchMode.Equals(CreatorMode.DevMode))
         {
             _finishEventButton.gameObject.SetActive(false);
+            _saveTankButton.gameObject.SetActive(true);
+            _loadTankButton.gameObject.SetActive(true);
+            _resetTankButton.gameObject.SetActive(false);
+
             _constructionSceneInventory.gameObject.SetActive(false);
         }
         else
         {
             _finishEventButton.gameObject.SetActive(true);
+            _saveTankButton.gameObject.SetActive(false);
+            _loadTankButton.gameObject.SetActive(false);
+            _resetTankButton.gameObject.SetActive(true);
+
             _constructionSceneInventory.InitInventory(DataStorage.Singleton.playerData.InventoryList);
             _constructionSceneInventory.gameObject.SetActive(true);
         }
@@ -109,10 +118,12 @@ public class ConstructionSceneUI : MonoBehaviour
     {
         _saveTankButton.onClick.AddListener(() => ConstructionSceneManager.instance.SaveTank());
         _loadTankButton.onClick.AddListener(() => ConstructionSceneManager.instance.LoadVehicle());
+        _resetTankButton.onClick.AddListener(() => ConstructionSceneManager.instance.LoadVehicle());
         _colorButton.onClick.AddListener(() => RandomColor());
         _showLayerUIButton.onClick.AddListener(() => ToggleLayerUI());
-        _finishEventButton.onClick.AddListener(() => DataStorage.Singleton.FinishEvent());
+        _finishEventButton.onClick.AddListener(() => FinishEvent());
     }
+
 
     private void InitPartsDropdown()
     {
@@ -364,11 +375,16 @@ public class ConstructionSceneUI : MonoBehaviour
         int r = UnityEngine.Random.Range(0, 255);
         int g = UnityEngine.Random.Range(0, 255);
         int b = UnityEngine.Random.Range(0, 255);
-        _selectedColor = new Color(r/25f, g/255f, b/255f,1);
+        _selectedColor = new Color(r/255f, g/255f, b/255f,1);
         ChangeColor(_selectedColor);
     }
     public void ChangeColor(Color c)
     {
         _colorImage.color = c;
+    }
+    private void FinishEvent()
+    {
+        ConstructionSceneManager.instance.SaveTank();
+        DataStorage.Singleton.FinishEvent();
     }
 }

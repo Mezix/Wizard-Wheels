@@ -41,7 +41,7 @@ public class ConstructionSceneTools : MonoBehaviour
     public void Awake()
     {
         instance = this;
-        selectedObjectPositionPreview = Instantiate(Resources.Load("Prefabs/Data Manipulation Scene/SelectedObjectPositionPreview", typeof(GameObject)) as GameObject, _alignmentGrid.transform.GetChild(0));
+        selectedObjectPositionPreview = Instantiate(Resources.Load(GS.DataScenePrefabs("SelectedObjectPositionPreview"), typeof(GameObject)) as GameObject, _alignmentGrid.transform.GetChild(0));
     }
     private void Start()
     {

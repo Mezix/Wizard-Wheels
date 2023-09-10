@@ -37,7 +37,6 @@ public class ConstructionSceneMouse : MonoBehaviour
     }
     void Update()
     {
-        Cursor.visible = false;
         TrackMouse();
 
         HandleZoomInput();
