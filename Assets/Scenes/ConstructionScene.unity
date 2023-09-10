@@ -69957,7 +69957,6 @@ MonoBehaviour:
   - {fileID: 1723648633549023116, guid: 87e593814f80702448bdb17b9eed85cb, type: 3}
   - {fileID: 1723648633549023116, guid: 6d8b3bc3299ab9b4aa06f6ce8e0453c9, type: 3}
   - {fileID: 6756651002276288008, guid: beb5ee0181bb80c4cb4e0eea375b3675, type: 3}
-  - {fileID: 8917419255669800742, guid: bca6aa83df32f6d4d95ebc226be46774, type: 3}
   - {fileID: 8917419255669800742, guid: 3cdea1608cd169247b6e978bb5e3c469, type: 3}
   - {fileID: 8917419255669800742, guid: e55e9722db7f7414b8e439d22e170f0c, type: 3}
   - {fileID: 8917419255669800742, guid: 206f7d98b91ad6547927f15049d234ca, type: 3}
@@ -73684,7 +73683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb69e56405c8d80488e5aef42630e5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankToEdit: {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5, type: 2}
+  tankToEdit: {fileID: 11400000, guid: 6ca672f9cc6a618439899de1e353bf01, type: 2}
   _tmpVehicleData:
     VehicleMatrix:
       Columns: []

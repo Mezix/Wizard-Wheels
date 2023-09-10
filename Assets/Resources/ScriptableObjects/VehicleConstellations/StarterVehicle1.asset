@@ -66,9 +66,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: 
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: Prefabs/Movement/ExtendableTireLeft
-        SystemDirection: 0
+        SystemDirection: 1
         _topWallExists: 0
         _rightWallExists: 0
         _bottomWallExists: 1
@@ -87,7 +87,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: Prefabs/Systems/GrabberArm
+        SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 0
         _topWallExists: 0
@@ -107,9 +107,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: Prefabs/Systems/FurnaceSystem
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
         MovementPrefabPath: 
-        SystemDirection: 0
+        SystemDirection: 3
         _topWallExists: 1
         _rightWallExists: 1
         _bottomWallExists: 0
@@ -168,9 +168,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: 
+        SystemPrefabPath: Prefabs/Systems/SwivelTurret
         MovementPrefabPath: Prefabs/Movement/ExtendableTireRight
-        SystemDirection: 0
+        SystemDirection: 1
         _topWallExists: 0
         _rightWallExists: 1
         _bottomWallExists: 1

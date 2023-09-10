@@ -31,7 +31,7 @@ MonoBehaviour:
         SystemDirection: 2
         _topWallExists: 1
         _rightWallExists: 0
-        _bottomWallExists: 0
+        _bottomWallExists: 1
         _leftWallExists: 1
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
@@ -39,16 +39,16 @@ MonoBehaviour:
         SystemPrefabPath: 
         MovementPrefabPath: 
         SystemDirection: 3
-        _topWallExists: 0
-        _rightWallExists: 0
+        _topWallExists: 1
+        _rightWallExists: 1
         _bottomWallExists: 0
         _leftWallExists: 1
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: 
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
         MovementPrefabPath: Prefabs/Movement/ExtendableTireBack
-        SystemDirection: 0
+        SystemDirection: 1
         _topWallExists: 0
         _rightWallExists: 0
         _bottomWallExists: 1
@@ -57,9 +57,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: Prefabs/Systems/GrabberArm
+        SystemPrefabPath: Prefabs/Systems/HelmSystem
         MovementPrefabPath: 
-        SystemDirection: 0
+        SystemDirection: 3
         _topWallExists: 1
         _rightWallExists: 0
         _bottomWallExists: 0
@@ -69,11 +69,11 @@ MonoBehaviour:
         RoofType: 0
         SystemPrefabPath: Prefabs/Systems/HeavyCannon
         MovementPrefabPath: 
-        SystemDirection: 0
+        SystemDirection: 3
         _topWallExists: 0
         _rightWallExists: 0
         _bottomWallExists: 0
-        _leftWallExists: 0
+        _leftWallExists: 1
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0

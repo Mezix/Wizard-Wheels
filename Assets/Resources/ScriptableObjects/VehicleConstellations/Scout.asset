@@ -36,9 +36,9 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: Prefabs/Systems/EngineSystem
+        SystemPrefabPath: 
         MovementPrefabPath: 
-        SystemDirection: 3
+        SystemDirection: 0
         _topWallExists: 0
         _rightWallExists: 1
         _bottomWallExists: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
       - RoomPrefabPath: Prefabs/Rooms/1x1Room
         FloorType: 0
         RoofType: 0
-        SystemPrefabPath: Prefabs/Systems/FurnaceSystem
+        SystemPrefabPath: Prefabs/Systems/EngineSystem
         MovementPrefabPath: Prefabs/Movement/ExtendableTireBack
         SystemDirection: 1
         _topWallExists: 0
