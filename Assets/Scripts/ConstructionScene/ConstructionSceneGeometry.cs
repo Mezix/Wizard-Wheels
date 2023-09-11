@@ -371,20 +371,19 @@ public class ConstructionSceneGeometry : MonoBehaviour
                     || ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath == null
                     || ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath == "") continue;
 
-                GameObject tmpObject = Resources.Load(ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath, typeof(GameObject)) as GameObject;
-                if (!tmpObject) return;
+                ASystem loadedSystem = Resources.Load(ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath, typeof(ASystem)) as ASystem;
+                if (!loadedSystem) return;
 
-                GameObject spawnedSystem = Instantiate(tmpObject);
-                ASystem system = spawnedSystem.GetComponent<ASystem>();
+                ASystem system = Instantiate(loadedSystem);
                 system._direction = ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].SystemDirection;
                 system.SpawnInCorrectDirection();
                 if (system.TryGetComponent(out AWeapon wep))
                 {
                     Destroy(wep.WeaponUI.gameObject);
                 }
-                spawnedSystem.transform.parent = _roomPosMatrix[x, y].transform;
-                spawnedSystem.transform.localPosition = Vector3.zero;
-                _roomPosMatrix[x, y]._spawnedSystem = spawnedSystem.gameObject;
+                system.transform.parent = _roomPosMatrix[x, y].transform;
+                system.transform.localPosition = Vector3.zero;
+                _roomPosMatrix[x, y]._spawnedSystem = system.gameObject;
             }
         }
 

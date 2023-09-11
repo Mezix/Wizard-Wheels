@@ -293,7 +293,10 @@ public class MainMenuSceneTankGeometry : MonoBehaviour
                     || geometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath == null
                     || geometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath == "") continue;
 
-                ASystem system = Instantiate(Resources.Load(geometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath, typeof(ASystem)) as ASystem);
+                ASystem loadedSystem = Resources.Load(geometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath, typeof(ASystem)) as ASystem;
+                if (!loadedSystem) return;
+
+                ASystem system = Instantiate(loadedSystem);
                 system._direction = geometry.VehicleMatrix.Columns[x].ColumnContent[y].SystemDirection;
                 system.transform.parent = _tmpRoomPosMatrix[x, y].transform;
                 system.transform.localPosition = Vector3.zero;
