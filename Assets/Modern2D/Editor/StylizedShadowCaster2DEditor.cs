@@ -4,19 +4,24 @@ using UnityEngine;
 namespace Modern2D
 {
 
-//  flag necressary for opengl builds because for some reason
-//  Unity includes scripts from editor folder in builds
+    //  flag necressary for opengl builds because for some reason
+    //  Unity includes scripts from editor folder in builds
 #if UNITY_EDITOR
+
 
     [CanEditMultipleObjects]
     [CustomEditor(typeof(StylizedShadowCaster2D))]
     public class StylizedShadowCaster2DEditor : Editor
     {
+        StylizedShadowCaster2D system;
+
         [System.Obsolete]
 #pragma warning disable CS0809 
         public override void OnInspectorGUI()
 #pragma warning restore CS0809 
         {
+            EditorGUI.BeginChangeCheck();
+
             base.OnInspectorGUI();
             GUILayout.Space(5); if (GUILayout.Button("Create Shadow"))
                 foreach (StylizedShadowCaster2D caster in targets)
@@ -26,16 +31,20 @@ namespace Modern2D
                     caster.RebuildShadow();
             GUILayout.Space(5); if (GUILayout.Button("Update Options"))
                 foreach (StylizedShadowCaster2D caster in targets)
-                    caster.RebuildShadow();
+                    caster.CreateShadow();
 
-            StylizedShadowCaster2D system = (StylizedShadowCaster2D)target;
+            system = (StylizedShadowCaster2D)target;
+
+            GUILayout.Space(10);
+
+            system._pivotOffsetX.value = EditorGUILayout.Slider("pivot offset X ", system._pivotOffsetX.value, -5f, 5f);
+            system._pivotOffsetY.value = EditorGUILayout.Slider("pivot offset Y ", system._pivotOffsetY.value, -5f, 5f);
+
             GUILayout.Space(10);
             system.flipShadowX.value = GUILayout.Toggle(system.flipShadowX.value, "Flip X");
-           
 
-            GUILayout.Space(10);
-
-            if (system.overrideCustomPivot.value = GUILayout.Toggle(system.overrideCustomPivot.value, "Override default pivot source") )
+            system.overrideCustomPivot.value = GUILayout.Toggle(system.overrideCustomPivot.value, "Override default pivot source");
+            if (system.overrideCustomPivot.value)
             {
                 PivotOptions(system);
             }
@@ -64,14 +73,21 @@ namespace Modern2D
                 GUILayout.Space(5); system._shadowFalloff.value = EditorGUILayout.Slider("Shadow Falloff", system._shadowFalloff.value, 0, 15);
             }
 
+            if(EditorGUI.EndChangeCheck())
+            {
+                EditorUtility.SetDirty(system);
+            }
+
         }
 
         [System.Obsolete]
         private void PivotOptions(StylizedShadowCaster2D system) 
         {
-         
+            var a = system.customPivot;
             system.customPivot = (PivotSourceMode)EditorGUILayout.EnumPopup(system.customPivot);
-            if(system.customPivot == PivotSourceMode.custom)
+            if (a != system.customPivot) system.overrideCustomPivot.onValueChanged.Invoke();
+
+            if (system.customPivot == PivotSourceMode.custom)
             {
                 system.customPivotTransform = EditorGUILayout.ObjectField(system.customPivotTransform,typeof(Transform) ) as Transform;
             }

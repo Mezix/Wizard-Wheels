@@ -1,6 +1,8 @@
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using System;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Modern2D
 {
@@ -10,6 +12,8 @@ namespace Modern2D
     //  it also needs an "Shadows" sprite sorting layer and "Shadow" tag
     //  for detailed tutorial please read the whole setup section in my documentation
 
+    [ExecuteAlways]
+    [Serializable]
     public class StylizedShadowCaster2D : MonoBehaviour
     {
         [SerializeField] private ShadowData _shadowData;
@@ -31,6 +35,9 @@ namespace Modern2D
         [Tooltip("Shadow Falloff of the drop shadow in shadowcasters")]
         [SerializeField] [HideInInspector] public Cryo<float> _shadowFalloff;
 
+        [SerializeField] [HideInInspector] public Cryo<float> _pivotOffsetX;
+        [SerializeField] [HideInInspector] public Cryo<float> _pivotOffsetY;
+
         [SerializeField] [HideInInspector] public Cryo<bool> customShadowLayer;
 
         [SerializeField] [HideInInspector] public Cryo<string> customShadowLayerName;
@@ -45,6 +52,15 @@ namespace Modern2D
 
         [SerializeField] [HideInInspector] public Transform customPivotTransform;
 
+        // bug fix for version 2.0.1v 
+        // after changing the parent class from scriptable object to none,
+        // error "is missing class attribute 'Shadow Data, Extenstion of Native class' appears"
+        // in order to fix it, all shadows need to be rebuilded one time
+
+        [SerializeField][HideInInspector] private bool rebuildShadowsBF_2_0_1_v = true;
+
+        // end 
+
         public void SetCallbacks()
         {
             _shadowColor.onValueChanged = SetPropBlock;
@@ -54,23 +70,65 @@ namespace Modern2D
             _shadowFalloff.onValueChanged = SetPropBlock;
             overrideCustomPivot.onValueChanged = PivotOptionsChanged;
             flipShadowX.onValueChanged = PivotOptionsChanged;
+            _pivotOffsetY.onValueChanged = PivotOptionsChanged;
+            _pivotOffsetX.onValueChanged = PivotOptionsChanged;
         }
 
         public void PivotOptionsChanged() 
         {
-            customPivot = LightingSystem.system._useSpritePivotForShadowPivot.value == true ? PivotSourceMode.sprite : PivotSourceMode.auto;
+     
+            if(overrideCustomPivot.value == false) customPivot = LightingSystem.system._useSpritePivotForShadowPivot.value == true ? PivotSourceMode.sprite : PivotSourceMode.auto;
             RebuildShadow();
         }
 
         public void Start()
         {
             if (extendedProperties) SetPropBlock();
+            if (IsFromSpriteSheet(shadowData.shadow.shadowSr.sprite)) SetSpriteSheetData();
             CreateShadow();
+
+            // bug fix for version 2.0.1v 
+            if(shadowData != null && rebuildShadowsBF_2_0_1_v)
+            {
+                rebuildShadowsBF_2_0_1_v = false;
+                _shadowData = CreateShadowData();
+            }
         }
 
         private void OnValidate()
         {
             if (extendedProperties) SetPropBlock();
+        }
+
+        public static bool IsFromSpriteSheet(Sprite s)
+        {
+            if (s.textureRect.xMax - s.textureRect.xMin >= (s.texture.width - 2) && s.textureRect.yMax - s.textureRect.yMin >= (s.texture.height - 2)) return false;
+
+            return true;
+        }
+
+        public void SetSpriteSheetData()
+        {
+        
+            _propBlock = new MaterialPropertyBlock();
+
+            if (shadowData.shadow.shadowSr == null || shadowData.shadow.shadowSr.sprite == null)
+            {
+                Debug.LogError("Can't change properties : create a shadow first!");
+                return;
+            }
+
+            shadowData.shadow.shadowSr.GetPropertyBlock(_propBlock);
+
+            float texW = shadowData.shadow.shadowSr.sprite.texture.width;
+            float texH = shadowData.shadow.shadowSr.sprite.texture.height;
+
+            _propBlock.SetInt("_fromSS",1);
+            _propBlock.SetFloat("_minX",(shadowData.shadow.shadowSr.sprite.rect.xMin / texW) );
+            _propBlock.SetFloat("_maxX",(shadowData.shadow.shadowSr.sprite.rect.xMax / texW));
+            _propBlock.SetFloat("_minY",(shadowData.shadow.shadowSr.sprite.rect.yMin / texH));
+            _propBlock.SetFloat("_maxY",(shadowData.shadow.shadowSr.sprite.rect.yMax / texH));
+            shadowData.shadow.shadowSr.SetPropertyBlock(_propBlock);
         }
 
         public void SetPropBlock()
@@ -85,7 +143,7 @@ namespace Modern2D
             }
 
             shadowData.shadow.shadowSr.GetPropertyBlock(_propBlock);
-
+            
             _propBlock.SetColor("_shadowBaseColor", _shadowColor.value);
             _propBlock.SetFloat("_shadowBaseAlpha", _shadowAlpha.value);
             _propBlock.SetFloat("_shadowReflectiveness", _shadowReflectiveness.value);
@@ -119,8 +177,7 @@ namespace Modern2D
         /// </summary>
         public void RebuildShadow()
         {
-            if (!Application.isPlaying && shadowData!= null && shadowData.shadow.shadowPivot!=null)
-                DestroyImmediate(shadowData.shadow.shadowPivot.gameObject);
+            if (shadowData!= null && shadowData.shadow.shadowPivot!=null) _shadowData = CreateShadowData(shadowData.shadow.shadowPivot, shadowData.shadow.shadow);
             if (CanCreateShadow()) LightingSystem.system.AddShadow(shadowData);
         }
 
@@ -150,17 +207,50 @@ namespace Modern2D
             }
         }
 
-        private ShadowData CreateShadowData()
+        private bool ShadowPivotExist(out Transform pivot)
+        {
+            pivot = null;
+            for (int i = 0; i < transform.childCount; i++)
+                if (transform.GetChild(i).tag == "Shadow")
+                { 
+                    pivot = transform.GetChild(i);
+                    return true;
+                }
+            return false;
+        }
+
+        private ShadowData CreateShadowData(Transform pivot = null, Transform casterT = null)
         {
 
             if(!CanCreateShadow()) return null;
-            ShadowData data = (ShadowData)ScriptableObject.CreateInstance(typeof(ShadowData));
+            ShadowData data = new ShadowData();
 
-            StylizedShadowCaster caster = new StylizedShadowCaster(transform, null, null, null, Vector2.zero, customPivot,customPivotTransform, flipShadowX.value, customShadowLayer, customShadowLayerName);
+
+            StylizedShadowCaster caster = new StylizedShadowCaster(transform, null, null, null, Vector2.zero, customPivot,customPivotTransform, this, flipShadowX.value, customShadowLayer, customShadowLayerName);
 
             GameObject parent = caster.shadowCaster.gameObject;
-            GameObject shadowGO = new GameObject(parent.name + " : shadow");
-            CreatePivot(ref caster);
+            GameObject shadowGO;
+
+            Transform repivot;
+            bool shadowPivotExist = ShadowPivotExist(out repivot);
+            
+            if(pivot!=null)
+            {
+                caster.shadowPivot = pivot;
+                shadowGO = casterT.gameObject;
+            }
+            else if (shadowPivotExist)
+            {
+                shadowGO = repivot.GetChild(0).gameObject;
+                caster.shadowPivot = repivot;
+            }
+            else
+            {
+
+                shadowGO = new GameObject(parent.name + " : shadow");
+                CreatePivot(ref caster);
+
+            }
 
             caster.shadowPivot.parent = parent.transform;
             caster.shadow = shadowGO.transform;
@@ -168,22 +258,25 @@ namespace Modern2D
             shadowGO.transform.localRotation = Quaternion.identity;
             shadowGO.transform.localPosition = Vector3.zero;
 
-            caster.shadowSr = shadowGO.AddComponent<SpriteRenderer>();
-            caster.shadowSr.sortingLayerName = !customShadowLayer.value ?  "Shadows" : customShadowLayerName.value;
+            caster.shadowSr = (shadowGO.GetComponent<SpriteRenderer>() == null ? shadowGO.AddComponent<SpriteRenderer>() : shadowGO.GetComponent<SpriteRenderer>());
+
+            caster.shadowSr.sortingLayerName = !customShadowLayer.value ? (LightingSystem.system!=null? LightingSystem.system.ShadowsLayerName : "default" ) : customShadowLayerName.value;
             caster.shadowSr.sortingOrder = 1;
 
-            caster.shadowSr.material = LightingSystem.system._shadowsMaterial;
+            caster.shadowSr.material = LightingSystem.system.shadowsMaterial;
             caster.shadowCasterSr = parent.GetComponent<SpriteRenderer>();
             caster.shadowSr.sprite = caster.shadowCasterSr.sprite;
+            caster.pivotOffset.x = _pivotOffsetX.value;
+            caster.pivotOffset.y = _pivotOffsetY.value;
 
-            if (LightingSystem.shadowSprFlip)
+            if (LightingSystem.system.shadowSprFlip)
             {
-                if (Mathf.Abs(caster.shadowPivot.eulerAngles.z % 360) < 90 || Mathf.Abs(caster.shadowPivot.eulerAngles.z % 360) > 270) caster.shadowSr.flipX = LightingSystem.defaultShadowSprflipx;
-                else caster.shadowSr.flipX = !LightingSystem.defaultShadowSprflipx;
+                if (Mathf.Abs(caster.shadowPivot.eulerAngles.z % 360) < 90 || Mathf.Abs(caster.shadowPivot.eulerAngles.z % 360) > 270) caster.shadowSr.flipX = LightingSystem.system.defaultShadowSprflipx;
+                else caster.shadowSr.flipX = !LightingSystem.system.defaultShadowSprflipx;
             }
-            else caster.shadowSr.flipX = LightingSystem.defaultShadowSprflipx;
+            else caster.shadowSr.flipX = LightingSystem.system.defaultShadowSprflipx;
 
-            caster.shadow.SetGlobalScale(caster.shadowCaster.lossyScale);
+            caster.shadow.localScale = Vector3.one;
 
             data.shadow = caster;
 
@@ -212,22 +305,30 @@ namespace Modern2D
             c.radius = 0.3f;
 
             caster.shadowPivot.parent = caster.shadowCaster;
+            caster.shadowPivot.localScale = Vector3.one;
         }
 
-
-
-
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (Selection.Contains(gameObject)) Handles.Label(_shadowData.shadow.shadowPivot.transform.position, "SpritePivot \n (where the sprite touches ground) ");
+        }
+#endif
     }
+
 
     public static class TransformExtensionMethods
     {
         public static void SetGlobalScale(this Transform transform, Vector3 globalScale)
         {
-            transform.localScale = Vector3.one;
-            transform.localScale = new Vector3(globalScale.x / transform.lossyScale.x, globalScale.y / transform.lossyScale.y, globalScale.z / transform.lossyScale.z);
+            Transform parentBefore = transform.parent;
+            transform.parent = null;
+            transform.localScale = globalScale;
+            transform.parent = parentBefore;
         }
     }
 
+    
 
 
     /// <summary>

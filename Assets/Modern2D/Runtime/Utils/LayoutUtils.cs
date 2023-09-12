@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditor;
-#if UNITY_EDITOR
-using UnityEditor.AnimatedValues;
-#endif
 using UnityEngine;
 
 #if UNITY_EDITOR
+
+using UnityEditor.AnimatedValues;
+using UnityEditor;
 
 namespace Water2D
 {
     public static class LayoutUtils
     {
-
+    #if UNITY_EDITOR
         //from BennyKok github, extended by me
         public readonly struct FoldoutScope : IDisposable
         {
@@ -210,7 +208,7 @@ namespace Water2D
             return header;
         }
     }
-
+    #endif
 }
 
 #endif

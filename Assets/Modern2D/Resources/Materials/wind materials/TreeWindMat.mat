@@ -21,8 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TreeWindMat
-  m_Shader: {fileID: -6465566751694194690, guid: 3d85121907b0c3941b148bddf65706d4,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3d85121907b0c3941b148bddf65706d4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

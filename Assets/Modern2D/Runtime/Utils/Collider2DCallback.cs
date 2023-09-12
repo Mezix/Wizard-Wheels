@@ -12,11 +12,11 @@ namespace Modern2D
 
     public class Collider2DCallback : MonoBehaviour
     {
-        public UnityEvent<Collision2D> OnCollider2DEnter;
-        public UnityEvent<Collider2D> OnTrigger2DEnter;
+        [SerializeField][HideInInspector] public UnityEvent<Collision2D> OnCollider2DEnter;
+        [SerializeField][HideInInspector] public UnityEvent<Collider2D> OnTrigger2DEnter;
 
-        public UnityEvent<Collision2D> OnCollider2DExit;
-        public UnityEvent<Collider2D> OnTrigger2DExit;
+        [SerializeField][HideInInspector] public UnityEvent<Collision2D> OnCollider2DExit;
+        [SerializeField][HideInInspector] public UnityEvent<Collider2D> OnTrigger2DExit;
 
         private void OnTriggerEnter2D(Collider2D collision) { OnTrigger2DEnter.Invoke(collision); }
 

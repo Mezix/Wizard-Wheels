@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Modern2D
@@ -12,7 +10,7 @@ namespace Modern2D
     //  or when the game starts (build)
 
     [System.Serializable]
-    public class ShadowData : ScriptableObject
+    public class ShadowData 
     {
         /// <summary>
         /// inefficient, use in worst case scenarios, 
@@ -48,9 +46,8 @@ namespace Modern2D
         public void Delete(bool deletePivot = false)
         {
             if (deletePivot)
-                Destroy(shadow.shadowPivot);
-            Destroy(shadow.shadow.gameObject);
-            Destroy(this);
+                GameObject.Destroy(shadow.shadowPivot);
+            GameObject.Destroy(shadow.shadow.gameObject);
         }
     }
 

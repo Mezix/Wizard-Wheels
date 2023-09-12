@@ -520,7 +520,7 @@ Shader "Custom/cloudShadows"
                  i.uv *=_tiling;
                  i.uv += _pos * _scrollSpeed;
                  //get clouds
-                 float4 x;
+                 float4 x = float4(0,0,0,0);
 
                  if(_cloudMode==3) x = cloudBrownianNorm(i.uv,_scale,_sunDirection,_cloudColor,_alpha,_speed1,_speed2,_cloudsDir1,_cloudsDir2) ;
                  if(_cloudMode==2) x = cloudWorleyNorm(i.uv,_scale,_sunDirection,_cloudColor,_alpha,_speed1,_speed2,_cloudsDir1,_cloudsDir2) ;

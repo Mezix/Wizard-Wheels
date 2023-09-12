@@ -112,6 +112,90 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.28695136}
   serializedVersion: 2
   m_Radius: 0.21304864
+--- !u!1 &1986641136341879836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1212350735273960326}
+  - component: {fileID: 1407737384580415792}
+  m_Layer: 0
+  m_Name: 'WizardSprite : shadow'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1212350735273960326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986641136341879836}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.4467426, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 873468051278718759}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1407737384580415792
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986641136341879836}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0cd8f168e1f1a274c8411edc6c8401a4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1287072819
+  m_SortingLayer: 1
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -2096766138, guid: fa942c5833209934b8981f8073e5decd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 1
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.3333334, y: 1.3333334}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &4410841966990000520
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +227,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 0.75}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 873468051278718759}
   m_Father: {fileID: 199823446577963849}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4410841966990000522
@@ -231,7 +316,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0ee38807031174fb28c10bd18be1f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shadowData: {fileID: 0}
+  _shadowData:
+    shadow:
+      pivotOffset: {x: 0, y: 0}
+      shadowCaster: {fileID: 4410841966990000523}
+      shadow: {fileID: 1212350735273960326}
+      shadowPivot: {fileID: 873468051278718759}
+      shadowSr: {fileID: 1407737384580415792}
+      shadowCasterSr: {fileID: 4410841966990000522}
+      pivotMode: 1
+      pivotObject: {fileID: 0}
+      flipX: 0
+      customShadowLayer: 0
+      shadowLayer: 
+      casterComponent: {fileID: 7618846680958665082}
   flipShadowX:
     _value: 0
   _shadowColor:
@@ -244,6 +342,10 @@ MonoBehaviour:
     _value: 0
   _shadowFalloff:
     _value: 0
+  _pivotOffsetX:
+    _value: 0
+  _pivotOffsetY:
+    _value: 0
   customShadowLayer:
     _value: 0
   customShadowLayerName:
@@ -253,6 +355,75 @@ MonoBehaviour:
     _value: 1
   customPivot: 1
   customPivotTransform: {fileID: 0}
+  rebuildShadowsBF_2_0_1_v: 0
+--- !u!1 &5472418425741160431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 873468051278718759}
+  - component: {fileID: 6005294174286327657}
+  m_Layer: 0
+  m_Name: 'WizardSprite : shadowPivot'
+  m_TagString: Shadow
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &873468051278718759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472418425741160431}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.42359665, y: -0.034379657, z: 0.07322628, w: -0.9022316}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1212350735273960326}
+  m_Father: {fileID: 4410841966990000523}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &6005294174286327657
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472418425741160431}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3
 --- !u!1 &6550553307725136883
 GameObject:
   m_ObjectHideFlags: 0

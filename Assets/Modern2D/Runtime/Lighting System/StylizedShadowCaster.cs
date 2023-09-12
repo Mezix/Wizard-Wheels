@@ -29,7 +29,9 @@ namespace Modern2D
 		// shadow layer
 		public string shadowLayer;
 
-        public StylizedShadowCaster(Transform shadowCaster, Transform shadow, SpriteRenderer shadowSr, Transform pivot, Vector2 pivotOffset, PivotSourceMode mode, Transform pivotObj = null, bool flipX = false, bool cst = false, string shadowLayer = "Shadows")
+		public StylizedShadowCaster2D casterComponent;
+
+        public StylizedShadowCaster(Transform shadowCaster, Transform shadow, SpriteRenderer shadowSr, Transform pivot, Vector2 pivotOffset, PivotSourceMode mode, Transform pivotObj = null, StylizedShadowCaster2D caster = null, bool flipX = false, bool cst = false, string shadowLayer = "Shadows")
 		{
 			this.shadowCaster = shadowCaster;
 			this.shadow = shadow;
@@ -42,6 +44,7 @@ namespace Modern2D
 			this.flipX = flipX;
 			this.customShadowLayer = cst;
 			this.shadowLayer = shadowLayer;
+			this.casterComponent = caster;
 
         }
 
