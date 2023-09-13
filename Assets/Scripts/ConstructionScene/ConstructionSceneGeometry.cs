@@ -570,4 +570,110 @@ public class ConstructionSceneGeometry : MonoBehaviour
     {
         return new Vector2Int(_roomPosMatrix[x, y].ParentRoom._sizeX, _roomPosMatrix[x, y].ParentRoom._sizeY);
     }
+
+
+    public void ChompVehicleSize()
+    {
+        int amountToRemoveLeft = 0;
+        int amountToRemoveRight = 0;
+        int amountToRemoveUp = 0;
+        int amountToRemoveDown = 0;
+
+        int roomsThatNeedToBeEmpty = ConstructionSceneManager.instance._tmpVehicleData.SavedYSize;
+        int emptyRoomCounter;
+        bool roomFound;
+
+        //  Left
+        roomFound = false;
+        for (int x = 0; x < ConstructionSceneManager.instance._tmpVehicleData.SavedXSize; x++)
+        {
+            emptyRoomCounter = 0;
+            for (int y = 0; y < ConstructionSceneManager.instance._tmpVehicleData.SavedYSize; y++)
+            {
+                if (ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y] == null ||
+                    ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == null ||
+                    ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == "")
+                    emptyRoomCounter++;
+                else
+                {
+                    roomFound = true;
+                    break;
+                }
+            }
+            if (roomFound) break;
+            if (emptyRoomCounter == roomsThatNeedToBeEmpty) amountToRemoveLeft++;
+        }
+
+        //  Right
+
+        roomFound = false;
+        for (int x = ConstructionSceneManager.instance._tmpVehicleData.SavedXSize-1; x > 0; x--)
+        {
+            emptyRoomCounter = 0;
+            for (int y = 0; y < ConstructionSceneManager.instance._tmpVehicleData.SavedYSize; y++)
+            {
+                if (ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y] == null || 
+                    ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == null ||
+                    ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == "")
+                    emptyRoomCounter++;
+                else
+                {
+                    roomFound = true;
+                    break;
+                }
+            }
+            if (roomFound) break;
+            if (emptyRoomCounter == roomsThatNeedToBeEmpty) amountToRemoveRight++;
+        }
+
+        //  Up
+        roomFound = false;
+        roomsThatNeedToBeEmpty = ConstructionSceneManager.instance._tmpVehicleData.SavedXSize;
+        for (int y = 0; y < ConstructionSceneManager.instance._tmpVehicleData.SavedYSize; y++)
+        {
+            emptyRoomCounter = 0;
+            for (int x = 0; x < ConstructionSceneManager.instance._tmpVehicleData.SavedXSize; x++)
+            {
+                if (ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y] == null || 
+                    ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == null ||
+                    ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == "")
+                    emptyRoomCounter++;
+                else
+                {
+                    roomFound = true;
+                    break;
+                }
+            }
+            if (roomFound) break;
+            if (emptyRoomCounter == roomsThatNeedToBeEmpty) amountToRemoveUp++;
+        }
+
+        //Down
+        roomFound = false;
+        for (int y = ConstructionSceneManager.instance._tmpVehicleData.SavedYSize-1; y > 0; y--)
+        {
+            emptyRoomCounter = 0;
+            for (int x = 0; x < ConstructionSceneManager.instance._tmpVehicleData.SavedXSize; x++)
+            {
+                if (ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y] == null || 
+                    ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == null ||
+                    ConstructionSceneManager.instance._tmpVehicleData.VehicleMatrix.Columns[x].ColumnContent[y].RoomPrefabPath == "")
+                    emptyRoomCounter++;
+                else
+                {
+                    roomFound = true;
+                    break;
+                }
+            }
+            if (roomFound) break;
+            if (emptyRoomCounter == roomsThatNeedToBeEmpty) amountToRemoveDown++;
+        }
+
+        //Debug.Log(chompLeft);
+        //Debug.Log(chompRight);
+        //Debug.Log(chompUp);
+        //Debug.Log(chompDown);
+
+        ModifyVehicleSize(-amountToRemoveLeft, -amountToRemoveRight, -amountToRemoveUp, -amountToRemoveDown);
+    }
 }

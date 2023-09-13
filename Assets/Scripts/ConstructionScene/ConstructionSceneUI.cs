@@ -384,6 +384,7 @@ public class ConstructionSceneUI : MonoBehaviour
     }
     private void FinishEvent()
     {
+        ConstructionSceneGeometry.instance.ChompVehicleSize();
         ConstructionSceneManager.instance.SaveTank();
         DataStorage.Singleton.FinishEvent();
     }

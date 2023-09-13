@@ -78,7 +78,8 @@ public static class SavePlayerData
                 Happiness = 0
             },
         };
-        List<EventNode> freshRoute = GenerateTestRoute();
+        //List<EventNode> freshRoute = GenerateTestRoute();
+        List<EventNode> freshRoute = GenerateRandomRoute();
         float timePlayed = 0;
         List<InventoryItem> inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem)).Cast<InventoryItem>().ToList();
 

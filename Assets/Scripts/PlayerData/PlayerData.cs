@@ -197,23 +197,14 @@ public class PlayerData
     }
 
     //  Helper Methods
-    public static List<EventNode> GenerateRandomRoute(int length)
+    public static List<EventNode> GenerateRandomRoute()
     {
         int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
-
         List<EventNode> route = new List<EventNode>();
-        for (int i = 0; i < length; i++)
+        List<int> randomNodeIndexList = HM.GetRandomUniqueIntList(enumLength, enumLength);
+        for (int i = 0; i < enumLength; i++)
         {
-            int randomEnum = UnityEngine.Random.Range(0, enumLength);
-            if (i == length - 1)
-            {
-                route.Add(new EventNode(NodeEventType.Shop, false));
-                continue;
-            }
-            else
-            {
-                route.Add(new EventNode(randomEnum, false));
-            }
+            route.Add(new EventNode(randomNodeIndexList[i], false));
         }
         return route;
     }

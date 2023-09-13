@@ -110,4 +110,32 @@ public static class HM
         var ts = TimeSpan.FromSeconds(timeInSeconds);
         return string.Format("{0:00}:{1:00}", ts.TotalHours, ts.TotalMinutes);
     }
+    public static int GetRandomInt(int maxValue)
+    {
+        return GetRandomUniqueIntList(1, maxValue)[0];
+    }
+    public static List<int> GetRandomUniqueIntList(int amountOfIntsToReturn, int amountOfValues)
+    {
+        List<int> allPossibleInts = new List<int>();
+        List<int> intsToReturn = new List<int>();
+
+        amountOfIntsToReturn = Mathf.Max(amountOfIntsToReturn, amountOfValues);
+        if(amountOfIntsToReturn <= 0)
+        {
+            intsToReturn.Add(-1);
+            Debug.Log("Amount of random ints <= 0!");
+            return intsToReturn;
+        }
+        for(int i = 0; i < amountOfValues; i++)
+        {
+            allPossibleInts.Add(i);
+        }
+        for (int i = 0; i < amountOfIntsToReturn; i++)
+        {
+            int randomInt = allPossibleInts[UnityEngine.Random.Range(0, allPossibleInts.Count)];
+            intsToReturn.Add(randomInt);
+            allPossibleInts.Remove(randomInt);
+        }
+        return intsToReturn;
+    }
 }
