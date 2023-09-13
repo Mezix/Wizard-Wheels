@@ -56,4 +56,8 @@ public abstract class TankController : MonoBehaviour
     {
         THealth.TakeDamage(damage);
     }
+    public virtual void Heal(int healAmount)
+    {
+        THealth.Heal(healAmount);
+    }
 }

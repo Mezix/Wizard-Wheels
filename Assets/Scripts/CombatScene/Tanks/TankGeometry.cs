@@ -91,9 +91,9 @@ public class TankGeometry : MonoBehaviour
     }
     public void CreateSystemIcons()
     {
-        for (int x = 0; x < _vehicleData.SavedXSize; x++)
+        for (int y = 0; y < _vehicleData.SavedYSize; y++)
         {
-            for (int y = 0; y < _vehicleData.SavedYSize; y++)
+            for (int x = 0; x < _vehicleData.SavedXSize; x++)
             {
                 if (_vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath != "")
                 {
@@ -148,9 +148,9 @@ public class TankGeometry : MonoBehaviour
     public void InitWeaponsAndSystems()
     {
         TankWeaponsAndSystems twep = GetComponent<TankWeaponsAndSystems>();
-        for (int x = 0; x < _vehicleData.SavedXSize; x++)
+        for (int y = 0; y < _vehicleData.SavedYSize; y++)
         {
-            for (int y = 0; y < _vehicleData.SavedYSize; y++)
+            for (int x = 0; x < _vehicleData.SavedXSize; x++)
             {
                 if (!RoomPosMatrix[x, y]) continue;
                 if (_vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].SystemPrefabPath != "")

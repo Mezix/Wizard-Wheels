@@ -23,7 +23,7 @@ public class SunScript : MonoBehaviour
         maxShadowIntensity = 0.7f;
         dayStart = 0f;
         nightStart = 160f;
-        timeOfDay = 0;
+        timeOfDay = 85;
         LightingSystem.system.UpdateShadows(LightingSystem.system.shadows);
     }
     void FixedUpdate()
@@ -33,7 +33,6 @@ public class SunScript : MonoBehaviour
 
     private void UpdateSunPosition()
     {
-        transform.position = REF.PCon.transform.position;
         LightingSystem.system.directionalLightAngle.value -= sunRotationSpeed;
 
         timeOfDay += sunRotationSpeed;

@@ -33,7 +33,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         rb = GetComponent<Rigidbody2D>();
         MaxLifetime = 3;
     }
-    private void OnEnable()
+    public virtual void OnEnable()
     {
         CurrentLifeTime = 0;
         despawnAnimationPlaying = false;
@@ -79,10 +79,10 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         transform.rotation = t.transform.rotation;
         if (trail) trail.Clear();
     }
-    public virtual void DamageTank(TankController e)
+    public virtual void DamageVehicle(TankController vehicle)
     {
         REF.TM.TriggerHitStop(0.5f, 0.05f, 0.1f, 0.1f);
-        e.TakeDamage(Damage);
+        vehicle.TakeDamage(Damage);
         StartCoroutine(DespawnAnimation());
     }
     public virtual IEnumerator DespawnAnimation()

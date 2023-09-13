@@ -181,7 +181,7 @@ public class PlayerTankMovement : TankMovement
             if ((REF.PCon.TMov._tRB.velocity - new Vector2(enemy._navMeshAgent.velocity.x, enemy._navMeshAgent.velocity.y)).magnitude > 2f)
             {
                 currentSpeed = 0.5f * maxSpeed;
-                REF.PCon.TakeDamage(1);
+                //REF.PCon.TakeDamage(1);
 
                 enemy.TMov.currentSpeed = 0.5f * enemy.TMov.maxSpeed;
                 //enemy.TakeDamage(1);

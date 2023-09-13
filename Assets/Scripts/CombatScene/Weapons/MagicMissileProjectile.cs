@@ -37,7 +37,7 @@ public class MagicMissileProjectile : AProjectile
                 {
                     if (tank.GetComponent<PlayerTankController>())
                     {
-                        DamageTank(tank);
+                        DamageVehicle(tank);
                         hasDoneDamage = true;
                     }
                 }
@@ -45,7 +45,7 @@ public class MagicMissileProjectile : AProjectile
                 {
                     if (tank.GetComponent<EnemyTankController>())
                     {
-                        DamageTank(tank);
+                        DamageVehicle(tank);
                         hasDoneDamage = true;
                     }
                 }

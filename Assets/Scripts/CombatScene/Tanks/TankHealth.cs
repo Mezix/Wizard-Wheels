@@ -17,6 +17,10 @@ public class TankHealth : MonoBehaviour
     }
     public virtual void TakeDamage(int dmg)
     {
-        print("implement this");
+        print("Implement TakeDamage()");
+    }
+    public virtual void Heal(int dmg)
+    {
+        print("Implement Heal()");
     }
 }

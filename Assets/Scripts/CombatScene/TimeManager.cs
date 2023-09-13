@@ -82,7 +82,6 @@ public class TimeManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
         Time.timeScale = 1;
-        Debug.Log("done");
     }
     public void PauseGame()
     {

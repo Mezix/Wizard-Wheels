@@ -213,6 +213,12 @@ public class PlayerTankController : TankController
         THealth.GetComponent<PlayerTankHealth>().TakeDamage(damage);
         REF.Cam.StartShake(0.1f, 0.1f);
     }
+    public override void Heal(int damage)
+    {
+        THealth.GetComponent<PlayerTankHealth>().Heal(damage);
+        AudioManager.Singleton._repairSound.pitch = UnityEngine.Random.Range(1,1);
+        AudioManager.Singleton._repairSound.Play();
+    }
     public void InitiateDeathBehaviour()
     {
         if (REF.PDead) return;

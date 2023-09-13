@@ -46,6 +46,7 @@ public class Room : MonoBehaviour
         {
             _currentHP += 1;
             _currentRepairStatus = 0;
+            _tGeo.GetComponent<PlayerTankController>().Heal(1);
             UpdateDamage();
         }
         if(_tGeo.GetComponent<PlayerTankController>())

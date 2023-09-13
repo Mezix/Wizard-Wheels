@@ -15,6 +15,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource _highlightedSound;
     public AudioSource _clickedSound;
+    public AudioSource _cannonImpactSound;
+    public AudioSource _repairSound;
 
     //  Player Prefs
 
