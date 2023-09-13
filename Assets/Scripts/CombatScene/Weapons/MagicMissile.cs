@@ -4,36 +4,22 @@ using UnityEngine;
 
 public class MagicMissile : AWeapon
 {
-    public override void Awake()
+    public override void Start()
     {
-        base.Awake();
-    }
-    private void Start()
-    {
+        base.Start();
         ProjectilePrefab = Resources.Load(GS.WeaponPrefabs("MagicMissileProjectilePrefab"), typeof(GameObject)) as GameObject;
-        WeaponFireExplosion = Resources.Load(GS.WeaponPrefabs("NormalExplosion"), typeof(GameObject)) as GameObject;
-        ManualLocalAimingAngle = 90;
-
-        if (!ShouldHitPlayer) WeaponEnabled = false;
     }
-    private void Update()
+    public override void SpawnProjectile()
     {
-        TimeElapsedBetweenLastAttack += Time.deltaTime;
-        UpdateWeaponUI();
-        UpdateLaserLR();
-        UpdateLockOn();
-        HandleWeaponSelected();
-    }
-    private void FixedUpdate()
-    {
-        if (WeaponEnabled)
+        foreach (Transform t in _projectileSpots)
         {
-            if (IsAimingAtTarget) PointTurretAtTarget();
-            else if (!ShouldNotRotate) RotateTurretToAngle();
-        }
-        else
-        {
-            StopInteraction();
+            GameObject proj = ObjectPool.Instance.GetProjectileFromPool(ProjectilePrefab.GetComponent<PoolableObject>()._poolableType);
+            Debug.Log(proj);
+            proj.GetComponent<MagicMissileProjectile>().SetBulletStatsAndTransformToWeaponStats(this, t);
+            proj.GetComponent<MagicMissileProjectile>().HitPlayer = ShouldHitPlayer;
+            proj.GetComponent<MagicMissileProjectile>().targetToSeek = TargetedRoom;
+            proj.SetActive(true);
+            TimeElapsedBetweenLastAttack = 0;
         }
     }
 }

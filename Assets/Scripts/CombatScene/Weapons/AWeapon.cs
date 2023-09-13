@@ -326,7 +326,7 @@ public abstract class AWeapon : ASystem
         REF.Cam.StartShake(RecoilDuration, Recoil);
     }
 
-    internal void SpawnProjectile()
+    public virtual void SpawnProjectile()
     {
         foreach(Transform t in _projectileSpots)
         {

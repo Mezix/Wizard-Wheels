@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MagicMissileProjectile : AProjectile
 {
-    private GameObject targetToSeek;
-    private void Start()
+    public GameObject targetToSeek;
+    public override void OnEnable()
     {
+        base.OnEnable();
+        targetToSeek = null;
         MaxLifetime = 6f;
     }
 
