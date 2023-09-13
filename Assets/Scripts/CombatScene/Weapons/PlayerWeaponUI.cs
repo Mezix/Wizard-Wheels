@@ -14,6 +14,11 @@ public class PlayerWeaponUI : MonoBehaviour
     private Button button;
     public GameObject _weaponSelected;
     public GameObject _weaponInteractable;
+
+    //  DummFire
+    public bool _isDumbFire;
+    public Button _manualFireButton;
+
     private void Awake()
     {
         button = GetComponent<Button>();

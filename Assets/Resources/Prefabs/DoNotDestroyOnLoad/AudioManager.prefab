@@ -1089,7 +1089,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6183096525389859347}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1117,6 +1117,7 @@ MonoBehaviour:
   _highlightedSound: {fileID: 1351206241906859591}
   _clickedSound: {fileID: 2106645498837281692}
   _cannonImpactSound: {fileID: 2127072883834821730}
+  _repairSound: {fileID: 278767784289176476}
   masterVolume: 0
   musicVolume: 0
   SFXVolume: 0
@@ -1634,11 +1635,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8623003865662386499, guid: e83befb27a2966845bb4e5bc7d078815,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8733f01b730eeee47a42bb758a32eb73, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e83befb27a2966845bb4e5bc7d078815, type: 3}
+--- !u!82 &278767784289176476 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8623003865662386499, guid: e83befb27a2966845bb4e5bc7d078815,
+    type: 3}
+  m_PrefabInstance: {fileID: 8391738304785119967}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &560619113059482734 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8336947523762849457, guid: e83befb27a2966845bb4e5bc7d078815,

@@ -132,7 +132,7 @@ public class EnemyTankController : TankController
             {
                 _dead = true;
             }
-            GameObject explosion = Instantiate((GameObject)Resources.Load(GS.Effects("SingleExplosion")));
+            GameObject explosion = Instantiate((GameObject)Resources.Load(GS.Effects("NormalExplosion2")));
             explosions.Add(explosion);
             explosion.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.0f, 1.0f), 0);
             yield return new WaitForSeconds(0.05f);

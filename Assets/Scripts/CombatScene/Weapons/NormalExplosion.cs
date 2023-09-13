@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SingleExplosion : MonoBehaviour
+public class NormalExplosion : MonoBehaviour
 {
     private void Awake()
     {
@@ -10,7 +10,7 @@ public class SingleExplosion : MonoBehaviour
     }
     private IEnumerator Explode()
     {
-        yield return new WaitForSeconds(0.435f);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 }

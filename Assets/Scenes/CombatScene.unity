@@ -1045,18 +1045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b170c2a471611914aab79fb523283b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &756657822 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1719794912036186355, guid: 703e50d0fa588ed49934e5b64ed2a00b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1671890114058958849}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &854631259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,7 +1401,7 @@ GameObject:
   - component: {fileID: 1314033764}
   - component: {fileID: 1314033765}
   m_Layer: 0
-  m_Name: ProjectilePool
+  m_Name: ObjectPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1446,12 +1434,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa32e710a7e9fc4393b8f0986461b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilesToPool:
+  _objectsToPool:
   - _amountToPool: 10
-    _projectilePrefab: {fileID: 1935830913290221688, guid: 495a80c8c48a48b45a29efceb7b85ab5,
+    poolableObject: {fileID: 1657270500472969857, guid: 495a80c8c48a48b45a29efceb7b85ab5,
       type: 3}
-  - _amountToPool: 10
-    _projectilePrefab: {fileID: 1935830913290221688, guid: a5b4b0258b0970048899c5c3a28e7d2c,
+  - _amountToPool: 2
+    poolableObject: {fileID: 5788693669628684194, guid: a5b4b0258b0970048899c5c3a28e7d2c,
+      type: 3}
+  - _amountToPool: 3
+    poolableObject: {fileID: 8566957718496099956, guid: 099a12a3cfd371e498f66ccc5be3b84a,
       type: 3}
 --- !u!1001 &1328364627
 PrefabInstance:
@@ -1741,30 +1732,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d23765c4076806245992851a5c7520ba, type: 2}
   - {fileID: 11400000, guid: dd583db3bea1ae544b540f563920f0ed, type: 2}
   - {fileID: 11400000, guid: fd8b71f922fa8114dbd6043564f71fe0, type: 2}
---- !u!114 &1848190459 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6450070389012361718, guid: 703e50d0fa588ed49934e5b64ed2a00b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1671890114058958849}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2032723131 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2337914463745367940, guid: 703e50d0fa588ed49934e5b64ed2a00b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1671890114058958849}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2103597801
 GameObject:
   m_ObjectHideFlags: 0
@@ -6221,21 +6188,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 230273142448428285, guid: d4a6dee3bd5b6a6418c42c852b038569,
-        type: 3}
-      propertyPath: SFXVolumeSlider
-      value: 
-      objectReference: {fileID: 756657822}
-    - target: {fileID: 230273142448428285, guid: d4a6dee3bd5b6a6418c42c852b038569,
-        type: 3}
-      propertyPath: MusicVolumeSlider
-      value: 
-      objectReference: {fileID: 1848190459}
-    - target: {fileID: 230273142448428285, guid: d4a6dee3bd5b6a6418c42c852b038569,
-        type: 3}
-      propertyPath: MasterVolumeSlider
-      value: 
-      objectReference: {fileID: 2032723131}
     - target: {fileID: 2022379097380630464, guid: d4a6dee3bd5b6a6418c42c852b038569,
         type: 3}
       propertyPath: m_LocalPosition.x

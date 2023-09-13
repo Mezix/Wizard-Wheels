@@ -157,7 +157,7 @@ MonoBehaviour:
   tMov: {fileID: 0}
   tankSpeedProjectileModifier: 0
   _weaponSelectedUI: {fileID: 0}
-  windupLengthInSeconds: 0.3
+  windupLengthInSeconds: 1
   _teslaBeam: {fileID: 2734238061725225733}
 --- !u!1 &1891114875749286798
 GameObject:

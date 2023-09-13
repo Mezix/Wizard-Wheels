@@ -342,7 +342,7 @@ MonoBehaviour:
   UIColor: {r: 1, g: 0, b: 0, a: 0.5176471}
   lr: {fileID: 0}
   _weaponAnimator: {fileID: 0}
-  _weaponFireAnimator: {fileID: 0}
+  _weaponFireAnimator: {fileID: 5264128953444226865}
   _weaponAudioSource: {fileID: 5770678182755424900}
   _volumePct: 0.5
   tMov: {fileID: 0}

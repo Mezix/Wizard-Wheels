@@ -12,7 +12,7 @@ public class Cannonball : AProjectile
         base.OnEnable();
         _firstRoomHit = null;
     }
-    private void FixedUpdate()
+    public override void FixedUpdate()
     {
         if (!despawnAnimationPlaying) MoveProjectile();
     }
@@ -80,7 +80,7 @@ public class Cannonball : AProjectile
         despawnAnimationPlaying = true;
         _shadow.SetActive(false);
         _projectileSprite.gameObject.SetActive(false);
-        GameObject explosion = Instantiate((GameObject) Resources.Load(GS.Effects("SingleExplosion")));
+        GameObject explosion = Instantiate((GameObject) Resources.Load(GS.Effects("NormalExplosion")));
         explosion.transform.position = transform.position;
         yield return new WaitForFixedUpdate();
         DespawnBullet();

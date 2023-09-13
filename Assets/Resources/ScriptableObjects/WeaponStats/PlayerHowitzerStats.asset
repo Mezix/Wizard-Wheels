@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf59d0cd2d503549883d49978026317, type: 3}
+  m_Name: PlayerHowitzerStats
+  m_EditorClassIdentifier: 
+  _weaponName: Howitzer
+  _UISprite: {fileID: 21300000, guid: fbb8f98d4c26ff042899beef0d16c0ca, type: 3}
+  _damage: 2
+  _projectileSpeed: 7.5
+  _attacksPerSecond: 0.2
+  _rotationSpeed: 1
+  _maxSwivel: 360
+  _lockOnRange: 40
+  _recoil: 0.5
+  _recoilDuration: 0.2

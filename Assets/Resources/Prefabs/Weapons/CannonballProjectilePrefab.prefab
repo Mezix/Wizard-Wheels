@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5015510422872186480}
   - component: {fileID: 7325145752274536561}
   - component: {fileID: -3048575337833728911}
+  - component: {fileID: 1657270500472969857}
   m_Layer: 12
   m_Name: CannonballProjectilePrefab
-  m_TagString: cannonball
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,6 +55,7 @@ MonoBehaviour:
   _shadowRotation: {fileID: 1108643200956634821}
   maxShadowHeight: 0.2
   wep: {fileID: 0}
+  _firstRoomHit: {fileID: 0}
 --- !u!50 &7325145752274536561
 Rigidbody2D:
   serializedVersion: 4
@@ -116,6 +118,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!114 &1657270500472969857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935830913290221688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc6ae8aaf7daa64ea8b7a340d3d0ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolableType: 0
 --- !u!1 &2208118864922815613
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +236,7 @@ SpriteRenderer:
   m_SortingLayerID: -2065071363
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fd35d618a6a4aa443bfe406a416e62f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0f8564edfbe39c4a8f6d20543f60afc, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.14117648}
   m_FlipX: 0
   m_FlipY: 0
@@ -451,7 +466,7 @@ SpriteRenderer:
   m_SortingLayerID: -2065071363
   m_SortingLayer: 6
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: fd35d618a6a4aa443bfe406a416e62f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0f8564edfbe39c4a8f6d20543f60afc, type: 3}
   m_Color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
   m_FlipX: 0
   m_FlipY: 0

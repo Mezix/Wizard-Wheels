@@ -42,10 +42,14 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         _shadow.SetActive(true);
         _projectileSprite.gameObject.SetActive(true);
     }
-    private void Update()
+    public virtual void Update()
     {
         CurrentLifeTime += Time.deltaTime;
         CheckLifetime();
+    }
+    public virtual void FixedUpdate()
+    {
+        if (!despawnAnimationPlaying) MoveProjectile();
     }
     public virtual void MoveProjectile()
     {
@@ -67,7 +71,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     }
     protected void DespawnBullet()
     {
-        ProjectilePool.Instance.AddToPool(gameObject);
+        ObjectPool.Instance.AddToPool(GetComponent<PoolableObject>());
     }
     public virtual void SetBulletStatsAndTransformToWeaponStats(AWeapon weapon, Transform t)
     {

@@ -10,36 +10,13 @@ public class TeslaTower : AWeapon
     private bool firingDirectionLocked;
     public float windupLengthInSeconds;
     public TeslaBeam _teslaBeam;
-    public override void Awake()
-    {
-        base.Awake();
-    }
-    private void Start()
+
+    public override void Start()
     {
         ManualLocalAimingAngle = 90;
         _teslaBeam.SetTeslaBeamSize(_weaponStats._lockOnRange);
 
         if (!ShouldHitPlayer) WeaponEnabled = false;
-    }
-    private void Update()
-    {
-        TimeElapsedBetweenLastAttack += Time.deltaTime;
-        UpdateWeaponUI();
-        UpdateLockOn();
-        HandleWeaponSelected();
-    }
-    private void FixedUpdate()
-    {
-        if(WeaponEnabled)
-        {
-            if (IsAimingAtTarget) PointTurretAtTarget();
-            else if (!ShouldNotRotate) RotateTurretToAngle();
-        }
-        else
-        {
-            StopInteraction();
-        }
-        UpdateLaserLR();
     }
     public override void PointTurretAtTarget()
     {

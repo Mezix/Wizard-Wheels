@@ -35,10 +35,10 @@ public abstract class AWeapon : ASystem
     public GameObject ProjectilePrefab { get; set; }
     public List<Transform> _projectileSpots = new List<Transform>();
     public bool ShouldHitPlayer { get; set; }
+    public bool _isManualFire;
 
     //  UI
     public PlayerWeaponUI PlayerUIWep { get; set; }
-
     public WeaponUI WeaponUI;
     public Color UIColor;
     public LineRenderer lr;
@@ -58,6 +58,7 @@ public abstract class AWeapon : ASystem
     public float tankSpeedProjectileModifier;
 
     //  Selected
+    [HideInInspector]
     public WeaponSelectedUI _weaponSelectedUI;
 
     public override void Awake()
@@ -66,6 +67,34 @@ public abstract class AWeapon : ASystem
         SystemObj = gameObject;
         ShouldHitPlayer = false;
         tankSpeedProjectileModifier = 0;
+    }
+    public virtual void Start()
+    {
+        ProjectilePrefab = Resources.Load(GS.WeaponPrefabs("CannonballProjectilePrefab"), typeof(GameObject)) as GameObject;
+        WeaponFireExplosion = Resources.Load(GS.WeaponPrefabs("NormalExplosion"), typeof(GameObject)) as GameObject;
+        ManualLocalAimingAngle = 90;
+
+        if (!ShouldHitPlayer) WeaponEnabled = false;
+    }
+    public virtual void Update()
+    {
+        TimeElapsedBetweenLastAttack += Time.deltaTime;
+        UpdateWeaponUI();
+        UpdateLockOn();
+        HandleWeaponSelected();
+    }
+    public virtual void FixedUpdate()
+    {
+        if (WeaponEnabled)
+        {
+            if (IsAimingAtTarget) PointTurretAtTarget();
+            else if (!ShouldNotRotate) RotateTurretToAngle();
+        }
+        else
+        {
+            StopInteraction();
+        }
+        UpdateLaserLR();
     }
     public override void InitSystemStats()
     {
@@ -219,7 +248,7 @@ public abstract class AWeapon : ASystem
     public void RotateTurretToAngle()
     {
         TargetedRoom = null;
-        float zRotActual = 0;
+        float zRotActual;
         float diff = ManualLocalAimingAngle - RotatablePart.localRotation.eulerAngles.z;
         if (diff < -180) diff += 360;
 
@@ -301,7 +330,7 @@ public abstract class AWeapon : ASystem
     {
         foreach(Transform t in _projectileSpots)
         {
-            GameObject proj = ProjectilePool.Instance.GetProjectileFromPool(ProjectilePrefab.tag);
+            GameObject proj = ObjectPool.Instance.GetProjectileFromPool(ProjectilePrefab.GetComponent<PoolableObject>()._poolableType);
             proj.GetComponent<AProjectile>().SetBulletStatsAndTransformToWeaponStats(this, t);
             proj.GetComponent<AProjectile>().HitPlayer = ShouldHitPlayer;
             proj.SetActive(true);
@@ -324,13 +353,14 @@ public abstract class AWeapon : ASystem
     }
     //  Misc
 
-    internal void WeaponFireParticles()
+    protected void WeaponFireParticles()
     {
         if(_weaponAnimator) _weaponAnimator.SetTrigger("Fire");
+
         if (_weaponFireAnimator) _weaponFireAnimator.SetTrigger("Fire");
         else
         {
-            GameObject exp = Instantiate((GameObject)Resources.Load(GS.Effects("SingleExplosion")));
+            GameObject exp = Instantiate((GameObject) Resources.Load(GS.Effects("NormalExplosion")));
             foreach (Transform t in _projectileSpots) exp.transform.SetParent(t);
             exp.transform.localPosition = Vector3.zero;
         }
