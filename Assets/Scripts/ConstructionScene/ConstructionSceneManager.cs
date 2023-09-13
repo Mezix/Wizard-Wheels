@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static PlayerData;
+using Modern2D;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -30,12 +31,13 @@ public class ConstructionSceneManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        //hideFlags = HideFlags.DontSaveInEditor;
     }
     private void Start()
     {
         if(LaunchInGameplayOverride) LaunchInMode(CreatorMode.PlayerMode);
         else LaunchInMode(_editorlaunchMode);
+
+        LightingSystem.system._shadowAlpha.value = 0;
     }
     public void LaunchInMode(CreatorMode launchMode)
     {
