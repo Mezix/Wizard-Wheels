@@ -157,21 +157,22 @@ public abstract class AWeapon : ASystem
     {
         if (TargetedRoom) REF.c.RemoveCrosshair(GetComponent<AWeapon>());
 
-        RaycastHit2D hit = HM.RaycastToMouseCursor();
+        RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
         if (hit.collider && hit.collider.tag != "Level")
         {
             TankController targetTC = hit.collider.transform.root.GetComponentInChildren<TankController>();
             if (targetTC && hit.collider.transform.TryGetComponent(out Room targetRoom))
             {
+                //Debug.Log(targetTC.name);
                 if (targetRoom._tGeo.GetComponent<TankController>().Equals(transform.root.GetComponentInChildren<TankController>()))
                 {
-                    print("Trying to target own Tank");
+                    //Debug.Log("Trying to target own Tank");
                     return;
                 }
                 TargetedRoom = targetRoom.gameObject;
                 if (!(targetTC._dying || targetTC._dead))
                 {
-                    if (TargetRoomWithinLockOnRange())
+                    if (TargetRoomIsWithinLockOnRange())
                     {
                         REF.c.AddCrosshair(TargetedRoom.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
                         IsAimingAtTarget = true;
@@ -194,7 +195,6 @@ public abstract class AWeapon : ASystem
             else if (ManualLocalAimingAngle < -_maxAllowedAngleToTurn) ManualLocalAimingAngle = -_maxAllowedAngleToTurn;
         }
         WeaponSelected = false;
-        //_weaponSelectedLR._targetingCircle.SetActive(false);
     }
     public void CancelAim()
     {
@@ -203,7 +203,6 @@ public abstract class AWeapon : ASystem
         REF.c.RemoveCrosshair(iwep);
         IsAimingAtTarget = false;
         TargetedRoom = null;
-        //_weaponSelectedLR._targetingCircle.SetActive(false);
     }
     public void ResetAim()
     {
@@ -213,7 +212,6 @@ public abstract class AWeapon : ASystem
         ManualLocalAimingAngle = 0;
         IsAimingAtTarget = false;
         TargetedRoom = null;
-        //_weaponSelectedLR._targetingCircle.SetActive(false);
     }
 
     //  ROTATE
@@ -341,7 +339,7 @@ public abstract class AWeapon : ASystem
     {
         _weaponAudioSource.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
         if (_weaponAudioSource) _weaponAudioSource.Play();
-        else Debug.LogError("missing audio clip for weapon!");
+        else Debug.LogError("Missing audio clip for weapon!");
     }
     public void UpdateLaserLR()
     {
@@ -349,7 +347,7 @@ public abstract class AWeapon : ASystem
         lr.gameObject.SetActive(false);
         if (TargetedRoom && IsAimingAtTarget && ShouldHitPlayer)
         {
-            if (TargetRoomWithinLockOnRange())
+            if (TargetRoomIsWithinLockOnRange())
             {
                 //DottedLine.DottedLine.Instance.DrawDottedLine(transform.position, TargetedRoom.transform.position, UIColor);
 
@@ -362,13 +360,13 @@ public abstract class AWeapon : ASystem
     }
     public void UpdateLockOn()
     {
-        if (!TargetRoomWithinLockOnRange() && TargetedRoom)
+        if (!TargetRoomIsWithinLockOnRange() && TargetedRoom)
         {
             CancelAim();
             //print("cancelling lock on");
         }
     }
-    public bool TargetRoomWithinLockOnRange()
+    public bool TargetRoomIsWithinLockOnRange()
     {
         if (!TargetedRoom) return false;
         return Vector3.Distance(_projectileSpots[0].position, TargetedRoom.transform.position) < MaxLockOnRange;

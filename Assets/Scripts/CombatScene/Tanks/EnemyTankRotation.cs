@@ -9,7 +9,7 @@ public class EnemyTankRotation : TankRotation
     public void SetRotationToAngle(float angle)
     {
         AngleToRotateTo = angle;
-        RotateAllObjectsToRotation(AngleToRotateTo);
+        RotateVehicle(AngleToRotateTo);
     }
 
     //  Rotate Tank

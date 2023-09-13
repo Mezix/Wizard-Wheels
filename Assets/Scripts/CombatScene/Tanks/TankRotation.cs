@@ -9,17 +9,12 @@ public abstract class TankRotation : MonoBehaviour
     public float rotationspeed;
     public float AngleToRotateTo;
 
-    protected void RotateAllObjectsToRotation(float zRot)
+    protected void RotateVehicle(float zRot)
     {
         HM.RotateTransformToAngle(transform, new Vector3(0, 0, zRot));
     }
-    protected void RotateAllObjectsByRotation(float zRot)
-    {/*
-        if (rotatableObjects.Count == 0) return;
-        foreach (GameObject rotatable in rotatableObjects)
-        {
-            rotatable.transform.Rotate(Vector3.forward * zRot);
-        }*/
+    protected void RotateVehicleByRotation(float zRot)
+    {
         transform.Rotate(Vector3.forward * zRot);
     }
 

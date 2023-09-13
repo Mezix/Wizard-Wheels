@@ -7,6 +7,8 @@ public class TimeManager : MonoBehaviour
 {
     public static bool paused;
     private bool canPause;
+    private IEnumerator currentHitStop = null;
+    public float timeScale;
     private void Awake()
     {
         REF.TM = this;
@@ -18,6 +20,7 @@ public class TimeManager : MonoBehaviour
     }
     void Update()
     {
+        timeScale = Time.timeScale;
         if (Input.GetKeyDown(KeyCode.Space) && canPause) TogglePauseWhilstPlaying();
     }
     public void TogglePauseWhilstPlaying()
@@ -42,6 +45,44 @@ public class TimeManager : MonoBehaviour
     public void UnfreezeTime()
     {
         Time.timeScale = 1;
+    }
+    /// <summary>
+    /// Pauses time after some kind of impact, like a projectile hitting its target or a vehicle being eliminated
+    /// Effectiveness goes from 0 to 1, 1 being a full time stop
+    /// </summary>
+    public void TriggerHitStop(float effectiveness, float slowDownDuration, float freezeDuration, float speedUpDuration)
+    {
+        effectiveness = Mathf.Clamp(effectiveness, 0, 1);
+
+        if(currentHitStop != null) StopCoroutine(currentHitStop);
+        currentHitStop = ReturnToRegularTimeScaleFromHitStop(effectiveness, slowDownDuration, freezeDuration, speedUpDuration);
+        StartCoroutine(currentHitStop);
+    }
+    public IEnumerator ReturnToRegularTimeScaleFromHitStop(float effectiveness, float slowDownDuration, float freezeDuration, float speedUpDuration)
+    {
+        float startScale = 1 - effectiveness;
+
+        float durationCounter = 0;
+        while (durationCounter < slowDownDuration)
+        {
+            durationCounter += Time.fixedDeltaTime;
+            Time.timeScale = 1 - ((durationCounter / speedUpDuration) * (1 - startScale));
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
+
+        Time.timeScale = startScale;
+
+        yield return new WaitForSecondsRealtime(freezeDuration);
+
+        durationCounter = 0;
+        while (durationCounter < speedUpDuration)
+        {
+            durationCounter += Time.fixedDeltaTime;
+            Time.timeScale = startScale + (durationCounter / speedUpDuration) * (1-startScale);
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
+        Time.timeScale = 1;
+        Debug.Log("done");
     }
     public void PauseGame()
     {

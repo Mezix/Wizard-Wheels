@@ -113,6 +113,7 @@ public class EnemyTankController : TankController
 
     public void InitiateDeathBehaviour()
     {
+        REF.TM.TriggerHitStop(0.75f, 0.1f, 0.5f, 0.5f);
         TWep.WeaponBehaviourInDeath();
         _dying = true;
         TMov.deceleration *= 3;

@@ -30,7 +30,7 @@ public class EnemyTankWeaponsAndSystems : TankWeaponsAndSystems
                 GameObject targetRoom = FindTarget(); //TODO: try to find the nearest room with a high priority!
                 wep.TargetedRoom = targetRoom;
 
-                if (wep.TargetRoomWithinLockOnRange())
+                if (wep.TargetRoomIsWithinLockOnRange())
                 {
                     wep.IsAimingAtTarget = true;
                     REF.c.AddCrosshair(wep.TargetedRoom.GetComponent<Room>(), wep);

@@ -91,13 +91,13 @@ public class PlayerTankRotation : TankRotation
     //  Rotate Tank Manually using the arrow keys
     private void RotateTankLeftManually()
     {
-        RotateAllObjectsByRotation(rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
+        RotateVehicleByRotation(rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
         REF.CombatUI._steeringWheelScript._steeringWheelPointer.transform.Rotate(Vector3.forward * rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
         AngleToRotateTo += rotationspeed * Time.deltaTime;
     }
     private void RotateTankRightManually()
     {
-        RotateAllObjectsByRotation(-rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
+        RotateVehicleByRotation(-rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
         REF.CombatUI._steeringWheelScript._steeringWheelPointer.transform.Rotate(Vector3.back * rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
         AngleToRotateTo -= rotationspeed * Time.deltaTime;
     }
@@ -116,12 +116,12 @@ public class PlayerTankRotation : TankRotation
             if (Mathf.Abs(difference) < (rotationspeed * _rotationSpeedMultiplier * Time.deltaTime))
             {
                 REF.CombatUI._steeringWheelScript.pointerAngleSet = false;
-                RotateAllObjectsToRotation(AngleToRotateTo);
+                RotateVehicle(AngleToRotateTo);
                 HM.RotateTransformToAngle(REF.CombatUI._steeringWheelScript._steeringWheelObject.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {
-                RotateAllObjectsByRotation(-rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
+                RotateVehicleByRotation(-rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
                 SetRotationOfSteeringWheel();
             }
         }
@@ -130,12 +130,12 @@ public class PlayerTankRotation : TankRotation
             if (Mathf.Abs(difference) < (rotationspeed * _rotationSpeedMultiplier * Time.deltaTime))
             {
                 REF.CombatUI._steeringWheelScript.pointerAngleSet = false;
-                RotateAllObjectsToRotation(AngleToRotateTo);
+                RotateVehicle(AngleToRotateTo);
                 HM.RotateTransformToAngle(REF.CombatUI._steeringWheelScript._steeringWheelObject.transform, new Vector3(0, 0, AngleToRotateTo));
             }
             else
             {
-                RotateAllObjectsByRotation(rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
+                RotateVehicleByRotation(rotationspeed * _rotationSpeedMultiplier * Time.deltaTime);
                 SetRotationOfSteeringWheel();
             }
         }

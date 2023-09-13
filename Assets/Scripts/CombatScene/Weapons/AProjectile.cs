@@ -81,6 +81,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     }
     public virtual void DamageTank(TankController e)
     {
+        REF.TM.TriggerHitStop(0.5f, 0.05f, 0.1f, 0.1f);
         e.TakeDamage(Damage);
         StartCoroutine(DespawnAnimation());
     }
