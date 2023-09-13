@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerTankRotation : TankRotation
 {
-
     public float _rotationSpeedMultiplier;
     private void Awake()
     {
@@ -86,7 +85,6 @@ public class PlayerTankRotation : TankRotation
 
     private void SetRotationOfSteeringWheel()
     {
-        //HM.RotateTransformToAngle(REF.CombatUI._steeringWheelScript._steeringWheelObject.transform, rotatableObjects[0].transform.rotation.eulerAngles);
         HM.RotateTransformToAngle(REF.CombatUI._steeringWheelScript._steeringWheelObject.transform, transform.rotation.eulerAngles);
     }
 
@@ -107,7 +105,7 @@ public class PlayerTankRotation : TankRotation
     //  Rotate Tank
     private void RotateTankToPointerAngle()
     {
-        float currentRot = rotatableObjects[0].transform.rotation.eulerAngles.z;
+        float currentRot = transform.rotation.eulerAngles.z;
         if (currentRot > 180) currentRot -= 360;
         if (AngleToRotateTo > 180) AngleToRotateTo -= 360;
 

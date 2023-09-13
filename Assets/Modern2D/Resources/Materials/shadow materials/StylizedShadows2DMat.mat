@@ -107,22 +107,22 @@ Material:
     - _SceneLighten: 1
     - _TexturePixelSize: 64
     - _afrigesTex: 0
-    - _blurArea: 4
-    - _blurStrength: 1
+    - _blurArea: 0
+    - _blurStrength: 0
     - _colorMlp: 1
-    - _directional: 0
-    - _enableBlur: 1
+    - _directional: 1
+    - _enableBlur: 0
     - _fakeRefraction: 0
     - _falloff: 1
     - _falloffByEdges: 1
     - _fastAntyaliasing: 0
     - _onlyRenderIn2DLight: 0
     - _sceneLighten: 0
-    - _shadowBaseAlpha: 1
-    - _shadowFalloff: 3.44
+    - _shadowBaseAlpha: 0.547
+    - _shadowFalloff: 5.5
     - _shadowLeftNarrowing: 0.033
-    - _shadowNarrowing: 0.583
-    - _shadowReflectiveness: 0
+    - _shadowNarrowing: 0.6
+    - _shadowReflectiveness: 0.117
     - _shadowRightNarrowing: 1
     - _shadowTexture: 0
     - _shadowTopNarrowing: 0.941
@@ -133,10 +133,10 @@ Material:
     m_Colors:
     - _ShadowColor: {r: 0.011480957, g: 0.039897826, b: 0.05660379, a: 0}
     - _ambientColor: {r: 0.011480957, g: 0.039897826, b: 0.05660379, a: 0}
-    - _blurDir: {r: 1, g: 1, b: 0, a: 0}
+    - _blurDir: {r: 0, g: 0, b: 0, a: 0}
     - _colorMlpRGB: {r: 1, g: 1, b: 1, a: 0}
     - _colorMlpScales: {r: 1, g: 1, b: 1, a: 0}
-    - _distMinMax: {r: 0.3, g: 4, b: 0, a: 0}
+    - _distMinMax: {r: 0, g: 0, b: 0, a: 0}
     - _edgeColor: {r: 1, g: 1, b: 1, a: 0.92941177}
     - _shadowBaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _shadowColor: {r: 0.010012461, g: 0.07634646, b: 0.084905684, a: 0}

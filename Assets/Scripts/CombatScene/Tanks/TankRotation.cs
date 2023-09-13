@@ -5,18 +5,12 @@ using UnityEngine;
 
 public abstract class TankRotation : MonoBehaviour
 {
-    public List<GameObject> rotatableObjects = new List<GameObject>();
     [HideInInspector]
     public float rotationspeed;
     public float AngleToRotateTo;
 
     protected void RotateAllObjectsToRotation(float zRot)
-    {/*
-        if (rotatableObjects.Count == 0) return;
-        foreach (GameObject rotatable in rotatableObjects)
-        {
-            HM.RotateTransformToAngle(rotatable.transform, new Vector3(0, 0, zRot));
-        }*/
+    {
         HM.RotateTransformToAngle(transform, new Vector3(0, 0, zRot));
     }
     protected void RotateAllObjectsByRotation(float zRot)

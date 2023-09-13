@@ -47,9 +47,6 @@ public class TankMovement : MonoBehaviour
     }
     public void Move()
     {
-        if (GetComponentInChildren<TankRotation>().rotatableObjects.Count == 0) return;
-
-        //moveVector = GetComponentInChildren<TankRotation>().rotatableObjects[0].transform.up;
         moveVector = transform.up;
 
         float speedMultiplier = currentSpeed * Time.deltaTime;
@@ -74,7 +71,6 @@ public class TankMovement : MonoBehaviour
     public void InitTires()
     {
         TankGeometry tank = GetComponent<TankGeometry>();
-        TankRotation tr = GetComponent<TankRotation>();
 
         GameObject rotatableObjects = new GameObject("RotatableObjects");
         rotatableObjects.transform.parent = transform;
@@ -94,7 +90,6 @@ public class TankMovement : MonoBehaviour
                 tireObj.transform.localPosition = Vector3.zero;
                 tireObj.transform.parent = rotatableObjects.transform;
                 Tire tire = tireObj.GetComponentInChildren<Tire>();
-                tr.rotatableObjects.Add(tire.gameObject);
                 Tires.Add(tire);
             }
         }
@@ -104,7 +99,6 @@ public class TankMovement : MonoBehaviour
     {
         foreach (Tire t in Tires)
         {
-            // t.AnimatorSpeed(currentSpeed / maxSpeed);
             t.AnimatorSpeed(currentSpeed);
         }
     }

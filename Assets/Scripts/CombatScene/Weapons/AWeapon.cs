@@ -375,7 +375,7 @@ public abstract class AWeapon : ASystem
     }
     public void UpdateTankSpeedProjectileModifier()
     {
-        float tankRotation = tMov.GetComponent<TankRotation>().rotatableObjects[0].transform.rotation.eulerAngles.z + 90;
+        float tankRotation = tMov.GetComponent<TankRotation>().transform.rotation.eulerAngles.z + 90;
         tankSpeedProjectileModifier = 0;
         if (tankRotation > 180) tankRotation -= 360;
         if (ManualLocalAimingAngle > 180) ManualLocalAimingAngle -= 360;

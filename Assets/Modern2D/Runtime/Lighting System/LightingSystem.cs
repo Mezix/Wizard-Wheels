@@ -158,7 +158,7 @@ namespace Modern2D
 		}
 
 		Dictionary<Transform, StylizedShadowCaster> _shadows;
-		Dictionary<Transform, StylizedShadowCaster> shadows
+		public Dictionary<Transform, StylizedShadowCaster> shadows
 		{
 			get
 			{
@@ -294,7 +294,6 @@ namespace Modern2D
 		/// </summary>
 		public void SetCallbacks()
 		{
-
 			directionalLightAngle.onValueChanged = OnShadowSettingsChanged;
 			_shadowColor.onValueChanged = OnShadowSettingsChanged;
 			_shadowReflectiveness.onValueChanged = OnShadowSettingsChanged;
@@ -344,7 +343,6 @@ namespace Modern2D
 
 			extendedUpdateThisFrame = true;
 			UpdateShadows(null);
-
 		}
 
 		/// <summary>
@@ -411,7 +409,6 @@ namespace Modern2D
 
 		public void UpdateShadows(Dictionary<Transform, StylizedShadowCaster> dict)
 		{
-
 			Profiler.BeginSample("Update Shadows");
 			int i = 0;
 
