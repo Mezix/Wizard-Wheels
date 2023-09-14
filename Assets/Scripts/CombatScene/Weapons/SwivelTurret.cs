@@ -7,4 +7,9 @@ using UnityEngine.Audio;
 
 public class SwivelTurret : AWeapon
 {
+    public override void Start()
+    {
+        base.Start();
+        AngleToAimAt = 0;
+    }
 }
