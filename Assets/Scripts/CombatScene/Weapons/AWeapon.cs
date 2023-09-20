@@ -343,8 +343,8 @@ public abstract class AWeapon : ASystem
     {
         if(PlayerUIWep)
         {
-            PlayerUIWep._UIWeaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
-            PlayerUIWep.WeaponInteractable(WeaponEnabled);
+            PlayerUIWep._weaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
+            PlayerUIWep.WeaponIsBeingInteractedWith(WeaponEnabled);
         }
         if(ShouldHitPlayer)
         {

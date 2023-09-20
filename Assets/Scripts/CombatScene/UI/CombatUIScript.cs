@@ -38,7 +38,9 @@ public class CombatUIScript : MonoBehaviour
 
     [Space(10)]
     [Header("Weapons")]
-    public GameObject _weaponsList;
+    public List<PlayerWeaponUI> AllUIWeapons = new List<PlayerWeaponUI>();
+    public HorizontalLayoutGroup _weaponsHLayoutGroup;
+    public Image _WeaponHolderBG;
 
     //  Track Tank
 
@@ -87,7 +89,6 @@ public class CombatUIScript : MonoBehaviour
     private void Start()
     {
         _settingsScript.CloseSettings();
-        //SaveWizards(wizardsSaved);
         timeBetweenMouseClicks = 0;
         InitButtonsSlidersToggles();
         _xrayOn = true;
@@ -146,18 +147,34 @@ public class CombatUIScript : MonoBehaviour
         ZoomSlider.onValueChanged.AddListener(delegate { REF.Cam.SetZoom(ZoomSlider.value);});
     }
     
-    public PlayerWeaponUI CreateWeaponUI(AWeapon iwp)
+    public void CreateWeaponUI(AWeapon weapon)
     {
-        PlayerWeaponUI weaponUI = Instantiate(Resources.Load(GS.WeaponPrefabs("PlayerWeaponUI"),  typeof (PlayerWeaponUI)) as PlayerWeaponUI);
-        weaponUI._weaponImage.sprite = iwp._weaponStats._UISprite;
-        weaponUI._UIWeaponName.text = iwp.SystemName;
-        weaponUI._index = iwp.WeaponUI.WeaponIndex;
-        weaponUI._weapon = iwp;
-        weaponUI._UIWeaponIndex.text = iwp.WeaponUI.WeaponIndex.ToString();
-
-        weaponUI.transform.SetParent(_weaponsList.transform, false);
-        return weaponUI;
+        PlayerWeaponUI playerWeaponUI = Instantiate(Resources.Load(GS.WeaponPrefabs("PlayerWeaponUI"),  typeof (PlayerWeaponUI)) as PlayerWeaponUI, _weaponsHLayoutGroup.transform, false);
+        playerWeaponUI.Init(weapon);
+        float holderSize = (_weaponsHLayoutGroup.transform.childCount * 60) +                // cumulative size of all weapons
+            (_weaponsHLayoutGroup.transform.childCount - 1) * _weaponsHLayoutGroup.spacing + // cumulative spacing between each wep ui
+                                                                                         10; // spacing to left and right to encompass all weapons
+        _WeaponHolderBG.rectTransform.sizeDelta = new Vector2(holderSize, 70);
+        AllUIWeapons.Add(playerWeaponUI);
     }
+    public void ReorderWeapons()
+    {
+        AllUIWeapons = new List<PlayerWeaponUI>();
+        REF.PCon.TWep.AWeaponArray = new List<AWeapon>();
+        for(int i = 0; i < _weaponsHLayoutGroup.transform.childCount; i++)
+        {
+            PlayerWeaponUI wep = _weaponsHLayoutGroup.transform.GetChild(i).GetComponent<PlayerWeaponUI>();
+            wep._index = i + 1;
+            wep._UIWeaponIndex.text = wep._index.ToString();
+
+            wep._assignedWeapon.WeaponUI.WeaponIndex = wep._index;
+            wep._assignedWeapon.WeaponUI._weaponIndexText.text = wep._index.ToString();
+
+            AllUIWeapons.Add(wep);
+            REF.PCon.TWep.AWeaponArray.Add(wep._assignedWeapon);
+        }
+    }
+
     public PlayerWizardUI CreateWizardUI(AUnit unit)
     {
         PlayerWizardUI wizUI = Instantiate(Resources.Load(GS.UIPrefabs("PlayerWizardUI"), typeof(PlayerWizardUI)) as PlayerWizardUI);

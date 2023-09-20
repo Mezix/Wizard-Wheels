@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
 {
-    public List<PlayerWeaponUI> AllUIWeapons = new List<PlayerWeaponUI>();
     public bool multipleSelected = true;
-
     public float _weaponRotationSpeedMultiplier;
 
     private void Awake()
@@ -66,9 +64,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
         for (int i = 0; i < AWeaponArray.Count; i++)
         {
             AWeaponArray[i].SetIndex(i+1);
-            PlayerWeaponUI uw = REF.CombatUI.CreateWeaponUI(AWeaponArray[i]);
-            AllUIWeapons.Add(uw);
-            AWeaponArray[i].PlayerUIWep = uw;
+            REF.CombatUI.CreateWeaponUI(AWeaponArray[i]);
         }
     }
     public override void WeaponBehaviourInDeath()
@@ -84,9 +80,9 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
 
     public void UpdateWeaponRotationSpeed()
     {
-        foreach(PlayerWeaponUI wep in AllUIWeapons)
+        foreach(AWeapon wep in AWeaponArray)
         {
-            wep._weapon.RotationSpeed = wep._weapon._weaponStats._rotationSpeed * _weaponRotationSpeedMultiplier;
+            wep.RotationSpeed = wep._weaponStats._rotationSpeed * _weaponRotationSpeedMultiplier;
         }
     }
 }
