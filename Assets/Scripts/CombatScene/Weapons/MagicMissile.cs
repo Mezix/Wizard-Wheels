@@ -14,7 +14,6 @@ public class MagicMissile : AWeapon
         foreach (Transform t in _projectileSpots)
         {
             GameObject proj = ObjectPool.Instance.GetProjectileFromPool(ProjectilePrefab.GetComponent<PoolableObject>()._poolableType);
-            Debug.Log(proj);
             proj.GetComponent<MagicMissileProjectile>().SetBulletStatsAndTransformToWeaponStats(this, t);
             proj.GetComponent<MagicMissileProjectile>().HitPlayer = ShouldHitPlayer;
             proj.GetComponent<MagicMissileProjectile>().targetToSeek = TargetedRoom;

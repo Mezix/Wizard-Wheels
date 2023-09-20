@@ -61,6 +61,13 @@ public abstract class AWeapon : ASystem
     [HideInInspector]
     public WeaponSelectedUI _weaponSelectedUI;
 
+    public FiringStatus _firingStatus;
+    public enum FiringStatus
+    {
+        Reloading,
+        Charging
+    }
+
     public override void Awake()
     {
         pitchVariance = 0.1f;
@@ -126,6 +133,12 @@ public abstract class AWeapon : ASystem
         _weaponSelectedUI.UpdateWeaponSelectedLR();
         InitLineRenderer();
     }
+
+    public void ManualFire()
+    {
+        AttemptAttack();
+    }
+
     public void InitLineRenderer()
     {
         lr = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponLineRenderer"), typeof(LineRenderer)) as LineRenderer);
@@ -298,7 +311,7 @@ public abstract class AWeapon : ASystem
         else
         {
             zRotActual = zRotToTarget;
-            Attack();
+            AttemptAttack();
         }
         HM.RotateLocalTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
         AngleToAimAt = zRotActual;
@@ -306,7 +319,7 @@ public abstract class AWeapon : ASystem
 
     //  USE WEAPON
 
-    public virtual void Attack()
+    public virtual void AttemptAttack()
     {
         if (TimeElapsedBetweenLastAttack >= TimeBetweenAttacks)
         {
@@ -339,17 +352,18 @@ public abstract class AWeapon : ASystem
     }
 
     //  UI
-    protected void UpdateWeaponUI()
+    public virtual void UpdateWeaponUI()
     {
         if(PlayerUIWep)
         {
-            PlayerUIWep._weaponCharge.fillAmount = Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks);
+            PlayerUIWep.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
             PlayerUIWep.WeaponIsBeingInteractedWith(WeaponEnabled);
         }
         if(ShouldHitPlayer)
         {
             WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
         }
+        HM.RotateTransformToAngle(WeaponUI._weaponIndexText.transform, new Vector3(0, 0, 0));
     }
     //  Misc
 

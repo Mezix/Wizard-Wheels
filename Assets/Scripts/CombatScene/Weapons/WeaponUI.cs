@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public class WeaponUI : MonoBehaviour
 {
     public int WeaponIndex { get; set; }
+    public GameObject _weaponIndexObject;
     public Text _weaponIndexText;
     [SerializeField]
     private GameObject weaponChargeBar;
     [SerializeField]
-    private Image fill;
+    private Slider fillSlider;
+    [SerializeField]
+    private Image fillImage;
 
     public void ShowWeaponUI(bool player)
     {
@@ -21,12 +24,12 @@ public class WeaponUI : MonoBehaviour
         }
         else
         {
-            _weaponIndexText.transform.parent.gameObject.SetActive(false);
+            _weaponIndexObject.gameObject.SetActive(false);
         }
     }
     public void SetCharge(float pct)
     {
         pct = Mathf.Min(1, pct);
-        fill.fillAmount = pct;
+        fillSlider.value = pct;
     }
 }

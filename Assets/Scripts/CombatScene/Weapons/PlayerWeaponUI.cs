@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static AWeapon;
 
 public class PlayerWeaponUI : MonoBehaviour
 {
@@ -36,7 +37,10 @@ public class PlayerWeaponUI : MonoBehaviour
     [Header("Weapon Charge")]
     public Button _weaponChargeButtonForHovering;
     public GameObject _weaponChargeParentObj;
-    public Image _weaponCharge;
+    public Image _weaponChargeImage;
+    public Slider _weaponChargeSlider;
+    public Gradient _weaponChargeGradient;
+    public Color _chargeColor;
 
     [Header("Manual Fire")]
     public bool _hasManualFire;
@@ -116,6 +120,10 @@ public class PlayerWeaponUI : MonoBehaviour
             }
         }
     }
+    public void ManualFire()
+    {
+        _assignedWeapon.ManualFire();
+    }
     public void WeaponIsBeingInteractedWith(bool interactionStatus)
     {
         _weaponSelectionButton.interactable = !interactionStatus;
@@ -129,9 +137,57 @@ public class PlayerWeaponUI : MonoBehaviour
     {
         _weaponHull.text = _assignedWeapon.RoomPosForInteraction.ParentRoom._currentHP + "/" + _assignedWeapon.RoomPosForInteraction.ParentRoom._maxHP;
     }
+
+    // Drag Weapon UI
+
+    private void InitiateDrag()
+    {
+        _tempDraggedObject = Instantiate(transform, REF.mouse._cursorTransform, true);
+        _tempDraggedObject.GetComponent<PlayerWeaponUI>().enabled = false;
+        _tempDraggedObject.SetAsFirstSibling();
+
+        MakeTransparent(true);
+    }
+
+    private void MakeTransparent(bool isTransparent)
+    {
+        Image[] allImages = GetComponentsInChildren<Image>();
+        float opacity = 1;
+        if (isTransparent) opacity = 0.25f;
+        foreach(Image i in allImages)
+        {
+            i.color = new Color(i.color.r, i.color.g, i.color.b, opacity);
+        }
+    }
+
+    private void PlaceWeaponUIInSpot()
+    {
+        if (_tempDraggedObject) Destroy(_tempDraggedObject.gameObject);
+        MakeTransparent(false);
+    }
+    private void MoveWepUIToNewIndex()
+    {
+        if(_tempDraggedObject)
+        {
+            Vector3 relativePos = REF.CombatUI._weaponsHLayoutGroup.transform.InverseTransformPoint(_tempDraggedObject.position);
+            if(relativePos.x > 0 && relativePos.y < -15 && relativePos.y > -120f)
+            {
+                float idx = relativePos.x / 64f;
+                int newIndex = 1 + Mathf.FloorToInt(idx);
+                if (_index != newIndex)
+                {
+                    transform.SetSiblingIndex(newIndex-1);
+                    REF.CombatUI.ReorderWeapons();
+                }
+            }
+        }
+    }
+
+
     private void InitUI()
     {
         _weaponSelectionButton.onClick.AddListener(() => SelectWeapon());
+        _manualFireButton.onClick.AddListener(() => ManualFire());
 
         // Hotkey
 
@@ -187,48 +243,22 @@ public class PlayerWeaponUI : MonoBehaviour
         trigger.triggers.Add(enter);
     }
 
-    // Drag Weapon UI
-
-    private void InitiateDrag()
+    public void SetCharge(float fillPct, FiringStatus chargeMode)
     {
-        _tempDraggedObject = Instantiate(transform, REF.mouse._cursorTransform, true);
-        _tempDraggedObject.GetComponent<PlayerWeaponUI>().enabled = false;
-        _tempDraggedObject.SetAsFirstSibling();
-
-        MakeTransparent(true);
-    }
-
-    private void MakeTransparent(bool isTransparent)
-    {
-        Image[] allImages = GetComponentsInChildren<Image>();
-        float opacity = 1;
-        if (isTransparent) opacity = 0.25f;
-        foreach(Image i in allImages)
+        if(chargeMode.Equals(FiringStatus.Reloading))
         {
-            i.color = new Color(i.color.r, i.color.g, i.color.b, opacity);
+            _weaponChargeImage.color = _weaponChargeGradient.Evaluate(fillPct);
+            _weaponChargeSlider.value = fillPct;
         }
-    }
-
-    private void PlaceWeaponUIInSpot()
-    {
-        if (_tempDraggedObject) Destroy(_tempDraggedObject.gameObject);
-        MakeTransparent(false);
-    }
-    private void MoveWepUIToNewIndex()
-    {
-        if(_tempDraggedObject)
+        else if(chargeMode.Equals(FiringStatus.Charging))
         {
-            Vector3 relativePos = REF.CombatUI._weaponsHLayoutGroup.transform.InverseTransformPoint(_tempDraggedObject.position);
-            if(relativePos.x > 0 && relativePos.y < -15 && relativePos.y > -120f)
-            {
-                float idx = relativePos.x / 64f;
-                int newIndex = 1 + Mathf.FloorToInt(idx);
-                if (_index != newIndex)
-                {
-                    transform.SetSiblingIndex(newIndex-1);
-                    REF.CombatUI.ReorderWeapons();
-                }
-            }
+            _weaponChargeImage.color = _chargeColor;
+            _weaponChargeSlider.value = 1 - fillPct;
+        }
+        if (_hasManualFire)
+        {
+            if (_weaponChargeSlider.value >= 1) _manualFireButton.interactable = true;
+            else _manualFireButton.interactable = false;
         }
     }
 }

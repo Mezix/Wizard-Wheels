@@ -339,7 +339,6 @@ Transform:
   - {fileID: 8870224111755015211}
   - {fileID: 6175849105583657843}
   - {fileID: 4486056113902708837}
-  - {fileID: 4020247864400121667}
   - {fileID: 3233156011727659326}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -364,13 +363,14 @@ MonoBehaviour:
   _direction: 4
   _canBeRotated: 1
   _weaponStats: {fileID: 11400000, guid: e93e95b2057057644b555c5d5c334c47, type: 2}
-  ManualLocalAimingAngle: 0
+  AngleToAimAt: 0
   RotatablePart: {fileID: 4486056113902708837}
   TargetedRoom: {fileID: 0}
   _projectileSpots:
   - {fileID: 995660803235255240}
   - {fileID: 484405607531828535}
   - {fileID: 6179478598227619319}
+  _isManualFire: 0
   WeaponUI: {fileID: 244009782503478640}
   UIColor: {r: 1, g: 0, b: 0, a: 0.5176471}
   lr: {fileID: 0}
@@ -381,6 +381,7 @@ MonoBehaviour:
   tMov: {fileID: 0}
   tankSpeedProjectileModifier: 0
   _weaponSelectedUI: {fileID: 0}
+  _firingStatus: 0
 --- !u!1 &1891114875749286798
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +660,7 @@ Transform:
   - {fileID: 995660803235255240}
   - {fileID: 6179478598227619319}
   - {fileID: 484405607531828535}
+  - {fileID: 4020247864400121667}
   m_Father: {fileID: 740911756729272562}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6695245265120599936
@@ -782,8 +784,18 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 740911756729272562}
+    m_TransformParent: {fileID: 4486056113902708837}
     m_Modifications:
+    - target: {fileID: 546344853329787198, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 546344853329787198, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -793,11 +805,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
@@ -867,12 +874,12 @@ PrefabInstance:
     - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.689
+      value: 0.307
       objectReference: {fileID: 0}
     - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.129
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1196046147799374039, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
@@ -889,35 +896,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: 1370658064565586550, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
-        type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2310391802880552936, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 2310391802880552936, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 25.6
-      objectReference: {fileID: 0}
     - target: {fileID: 5206752808315137815, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
       propertyPath: m_Name
       value: WeaponUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 9072743643766095511, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -30.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9072743643766095511, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 25.600002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -8,15 +8,47 @@ using UnityEngine.Audio;
 public class TeslaTower : AWeapon
 {
     private bool firingDirectionLocked;
+    public float _timeWindingUp;
     public float windupLengthInSeconds;
     public TeslaBeam _teslaBeam;
 
     public override void Start()
     {
         AngleToAimAt = 90;
+        _timeWindingUp = 0;
+        windupLengthInSeconds = 1.0f;
         _teslaBeam.SetTeslaBeamSize(_weaponStats._lockOnRange);
 
         if (!ShouldHitPlayer) WeaponEnabled = false;
+    }
+
+    public override void Update()
+    {
+        TimeElapsedBetweenLastAttack += Time.deltaTime;
+        UpdateWeaponUI();
+        UpdateLockOn();
+        HandleWeaponSelected();
+    }
+    public override void UpdateWeaponUI()
+    {
+        if (PlayerUIWep)
+        {
+            PlayerUIWep.WeaponIsBeingInteractedWith(WeaponEnabled);
+
+            if (_firingStatus.Equals(FiringStatus.Reloading))
+            {
+                PlayerUIWep.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
+            }
+            else
+            {
+                PlayerUIWep.SetCharge(Mathf.Min(1, _timeWindingUp / windupLengthInSeconds), _firingStatus);
+            }
+        }
+        if (ShouldHitPlayer)
+        {
+            WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
+        }
+        HM.RotateTransformToAngle(WeaponUI._weaponIndexText.transform, new Vector3(0, 0, 0));
     }
     public override void PointTurretAtTarget()
     {
@@ -48,24 +80,33 @@ public class TeslaTower : AWeapon
     }
     public IEnumerator StartAttack()
     {
+        _firingStatus = FiringStatus.Charging;
+
+        float animLength = 1.4f;
+
         //  Init the tesla indicator
-        _weaponFireAnimator.speed = 1/(windupLengthInSeconds * 1.4f);
+        _weaponFireAnimator.speed = 1/(windupLengthInSeconds * animLength);
         WeaponFireParticles(); // start firing anim
 
-        //TODO: charge up in blue in the UI
+        while(_timeWindingUp < windupLengthInSeconds)
+        {
+            _timeWindingUp = Mathf.Min(windupLengthInSeconds, _timeWindingUp + Time.deltaTime);
+            yield return new WaitForFixedUpdate();
+        }
 
         //  Fire after the windup is done
-        yield return new WaitForSeconds(windupLengthInSeconds);
-        Attack();
+        AttemptAttack();
 
         //  Wait out the animation
-        yield return new WaitForSeconds(windupLengthInSeconds * 0.4f);
+        yield return new WaitForSeconds(windupLengthInSeconds * 1 - animLength);
         firingDirectionLocked = false;
     }
-    public override void Attack()
+    public override void AttemptAttack()
     {
+        _firingStatus = FiringStatus.Reloading;
         PlayWeaponFireSoundEffect();
         TimeElapsedBetweenLastAttack = 0;
+        _timeWindingUp = 0;
         foreach (Room r in _teslaBeam.roomsToHit)
         {
             r._tGeo.GetComponent<TankController>().TakeDamage(Damage);
@@ -73,7 +114,7 @@ public class TeslaTower : AWeapon
         if (!ShouldHitPlayer)
         {
             WeaponFeedback();
-            REF.Dialog.FireWeapon();
+            //REF.Dialog.FireWeapon();
         }
     }
 }
