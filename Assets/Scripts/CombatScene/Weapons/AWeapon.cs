@@ -27,6 +27,7 @@ public abstract class AWeapon : ASystem
     public float AngleToAimAt;
     public bool ShouldNotRotate { get; set; }
     public Transform RotatablePart;
+
     [HideInInspector]
     public GameObject TargetedRoom;
 
@@ -60,7 +61,6 @@ public abstract class AWeapon : ASystem
     //  Selected
     [HideInInspector]
     public WeaponSelectedUI _weaponSelectedUI;
-
     public FiringStatus _firingStatus;
     public enum FiringStatus
     {
@@ -170,7 +170,7 @@ public abstract class AWeapon : ASystem
     /// <summary>
     /// This Method handles everything to do with the operation of a weapon!
     /// </summary>
-    public void HandleWeaponSelected()
+    public virtual void HandleWeaponSelected()
     {
         if (WeaponSelected && WeaponEnabled && !ShouldHitPlayer)
         {
@@ -198,7 +198,6 @@ public abstract class AWeapon : ASystem
     public virtual void AimWithMouse()
     {
         if (TargetedRoom) REF.c.RemoveCrosshair(GetComponent<AWeapon>());
-
         RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
         if (hit.collider && hit.collider.tag != "Level")
         {
@@ -225,7 +224,7 @@ public abstract class AWeapon : ASystem
                         StartCoroutine(REF.CombatUI.FlashWeaponOutOfRangeWarning());
                     }
                 }
-                
+
             }
         }
         else
@@ -257,7 +256,7 @@ public abstract class AWeapon : ASystem
 
     //  ROTATE
 
-    public void RotateTurretToAngle()
+    public virtual void RotateTurretToAngle()
     {
         TargetedRoom = null;
         float zRotActual;
@@ -273,7 +272,6 @@ public abstract class AWeapon : ASystem
             zRotActual = AngleToAimAt;
         }
         HM.RotateLocalTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
-
     }
     public virtual void PointTurretAtTarget()
     {

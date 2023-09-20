@@ -19,6 +19,6 @@ MonoBehaviour:
   _attacksPerSecond: 0.2
   _rotationSpeed: 1
   _maxSwivel: 360
-  _lockOnRange: 40
+  _lockOnRange: 15
   _recoil: 0.5
   _recoilDuration: 0.2
