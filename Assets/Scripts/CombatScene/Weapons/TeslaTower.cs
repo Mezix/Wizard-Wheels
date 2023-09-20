@@ -46,9 +46,16 @@ public class TeslaTower : AWeapon
         }
         if (ShouldHitPlayer)
         {
-            WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
+            if (_firingStatus.Equals(FiringStatus.Reloading))
+            {
+                WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
+            }
+            else
+            {
+                WeaponUI.SetCharge(Mathf.Min(1, _timeWindingUp / windupLengthInSeconds), _firingStatus);
+            }
         }
-        HM.RotateTransformToAngle(WeaponUI._weaponIndexText.transform, new Vector3(0, 0, 0));
+        if (WeaponUI) HM.RotateTransformToAngle(WeaponUI._weaponIndexText.transform, new Vector3(0, 0, 0));
     }
     public override void PointTurretAtTarget()
     {
@@ -70,7 +77,6 @@ public class TeslaTower : AWeapon
             zRotActual = zRotToTarget;
             if (TimeElapsedBetweenLastAttack >= TimeBetweenAttacks)
             {
-                firingDirectionLocked = true;
                 StartCoroutine(StartAttack());
             }
         }
@@ -78,14 +84,59 @@ public class TeslaTower : AWeapon
         //  rotate to this newly calculate angle
         HM.RotateTransformToAngle(RotatablePart, new Vector3(0, 0, zRotActual));
     }
+    public override void AimWithMouse()
+    {
+        if (firingDirectionLocked) return;
+        if (TargetedRoom) REF.c.RemoveCrosshair(GetComponent<AWeapon>());
+
+        RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
+        if (hit.collider && hit.collider.tag != "Level")
+        {
+            TankController targetTC = hit.collider.transform.root.GetComponentInChildren<TankController>();
+            if (targetTC && hit.collider.transform.TryGetComponent(out Room targetRoom))
+            {
+                //Debug.Log(targetTC.name);
+                if (targetRoom._tGeo.GetComponent<TankController>().Equals(transform.root.GetComponentInChildren<TankController>()))
+                {
+                    //Debug.Log("Trying to target own Tank");
+                    return;
+                }
+                TargetedRoom = targetRoom.gameObject;
+                if (!(targetTC._dying || targetTC._dead))
+                {
+                    if (TargetRoomIsWithinLockOnRange())
+                    {
+                        REF.c.AddCrosshair(TargetedRoom.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
+                        IsAimingAtTarget = true;
+                    }
+                    else
+                    {
+                        StopCoroutine(REF.CombatUI.FlashWeaponOutOfRangeWarning());
+                        StartCoroutine(REF.CombatUI.FlashWeaponOutOfRangeWarning());
+                    }
+                }
+
+            }
+        }
+        else
+        {
+            IsAimingAtTarget = false;
+            AngleToAimAt = HM.GetEulerAngle2DBetween(transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)), transform.localPosition);
+
+            if (AngleToAimAt > _maxAllowedAngleToTurn) AngleToAimAt = _maxAllowedAngleToTurn;
+            else if (AngleToAimAt < -_maxAllowedAngleToTurn) AngleToAimAt = -_maxAllowedAngleToTurn;
+        }
+        WeaponSelected = false;
+    }
     public IEnumerator StartAttack()
     {
+        firingDirectionLocked = true;
         _firingStatus = FiringStatus.Charging;
 
-        float animLength = 1.4f;
+        float timeUntilChargeAnimationIsOver = 0.714f;
 
         //  Init the tesla indicator
-        _weaponFireAnimator.speed = 1/(windupLengthInSeconds * animLength);
+        _weaponFireAnimator.speed = 1/(windupLengthInSeconds * timeUntilChargeAnimationIsOver);
         WeaponFireParticles(); // start firing anim
 
         while(_timeWindingUp < windupLengthInSeconds)
@@ -98,7 +149,7 @@ public class TeslaTower : AWeapon
         AttemptAttack();
 
         //  Wait out the animation
-        yield return new WaitForSeconds(windupLengthInSeconds * 1 - animLength);
+        yield return new WaitForSeconds(windupLengthInSeconds * 1 - timeUntilChargeAnimationIsOver);
         firingDirectionLocked = false;
     }
     public override void AttemptAttack()

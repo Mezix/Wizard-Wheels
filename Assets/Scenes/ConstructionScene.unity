@@ -73756,7 +73756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb69e56405c8d80488e5aef42630e5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankToEdit: {fileID: 11400000, guid: 6ca672f9cc6a618439899de1e353bf01, type: 2}
+  tankToEdit: {fileID: 11400000, guid: fd8b21e0831623d4296abf4cca3b03f4, type: 2}
   _tmpVehicleData:
     VehicleMatrix:
       Columns: []

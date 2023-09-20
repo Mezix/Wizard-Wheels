@@ -195,7 +195,7 @@ public abstract class AWeapon : ASystem
 
     //  AIMING
 
-    public void AimWithMouse()
+    public virtual void AimWithMouse()
     {
         if (TargetedRoom) REF.c.RemoveCrosshair(GetComponent<AWeapon>());
 
@@ -238,7 +238,7 @@ public abstract class AWeapon : ASystem
         }
         WeaponSelected = false;
     }
-    public void CancelAim()
+    public virtual void CancelAim()
     {
         TryGetComponent(out AWeapon iwep);
         if (iwep == null) return;
@@ -246,7 +246,7 @@ public abstract class AWeapon : ASystem
         IsAimingAtTarget = false;
         TargetedRoom = null;
     }
-    public void ResetAim()
+    public virtual void ResetAim()
     {
         TryGetComponent(out AWeapon iwep);
         if (iwep == null) return;
@@ -361,9 +361,9 @@ public abstract class AWeapon : ASystem
         }
         if(ShouldHitPlayer)
         {
-            WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
+           if(WeaponUI) WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
         }
-        HM.RotateTransformToAngle(WeaponUI._weaponIndexText.transform, new Vector3(0, 0, 0));
+        if (WeaponUI) HM.RotateTransformToAngle(WeaponUI._weaponIndexText.transform, new Vector3(0, 0, 0));
     }
     //  Misc
 

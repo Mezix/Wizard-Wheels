@@ -1725,13 +1725,14 @@ MonoBehaviour:
     enemyTakingColorID: 0
   _enemyIndicators: []
   _enemyIndicatorParent: {fileID: 1096546290}
-  eventToSpawn: 1
+  eventToSpawn: 5
   _allPossibleEnemyEvents:
   - {fileID: 11400000, guid: bb40b79590908f440a6ff1f03af7bc0c, type: 2}
   - {fileID: 11400000, guid: c5688de6807a92d41aeb33c46bd2ba87, type: 2}
   - {fileID: 11400000, guid: d23765c4076806245992851a5c7520ba, type: 2}
   - {fileID: 11400000, guid: dd583db3bea1ae544b540f563920f0ed, type: 2}
   - {fileID: 11400000, guid: fd8b71f922fa8114dbd6043564f71fe0, type: 2}
+  - {fileID: 11400000, guid: 71f0279bda7c28f41ba630471fcad2ce, type: 2}
 --- !u!1 &2103597801
 GameObject:
   m_ObjectHideFlags: 0
