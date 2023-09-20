@@ -38,8 +38,11 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         CurrentLifeTime = 0;
         despawnAnimationPlaying = false;
         hasDoneDamage = false;
-        _shadow.transform.localPosition = new Vector2(0, -maxShadowHeight);
-        _shadow.SetActive(true);
+        if(_shadow)
+        {
+            _shadow.transform.localPosition = new Vector2(0, -maxShadowHeight);
+            _shadow.SetActive(true);
+        }
         _projectileSprite.gameObject.SetActive(true);
         _firstRoomHit = null;
     }
@@ -57,8 +60,9 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         rb.MovePosition(transform.position + transform.right * ProjectileSpeed * Time.deltaTime);
         UpdateShadowPosition();
     }
-    protected void UpdateShadowPosition()
+    public virtual void UpdateShadowPosition()
     {
+        if (!_shadow) return;
         HM.RotateLocalTransformToAngle(_shadowRotation, -transform.rotation.eulerAngles);
         _shadow.transform.localPosition = new Vector2(0, -maxShadowHeight * (1f - CurrentLifeTime / MaxLifetime));
         HM.RotateLocalTransformToAngle(_shadowRotation.GetChild(0), transform.rotation.eulerAngles - new Vector3(0,0,90));
@@ -97,7 +101,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         AudioManager.Singleton._cannonImpactSound.Play();
 
         despawnAnimationPlaying = true;
-        _shadow.SetActive(false);
+        if(_shadow)_shadow.SetActive(false);
         _projectileSprite.gameObject.SetActive(false);
         GameObject explosion = Instantiate((GameObject)Resources.Load(GS.Effects("NormalExplosion")));
         explosion.transform.position = transform.position;

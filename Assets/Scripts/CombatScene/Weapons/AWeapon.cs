@@ -323,7 +323,7 @@ public abstract class AWeapon : ASystem
         {
             PlayWeaponFireSoundEffect();
             WeaponFireParticles();
-            SpawnProjectile();
+            FireProjectiles();
             if (!ShouldHitPlayer)
             {
                 WeaponFeedback();
@@ -337,7 +337,7 @@ public abstract class AWeapon : ASystem
         REF.Cam.StartShake(RecoilDuration, Recoil);
     }
 
-    public virtual void SpawnProjectile()
+    public virtual void FireProjectiles()
     {
         foreach(Transform t in _projectileSpots)
         {

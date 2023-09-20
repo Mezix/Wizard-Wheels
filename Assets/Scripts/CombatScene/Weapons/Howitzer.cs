@@ -42,7 +42,6 @@ public class Howitzer : AWeapon
 
         TargetedPositionObject = Instantiate(Resources.Load(GS.WeaponPrefabs("GroundTarget"), typeof (GroundTarget)) as GroundTarget, worldPos, Quaternion.identity);
         TargetedPositionObject._assignedWeapon = this;
-        //HM.RotateLocalTransformToAngle(RotatablePart, new Vector3(0, 0, AngleToAimAt));
     }
     public override void RotateTurretToAngle()
     {

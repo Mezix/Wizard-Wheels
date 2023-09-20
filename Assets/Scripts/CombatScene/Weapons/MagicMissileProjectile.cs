@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class MagicMissileProjectile : AProjectile
 {
-    public GameObject targetToSeek;
+    public bool hasLaunched;
     public override void OnEnable()
     {
         base.OnEnable();
-        targetToSeek = null;
-        MaxLifetime = 6f;
+        hasLaunched = false;
+        MaxLifetime = 6.5f;
     }
-
+    public override void Update()
+    {
+        CurrentLifeTime += Time.deltaTime;
+        if (CurrentLifeTime > 0.5f) hasLaunched = true;
+        CheckLifetime();
+    }
+    public override void FixedUpdate()
+    {
+        if (!despawnAnimationPlaying & hasLaunched) MoveProjectile();
+    }
     public override void MoveProjectile()
     {
-        if(targetToSeek)
-        {
-            Vector3 angleTowardsRoom = new Vector3(0, 0, HM.GetEulerAngle2DBetween(transform.position, targetToSeek.transform.position));
-
-            //  TODO: Rotate towards target slowly instead of facing it immediately
-            HM.RotateTransformToAngle(transform, angleTowardsRoom);
-        }
-        rb.MovePosition(transform.position - transform.right * (Mathf.Max(3, ProjectileSpeed * CurrentLifeTime/MaxLifetime)) * Time.deltaTime);
+        rb.MovePosition(transform.position + transform.right * (Mathf.Max(3, ProjectileSpeed * CurrentLifeTime/MaxLifetime)) * Time.deltaTime);
     }
 }

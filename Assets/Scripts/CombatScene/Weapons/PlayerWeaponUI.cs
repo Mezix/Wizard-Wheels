@@ -30,7 +30,7 @@ public class PlayerWeaponUI : MonoBehaviour
     public Button _statsButtonForHovering;
     public Text _weaponName;
     public Text _WeaponDamage;
-    public Text _weaponAttacksPerSecond;
+    public Text _timeBetweenAttacks;
     public Text _weaponRange;
     public Text _weaponHull;
 
@@ -92,9 +92,13 @@ public class PlayerWeaponUI : MonoBehaviour
         _weaponImage.sprite = _assignedWeapon._weaponStats._UISprite;
 
         _weaponName.text = _assignedWeapon._weaponStats._weaponName;
-        _WeaponDamage.text = _assignedWeapon._weaponStats._damage.ToString();
-        _weaponRange.text = _assignedWeapon._weaponStats._lockOnRange.ToString();
-        _weaponAttacksPerSecond.text = _assignedWeapon._weaponStats._attacksPerSecond.ToString();
+
+        if(_assignedWeapon._projectileSpots.Count > 1) _WeaponDamage.text = _assignedWeapon._projectileSpots.Count + "x" + _assignedWeapon._weaponStats._damage.ToString();
+        else _WeaponDamage.text = _assignedWeapon._weaponStats._damage.ToString();
+
+        if(_assignedWeapon._weaponStats._lockOnRange == -1) _weaponRange.text = "∞";
+        else _weaponRange.text = _assignedWeapon._weaponStats._lockOnRange.ToString();
+        _timeBetweenAttacks.text = _assignedWeapon.TimeBetweenAttacks.ToString();
         UpdateHP();
 
         _hasManualFire = _assignedWeapon._isManualFire;

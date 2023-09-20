@@ -1796,7 +1796,7 @@ GameObject:
   - component: {fileID: 2879966459650513845}
   - component: {fileID: 5449228282419915193}
   m_Layer: 5
-  m_Name: AttacksPerSecond
+  m_Name: TimeBetweenAttacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1979,7 +1979,7 @@ MonoBehaviour:
   _statsButtonForHovering: {fileID: 7489217736828699644}
   _weaponName: {fileID: 4453499738902429781}
   _WeaponDamage: {fileID: 1928966776794052553}
-  _weaponAttacksPerSecond: {fileID: 5449228282419915193}
+  _timeBetweenAttacks: {fileID: 5449228282419915193}
   _weaponRange: {fileID: 5521865773525013213}
   _weaponHull: {fileID: 8607993412477238236}
   _weaponChargeButtonForHovering: {fileID: 5624814366558642047}
