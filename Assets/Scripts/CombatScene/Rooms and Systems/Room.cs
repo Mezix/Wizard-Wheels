@@ -49,7 +49,7 @@ public class Room : MonoBehaviour
             _tGeo.GetComponent<PlayerTankController>().Heal(1);
             UpdateDamage();
         }
-        if(_tGeo.GetComponent<PlayerTankController>())
+        if (_tGeo.GetComponent<PlayerTankController>())
         {
             _roomUI.roomUIObjects.SetActive(true);
             _roomUI.UpdateRepair(_currentRepairStatus / 100f);
@@ -61,11 +61,11 @@ public class Room : MonoBehaviour
     {
         bool AnyUnitRepairing = false;
 
-        foreach(AUnit unit in UnitsInRoom)
+        foreach (AUnit unit in UnitsInRoom)
         {
             if (unit._unitState.Equals(UnitState.Repairing)) { AnyUnitRepairing = true; break; }
         }
-        if(AnyUnitRepairing)
+        if (AnyUnitRepairing)
         {
             _roomUI.NeedsUnitToRepair(false);
         }
@@ -88,8 +88,12 @@ public class Room : MonoBehaviour
     public void UpdateDamage()
     {
         int hpLevel = Mathf.FloorToInt((_currentHP / (float)_maxHP) * 3);
-        _floorRenderer.sprite = Resources.Load(GS.RoomGraphics(_floorType.ToString() + hpLevel.ToString()), typeof (Sprite)) as Sprite;
+        _floorRenderer.sprite = Resources.Load(GS.RoomGraphics(_floorType.ToString() + hpLevel.ToString()), typeof(Sprite)) as Sprite;
         if (_tGeo.GetComponent<PlayerTankController>()) _roomUI.roomUIObjects.SetActive(_currentHP < _maxHP);
+        if (_roomSystem) if (_roomSystem.TryGetComponent(out AWeapon wep))
+            {
+                if (wep.PlayerWepUI) wep.PlayerWepUI.UpdateHP();
+            }
         UpdateVehicleRoomHP();
     }
 
@@ -147,7 +151,7 @@ public class Room : MonoBehaviour
     public void OccupyRoomPos(RoomPosition rPos, AUnit unit)
     {
         freeRoomPositions[rPos.roomPosIndex] = null;
-        if(!UnitsInRoom.Contains(unit)) UnitsInRoom.Add(unit);
+        if (!UnitsInRoom.Contains(unit)) UnitsInRoom.Add(unit);
     }
     public void FreeUpRoomPos(RoomPosition rPos, AUnit unit)
     {
@@ -155,15 +159,15 @@ public class Room : MonoBehaviour
         if (UnitsInRoom.Contains(unit)) UnitsInRoom.Remove(unit);
 
         //  if we have a system...
-        if(_roomSystem != null)
+        if (_roomSystem != null)
         {
             //  check if the roomPosForInteraction is free
-            if(freeRoomPositions[_roomSystem.RoomPosForInteraction.roomPosIndex])
+            if (freeRoomPositions[_roomSystem.RoomPosForInteraction.roomPosIndex])
             {
                 //if we have more wizards in the room to fill up the space
                 if (UnitsInRoom.Count > 0)
-                { 
-                    for(int i = 0; i < UnitsInRoom.Count-1; i++)
+                {
+                    for (int i = 0; i < UnitsInRoom.Count - 1; i++)
                     {
                         if (UnitsInRoom[i].UnitSelected) continue;
                         AUnit wizard = UnitsInRoom[i];
@@ -200,7 +204,7 @@ public class Room : MonoBehaviour
 
     public RoomPosition GetNextFreeRoomPos()
     {
-        for(int i = 0; i < freeRoomPositions.Length; i++)
+        for (int i = 0; i < freeRoomPositions.Length; i++)
         {
             if (freeRoomPositions[i]) return freeRoomPositions[i];
         }

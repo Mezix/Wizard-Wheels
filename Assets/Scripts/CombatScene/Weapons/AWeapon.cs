@@ -38,7 +38,7 @@ public abstract class AWeapon : ASystem
     public bool _isManualFire;
 
     //  UI
-    public PlayerWeaponUI PlayerUIWep { get; set; }
+    public PlayerWeaponUI PlayerWepUI { get; set; }
     public WeaponUI WeaponUI;
     public Color UIColor;
     public LineRenderer lr;
@@ -354,14 +354,14 @@ public abstract class AWeapon : ASystem
     //  UI
     public virtual void UpdateWeaponUI()
     {
-        if(PlayerUIWep)
+        if(PlayerWepUI)
         {
-            PlayerUIWep.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
-            PlayerUIWep.WeaponIsBeingInteractedWith(WeaponEnabled);
+            PlayerWepUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
+            PlayerWepUI.WeaponIsBeingInteractedWith(WeaponEnabled);
         }
         if(ShouldHitPlayer)
         {
-            WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
+            WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
         }
         HM.RotateTransformToAngle(WeaponUI._weaponIndexText.transform, new Vector3(0, 0, 0));
     }

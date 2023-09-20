@@ -50,7 +50,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
             if (wp != null)
             {
                 wp.WeaponSelected = false;
-                wp.PlayerUIWep.WeaponUISelected(false);
+                wp.PlayerWepUI.WeaponUISelected(false);
                 wp._weaponSelectedUI.UpdateWeaponSelectedLR();
             }
         }

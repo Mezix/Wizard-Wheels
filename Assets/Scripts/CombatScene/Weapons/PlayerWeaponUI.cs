@@ -14,7 +14,7 @@ public class PlayerWeaponUI : MonoBehaviour
     public Button _weaponSelectionButton;
     public Image _weaponImage;
     public GameObject _weaponNotInteractedWith;
-    public GameObject _weaponNeedsToBeReparied;
+    public GameObject _weaponNeedsToBeRepaired;
 
     [Header("Hotkey")]
     public GameObject _hotkeyParentObj;
@@ -88,7 +88,7 @@ public class PlayerWeaponUI : MonoBehaviour
     public void Init(AWeapon wep)
     {
         _assignedWeapon = wep;
-        _assignedWeapon.PlayerUIWep = this;
+        _assignedWeapon.PlayerWepUI = this;
         _weaponImage.sprite = _assignedWeapon._weaponStats._UISprite;
 
         _weaponName.text = _assignedWeapon._weaponStats._weaponName;
@@ -126,16 +126,18 @@ public class PlayerWeaponUI : MonoBehaviour
     }
     public void WeaponIsBeingInteractedWith(bool interactionStatus)
     {
-        _weaponSelectionButton.interactable = !interactionStatus;
+        _weaponSelectionButton.interactable = interactionStatus;
         _weaponNotInteractedWith.SetActive(!interactionStatus);
     }
     public void WeaponUISelected(bool isSelected)
     {
         _weaponSelected.SetActive(isSelected);
     }
-    private void UpdateHP()
+    public void UpdateHP()
     {
         _weaponHull.text = _assignedWeapon.RoomPosForInteraction.ParentRoom._currentHP + "/" + _assignedWeapon.RoomPosForInteraction.ParentRoom._maxHP;
+        if (_assignedWeapon.RoomPosForInteraction.ParentRoom._currentHP < _assignedWeapon.RoomPosForInteraction.ParentRoom._maxHP) _weaponNeedsToBeRepaired.SetActive(true);
+        else _weaponNeedsToBeRepaired.SetActive(false);
     }
 
     // Drag Weapon UI

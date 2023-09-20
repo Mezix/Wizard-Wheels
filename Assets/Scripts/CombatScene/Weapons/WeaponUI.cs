@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static AWeapon;
 
 public class WeaponUI : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class WeaponUI : MonoBehaviour
     [SerializeField]
     private Image fillImage;
 
+    public Gradient _weaponChargeGradient;
+    public Color _chargeColor;
+
     public void ShowWeaponUI(bool player)
     {
         weaponChargeBar.SetActive(!player);
@@ -27,9 +31,20 @@ public class WeaponUI : MonoBehaviour
             _weaponIndexObject.gameObject.SetActive(false);
         }
     }
-    public void SetCharge(float pct)
+    public void SetCharge(float pct, FiringStatus chargeMode)
     {
         pct = Mathf.Min(1, pct);
         fillSlider.value = pct;
+
+        if (chargeMode.Equals(FiringStatus.Reloading))
+        {
+            fillImage.color = _weaponChargeGradient.Evaluate(pct);
+            fillSlider.value = pct;
+        }
+        else if (chargeMode.Equals(FiringStatus.Charging))
+        {
+            fillImage.color = _chargeColor;
+            fillSlider.value = 1 - pct;
+        }
     }
 }

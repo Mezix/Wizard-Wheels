@@ -31,22 +31,22 @@ public class TeslaTower : AWeapon
     }
     public override void UpdateWeaponUI()
     {
-        if (PlayerUIWep)
+        if (PlayerWepUI)
         {
-            PlayerUIWep.WeaponIsBeingInteractedWith(WeaponEnabled);
+            PlayerWepUI.WeaponIsBeingInteractedWith(WeaponEnabled);
 
             if (_firingStatus.Equals(FiringStatus.Reloading))
             {
-                PlayerUIWep.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
+                PlayerWepUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
             }
             else
             {
-                PlayerUIWep.SetCharge(Mathf.Min(1, _timeWindingUp / windupLengthInSeconds), _firingStatus);
+                PlayerWepUI.SetCharge(Mathf.Min(1, _timeWindingUp / windupLengthInSeconds), _firingStatus);
             }
         }
         if (ShouldHitPlayer)
         {
-            WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks));
+            WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
         }
         HM.RotateTransformToAngle(WeaponUI._weaponIndexText.transform, new Vector3(0, 0, 0));
     }
