@@ -49,8 +49,7 @@ public class EnemyTankController : TankController
 
     private void SpawnUI()
     {
-        GameObject ui = (GameObject) Instantiate(Resources.Load(GS.Enemy("EnemyUI")));
-        enemyUI = ui.GetComponent<EnemyUI>();
+        enemyUI = Instantiate(Resources.Load(GS.Enemy("EnemyUI"), typeof (EnemyUI)) as EnemyUI);
         enemyUI.transform.SetParent(transform, false);
         enemyUI._allObjects.transform.localPosition = new Vector2(0, (0.5f * TGeo._vehicleData.SavedYSize * 100));
         THealth.GetComponent<EnemyTankHealth>()._healthBarParent = enemyUI.hpBar;

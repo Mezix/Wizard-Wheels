@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2cf59d0cd2d503549883d49978026317, type: 3}
-  m_Name: DualTurretStats
+  m_Name: HeavyCannon
   m_EditorClassIdentifier: 
-  _weaponName: Basic Cannon
-  _UISprite: {fileID: 21300000, guid: 1526fd8336a2c42489c522f7ac85ae0b, type: 3}
+  _weaponName: Heavy Cannon
+  _UISprite: {fileID: 21300000, guid: fbb8f98d4c26ff042899beef0d16c0ca, type: 3}
   _damage: 6
-  _projectileSpeed: 4
-  _attacksPerSecond: 0.15
-  _rotationSpeed: 1
+  _projectileSpeed: 7.5
+  _attacksPerSecond: 0.0625
+  _rotationSpeed: 0.5
   _maxSwivel: 360
-  _lockOnRange: 15
-  _recoil: 0.05
-  _recoilDuration: 0.05
+  _lockOnRange: 20
+  _recoil: 0.2
+  _recoilDuration: 0.2

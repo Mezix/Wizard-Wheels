@@ -35,7 +35,6 @@ public class TankWeaponsAndSystems : MonoBehaviour
         {
             foreach (AWeapon wep in AWeaponArray)
             {
-                wep._weaponStats = GetComponent<EnemyTankWeaponsAndSystems>().EnemyBasicCannon;
                 wep.ShouldHitPlayer = wep.WeaponSelected = wep.WeaponEnabled = true;
                 wep.WeaponUI.ShowWeaponUI(player);
                 wep.InitSystemStats();

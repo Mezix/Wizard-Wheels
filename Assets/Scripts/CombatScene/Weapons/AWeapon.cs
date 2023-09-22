@@ -117,8 +117,9 @@ public abstract class AWeapon : ASystem
         else  //set default stats
         {
             print("No Weapon Stats found, setting defaults!");
-            Damage = 1;
+            SystemName = "No System Found";
             AttacksPerSecond = 1;
+            Damage = 1;
             RotationSpeed = 5f;
             MaxLockOnRange = 100f;
             _maxAllowedAngleToTurn = 180;

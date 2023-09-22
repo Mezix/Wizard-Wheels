@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2cf59d0cd2d503549883d49978026317, type: 3}
-  m_Name: PlayerMagicMissile
+  m_Name: TripleSwivelTurret
   m_EditorClassIdentifier: 
-  _weaponName: Magic Missile
-  _UISprite: {fileID: 21300000, guid: 6996e971625f89c44bc01c74216563c8, type: 3}
+  _weaponName: Swivel Turret
+  _UISprite: {fileID: 21300000, guid: be49fd1bec57dec48ae8b401dedc2c3a, type: 3}
   _damage: 2
-  _projectileSpeed: 15
-  _attacksPerSecond: 0.05
-  _rotationSpeed: -1
-  _maxSwivel: 360
-  _lockOnRange: -1
-  _recoil: 0.1
-  _recoilDuration: 0.2
+  _projectileSpeed: 6
+  _attacksPerSecond: 0.1
+  _rotationSpeed: 3
+  _maxSwivel: 120
+  _lockOnRange: 15
+  _recoil: 0.05
+  _recoilDuration: 0.05

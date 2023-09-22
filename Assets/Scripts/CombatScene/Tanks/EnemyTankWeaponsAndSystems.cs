@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class EnemyTankWeaponsAndSystems : TankWeaponsAndSystems
 {
-    public WeaponStats EnemyBasicCannon;
 
     public override void SelectWeapon(int weaponIndex)
     {
