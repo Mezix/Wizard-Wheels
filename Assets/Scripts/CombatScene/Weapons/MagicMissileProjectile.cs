@@ -5,16 +5,20 @@ using UnityEngine;
 public class MagicMissileProjectile : AProjectile
 {
     public bool hasLaunched;
+    public Animator _magicMissileAnimator;
+    public float launchTime = 0.5f;
     public override void OnEnable()
     {
         base.OnEnable();
+        _magicMissileAnimator.SetTrigger("Launch");
+        _magicMissileAnimator.speed = 1 / launchTime;
         hasLaunched = false;
         MaxLifetime = 6.5f;
     }
     public override void Update()
     {
         CurrentLifeTime += Time.deltaTime;
-        if (CurrentLifeTime > 0.5f) hasLaunched = true;
+        if (CurrentLifeTime > launchTime) hasLaunched = true;
         CheckLifetime();
     }
     public override void FixedUpdate()

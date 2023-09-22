@@ -120,6 +120,7 @@ MonoBehaviour:
   _projectileExplosionType: 3
   _explosionDiameter: 1
   hasLaunched: 0
+  _magicMissileAnimator: {fileID: 4209290458827410980}
 --- !u!114 &5788693669628684194
 MonoBehaviour:
   m_ObjectHideFlags: 0
