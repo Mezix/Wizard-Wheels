@@ -1725,7 +1725,7 @@ MonoBehaviour:
     enemyTakingColorID: 0
   _enemyIndicators: []
   _enemyIndicatorParent: {fileID: 1096546290}
-  eventToSpawn: 5
+  eventToSpawn: 1
   _allPossibleEnemyEvents:
   - {fileID: 11400000, guid: bb40b79590908f440a6ff1f03af7bc0c, type: 2}
   - {fileID: 11400000, guid: c5688de6807a92d41aeb33c46bd2ba87, type: 2}
@@ -6799,7 +6799,7 @@ PrefabInstance:
     - target: {fileID: 3857651452480230578, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 651
+      value: 766.61
       objectReference: {fileID: 0}
     - target: {fileID: 3895322385338602528, guid: 703e50d0fa588ed49934e5b64ed2a00b,
         type: 3}

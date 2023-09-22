@@ -41,10 +41,12 @@ public class TimeManager : MonoBehaviour
     public void FreezeTime()
     {
         Time.timeScale = 0;
+        if (currentHitStop != null) StopCoroutine(currentHitStop);
     }
     public void UnfreezeTime()
     {
         Time.timeScale = 1;
+        if (currentHitStop != null) StopCoroutine(currentHitStop);
     }
     /// <summary>
     /// Pauses time after some kind of impact, like a projectile hitting its target or a vehicle being eliminated
