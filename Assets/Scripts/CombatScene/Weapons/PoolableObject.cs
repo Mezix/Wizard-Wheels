@@ -10,6 +10,9 @@ public class PoolableObject : MonoBehaviour
     {
         Cannonshell,
         Howitzer,
-        MagicMissile
+        MagicMissile,
+        MagicExplosion,
+        RegularExplosion,
+        DeathExplosion
     }
 }

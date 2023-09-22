@@ -16,8 +16,8 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     protected bool despawnAnimationPlaying;
     protected bool hasDoneDamage;
 
-    //  Shadow
-    [SerializeField]
+     //  Shadow
+     [SerializeField]
     protected GameObject _shadow;
     [SerializeField]
     protected Transform _shadowRotation;
@@ -27,6 +27,9 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
     public AWeapon wep;
     public const int IgnoreProjectilesLayer = 12;
     public Room _firstRoomHit = null;
+
+    public PoolableObject.PoolableType _projectileExplosionType;
+    public float _explosionDiameter = 1;
 
     public virtual void Awake()
     {
@@ -103,8 +106,8 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         despawnAnimationPlaying = true;
         if(_shadow)_shadow.SetActive(false);
         _projectileSprite.gameObject.SetActive(false);
-        GameObject explosion = Instantiate((GameObject)Resources.Load(GS.Effects("NormalExplosion")));
-        explosion.transform.position = transform.position;
+        GameObject explosionObject = ObjectPool.Instance.GetPoolableFromPool(_projectileExplosionType);
+        explosionObject.GetComponent<AExplosion>().InitExplosion(transform.position, _explosionDiameter);
         yield return new WaitForFixedUpdate();
         DespawnBullet();
     }

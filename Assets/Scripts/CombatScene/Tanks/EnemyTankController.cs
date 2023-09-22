@@ -124,7 +124,6 @@ public class EnemyTankController : TankController
     }
     private IEnumerator DeathAnimation()
     {
-        List<GameObject> explosions = new List<GameObject>();
         while (!_dead)
         {
             TMov.Decelerate();
@@ -132,9 +131,9 @@ public class EnemyTankController : TankController
             {
                 _dead = true;
             }
-            GameObject explosion = Instantiate((GameObject)Resources.Load(GS.Effects("NormalExplosion2")));
-            explosions.Add(explosion);
-            explosion.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.0f, 1.0f), 0);
+            GameObject explosionObject = ObjectPool.Instance.GetPoolableFromPool(PoolableObject.PoolableType.DeathExplosion);
+            explosionObject.GetComponent<AExplosion>().InitExplosion(transform.position + new Vector3(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.0f, 1.0f), 0), 1);
+
             yield return new WaitForSeconds(0.05f);
         }
         yield return new WaitForSeconds(0.435f);

@@ -55,6 +55,10 @@ MonoBehaviour:
   _shadowRotation: {fileID: 1108643200956634821}
   maxShadowHeight: 0
   wep: {fileID: 0}
+  _firstRoomHit: {fileID: 0}
+  _projectileExplosionType: 3
+  _explosionDiameter: 6
+  _allRoomsInExplosion: []
 --- !u!50 &7325145752274536561
 Rigidbody2D:
   serializedVersion: 4

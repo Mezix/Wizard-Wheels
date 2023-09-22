@@ -26,25 +26,26 @@ public class ObjectPool : MonoBehaviour
         _objectPool = new List<PoolableObject>(); //init the list
         foreach(ObjectPoolItem item in _objectsToPool) //at the start of the game make sure we create a few of each projectile
         {
-            GrowPoolable(item.poolableObject);
+            GrowPoolable(item.poolableObject, item._amountToPool);
         }
     }
-    private void GrowPoolable(PoolableObject poolablePrefab)
+    private void GrowPoolable(PoolableObject poolablePrefab, int amountToGrow = 10)
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < amountToGrow; i++)
         {
-            var poolable = Instantiate(poolablePrefab); //create a bullet of this kind
-            poolable.transform.SetParent(transform); //add all the created bullets to the pool so they aren't loose in the scene
-            AddToPool(poolable);
+            var poolableObj = Instantiate(poolablePrefab); //create a bullet of this kind
+            poolableObj.transform.SetParent(transform); //add all the created bullets to the pool so they aren't loose in the scene
+            AddToPool(poolableObj);
         }
     }
-    public void AddToPool(PoolableObject projectile)
+    public void AddToPool(PoolableObject poolableObj)
     {
-        projectile.gameObject.SetActive(false); //disable the gameobjects so we don't need to see them
-        _objectPool.Add(projectile); //add the projectile to the entire pool
+        poolableObj.gameObject.SetActive(false); //disable the gameobjects so we don't need to see them
+        poolableObj.transform.SetParent(transform); //add the bullet back to the pool so it isnt loose in the scene
+        _objectPool.Add(poolableObj); //add the projectile to the entire pool
     }
 
-    public GameObject GetProjectileFromPool(PoolableType poolableType) //take the tag of the prefab we need, and return an instance of it
+    public GameObject GetPoolableFromPool(PoolableType poolableType) //take the tag of the prefab we need, and return an instance of it
     {
         for (int i = 0; i < _objectPool.Count; i++) //go through the entire pool of all bullets to find one we need
         {
@@ -62,7 +63,7 @@ public class ObjectPool : MonoBehaviour
             if (item.poolableObject._poolableType.Equals(poolableType)) //check the tag of the prefab to the one we got
             {
                 GrowPoolable(item.poolableObject); //create more of the prefab
-                return GetProjectileFromPool(poolableType); // now get the new projectile, since we created some
+                return GetPoolableFromPool(poolableType); // now get the new projectile, since we created some
             }
         }
         return null;

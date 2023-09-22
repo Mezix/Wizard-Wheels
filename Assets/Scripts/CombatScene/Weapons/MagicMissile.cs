@@ -29,8 +29,20 @@ public class MagicMissile : AWeapon
         float angle = 180 + HM.GetEulerAngle2DBetween(transform.position, worldPos);
         worldVectorToAimAt = angle;
     }
+    public override void AttemptAttack()
+    {
+        if (TimeElapsedBetweenLastAttack >= TimeBetweenAttacks)
+        {
+            FireProjectiles();
+        }
+    }
     public override void RotateTurretToAngle()
     {
+        //Does nothing, but must override the method because this weapon functions differently 
+    }
+    public override void WeaponFireParticles()
+    {
+        //Does nothing, but must override the method because this weapon functions differently 
     }
     public override void FireProjectiles()
     {
@@ -40,12 +52,23 @@ public class MagicMissile : AWeapon
     {
         isFiring = true;
         TimeElapsedBetweenLastAttack = 0;
-        foreach (Transform t in _projectileSpots)
+        foreach (Transform projectileSpot in _projectileSpots)
         {
-            GameObject proj = ObjectPool.Instance.GetProjectileFromPool(ProjectilePrefab.GetComponent<PoolableObject>()._poolableType);
-            proj.GetComponent<MagicMissileProjectile>().SetBulletStatsAndTransformToWeaponStats(this, t);
+            PlayWeaponFireSoundEffect();
+            GameObject proj = ObjectPool.Instance.GetPoolableFromPool(ProjectilePrefab.GetComponent<PoolableObject>()._poolableType);
+            proj.GetComponent<MagicMissileProjectile>().SetBulletStatsAndTransformToWeaponStats(this, projectileSpot);
             proj.GetComponent<MagicMissileProjectile>().HitPlayer = ShouldHitPlayer;
             proj.SetActive(true);
+
+            GameObject explosionObject = ObjectPool.Instance.GetPoolableFromPool(PoolableObject.PoolableType.MagicExplosion);
+            explosionObject.GetComponent<AExplosion>().InitExplosion(projectileSpot.position, 0.25f);
+
+            if (!ShouldHitPlayer)
+            {
+                WeaponFeedback();
+                //REF.Dialog.FireWeapon();
+            }
+
             yield return new WaitForSeconds(1/3f); // fire all 6 rockets in 2 seconds
         }
         isFiring = false;

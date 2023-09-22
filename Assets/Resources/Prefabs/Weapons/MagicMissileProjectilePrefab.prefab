@@ -117,6 +117,8 @@ MonoBehaviour:
   maxShadowHeight: 0
   wep: {fileID: 0}
   _firstRoomHit: {fileID: 0}
+  _projectileExplosionType: 3
+  _explosionDiameter: 1
   hasLaunched: 0
 --- !u!114 &5788693669628684194
 MonoBehaviour:

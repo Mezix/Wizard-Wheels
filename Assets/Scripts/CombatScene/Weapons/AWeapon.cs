@@ -19,7 +19,6 @@ public abstract class AWeapon : ASystem
     public float _maxAllowedAngleToTurn { get; set; }
     public float Recoil { get; set; }
     public float RecoilDuration { get; set; }
-    public GameObject WeaponFireExplosion { get; set; }
 
     public bool WeaponSelected { get; set; }
     public bool WeaponEnabled { get; set; }
@@ -78,7 +77,6 @@ public abstract class AWeapon : ASystem
     public virtual void Start()
     {
         ProjectilePrefab = Resources.Load(GS.WeaponPrefabs("CannonballProjectilePrefab"), typeof(GameObject)) as GameObject;
-        WeaponFireExplosion = Resources.Load(GS.WeaponPrefabs("NormalExplosion"), typeof(GameObject)) as GameObject;
         AngleToAimAt = 90;
 
         if (!ShouldHitPlayer) WeaponEnabled = false;
@@ -341,7 +339,7 @@ public abstract class AWeapon : ASystem
     {
         foreach(Transform t in _projectileSpots)
         {
-            GameObject proj = ObjectPool.Instance.GetProjectileFromPool(ProjectilePrefab.GetComponent<PoolableObject>()._poolableType);
+            GameObject proj = ObjectPool.Instance.GetPoolableFromPool(ProjectilePrefab.GetComponent<PoolableObject>()._poolableType);
             proj.GetComponent<AProjectile>().SetBulletStatsAndTransformToWeaponStats(this, t);
             proj.GetComponent<AProjectile>().HitPlayer = ShouldHitPlayer;
             proj.SetActive(true);
@@ -365,19 +363,20 @@ public abstract class AWeapon : ASystem
     }
     //  Misc
 
-    protected void WeaponFireParticles()
+    public virtual void WeaponFireParticles()
     {
         if(_weaponAnimator) _weaponAnimator.SetTrigger("Fire");
 
         if (_weaponFireAnimator) _weaponFireAnimator.SetTrigger("Fire");
         else
         {
-            GameObject exp = Instantiate((GameObject) Resources.Load(GS.Effects("NormalExplosion")));
-            foreach (Transform t in _projectileSpots) exp.transform.SetParent(t);
-            exp.transform.localPosition = Vector3.zero;
+            GameObject explosionObject = ObjectPool.Instance.GetPoolableFromPool(PoolableObject.PoolableType.DeathExplosion);
+            explosionObject.GetComponent<AExplosion>().InitExplosion(transform.position, 1);
+            foreach (Transform t in _projectileSpots) explosionObject.transform.SetParent(t);
+            explosionObject.transform.localPosition = Vector3.zero;
         }
     }
-    public void PlayWeaponFireSoundEffect()
+    public virtual void PlayWeaponFireSoundEffect()
     {
         _weaponAudioSource.pitch = UnityEngine.Random.Range(1 - pitchVariance, 1 + pitchVariance);
         if (_weaponAudioSource) _weaponAudioSource.Play();
