@@ -43,7 +43,6 @@ public class PlayerWeaponUI : MonoBehaviour
     public Color _chargeColor;
 
     [Header("Manual Fire")]
-    public bool _hasManualFire;
     public Button _manualFireButton;
 
     [Header("Weapon Selected")]
@@ -106,9 +105,6 @@ public class PlayerWeaponUI : MonoBehaviour
         _timeBetweenAttacks.text = _assignedWeapon.TimeBetweenAttacks.ToString();
         UpdateHP();
 
-        _hasManualFire = _assignedWeapon._isManualFire;
-        _manualFireButton.gameObject.SetActive(_hasManualFire);
-
         _index = _assignedWeapon.WeaponUI.WeaponIndex;
         _UIWeaponIndex.text = _index.ToString();
 
@@ -120,7 +116,7 @@ public class PlayerWeaponUI : MonoBehaviour
     {
         if (!Input.GetKey(KeyCode.LeftShift)) REF.PCon.TWep.DeselectAllWeapons();
         Events.instance.DoubleClickAttempted(_assignedWeapon.gameObject);
-        if (_assignedWeapon != null)
+        if (_assignedWeapon)
         {
             if (_assignedWeapon.WeaponEnabled)
             {
@@ -128,6 +124,11 @@ public class PlayerWeaponUI : MonoBehaviour
                 _assignedWeapon.WeaponSelected = true;
             }
         }
+    }
+    public void DeselectWeapon()
+    {
+        WeaponUISelected(false);
+        if (_assignedWeapon) _assignedWeapon.WeaponSelected = false;
     }
     public void ManualFire()
     {
@@ -283,10 +284,8 @@ public class PlayerWeaponUI : MonoBehaviour
             _weaponChargeImage.color = _chargeColor;
             _weaponChargeSlider.value = 1 - fillPct;
         }
-        if (_hasManualFire)
-        {
-            if (_weaponChargeSlider.value >= 1) _manualFireButton.interactable = true;
-            else _manualFireButton.interactable = false;
-        }
+
+        if (_weaponChargeSlider.value >= 1) _manualFireButton.interactable = true;
+        else _manualFireButton.interactable = false;
     }
 }

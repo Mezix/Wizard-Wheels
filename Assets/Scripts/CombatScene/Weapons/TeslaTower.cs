@@ -59,7 +59,7 @@ public class TeslaTower : AWeapon
     }
     public override void PointTurretAtTarget()
     {
-        if (!TargetedRoom || firingDirectionLocked) return;
+        if (firingDirectionLocked) return;
 
         //  find the desired angle to face the target
         float zRotToTarget = HM.GetEulerAngle2DBetween(TargetedRoom.transform.position, transform.position);
@@ -87,46 +87,16 @@ public class TeslaTower : AWeapon
     public override void AimWithMouse()
     {
         if (firingDirectionLocked) return;
-        if (TargetedRoom) REF.c.RemoveCrosshair(GetComponent<AWeapon>());
+        AngleToAimAt = HM.GetEulerAngle2DBetween(transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)), transform.localPosition);
 
-        RaycastHit2D hit = HM.RaycastToMouseCursor(LayerMask.GetMask("Room"));
-        if (hit.collider && hit.collider.tag != "Level")
-        {
-            TankController targetTC = hit.collider.transform.root.GetComponentInChildren<TankController>();
-            if (targetTC && hit.collider.transform.TryGetComponent(out Room targetRoom))
-            {
-                //Debug.Log(targetTC.name);
-                if (targetRoom._tGeo.GetComponent<TankController>().Equals(transform.root.GetComponentInChildren<TankController>()))
-                {
-                    //Debug.Log("Trying to target own Tank");
-                    return;
-                }
-                TargetedRoom = targetRoom.gameObject;
-                if (!(targetTC._dying || targetTC._dead))
-                {
-                    if (TargetRoomIsWithinLockOnRange())
-                    {
-                        REF.c.AddCrosshair(TargetedRoom.GetComponentInChildren<Room>(), GetComponent<AWeapon>());
-                        IsAimingAtTarget = true;
-                    }
-                    else
-                    {
-                        StopCoroutine(REF.CombatUI.FlashWeaponOutOfRangeWarning());
-                        StartCoroutine(REF.CombatUI.FlashWeaponOutOfRangeWarning());
-                    }
-                }
-
-            }
-        }
-        else
-        {
-            IsAimingAtTarget = false;
-            AngleToAimAt = HM.GetEulerAngle2DBetween(transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)), transform.localPosition);
-
-            if (AngleToAimAt > _maxAllowedAngleToTurn) AngleToAimAt = _maxAllowedAngleToTurn;
-            else if (AngleToAimAt < -_maxAllowedAngleToTurn) AngleToAimAt = -_maxAllowedAngleToTurn;
-        }
         WeaponSelected = false;
+        if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
+    }
+    public override void ManualFire()
+    {
+        StartCoroutine(StartAttack());
+        WeaponSelected = false;
+        if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
     }
     public IEnumerator StartAttack()
     {

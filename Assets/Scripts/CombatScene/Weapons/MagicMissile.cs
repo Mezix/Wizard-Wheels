@@ -24,10 +24,12 @@ public class MagicMissile : AWeapon
     }
     public override void AimWithMouse()
     {
-        WeaponSelected = false;
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float angle = 180 + HM.GetEulerAngle2DBetween(transform.position, worldPos);
         worldVectorToAimAt = angle;
+
+        WeaponSelected = false;
+        if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
     }
     public override void AttemptAttack()
     {

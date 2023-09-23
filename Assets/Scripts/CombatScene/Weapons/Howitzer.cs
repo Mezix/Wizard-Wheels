@@ -29,7 +29,6 @@ public class Howitzer : AWeapon
     }
     public override void AimWithMouse()
     {
-        WeaponSelected = false;
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float angle = 180 + HM.GetEulerAngle2DBetween(transform.position, worldPos);
 
@@ -42,6 +41,9 @@ public class Howitzer : AWeapon
 
         TargetedPositionObject = Instantiate(Resources.Load(GS.WeaponPrefabs("GroundTarget"), typeof (GroundTarget)) as GroundTarget, worldPos, Quaternion.identity);
         TargetedPositionObject._assignedWeapon = this;
+
+        WeaponSelected = false;
+        if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
     }
     public override void RotateTurretToAngle()
     {

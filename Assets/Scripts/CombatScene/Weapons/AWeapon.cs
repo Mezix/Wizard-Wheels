@@ -35,7 +35,6 @@ public abstract class AWeapon : ASystem
     public GameObject ProjectilePrefab { get; set; }
     public List<Transform> _projectileSpots = new List<Transform>();
     public bool ShouldHitPlayer { get; set; }
-    public bool _isManualFire;
 
     //  UI
     public PlayerWeaponUI PlayerWepUI { get; set; }
@@ -133,9 +132,11 @@ public abstract class AWeapon : ASystem
         InitLineRenderer();
     }
 
-    public void ManualFire()
+    public virtual void ManualFire()
     {
         AttemptAttack();
+        WeaponSelected = false;
+        if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
     }
 
     public void InitLineRenderer()
@@ -177,13 +178,13 @@ public abstract class AWeapon : ASystem
             {
                 AimWithMouse();
             }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                ManualFire();
+            }
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 ResetAim();
-            }
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                CancelAim();
             }
             if (_weaponSelectedUI)
             {
@@ -235,20 +236,20 @@ public abstract class AWeapon : ASystem
             else if (AngleToAimAt < -_maxAllowedAngleToTurn) AngleToAimAt = -_maxAllowedAngleToTurn;
         }
         WeaponSelected = false;
+        if(PlayerWepUI) PlayerWepUI.DeselectWeapon();
     }
-    public virtual void CancelAim()
+    public virtual void CancelLockOn()
     {
-        TryGetComponent(out AWeapon iwep);
-        if (iwep == null) return;
-        REF.c.RemoveCrosshair(iwep);
+        REF.c.RemoveCrosshair(this);
         IsAimingAtTarget = false;
+        
         TargetedRoom = null;
     }
     public virtual void ResetAim()
     {
-        TryGetComponent(out AWeapon iwep);
-        if (iwep == null) return;
-        REF.c.RemoveCrosshair(iwep);
+        WeaponSelected = false;
+        if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
+        REF.c.RemoveCrosshair(this);
         IsAimingAtTarget = false;
         TargetedRoom = null;
     }
@@ -404,7 +405,7 @@ public abstract class AWeapon : ASystem
     {
         if (!TargetRoomIsWithinLockOnRange() && TargetedRoom)
         {
-            CancelAim();
+            CancelLockOn();
             //print("cancelling lock on");
         }
     }
