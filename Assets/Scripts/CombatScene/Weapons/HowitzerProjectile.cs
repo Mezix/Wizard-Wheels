@@ -92,7 +92,6 @@ public class HowitzerProjectile : AProjectile
                             if (tank)
                             {
                                 _allRoomsInExplosion.Add(r);
-                                Debug.Log(r);
                             }
                         }
                         else
@@ -101,7 +100,6 @@ public class HowitzerProjectile : AProjectile
                             if (tank)
                             {
                                 _allRoomsInExplosion.Add(r);
-                                Debug.Log(r);
                             }
                         }
                     }
@@ -115,7 +113,6 @@ public class HowitzerProjectile : AProjectile
         detonationTriggerStarted = true;
         yield return new WaitForSeconds(detonationTriggerLength);
         hasDoneDamage = true;
-        Debug.Log(_allRoomsInExplosion.Count);
         foreach (Room r in _allRoomsInExplosion)
         {
             r.DamageRoom(Damage);
