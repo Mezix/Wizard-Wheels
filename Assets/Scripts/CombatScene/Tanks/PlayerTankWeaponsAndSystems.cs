@@ -39,7 +39,12 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
         if (!multipleSelected) DeselectAllWeapons();
         if (weaponIndex < AWeaponArray.Count)
         {
-            if(AWeaponArray[weaponIndex].WeaponEnabled) AWeaponArray[weaponIndex].WeaponSelected = true;
+            if(AWeaponArray[weaponIndex].WeaponEnabled)
+            {
+                AWeaponArray[weaponIndex].WeaponSelected = true;
+                AWeaponArray[weaponIndex].PlayerWepUI.SelectWeapon();
+                AWeaponArray[weaponIndex]._weaponSelectedUI.UpdateWeaponSelectedLR();
+            }
         }
         REF.PCon.DeselectAllWizards();
     }

@@ -47,13 +47,15 @@ public class PlayerWeaponUI : MonoBehaviour
     public Button _manualFireButton;
 
     [Header("Weapon Selected")]
-    public GameObject _weaponSelected;
+    public List<Image> _selectedSprites;
+    public Color _selectedColor;
 
     //Hovering
     public Transform _tempDraggedObject;
     private bool mouseHoveringOverSelectionButton;
     private bool mouseHoveringOverStats;
     private bool mouseHoveringOverCharge;
+    private bool mouseHoveringOverManualFire;
 
     private void Awake()
     {
@@ -74,7 +76,10 @@ public class PlayerWeaponUI : MonoBehaviour
         else
         {
             if (mouseHoveringOverStats || mouseHoveringOverCharge || mouseHoveringOverSelectionButton) ShowExtended(true);
-            else ShowExtended(false);
+            else
+            {
+                if (!mouseHoveringOverManualFire) ShowExtended(false);
+            }
         }
     }
 
@@ -135,7 +140,11 @@ public class PlayerWeaponUI : MonoBehaviour
     }
     public void WeaponUISelected(bool isSelected)
     {
-        _weaponSelected.SetActive(isSelected);
+        foreach(Image obj in _selectedSprites)
+        {
+            obj.gameObject.SetActive(isSelected);
+            obj.color = _selectedColor;
+        }
     }
     public void UpdateHP()
     {
@@ -246,6 +255,19 @@ public class PlayerWeaponUI : MonoBehaviour
         enter = new EventTrigger.Entry();
         enter.eventID = EventTriggerType.PointerExit;
         enter.callback.AddListener((data) => { mouseHoveringOverCharge = false; });
+        trigger.triggers.Add(enter);
+
+        //  ManualFire
+
+        trigger = _manualFireButton.gameObject.AddComponent<EventTrigger>();
+        enter = new EventTrigger.Entry();
+        enter.eventID = EventTriggerType.PointerEnter;
+        enter.callback.AddListener((data) => { mouseHoveringOverManualFire = true; });
+        trigger.triggers.Add(enter);
+
+        enter = new EventTrigger.Entry();
+        enter.eventID = EventTriggerType.PointerExit;
+        enter.callback.AddListener((data) => { mouseHoveringOverManualFire = false; });
         trigger.triggers.Add(enter);
     }
 
