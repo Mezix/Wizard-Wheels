@@ -23,7 +23,8 @@ public class SunScript : MonoBehaviour
         maxShadowIntensity = 0.7f;
         dayStart = 0f;
         nightStart = 160f;
-        timeOfDay = 85;
+        //timeOfDay = 85;
+        timeOfDay = HM.GetRandomInt(360);
         LightingSystem.system.UpdateShadows(LightingSystem.system.shadows);
     }
     void FixedUpdate()
@@ -33,7 +34,9 @@ public class SunScript : MonoBehaviour
 
     private void UpdateSunPosition()
     {
-        LightingSystem.system.directionalLightAngle.value -= sunRotationSpeed;
+        //LightingSystem.system.directionalLightAngle.value -= sunRotationSpeed;
+        LightingSystem.system.directionalLightAngle.value = -timeOfDay + 180;
+        //LightingSystem.system.directionalLightAngle.onValueChanged.Invoke();
 
         timeOfDay += sunRotationSpeed;
         if (timeOfDay >= 360) timeOfDay = 0;
@@ -51,6 +54,5 @@ public class SunScript : MonoBehaviour
         {
             LightingSystem.system._shadowAlpha.value = maxShadowIntensity;
         }
-        // LightingSystem.system.UpdateShadows(LightingSystem.system.shadows);
     }
 }

@@ -178,7 +178,7 @@ public abstract class AWeapon : ASystem
             {
                 AimWithMouse();
             }
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 ManualFire();
             }

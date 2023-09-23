@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using NavMeshPlus;
 using System.Threading.Tasks;
+using Modern2D;
 
 public class MapGeneration : MonoBehaviour
 {
@@ -18,12 +19,20 @@ public class MapGeneration : MonoBehaviour
     private Vector2Int centeringVector;
 
     // Tiles
-    private object[] grassTiles;
-    private TileBase stoneRuleTile;
+    public enum MapFloorType
+    {
+        Grass,
+        Hell
+    }
+    public MapFloorType _mapFloorType;
+    private object[] floorTiles;
+    private TileBase wallRuleTile;
+
+    public SpriteRenderer _walkableFloor;
 
     //  Minimap Colors
-    public Color minimapStoneColor;
-    public Color minimapGrassColor;
+    private Color minimapWallColor;
+    private Color minimapFloorColor;
 
     //  Generation
 
@@ -43,17 +52,38 @@ public class MapGeneration : MonoBehaviour
         grid = GetComponentInChildren<Grid>();
         minimapTex = new Texture2D(chunkSize, chunkSize);
         fogOfWarTex = new Texture2D(chunkSize, chunkSize);
-        grassTiles = Resources.LoadAll(GS.BGTiles("Grass Tiles"));
-        stoneRuleTile = Resources.Load(GS.BGTiles("Stone Tiles/StoneRuleTile"), typeof(TileBase)) as TileBase;
         xPerlinOffset = UnityEngine.Random.Range(-10000f, 10000f);
         yPerlinOffset = UnityEngine.Random.Range(-10000f, 10000f);
         centeringVector = -1 * new Vector2Int(chunkSize / 2, chunkSize / 2);
     }
     private void Start()
     {
+        InitTiles();
         navMeshSurface.BuildNavMesh();
         GenerateInitialMap();
     }
+
+    private void InitTiles()
+    {
+        if(_mapFloorType.Equals(MapFloorType.Grass))
+        {
+            floorTiles = Resources.LoadAll(GS.BGTiles("Grass Tiles"));
+            wallRuleTile = Resources.Load(GS.BGTiles("Stone Tiles/StoneRuleTile"), typeof(TileBase)) as TileBase;
+            minimapFloorColor = new Color32(154, 199, 114, 255);
+            minimapWallColor = new Color32(49, 48, 20, 255);
+            LightingSystem.system._shadowReflectiveness.value = 0.117f;
+        }
+        else
+        {
+            floorTiles = Resources.LoadAll(GS.BGTiles("Hell Tiles"));
+            wallRuleTile = Resources.Load(GS.BGTiles("Stone Tiles/HellstoneRuleTile"), typeof(TileBase)) as TileBase;
+            minimapFloorColor = new Color32(127, 13, 13, 255);
+            minimapWallColor = new Color32(63, 81, 24, 255);
+            LightingSystem.system._shadowReflectiveness.value = 0;
+        }
+        _walkableFloor.color = minimapFloorColor;
+    }
+
     private void Update()
     {
         if (REF.PlayerGO)
@@ -129,11 +159,11 @@ public class MapGeneration : MonoBehaviour
             {
                 tilemapChunk.noiseMap[x, y] = Mathf.PerlinNoise(perlinScale * (x + xPerlinOffset + tilemapOffset.x), perlinScale * (y + yPerlinOffset + tilemapOffset.y));
 
-                if (tilemapChunk.noiseMap[x, y] < stoneThreshold) tilemapChunk.stoneTilemap.SetTile(new Vector3Int(x, y, 0), stoneRuleTile);
+                if (tilemapChunk.noiseMap[x, y] < stoneThreshold) tilemapChunk.stoneTilemap.SetTile(new Vector3Int(x, y, 0), wallRuleTile);
                 if (tilemapChunk.noiseMap[x, y] < ornamentalThreshold)
                 {
-                    int index = UnityEngine.Random.Range(0, grassTiles.Length);
-                    Tile grassTileToSet = (Tile)grassTiles[index];
+                    int index = UnityEngine.Random.Range(0, floorTiles.Length);
+                    Tile grassTileToSet = (Tile)floorTiles[index];
                     float darkenedColor = 1 + (tilemapChunk.noiseMap[x, y] - ornamentalThreshold);
                     grassTileToSet.color = new Color(darkenedColor, darkenedColor, darkenedColor, 1);
                     tilemapChunk.grassTileMap.SetTile(new Vector3Int(x, y, 0), grassTileToSet);
@@ -171,8 +201,8 @@ public class MapGeneration : MonoBehaviour
                 //Color color = AverageColorFromTexture(sprite);
                 //minimapTex.SetPixel(x, y, color);
 
-                if (_tilemapChunks[0].noiseMap[x, y] < stoneThreshold) minimapTex.SetPixel(x, y, minimapStoneColor);
-                else minimapTex.SetPixel(x, y, minimapGrassColor);
+                if (_tilemapChunks[0].noiseMap[x, y] < stoneThreshold) minimapTex.SetPixel(x, y, minimapWallColor);
+                else minimapTex.SetPixel(x, y, minimapFloorColor);
                 fogOfWarTex.SetPixel(x, y, Color.grey);
             }
         }

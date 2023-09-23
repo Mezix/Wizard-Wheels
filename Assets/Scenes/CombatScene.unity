@@ -530,8 +530,8 @@ MonoBehaviour:
   grid: {fileID: 0}
   playerPosRelativeToGrid: {x: 0, y: 0, z: 0}
   camPos: {x: 0, y: 0, z: 0}
-  minimapStoneColor: {r: 0.21698111, g: 0.16505073, b: 0.15454787, a: 1}
-  minimapGrassColor: {r: 0.5218569, g: 0.7830189, b: 0.34349412, a: 1}
+  _mapFloorType: 1
+  _walkableFloor: {fileID: 860924189}
   perlinScale: 0.1
   stoneThreshold: 0.2
   ornamentalThreshold: 0.5
@@ -1174,7 +1174,7 @@ SpriteRenderer:
   m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
-  m_Color: {r: 0.60784316, g: 0.7843138, b: 0.45098042, a: 1}
+  m_Color: {r: 0.6603774, g: 0.63690376, b: 0.003114995, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
