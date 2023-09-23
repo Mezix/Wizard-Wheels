@@ -70,14 +70,14 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         _shadow.transform.localPosition = new Vector2(0, -maxShadowHeight * (1f - CurrentLifeTime / MaxLifetime));
         HM.RotateLocalTransformToAngle(_shadowRotation.GetChild(0), transform.rotation.eulerAngles - new Vector3(0,0,90));
     }
-    protected void CheckLifetime() //a function that checks if our projectile has reached the end of its lifespan, and then decides what to do now
+    public virtual void CheckLifetime() //a function that checks if our projectile has reached the end of its lifespan, and then decides what to do now
     {
         if (CurrentLifeTime >= MaxLifetime && !despawnAnimationPlaying)
         {
             StartCoroutine(DespawnAnimation());
         }
     }
-    protected void DespawnBullet()
+    protected void DespawnProjectile()
     {
         ObjectPool.Instance.AddToPool(GetComponent<PoolableObject>());
     }
@@ -109,7 +109,7 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
         GameObject explosionObject = ObjectPool.Instance.GetPoolableFromPool(_projectileExplosionType);
         explosionObject.GetComponent<AExplosion>().InitExplosion(transform.position, _explosionDiameter);
         yield return new WaitForFixedUpdate();
-        DespawnBullet();
+        DespawnProjectile();
     }
     public virtual void OnTriggerEnter2D(Collider2D col)
     {

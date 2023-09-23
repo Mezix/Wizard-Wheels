@@ -59,6 +59,9 @@ MonoBehaviour:
   _projectileExplosionType: 3
   _explosionDiameter: 6
   _allRoomsInExplosion: []
+  detonationStatus: 0
+  isDetonating: 0
+  _groundTarget: {fileID: 0}
 --- !u!50 &7325145752274536561
 Rigidbody2D:
   serializedVersion: 4
@@ -266,7 +269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3897112185642918654
 Transform:
   m_ObjectHideFlags: 0
@@ -432,7 +435,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3897112185642918654}
   m_Father: {fileID: 6976379564008667867}
