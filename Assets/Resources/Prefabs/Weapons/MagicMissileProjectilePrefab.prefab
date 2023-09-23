@@ -121,6 +121,7 @@ MonoBehaviour:
   _explosionDiameter: 1
   hasLaunched: 0
   _magicMissileAnimator: {fileID: 4209290458827410980}
+  launchTime: 0.5
 --- !u!114 &5788693669628684194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +334,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -351,9 +352,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2065071363
-  m_SortingLayer: 6
-  m_SortingOrder: 1
+  m_SortingLayerID: -2078505873
+  m_SortingLayer: 7
+  m_SortingOrder: 20
   m_Sprite: {fileID: 568627792, guid: 0e650bfe82833d8448bf7655c2a49b9c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

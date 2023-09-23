@@ -54,5 +54,7 @@ public class SunScript : MonoBehaviour
         {
             LightingSystem.system._shadowAlpha.value = maxShadowIntensity;
         }
+        LightingSystem.system._shadowLength.value = LightingSystem.system._shadowAlpha * 5;
+        LightingSystem.system._shadowLength.onValueChanged.Invoke();
     }
 }
