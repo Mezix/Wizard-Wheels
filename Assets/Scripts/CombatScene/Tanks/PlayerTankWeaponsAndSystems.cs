@@ -43,7 +43,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
             {
                 AWeaponArray[weaponIndex].WeaponSelected = true;
                 AWeaponArray[weaponIndex].PlayerWepUI.SelectWeapon();
-                AWeaponArray[weaponIndex]._weaponSelectedUI.UpdateWeaponSelectedLR();
+                AWeaponArray[weaponIndex]._weaponSelectedUI.UpdateWeaponSelected();
             }
         }
         REF.PCon.DeselectAllWizards();
@@ -56,7 +56,7 @@ public class PlayerTankWeaponsAndSystems : TankWeaponsAndSystems
             {
                 wp.WeaponSelected = false;
                 wp.PlayerWepUI.WeaponUISelected(false);
-                wp._weaponSelectedUI.UpdateWeaponSelectedLR();
+                wp._weaponSelectedUI.UpdateWeaponSelected();
             }
         }
     }

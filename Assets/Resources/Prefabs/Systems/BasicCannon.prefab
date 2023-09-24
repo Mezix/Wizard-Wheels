@@ -168,7 +168,6 @@ MonoBehaviour:
   TargetedRoom: {fileID: 0}
   _projectileSpots:
   - {fileID: 995660803235255240}
-  _isManualFire: 0
   WeaponUI: {fileID: 244009782503478640}
   UIColor: {r: 1, g: 0, b: 0, a: 0.49019608}
   lr: {fileID: 0}
@@ -179,6 +178,7 @@ MonoBehaviour:
   tMov: {fileID: 0}
   tankSpeedProjectileModifier: 0
   _weaponSelectedUI: {fileID: 0}
+  _weaponHoveringUI: {fileID: 0}
   _firingStatus: 0
 --- !u!1 &1891114875749286798
 GameObject:
@@ -449,7 +449,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6400358241398785091}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -671,10 +671,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2310391802880552936, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310391802880552936, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310391802880552936, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5206752808315137815, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
         type: 3}
       propertyPath: m_Name
       value: WeaponUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072743643766095511, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072743643766095511, guid: 3eff1fdd2f6b4694793c37d8c5c99f6c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

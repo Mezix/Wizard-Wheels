@@ -28,8 +28,11 @@ public class MagicMissile : AWeapon
         float angle = 180 + HM.GetEulerAngle2DBetween(transform.position, worldPos);
         worldVectorToAimAt = angle;
 
-        WeaponSelected = false;
-        if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            WeaponSelected = false;
+            if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
+        }
     }
     public override void AttemptAttack()
     {

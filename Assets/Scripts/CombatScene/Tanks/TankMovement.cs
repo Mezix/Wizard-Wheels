@@ -71,11 +71,6 @@ public class TankMovement : MonoBehaviour
     public void InitTires()
     {
         TankGeometry tank = GetComponent<TankGeometry>();
-
-        GameObject rotatableObjects = new GameObject("RotatableObjects");
-        rotatableObjects.transform.parent = transform;
-        rotatableObjects.transform.localPosition = Vector3.zero;
-
         for (int x = 0; x < tank._vehicleData.SavedXSize; x++)
         {
             for (int y = 0; y < tank._vehicleData.SavedYSize; y++)
@@ -88,7 +83,6 @@ public class TankMovement : MonoBehaviour
                 GameObject tireObj = Instantiate(Resources.Load(tank._vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].MovementPrefabPath, typeof(GameObject))) as GameObject;
                 tireObj.transform.parent = tank.RoomPosMatrix[x, y].transform;
                 tireObj.transform.localPosition = Vector3.zero;
-                tireObj.transform.parent = rotatableObjects.transform;
                 Tire tire = tireObj.GetComponentInChildren<Tire>();
                 Tires.Add(tire);
             }

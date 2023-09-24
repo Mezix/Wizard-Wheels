@@ -149,6 +149,11 @@ public class CombatUIScript : MonoBehaviour
     
     public void CreateWeaponUI(AWeapon weapon)
     {
+        weapon._weaponHoveringUI = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponHoveringUI"), typeof(WeaponHoveringUI)) as WeaponHoveringUI);
+        weapon._weaponHoveringUI.transform.localPosition = weapon.RotatablePart.transform.localPosition;
+        weapon._weaponHoveringUI.transform.SetParent(weapon.transform, false);
+        HM.RotateLocalTransformToAngle(weapon._weaponHoveringUI.transform, new Vector3(0, 0, -90));
+
         PlayerWeaponUI playerWeaponUI = Instantiate(Resources.Load(GS.WeaponPrefabs("PlayerWeaponUI"),  typeof (PlayerWeaponUI)) as PlayerWeaponUI, _weaponsHLayoutGroup.transform, false);
         playerWeaponUI.Init(weapon);
         float holderSize = (_weaponsHLayoutGroup.transform.childCount * 60) +                // cumulative size of all weapons

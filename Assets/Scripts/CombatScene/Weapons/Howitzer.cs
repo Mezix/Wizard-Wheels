@@ -42,8 +42,11 @@ public class Howitzer : AWeapon
         _groundTarget = Instantiate(Resources.Load(GS.WeaponPrefabs("GroundTarget"), typeof (GroundTarget)) as GroundTarget, worldPos, Quaternion.identity);
         _groundTarget._assignedWeapon = this;
 
-        WeaponSelected = false;
-        if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            WeaponSelected = false;
+            if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
+        }
     }
     public override void RotateTurretToAngle()
     {

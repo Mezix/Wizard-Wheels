@@ -69,24 +69,27 @@ public class PlayerWeaponUI : MonoBehaviour
     {
         if (draggingObject)
         {
-            ShowExtended(false);
+            ShowHoveredUI(false);
             MoveWepUIToNewIndex();
         }
         else
         {
-            if (mouseHoveringOverStats || mouseHoveringOverCharge || mouseHoveringOverSelectionButton) ShowExtended(true);
+            if (mouseHoveringOverStats || mouseHoveringOverCharge || mouseHoveringOverSelectionButton) ShowHoveredUI(true);
             else
             {
-                if (!mouseHoveringOverManualFire) ShowExtended(false);
+                if (!mouseHoveringOverManualFire) ShowHoveredUI(false);
             }
         }
     }
 
 
-    private void ShowExtended(bool showExtended)
+    private void ShowHoveredUI(bool showExtended)
     {
         _extendableStatsParentObj.SetActive(showExtended);
         _weaponChargeParentObj.SetActive(showExtended);
+
+        _assignedWeapon._weaponHoveringUI.ShowUI(showExtended);
+        _assignedWeapon._weaponHoveringUI.SetRotation(HM.WrapAngle(_assignedWeapon.RotatablePart.localRotation.eulerAngles.z), HM.WrapAngle(_assignedWeapon.AngleToAimAt));
     }
 
     public void Init(AWeapon wep)
@@ -109,7 +112,7 @@ public class PlayerWeaponUI : MonoBehaviour
         _UIWeaponIndex.text = _index.ToString();
 
         WeaponUISelected(false);
-        ShowExtended(false);
+        ShowHoveredUI(false);
     }
 
     public void SelectWeapon()

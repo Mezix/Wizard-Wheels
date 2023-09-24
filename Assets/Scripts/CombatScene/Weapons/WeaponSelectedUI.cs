@@ -18,7 +18,7 @@ public class WeaponSelectedUI : MonoBehaviour
         _weaponRangeCircle.fillAmount = wep._weaponStats._maxSwivel/360f;
         HM.RotateLocalTransformToAngle(_weaponRangeCircle.transform, new Vector3(0, 0, 180 - wep._maxAllowedAngleToTurn/2f));
     }
-    public void UpdateWeaponSelectedLR()
+    public void UpdateWeaponSelected()
     {
         if (weapon._weaponStats._lockOnRange == -1)
         {

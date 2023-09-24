@@ -59,6 +59,7 @@ public abstract class AWeapon : ASystem
     //  Selected
     [HideInInspector]
     public WeaponSelectedUI _weaponSelectedUI;
+    public WeaponHoveringUI _weaponHoveringUI;
     public FiringStatus _firingStatus;
     public enum FiringStatus
     {
@@ -128,7 +129,7 @@ public abstract class AWeapon : ASystem
         TimeBetweenAttacks = 1 / AttacksPerSecond;
         TimeElapsedBetweenLastAttack = TimeBetweenAttacks; //make sure we can fire right away
         InitWeaponSelectedUI();
-        _weaponSelectedUI.UpdateWeaponSelectedLR();
+        _weaponSelectedUI.UpdateWeaponSelected();
         InitLineRenderer();
     }
 
@@ -149,8 +150,16 @@ public abstract class AWeapon : ASystem
     {
         _weaponSelectedUI = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponSelectedUI"), typeof(WeaponSelectedUI)) as WeaponSelectedUI);
         _weaponSelectedUI.transform.localPosition = RotatablePart.transform.localPosition;
-        _weaponSelectedUI.InitWeaponSelectedUI(this);
         _weaponSelectedUI.transform.SetParent(transform, false);
+        _weaponSelectedUI.InitWeaponSelectedUI(this);
+
+        //if (PlayerWepUI)
+        //{
+        //    _weaponHoveringUI = Instantiate(Resources.Load(GS.WeaponPrefabs("WeaponHoveringUI"), typeof(WeaponHoveringUI)) as WeaponHoveringUI);
+        //    _weaponHoveringUI.transform.localPosition = RotatablePart.transform.localPosition;
+        //    _weaponHoveringUI.transform.SetParent(transform, false);
+        //    HM.RotateLocalTransformToAngle(_weaponHoveringUI.transform, new Vector3(0, 0, -90));
+        //}
     }
     public override void StartInteraction()
     {
@@ -188,7 +197,7 @@ public abstract class AWeapon : ASystem
             }
             if (_weaponSelectedUI)
             {
-                _weaponSelectedUI.UpdateWeaponSelectedLR();
+                _weaponSelectedUI.UpdateWeaponSelected();
             }
         }
     }
@@ -235,14 +244,17 @@ public abstract class AWeapon : ASystem
             if (AngleToAimAt > _maxAllowedAngleToTurn) AngleToAimAt = _maxAllowedAngleToTurn;
             else if (AngleToAimAt < -_maxAllowedAngleToTurn) AngleToAimAt = -_maxAllowedAngleToTurn;
         }
-        WeaponSelected = false;
-        if(PlayerWepUI) PlayerWepUI.DeselectWeapon();
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            WeaponSelected = false;
+            if (PlayerWepUI) PlayerWepUI.DeselectWeapon();
+        }
     }
     public virtual void CancelLockOn()
     {
         REF.c.RemoveCrosshair(this);
         IsAimingAtTarget = false;
-        
+
         TargetedRoom = null;
     }
     public virtual void ResetAim()
@@ -282,7 +294,7 @@ public abstract class AWeapon : ASystem
         float distance = Vector3.Distance(TargetedRoom.transform.position, _projectileSpots[0].transform.position);
         float TimeForProjectileToHitDistance = distance / (_weaponStats._projectileSpeed + tankSpeedProjectileModifier * tMov.currentSpeed);
 
-        if(ShouldHitPlayer)
+        if (ShouldHitPlayer)
         {
             TargetMoveVector = REF.PCon.TMov.moveVector * REF.PCon.TMov.currentSpeed * TimeForProjectileToHitDistance;
         }
@@ -339,7 +351,7 @@ public abstract class AWeapon : ASystem
 
     public virtual void FireProjectiles()
     {
-        foreach(Transform t in _projectileSpots)
+        foreach (Transform t in _projectileSpots)
         {
             GameObject proj = ObjectPool.Instance.GetPoolableFromPool(ProjectilePrefab.GetComponent<PoolableObject>()._poolableType);
             proj.GetComponent<AProjectile>().SetBulletStatsAndTransformToWeaponStats(this, t);
@@ -352,14 +364,14 @@ public abstract class AWeapon : ASystem
     //  UI
     public virtual void UpdateWeaponUI()
     {
-        if(PlayerWepUI)
+        if (PlayerWepUI)
         {
             PlayerWepUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
             PlayerWepUI.WeaponIsBeingInteractedWith(WeaponEnabled);
         }
-        if(ShouldHitPlayer)
+        if (ShouldHitPlayer)
         {
-           if(WeaponUI) WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
+            if (WeaponUI) WeaponUI.SetCharge(Mathf.Min(1, TimeElapsedBetweenLastAttack / TimeBetweenAttacks), _firingStatus);
         }
         if (WeaponUI) HM.RotateTransformToAngle(WeaponUI._weaponIndexText.transform, new Vector3(0, 0, 0));
     }
@@ -367,7 +379,7 @@ public abstract class AWeapon : ASystem
 
     public virtual void WeaponFireParticles()
     {
-        if(_weaponAnimator) _weaponAnimator.SetTrigger("Fire");
+        if (_weaponAnimator) _weaponAnimator.SetTrigger("Fire");
 
         if (_weaponFireAnimator) _weaponFireAnimator.SetTrigger("Fire");
         else
@@ -423,7 +435,7 @@ public abstract class AWeapon : ASystem
         float angle = tankRotation - AngleToAimAt;
         angle = Mathf.Abs(angle);
         angle = Mathf.Min(90, angle);
-        tankSpeedProjectileModifier = angle/90;
+        tankSpeedProjectileModifier = angle / 90;
         tankSpeedProjectileModifier = 1 - tankSpeedProjectileModifier;
 
         //  Minimum of 0

@@ -82,7 +82,7 @@ public class DialogueManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
+            //StartDialogue(Resources.Load("Dialogue/Conversations/TestConvo", typeof(ConversationScriptObj)) as ConversationScriptObj);
         }
         timeSinceLastLine += Time.deltaTime;
         timeSinceLastWeaponFired += Time.deltaTime;

@@ -263,19 +263,4 @@ public class TankGeometry : MonoBehaviour
         print("no free rooms found");
         return new Vector2Int(-1, -1);
     }
-    public void VisualizeMatrix()
-    {
-        string matrix = "";
-        for (int y = 0; y < _vehicleData.SavedYSize; y++)
-        {
-            matrix += "Y:" + y.ToString() + ": ";
-            for (int x = 0; x < _vehicleData.SavedXSize; x++)
-            {
-                if (RoomPosMatrix[x, y]) matrix += "(" + RoomPosMatrix[x, y].name + ") ";
-                else matrix += "__NONE__, ";
-            }
-            matrix += "\n";
-        }
-        print(matrix);
-    }
 }
