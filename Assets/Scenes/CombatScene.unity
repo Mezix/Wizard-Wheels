@@ -530,7 +530,7 @@ MonoBehaviour:
   grid: {fileID: 0}
   playerPosRelativeToGrid: {x: 0, y: 0, z: 0}
   camPos: {x: 0, y: 0, z: 0}
-  _mapFloorType: 1
+  _mapFloorType: 0
   _walkableFloor: {fileID: 860924189}
   perlinScale: 0.1
   stoneThreshold: 0.2

@@ -123,24 +123,28 @@ public class TankGeometry : MonoBehaviour
                     GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallUp"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
+                    RoomPosMatrix[x, y]._spawnedTopWall = wall;
                 }
                 if (_vehicleData.VehicleMatrix.Columns[x].ColumnContent[y]._rightWallExists)
                 {
                     GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallRight"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
+                    RoomPosMatrix[x, y]._spawnedRightWall = wall;
                 }
                 if (_vehicleData.VehicleMatrix.Columns[x].ColumnContent[y]._bottomWallExists)
                 {
                     GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallDown"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
+                    RoomPosMatrix[x, y]._spawnedBottomWall = wall;
                 }
                 if (_vehicleData.VehicleMatrix.Columns[x].ColumnContent[y]._leftWallExists)
                 {
                     GameObject wall = Instantiate(Resources.Load(GS.WallPrefabs("WallLeft"), typeof(GameObject)) as GameObject);
                     wall.transform.SetParent(RoomPosMatrix[x, y].transform);
                     wall.transform.localPosition = Vector3.zero;
+                    RoomPosMatrix[x, y]._spawnedLeftWall = wall;
                 }
             }
         }
@@ -161,6 +165,7 @@ public class TankGeometry : MonoBehaviour
                     else continue;
                     system._direction = _vehicleData.VehicleMatrix.Columns[x].ColumnContent[y].SystemDirection;
                     system.SpawnInCorrectDirection();
+
                     if (system.TryGetComponent(out AWeapon wep))
                     {
                         wep.transform.parent = RoomPosMatrix[x, y].ParentRoom.transform;
@@ -183,6 +188,7 @@ public class TankGeometry : MonoBehaviour
                         //Set the reference to the rooms
                         RoomPosMatrix[x, y].ParentRoom._roomSystem = system;
                     }
+                    RoomPosMatrix[x, y]._spawnedSystem = system.gameObject;
                 }
             }
         }

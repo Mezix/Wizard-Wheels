@@ -115,7 +115,8 @@ public class HowitzerProjectile : AProjectile
         hasDoneDamage = true;
         foreach (Room r in _allRoomsInExplosion)
         {
-            r.DamageRoom(Damage);
+            RoomPosition.DamageDirection dir = RoomPosition.DamageDirection.Left;
+            r.DamageRoom(Damage, dir);
             DamageVehicle(r._tGeo.GetComponent<TankController>());
         }
         StartCoroutine(DespawnAnimation());

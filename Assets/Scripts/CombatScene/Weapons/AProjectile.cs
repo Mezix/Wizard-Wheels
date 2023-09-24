@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public abstract class AProjectile : MonoBehaviour //the interface for all projectiles fired from ranged Weapons
@@ -131,14 +132,16 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
                     }
                     else
                     {
-                        Room r = col.GetComponent<Room>();
-                        if (r)
+                        Room roomToHit = col.GetComponent<Room>();
+                        if (roomToHit)
                         {
                             if (_firstRoomHit == null)
                             {
-                                _firstRoomHit = r;
-                                //Debug.Log("Damaging Room");
-                                r.DamageRoom(Damage);
+                                _firstRoomHit = roomToHit;
+                                Vector3 ProjectileRotationInRoomLocalSpace = roomToHit.transform.InverseTransformDirection(transform.rotation.eulerAngles);
+                                ProjectileRotationInRoomLocalSpace = new Vector3(0, 0, HM.WrapAngle(90 + ProjectileRotationInRoomLocalSpace.z));
+                                RoomPosition.DamageDirection dir = GetDamageDirection(ProjectileRotationInRoomLocalSpace);
+                                roomToHit.DamageRoom(Damage, dir);
                             }
                         }
                         if (HitPlayer)
@@ -164,6 +167,26 @@ public abstract class AProjectile : MonoBehaviour //the interface for all projec
                     }
                 }
             }
+        }
+    }
+
+    private RoomPosition.DamageDirection GetDamageDirection(Vector3 vectorBetweenRoomAndProjectile)
+    {
+        if (vectorBetweenRoomAndProjectile.z >= 0 && vectorBetweenRoomAndProjectile.z < 90)
+        {
+            return RoomPosition.DamageDirection.Up;
+        }
+        else if(vectorBetweenRoomAndProjectile.z >= 90 && vectorBetweenRoomAndProjectile.z < 180)
+        {
+            return RoomPosition.DamageDirection.Right;
+        }
+        else if(vectorBetweenRoomAndProjectile.z < 0 && vectorBetweenRoomAndProjectile.z > -90)
+        {
+            return RoomPosition.DamageDirection.Left;
+        }
+        else
+        {
+            return RoomPosition.DamageDirection.Down;
         }
     }
 }

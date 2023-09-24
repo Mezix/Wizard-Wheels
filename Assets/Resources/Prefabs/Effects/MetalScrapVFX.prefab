@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4365500879662135724}
   - component: {fileID: 8992374023503221512}
   m_Layer: 0
-  m_Name: WoodSplintersVFX
+  m_Name: MetalScrapVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.5
-      minScalar: 1
+      minScalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -288,7 +288,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -605,7 +605,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 20
+    maxNumParticles: 10
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -752,7 +752,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.03
+      value: 0.06
       mode: 3
       spread: 0
       speed:
@@ -1488,10 +1488,10 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 1914232156, guid: 36dd31c35ce24c3448523624e525f83f, type: 3}
-    - sprite: {fileID: -879236315, guid: 36dd31c35ce24c3448523624e525f83f, type: 3}
-    - sprite: {fileID: -1801977791, guid: 36dd31c35ce24c3448523624e525f83f, type: 3}
-    - sprite: {fileID: -280365914, guid: 36dd31c35ce24c3448523624e525f83f, type: 3}
+    - sprite: {fileID: 2090142964, guid: 2d5258e4a6b1f954890f6282e5535320, type: 3}
+    - sprite: {fileID: -1215524436, guid: 2d5258e4a6b1f954890f6282e5535320, type: 3}
+    - sprite: {fileID: 272117734, guid: 2d5258e4a6b1f954890f6282e5535320, type: 3}
+    - sprite: {fileID: 639149104, guid: 2d5258e4a6b1f954890f6282e5535320, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:

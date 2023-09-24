@@ -80,9 +80,10 @@ public class Room : MonoBehaviour
         _currentHP = curHP;
         UpdateDamage();
     }
-    public void DamageRoom(int damage)
+    public void DamageRoom(int damage, RoomPosition.DamageDirection damageDir)
     {
         _currentHP = Mathf.Max(0, _currentHP - damage);
+        allRoomPositions[0].DamageWall(damageDir);
         UpdateDamage();
     }
     public void UpdateDamage()

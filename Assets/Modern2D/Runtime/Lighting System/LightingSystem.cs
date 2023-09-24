@@ -158,7 +158,7 @@ namespace Modern2D
 		}
 
 		Dictionary<Transform, StylizedShadowCaster> _shadows;
-		public Dictionary<Transform, StylizedShadowCaster> shadows
+		Dictionary<Transform, StylizedShadowCaster> shadows
 		{
 			get
 			{
@@ -294,6 +294,7 @@ namespace Modern2D
 		/// </summary>
 		public void SetCallbacks()
 		{
+
 			directionalLightAngle.onValueChanged = OnShadowSettingsChanged;
 			_shadowColor.onValueChanged = OnShadowSettingsChanged;
 			_shadowReflectiveness.onValueChanged = OnShadowSettingsChanged;
@@ -343,6 +344,7 @@ namespace Modern2D
 
 			extendedUpdateThisFrame = true;
 			UpdateShadows(null);
+
 		}
 
 		/// <summary>
@@ -409,6 +411,7 @@ namespace Modern2D
 
 		public void UpdateShadows(Dictionary<Transform, StylizedShadowCaster> dict)
 		{
+
 			Profiler.BeginSample("Update Shadows");
 			int i = 0;
 
@@ -491,24 +494,26 @@ namespace Modern2D
                     if (!extendedUpdateThisFrame)
 						continue;
 
+
 					//update shadow rotation
 					shadow.shadowPivot.rotation = Quaternion.AngleAxis(AngleToLightSource(shadow.shadowPivot.position), Vector3.forward);
 
-					if (Application.isPlaying) continue;
-
                     //update shadow angle
                     if (shadow.shadowPivot.transform.rotation.eulerAngles.x != _shadowAngle.value)
-					shadow.shadowPivot.transform.rotation = Quaternion.Euler(_shadowAngle.value, shadow.shadowPivot.transform.rotation.eulerAngles.y, shadow.shadowPivot.transform.rotation.eulerAngles.z);
-					//update shadow 
+                        shadow.shadowPivot.transform.rotation = Quaternion.Euler(_shadowAngle.value, shadow.shadowPivot.transform.rotation.eulerAngles.y, shadow.shadowPivot.transform.rotation.eulerAngles.z);
+
+                    //update shadow pivot and position
+                    if (shadow.shadow.localScale != new Vector3(1, _shadowLength.value, 1)) shadow.shadow.localScale = new Vector3(1, _shadowLength.value, 1);
+
+
+                    //gate for runtime changes
+                    if (Application.isPlaying) continue;
+
+					//update shadow pivot and position
 					if (shadow.shadow.localScale != new Vector3(1, _shadowLength.value, 1))
                     {
-
-						shadow.shadow.localScale = new Vector3(1, _shadowLength.value, 1);
-						
-						
 						SetShadowPivotPos(shadow);
 						SetShadowPos(shadow);
-
                     }
 				}
 			}
@@ -748,7 +753,7 @@ namespace Modern2D
             for(int i = 0; i < lightsArr.Length && anglesIdx < 2; i++)
 			{
 				float dist = Vector2.Distance(tranformsArr[i].position, pos);
-                if (dist > lightsArr[i].pointLightOuterRadius * 2) continue; // out of radius
+                if (dist > lightsArr[i].pointLightOuterRadius * 2 || dist == 0) continue; // out of radius 
                
 				var direction = (tranformsArr[i].position - pos).normalized;
                 var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90; //	get angle between light source and object
