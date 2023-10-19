@@ -12,7 +12,7 @@ public class WeaponHoveringUI : MonoBehaviour
 
     public void ShowUI(bool show)
     {
-        _allObjectsParent.SetActive(show);
+        if(_allObjectsParent) _allObjectsParent.SetActive(show);
     }
     public void SetRotation(float currentRotation, float rotationToGetTo)
     {

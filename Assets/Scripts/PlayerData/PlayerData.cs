@@ -20,10 +20,11 @@ public class PlayerData
     public float TimeInSecondsPlayed;
     public VehicleGeometry Geometry;
     public VehicleInfo Info;
+    public int CombatIndex = 0;
 
     //  Vehicle Data
 
-    public PlayerData(List<InventoryItemData> invItemList, List<WizardData> wizList, List<EventNode> events, float timePlayed, int pathIndex, VehicleGeometry vehicleGeometry, VehicleInfo vehicleInfo)
+    public PlayerData(List<InventoryItemData> invItemList, List<WizardData> wizList, List<EventNode> events, float timePlayed, int combatIndex, int pathIndex, VehicleGeometry vehicleGeometry, VehicleInfo vehicleInfo)
     {
         InventoryList = invItemList;
         WizardList = wizList;
@@ -32,6 +33,7 @@ public class PlayerData
         CurrentEventPathIndex = pathIndex;
         Geometry = vehicleGeometry;
         Info = vehicleInfo;
+        CombatIndex = combatIndex;
     }
 
     //  Structs
@@ -197,8 +199,8 @@ public class PlayerData
     }
 
     //  Helper Methods
-    public static List<EventNode> GenerateRandomRoute()
-    {
+    public static List<EventNode> GenerateRandomFullRun()
+    {/*
         int enumLength = Enum.GetValues(typeof(NodeEventType)).Length;
         List<EventNode> route = new List<EventNode>();
         List<int> randomNodeIndexList = HM.GetRandomUniqueIntList(enumLength, enumLength);
@@ -206,7 +208,24 @@ public class PlayerData
         {
             if(randomNodeIndexList[i] == 1) route.Add(new EventNode(0, false)); //replace dialogue with combat
             else route.Add(new EventNode(randomNodeIndexList[i], false));
-        }
+        }*/
+        List<EventNode> route = new List<EventNode>();
+
+        route.Add(new EventNode(0, false));
+        route.Add(new EventNode(2, false)); // Wiz
+        route.Add(new EventNode(0, false));
+        route.Add(new EventNode(3, false)); // Loot
+        route.Add(new EventNode(5, false)); // Construction
+        route.Add(new EventNode(4, false)); // Shop
+        route.Add(new EventNode(0, false));
+        route.Add(new EventNode(0, false));
+        route.Add(new EventNode(2, false)); // Wiz
+        route.Add(new EventNode(3, false)); // Loot
+        route.Add(new EventNode(0, false));
+        route.Add(new EventNode(2, false)); // Wiz
+        route.Add(new EventNode(5, false)); // Shop
+        route.Add(new EventNode(4, false)); // Construction
+        route.Add(new EventNode(0, false)); // Final boss
         return route;
     }
     public static List<EventNode> GenerateTestRoute()

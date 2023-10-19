@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,12 @@ public class CombatDefeatScreen : MonoBehaviour
     public Button _returnToMainMenuButton;
     private void Awake()
     {
-        _returnToMainMenuButton.onClick.AddListener(() => CombatSceneManager.instance.GoToMainMenu());
+        _returnToMainMenuButton.onClick.AddListener(() => AcceptDefeat());
+    }
+
+    private void AcceptDefeat()
+    {
+        SavePlayerData.DeleteSaveFile(DataStorage.Singleton.saveSlot);
+        CombatSceneManager.instance.GoToMainMenu();
     }
 }

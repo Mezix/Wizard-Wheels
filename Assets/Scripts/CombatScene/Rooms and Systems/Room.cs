@@ -151,6 +151,7 @@ public class Room : MonoBehaviour
     }
     public void OccupyRoomPos(RoomPosition rPos, AUnit unit)
     {
+        if (!rPos) return;
         freeRoomPositions[rPos.roomPosIndex] = null;
         if (!UnitsInRoom.Contains(unit)) UnitsInRoom.Add(unit);
     }

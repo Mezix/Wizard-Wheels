@@ -10,6 +10,7 @@ public class EnemyEvent : ScriptableObject
     public struct EnemySpawn
     {
         public float _delay;
+        public bool isBoss;
         public VehicleStats _tankStats;
         public VehicleConstellation _tankRoomConstellation;
     }

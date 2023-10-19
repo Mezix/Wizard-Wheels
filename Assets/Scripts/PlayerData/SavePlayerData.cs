@@ -78,9 +78,10 @@ public static class SavePlayerData
                 Happiness = 0
             },
         };
-        //List<EventNode> freshRoute = GenerateTestRoute();
-        List<EventNode> freshRoute = GenerateRandomRoute();
+        List<EventNode> freshRoute = GenerateRandomFullRun(); 
         float timePlayed = 0;
+        int combatIndex = 0;
+        int routeIndex = 0;
         List<InventoryItem> inventoryItemTypeList = Resources.LoadAll(GS.ScriptableObjects("InventoryItems"), typeof(InventoryItem)).Cast<InventoryItem>().ToList();
 
         foreach (InventoryItem item in inventoryItemTypeList)
@@ -99,7 +100,7 @@ public static class SavePlayerData
         //  Convert vehicle
         VehicleGeometry freshVehicleData = ConvertVehicleConstellationToVehicleData(StarterVehicleConstellation);
         VehicleInfo freshVehicleInfo = ConvertVehicleStatsToVehicleInfo(vehicleStats);
-        PlayerData freshPlayerData = new PlayerData(freshInventory, wizardData, freshRoute, timePlayed, 0, freshVehicleData, freshVehicleInfo);
+        PlayerData freshPlayerData = new PlayerData(freshInventory, wizardData, freshRoute, timePlayed, combatIndex, routeIndex, freshVehicleData, freshVehicleInfo);
         SavePlayer(saveSlot, freshPlayerData);
         return freshPlayerData;
     }

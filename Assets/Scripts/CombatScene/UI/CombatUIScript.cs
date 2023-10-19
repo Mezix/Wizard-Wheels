@@ -79,6 +79,7 @@ public class CombatUIScript : MonoBehaviour
     public EngineUI _engineUIScript;
     public UpgradeScreen _upgradeScreen;
     public InventoryUI _inventoryUI;
+    public BossUI _bossUI;
 
     private void Awake()
     {
@@ -117,6 +118,7 @@ public class CombatUIScript : MonoBehaviour
         LastWizardOrWeaponClicked = obj;
         timeBetweenMouseClicks = 0;
     }
+
 
     private void Update()
     {
@@ -388,5 +390,12 @@ public class CombatUIScript : MonoBehaviour
     {
         if (b) _trackPlayerImage.sprite = Resources.Load(GS.UIGraphics("TrackTankTrue"), typeof (Sprite)) as Sprite;
         else _trackPlayerImage.sprite = Resources.Load(GS.UIGraphics("TrackTankFalse"), typeof(Sprite)) as Sprite;
+    }
+
+
+    // BOSS
+    public void SpawnBossHealth(EnemyTankController enemyTank)
+    {
+        _bossUI.Init(enemyTank);
     }
 }

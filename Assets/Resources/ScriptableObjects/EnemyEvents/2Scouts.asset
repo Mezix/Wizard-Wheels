@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyWaves:
   - _delay: 2
+    isBoss: 0
     _tankStats: {fileID: 11400000, guid: 4f198d2f04dffc8499c04be900673801, type: 2}
     _tankRoomConstellation: {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5,
       type: 2}
   - _delay: 15
+    isBoss: 0
     _tankStats: {fileID: 11400000, guid: 4f198d2f04dffc8499c04be900673801, type: 2}
     _tankRoomConstellation: {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5,
       type: 2}

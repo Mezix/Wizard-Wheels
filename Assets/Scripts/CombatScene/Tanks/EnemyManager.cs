@@ -35,7 +35,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        //eventToSpawn = UnityEngine.Random.Range(0, _allPossibleEnemyEvents.Count);
+        eventToSpawn = DataStorage.Singleton.playerData.CombatIndex;
         enemiesToSpawn = _allPossibleEnemyEvents[eventToSpawn].EnemyWaves;
         timeUntilNextEnemySpawned = 0;
         _enemyIndex = 0;
@@ -69,6 +69,9 @@ public class EnemyManager : MonoBehaviour
         enemyTank._tankColor = GetNextColor(enemyTank.GetInstanceID());
 
         enemyTank.SpawnTank();
+
+        if (enemiesToSpawn[_enemyIndex].isBoss) REF.CombatUI.SpawnBossHealth(enemyTank);
+
         _enemyTanks.Add(enemyTank);
 
         float spawnAngle = UnityEngine.Random.Range(0, 360f);

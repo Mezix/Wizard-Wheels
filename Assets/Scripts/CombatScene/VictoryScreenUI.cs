@@ -14,9 +14,7 @@ public class VictoryScreenUI : MonoBehaviour
     private void VictoryButtonEffect()
     {
         //DataStorage.Singleton.playerData.CurrentEventPath = PlayerData.GenerateTestRoute();
-        DataStorage.Singleton.playerData.CurrentEventPath = PlayerData.GenerateRandomRoute();
-        DataStorage.Singleton.playerData.CurrentEventPathIndex = 0;
-        SavePlayerData.SavePlayer(DataStorage.Singleton.saveSlot, DataStorage.Singleton.playerData);
+        SavePlayerData.DeleteSaveFile(DataStorage.Singleton.saveSlot);
         Loader.Load(Loader.SceneType.MenuScene);
     }
 }
