@@ -10,22 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 390541a51981d834ea2d0f7b1cca9118, type: 3}
-  m_Name: ConvoyEvent
+  m_Name: 2Scouts
   m_EditorClassIdentifier: 
   EnemyWaves:
   - _delay: 2
-    _tankStats: {fileID: 11400000, guid: bdacd60d8f4132d41a3c35100f77abdd, type: 2}
-    _tankRoomConstellation: {fileID: 11400000, guid: 2a7d6c57d2f6e1342a042d62b4aa17d3,
-      type: 2}
-  - _delay: 2
     _tankStats: {fileID: 11400000, guid: 4f198d2f04dffc8499c04be900673801, type: 2}
     _tankRoomConstellation: {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5,
       type: 2}
-  - _delay: 2
+  - _delay: 15
     _tankStats: {fileID: 11400000, guid: 4f198d2f04dffc8499c04be900673801, type: 2}
     _tankRoomConstellation: {fileID: 11400000, guid: be93c1fd58ee25c42928727179deefd5,
-      type: 2}
-  - _delay: 10
-    _tankStats: {fileID: 11400000, guid: 5a9fb2dc89da441418f433f809635371, type: 2}
-    _tankRoomConstellation: {fileID: 11400000, guid: f917170ab173dcf4fbd955b13316adec,
       type: 2}

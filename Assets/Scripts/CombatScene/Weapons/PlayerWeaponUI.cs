@@ -89,7 +89,7 @@ public class PlayerWeaponUI : MonoBehaviour
         _weaponChargeParentObj.SetActive(showExtended);
 
         _assignedWeapon._weaponHoveringUI.ShowUI(showExtended);
-        _assignedWeapon._weaponHoveringUI.SetRotation(HM.WrapAngle(_assignedWeapon.RotatablePart.localRotation.eulerAngles.z), HM.WrapAngle(_assignedWeapon.AngleToAimAt));
+        if(showExtended) _assignedWeapon._weaponHoveringUI.SetRotation(HM.WrapAngle(_assignedWeapon.RotatablePart.localRotation.eulerAngles.z), HM.WrapAngle(_assignedWeapon.AngleToAimAt));
     }
 
     public void Init(AWeapon wep)

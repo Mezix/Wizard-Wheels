@@ -204,7 +204,8 @@ public class PlayerData
         List<int> randomNodeIndexList = HM.GetRandomUniqueIntList(enumLength, enumLength);
         for (int i = 0; i < enumLength; i++)
         {
-            route.Add(new EventNode(randomNodeIndexList[i], false));
+            if(randomNodeIndexList[i] == 1) route.Add(new EventNode(0, false)); //replace dialogue with combat
+            else route.Add(new EventNode(randomNodeIndexList[i], false));
         }
         return route;
     }

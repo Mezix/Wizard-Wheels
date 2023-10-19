@@ -16,8 +16,12 @@ public class WeaponHoveringUI : MonoBehaviour
     }
     public void SetRotation(float currentRotation, float rotationToGetTo)
     {
-        float difference = currentRotation - rotationToGetTo;
-        if (difference > 0)
+        float difference;
+        if (currentRotation > rotationToGetTo) difference = currentRotation - rotationToGetTo;
+        else difference = rotationToGetTo - currentRotation;
+
+        bool rotateRight = currentRotation > rotationToGetTo;
+        if (rotateRight)
         {
             HM.RotateLocalTransformToAngle(_weaponRotationLeftImage.transform, new Vector3(0, 180, 180));
         }
